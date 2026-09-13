@@ -1,0 +1,11 @@
+{
+  "rfc_download_sha256": {
+    "rfc8032.txt": "ed63657ff389301282b169b0abde9b5dd2c7e4d524fdfa5da6ff3094fc93c4c3",
+    "rfc8785.txt": "63d52294eb0e3f0014174288186d388b4ddbf2c67d1ce8af1d9726eb0c3ab240"
+  },
+  "oracle_tools": {
+    "python_cryptography": "50.0.0",
+    "node": "v24.4.1"
+  },
+  "scope": "RFC Ed25519 bytes checked against source; OpenSSL verifies public positives and independent integer arithmetic constructs subgroup negatives; Node verifies positive JCS literals. Not an independent human audit."
+}

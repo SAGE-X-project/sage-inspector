@@ -13,3 +13,7 @@ those publications. See https://trustee.ietf.org/license-info . These fixtures
 contain selected test data and source attribution, not copied implementations.
 Expected values are never regenerated from the SAGE core. New fixtures must record
 an independent source/derivation; changing version strings does not update old vectors.
+
+The jcs-signatures suite adds RFC8032 section7.1 public bytes, RFC8785 numeric
+examples and test-only mathematical constructions. Attribution and independent
+checks are described in ../docs/jcs-signature-vectors.md.

@@ -1,3 +1,4 @@
+use sage_crypto_core::crypto::{KeyType, PublicKey, Signature, Verifier};
 use serde::Deserialize;
 use serde_json::{json, Value};
 use std::io::{self, Read};
@@ -36,7 +37,7 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
             "ACCEPT",
             json!({"sha256_hex":sage_crypto_core::hpke::sha256_hash_hex(&data)}),
         )
-    } else if q.operation == "json.syntax" {
+    } else if q.operation == "json.syntax" || q.operation == "jcs.canonicalize" {
         let data = hex::decode(
             q.input
                 .get("document_hex")
@@ -44,8 +45,47 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
                 .ok_or("missing document_hex")?,
         )?;
         match sage_crypto_core::jcs::canonicalize(&data) {
-            Ok(_) => ("ACCEPT", json!({"valid":true})),
+            Ok(value) => (
+                "ACCEPT",
+                if q.operation == "json.syntax" {
+                    json!({"valid":true})
+                } else {
+                    json!({"canonical_hex":hex::encode(value)})
+                },
+            ),
             Err(_) => ("REJECT", json!({})),
+        }
+    } else if q.operation == "signature.verify" {
+        let field = |name| {
+            q.input
+                .get(name)
+                .and_then(Value::as_str)
+                .ok_or("missing signature input")
+        };
+        let alg = field("algorithm")?;
+        let kind = match alg {
+            "ed25519" => Some(KeyType::Ed25519),
+            "ecdsa-p256-sha256" => Some(KeyType::P256),
+            "sage-secp256k1-keccak256" => Some(KeyType::Secp256k1),
+            _ => None,
+        };
+        if let Some(kind) = kind {
+            let pk = hex::decode(field("public_key_hex")?)?;
+            let sig = hex::decode(field("signature_hex")?)?;
+            let msg = hex::decode(field("message_hex")?)?;
+            let valid = PublicKey::from_bytes(kind, &pk)
+                .and_then(|key| {
+                    Signature::from_bytes(kind, &sig)
+                        .and_then(|signature| key.verify(&msg, &signature))
+                })
+                .is_ok();
+            if valid {
+                ("ACCEPT", json!({"valid":true}))
+            } else {
+                ("REJECT", json!({}))
+            }
+        } else {
+            ("UNSUPPORTED", json!({}))
         }
     } else {
         ("UNSUPPORTED", json!({}))

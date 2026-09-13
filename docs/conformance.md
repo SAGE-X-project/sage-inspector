@@ -63,7 +63,7 @@ answers. No production cryptographic service is exposed.
 The operator selects an executable using `-adapter` and optional repeated
 `-adapter-arg`; no command comes from a fixture and no shell is used. Unix process
 groups are required for this initial adapter implementation. A fresh process handles
-each case; stateful multi-step operations require a future explicit scenario adapter.
+each case; stateful multi-step operations use the separate [schema2 scenario contract](stateful-scenarios.md).
 
 stdin contains exactly one object, with no expected values:
 

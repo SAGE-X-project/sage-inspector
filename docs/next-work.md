@@ -1,6 +1,6 @@
 # 다음 작업 목록 — SAGE Inspector 0.10.0
 
-작성일: 2026-09-14. 상태: 계획 수립 완료, INS-01·INS-02·INS-03·INS-05 완료, 나머지는 미착수.
+작성일: 2026-09-14. 상태: 계획 수립 완료, INS-01·INS-02·INS-03·INS-05 완료. INS-04 부분 완료, 나머지는 미착수.
 구현 위치: `/Users/0xtopaz/work/github/sage-x-project/sage-inspector`.
 규범 원본: `../sage-spec`; 실제 코어 변경은 별도 작업으로 관리한다.
 
@@ -72,3 +72,5 @@ INS-02 완료 증거: [실제 코어 어댑터와 차이 보고서](core-adapter
 INS-05 완료 증거: [상태 유지 시나리오 계약과 검증](stateful-scenarios.md). 실제 코어의 상태 제어 바인딩은 INS-06..09에서 구현한다.
 
 INS-03 완료 증거: [JCS 및 서명 검증 벡터와 관측](jcs-signature-vectors.md).
+
+INS-04 부분 완료: [HTTP 서명 검증 확장](http-signature-vectors.md). 원시 메시지 기반41개 사례를 추가했다. 전체 HTTP 경계의 시각 주입·크기/프레이밍·전송 envelope 요청 해시 검증은 후속 바인딩이 필요하며 아직 완료로 체크하지 않는다.

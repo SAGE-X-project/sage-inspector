@@ -74,3 +74,5 @@ Real core foundation adapters and observed gaps: [INS-02](docs/core-adapters.md)
 Stateful scenario runner: [INS-05 contract and checks](docs/stateful-scenarios.md).
 
 Canonicalization and strict signature cases: [vectors and core observations](docs/jcs-signature-vectors.md).
+
+HTTP signature bases, content checks and archived verification: [scope and observations](docs/http-signature-vectors.md).

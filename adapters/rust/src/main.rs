@@ -1,3 +1,4 @@
+mod http_checks;
 use sage_crypto_core::crypto::{KeyType, PublicKey, Signature, Verifier};
 use serde::Deserialize;
 use serde_json::{json, Value};
@@ -26,7 +27,16 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
     {
         return Err("invalid request".into());
     }
-    let (verdict, output) = if q.operation == "sha256" {
+    let (verdict, output) = if [
+        "rfc9421.base",
+        "sage.content-digest",
+        "rfc9421.archived.verify",
+        "sage.http.verify",
+    ]
+    .contains(&q.operation.as_str())
+    {
+        http_checks::observe(&q.operation, q.input)?
+    } else if q.operation == "sha256" {
         let data = hex::decode(
             q.input
                 .get("data_hex")

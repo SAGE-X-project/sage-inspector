@@ -1,0 +1,1221 @@
+{
+  "schema_version": 1,
+  "protocol_version": "0.10.0",
+  "profile": "primitive-foundation",
+  "suite_id": "sage-http-signatures-0.10.0",
+  "suite_sha256": "13c4592c68f31c47f110636c95d2c925f22b9935ad4ce3f352b4a764eb710fe8",
+  "runner_version": "dev",
+  "environment": "go1.26.8 darwin/arm64",
+  "created": "2026-09-13T19:14:14.156248Z",
+  "subject": {
+    "name": "sage-go",
+    "revision": "c7709b7486e0da94336edc0931fddd87f6a45343",
+    "kind": "external",
+    "executable_sha256": "7536488dbbc8b6024fc1c27070457cff2b6080006e6c37dd9b3a0a744b5a9060"
+  },
+  "sources": [
+    {
+      "id": "rfc9421",
+      "kind": "spec-derived",
+      "uri": "https://www.rfc-editor.org/rfc/rfc9421.html",
+      "reference": "Sections2.3-2.5 and3.2: explicit ordered bases and request-bound response components; synthetic messages, not copied RFC signature values."
+    },
+    {
+      "id": "rfc9530",
+      "kind": "spec-derived",
+      "uri": "https://www.rfc-editor.org/rfc/rfc9530.html",
+      "reference": "Content-Digest over exact received content bytes; digest computed independently by hashlib."
+    },
+    {
+      "id": "sage-http",
+      "kind": "spec-derived",
+      "uri": "sage-spec/spec/03-rfc9421.md",
+      "reference": "Pinned MSG-01..04 profile restrictions; archival operation deliberately does not certify full SAGE profile or freshness."
+    }
+  ],
+  "scope": "Only listed primitive cases; no full SAGE, state-machine, registry or Execution Guard certification.",
+  "status": "FAIL",
+  "counts": {
+    "FAIL": 8,
+    "NOT_RUN": 0,
+    "PASS": 27,
+    "UNSUPPORTED": 6
+  },
+  "results": [
+    {
+      "case_id": "base-request",
+      "operation": "rfc9421.base",
+      "rule_ids": [
+        "MSG-01"
+      ],
+      "source_ids": [
+        "rfc9421",
+        "rfc9530",
+        "sage-http"
+      ],
+      "derivation": "Independently serialize declared components; sign fixed bytes with Python cryptography; mutate only stated field.",
+      "input_sha256": "0fc617eb755126e659be06c072d02fdaf35ee25bc13ec85a259e425263f34f62",
+      "adapter_request_sha256": "42e24b1a31305ec496ee003bbc5ef1d3abc40826411bb84668507f2b8677131a",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "base_hex": "22406d6574686f64223a20504f53540a22407461726765742d757269223a2068747470733a2f2f6167656e742e6578616d706c652f63616c6c3f783d310a2240617574686f72697479223a206167656e742e6578616d706c650a22636f6e74656e742d74797065223a206170706c69636174696f6e2f6a736f6e0a22636f6e74656e742d646967657374223a207368612d3235363d3a52424e766f31577a5a346f5252713057392b686b6e7054375438496635333644454d4267396879712f346f3d3a0a22782d736167652d646964223a206469643a736167653a7765623a6167656e742e6578616d706c653a616c6963650a22782d736167652d76657273696f6e223a20302e31302e300a22407369676e61747572652d706172616d73223a202822406d6574686f64222022407461726765742d75726922202240617574686f72697479222022636f6e74656e742d74797065222022636f6e74656e742d646967657374222022782d736167652d646964222022782d736167652d76657273696f6e22293b6b657969643d226469643a736167653a7765623a6167656e742e6578616d706c653a616c696365237369676e696e672d31223b616c673d2265643235353139223b637265617465643d313730303030303030303b6e6f6e63653d224141414141414141414141414141414141414141414122"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "base-request",
+        "verdict": "ACCEPT",
+        "output": {
+          "base_hex": "22406d6574686f64223a20504f53540a22407461726765742d757269223a2068747470733a2f2f6167656e742e6578616d706c652f63616c6c3f783d310a2240617574686f72697479223a206167656e742e6578616d706c650a22636f6e74656e742d74797065223a206170706c69636174696f6e2f6a736f6e0a22636f6e74656e742d646967657374223a207368612d3235363d3a52424e766f31577a5a346f5252713057392b686b6e7054375438496635333644454d4267396879712f346f3d3a0a22782d736167652d646964223a206469643a736167653a7765623a6167656e742e6578616d706c653a616c6963650a22782d736167652d76657273696f6e223a20302e31302e300a22407369676e61747572652d706172616d73223a202822406d6574686f64222022407461726765742d75726922202240617574686f72697479222022636f6e74656e742d74797065222022636f6e74656e742d646967657374222022782d736167652d646964222022782d736167652d76657273696f6e22293b6b657969643d226469643a736167653a7765623a6167656e742e6578616d706c653a616c696365237369676e696e672d31223b616c673d2265643235353139223b637265617465643d313730303030303030303b6e6f6e63653d224141414141414141414141414141414141414141414122"
+        }
+      },
+      "status": "PASS",
+      "duration_ms": 14
+    },
+    {
+      "case_id": "base-response",
+      "operation": "rfc9421.base",
+      "rule_ids": [
+        "MSG-03"
+      ],
+      "source_ids": [
+        "rfc9421",
+        "rfc9530",
+        "sage-http"
+      ],
+      "derivation": "Independently serialize declared components; sign fixed bytes with Python cryptography; mutate only stated field.",
+      "input_sha256": "d520c8dee24ad79660e2a8358bafef79028d02abd37c2c1bb58eba519d27e0a9",
+      "adapter_request_sha256": "6ade701b8ea26c4604b49904ec4845e45e659c091d80654be50ee4113e93c646",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "base_hex": "2240737461747573223a203230300a22406d6574686f64223b7265713a20504f53540a22407461726765742d757269223b7265713a2068747470733a2f2f6167656e742e6578616d706c652f63616c6c3f783d310a2240617574686f72697479223b7265713a206167656e742e6578616d706c650a22636f6e74656e742d646967657374223b7265713a207368612d3235363d3a52424e766f31577a5a346f5252713057392b686b6e7054375438496635333644454d4267396879712f346f3d3a0a227369676e6174757265223b7265713a20736967313d3a796865546a366d384163617341374937554f6f4650577a694d4933636244654f475a374f52524751626e563447637533786570794259455369583766704b714a41557031424d647875337132546371682b52536642513d3d3a0a22782d736167652d76657273696f6e223b7265713a20302e31302e300a22636f6e74656e742d74797065223a206170706c69636174696f6e2f6a736f6e0a22636f6e74656e742d646967657374223a207368612d3235363d3a52424e766f31577a5a346f5252713057392b686b6e7054375438496635333644454d4267396879712f346f3d3a0a22782d736167652d646964223a206469643a736167653a7765623a6167656e742e6578616d706c653a616c6963650a22782d736167652d76657273696f6e223a20302e31302e300a22407369676e61747572652d706172616d73223a20282240737461747573222022406d6574686f64223b7265712022407461726765742d757269223b726571202240617574686f72697479223b7265712022636f6e74656e742d646967657374223b72657120227369676e6174757265223b7265712022782d736167652d76657273696f6e223b7265712022636f6e74656e742d74797065222022636f6e74656e742d646967657374222022782d736167652d646964222022782d736167652d76657273696f6e22293b6b657969643d226469643a736167653a7765623a6167656e742e6578616d706c653a616c696365237369676e696e672d31223b616c673d2265643235353139223b637265617465643d313730303030303030303b6e6f6e63653d224141414141414141414141414141414141414141414122"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "base-response",
+        "verdict": "ACCEPT",
+        "output": {
+          "base_hex": "2240737461747573223a203230300a22406d6574686f64223b7265713a20504f53540a22407461726765742d757269223b7265713a2068747470733a2f2f6167656e742e6578616d706c652f63616c6c3f783d310a2240617574686f72697479223b7265713a206167656e742e6578616d706c650a22636f6e74656e742d646967657374223b7265713a207368612d3235363d3a52424e766f31577a5a346f5252713057392b686b6e7054375438496635333644454d4267396879712f346f3d3a0a227369676e6174757265223b7265713a20736967313d3a796865546a366d384163617341374937554f6f4650577a694d4933636244654f475a374f52524751626e563447637533786570794259455369583766704b714a41557031424d647875337132546371682b52536642513d3d3a0a22782d736167652d76657273696f6e223b7265713a20302e31302e300a22636f6e74656e742d74797065223a206170706c69636174696f6e2f6a736f6e0a22636f6e74656e742d646967657374223a207368612d3235363d3a52424e766f31577a5a346f5252713057392b686b6e7054375438496635333644454d4267396879712f346f3d3a0a22782d736167652d646964223a206469643a736167653a7765623a6167656e742e6578616d706c653a616c6963650a22782d736167652d76657273696f6e223a20302e31302e300a22407369676e61747572652d706172616d73223a20282240737461747573222022406d6574686f64223b7265712022407461726765742d757269223b726571202240617574686f72697479223b7265712022636f6e74656e742d646967657374223b72657120227369676e6174757265223b7265712022782d736167652d76657273696f6e223b7265712022636f6e74656e742d74797065222022636f6e74656e742d646967657374222022782d736167652d646964222022782d736167652d76657273696f6e22293b6b657969643d226469643a736167653a7765623a6167656e742e6578616d706c653a616c696365237369676e696e672d31223b616c673d2265643235353139223b637265617465643d313730303030303030303b6e6f6e63653d224141414141414141414141414141414141414141414122"
+        }
+      },
+      "status": "PASS",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "base-sage-request",
+      "operation": "rfc9421.base",
+      "rule_ids": [
+        "MSG-01"
+      ],
+      "source_ids": [
+        "rfc9421",
+        "rfc9530",
+        "sage-http"
+      ],
+      "derivation": "Independently serialize declared components; sign fixed bytes with Python cryptography; mutate only stated field.",
+      "input_sha256": "85321bf6d853500551de073e45d72e20a6110fcd6536806c39944f2431437d2d",
+      "adapter_request_sha256": "788effe2c543d80c98404db339e0eedf7d1929e5ae8b852e9741787e7f17ce74",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "base_hex": "22406d6574686f64223a20504f53540a22407461726765742d757269223a2068747470733a2f2f6167656e742e6578616d706c652f63616c6c3f783d310a2240617574686f72697479223a206167656e742e6578616d706c650a22636f6e74656e742d74797065223a206170706c69636174696f6e2f6a736f6e0a22636f6e74656e742d646967657374223a207368612d3235363d3a52424e766f31577a5a346f5252713057392b686b6e7054375438496635333644454d4267396879712f346f3d3a0a22782d736167652d646964223a206469643a736167653a7765623a6167656e742e6578616d706c653a616c6963650a22782d736167652d76657273696f6e223a20302e31302e300a22407369676e61747572652d706172616d73223a202822406d6574686f64222022407461726765742d75726922202240617574686f72697479222022636f6e74656e742d74797065222022636f6e74656e742d646967657374222022782d736167652d646964222022782d736167652d76657273696f6e22293b6b657969643d226469643a736167653a7765623a6167656e742e6578616d706c653a616c696365237369676e696e672d31223b616c673d2265643235353139223b637265617465643d313730303030303030303b657870697265733d313730303030303330303b6e6f6e63653d2241414141414141414141414141414141414141414141223b7461673d22736167652d302e31302e3022"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "base-sage-request",
+        "verdict": "ACCEPT",
+        "output": {
+          "base_hex": "22406d6574686f64223a20504f53540a22407461726765742d757269223a2068747470733a2f2f6167656e742e6578616d706c652f63616c6c3f783d310a2240617574686f72697479223a206167656e742e6578616d706c650a22636f6e74656e742d74797065223a206170706c69636174696f6e2f6a736f6e0a22636f6e74656e742d646967657374223a207368612d3235363d3a52424e766f31577a5a346f5252713057392b686b6e7054375438496635333644454d4267396879712f346f3d3a0a22782d736167652d646964223a206469643a736167653a7765623a6167656e742e6578616d706c653a616c6963650a22782d736167652d76657273696f6e223a20302e31302e300a22407369676e61747572652d706172616d73223a202822406d6574686f64222022407461726765742d75726922202240617574686f72697479222022636f6e74656e742d74797065222022636f6e74656e742d646967657374222022782d736167652d646964222022782d736167652d76657273696f6e22293b6b657969643d226469643a736167653a7765623a6167656e742e6578616d706c653a616c696365237369676e696e672d31223b616c673d2265643235353139223b637265617465643d313730303030303030303b657870697265733d313730303030303330303b6e6f6e63653d224141414141414141414141414141414141414141414122"
+        }
+      },
+      "status": "FAIL",
+      "reason": "output mismatch",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "base-sage-response",
+      "operation": "rfc9421.base",
+      "rule_ids": [
+        "MSG-03"
+      ],
+      "source_ids": [
+        "rfc9421",
+        "rfc9530",
+        "sage-http"
+      ],
+      "derivation": "Independently serialize declared components; sign fixed bytes with Python cryptography; mutate only stated field.",
+      "input_sha256": "41066d43cc15246cc7dd3c611fe1f79a60e651c9446064964c6385c1728852c8",
+      "adapter_request_sha256": "69b440bc8d6135195c94c4481c5a2f559c440da3ab18c26db2dc37270ffb24e4",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "base_hex": "2240737461747573223a203230300a22406d6574686f64223b7265713a20504f53540a22407461726765742d757269223b7265713a2068747470733a2f2f6167656e742e6578616d706c652f63616c6c3f783d310a2240617574686f72697479223b7265713a206167656e742e6578616d706c650a22636f6e74656e742d646967657374223b7265713a207368612d3235363d3a52424e766f31577a5a346f5252713057392b686b6e7054375438496635333644454d4267396879712f346f3d3a0a227369676e6174757265223b7265713a20736967313d3a4f71467035664538675a486165575169385132304c4338464e4d726b57525a6b612b76474777374c2f7857494d585a43474764516131316d61526358564e30625a442f53375576383448746a6c4b70764a496d5644773d3d3a0a22782d736167652d76657273696f6e223b7265713a20302e31302e300a22636f6e74656e742d74797065223a206170706c69636174696f6e2f6a736f6e0a22636f6e74656e742d646967657374223a207368612d3235363d3a52424e766f31577a5a346f5252713057392b686b6e7054375438496635333644454d4267396879712f346f3d3a0a22782d736167652d646964223a206469643a736167653a7765623a6167656e742e6578616d706c653a616c6963650a22782d736167652d76657273696f6e223a20302e31302e300a22407369676e61747572652d706172616d73223a20282240737461747573222022406d6574686f64223b7265712022407461726765742d757269223b726571202240617574686f72697479223b7265712022636f6e74656e742d646967657374223b72657120227369676e6174757265223b7265712022782d736167652d76657273696f6e223b7265712022636f6e74656e742d74797065222022636f6e74656e742d646967657374222022782d736167652d646964222022782d736167652d76657273696f6e22293b6b657969643d226469643a736167653a7765623a6167656e742e6578616d706c653a616c696365237369676e696e672d31223b616c673d2265643235353139223b637265617465643d313730303030303030303b657870697265733d313730303030303330303b6e6f6e63653d2241414141414141414141414141414141414141414141223b7461673d22736167652d302e31302e3022"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "base-sage-response",
+        "verdict": "ACCEPT",
+        "output": {
+          "base_hex": "2240737461747573223a203230300a22406d6574686f64223b7265713a20504f53540a22407461726765742d757269223b7265713a2068747470733a2f2f6167656e742e6578616d706c652f63616c6c3f783d310a2240617574686f72697479223b7265713a206167656e742e6578616d706c650a22636f6e74656e742d646967657374223b7265713a207368612d3235363d3a52424e766f31577a5a346f5252713057392b686b6e7054375438496635333644454d4267396879712f346f3d3a0a227369676e6174757265223b7265713a20736967313d3a4f71467035664538675a486165575169385132304c4338464e4d726b57525a6b612b76474777374c2f7857494d585a43474764516131316d61526358564e30625a442f53375576383448746a6c4b70764a496d5644773d3d3a0a22782d736167652d76657273696f6e223b7265713a20302e31302e300a22636f6e74656e742d74797065223a206170706c69636174696f6e2f6a736f6e0a22636f6e74656e742d646967657374223a207368612d3235363d3a52424e766f31577a5a346f5252713057392b686b6e7054375438496635333644454d4267396879712f346f3d3a0a22782d736167652d646964223a206469643a736167653a7765623a6167656e742e6578616d706c653a616c6963650a22782d736167652d76657273696f6e223a20302e31302e300a22407369676e61747572652d706172616d73223a20282240737461747573222022406d6574686f64223b7265712022407461726765742d757269223b726571202240617574686f72697479223b7265712022636f6e74656e742d646967657374223b72657120227369676e6174757265223b7265712022782d736167652d76657273696f6e223b7265712022636f6e74656e742d74797065222022636f6e74656e742d646967657374222022782d736167652d646964222022782d736167652d76657273696f6e22293b6b657969643d226469643a736167653a7765623a6167656e742e6578616d706c653a616c696365237369676e696e672d31223b616c673d2265643235353139223b637265617465643d313730303030303030303b657870697265733d313730303030303330303b6e6f6e63653d224141414141414141414141414141414141414141414122"
+        }
+      },
+      "status": "FAIL",
+      "reason": "output mismatch",
+      "duration_ms": 13
+    },
+    {
+      "case_id": "base-reordered-request",
+      "operation": "rfc9421.base",
+      "rule_ids": [
+        "MSG-01"
+      ],
+      "source_ids": [
+        "rfc9421",
+        "rfc9530",
+        "sage-http"
+      ],
+      "derivation": "Independently serialize declared components; sign fixed bytes with Python cryptography; mutate only stated field.",
+      "input_sha256": "ead581df7925e9aeb55f1508351020529ceb81c77e6003d10c4f29bd1e7a079b",
+      "adapter_request_sha256": "9e243569a823db0da34c1ceb28a02ea314fab702ca880f6bb000b2c47d8a0b0b",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "base_hex": "22406d6574686f64223a20504f53540a22407461726765742d757269223a2068747470733a2f2f6167656e742e6578616d706c652f63616c6c3f783d310a2240617574686f72697479223a206167656e742e6578616d706c650a22636f6e74656e742d74797065223a206170706c69636174696f6e2f6a736f6e0a22636f6e74656e742d646967657374223a207368612d3235363d3a52424e766f31577a5a346f5252713057392b686b6e7054375438496635333644454d4267396879712f346f3d3a0a22782d736167652d646964223a206469643a736167653a7765623a6167656e742e6578616d706c653a616c6963650a22782d736167652d76657273696f6e223a20302e31302e300a22407369676e61747572652d706172616d73223a202822406d6574686f64222022407461726765742d75726922202240617574686f72697479222022636f6e74656e742d74797065222022636f6e74656e742d646967657374222022782d736167652d646964222022782d736167652d76657273696f6e22293b6e6f6e63653d2241414141414141414141414141414141414141414141223b637265617465643d313730303030303030303b616c673d2265643235353139223b6b657969643d226469643a736167653a7765623a6167656e742e6578616d706c653a616c696365237369676e696e672d3122"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "base-reordered-request",
+        "verdict": "ACCEPT",
+        "output": {
+          "base_hex": "22406d6574686f64223a20504f53540a22407461726765742d757269223a2068747470733a2f2f6167656e742e6578616d706c652f63616c6c3f783d310a2240617574686f72697479223a206167656e742e6578616d706c650a22636f6e74656e742d74797065223a206170706c69636174696f6e2f6a736f6e0a22636f6e74656e742d646967657374223a207368612d3235363d3a52424e766f31577a5a346f5252713057392b686b6e7054375438496635333644454d4267396879712f346f3d3a0a22782d736167652d646964223a206469643a736167653a7765623a6167656e742e6578616d706c653a616c6963650a22782d736167652d76657273696f6e223a20302e31302e300a22407369676e61747572652d706172616d73223a202822406d6574686f64222022407461726765742d75726922202240617574686f72697479222022636f6e74656e742d74797065222022636f6e74656e742d646967657374222022782d736167652d646964222022782d736167652d76657273696f6e22293b6b657969643d226469643a736167653a7765623a6167656e742e6578616d706c653a616c696365237369676e696e672d31223b616c673d2265643235353139223b637265617465643d313730303030303030303b6e6f6e63653d224141414141414141414141414141414141414141414122"
+        }
+      },
+      "status": "FAIL",
+      "reason": "output mismatch",
+      "duration_ms": 15
+    },
+    {
+      "case_id": "base-escaped-target",
+      "operation": "rfc9421.base",
+      "rule_ids": [
+        "MSG-02"
+      ],
+      "source_ids": [
+        "rfc9421",
+        "rfc9530",
+        "sage-http"
+      ],
+      "derivation": "Independently serialize declared components; sign fixed bytes with Python cryptography; mutate only stated field.",
+      "input_sha256": "f89ad858d943a9a56013d61f0012623ccaa947d833362284906e0ca790cf0f56",
+      "adapter_request_sha256": "906c425521b6401ef908cc7ea1faa0f5939209ba30c2930280e2e0e5a52cdf7c",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "base_hex": "22406d6574686f64223a20504f53540a22407461726765742d757269223a2068747470733a2f2f6167656e742e6578616d706c652f61253266623f783d2532660a2240617574686f72697479223a206167656e742e6578616d706c650a22636f6e74656e742d74797065223a206170706c69636174696f6e2f6a736f6e0a22636f6e74656e742d646967657374223a207368612d3235363d3a52424e766f31577a5a346f5252713057392b686b6e7054375438496635333644454d4267396879712f346f3d3a0a22782d736167652d646964223a206469643a736167653a7765623a6167656e742e6578616d706c653a616c6963650a22782d736167652d76657273696f6e223a20302e31302e300a22407369676e61747572652d706172616d73223a202822406d6574686f64222022407461726765742d75726922202240617574686f72697479222022636f6e74656e742d74797065222022636f6e74656e742d646967657374222022782d736167652d646964222022782d736167652d76657273696f6e22293b6b657969643d226469643a736167653a7765623a6167656e742e6578616d706c653a616c696365237369676e696e672d31223b616c673d2265643235353139223b637265617465643d313730303030303030303b6e6f6e63653d224141414141414141414141414141414141414141414122"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "base-escaped-target",
+        "verdict": "ACCEPT",
+        "output": {
+          "base_hex": "22406d6574686f64223a20504f53540a22407461726765742d757269223a2068747470733a2f2f6167656e742e6578616d706c652f61253266623f783d2532660a2240617574686f72697479223a206167656e742e6578616d706c650a22636f6e74656e742d74797065223a206170706c69636174696f6e2f6a736f6e0a22636f6e74656e742d646967657374223a207368612d3235363d3a52424e766f31577a5a346f5252713057392b686b6e7054375438496635333644454d4267396879712f346f3d3a0a22782d736167652d646964223a206469643a736167653a7765623a6167656e742e6578616d706c653a616c6963650a22782d736167652d76657273696f6e223a20302e31302e300a22407369676e61747572652d706172616d73223a202822406d6574686f64222022407461726765742d75726922202240617574686f72697479222022636f6e74656e742d74797065222022636f6e74656e742d646967657374222022782d736167652d646964222022782d736167652d76657273696f6e22293b6b657969643d226469643a736167653a7765623a6167656e742e6578616d706c653a616c696365237369676e696e672d31223b616c673d2265643235353139223b637265617465643d313730303030303030303b6e6f6e63653d224141414141414141414141414141414141414141414122"
+        }
+      },
+      "status": "PASS",
+      "duration_ms": 13
+    },
+    {
+      "case_id": "base-missing-request",
+      "operation": "rfc9421.base",
+      "rule_ids": [
+        "MSG-03"
+      ],
+      "source_ids": [
+        "rfc9421",
+        "rfc9530",
+        "sage-http"
+      ],
+      "derivation": "Independently serialize declared components; sign fixed bytes with Python cryptography; mutate only stated field.",
+      "input_sha256": "07074b382a0e455f7bce75de6a2b7ae0d8b4a70a023c5b919a85aa0b6270bf9f",
+      "adapter_request_sha256": "7e0875aeced20f9bf221c48c42ce89c3fb9d3ec60778323263d96198e06abbed",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "base-missing-request",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "PASS",
+      "duration_ms": 13
+    },
+    {
+      "case_id": "archive-request",
+      "operation": "rfc9421.archived.verify",
+      "rule_ids": [
+        "MSG-02"
+      ],
+      "source_ids": [
+        "rfc9421",
+        "rfc9530",
+        "sage-http"
+      ],
+      "derivation": "Independently serialize declared components; sign fixed bytes with Python cryptography; mutate only stated field.",
+      "input_sha256": "0fc617eb755126e659be06c072d02fdaf35ee25bc13ec85a259e425263f34f62",
+      "adapter_request_sha256": "013d25009332131d77d68b43fb61adbc3902ad904624d7bf494b636cebdaabcb",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "archive-request",
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "status": "PASS",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "archive-response",
+      "operation": "rfc9421.archived.verify",
+      "rule_ids": [
+        "MSG-03"
+      ],
+      "source_ids": [
+        "rfc9421",
+        "rfc9530",
+        "sage-http"
+      ],
+      "derivation": "Independently serialize declared components; sign fixed bytes with Python cryptography; mutate only stated field.",
+      "input_sha256": "d520c8dee24ad79660e2a8358bafef79028d02abd37c2c1bb58eba519d27e0a9",
+      "adapter_request_sha256": "02f5abb1efaa2ca98274361a45e815dfd66a594319aa947657b89bed87e43267",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "archive-response",
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "status": "PASS",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "archive-reordered",
+      "operation": "rfc9421.archived.verify",
+      "rule_ids": [
+        "MSG-01"
+      ],
+      "source_ids": [
+        "rfc9421",
+        "rfc9530",
+        "sage-http"
+      ],
+      "derivation": "Independently serialize declared components; sign fixed bytes with Python cryptography; mutate only stated field.",
+      "input_sha256": "ead581df7925e9aeb55f1508351020529ceb81c77e6003d10c4f29bd1e7a079b",
+      "adapter_request_sha256": "74c889645dfdfac340e1d489d8f144524908b5b3c87ebb40a438d77ab3843201",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "archive-reordered",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "FAIL",
+      "reason": "verdict mismatch",
+      "duration_ms": 17
+    },
+    {
+      "case_id": "archive-tamper-body",
+      "operation": "rfc9421.archived.verify",
+      "rule_ids": [
+        "MSG-02"
+      ],
+      "source_ids": [
+        "rfc9421",
+        "rfc9530",
+        "sage-http"
+      ],
+      "derivation": "Independently serialize declared components; sign fixed bytes with Python cryptography; mutate only stated field.",
+      "input_sha256": "4750ce1e6f18cf6a089d5ea502b31ed5348b1dfd72b85cbd438fa66ce6fb7a2f",
+      "adapter_request_sha256": "ccf775c3efcda3d35b0aeec9a7f7722272965ad865d48ef8c99ad29a55324367",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "archive-tamper-body",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "PASS",
+      "duration_ms": 13
+    },
+    {
+      "case_id": "archive-tamper-target",
+      "operation": "rfc9421.archived.verify",
+      "rule_ids": [
+        "MSG-02"
+      ],
+      "source_ids": [
+        "rfc9421",
+        "rfc9530",
+        "sage-http"
+      ],
+      "derivation": "Independently serialize declared components; sign fixed bytes with Python cryptography; mutate only stated field.",
+      "input_sha256": "d2cf304e1bb9f622993aff3b6f30de1e27a5d79c5f3328c0d110119f10d10a45",
+      "adapter_request_sha256": "57cfc89e2600682cf12b3a430e8e836a5afbf30552de5bd2a1fa23c7b09affd7",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "archive-tamper-target",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "PASS",
+      "duration_ms": 13
+    },
+    {
+      "case_id": "archive-tamper-content-type",
+      "operation": "rfc9421.archived.verify",
+      "rule_ids": [
+        "MSG-02"
+      ],
+      "source_ids": [
+        "rfc9421",
+        "rfc9530",
+        "sage-http"
+      ],
+      "derivation": "Independently serialize declared components; sign fixed bytes with Python cryptography; mutate only stated field.",
+      "input_sha256": "3bc734a285d635082a69bf682b5dce10207894cd9de1b146015dcdf8d9000669",
+      "adapter_request_sha256": "2d515f4d94cea4fa048c74bbf24ec75d643dda9b82c4b9963b11b4e2ec73e2e6",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "archive-tamper-content-type",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "PASS",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "archive-tamper-did",
+      "operation": "rfc9421.archived.verify",
+      "rule_ids": [
+        "MSG-02"
+      ],
+      "source_ids": [
+        "rfc9421",
+        "rfc9530",
+        "sage-http"
+      ],
+      "derivation": "Independently serialize declared components; sign fixed bytes with Python cryptography; mutate only stated field.",
+      "input_sha256": "9eae9dea8d34a0e266402160b363bb373563e1fa85659e20ac39224d98405035",
+      "adapter_request_sha256": "6b52e26516b1822ef405777e8581ec11c509ed1106478956d75964a6edf368dd",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "archive-tamper-did",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "PASS",
+      "duration_ms": 13
+    },
+    {
+      "case_id": "archive-tamper-version",
+      "operation": "rfc9421.archived.verify",
+      "rule_ids": [
+        "MSG-02"
+      ],
+      "source_ids": [
+        "rfc9421",
+        "rfc9530",
+        "sage-http"
+      ],
+      "derivation": "Independently serialize declared components; sign fixed bytes with Python cryptography; mutate only stated field.",
+      "input_sha256": "a3dcb173f84594161037a9fd4f2704f832ad5f11a39375c47427325cac71eb89",
+      "adapter_request_sha256": "e86282ba07fe004ddf15231d37afa49ae4bbf3f754d82fb2fe0c62f645a3d114",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "archive-tamper-version",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "PASS",
+      "duration_ms": 17
+    },
+    {
+      "case_id": "archive-tamper-signature",
+      "operation": "rfc9421.archived.verify",
+      "rule_ids": [
+        "MSG-02"
+      ],
+      "source_ids": [
+        "rfc9421",
+        "rfc9530",
+        "sage-http"
+      ],
+      "derivation": "Independently serialize declared components; sign fixed bytes with Python cryptography; mutate only stated field.",
+      "input_sha256": "b94bfec025f04be21f12ee6e3a442262971b18fd57e62655b86613a2ccbd7285",
+      "adapter_request_sha256": "a3610b3c2f4ce9cd855a64e627e4dbba215a6a128d11356434ae3af4474f9551",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "archive-tamper-signature",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "PASS",
+      "duration_ms": 22
+    },
+    {
+      "case_id": "archive-added-tag",
+      "operation": "rfc9421.archived.verify",
+      "rule_ids": [
+        "MSG-01"
+      ],
+      "source_ids": [
+        "rfc9421",
+        "rfc9530",
+        "sage-http"
+      ],
+      "derivation": "Independently serialize declared components; sign fixed bytes with Python cryptography; mutate only stated field.",
+      "input_sha256": "18f6c5492063899fb379d4e82a714700a33d5838ce3135aa7766ab2a85416c5b",
+      "adapter_request_sha256": "0306ff03a0cbba59aaf34962fae538ed43e932c90c02be357a46e44356f85efe",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "archive-added-tag",
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "status": "FAIL",
+      "reason": "verdict mismatch",
+      "duration_ms": 13
+    },
+    {
+      "case_id": "archive-forwarded-ignored",
+      "operation": "rfc9421.archived.verify",
+      "rule_ids": [
+        "MSG-02"
+      ],
+      "source_ids": [
+        "rfc9421",
+        "rfc9530",
+        "sage-http"
+      ],
+      "derivation": "Independently serialize declared components; sign fixed bytes with Python cryptography; mutate only stated field.",
+      "input_sha256": "37a5274d0d8df2b4835cd4516f1e72f37f5ddbbcb737bdc8288ea6f3083ade92",
+      "adapter_request_sha256": "45b5d321676c255415acddd26747d7ef1d37b700bfd3185e8f94221eb18aa65a",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "archive-forwarded-ignored",
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "status": "PASS",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "archive-response-wrong-request-signature",
+      "operation": "rfc9421.archived.verify",
+      "rule_ids": [
+        "MSG-03"
+      ],
+      "source_ids": [
+        "rfc9421",
+        "rfc9530",
+        "sage-http"
+      ],
+      "derivation": "Independently serialize declared components; sign fixed bytes with Python cryptography; mutate only stated field.",
+      "input_sha256": "0af43f37ad0bcc1f1fd89d7c03909c94667996e02beffe840a7b51bf0b846d31",
+      "adapter_request_sha256": "e7659bc43f284d7e47ad36a14adf9b2bef3041f7f352c9d5fde4cd3b30542259",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "archive-response-wrong-request-signature",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "PASS",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "archive-response-wrong-request-target",
+      "operation": "rfc9421.archived.verify",
+      "rule_ids": [
+        "MSG-03"
+      ],
+      "source_ids": [
+        "rfc9421",
+        "rfc9530",
+        "sage-http"
+      ],
+      "derivation": "Independently serialize declared components; sign fixed bytes with Python cryptography; mutate only stated field.",
+      "input_sha256": "044af0626972c5798971d6c82cde30d7f3e19cd083f018f09e35c608fafdf31f",
+      "adapter_request_sha256": "ea25c98b85d861478628b221783edd7b365b2b5aa7596c10f8b589985e5affeb",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "archive-response-wrong-request-target",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "PASS",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "archive-response-wrong-request-body-digest",
+      "operation": "rfc9421.archived.verify",
+      "rule_ids": [
+        "MSG-03"
+      ],
+      "source_ids": [
+        "rfc9421",
+        "rfc9530",
+        "sage-http"
+      ],
+      "derivation": "Independently serialize declared components; sign fixed bytes with Python cryptography; mutate only stated field.",
+      "input_sha256": "10623568dbc7c092db2206d2ee85267e6093d6a6a7ba298af9dbe02b46183786",
+      "adapter_request_sha256": "3f0e0115ae30bdd66f0e802b97895113520322492bfcbdd357d879c36a054abf",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "archive-response-wrong-request-body-digest",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "PASS",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "archive-response-missing-request",
+      "operation": "rfc9421.archived.verify",
+      "rule_ids": [
+        "MSG-03"
+      ],
+      "source_ids": [
+        "rfc9421",
+        "rfc9530",
+        "sage-http"
+      ],
+      "derivation": "Independently serialize declared components; sign fixed bytes with Python cryptography; mutate only stated field.",
+      "input_sha256": "07074b382a0e455f7bce75de6a2b7ae0d8b4a70a023c5b919a85aa0b6270bf9f",
+      "adapter_request_sha256": "e42e1722b938c56614ddf96862f9a1aea89461f0e7cd85ef5552c5226521c6c4",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "archive-response-missing-request",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "PASS",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "archive-response-status",
+      "operation": "rfc9421.archived.verify",
+      "rule_ids": [
+        "MSG-03"
+      ],
+      "source_ids": [
+        "rfc9421",
+        "rfc9530",
+        "sage-http"
+      ],
+      "derivation": "Independently serialize declared components; sign fixed bytes with Python cryptography; mutate only stated field.",
+      "input_sha256": "ea0c6dca731490bb594df90e5a66f59016da54672d21cf2d54f1db7e1cf1c523",
+      "adapter_request_sha256": "3e172437870eb7d2e4bcfda8979276b470609fec3f209a3f75d855a65fb226cc",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "archive-response-status",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "PASS",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "archive-response-body",
+      "operation": "rfc9421.archived.verify",
+      "rule_ids": [
+        "MSG-03"
+      ],
+      "source_ids": [
+        "rfc9421",
+        "rfc9530",
+        "sage-http"
+      ],
+      "derivation": "Independently serialize declared components; sign fixed bytes with Python cryptography; mutate only stated field.",
+      "input_sha256": "dc8b434cff32fb4123648ee56f326d2ef02c4160c6e32c71854988a5f8531dd5",
+      "adapter_request_sha256": "c28b9f83c4fa60e791ca5133746a3da14d7a8c29e4994ac880fd2025069b3b5d",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "archive-response-body",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "PASS",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "archive-unsigned",
+      "operation": "rfc9421.archived.verify",
+      "rule_ids": [
+        "MSG-02"
+      ],
+      "source_ids": [
+        "rfc9421",
+        "rfc9530",
+        "sage-http"
+      ],
+      "derivation": "Independently serialize declared components; sign fixed bytes with Python cryptography; mutate only stated field.",
+      "input_sha256": "4eb5bb4b8ec60b00ac771c71544a1d9455a3344557c70e43037a82b685792e30",
+      "adapter_request_sha256": "71efe45755d18e7c670867a6897e7ca3dfe588d294986ca6fa3d8c9dd2013b68",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "archive-unsigned",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "PASS",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "digest-valid",
+      "operation": "sage.content-digest",
+      "rule_ids": [
+        "MSG-01"
+      ],
+      "source_ids": [
+        "rfc9421",
+        "rfc9530",
+        "sage-http"
+      ],
+      "derivation": "Independently serialize declared components; sign fixed bytes with Python cryptography; mutate only stated field.",
+      "input_sha256": "0fc617eb755126e659be06c072d02fdaf35ee25bc13ec85a259e425263f34f62",
+      "adapter_request_sha256": "1d62cd29339f0ac9bfb8b047d5f9168819e918b79a7032dd4dc655311e4bce91",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "digest-valid",
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "status": "PASS",
+      "duration_ms": 14
+    },
+    {
+      "case_id": "digest-wrong",
+      "operation": "sage.content-digest",
+      "rule_ids": [
+        "MSG-01"
+      ],
+      "source_ids": [
+        "rfc9421",
+        "rfc9530",
+        "sage-http"
+      ],
+      "derivation": "Independently serialize declared components; sign fixed bytes with Python cryptography; mutate only stated field.",
+      "input_sha256": "aa69ad835f1761918bb44e69d892ea18ded53179bba7673bf6a2605db55710c0",
+      "adapter_request_sha256": "7604ee2ccae944bf26f3fbd40174f8245b7f3846e4461aef48e4a7173956d54f",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "digest-wrong",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "PASS",
+      "duration_ms": 13
+    },
+    {
+      "case_id": "digest-other-algorithm",
+      "operation": "sage.content-digest",
+      "rule_ids": [
+        "MSG-01"
+      ],
+      "source_ids": [
+        "rfc9421",
+        "rfc9530",
+        "sage-http"
+      ],
+      "derivation": "Independently serialize declared components; sign fixed bytes with Python cryptography; mutate only stated field.",
+      "input_sha256": "a32c76cfa58050a8926ff2cf31347111e32a9a1bed99a5bb25928780d7c8bf99",
+      "adapter_request_sha256": "c0e9df5bfc9d8b03f659c460ea5df3ff54ca69046308cd9311f94fa0bea1a8c0",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "digest-other-algorithm",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "PASS",
+      "duration_ms": 13
+    },
+    {
+      "case_id": "digest-additional-member",
+      "operation": "sage.content-digest",
+      "rule_ids": [
+        "MSG-01"
+      ],
+      "source_ids": [
+        "rfc9421",
+        "rfc9530",
+        "sage-http"
+      ],
+      "derivation": "Independently serialize declared components; sign fixed bytes with Python cryptography; mutate only stated field.",
+      "input_sha256": "7ad746658b7b6aaa0486f72e4d3950e3c878337dbaf3eef5075219279a1bb615",
+      "adapter_request_sha256": "20227d83f635dff4b815afadcc9b143099ddef2c288dc67787597e97d5eda404",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "digest-additional-member",
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "status": "FAIL",
+      "reason": "verdict mismatch",
+      "duration_ms": 17
+    },
+    {
+      "case_id": "digest-duplicate-member",
+      "operation": "sage.content-digest",
+      "rule_ids": [
+        "MSG-01"
+      ],
+      "source_ids": [
+        "rfc9421",
+        "rfc9530",
+        "sage-http"
+      ],
+      "derivation": "Independently serialize declared components; sign fixed bytes with Python cryptography; mutate only stated field.",
+      "input_sha256": "246c1875b78b9732affb697d8148eb4be84d0eff05913cfbfc774cec3479ded0",
+      "adapter_request_sha256": "c13b1a46a29dfaf739895e607b306447418db59caf479a25b7881a737a49a3af",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "digest-duplicate-member",
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "status": "FAIL",
+      "reason": "verdict mismatch",
+      "duration_ms": 23
+    },
+    {
+      "case_id": "digest-unpadded",
+      "operation": "sage.content-digest",
+      "rule_ids": [
+        "MSG-01"
+      ],
+      "source_ids": [
+        "rfc9421",
+        "rfc9530",
+        "sage-http"
+      ],
+      "derivation": "Independently serialize declared components; sign fixed bytes with Python cryptography; mutate only stated field.",
+      "input_sha256": "4cfba1a084d642477e42742ab9980c1386d9879c500cffe9bf56e63c51dbdb49",
+      "adapter_request_sha256": "b7b71a622968fc6583c44689d70f85da523b6a2dc3ae24e4efac0369e040dd33",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "digest-unpadded",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "PASS",
+      "duration_ms": 15
+    },
+    {
+      "case_id": "digest-raw-whitespace",
+      "operation": "sage.content-digest",
+      "rule_ids": [
+        "MSG-01"
+      ],
+      "source_ids": [
+        "rfc9421",
+        "rfc9530",
+        "sage-http"
+      ],
+      "derivation": "Independently serialize declared components; sign fixed bytes with Python cryptography; mutate only stated field.",
+      "input_sha256": "4750ce1e6f18cf6a089d5ea502b31ed5348b1dfd72b85cbd438fa66ce6fb7a2f",
+      "adapter_request_sha256": "322eaa29a9df8f8dd3703171899813d590e1ff4e585b6da1442f20d8820385d2",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "digest-raw-whitespace",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "PASS",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "digest-duplicate-field",
+      "operation": "sage.content-digest",
+      "rule_ids": [
+        "MSG-04"
+      ],
+      "source_ids": [
+        "rfc9421",
+        "rfc9530",
+        "sage-http"
+      ],
+      "derivation": "Independently serialize declared components; sign fixed bytes with Python cryptography; mutate only stated field.",
+      "input_sha256": "82a829149f6e86d562b00e417eff2291aebfac3a053485dc88ee41790d1b6a1e",
+      "adapter_request_sha256": "c81579d0ce15122eba1a84bd2302d03444766be2c49d43143c7b2c668b4132cf",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "digest-duplicate-field",
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "status": "FAIL",
+      "reason": "verdict mismatch",
+      "duration_ms": 16
+    },
+    {
+      "case_id": "digest-body-16777216",
+      "operation": "sage.content-digest",
+      "rule_ids": [
+        "MSG-04"
+      ],
+      "source_ids": [
+        "rfc9421",
+        "rfc9530",
+        "sage-http"
+      ],
+      "derivation": "Compact body recipe expands one x byte to exact boundary length. Digest independently computed over all expanded bytes; no HTTP signature or JSON schema claim.",
+      "input_sha256": "3d0493f3fbc0deb277ba98f3d65d6555d00668cd36117b948bbd8f7e62d6804f",
+      "adapter_request_sha256": "240c7100c50c104e08f3172616b4df5b34e22b773606fb4bf73620815dc9af44",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "digest-body-16777216",
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "status": "PASS",
+      "duration_ms": 32
+    },
+    {
+      "case_id": "digest-body-16777217",
+      "operation": "sage.content-digest",
+      "rule_ids": [
+        "MSG-04"
+      ],
+      "source_ids": [
+        "rfc9421",
+        "rfc9530",
+        "sage-http"
+      ],
+      "derivation": "Compact body recipe expands one x byte to exact boundary length. Digest independently computed over all expanded bytes; no HTTP signature or JSON schema claim.",
+      "input_sha256": "0ad40e32b567561f7dabe79cb43a1f626875a14312d0e584ed98dfdcfc1fc83b",
+      "adapter_request_sha256": "ce8a7cfbd0972a099f3d34ad6d396f5ff6496bd749d4bc99d0525ebd87d861ed",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "digest-body-16777217",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "PASS",
+      "duration_ms": 20
+    },
+    {
+      "case_id": "boundary-duplicate-content-type",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "MSG-04"
+      ],
+      "source_ids": [
+        "rfc9421",
+        "rfc9530",
+        "sage-http"
+      ],
+      "derivation": "Planned SAGE boundary rejection; no fixed-clock/full-boundary binding in either current core adapter. Must report UNSUPPORTED, never infer acceptance from archival checks.",
+      "input_sha256": "f8fc2eb2515ec25d3b48c4d98f9a7960049506ab424ec06da23a22f43586bec4",
+      "adapter_request_sha256": "1a2a14cf523ca25f5d55ebc3d6825e8079495a53d4455d796cfa8e94dc4247b4",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "boundary-duplicate-content-type",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "boundary-conflicting-length",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "MSG-04"
+      ],
+      "source_ids": [
+        "rfc9421",
+        "rfc9530",
+        "sage-http"
+      ],
+      "derivation": "Planned SAGE boundary rejection; no fixed-clock/full-boundary binding in either current core adapter. Must report UNSUPPORTED, never infer acceptance from archival checks.",
+      "input_sha256": "c6c013ebd8dd7b7fc992190f36a06b16a12c3d6d13acf14920f0970442c966db",
+      "adapter_request_sha256": "448eda661d8a3dd6fb86d20b0936b4ae4a637638c7d84400c80de644077fb872",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "boundary-conflicting-length",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "boundary-transfer-and-length",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "MSG-04"
+      ],
+      "source_ids": [
+        "rfc9421",
+        "rfc9530",
+        "sage-http"
+      ],
+      "derivation": "Planned SAGE boundary rejection; no fixed-clock/full-boundary binding in either current core adapter. Must report UNSUPPORTED, never infer acceptance from archival checks.",
+      "input_sha256": "a98307e23cec0f98bd6fa159776cfc69c079c25e82dafde55545cfdfbe065caf",
+      "adapter_request_sha256": "aec77267818d761509b816e2daae5b2e5c85e80adc90265029d2d61f5d4e366d",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "boundary-transfer-and-length",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "boundary-fields-over-32k",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "MSG-04"
+      ],
+      "source_ids": [
+        "rfc9421",
+        "rfc9530",
+        "sage-http"
+      ],
+      "derivation": "Planned SAGE boundary rejection; no fixed-clock/full-boundary binding in either current core adapter. Must report UNSUPPORTED, never infer acceptance from archival checks.",
+      "input_sha256": "8dea8ec3f82fb775d91e06d385335ee93d4ed9dd0f67e0a8505613afdd399629",
+      "adapter_request_sha256": "f0fd8296fe77f1da2af3c874b3409cdf9ffa116dc097ca328907ffa48f18f1d0",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "boundary-fields-over-32k",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "boundary-expired",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "MSG-04"
+      ],
+      "source_ids": [
+        "rfc9421",
+        "rfc9530",
+        "sage-http"
+      ],
+      "derivation": "Planned SAGE boundary rejection; no fixed-clock/full-boundary binding in either current core adapter. Must report UNSUPPORTED, never infer acceptance from archival checks.",
+      "input_sha256": "fd5961b57613b2923cfefd9995dcc5fb8e5370c863a835228fe37849a3844e14",
+      "adapter_request_sha256": "f7c069b1754539aa32cac4ce2060fa7f2dd797560b7d0ea22a73f91b8162960d",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "boundary-expired",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "boundary-wrong-tag",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "MSG-04"
+      ],
+      "source_ids": [
+        "rfc9421",
+        "rfc9530",
+        "sage-http"
+      ],
+      "derivation": "Planned SAGE boundary rejection; no fixed-clock/full-boundary binding in either current core adapter. Must report UNSUPPORTED, never infer acceptance from archival checks.",
+      "input_sha256": "df3c478860cb332fdcbd43bcb8b401c637722835b9826bfe3bd947472afaa11c",
+      "adapter_request_sha256": "edf74fb9f00e9a2720b379f1169e08f8b114c0c49ada05a05314bd4559b73806",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "boundary-wrong-tag",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    }
+  ]
+}

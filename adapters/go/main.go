@@ -108,6 +108,14 @@ func run(r io.Reader, w io.Writer) error {
 		}
 	}
 
+	if q.Operation == "rfc9421.base" || q.Operation == "sage.content-digest" || q.Operation == "rfc9421.archived.verify" || q.Operation == "sage.http.verify" {
+		var e error
+		verdict, output, e = httpObserve(q.Operation, q.Input)
+		if e != nil {
+			return e
+		}
+	}
+
 	return json.NewEncoder(w).Encode(map[string]any{"schema_version": 1, "case_id": q.Case, "verdict": verdict, "output": output})
 }
 func main() {

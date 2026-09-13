@@ -17,3 +17,6 @@ an independent source/derivation; changing version strings does not update old v
 The jcs-signatures suite adds RFC8032 section7.1 public bytes, RFC8785 numeric
 examples and test-only mathematical constructions. Attribution and independent
 checks are described in ../docs/jcs-signature-vectors.md.
+
+HTTP fixtures use synthetic messages, a public RFC8032 test seed and independently
+constructed RFC9421 bases and SHA-256 Content-Digest values. See ../docs/http-signature-vectors.md.

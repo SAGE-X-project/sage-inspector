@@ -1,0 +1,12 @@
+{
+  "local_reference": {
+    "revision": "bb17b8b87a09e642ca19ff8a909b1ed6e478a7f6",
+    "file_sha256": {
+      "en.txt": "bd168c908b3f436a9e63d7dae6341c933ca01bc628e91ad0770bd8e21e521097",
+      "pkg/rfc9421/parser.go": "54ee061f71e6f8505b00cebacca1ec450fa7a826eeb7707dfca53ee80cd5f619",
+      "pkg/rfc9421/builder.go": "4022373222055876e515987c89ac8c31c5b481021abebbceddf984472ea19b86"
+    }
+  },
+  "core_lock": "core-source-lock.json",
+  "scope": "Local reference is comparison material, never the expected-base generator. Its parser/builder have changed since the prior spec assessment. No local reference build or conformance claim in this run."
+}

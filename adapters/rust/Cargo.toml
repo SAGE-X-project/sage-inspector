@@ -1,0 +1,9 @@
+[package]
+name = "sage-inspector-rust-adapter"
+version = "0.1.0"
+edition = "2021"
+[dependencies]
+sage_crypto_core = { path = "../../../rs-sage-core" }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+hex = "0.4"

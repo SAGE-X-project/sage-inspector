@@ -74,3 +74,5 @@ INS-05 완료 증거: [상태 유지 시나리오 계약과 검증](stateful-sce
 INS-03 완료 증거: [JCS 및 서명 검증 벡터와 관측](jcs-signature-vectors.md).
 
 INS-04 부분 완료: [HTTP 서명 검증 확장](http-signature-vectors.md). 원시 메시지 기반41개 사례를 추가했다. 전체 HTTP 경계의 시각 주입·크기/프레이밍·전송 envelope 요청 해시 검증은 후속 바인딩이 필요하며 아직 완료로 체크하지 않는다.
+
+INS-04 추가 진행: [고정 시각·HTTP/envelope 경계 자료](http-boundary-vectors.md). 경계 69개(정상 15·거부 54)를 독립 검산하고 내부 서명/JCS 24개는 Go·Rust 모두 PASS를 확인했다. 경계 API 자체는 두 코어 모두 69개 UNSUPPORTED다. 남은 항목은 자료 작성이 아니라 실제 0.10.0 코어 경계 바인딩과 필드 크기 계산 기준의 규범 명확화이며, INS-04는 완료로 체크하지 않는다.

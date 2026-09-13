@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "scope": "Source inspection plus actual adapter observations; no core code was modified. Fixed-clock support alone does not supply missing envelope verification.",
+  "subjects": [
+    {
+      "repository": "sage",
+      "revision": "c7709b7486e0da94336edc0931fddd87f6a45343",
+      "file_sha256": {
+        "pkg/agent/core/rfc9421/verifier_http.go": "084ccdf1627dc23f051ef20f26753c077773dcfc3b7e80f4cf2e545c109ac805",
+        "pkg/agent/transport/wire.go": "5e8851a488fa3ac0b660e38e79596c037c7683e23beb860b7d245b60a412e1fd"
+      },
+      "operation": "sage.http.verify",
+      "status": "UNSUPPORTED",
+      "missing": [
+        "injected trusted clock",
+        "0.10.0 HTTP/envelope boundary",
+        "complete signed request hash binding"
+      ]
+    },
+    {
+      "repository": "rs-sage-core",
+      "revision": "206bbbb5a66667ae2feb3b0e9991ed1ca4622bb2",
+      "file_sha256": {
+        "src/rfc9421/verifier.rs": "22e1b37ef90d2e5a08b4e2a9710f42d191f83ed510272b142ad305288e978356",
+        "src/lib.rs": "b01cd57b509f30967fea61ae161db0e708af85948c1dfb3fc96ad1155c7058ff"
+      },
+      "operation": "sage.http.verify",
+      "status": "UNSUPPORTED",
+      "missing": [
+        "injected trusted clock",
+        "0.10.0 HTTP/envelope boundary",
+        "complete signed request hash binding"
+      ]
+    }
+  ],
+  "size_counting_status": "Declared fixture convention; exact field-byte counting needs normative clarification.",
+  "inspector_fixture_status": "IMPLEMENTED_AND_AUDITED",
+  "core_boundary_integration_status": "INCOMPLETE"
+}

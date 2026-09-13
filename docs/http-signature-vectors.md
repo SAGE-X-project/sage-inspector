@@ -112,3 +112,5 @@ paths and checks invalid hex, repeat bounds, absent signature input and unsuppor
 boundary reporting. Five checks per adapter pass. Fixture regeneration is byte-exact;
 existing conformance tests, race checks and vet are also required before merge.
 The original26 vectors, JCS/signature suite and386-case planning status are unchanged.
+
+Follow-up: [HTTP/envelope boundary fixtures](http-boundary-vectors.md) provide the missing positive controls, deterministic timing and size pairs, and signed-request hash substitutions. The new actual-core primitive observations are separate from the still-unsupported full boundary.

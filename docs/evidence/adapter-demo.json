@@ -1,0 +1,778 @@
+{
+  "schema_version": 1,
+  "protocol_version": "0.10.0",
+  "profile": "primitive-foundation",
+  "suite_id": "sage-foundation-0.10.0",
+  "suite_sha256": "e48f26b50db9be7df309709761261f14d5f6f5c2eabe348c879406c822870cf7",
+  "runner_version": "dev",
+  "environment": "go1.26.8 darwin/arm64",
+  "created": "2026-09-13T16:28:49.459979Z",
+  "subject": {
+    "name": "reference-adapter-demo-NOT-a-second-core",
+    "revision": "same-foundation-source",
+    "kind": "external",
+    "executable_sha256": "debc4cc1d3a70c55fb354b4ebc394752f048b9e32266765b4aef7eab76bed30f"
+  },
+  "sources": [
+    {
+      "id": "rfc5869",
+      "kind": "published",
+      "uri": "https://www.rfc-editor.org/rfc/rfc5869.html",
+      "reference": "Appendix A.1-A.3; input and PRK/OKM bytes transcribed without invoking a SAGE implementation."
+    },
+    {
+      "id": "rfc6234",
+      "kind": "published",
+      "uri": "https://www.rfc-editor.org/rfc/rfc6234.html",
+      "reference": "SHA-256 abc test digest in the test driver."
+    },
+    {
+      "id": "rfc4648",
+      "kind": "published",
+      "uri": "https://www.rfc-editor.org/rfc/rfc4648.html",
+      "reference": "Sections3.5,5,10; f/fo/foo examples adapted to explicitly unpadded URL alphabet."
+    },
+    {
+      "id": "sage-jcs",
+      "kind": "spec-derived",
+      "uri": "sage-spec/spec/02-jcs.md",
+      "reference": "JCS-01: reject duplicate decoded names, invalid UTF-8/surrogates, trailing data and negative zero. Expected syntax verdicts derived manually; not a full JCS canonicalization test."
+    },
+    {
+      "id": "sage-binary",
+      "kind": "spec-derived",
+      "uri": "sage-spec/spec/08-transport.md",
+      "reference": "TRANSPORT-01: canonical unpadded base64url; padding and alternate encodings rejected."
+    }
+  ],
+  "scope": "Only listed primitive cases; no full SAGE, state-machine, registry or Execution Guard certification.",
+  "status": "PASS",
+  "counts": {
+    "FAIL": 0,
+    "NOT_RUN": 0,
+    "PASS": 26,
+    "UNSUPPORTED": 0
+  },
+  "results": [
+    {
+      "case_id": "hkdf-a1",
+      "operation": "hkdf-sha256",
+      "rule_ids": [
+        "HPKE-03"
+      ],
+      "source_ids": [
+        "rfc5869"
+      ],
+      "derivation": "RFC5869 Appendix A.1 exact published bytes.",
+      "input_sha256": "fda5bfe3fb7f81f76cb4be614c724a70839dca5b0fb36b9817505895da7e8659",
+      "adapter_request_sha256": "644eccbbfc3d2288a1ef2449efad7d488bad2ef28ab8a9308e3959f70d756467",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "prk_hex": "077709362c2e32df0ddc3f0dc47bba6390b6c73bb50f9c3122ec844ad7c2b3e5",
+          "okm_hex": "3cb25f25faacd57a90434f64d0362f2a2d2d0a90cf1a5a4c5db02d56ecc4c5bf34007208d5b887185865"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "hkdf-a1",
+        "verdict": "ACCEPT",
+        "output": {
+          "okm_hex": "3cb25f25faacd57a90434f64d0362f2a2d2d0a90cf1a5a4c5db02d56ecc4c5bf34007208d5b887185865",
+          "prk_hex": "077709362c2e32df0ddc3f0dc47bba6390b6c73bb50f9c3122ec844ad7c2b3e5"
+        }
+      },
+      "status": "PASS",
+      "duration_ms": 462
+    },
+    {
+      "case_id": "hkdf-a2",
+      "operation": "hkdf-sha256",
+      "rule_ids": [
+        "HPKE-03"
+      ],
+      "source_ids": [
+        "rfc5869"
+      ],
+      "derivation": "RFC5869 Appendix A.2 exact published bytes.",
+      "input_sha256": "ac5a11ed1fbe403a5a4e3b87b9c60a484e8bf2cf40cf207cead8722dc22a828b",
+      "adapter_request_sha256": "15273e6b034edf370844a31cc7e74935383f2cb9b4309a1133f50ad9610a41a9",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "prk_hex": "06a6b88c5853361a06104c9ceb35b45cef760014904671014a193f40c15fc244",
+          "okm_hex": "b11e398dc80327a1c8e7f78c596a49344f012eda2d4efad8a050cc4c19afa97c59045a99cac7827271cb41c65e590e09da3275600c2f09b8367793a9aca3db71cc30c58179ec3e87c14c01d5c1f3434f1d87"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "hkdf-a2",
+        "verdict": "ACCEPT",
+        "output": {
+          "okm_hex": "b11e398dc80327a1c8e7f78c596a49344f012eda2d4efad8a050cc4c19afa97c59045a99cac7827271cb41c65e590e09da3275600c2f09b8367793a9aca3db71cc30c58179ec3e87c14c01d5c1f3434f1d87",
+          "prk_hex": "06a6b88c5853361a06104c9ceb35b45cef760014904671014a193f40c15fc244"
+        }
+      },
+      "status": "PASS",
+      "duration_ms": 10
+    },
+    {
+      "case_id": "hkdf-a3",
+      "operation": "hkdf-sha256",
+      "rule_ids": [
+        "HPKE-03"
+      ],
+      "source_ids": [
+        "rfc5869"
+      ],
+      "derivation": "RFC5869 Appendix A.3 exact published bytes.",
+      "input_sha256": "97850dce2f30fe96e6fee00e25c4fa5b8e5830a6cd0a6bc24d66f6ca14ceedc5",
+      "adapter_request_sha256": "ca56c3f18c2748f54e93502cb57cab675316fd8771e9c32f0d6fdd6e31b54396",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "prk_hex": "19ef24a32c717b167f33a91d6f648bdf96596776afdb6377ac434c1c293ccb04",
+          "okm_hex": "8da4e775a563c18f715f802a063c5a31b8a11f5c5ee1879ec3454e5f3c738d2d9d201395faa4b61a96c8"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "hkdf-a3",
+        "verdict": "ACCEPT",
+        "output": {
+          "okm_hex": "8da4e775a563c18f715f802a063c5a31b8a11f5c5ee1879ec3454e5f3c738d2d9d201395faa4b61a96c8",
+          "prk_hex": "19ef24a32c717b167f33a91d6f648bdf96596776afdb6377ac434c1c293ccb04"
+        }
+      },
+      "status": "PASS",
+      "duration_ms": 9
+    },
+    {
+      "case_id": "hkdf-too-long",
+      "operation": "hkdf-sha256",
+      "rule_ids": [
+        "HPKE-03"
+      ],
+      "source_ids": [
+        "rfc5869"
+      ],
+      "derivation": "RFC5869 maximum255*32=8160; one byte beyond must reject.",
+      "input_sha256": "5d914902cf8d62ace0ae337d15b2e45ffa1b11021cd95fb544be4b087c58fe81",
+      "adapter_request_sha256": "8a4e31d1c2bc99fe2b69efb0a1a0a667d2959b92dec208437a20babcc4c8b06f",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "hkdf-too-long",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "PASS",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "sha256-abc",
+      "operation": "sha256",
+      "rule_ids": [
+        "CRYPTO-02"
+      ],
+      "source_ids": [
+        "rfc6234"
+      ],
+      "derivation": "Published SHA-256 of ASCII abc; standalone hash primitive, not signature conformance.",
+      "input_sha256": "2441deb999c7f904051a321567a6d130787fd5c7977dd8fc9e43e92ed67c68b3",
+      "adapter_request_sha256": "250f14faa7260b7fbbe529af69fddde5b64142131e5409aca4b19c3f9dced8c6",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "sha256_hex": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "sha256-abc",
+        "verdict": "ACCEPT",
+        "output": {
+          "sha256_hex": "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+        }
+      },
+      "status": "PASS",
+      "duration_ms": 10
+    },
+    {
+      "case_id": "base64-valid-0",
+      "operation": "base64url-raw.decode",
+      "rule_ids": [
+        "TRANSPORT-01"
+      ],
+      "source_ids": [
+        "rfc4648",
+        "sage-binary"
+      ],
+      "derivation": "RFC4648 section10 example with profile-required padding removal.",
+      "input_sha256": "f72349f1e2a0be32a083e4b2c748da50e3d7326f50fd3b3b10823d8e6f3475b2",
+      "adapter_request_sha256": "2aa60d554326bba3a92a285b3994fb086fdd34c0b0809d1fcb8e0aced00b27e8",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "data_hex": ""
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "base64-valid-0",
+        "verdict": "ACCEPT",
+        "output": {
+          "data_hex": ""
+        }
+      },
+      "status": "PASS",
+      "duration_ms": 9
+    },
+    {
+      "case_id": "base64-valid-1",
+      "operation": "base64url-raw.decode",
+      "rule_ids": [
+        "TRANSPORT-01"
+      ],
+      "source_ids": [
+        "rfc4648",
+        "sage-binary"
+      ],
+      "derivation": "RFC4648 section10 example with profile-required padding removal.",
+      "input_sha256": "cde42abdbcc651eb490ebed84d19c87d33668b812f275029b4a134c878e01f25",
+      "adapter_request_sha256": "1cee2b0ae6dd276976c2089e401cb210cc6ff117f3c2a458cf42c11ce079252e",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "data_hex": "66"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "base64-valid-1",
+        "verdict": "ACCEPT",
+        "output": {
+          "data_hex": "66"
+        }
+      },
+      "status": "PASS",
+      "duration_ms": 9
+    },
+    {
+      "case_id": "base64-valid-2",
+      "operation": "base64url-raw.decode",
+      "rule_ids": [
+        "TRANSPORT-01"
+      ],
+      "source_ids": [
+        "rfc4648",
+        "sage-binary"
+      ],
+      "derivation": "RFC4648 section10 example with profile-required padding removal.",
+      "input_sha256": "20a4d16255a67be78270aa78bdc8de5cd43332e55b9dac44ee710c5111f7f9c1",
+      "adapter_request_sha256": "97f43c9bd4a145d638b58538618db8e89ec023a118d4f56d36e95375aec614f3",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "data_hex": "666f"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "base64-valid-2",
+        "verdict": "ACCEPT",
+        "output": {
+          "data_hex": "666f"
+        }
+      },
+      "status": "PASS",
+      "duration_ms": 9
+    },
+    {
+      "case_id": "base64-valid-3",
+      "operation": "base64url-raw.decode",
+      "rule_ids": [
+        "TRANSPORT-01"
+      ],
+      "source_ids": [
+        "rfc4648",
+        "sage-binary"
+      ],
+      "derivation": "RFC4648 section10 example with profile-required padding removal.",
+      "input_sha256": "0680e8b2d302a8e231e6ef1948c407119e7627ee7f8169ce29d3fe505b3c098e",
+      "adapter_request_sha256": "2222aad536bd6df2a5adafdb995de9bc7edac14b662e91901a79e12904e9646f",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "data_hex": "666f6f"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "base64-valid-3",
+        "verdict": "ACCEPT",
+        "output": {
+          "data_hex": "666f6f"
+        }
+      },
+      "status": "PASS",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "base64-valid-4",
+      "operation": "base64url-raw.decode",
+      "rule_ids": [
+        "TRANSPORT-01"
+      ],
+      "source_ids": [
+        "rfc4648",
+        "sage-binary"
+      ],
+      "derivation": "RFC4648 section10 example with profile-required padding removal.",
+      "input_sha256": "164a31a257df5509d38ff8e78a8b6b162dda134918c1e6cc0ffc02da5ceea75c",
+      "adapter_request_sha256": "98d954b91165757d06e9d97253cabde37dba00639ee9cdb5da7abb2835eaae3b",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "data_hex": "666f6f62"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "base64-valid-4",
+        "verdict": "ACCEPT",
+        "output": {
+          "data_hex": "666f6f62"
+        }
+      },
+      "status": "PASS",
+      "duration_ms": 19
+    },
+    {
+      "case_id": "base64-valid-5",
+      "operation": "base64url-raw.decode",
+      "rule_ids": [
+        "TRANSPORT-01"
+      ],
+      "source_ids": [
+        "rfc4648",
+        "sage-binary"
+      ],
+      "derivation": "RFC4648 section10 example with profile-required padding removal.",
+      "input_sha256": "2387c7b94769ae2feba26de7c492ef4cbaee21fb3563518c05c6587b23184368",
+      "adapter_request_sha256": "8deed745cbd157ef6503a76c3ca8dd33160f7e37fcdc19bc4438eb7da592b7f6",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "data_hex": "666f6f6261"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "base64-valid-5",
+        "verdict": "ACCEPT",
+        "output": {
+          "data_hex": "666f6f6261"
+        }
+      },
+      "status": "PASS",
+      "duration_ms": 15
+    },
+    {
+      "case_id": "base64-valid-6",
+      "operation": "base64url-raw.decode",
+      "rule_ids": [
+        "TRANSPORT-01"
+      ],
+      "source_ids": [
+        "rfc4648",
+        "sage-binary"
+      ],
+      "derivation": "RFC4648 section10 example with profile-required padding removal.",
+      "input_sha256": "9a13e59abe5ab17703bc12f6ef33fc9bbd4681984891dc62805b10d8a8f0205f",
+      "adapter_request_sha256": "432d7a66540d1189ab575ab30cc6da07b18e6c7c1d3a20507b7821d9929227ce",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "data_hex": "666f6f626172"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "base64-valid-6",
+        "verdict": "ACCEPT",
+        "output": {
+          "data_hex": "666f6f626172"
+        }
+      },
+      "status": "PASS",
+      "duration_ms": 15
+    },
+    {
+      "case_id": "base64-reject-padded",
+      "operation": "base64url-raw.decode",
+      "rule_ids": [
+        "TRANSPORT-01"
+      ],
+      "source_ids": [
+        "sage-binary",
+        "rfc4648"
+      ],
+      "derivation": "Reject noncanonical raw base64url per explicit profile, not implementation-produced expectation.",
+      "input_sha256": "a66e5a6320fbdd76b512d87716afaa0aef1991d60c7e448f2fa47d5e6a9cc218",
+      "adapter_request_sha256": "70ef592b107ee612e824249235e9d99ec1c1771601f85ed95e6d8a3c11129f2c",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "base64-reject-padded",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "PASS",
+      "duration_ms": 13
+    },
+    {
+      "case_id": "base64-reject-nonzero-padbits",
+      "operation": "base64url-raw.decode",
+      "rule_ids": [
+        "TRANSPORT-01"
+      ],
+      "source_ids": [
+        "sage-binary",
+        "rfc4648"
+      ],
+      "derivation": "Reject noncanonical raw base64url per explicit profile, not implementation-produced expectation.",
+      "input_sha256": "e78a6f5d8100ea7ba5d92c7921a94d02adf992d1d7ed2c4179b566b960cc79b9",
+      "adapter_request_sha256": "736f594317e89cfc1d743f0340d9c4fc2d69dae352c32b5138df43820d269a2e",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "base64-reject-nonzero-padbits",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "PASS",
+      "duration_ms": 29
+    },
+    {
+      "case_id": "base64-reject-newline",
+      "operation": "base64url-raw.decode",
+      "rule_ids": [
+        "TRANSPORT-01"
+      ],
+      "source_ids": [
+        "sage-binary",
+        "rfc4648"
+      ],
+      "derivation": "Reject noncanonical raw base64url per explicit profile, not implementation-produced expectation.",
+      "input_sha256": "4bce6f01803c8c5cf951e1454613ab8b89cbfb6868ed5c8893368775fd981aa4",
+      "adapter_request_sha256": "a520518567663be03def5e05586409789b6f013197da60653b2086adeb4cf1c9",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "base64-reject-newline",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "PASS",
+      "duration_ms": 31
+    },
+    {
+      "case_id": "base64-reject-standard-alphabet",
+      "operation": "base64url-raw.decode",
+      "rule_ids": [
+        "TRANSPORT-01"
+      ],
+      "source_ids": [
+        "sage-binary",
+        "rfc4648"
+      ],
+      "derivation": "Reject noncanonical raw base64url per explicit profile, not implementation-produced expectation.",
+      "input_sha256": "1b6d10047d17b9ba0a0351b49bde847f3b24291e9aa1f0f5d2f6a5199a8398d4",
+      "adapter_request_sha256": "4ebcc4d36e0a10be07fb70d90e9b110c8e2ca6ffe071d85bb536074b8f538e70",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "base64-reject-standard-alphabet",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "PASS",
+      "duration_ms": 42
+    },
+    {
+      "case_id": "base64-reject-bad-length",
+      "operation": "base64url-raw.decode",
+      "rule_ids": [
+        "TRANSPORT-01"
+      ],
+      "source_ids": [
+        "sage-binary",
+        "rfc4648"
+      ],
+      "derivation": "Reject noncanonical raw base64url per explicit profile, not implementation-produced expectation.",
+      "input_sha256": "7b62b88429378785ce751362c3a3dd2ba8a3d09dd82ee5529ea98febcde52ddb",
+      "adapter_request_sha256": "637f944e9b2d5dddb99609f9de49a9de205e0d033f62fc778fbf5497ea8146ec",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "base64-reject-bad-length",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "PASS",
+      "duration_ms": 21
+    },
+    {
+      "case_id": "json-valid",
+      "operation": "json.syntax",
+      "rule_ids": [
+        "JCS-01"
+      ],
+      "source_ids": [
+        "sage-jcs"
+      ],
+      "derivation": "Manual application of JSON input constraints; no canonical-output or application-schema claim.",
+      "input_sha256": "876784067676fba00f6e967b7049f59e440fc6c08405e1ea9b1d6246173601e1",
+      "adapter_request_sha256": "767eca283c2b4ae261868d91b8f5daecfa7f1e2fc1a9c3f10bfb654563856c1b",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "json-valid",
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "status": "PASS",
+      "duration_ms": 10
+    },
+    {
+      "case_id": "json-valid-surrogate-pair",
+      "operation": "json.syntax",
+      "rule_ids": [
+        "JCS-01"
+      ],
+      "source_ids": [
+        "sage-jcs"
+      ],
+      "derivation": "Manual application of JSON input constraints; no canonical-output or application-schema claim.",
+      "input_sha256": "2aabae2a5b5f07dd4aaa73ca2f772559788c238718ed1ec709d360a77516029c",
+      "adapter_request_sha256": "4baf6c46b9c2fe5bc6f33a3107f6962ccda4c9b9c388025b7468d408247f3962",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "json-valid-surrogate-pair",
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "status": "PASS",
+      "duration_ms": 8
+    },
+    {
+      "case_id": "json-duplicate",
+      "operation": "json.syntax",
+      "rule_ids": [
+        "JCS-01"
+      ],
+      "source_ids": [
+        "sage-jcs"
+      ],
+      "derivation": "Manual application of JSON input constraints; no canonical-output or application-schema claim.",
+      "input_sha256": "d54a3c4a1b502e092ba84f5e34ffcd9a27b23b2df20fb463de53e4a07da20227",
+      "adapter_request_sha256": "020550c9c97a7f4786562922ef722a57de49632f2b2e49f6f58eb02b59304330",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "json-duplicate",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "PASS",
+      "duration_ms": 9
+    },
+    {
+      "case_id": "json-unpaired",
+      "operation": "json.syntax",
+      "rule_ids": [
+        "JCS-01"
+      ],
+      "source_ids": [
+        "sage-jcs"
+      ],
+      "derivation": "Manual application of JSON input constraints; no canonical-output or application-schema claim.",
+      "input_sha256": "9d4e278f42f348a4b6150dc1571f492897323e35f4c0f190f14a8011ba32c4c8",
+      "adapter_request_sha256": "a2b2ab7c7b790406043b61ed9f71147ae006194fb975d13a227b705253fcb54b",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "json-unpaired",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "PASS",
+      "duration_ms": 29
+    },
+    {
+      "case_id": "json-invalid-utf8",
+      "operation": "json.syntax",
+      "rule_ids": [
+        "JCS-01"
+      ],
+      "source_ids": [
+        "sage-jcs"
+      ],
+      "derivation": "Manual application of JSON input constraints; no canonical-output or application-schema claim.",
+      "input_sha256": "f69e7dd903d84b938d6b04f2e45143e6092862ac5bf64add90b1011a3a67e051",
+      "adapter_request_sha256": "6de9de386b001af3dd2aa95170866fdae8f1c1eb3db8999d566bc5ba14f26b31",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "json-invalid-utf8",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "PASS",
+      "duration_ms": 14
+    },
+    {
+      "case_id": "json-negative-zero",
+      "operation": "json.syntax",
+      "rule_ids": [
+        "JCS-01"
+      ],
+      "source_ids": [
+        "sage-jcs"
+      ],
+      "derivation": "Manual application of JSON input constraints; no canonical-output or application-schema claim.",
+      "input_sha256": "e60b124be16acf10ed5ddcb26b6ecf08b7ab961d627406fc3551b1766e3c91b9",
+      "adapter_request_sha256": "290e23d2b2b71f6a5e1f194d73ec9e9f2c3865934f6ca17ce8e52aedfa264747",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "json-negative-zero",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "PASS",
+      "duration_ms": 17
+    },
+    {
+      "case_id": "json-negative-underflow",
+      "operation": "json.syntax",
+      "rule_ids": [
+        "JCS-01"
+      ],
+      "source_ids": [
+        "sage-jcs"
+      ],
+      "derivation": "Manual application of JSON input constraints; no canonical-output or application-schema claim.",
+      "input_sha256": "08314e8ec8f7e210249e4fe07d9995b7d92629d826e71ecbddd0cc2b758f3b0c",
+      "adapter_request_sha256": "e79f22219f766aa3b1d6058bfdf0ed670c6a3bc91e16060f3a621e8fc7d67fa2",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "json-negative-underflow",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "PASS",
+      "duration_ms": 10
+    },
+    {
+      "case_id": "json-trailing",
+      "operation": "json.syntax",
+      "rule_ids": [
+        "JCS-01"
+      ],
+      "source_ids": [
+        "sage-jcs"
+      ],
+      "derivation": "Manual application of JSON input constraints; no canonical-output or application-schema claim.",
+      "input_sha256": "4a8d2cb004278bcff0f6703f3d1bc179113261fcea4ea9bceea121015b90d6bc",
+      "adapter_request_sha256": "9f7fa7f5e7c3db2a232fd4be169afef2f432c0ac3fbf687ec974b06935196dc9",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "json-trailing",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "PASS",
+      "duration_ms": 9
+    },
+    {
+      "case_id": "json-bom",
+      "operation": "json.syntax",
+      "rule_ids": [
+        "JCS-01"
+      ],
+      "source_ids": [
+        "sage-jcs"
+      ],
+      "derivation": "Manual application of JSON input constraints; no canonical-output or application-schema claim.",
+      "input_sha256": "d4f73d6c8099b7b1cad78b1d22c058df59cb3f06838c2213f8c73d5a4c22e23b",
+      "adapter_request_sha256": "7670af41bc109ce6bf75d5cc28a080e4127aff5e13031f48329f83f135d6e265",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "json-bom",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "PASS",
+      "duration_ms": 9
+    }
+  ]
+}

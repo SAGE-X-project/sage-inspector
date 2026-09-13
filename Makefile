@@ -10,3 +10,16 @@ test:
 
 lint:
 	golangci-lint run ./...
+
+# New foundation can build/test without loading the historical SAGE core.
+.PHONY: build-foundation test-foundation
+build-foundation:
+	$(GO) build -o bin/sage-conformance ./cmd/sage-conformance
+
+test-foundation:
+	$(GO) test -race ./pkg/conformance ./internal/conformancecli ./cmd/sage-conformance ./examples/reference-adapter ./cmd/sage-scenario
+	$(GO) vet ./pkg/conformance ./internal/conformancecli ./cmd/sage-conformance ./examples/reference-adapter ./cmd/sage-scenario
+
+.PHONY: build-scenario
+build-scenario:
+	$(GO) build -o bin/sage-scenario ./cmd/sage-scenario

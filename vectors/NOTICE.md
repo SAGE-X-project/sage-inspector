@@ -1,0 +1,15 @@
+# Fixture provenance
+
+The frozen expected bytes in0.10.0/foundation.json are attributed per case.
+
+- RFC5869 Appendix A.1–A.3: HKDF SHA-256 inputs, PRK and OKM.
+- RFC6234: SHA-256 abc expected digest.
+- RFC4648 sections3.5,5,10: encoding rules and examples, adapted to the explicitly
+  unpadded SAGE profile. Invalid pad bits/padding are rule-derived negative cases.
+- sage-spec02/08: syntax and canonical binary-encoding rejection requirements.
+
+RFC texts are published by the RFC Editor under the IETF Trust terms linked from
+those publications. See https://trustee.ietf.org/license-info . These fixtures
+contain selected test data and source attribution, not copied implementations.
+Expected values are never regenerated from the SAGE core. New fixtures must record
+an independent source/derivation; changing version strings does not update old vectors.

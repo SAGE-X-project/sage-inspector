@@ -1,0 +1,5345 @@
+{
+  "schema_version": 1,
+  "protocol_version": "0.10.0",
+  "scope": "Planning inventory, not subject conformance results. Related rule IDs do not establish case coverage.",
+  "cases": [
+    {
+      "id": "OVERVIEW-01-P",
+      "rule_id": "OVERVIEW-01",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "document_review"
+      ],
+      "classification_reason": "Review normative ownership, claims, or traceability evidence.",
+      "scenario": "Grammar and semantic bounds applied together",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "OVERVIEW-01-N01",
+      "rule_id": "OVERVIEW-01",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "document_review"
+      ],
+      "classification_reason": "Review normative ownership, claims, or traceability evidence.",
+      "scenario": "grammar used to override rejection rule",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "OVERVIEW-02-P",
+      "rule_id": "OVERVIEW-02",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "document_review"
+      ],
+      "classification_reason": "Review normative ownership, claims, or traceability evidence.",
+      "scenario": "Version-specific dependency conformance claim",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "OVERVIEW-02-N01",
+      "rule_id": "OVERVIEW-02",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "document_review"
+      ],
+      "classification_reason": "Review normative ownership, claims, or traceability evidence.",
+      "scenario": "historical vectors advertised new conformance",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "OVERVIEW-03-P",
+      "rule_id": "OVERVIEW-03",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "runtime",
+        "document_review"
+      ],
+      "classification_reason": "Review version/value claims and exercise actual version/value rejection.",
+      "scenario": "Exact0.10.0 version throughout message/profile",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "OVERVIEW-03-N01",
+      "rule_id": "OVERVIEW-03",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "runtime",
+        "document_review"
+      ],
+      "classification_reason": "Review version/value claims and exercise actual version/value rejection.",
+      "scenario": "missing version",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "OVERVIEW-03-N02",
+      "rule_id": "OVERVIEW-03",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "runtime",
+        "document_review"
+      ],
+      "classification_reason": "Review version/value claims and exercise actual version/value rejection.",
+      "scenario": "mismatch across layers",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "OVERVIEW-03-N03",
+      "rule_id": "OVERVIEW-03",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "runtime",
+        "document_review"
+      ],
+      "classification_reason": "Review version/value claims and exercise actual version/value rejection.",
+      "scenario": "automatic minor fallback",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "OVERVIEW-04-P",
+      "rule_id": "OVERVIEW-04",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "document_review"
+      ],
+      "classification_reason": "Review normative ownership, claims, or traceability evidence.",
+      "scenario": "Text owns every protocol decision",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "OVERVIEW-04-N01",
+      "rule_id": "OVERVIEW-04",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "document_review"
+      ],
+      "classification_reason": "Review normative ownership, claims, or traceability evidence.",
+      "scenario": "Go implementation used to fill silent normative gap",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CRYPTO-01-P",
+      "rule_id": "CRYPTO-01",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Supported exact Ed25519 suite and valid public key",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CRYPTO-01-N01",
+      "rule_id": "CRYPTO-01",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "RSA name",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CRYPTO-01-N02",
+      "rule_id": "CRYPTO-01",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "unknown suite",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CRYPTO-01-N03",
+      "rule_id": "CRYPTO-01",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "curve/algorithm mismatch",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CRYPTO-01-N04",
+      "rule_id": "CRYPTO-01",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "legacy es256k",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CRYPTO-02-P",
+      "rule_id": "CRYPTO-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Independent valid signature for each supported suite",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CRYPTO-02-N01",
+      "rule_id": "CRYPTO-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "truncated signature",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CRYPTO-02-N02",
+      "rule_id": "CRYPTO-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "DER instead of raw",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CRYPTO-02-N03",
+      "rule_id": "CRYPTO-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "invalid curve point",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CRYPTO-02-N04",
+      "rule_id": "CRYPTO-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "noncanonical scalar",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CRYPTO-02-N05",
+      "rule_id": "CRYPTO-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "mixed-torsion Ed25519 point",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CRYPTO-03-P",
+      "rule_id": "CRYPTO-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Low-S ECDSA signature with in-range r and s",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CRYPTO-03-N01",
+      "rule_id": "CRYPTO-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "high-S",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CRYPTO-03-N02",
+      "rule_id": "CRYPTO-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "r=0",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CRYPTO-03-N03",
+      "rule_id": "CRYPTO-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "s=0",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CRYPTO-03-N04",
+      "rule_id": "CRYPTO-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "out-of-range recovery byte",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CRYPTO-04-P",
+      "rule_id": "CRYPTO-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Exact active DID key URL and correct domain",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CRYPTO-04-N01",
+      "rule_id": "CRYPTO-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "bare DID",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CRYPTO-04-N02",
+      "rule_id": "CRYPTO-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "wrong fragment",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CRYPTO-04-N03",
+      "rule_id": "CRYPTO-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "signature copied between domains",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CRYPTO-05-P",
+      "rule_id": "CRYPTO-05",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "runtime",
+        "deployment_review"
+      ],
+      "classification_reason": "Runtime checks plus pinned deployment/source/isolation evidence; fixture-only success is insufficient.",
+      "scenario": "Isolated signing service and independent ephemeral secrets",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CRYPTO-05-N01",
+      "rule_id": "CRYPTO-05",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "runtime",
+        "deployment_review"
+      ],
+      "classification_reason": "Runtime checks plus pinned deployment/source/isolation evidence; fixture-only success is insufficient.",
+      "scenario": "untrusted key access",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CRYPTO-05-N02",
+      "rule_id": "CRYPTO-05",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "runtime",
+        "deployment_review"
+      ],
+      "classification_reason": "Runtime checks plus pinned deployment/source/isolation evidence; fixture-only success is insufficient.",
+      "scenario": "repeated ephemeral key",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CRYPTO-05-N03",
+      "rule_id": "CRYPTO-05",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "runtime",
+        "deployment_review"
+      ],
+      "classification_reason": "Runtime checks plus pinned deployment/source/isolation evidence; fixture-only success is insufficient.",
+      "scenario": "retained erased-secret claim",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "JCS-01-P",
+      "rule_id": "JCS-01",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "UTF-8 JSON with unique members and finite numbers",
+      "partial_vector_ids": [
+        "json-valid",
+        "json-valid-surrogate-pair"
+      ],
+      "coverage": "partial_primitive_only",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "JCS-01-N01",
+      "rule_id": "JCS-01",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "duplicate key",
+      "partial_vector_ids": [
+        "json-duplicate"
+      ],
+      "coverage": "partial_primitive_only",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "JCS-01-N02",
+      "rule_id": "JCS-01",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "BOM",
+      "partial_vector_ids": [
+        "json-bom"
+      ],
+      "coverage": "partial_primitive_only",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "JCS-01-N03",
+      "rule_id": "JCS-01",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "lone surrogate",
+      "partial_vector_ids": [
+        "json-unpaired"
+      ],
+      "coverage": "partial_primitive_only",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "JCS-01-N04",
+      "rule_id": "JCS-01",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "NaN",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "JCS-01-N05",
+      "rule_id": "JCS-01",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "negative zero",
+      "partial_vector_ids": [
+        "json-negative-zero"
+      ],
+      "coverage": "partial_primitive_only",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "JCS-01-N06",
+      "rule_id": "JCS-01",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "negative underflow",
+      "partial_vector_ids": [
+        "json-negative-underflow"
+      ],
+      "coverage": "partial_primitive_only",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "JCS-02-P",
+      "rule_id": "JCS-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Boundary-safe nonnegative protocol integer",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "JCS-02-N01",
+      "rule_id": "JCS-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "fraction",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "JCS-02-N02",
+      "rule_id": "JCS-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "negative timestamp",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "JCS-02-N03",
+      "rule_id": "JCS-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "integer above safe range",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "JCS-02-N04",
+      "rule_id": "JCS-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "wrong JSON type",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "JCS-03-P",
+      "rule_id": "JCS-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Equivalent member orders yield exactly equal JCS bytes",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "JCS-03-N01",
+      "rule_id": "JCS-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "array order mutation",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "JCS-03-N02",
+      "rule_id": "JCS-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Unicode normalisation",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "JCS-03-N03",
+      "rule_id": "JCS-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "non-JCS number rendering",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "JCS-04-P",
+      "rule_id": "JCS-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Only exact owning signature member omitted",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "JCS-04-N01",
+      "rule_id": "JCS-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "remove nested proof metadata",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "JCS-04-N02",
+      "rule_id": "JCS-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "remove all proof objects",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "JCS-04-N03",
+      "rule_id": "JCS-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "alter authenticated alg",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "MSG-01-P",
+      "rule_id": "MSG-01",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "sig1 with required exact parameters and sha-256 digest",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "MSG-01-N01",
+      "rule_id": "MSG-01",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "second signature label",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "MSG-01-N02",
+      "rule_id": "MSG-01",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "duplicate parameter",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "MSG-01-N03",
+      "rule_id": "MSG-01",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "unknown parameter",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "MSG-01-N04",
+      "rule_id": "MSG-01",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "bad digest encoding",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "MSG-02-P",
+      "rule_id": "MSG-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Exact method target authority body digest DID and version coverage",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "MSG-02-N01",
+      "rule_id": "MSG-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "wrong target",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "MSG-02-N02",
+      "rule_id": "MSG-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "forwarded-header spoof",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "MSG-02-N03",
+      "rule_id": "MSG-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "unsigned body",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "MSG-02-N04",
+      "rule_id": "MSG-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "missing version",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "MSG-02-N05",
+      "rule_id": "MSG-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "unknown version",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "MSG-03-P",
+      "rule_id": "MSG-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Response verified against stored original signed request",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "MSG-03-N01",
+      "rule_id": "MSG-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "different request Signature",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "MSG-03-N02",
+      "rule_id": "MSG-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "absent request context",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "MSG-03-N03",
+      "rule_id": "MSG-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "wrong response peer",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "MSG-03-N04",
+      "rule_id": "MSG-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "unsigned success",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "MSG-04-P",
+      "rule_id": "MSG-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Bounded well-framed request and zero effects until verification",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "MSG-04-N01",
+      "rule_id": "MSG-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "duplicate header",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "MSG-04-N02",
+      "rule_id": "MSG-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "contradictory framing",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "MSG-04-N03",
+      "rule_id": "MSG-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "16MiB+1 body",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "MSG-04-N04",
+      "rule_id": "MSG-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "32KiB+1 fields",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "MSG-04-N05",
+      "rule_id": "MSG-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "resolver timeout",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "MSG-05-P",
+      "rule_id": "MSG-05",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Fresh unique nonce and atomic durable acceptance",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "MSG-05-N01",
+      "rule_id": "MSG-05",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "expiry boundary",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "MSG-05-N02",
+      "rule_id": "MSG-05",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "future created",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "MSG-05-N03",
+      "rule_id": "MSG-05",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "nonce reused after key rotation",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "MSG-05-N04",
+      "rule_id": "MSG-05",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "concurrent duplicate",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "MSG-05-N05",
+      "rule_id": "MSG-05",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "lost state before360s",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "MSG-06-P",
+      "rule_id": "MSG-06",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Generic authentication failure and signed authenticated application failure",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "MSG-06-N01",
+      "rule_id": "MSG-06",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "detailed auth oracle",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "MSG-06-N02",
+      "rule_id": "MSG-06",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "unsigned failure interpreted as success",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "MSG-06-N03",
+      "rule_id": "MSG-06",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "plaintext fallback",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "HPKE-01-P",
+      "rule_id": "HPKE-01",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Fixed Base suite and active participant signing/KEM bindings",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "HPKE-01-N01",
+      "rule_id": "HPKE-01",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "unsupported suite",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "HPKE-01-N02",
+      "rule_id": "HPKE-01",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "missing sender signature",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "HPKE-01-N03",
+      "rule_id": "HPKE-01",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "revoked KEM key",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "HPKE-02-P",
+      "rule_id": "HPKE-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Independent encapsulation and ephemeral key with exact B/info",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "HPKE-02-N01",
+      "rule_id": "HPKE-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "changed DID",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "HPKE-02-N02",
+      "rule_id": "HPKE-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "changed context",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "HPKE-02-N03",
+      "rule_id": "HPKE-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "copied nonce",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "HPKE-02-N04",
+      "rule_id": "HPKE-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "changed responder signing key",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "HPKE-03-P",
+      "rule_id": "HPKE-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Independent known-answer transcript/combiner calculation",
+      "partial_vector_ids": [
+        "hkdf-a1",
+        "hkdf-a2",
+        "hkdf-a3"
+      ],
+      "coverage": "partial_primitive_only",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "HPKE-03-N01",
+      "rule_id": "HPKE-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "zero DH secret",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "HPKE-03-N02",
+      "rule_id": "HPKE-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "wrong transcript",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "HPKE-03-N03",
+      "rule_id": "HPKE-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "swapped ephemeral",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "HPKE-03-N04",
+      "rule_id": "HPKE-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "single-component secret",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "HPKE-04-P",
+      "rule_id": "HPKE-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Exact echoed transcript and valid ack plus both signatures",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "HPKE-04-N01",
+      "rule_id": "HPKE-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "changed kid",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "HPKE-04-N02",
+      "rule_id": "HPKE-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "bad ack",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "HPKE-04-N03",
+      "rule_id": "HPKE-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "response from another pending request",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "HPKE-04-N04",
+      "rule_id": "HPKE-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "bad completion signature",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "HPKE-05-P",
+      "rule_id": "HPKE-05",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Provisional responder waits for first valid initiator record",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "HPKE-05-N01",
+      "rule_id": "HPKE-05",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "app effect before confirmation",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "HPKE-05-N02",
+      "rule_id": "HPKE-05",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "pending timeout",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "HPKE-05-N03",
+      "rule_id": "HPKE-05",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "retransmit replaces session",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "HPKE-05-N04",
+      "rule_id": "HPKE-05",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "resume after restart",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "HPKE-06-P",
+      "rule_id": "HPKE-06",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "16KiB maximum handshake with cheap checks before DH",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "HPKE-06-N01",
+      "rule_id": "HPKE-06",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "16KiB+1",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "HPKE-06-N02",
+      "rule_id": "HPKE-06",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "invalid fixed binary length",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "HPKE-06-N03",
+      "rule_id": "HPKE-06",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "unsigned cookie bypass",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "HPKE-06-N04",
+      "rule_id": "HPKE-06",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "secret in error log",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "SESSION-01-P",
+      "rule_id": "SESSION-01",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "SID derived from exact handshake transcript and fixed roles",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "SESSION-01-N01",
+      "rule_id": "SESSION-01",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "legacy direct secret",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "SESSION-01-N02",
+      "rule_id": "SESSION-01",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "wrong transcript",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "SESSION-01-N03",
+      "rule_id": "SESSION-01",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "swapped roles",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "SESSION-02-P",
+      "rule_id": "SESSION-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Generations at seq255/256 and seq999, lifetime below cap",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "SESSION-02-N01",
+      "rule_id": "SESSION-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "seq1000",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "SESSION-02-N02",
+      "rule_id": "SESSION-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "one-hour expiry",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "SESSION-02-N03",
+      "rule_id": "SESSION-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "ten-minute idle",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "SESSION-02-N04",
+      "rule_id": "SESSION-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "altered rekey interval",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "SESSION-03-P",
+      "rule_id": "SESSION-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Known-answer record with exact nonce direction and caller AAD",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "SESSION-03-N01",
+      "rule_id": "SESSION-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "nonce mismatch",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "SESSION-03-N02",
+      "rule_id": "SESSION-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "wrong direction",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "SESSION-03-N03",
+      "rule_id": "SESSION-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "changed AAD",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "SESSION-03-N04",
+      "rule_id": "SESSION-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "4097-byte AAD",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "SESSION-03-N05",
+      "rule_id": "SESSION-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "short/oversized record",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "SESSION-04-P",
+      "rule_id": "SESSION-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Concurrent sends allocate distinct sequence/key nonce pairs",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "SESSION-04-N01",
+      "rule_id": "SESSION-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "reuse allocated seq after failed send",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "SESSION-04-N02",
+      "rule_id": "SESSION-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "legacy separate MAC",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "SESSION-04-N03",
+      "rule_id": "SESSION-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "new plaintext with old nonce",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "SESSION-05-P",
+      "rule_id": "SESSION-05",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Unseen authenticated reordered sequence accepted once",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "SESSION-05-N01",
+      "rule_id": "SESSION-05",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "concurrent same seq",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "SESSION-05-N02",
+      "rule_id": "SESSION-05",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "bad tag advances window",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "SESSION-05-N03",
+      "rule_id": "SESSION-05",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "duplicate seq",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "SESSION-05-N04",
+      "rule_id": "SESSION-05",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "out-of-window value",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "SESSION-06-P",
+      "rule_id": "SESSION-06",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Fresh handshake after closed state",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "SESSION-06-N01",
+      "rule_id": "SESSION-06",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "revoked key",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "SESSION-06-N02",
+      "rule_id": "SESSION-06",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "unreachable current state",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "SESSION-06-N03",
+      "rule_id": "SESSION-06",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "expired key",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "SESSION-06-N04",
+      "rule_id": "SESSION-06",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "restored reset counter",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "SESSION-06-N05",
+      "rule_id": "SESSION-06",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "plaintext fallback",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "ID-01-P",
+      "rule_id": "ID-01",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Canonical DID/key URL inside grammar and length bounds",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "ID-01-N01",
+      "rule_id": "ID-01",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "alias",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "ID-01-N02",
+      "rule_id": "ID-01",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "percent escape",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "ID-01-N03",
+      "rule_id": "ID-01",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "mixed case disallowed component",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "ID-01-N04",
+      "rule_id": "ID-01",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "overlong DID",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "ID-01-N05",
+      "rule_id": "ID-01",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "absent key fragment",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "ID-02-P",
+      "rule_id": "ID-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Same authoritative registry namespace gives same identity",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "ID-02-N01",
+      "rule_id": "ID-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "different registry same agent local ID",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "ID-02-N02",
+      "rule_id": "ID-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "chain alias",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "ID-02-N03",
+      "rule_id": "ID-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "string normalisation collision",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "ID-03-P",
+      "rule_id": "ID-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "One named active accepted key for exact sender",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "ID-03-N01",
+      "rule_id": "ID-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "unknown key",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "ID-03-N02",
+      "rule_id": "ID-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "revoked key",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "ID-03-N03",
+      "rule_id": "ID-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "expired key",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "ID-03-N04",
+      "rule_id": "ID-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "mismatched alg",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "ID-03-N05",
+      "rule_id": "ID-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "unrelated registered signer",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "ID-04-P",
+      "rule_id": "ID-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Lifecycle invocation permitted by registry contract",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "ID-04-N01",
+      "rule_id": "ID-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "unauthorised controller",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "ID-04-N02",
+      "rule_id": "ID-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "rotation changes DID",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "ID-04-N03",
+      "rule_id": "ID-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "key name reuse",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CARD-01-P",
+      "rule_id": "CARD-01",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Closed bounded card tied to current registry services",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CARD-01-N01",
+      "rule_id": "CARD-01",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "unknown field",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CARD-01-N02",
+      "rule_id": "CARD-01",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "wrong endpoint",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CARD-01-N03",
+      "rule_id": "CARD-01",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "unknown key",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CARD-01-N04",
+      "rule_id": "CARD-01",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "overlong card",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CARD-01-N05",
+      "rule_id": "CARD-01",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "schema mismatch",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CARD-02-P",
+      "rule_id": "CARD-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "SAGE custom proof with all proof metadata authenticated",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CARD-02-N01",
+      "rule_id": "CARD-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "fake W3C suite",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CARD-02-N02",
+      "rule_id": "CARD-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "altered proof method",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CARD-02-N03",
+      "rule_id": "CARD-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "wrong domain",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CARD-02-N04",
+      "rule_id": "CARD-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "malformed signature",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CARD-03-P",
+      "rule_id": "CARD-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Fresh card for current record version and signer",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CARD-03-N01",
+      "rule_id": "CARD-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "expired unchanged card",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CARD-03-N02",
+      "rule_id": "CARD-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "wrong recordVersion",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CARD-03-N03",
+      "rule_id": "CARD-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "inactive Agent",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CARD-03-N04",
+      "rule_id": "CARD-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "stale service endpoint",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TRANSPORT-01-P",
+      "rule_id": "TRANSPORT-01",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Closed envelope with canonical fields",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TRANSPORT-01-N01",
+      "rule_id": "TRANSPORT-01",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "unknown member",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TRANSPORT-01-N02",
+      "rule_id": "TRANSPORT-01",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "invalid UUID",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TRANSPORT-01-N03",
+      "rule_id": "TRANSPORT-01",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "bad base64 padding",
+      "partial_vector_ids": [
+        "base64-reject-padded"
+      ],
+      "coverage": "partial_primitive_only",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TRANSPORT-01-N04",
+      "rule_id": "TRANSPORT-01",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "metadata over limit",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TRANSPORT-02-P",
+      "rule_id": "TRANSPORT-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Whole-request signature over exact payload/metadata",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TRANSPORT-02-N01",
+      "rule_id": "TRANSPORT-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "change recipient",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TRANSPORT-02-N02",
+      "rule_id": "TRANSPORT-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "mutate tool payload",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TRANSPORT-02-N03",
+      "rule_id": "TRANSPORT-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "strip metadata",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TRANSPORT-02-N04",
+      "rule_id": "TRANSPORT-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "wrong sender kid",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TRANSPORT-03-P",
+      "rule_id": "TRANSPORT-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Terminal response bound to stored exact signed request",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TRANSPORT-03-N01",
+      "rule_id": "TRANSPORT-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "wrong request hash",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TRANSPORT-03-N02",
+      "rule_id": "TRANSPORT-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "plaintext response to encrypted request",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TRANSPORT-03-N03",
+      "rule_id": "TRANSPORT-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "wrong response session role",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TRANSPORT-03-N04",
+      "rule_id": "TRANSPORT-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "second terminal success",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TRANSPORT-03-N05",
+      "rule_id": "TRANSPORT-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "missing error on false",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TRANSPORT-03-N06",
+      "rule_id": "TRANSPORT-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "unsolicited response",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TRANSPORT-04-P",
+      "rule_id": "TRANSPORT-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Atomic outer acceptance after every required verification",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TRANSPORT-04-N01",
+      "rule_id": "TRANSPORT-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "valid outer invalid inner",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TRANSPORT-04-N02",
+      "rule_id": "TRANSPORT-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "concurrent duplicate",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TRANSPORT-04-N03",
+      "rule_id": "TRANSPORT-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "session decryption fail",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TRANSPORT-04-N04",
+      "rule_id": "TRANSPORT-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "same id new nonce",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TRANSPORT-05-P",
+      "rule_id": "TRANSPORT-05",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "HTTP and body signatures accepted once with equal fields",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TRANSPORT-05-N01",
+      "rule_id": "TRANSPORT-05",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "mismatched nonce/time/keyid",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TRANSPORT-05-N02",
+      "rule_id": "TRANSPORT-05",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "missing signature",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TRANSPORT-05-N03",
+      "rule_id": "TRANSPORT-05",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "unsigned header projection authority",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TRANSPORT-06-P",
+      "rule_id": "TRANSPORT-06",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "One authenticated UTF-8 envelope per WS message",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TRANSPORT-06-N01",
+      "rule_id": "TRANSPORT-06",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "compressed frame",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TRANSPORT-06-N02",
+      "rule_id": "TRANSPORT-06",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "binary frame",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TRANSPORT-06-N03",
+      "rule_id": "TRANSPORT-06",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "oversized fragmented message",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TRANSPORT-06-N04",
+      "rule_id": "TRANSPORT-06",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "direct unsigned local bypass",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "REG-01-P",
+      "rule_id": "REG-01",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Complete closed record obeying types and bounds",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "REG-01-N01",
+      "rule_id": "REG-01",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "duplicate key name",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "REG-01-N02",
+      "rule_id": "REG-01",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "duplicate service id",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "REG-01-N03",
+      "rule_id": "REG-01",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "fragment collision",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "REG-01-N04",
+      "rule_id": "REG-01",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "over128 lifetime key tombstones",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "REG-02-P",
+      "rule_id": "REG-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Deterministic accepted key selection and immutable key identity",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "REG-02-N01",
+      "rule_id": "REG-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "unproven selected key",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "REG-02-N02",
+      "rule_id": "REG-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "revoked key used to authenticate a message",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "REG-02-N03",
+      "rule_id": "REG-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "changed key material under same name",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "REG-03-P",
+      "rule_id": "REG-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Authorised atomic compare-and-swap lifecycle transition",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "REG-03-N01",
+      "rule_id": "REG-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "stale expected version",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "REG-03-N02",
+      "rule_id": "REG-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "concurrent mutation",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "REG-03-N03",
+      "rule_id": "REG-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "inactive write",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "REG-03-N04",
+      "rule_id": "REG-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "unauthorised operator",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "REG-04-P",
+      "rule_id": "REG-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Signing PoP bound to identity/key and KEM endorsement validated against historical signer even if now revoked; historical signer never authenticates new messages",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "REG-04-N01",
+      "rule_id": "REG-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "PoP copied to another registry",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "REG-04-N02",
+      "rule_id": "REG-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "changed controller",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "REG-04-N03",
+      "rule_id": "REG-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "X25519 claimed signing proof",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "REG-04-N04",
+      "rule_id": "REG-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "invalid key",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "REG-05-P",
+      "rule_id": "REG-05",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "One authoritative snapshot at fresh dispatch gate",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "REG-05-N01",
+      "rule_id": "REG-05",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "mixed blocks",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "REG-05-N02",
+      "rule_id": "REG-05",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "latest-only unfinalised RPC",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "REG-05-N03",
+      "rule_id": "REG-05",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "withheld head",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "REG-05-N04",
+      "rule_id": "REG-05",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "revoked observed key",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "REG-05-N05",
+      "rule_id": "REG-05",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "observation older5s",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "REG-06-P",
+      "rule_id": "REG-06",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "runtime",
+        "deployment_review"
+      ],
+      "classification_reason": "Runtime checks plus pinned deployment/source/isolation evidence; fixture-only success is insufficient.",
+      "scenario": "eip155 binding includes registry code/ABI/finality authority",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "REG-06-N01",
+      "rule_id": "REG-06",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "runtime",
+        "deployment_review"
+      ],
+      "classification_reason": "Runtime checks plus pinned deployment/source/isolation evidence; fixture-only success is insufficient.",
+      "scenario": "unknown deployment",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "REG-06-N02",
+      "rule_id": "REG-06",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "runtime",
+        "deployment_review"
+      ],
+      "classification_reason": "Runtime checks plus pinned deployment/source/isolation evidence; fixture-only success is insufficient.",
+      "scenario": "code hash change",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "REG-06-N03",
+      "rule_id": "REG-06",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "runtime",
+        "deployment_review"
+      ],
+      "classification_reason": "Runtime checks plus pinned deployment/source/isolation evidence; fixture-only success is insufficient.",
+      "scenario": "missing ABI",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "REG-06-N04",
+      "rule_id": "REG-06",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "runtime",
+        "deployment_review"
+      ],
+      "classification_reason": "Runtime checks plus pinned deployment/source/isolation evidence; fixture-only success is insufficient.",
+      "scenario": "inconsistent state read",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "REG-07-P",
+      "rule_id": "REG-07",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Solana kind recognised as reserved and unsupported",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "REG-07-N01",
+      "rule_id": "REG-07",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Solana record accepted as conformant 0.10.0",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "REG-08-P",
+      "rule_id": "REG-08",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Configured web authority with current validated read",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "REG-08-N01",
+      "rule_id": "REG-08",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "redirect to another origin",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "REG-08-N02",
+      "rule_id": "REG-08",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "stale cache",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "REG-08-N03",
+      "rule_id": "REG-08",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "missing authority",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "REG-08-N04",
+      "rule_id": "REG-08",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "unsupported media type",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "RESOLVE-01-P",
+      "rule_id": "RESOLVE-01",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Projection from one accepted record",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "RESOLVE-01-N01",
+      "rule_id": "RESOLVE-01",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "fabricated verification relationship",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "RESOLVE-01-N02",
+      "rule_id": "RESOLVE-01",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "missing id",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "RESOLVE-01-N03",
+      "rule_id": "RESOLVE-01",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "inconsistent key coordinates",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "RESOLVE-02-P",
+      "rule_id": "RESOLVE-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "One fresh authoritative lookup obeys fail-closed validation",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "RESOLVE-02-N01",
+      "rule_id": "RESOLVE-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "unknown DID",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "RESOLVE-02-N02",
+      "rule_id": "RESOLVE-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "malformed inactive record",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "RESOLVE-02-N03",
+      "rule_id": "RESOLVE-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "stale observation",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "RESOLVE-02-N04",
+      "rule_id": "RESOLVE-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "unauthenticated authority",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "RESOLVE-02-N05",
+      "rule_id": "RESOLVE-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "positive cache reuse",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "RESOLVE-03-P",
+      "rule_id": "RESOLVE-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Resolution metadata records one authoritative state; created/deactivated records resolve for inspection but cannot authenticate",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "RESOLVE-03-N01",
+      "rule_id": "RESOLVE-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "cached success treated as current",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "RESOLVE-03-N02",
+      "rule_id": "RESOLVE-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "unknown alias",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "RESOLVE-03-N03",
+      "rule_id": "RESOLVE-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "wrong content type",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "RESOLVE-04-P",
+      "rule_id": "RESOLVE-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Exact accepted key dereferenced from fresh DID document",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "RESOLVE-04-N01",
+      "rule_id": "RESOLVE-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "missing fragment",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "RESOLVE-04-N02",
+      "rule_id": "RESOLVE-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "unknown key",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "RESOLVE-04-N03",
+      "rule_id": "RESOLVE-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "revoked key",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "RESOLVE-04-N04",
+      "rule_id": "RESOLVE-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "service fragment used as key",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "RESOLVE-04-N05",
+      "rule_id": "RESOLVE-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "wrong relationship",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "RESOLVE-05-P",
+      "rule_id": "RESOLVE-05",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "HTTP resolution binding preserves document and errors",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "RESOLVE-05-N01",
+      "rule_id": "RESOLVE-05",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "wrong media type",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "RESOLVE-05-N02",
+      "rule_id": "RESOLVE-05",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "redirect authority change",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "RESOLVE-05-N03",
+      "rule_id": "RESOLVE-05",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "oversized response",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "RESOLVE-05-N04",
+      "rule_id": "RESOLVE-05",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "cached positive reuse",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TABLE-01-P",
+      "rule_id": "TABLE-01",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "runtime",
+        "document_review"
+      ],
+      "classification_reason": "Review version/value claims and exercise actual version/value rejection.",
+      "scenario": "Defined registered values preserve existing meanings",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TABLE-01-N01",
+      "rule_id": "TABLE-01",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "runtime",
+        "document_review"
+      ],
+      "classification_reason": "Review version/value claims and exercise actual version/value rejection.",
+      "scenario": "reuse retired code",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TABLE-01-N02",
+      "rule_id": "TABLE-01",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "runtime",
+        "document_review"
+      ],
+      "classification_reason": "Review version/value claims and exercise actual version/value rejection.",
+      "scenario": "silent incompatible extension",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TABLE-01-N03",
+      "rule_id": "TABLE-01",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "runtime",
+        "document_review"
+      ],
+      "classification_reason": "Review version/value claims and exercise actual version/value rejection.",
+      "scenario": "unknown private value accepted",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TABLE-02-P",
+      "rule_id": "TABLE-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "All suite identifiers match chapter01",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TABLE-02-N01",
+      "rule_id": "TABLE-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "legacy es256k",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TABLE-02-N02",
+      "rule_id": "TABLE-02",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "JOSE mapping inferred from private Keccak name",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TABLE-03-P",
+      "rule_id": "TABLE-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Key encodings match record/document binding",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TABLE-03-N01",
+      "rule_id": "TABLE-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "compressed secp when raw required",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TABLE-03-N02",
+      "rule_id": "TABLE-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "wrong coordinate length",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TABLE-04-P",
+      "rule_id": "TABLE-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Labels equal exact bytes in each construction",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TABLE-04-N01",
+      "rule_id": "TABLE-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "old label with new version",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TABLE-04-N02",
+      "rule_id": "TABLE-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "omitted newline/NUL",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TABLE-04-N03",
+      "rule_id": "TABLE-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "wrong HKDF domain",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TABLE-05-P",
+      "rule_id": "TABLE-05",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Supported registry kind plus valid deployment binding",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TABLE-05-N01",
+      "rule_id": "TABLE-05",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "reserved kind advertised supported",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TABLE-05-N02",
+      "rule_id": "TABLE-05",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "unknown kind accepted",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TABLE-06-P",
+      "rule_id": "TABLE-06",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Mandatory version/DID and matching optional projections",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TABLE-06-N01",
+      "rule_id": "TABLE-06",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "header body mismatch",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TABLE-06-N02",
+      "rule_id": "TABLE-06",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "unsigned header used for routing",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TABLE-07-P",
+      "rule_id": "TABLE-07",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Local diagnostics separated from remote generic failure",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TABLE-07-N01",
+      "rule_id": "TABLE-07",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "secret in diagnostic",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "TABLE-07-N02",
+      "rule_id": "TABLE-07",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "reason-dependent authentication oracle",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-01-P",
+      "rule_id": "EXEC-01",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "runtime",
+        "deployment_review"
+      ],
+      "classification_reason": "Runtime checks plus pinned deployment/source/isolation evidence; fixture-only success is insufficient.",
+      "scenario": "Protected Client/executor with complete capability mediation",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-01-N01",
+      "rule_id": "EXEC-01",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "runtime",
+        "deployment_review"
+      ],
+      "classification_reason": "Runtime checks plus pinned deployment/source/isolation evidence; fixture-only success is insufficient.",
+      "scenario": "plugin reads signing key",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-01-N02",
+      "rule_id": "EXEC-01",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "runtime",
+        "deployment_review"
+      ],
+      "classification_reason": "Runtime checks plus pinned deployment/source/isolation evidence; fixture-only success is insufficient.",
+      "scenario": "replaces verifier",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-01-N03",
+      "rule_id": "EXEC-01",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "runtime",
+        "deployment_review"
+      ],
+      "classification_reason": "Runtime checks plus pinned deployment/source/isolation evidence; fixture-only success is insufficient.",
+      "scenario": "direct shell/network bypass",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-01-N04",
+      "rule_id": "EXEC-01",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "runtime",
+        "deployment_review"
+      ],
+      "classification_reason": "Runtime checks plus pinned deployment/source/isolation evidence; fixture-only success is insufficient.",
+      "scenario": "disabled hook",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-02-P",
+      "rule_id": "EXEC-02",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "runtime",
+        "deployment_review"
+      ],
+      "classification_reason": "Runtime checks plus pinned deployment/source/isolation evidence; fixture-only success is insufficient.",
+      "scenario": "Original captured before expansion and exact derived call authorised",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-02-N01",
+      "rule_id": "EXEC-02",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "runtime",
+        "deployment_review"
+      ],
+      "classification_reason": "Runtime checks plus pinned deployment/source/isolation evidence; fixture-only success is insufficient.",
+      "scenario": "original overwritten",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-02-N02",
+      "rule_id": "EXEC-02",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "runtime",
+        "deployment_review"
+      ],
+      "classification_reason": "Runtime checks plus pinned deployment/source/isolation evidence; fixture-only success is insufficient.",
+      "scenario": "unchecked model proposal signed",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-02-N03",
+      "rule_id": "EXEC-02",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "runtime",
+        "deployment_review"
+      ],
+      "classification_reason": "Runtime checks plus pinned deployment/source/isolation evidence; fixture-only success is insufficient.",
+      "scenario": "digest accepted as permission",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-03-P",
+      "rule_id": "EXEC-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Closed versioned intent and correct domain signature",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-03-N01",
+      "rule_id": "EXEC-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "tool/recipient/arguments changed",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-03-N02",
+      "rule_id": "EXEC-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "unknown field",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-03-N03",
+      "rule_id": "EXEC-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "1MiB+1",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-03-N04",
+      "rule_id": "EXEC-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "bad nonce",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-03-N05",
+      "rule_id": "EXEC-03",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "outer inner identity mismatch",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-04-P",
+      "rule_id": "EXEC-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "All gates succeed and exactly verified arguments dispatch once",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-04-N01",
+      "rule_id": "EXEC-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "missing verdict",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-04-N02",
+      "rule_id": "EXEC-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "unavailable resolver",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-04-N03",
+      "rule_id": "EXEC-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "manifest mismatch",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-04-N04",
+      "rule_id": "EXEC-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "last-moment mutation",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-04-N05",
+      "rule_id": "EXEC-04",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "expiry before dispatch",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-05-P",
+      "rule_id": "EXEC-05",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Durable reservation survives parallel calls and crash",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-05-N01",
+      "rule_id": "EXEC-05",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "same call new nonce",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-05-N02",
+      "rule_id": "EXEC-05",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "replay after key rotation",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-05-N03",
+      "rule_id": "EXEC-05",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "lost ledger",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-05-N04",
+      "rule_id": "EXEC-05",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "UNKNOWN auto-retry",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-05-N05",
+      "rule_id": "EXEC-05",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "cancellation after commit misreported",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-06-P",
+      "rule_id": "EXEC-06",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "runtime",
+        "deployment_review"
+      ],
+      "classification_reason": "Runtime checks plus pinned deployment/source/isolation evidence; fixture-only success is insufficient.",
+      "scenario": "Protected complete baseline pins actual loaded code/schema",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-06-N01",
+      "rule_id": "EXEC-06",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "runtime",
+        "deployment_review"
+      ],
+      "classification_reason": "Runtime checks plus pinned deployment/source/isolation evidence; fixture-only success is insufficient.",
+      "scenario": "baseline self-update",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-06-N02",
+      "rule_id": "EXEC-06",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "runtime",
+        "deployment_review"
+      ],
+      "classification_reason": "Runtime checks plus pinned deployment/source/isolation evidence; fixture-only success is insufficient.",
+      "scenario": "symlink",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-06-N03",
+      "rule_id": "EXEC-06",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "runtime",
+        "deployment_review"
+      ],
+      "classification_reason": "Runtime checks plus pinned deployment/source/isolation evidence; fixture-only success is insufficient.",
+      "scenario": "uncovered dependency",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-06-N04",
+      "rule_id": "EXEC-06",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "runtime",
+        "deployment_review"
+      ],
+      "classification_reason": "Runtime checks plus pinned deployment/source/isolation evidence; fixture-only success is insufficient.",
+      "scenario": "file swapped after check",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-06-N05",
+      "rule_id": "EXEC-06",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "runtime",
+        "deployment_review"
+      ],
+      "classification_reason": "Runtime checks plus pinned deployment/source/isolation evidence; fixture-only success is insufficient.",
+      "scenario": "remote hash treated as attestation",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-07-P",
+      "rule_id": "EXEC-07",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Exact signed result consumed once for pending intent",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-07-N01",
+      "rule_id": "EXEC-07",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "wrong result issuer",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-07-N02",
+      "rule_id": "EXEC-07",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "wrong intent digest",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-07-N03",
+      "rule_id": "EXEC-07",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "expired output",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-07-N04",
+      "rule_id": "EXEC-07",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "duplicate consumption",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-07-N05",
+      "rule_id": "EXEC-07",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "unsigned tool output injected",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-08-P",
+      "rule_id": "EXEC-08",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Authenticated compulsory MCP execution wrapper",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-08-N01",
+      "rule_id": "EXEC-08",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "LLM skips verify tool",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-08-N02",
+      "rule_id": "EXEC-08",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "unrestricted sign tool",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-08-N03",
+      "rule_id": "EXEC-08",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "timeout fail-open",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-08-N04",
+      "rule_id": "EXEC-08",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "notification dispatch",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-08-N05",
+      "rule_id": "EXEC-08",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "direct protected-tool call",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-08-N06",
+      "rule_id": "EXEC-08",
+      "source_mode": "independent_fixture_and_live_adapter",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "divergent structured/text result",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-09-P",
+      "rule_id": "EXEC-09",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "document_review"
+      ],
+      "classification_reason": "Review normative ownership, claims, or traceability evidence.",
+      "scenario": "Claims explicitly scoped to approved intent and trusted boundary",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-09-N01",
+      "rule_id": "EXEC-09",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "document_review"
+      ],
+      "classification_reason": "Review normative ownership, claims, or traceability evidence.",
+      "scenario": "valid signature advertised semantic safety",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-09-N02",
+      "rule_id": "EXEC-09",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "document_review"
+      ],
+      "classification_reason": "Review normative ownership, claims, or traceability evidence.",
+      "scenario": "file hash advertised whole-host assurance",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "PROC-01-P",
+      "rule_id": "PROC-01",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "document_review"
+      ],
+      "classification_reason": "Review normative ownership, claims, or traceability evidence.",
+      "scenario": "Rule groups map to requirements and planned cases",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "PROC-01-N01",
+      "rule_id": "PROC-01",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "document_review"
+      ],
+      "classification_reason": "Review normative ownership, claims, or traceability evidence.",
+      "scenario": "unmapped MUST rule",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "PROC-01-N02",
+      "rule_id": "PROC-01",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "document_review"
+      ],
+      "classification_reason": "Review normative ownership, claims, or traceability evidence.",
+      "scenario": "implementation declared normative",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "PROC-02-P",
+      "rule_id": "PROC-02",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "document_review"
+      ],
+      "classification_reason": "Review normative ownership, claims, or traceability evidence.",
+      "scenario": "Old/new behaviour and version-pinned evidence distinguished",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "PROC-02-N01",
+      "rule_id": "PROC-02",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "document_review"
+      ],
+      "classification_reason": "Review normative ownership, claims, or traceability evidence.",
+      "scenario": "historical vector relabelled0.10.0",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "PROC-02-N02",
+      "rule_id": "PROC-02",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "document_review"
+      ],
+      "classification_reason": "Review normative ownership, claims, or traceability evidence.",
+      "scenario": "unexecuted test claimed pass",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "PROC-03-P",
+      "rule_id": "PROC-03",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "document_review"
+      ],
+      "classification_reason": "Review normative ownership, claims, or traceability evidence.",
+      "scenario": "Existing docs updated and source repos unchanged",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "PROC-03-N01",
+      "rule_id": "PROC-03",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "document_review"
+      ],
+      "classification_reason": "Review normative ownership, claims, or traceability evidence.",
+      "scenario": "competing canonical specification",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "PROC-03-N02",
+      "rule_id": "PROC-03",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "document_review"
+      ],
+      "classification_reason": "Review normative ownership, claims, or traceability evidence.",
+      "scenario": "product/source code mutation",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EVIDENCE-01-P",
+      "rule_id": "EVIDENCE-01",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "runtime",
+        "document_review",
+        "deployment_review"
+      ],
+      "classification_reason": "Review measurement/independence claims against reproducible runs and pinned environments.",
+      "scenario": "Published cost/latency and independent interoperability plan with versioned evidence",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EVIDENCE-01-N01",
+      "rule_id": "EVIDENCE-01",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "runtime",
+        "document_review",
+        "deployment_review"
+      ],
+      "classification_reason": "Review measurement/independence claims against reproducible runs and pinned environments.",
+      "scenario": "unmeasured latency advertised",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "EVIDENCE-01-N02",
+      "rule_id": "EVIDENCE-01",
+      "source_mode": "deployment_or_document_review",
+      "verification_tracks": [
+        "runtime",
+        "document_review",
+        "deployment_review"
+      ],
+      "classification_reason": "Review measurement/independence claims against reproducible runs and pinned environments.",
+      "scenario": "two same implementation wrappers claimed independent proof",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CST-01-01",
+      "rule_id": "EXEC-05",
+      "source_mode": "planned_boundary_or_state_test",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Duplicate in RESERVED/EXECUTING",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CST-01-02",
+      "rule_id": "EXEC-07",
+      "source_mode": "planned_boundary_or_state_test",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Pending then completion",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CST-01-03",
+      "rule_id": "EXEC-07",
+      "source_mode": "planned_boundary_or_state_test",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Delayed pending after terminal",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CST-01-04",
+      "rule_id": "EXEC-07",
+      "source_mode": "planned_boundary_or_state_test",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Conflicting terminal reply",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CST-01-05",
+      "rule_id": "EXEC-05",
+      "source_mode": "planned_boundary_or_state_test",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "UNKNOWN versus ordinary waiting",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CST-01-06",
+      "rule_id": "EXEC-05",
+      "source_mode": "planned_boundary_or_state_test",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Changed inner proof on retry",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CST-01-07",
+      "rule_id": "EXEC-08",
+      "source_mode": "planned_boundary_or_state_test",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "HTTP and MCP pending mapping",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CST-01-08",
+      "rule_id": "EXEC-05",
+      "source_mode": "planned_boundary_or_state_test",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Expiry and polling frequency",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CST-01-09",
+      "rule_id": "EXEC-07",
+      "source_mode": "planned_boundary_or_state_test",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Rejection persistence race",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CST-01-10",
+      "rule_id": "EXEC-07",
+      "source_mode": "planned_boundary_or_state_test",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Terminal result expires or key revoked",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CST-02-01",
+      "rule_id": "EXEC-02",
+      "source_mode": "planned_boundary_or_state_test",
+      "verification_tracks": [
+        "runtime",
+        "deployment_review"
+      ],
+      "classification_reason": "Runtime checks plus pinned deployment/source/isolation evidence; fixture-only success is insufficient.",
+      "scenario": "Policy descriptor canonical commitment",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CST-02-02",
+      "rule_id": "EXEC-02",
+      "source_mode": "planned_boundary_or_state_test",
+      "verification_tracks": [
+        "runtime",
+        "deployment_review"
+      ],
+      "classification_reason": "Runtime checks plus pinned deployment/source/isolation evidence; fixture-only success is insufficient.",
+      "scenario": "Policy artifact mutation",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CST-02-03",
+      "rule_id": "EXEC-02",
+      "source_mode": "planned_boundary_or_state_test",
+      "verification_tracks": [
+        "runtime",
+        "deployment_review"
+      ],
+      "classification_reason": "Runtime checks plus pinned deployment/source/isolation evidence; fixture-only success is insufficient.",
+      "scenario": "Retirement versus dispatch",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CST-02-04",
+      "rule_id": "EXEC-02",
+      "source_mode": "planned_boundary_or_state_test",
+      "verification_tracks": [
+        "runtime",
+        "deployment_review"
+      ],
+      "classification_reason": "Runtime checks plus pinned deployment/source/isolation evidence; fixture-only success is insufficient.",
+      "scenario": "Ledger-loss epoch recovery",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CST-02-05",
+      "rule_id": "EXEC-02",
+      "source_mode": "planned_boundary_or_state_test",
+      "verification_tracks": [
+        "runtime",
+        "deployment_review"
+      ],
+      "classification_reason": "Runtime checks plus pinned deployment/source/isolation evidence; fixture-only success is insufficient.",
+      "scenario": "Peer self-provisions policy",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CST-03-01",
+      "rule_id": "SESSION-03",
+      "source_mode": "planned_boundary_or_state_test",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "AAD exact boundary",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CST-03-02",
+      "rule_id": "SESSION-03",
+      "source_mode": "planned_boundary_or_state_test",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "AAD one byte over",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CST-04-01",
+      "rule_id": "SESSION-01",
+      "source_mode": "planned_boundary_or_state_test",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Wrong participant with valid crypto",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CST-04-02",
+      "rule_id": "SESSION-01",
+      "source_mode": "planned_boundary_or_state_test",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Same DID alternative active key",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CST-04-03",
+      "rule_id": "SESSION-01",
+      "source_mode": "planned_boundary_or_state_test",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Recipient or role mismatch",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CST-04-04",
+      "rule_id": "SESSION-01",
+      "source_mode": "planned_boundary_or_state_test",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Bound key revoked versus unrelated update",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CST-05-01",
+      "rule_id": "HPKE-05",
+      "source_mode": "planned_boundary_or_state_test",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "First record before deadline",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CST-05-02",
+      "rule_id": "HPKE-05",
+      "source_mode": "planned_boundary_or_state_test",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Exact pending deadline",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CST-05-03",
+      "rule_id": "HPKE-05",
+      "source_mode": "planned_boundary_or_state_test",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Forged first record",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CST-05-04",
+      "rule_id": "HPKE-05",
+      "source_mode": "planned_boundary_or_state_test",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Concurrent first records",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CST-05-05",
+      "rule_id": "HPKE-05",
+      "source_mode": "planned_boundary_or_state_test",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Policy-denied authenticated first record",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CST-05-06",
+      "rule_id": "HPKE-05",
+      "source_mode": "planned_boundary_or_state_test",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "First record after sequence loss",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    },
+    {
+      "id": "CST-05-07",
+      "rule_id": "SESSION-02",
+      "source_mode": "planned_boundary_or_state_test",
+      "verification_tracks": [
+        "runtime"
+      ],
+      "classification_reason": "Executable input/state scenario; requires independent fixtures and subject observations.",
+      "scenario": "Confirmation does not extend session age",
+      "partial_vector_ids": [],
+      "coverage": "no_case_vector",
+      "evidence_status": "NOT_RUN"
+    }
+  ],
+  "vectors": [
+    {
+      "id": "hkdf-a1",
+      "related_rule_ids": [
+        "HPKE-03"
+      ],
+      "partial_case_ids": [
+        "HPKE-03-P"
+      ],
+      "relationship": "partial_scenario",
+      "limitation": "HKDF primitive only; no SAGE transcript, combiner or live core."
+    },
+    {
+      "id": "hkdf-a2",
+      "related_rule_ids": [
+        "HPKE-03"
+      ],
+      "partial_case_ids": [
+        "HPKE-03-P"
+      ],
+      "relationship": "partial_scenario",
+      "limitation": "HKDF primitive only; no SAGE transcript, combiner or live core."
+    },
+    {
+      "id": "hkdf-a3",
+      "related_rule_ids": [
+        "HPKE-03"
+      ],
+      "partial_case_ids": [
+        "HPKE-03-P"
+      ],
+      "relationship": "partial_scenario",
+      "limitation": "HKDF primitive only; no SAGE transcript, combiner or live core."
+    },
+    {
+      "id": "hkdf-too-long",
+      "related_rule_ids": [
+        "HPKE-03"
+      ],
+      "partial_case_ids": [],
+      "relationship": "primitive_prerequisite_only",
+      "limitation": "HKDF primitive only; no SAGE transcript, combiner or live core."
+    },
+    {
+      "id": "sha256-abc",
+      "related_rule_ids": [
+        "CRYPTO-02"
+      ],
+      "partial_case_ids": [],
+      "relationship": "primitive_prerequisite_only",
+      "limitation": "SHA-256 digest only; CRYPTO-02 signature verification is not exercised."
+    },
+    {
+      "id": "base64-valid-0",
+      "related_rule_ids": [
+        "TRANSPORT-01"
+      ],
+      "partial_case_ids": [],
+      "relationship": "primitive_prerequisite_only",
+      "limitation": "Primitive example only; no complete scenario or live core."
+    },
+    {
+      "id": "base64-valid-1",
+      "related_rule_ids": [
+        "TRANSPORT-01"
+      ],
+      "partial_case_ids": [],
+      "relationship": "primitive_prerequisite_only",
+      "limitation": "Primitive example only; no complete scenario or live core."
+    },
+    {
+      "id": "base64-valid-2",
+      "related_rule_ids": [
+        "TRANSPORT-01"
+      ],
+      "partial_case_ids": [],
+      "relationship": "primitive_prerequisite_only",
+      "limitation": "Primitive example only; no complete scenario or live core."
+    },
+    {
+      "id": "base64-valid-3",
+      "related_rule_ids": [
+        "TRANSPORT-01"
+      ],
+      "partial_case_ids": [],
+      "relationship": "primitive_prerequisite_only",
+      "limitation": "Primitive example only; no complete scenario or live core."
+    },
+    {
+      "id": "base64-valid-4",
+      "related_rule_ids": [
+        "TRANSPORT-01"
+      ],
+      "partial_case_ids": [],
+      "relationship": "primitive_prerequisite_only",
+      "limitation": "Primitive example only; no complete scenario or live core."
+    },
+    {
+      "id": "base64-valid-5",
+      "related_rule_ids": [
+        "TRANSPORT-01"
+      ],
+      "partial_case_ids": [],
+      "relationship": "primitive_prerequisite_only",
+      "limitation": "Primitive example only; no complete scenario or live core."
+    },
+    {
+      "id": "base64-valid-6",
+      "related_rule_ids": [
+        "TRANSPORT-01"
+      ],
+      "partial_case_ids": [],
+      "relationship": "primitive_prerequisite_only",
+      "limitation": "Primitive example only; no complete scenario or live core."
+    },
+    {
+      "id": "base64-reject-padded",
+      "related_rule_ids": [
+        "TRANSPORT-01"
+      ],
+      "partial_case_ids": [
+        "TRANSPORT-01-N03"
+      ],
+      "relationship": "partial_scenario",
+      "limitation": "Primitive example only; no complete scenario or live core."
+    },
+    {
+      "id": "base64-reject-nonzero-padbits",
+      "related_rule_ids": [
+        "TRANSPORT-01"
+      ],
+      "partial_case_ids": [],
+      "relationship": "primitive_prerequisite_only",
+      "limitation": "Primitive example only; no complete scenario or live core."
+    },
+    {
+      "id": "base64-reject-newline",
+      "related_rule_ids": [
+        "TRANSPORT-01"
+      ],
+      "partial_case_ids": [],
+      "relationship": "primitive_prerequisite_only",
+      "limitation": "Primitive example only; no complete scenario or live core."
+    },
+    {
+      "id": "base64-reject-standard-alphabet",
+      "related_rule_ids": [
+        "TRANSPORT-01"
+      ],
+      "partial_case_ids": [],
+      "relationship": "primitive_prerequisite_only",
+      "limitation": "Primitive example only; no complete scenario or live core."
+    },
+    {
+      "id": "base64-reject-bad-length",
+      "related_rule_ids": [
+        "TRANSPORT-01"
+      ],
+      "partial_case_ids": [],
+      "relationship": "primitive_prerequisite_only",
+      "limitation": "Primitive example only; no complete scenario or live core."
+    },
+    {
+      "id": "json-valid",
+      "related_rule_ids": [
+        "JCS-01"
+      ],
+      "partial_case_ids": [
+        "JCS-01-P"
+      ],
+      "relationship": "partial_scenario",
+      "limitation": "Primitive example only; no complete scenario or live core."
+    },
+    {
+      "id": "json-valid-surrogate-pair",
+      "related_rule_ids": [
+        "JCS-01"
+      ],
+      "partial_case_ids": [
+        "JCS-01-P"
+      ],
+      "relationship": "partial_scenario",
+      "limitation": "Primitive example only; no complete scenario or live core."
+    },
+    {
+      "id": "json-duplicate",
+      "related_rule_ids": [
+        "JCS-01"
+      ],
+      "partial_case_ids": [
+        "JCS-01-N01"
+      ],
+      "relationship": "partial_scenario",
+      "limitation": "Primitive example only; no complete scenario or live core."
+    },
+    {
+      "id": "json-unpaired",
+      "related_rule_ids": [
+        "JCS-01"
+      ],
+      "partial_case_ids": [
+        "JCS-01-N03"
+      ],
+      "relationship": "partial_scenario",
+      "limitation": "Primitive example only; no complete scenario or live core."
+    },
+    {
+      "id": "json-invalid-utf8",
+      "related_rule_ids": [
+        "JCS-01"
+      ],
+      "partial_case_ids": [],
+      "relationship": "primitive_prerequisite_only",
+      "limitation": "Primitive example only; no complete scenario or live core."
+    },
+    {
+      "id": "json-negative-zero",
+      "related_rule_ids": [
+        "JCS-01"
+      ],
+      "partial_case_ids": [
+        "JCS-01-N05"
+      ],
+      "relationship": "partial_scenario",
+      "limitation": "Primitive example only; no complete scenario or live core."
+    },
+    {
+      "id": "json-negative-underflow",
+      "related_rule_ids": [
+        "JCS-01"
+      ],
+      "partial_case_ids": [
+        "JCS-01-N06"
+      ],
+      "relationship": "partial_scenario",
+      "limitation": "Primitive example only; no complete scenario or live core."
+    },
+    {
+      "id": "json-trailing",
+      "related_rule_ids": [
+        "JCS-01"
+      ],
+      "partial_case_ids": [],
+      "relationship": "primitive_prerequisite_only",
+      "limitation": "Primitive example only; no complete scenario or live core."
+    },
+    {
+      "id": "json-bom",
+      "related_rule_ids": [
+        "JCS-01"
+      ],
+      "partial_case_ids": [
+        "JCS-01-N02"
+      ],
+      "relationship": "partial_scenario",
+      "limitation": "Primitive example only; no complete scenario or live core."
+    }
+  ]
+}

@@ -1,0 +1,2008 @@
+{
+  "schema_version": 1,
+  "protocol_version": "0.10.0",
+  "profile": "primitive-foundation",
+  "suite_id": "sage-http-boundaries-0.10.0",
+  "suite_sha256": "c8986a85ec4a75f5cb347fb4803d181bb262e9ac88280dc7ffe1fa7cdf2ae4ab",
+  "runner_version": "dev",
+  "environment": "go1.26.8 darwin/arm64",
+  "created": "2026-09-13T19:38:46.156499Z",
+  "subject": {
+    "name": "sage-go-core",
+    "revision": "c7709b7486e0da94336edc0931fddd87f6a45343",
+    "kind": "external",
+    "executable_sha256": "2940544bbec7089db03a289f17bd96ae6e863eea601906fa2a53dceac510a9d6"
+  },
+  "sources": [
+    {
+      "id": "sage-http",
+      "kind": "spec-derived",
+      "uri": "sage-spec/spec/03-rfc9421.md",
+      "reference": "MSG-01..05; cryptographic HTTP boundary, fresh isolated replay state."
+    },
+    {
+      "id": "sage-transport",
+      "kind": "spec-derived",
+      "uri": "sage-spec/spec/08-transport.md",
+      "reference": "TRANSPORT-01..05; inner signature domains and complete signed request hash."
+    },
+    {
+      "id": "rfc9421",
+      "kind": "spec-derived",
+      "uri": "https://www.rfc-editor.org/rfc/rfc9421.html",
+      "reference": "Ordered signature bases and request-bound responses."
+    }
+  ],
+  "scope": "Only listed primitive cases; no full SAGE, state-machine, registry or Execution Guard certification.",
+  "status": "INCOMPLETE",
+  "counts": {
+    "FAIL": 0,
+    "NOT_RUN": 0,
+    "PASS": 0,
+    "UNSUPPORTED": 69
+  },
+  "results": [
+    {
+      "case_id": "valid-request",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "MSG-04"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. Positive cryptographic boundary control.",
+      "input_sha256": "0f7128afd90253b35c1e3c2b71914f58d144a60f532f17a23e964a5e1987e43b",
+      "adapter_request_sha256": "10f67db4d7d953d32b83b10ad60c0fc223dad9b31d003949febb97a843389f85",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "valid-request",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 495
+    },
+    {
+      "case_id": "valid-response",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "TRANSPORT-03"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. Positive cryptographic boundary control.",
+      "input_sha256": "a590c5051f40ce68b8c798d846e7d6711850574be90f35f6a7742d19678d978e",
+      "adapter_request_sha256": "660e7a4d3156ca4e2b2ce36eca5b03f0aaecc2e4f63eafd20b512539f0d59d80",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "valid-response",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 16
+    },
+    {
+      "case_id": "valid-reordered-parameters",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "MSG-01"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. Positive cryptographic boundary control.",
+      "input_sha256": "9fefc9b2650323f80c86180ee268f4be596318e8221b71f54bb013db62b02fb5",
+      "adapter_request_sha256": "0503e672b442d1ab7ad11ff8b0d03b7b4c74a7cf356fb0690d698ee971386eea",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "valid-reordered-parameters",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 17
+    },
+    {
+      "case_id": "valid-whitespace-body",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "MSG-04"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. Positive cryptographic boundary control.",
+      "input_sha256": "4607fdfbd16f3a7c4a075842123937a5742a0b7b57d73dad70ae229f77e490ec",
+      "adapter_request_sha256": "f9d389204619f0074db4fc985478a058534f6db17ca220ba11b3b4e5ab8a15d8",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "valid-whitespace-body",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 23
+    },
+    {
+      "case_id": "valid-response-canonical-request-hash",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "TRANSPORT-03"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. Positive cryptographic boundary control.",
+      "input_sha256": "3fe4247e8ddd0f4bd5a3cd1efacdae69a022f8715f13e533b1a80f1a6c5f5fd4",
+      "adapter_request_sha256": "6c35dd87e92d6769cc66fd2ee71308641d981f6b910a5cf5e22c6ace6c49a667",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "valid-response-canonical-request-hash",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 26
+    },
+    {
+      "case_id": "created-minus-30",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "MSG-05"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. Positive cryptographic boundary control.",
+      "input_sha256": "c6344dfaf61aa1e4cbedab1fd6f65db545f039feaa1b9656fd8da8a7475f7240",
+      "adapter_request_sha256": "89b99015be467b72215ddf0f92789475d137cef37b1b883caaaa9556b44a42c5",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "created-minus-30",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 15
+    },
+    {
+      "case_id": "created-minus-31",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "MSG-05"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. freshness",
+      "input_sha256": "e504008e4feb8777039b593b936c67bf779e6ba79f4ba4558fc14cd3e7b20aab",
+      "adapter_request_sha256": "ae7b6a0e1e00f2e21feaf4bd32ebb5e0ed289ab162941e6c652e60dd1bb87251",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "created-minus-31",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 21
+    },
+    {
+      "case_id": "expiry-plus-29",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "MSG-05"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. Positive cryptographic boundary control.",
+      "input_sha256": "98e31fa24a7c343fe31c2598334140d8323ab09182f70c2a6f55aab52263f53f",
+      "adapter_request_sha256": "70be7d42666f84c2481b9da6920ace799d8cb8b8457d8f527ce8c7ffc9dd7acb",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "expiry-plus-29",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 20
+    },
+    {
+      "case_id": "expiry-plus-30",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "MSG-05"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. freshness",
+      "input_sha256": "abb29bbe91c783cfc5337de30539c6da5afce3c82d750aa21d816ea44e151b65",
+      "adapter_request_sha256": "dfe91c21022f34665ede2077d0881fa3e0453bea57d76bfca8917a48fe136f57",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "expiry-plus-30",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 19
+    },
+    {
+      "case_id": "untrusted-clock",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "MSG-05"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. clock",
+      "input_sha256": "3adbafba360941df9e9f3cd3906851cdc7280c817c14a536fc3c25fed4e53463",
+      "adapter_request_sha256": "9e9023687fbf111fdb349a362cd75f66ba6c5f694b0d077a244fea58ebdb00bd",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "untrusted-clock",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 14
+    },
+    {
+      "case_id": "lifetime-one",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "MSG-05"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. Positive cryptographic boundary control.",
+      "input_sha256": "af8de5d98aa525a5320c6046465ea02feec73013ef392e5f2086c5c5f96ecaa2",
+      "adapter_request_sha256": "905e8a281b5e4ee24765a06d5f794e4eab707d7b6ded857714c65871b8837c8d",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "lifetime-one",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 14
+    },
+    {
+      "case_id": "lifetime-zero",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "MSG-05"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. lifetime",
+      "input_sha256": "67c72e396c249a2189d2adffbaef98aa1315691e6ec37bdc4f76bf6af236a5e2",
+      "adapter_request_sha256": "4c633b48a044ff195ceb8777dc3d859a89dbe4a913565d0be57f542a685ffca0",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "lifetime-zero",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 24
+    },
+    {
+      "case_id": "lifetime-301",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "MSG-05"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. lifetime",
+      "input_sha256": "c04452ae884fa4b5e54aafa9355aafebd10493d761c0fcf7edfe0358b3082773",
+      "adapter_request_sha256": "72bd27202534d20ad29d8e7ee54f4f43b1996aeef1cac5993763e093f1be7ce5",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "lifetime-301",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 24
+    },
+    {
+      "case_id": "negative-created",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "MSG-05"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. timestamp",
+      "input_sha256": "ba5855be920ddfeb32fed1c618d09f1b234cd10b099bbcc624ee3298b8cc922e",
+      "adapter_request_sha256": "9c9a06df8cdd3cc3e8b46e09ef5adf46f73d14b76c0e29beec26dc491b1c54b3",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "negative-created",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 24
+    },
+    {
+      "case_id": "fractional-created",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "MSG-05"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. timestamp",
+      "input_sha256": "8670b41938bd076ed3f6c929c3e96ae2e57273b92d3b9c277bec714b4048a4a8",
+      "adapter_request_sha256": "89116e2b7184678ade0c9f08ab9f48b017778c6de413ec72d6c0c0c908e4bdd5",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "fractional-created",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 16
+    },
+    {
+      "case_id": "duplicate-signature",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "MSG-04"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. duplicate",
+      "input_sha256": "be78bdb73f3c4f31487a6752170a4d33c78696d756e8bb8772ce5057b85e56fb",
+      "adapter_request_sha256": "026eead5241216bd4c6d70e146fe02ebfd143bf89fa25e9e72f8b99b31f0853d",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "duplicate-signature",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 17
+    },
+    {
+      "case_id": "duplicate-signature-input",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "MSG-04"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. duplicate",
+      "input_sha256": "989b857adfd0a0b37e44f6f2929044ca09e9ed911d02838f49d7ef266e80c069",
+      "adapter_request_sha256": "744412eece73b38ee2ed6c9654c29df7a5fabc3076ee739ec7ecedb38b98b84e",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "duplicate-signature-input",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 14
+    },
+    {
+      "case_id": "duplicate-content-digest",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "MSG-04"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. duplicate",
+      "input_sha256": "d784b6725ebb5c27338eccfc119b52774f53114368405eac9e6b9a388e83219a",
+      "adapter_request_sha256": "3fc63e5c54513ae9125122966e4a76e7857fc3e308e41d3801e4732c80696b2f",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "duplicate-content-digest",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 13
+    },
+    {
+      "case_id": "duplicate-content-type",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "MSG-04"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. duplicate",
+      "input_sha256": "614ec8df1cede217a20e11853f5e9a4ae3aa644716378670a5bc9d63663deb52",
+      "adapter_request_sha256": "b0bf90d4ff4654680030eb96992527466035e88e991fb1f30baab81997f978cc",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "duplicate-content-type",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 15
+    },
+    {
+      "case_id": "duplicate-x-sage-did",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "MSG-04"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. duplicate",
+      "input_sha256": "80e645ce0e644f13dd6a3186a0200ba0b07a9695ebf50fe8f3f9a636222fdb52",
+      "adapter_request_sha256": "7e77f9eb3b988a03be9b40aaf1dd4ff5f36a890acddbe2b11ab0f1e12ab16718",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "duplicate-x-sage-did",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 14
+    },
+    {
+      "case_id": "duplicate-x-sage-version",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "MSG-04"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. duplicate",
+      "input_sha256": "7fbbe6622dbcd3759f96c975c6b152239b498cb148525a3bef50e3c40d6ffca4",
+      "adapter_request_sha256": "92e9998290b52218c403c87cbdde03192995d2f73b31b3e4b484a0317ebb5d59",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "duplicate-x-sage-version",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 13
+    },
+    {
+      "case_id": "conflicting-length",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "MSG-04"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. framing",
+      "input_sha256": "7a550148b0d73c0f50cabf278219fa220eb074f534837edf30591d7d5d5d07b8",
+      "adapter_request_sha256": "da60c74803b37084c8987ab58f043fe75d6c2e7ac110d74ff6dcdebf8dd56dd9",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "conflicting-length",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 13
+    },
+    {
+      "case_id": "transfer-and-length",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "MSG-04"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. framing",
+      "input_sha256": "2e576eca71743ce6fcd7bb12e4ec7b834c3bedd942283690964337e87249b45e",
+      "adapter_request_sha256": "97e43a0409ea5a36de1cf8a268d83b351c2e87b9889f0003608641162904192c",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "transfer-and-length",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 17
+    },
+    {
+      "case_id": "ambiguous-authority",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "MSG-04"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. authority",
+      "input_sha256": "8535970659651f4b18231e62f3ae1adb339f0e8b39fb73f4b9b0513f3ca3a4b1",
+      "adapter_request_sha256": "1ff9d9c6100b0ef0cbab3af66b2f1952faa624c93d9c08e6bc06863ff7f92086",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "ambiguous-authority",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 13
+    },
+    {
+      "case_id": "truncated-body",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "MSG-04"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. framing",
+      "input_sha256": "7202a484fe2a2ea444ad5e895be19ee1a54a3d89a8b013669d59995f3a77cde0",
+      "adapter_request_sha256": "dd2134965e3e5295394ca35092017d8edc421663cc3337f5accaa063a23e0b19",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "truncated-body",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 13
+    },
+    {
+      "case_id": "trailing-body",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "MSG-04"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. framing",
+      "input_sha256": "7abd1b035fe7b42329e712c31b3d36fb797b55bfa3f1d02f127d04ef2e3e53d0",
+      "adapter_request_sha256": "3e6b8091338b66295706a6eff0d9fe16158ad44260ded97ef204c89e14227685",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "trailing-body",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 13
+    },
+    {
+      "case_id": "header-content-encoding",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "TRANSPORT-05"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. profile",
+      "input_sha256": "5d523935a4cd3fc4481989bb562ecb4a8d8b14baa2b0c4dda2aa1df738d2d4e0",
+      "adapter_request_sha256": "d75693c198edc1a7fcbb6cec007b66ba2b277c6f0e71ef8c3406d12c046eb723",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "header-content-encoding",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 16
+    },
+    {
+      "case_id": "header-trailer",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "TRANSPORT-05"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. profile",
+      "input_sha256": "829f67c3d9d14b8482607cbe55db01be6b3167dd837a345c0623b8ffb411089d",
+      "adapter_request_sha256": "cda73b2a5b4daf3b6df4286271328606309ae86609cd7f76e0dff4d4c8bfb6fd",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "header-trailer",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 16
+    },
+    {
+      "case_id": "header-content-type",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "TRANSPORT-05"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. profile",
+      "input_sha256": "6764cf032d368dec3a23658bc7fe0e7aef9dd82b18855ec182fd2dc459e74cb8",
+      "adapter_request_sha256": "36a60d66cc7af223dd17b02ec082dc3a1cccd01e6c9a8b9ee383e6c02c15440d",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "header-content-type",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 18
+    },
+    {
+      "case_id": "header-x-sage-message-id",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "TRANSPORT-05"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. projection",
+      "input_sha256": "8a99598db57bcdee5fff9a03c84506a30851fd5d392aad864ba8cea35c592eb8",
+      "adapter_request_sha256": "3c5f0b74b1100334f37f6d583ab1c73bc07c1d4d7a260793870cc07efc226f38",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "header-x-sage-message-id",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 17
+    },
+    {
+      "case_id": "header-x-sage-context-id",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "TRANSPORT-05"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. projection",
+      "input_sha256": "eabbd629eeb28c8c2b3c45c97cc7f1a3f2e5c32827d1ed065c10cdf169870c10",
+      "adapter_request_sha256": "c9f64eb6c7ce20c693c61f52c41ef7ac73a5cdc9214c2bad8c63aca86b5cc540",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "header-x-sage-context-id",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 21
+    },
+    {
+      "case_id": "header-x-sage-version",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "TRANSPORT-05"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. projection",
+      "input_sha256": "b742b74a3620ce184cd8eda6221815e567f4ff0cac6fd0e5d165ddebce3c771e",
+      "adapter_request_sha256": "47d56b9e204528d315b560f01a2a1d32239534f877e0f4abf6f46ae47bcc794d",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "header-x-sage-version",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 14
+    },
+    {
+      "case_id": "header-x-sage-did",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "TRANSPORT-05"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. projection",
+      "input_sha256": "5f9b5bc84285a6f993efca2b9f67083e80fbe2832c0ac1850f1cf58f8c3d34c0",
+      "adapter_request_sha256": "fe3cffa4bc59dc254679d608d8c829beb37c34351677f0f2ec808fe3a9c847ea",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "header-x-sage-did",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 15
+    },
+    {
+      "case_id": "wrong-tag",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "MSG-01"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. parameters",
+      "input_sha256": "7f081f508554818ef6615b8f5e5f556bd7310ac0683c7321eb85f789248a40dd",
+      "adapter_request_sha256": "a1aa8b0976090f5e67ad3fd9c352505f633defb6e1ff9a64b44d553da82fcf23",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "wrong-tag",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 18
+    },
+    {
+      "case_id": "missing-tag",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "MSG-01"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. parameters",
+      "input_sha256": "880fb730a9158acf8bbbc131d20f2f35fd3404d43f7eac37fb38118e5a66aa27",
+      "adapter_request_sha256": "32dd53a07a4e279cbf96a1cf28d7eb08966d7c113c5c3c5e62b00fd3ce9fa881",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "missing-tag",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 18
+    },
+    {
+      "case_id": "duplicate-tag",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "MSG-01"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. parameters",
+      "input_sha256": "06250e7f68f64587e65f837c917374f91e6d99d9795f9f0761bf66c239e09ccf",
+      "adapter_request_sha256": "5288253801dd610a754e987a275ecd3b0909c472e90f25c35cf2f98a1fa1790f",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "duplicate-tag",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 14
+    },
+    {
+      "case_id": "unknown-param",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "MSG-01"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. parameters",
+      "input_sha256": "289016ad453a3e823ede04bf3ea6ce1f04f43ddc200138b9d5c71461e51a3eb2",
+      "adapter_request_sha256": "34e991ce01ecb2fef6e4b88793b2202fa02cce30381549338295567e4889e559",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "unknown-param",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 13
+    },
+    {
+      "case_id": "nonce-body-mismatch",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "MSG-01"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. projection",
+      "input_sha256": "38081505ca66d8af000aec73799a495074be36c249dfaa7059c2df7c81fd9162",
+      "adapter_request_sha256": "5f8572a5bf1411eafa9095db58351c01c58c56d266d78e3a0094c6d4e8f413f2",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "nonce-body-mismatch",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 13
+    },
+    {
+      "case_id": "fields-32768",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "MSG-04"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. Positive cryptographic boundary control.",
+      "input_sha256": "d9cfc426b16d84fad7220527db6dfee113fa4f9f7674fdfc7d0a598b97ae4db0",
+      "adapter_request_sha256": "f451266b2e6875a43798da89e1b33a0c2c5f938f02aa55a37a738d74ba191e28",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "fields-32768",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 15
+    },
+    {
+      "case_id": "fields-32769",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "MSG-04"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. fields-size",
+      "input_sha256": "40bff9a888a9ab77f7aa4b42035eef9c94541ebe4e9827ce01e8b08b6c0965b3",
+      "adapter_request_sha256": "dcbc92df1dd38fef0efb41e9d6e746636865ad9e2234625e88d0b4a7df156ad9",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "fields-32769",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 14
+    },
+    {
+      "case_id": "signature-value-8192",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "MSG-04"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. Positive cryptographic boundary control.",
+      "input_sha256": "ac7c534da6e719188d8d6a3f7e51628d4841ed1a7442240cc9f5b0e4018fe805",
+      "adapter_request_sha256": "59e1bb05199af2500da6ce6a1bb4a7ca835b483e7749108a3d6c323dd5941317",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "signature-value-8192",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 15
+    },
+    {
+      "case_id": "signature-value-8193",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "MSG-04"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. signature-size",
+      "input_sha256": "3938826617f78582e8566adebe4cef63e6deda277be74a51cbc4f759592bcd96",
+      "adapter_request_sha256": "1fd305cfa488e1f9c07cdefe1dfb03209d3ba454a222329ced61735ab3676845",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "signature-value-8193",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 18
+    },
+    {
+      "case_id": "signature-input-value-8192",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "MSG-04"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. Positive cryptographic boundary control.",
+      "input_sha256": "80fc7167286eec1a9989847bb43329f36efbe98ed8698c3118723c1f42fc8fef",
+      "adapter_request_sha256": "66135da78932329beec82931d79a54710987cf50afd90b45a1cdaf53357c8196",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "signature-input-value-8192",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 18
+    },
+    {
+      "case_id": "signature-input-value-8193",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "MSG-04"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. signature-size",
+      "input_sha256": "832041378608aa8fd817df36863d150464e27aa3a52e57030c532c2738b3e2c9",
+      "adapter_request_sha256": "3cbf676230834c6ddd2261bd5bd145876633f539f103fe8fa2d1301bb9fef92e",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "signature-input-value-8193",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 14
+    },
+    {
+      "case_id": "wrong-request-hash",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "TRANSPORT-03"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. request-hash",
+      "input_sha256": "05ecc8abf4b39d613c2c4caed36859bea6ce0f8820e22b1a92951c6c007e2ca3",
+      "adapter_request_sha256": "1726893be587a26aac5149ba2f23cfe03f3067afef82125a22f8898053f32b49",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "wrong-request-hash",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 17
+    },
+    {
+      "case_id": "wrong-message-id",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "TRANSPORT-03"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. response-binding",
+      "input_sha256": "52994ce3d3e2956b6438ac180ea9eabb46d6f08bf2ac35d39c7bbed11ea27178",
+      "adapter_request_sha256": "bf319fe878c1fbd3adae3e3d050be9fe2ff24253827dc77b3719d75bf7912d07",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "wrong-message-id",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 20
+    },
+    {
+      "case_id": "wrong-recipient",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "TRANSPORT-03"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. response-binding",
+      "input_sha256": "c84b1a3bd9f1ba290a364d630285cf721a27152cabc2117fb49419504fbca7fc",
+      "adapter_request_sha256": "ed459501a4e548be68966ce4f283702418da41eb64ab79813824219d704907a2",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "wrong-recipient",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 15
+    },
+    {
+      "case_id": "context-injected",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "TRANSPORT-03"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. response-binding",
+      "input_sha256": "c08dbca985c64488c9aef2a5cf986fe8d389f1f63be4e21b303c464126664759",
+      "adapter_request_sha256": "377b1efd6a81a52c457fd1a391ba482da3079e1e247dc60995c7a0d1e173fd40",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "context-injected",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 13
+    },
+    {
+      "case_id": "task-injected",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "TRANSPORT-03"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. response-binding",
+      "input_sha256": "0fa6a8d6d91d129f13a0c2571e2923d8951e9d449c794c705dac9d8c1866c1dc",
+      "adapter_request_sha256": "e30bb648cc02cb7bc4f67f19beccd4181af0b782e3232a249e75d0d224ba6392",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "task-injected",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 15
+    },
+    {
+      "case_id": "error-on-success",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "TRANSPORT-03"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. schema",
+      "input_sha256": "ec26b9171c8e31d5bfdd73229ffe029cb1b06af5fbee48dec86415adf5efc9df",
+      "adapter_request_sha256": "0e10d81b68cf4236f97b147b45a84e6f094f4ce2f56a9d380f9250a6bb458099",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "error-on-success",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 14
+    },
+    {
+      "case_id": "hash-without-signature",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "TRANSPORT-03"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. request-hash",
+      "input_sha256": "1af25e474abf8426698fa97aaac03396b34ecd3cc5337b249cb96fcc28112bba",
+      "adapter_request_sha256": "d6de5a0cd2d7063d0de6116112fe6286b526cf94268762f625292402cf062fc3",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "hash-without-signature",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 17
+    },
+    {
+      "case_id": "payload-only-hash",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "TRANSPORT-03"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. request-hash",
+      "input_sha256": "605b8ef21390bd4e0bf469602ad6f2a65cec2505324d05f18c2033d1e05fd174",
+      "adapter_request_sha256": "585bf591e0e454515bf77b6d82c58ce9add112cde5f1afa1eaa62567fd9de84c",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "payload-only-hash",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 15
+    },
+    {
+      "case_id": "hash-raw-pretty-request",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "TRANSPORT-03"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. request-hash",
+      "input_sha256": "756caab2a085f259ee1ab1b201f88cadf6b10d0aadbdb0d778bc89f89ae1443d",
+      "adapter_request_sha256": "1403342c7d8e0eb2b3039c1ad0acf91dd35d8dedc6cb4051aa38f495def82427",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "hash-raw-pretty-request",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 18
+    },
+    {
+      "case_id": "stale-hash-with-valid-outer-binding",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "TRANSPORT-03"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. request-hash",
+      "input_sha256": "6c2494b94ab41e7d61fcb62f523582a0bea50286cf404af77639acee19b07b64",
+      "adapter_request_sha256": "97e58246da98ead3fc3205af1d1f6090ac1d1c526201c1e609ae0cd5fff39e4a",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "stale-hash-with-valid-outer-binding",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "missing-stored-request",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "TRANSPORT-03"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. request-context",
+      "input_sha256": "2317d53e5b434201e1f40a7d8e8a4baaaed6107bcbd112df7683aca844fda0b4",
+      "adapter_request_sha256": "b4cc652490131967b03053a2c4d42df3601280e430e359b5440345d95d064c70",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "missing-stored-request",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "valid-signed-application-error",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "TRANSPORT-03"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. Positive cryptographic boundary control.",
+      "input_sha256": "47745f3cab6f857ffef544c10f6246acbbb0f05a7188e61a67363d350e08e93b",
+      "adapter_request_sha256": "039ca358a7a03bb068f7b09999e1cf8d15005d706c64b896b77e84c65edc3c39",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "valid-signed-application-error",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 15
+    },
+    {
+      "case_id": "request-inner-signature",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "TRANSPORT-02"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. inner-signature",
+      "input_sha256": "f3d7095c17e47441d203cfb9ed347ea89ca6343526c5d14894b1cbdd188932ba",
+      "adapter_request_sha256": "8e77568825e8632170522b7a2cb6cf72949c7bb7ef1d8aeee185245eda53ad45",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "request-inner-signature",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "request-payload-tamper",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "TRANSPORT-02"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. inner-signature",
+      "input_sha256": "eb4e603aed46be0afac4d9f4733d68bc2c394a0fde8c5625a594dcb8a468cabf",
+      "adapter_request_sha256": "cd4b154a9536880b9bbeaca6400b5fed165415ff0667b89c10c4b3ae653d161a",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "request-payload-tamper",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "response-inner-signature",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "TRANSPORT-03"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. inner-signature",
+      "input_sha256": "35a88fb7c5bdea3d174599df5161867d08eb13c59aa4ca04e29dc8ae172845e7",
+      "adapter_request_sha256": "ef71f1198f60bc8eb02f82e4a79776212ceb735b07d4b57a90a4e0b85aca59b5",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "response-inner-signature",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 16
+    },
+    {
+      "case_id": "unsigned-response",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "MSG-04"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. signature-fields",
+      "input_sha256": "668415a342f63ee16a0ca4c1065bc966171ffbf352adedb37974a06222213acd",
+      "adapter_request_sha256": "d43a8cd86ce2c49a151f0317be33eb29bc3758c0558941f0bf3baede901f4c81",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "unsigned-response",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "unknown-member",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "TRANSPORT-01"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. schema",
+      "input_sha256": "7e3e39f4e48821096550995eaba778c1f336bbe82f5afc132210a7d69083ecd6",
+      "adapter_request_sha256": "b4c3b6ff1fec8ca0344a9e5366a60c83d796e0b7bb90b6e158e53ca222b10db2",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "unknown-member",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 18
+    },
+    {
+      "case_id": "padded-payload",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "TRANSPORT-01"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. schema",
+      "input_sha256": "bc48fc3683e2e0f8528c7e65cab5ce116d4928aa8ba81f8a7193fc85c6cc8ff9",
+      "adapter_request_sha256": "1f4ed0edf8114ed523d517e06ab940e98f7d6de59addc277cd9d78b29ae823d6",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "padded-payload",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "null-context",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "TRANSPORT-01"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. schema",
+      "input_sha256": "76d91b9045466cc9e2de744b074fa10f0ca0ecd8eec5047880695e0d0d1f55c5",
+      "adapter_request_sha256": "b22f6dadb0c9f17c9c6f8f30aea6d9749d2b8bd7e9708fb8c58ad68925bf2f53",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "null-context",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "request-body-16777216",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "MSG-04"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. Positive cryptographic boundary control.",
+      "input_sha256": "b6efbdffce2fd558a322135dc5f621a1467c18e4b0d8c11216581311b4d20ccc",
+      "adapter_request_sha256": "d9d3612622a069c5ce344e9950cb897cf8d326622cfa256e96ef2c816f61d290",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "request-body-16777216",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "response-body-16777216",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "MSG-04"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. Positive cryptographic boundary control.",
+      "input_sha256": "737d37af98d0947c851bc79040c33350979d82ca949d54514a08ffe7e7eabb45",
+      "adapter_request_sha256": "1096a301e0d5585d549859b15b740ff234e0b7eee8a03b85851253a0d51a010a",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "response-body-16777216",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 18
+    },
+    {
+      "case_id": "request-body-16777217",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "MSG-04"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. body-size",
+      "input_sha256": "2f2d00a4c2df44c67ec0cd1dce611fd743a3fc2615d138f11c443709068aa005",
+      "adapter_request_sha256": "814306d6708829b702cc5b9f3ca682870df6e9462218882d6ce420fde916a5d6",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "request-body-16777217",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 13
+    },
+    {
+      "case_id": "response-body-16777217",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "MSG-04"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. body-size",
+      "input_sha256": "ae34c5919d83e53aad2af49c06cc3aee97a8312796adb9fef1eb006a4486feaf",
+      "adapter_request_sha256": "59920738a0a8103315f6eb5d6ac5cd800e5c8e36ab51695d5d81025bce6c0784",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "response-body-16777217",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "response-expiry-1700000129",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "MSG-05"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. Positive cryptographic boundary control.",
+      "input_sha256": "11acca7a48f327c79a1913b68b0e32c0c0c6e2ee3454f5b55bf9854bb83acb20",
+      "adapter_request_sha256": "e4dfdd3d389a6780a170482dfd17e78affc7dcae6d45041a0b520aae4032691c",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "response-expiry-1700000129",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 19
+    },
+    {
+      "case_id": "response-expiry-1700000130",
+      "operation": "sage.http.verify",
+      "rule_ids": [
+        "MSG-05"
+      ],
+      "source_ids": [
+        "sage-http",
+        "sage-transport",
+        "rfc9421"
+      ],
+      "derivation": "Public fixed key; independently signed inner and outer messages. freshness",
+      "input_sha256": "5f0d60a05f86371e99dbed24a1b4d11ed9fd6baad2996dc88ad3c550f1ef955e",
+      "adapter_request_sha256": "b45c06f61a0ddefb1c9cdd3a1a880d5fd8a07cf355218a549583d45084258fec",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "response-expiry-1700000130",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    }
+  ]
+}

@@ -76,3 +76,5 @@ Stateful scenario runner: [INS-05 contract and checks](docs/stateful-scenarios.m
 Canonicalization and strict signature cases: [vectors and core observations](docs/jcs-signature-vectors.md).
 
 HTTP signature bases, content checks and archived verification: [scope and observations](docs/http-signature-vectors.md).
+
+HTTP/envelope boundary fixtures and current binding limitations: [evidence and reproduction](docs/http-boundary-vectors.md).

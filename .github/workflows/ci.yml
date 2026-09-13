@@ -21,6 +21,12 @@ jobs:
           cache: true
       - name: Format
         run: test -z "$(gofmt -l .)" || { gofmt -l .; exit 1; }
+      - name: Audit independent HTTP envelope fixtures
+        run: |
+          node scripts/check_http_boundaries.js vectors/0.10.0/http-boundaries.json docs/evidence/http-boundary-proofs.json
+          node scripts/check_jcs_literals.js vectors/0.10.0/http-envelope-primitives.json
+          node scripts/check_envelope_signatures.js vectors/0.10.0/http-envelope-primitives.json
+          python3 scripts/test_http_boundary_audit.py
       - name: Vet
         run: go vet ./...
       - name: Test

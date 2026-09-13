@@ -1,0 +1,993 @@
+{
+  "schema_version": 1,
+  "protocol_version": "0.10.0",
+  "profile": "primitive-foundation",
+  "id": "sage-jcs-signatures-0.10.0",
+  "sources": [
+    {
+      "id": "sage-profile",
+      "kind": "spec-derived",
+      "uri": "sage-spec/spec/01-crypto.md",
+      "reference": "Pinned SAGE 0.10.0 CRYPTO-02 and spec/02-jcs.md JCS-01/03; manual literal negatives and independent integer arithmetic."
+    },
+    {
+      "id": "rfc8032",
+      "kind": "published",
+      "uri": "https://www.rfc-editor.org/rfc/rfc8032.html#section-7.1",
+      "reference": "Section7.1 TEST1 public vector; no seed required."
+    },
+    {
+      "id": "rfc8785",
+      "kind": "published",
+      "uri": "https://www.rfc-editor.org/rfc/rfc8785.html",
+      "reference": "Section3.2 and Appendix B numeric serialization values."
+    },
+    {
+      "id": "ecdsa-arithmetic",
+      "kind": "spec-derived",
+      "uri": "https://docs.rs/keccak-hash/latest/src/keccak_hash/lib.rs.html",
+      "reference": "Keccak empty digest constant; public curve base points and ECDSA equation with test d=k=1. OpenSSL cross-check verifies fixed SHA-256/Keccak digests without SAGE imports."
+    }
+  ],
+  "cases": [
+    {
+      "id": "jcs-recursive",
+      "operation": "jcs.canonicalize",
+      "rule_ids": [
+        "JCS-03"
+      ],
+      "source_ids": [
+        "sage-profile"
+      ],
+      "derivation": "Literal expected bytes independently transcribed/derived from JCS sorting, serialization and SAGE input rules.",
+      "input": {
+        "document_hex": "207b227a223a5b7b2262223a322c2261223a317d2c305d2c2261223a747275657d20"
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "canonical_hex": "7b2261223a747275652c227a223a5b7b2261223a312c2262223a327d2c305d7d"
+        }
+      }
+    },
+    {
+      "id": "jcs-array-order",
+      "operation": "jcs.canonicalize",
+      "rule_ids": [
+        "JCS-03"
+      ],
+      "source_ids": [
+        "sage-profile"
+      ],
+      "derivation": "Literal expected bytes independently transcribed/derived from JCS sorting, serialization and SAGE input rules.",
+      "input": {
+        "document_hex": "5b332c312c325d"
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "canonical_hex": "5b332c312c325d"
+        }
+      }
+    },
+    {
+      "id": "jcs-unicode-order",
+      "operation": "jcs.canonicalize",
+      "rule_ids": [
+        "JCS-03"
+      ],
+      "source_ids": [
+        "sage-profile"
+      ],
+      "derivation": "Literal expected bytes independently transcribed/derived from JCS sorting, serialization and SAGE input rules.",
+      "input": {
+        "document_hex": "7b22ee8080223a312c22f09f9880223a322c2261223a337d"
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "canonical_hex": "7b2261223a332c22f09f9880223a322c22ee8080223a317d"
+        }
+      }
+    },
+    {
+      "id": "jcs-no-normalization",
+      "operation": "jcs.canonicalize",
+      "rule_ids": [
+        "JCS-03"
+      ],
+      "source_ids": [
+        "sage-profile"
+      ],
+      "derivation": "Literal expected bytes independently transcribed/derived from JCS sorting, serialization and SAGE input rules.",
+      "input": {
+        "document_hex": "7b22c3a9223a312c2265cc81223a327d"
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "canonical_hex": "7b2265cc81223a322c22c3a9223a317d"
+        }
+      }
+    },
+    {
+      "id": "jcs-numbers",
+      "operation": "jcs.canonicalize",
+      "rule_ids": [
+        "JCS-03"
+      ],
+      "source_ids": [
+        "rfc8785"
+      ],
+      "derivation": "Literal expected bytes independently transcribed/derived from JCS sorting, serialization and SAGE input rules.",
+      "input": {
+        "document_hex": "5b3333333333333333332e33333333333332392c314533302c342e35302c32652d332c31652d32375d"
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "canonical_hex": "5b3333333333333333332e333333333333332c31652b33302c342e352c302e3030322c31652d32375d"
+        }
+      }
+    },
+    {
+      "id": "jcs-exponent-boundaries",
+      "operation": "jcs.canonicalize",
+      "rule_ids": [
+        "JCS-03"
+      ],
+      "source_ids": [
+        "rfc8785"
+      ],
+      "derivation": "Literal expected bytes independently transcribed/derived from JCS sorting, serialization and SAGE input rules.",
+      "input": {
+        "document_hex": "5b31652d362c31652d372c316532302c316532315d"
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "canonical_hex": "5b302e3030303030312c31652d372c3130303030303030303030303030303030303030302c31652b32315d"
+        }
+      }
+    },
+    {
+      "id": "jcs-positive-underflow",
+      "operation": "jcs.canonicalize",
+      "rule_ids": [
+        "JCS-03"
+      ],
+      "source_ids": [
+        "sage-profile"
+      ],
+      "derivation": "Literal expected bytes independently transcribed/derived from JCS sorting, serialization and SAGE input rules.",
+      "input": {
+        "document_hex": "5b31652d3939395d"
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "canonical_hex": "5b305d"
+        }
+      }
+    },
+    {
+      "id": "jcs-duplicate",
+      "operation": "jcs.canonicalize",
+      "rule_ids": [
+        "JCS-01"
+      ],
+      "source_ids": [
+        "sage-profile"
+      ],
+      "derivation": "Literal expected bytes independently transcribed/derived from JCS sorting, serialization and SAGE input rules.",
+      "input": {
+        "document_hex": "7b2261223a312c2261223a327d"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "jcs-escaped-duplicate",
+      "operation": "jcs.canonicalize",
+      "rule_ids": [
+        "JCS-01"
+      ],
+      "source_ids": [
+        "sage-profile"
+      ],
+      "derivation": "Literal expected bytes independently transcribed/derived from JCS sorting, serialization and SAGE input rules.",
+      "input": {
+        "document_hex": "7b2261223a312c225c7530303631223a327d"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "jcs-surrogate",
+      "operation": "jcs.canonicalize",
+      "rule_ids": [
+        "JCS-01"
+      ],
+      "source_ids": [
+        "sage-profile"
+      ],
+      "derivation": "Literal expected bytes independently transcribed/derived from JCS sorting, serialization and SAGE input rules.",
+      "input": {
+        "document_hex": "225c756438303022"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "jcs-negative-zero",
+      "operation": "jcs.canonicalize",
+      "rule_ids": [
+        "JCS-01"
+      ],
+      "source_ids": [
+        "sage-profile"
+      ],
+      "derivation": "Literal expected bytes independently transcribed/derived from JCS sorting, serialization and SAGE input rules.",
+      "input": {
+        "document_hex": "2d30"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "jcs-negative-decimal-zero",
+      "operation": "jcs.canonicalize",
+      "rule_ids": [
+        "JCS-01"
+      ],
+      "source_ids": [
+        "sage-profile"
+      ],
+      "derivation": "Literal expected bytes independently transcribed/derived from JCS sorting, serialization and SAGE input rules.",
+      "input": {
+        "document_hex": "2d302e30"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "jcs-negative-underflow",
+      "operation": "jcs.canonicalize",
+      "rule_ids": [
+        "JCS-01"
+      ],
+      "source_ids": [
+        "sage-profile"
+      ],
+      "derivation": "Literal expected bytes independently transcribed/derived from JCS sorting, serialization and SAGE input rules.",
+      "input": {
+        "document_hex": "2d31652d393939"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "jcs-infinity",
+      "operation": "jcs.canonicalize",
+      "rule_ids": [
+        "JCS-01"
+      ],
+      "source_ids": [
+        "sage-profile"
+      ],
+      "derivation": "Literal expected bytes independently transcribed/derived from JCS sorting, serialization and SAGE input rules.",
+      "input": {
+        "document_hex": "3165393939"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "jcs-trailing",
+      "operation": "jcs.canonicalize",
+      "rule_ids": [
+        "JCS-01"
+      ],
+      "source_ids": [
+        "sage-profile"
+      ],
+      "derivation": "Literal expected bytes independently transcribed/derived from JCS sorting, serialization and SAGE input rules.",
+      "input": {
+        "document_hex": "7b7d207b7d"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "jcs-bom",
+      "operation": "jcs.canonicalize",
+      "rule_ids": [
+        "JCS-01"
+      ],
+      "source_ids": [
+        "sage-profile"
+      ],
+      "derivation": "Literal expected bytes independently transcribed/derived from JCS sorting, serialization and SAGE input rules.",
+      "input": {
+        "document_hex": "efbbbf7b7d"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "ed25519-rfc8032",
+      "operation": "signature.verify",
+      "rule_ids": [
+        "CRYPTO-02"
+      ],
+      "source_ids": [
+        "rfc8032"
+      ],
+      "derivation": "RFC8032 section7.1 TEST1 exact public key, empty message and signature; independently verified with OpenSSL.",
+      "input": {
+        "algorithm": "ed25519",
+        "public_key_hex": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
+        "message_hex": "",
+        "signature_hex": "e5564300c360ac729086e2cc806e828a84877f1eb8e5d974d873e065224901555fb8821590a33bacc61e39701cf9b46bd25bf5f0595bbe24655141438e7a100b"
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      }
+    },
+    {
+      "id": "ed25519-message",
+      "operation": "signature.verify",
+      "rule_ids": [
+        "CRYPTO-02"
+      ],
+      "source_ids": [
+        "sage-profile"
+      ],
+      "derivation": "Manual mutation of a valid fixture; SAGE 0.10.0 rejection rule.",
+      "input": {
+        "algorithm": "ed25519",
+        "public_key_hex": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
+        "message_hex": "78",
+        "signature_hex": "e5564300c360ac729086e2cc806e828a84877f1eb8e5d974d873e065224901555fb8821590a33bacc61e39701cf9b46bd25bf5f0595bbe24655141438e7a100b"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "ed25519-truncated",
+      "operation": "signature.verify",
+      "rule_ids": [
+        "CRYPTO-02"
+      ],
+      "source_ids": [
+        "sage-profile"
+      ],
+      "derivation": "Manual mutation of a valid fixture; SAGE 0.10.0 rejection rule.",
+      "input": {
+        "algorithm": "ed25519",
+        "public_key_hex": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
+        "message_hex": "",
+        "signature_hex": "e5564300c360ac729086e2cc806e828a84877f1eb8e5d974d873e065224901555fb8821590a33bacc61e39701cf9b46bd25bf5f0595bbe24655141438e7a10"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "ed25519-extra-byte",
+      "operation": "signature.verify",
+      "rule_ids": [
+        "CRYPTO-02"
+      ],
+      "source_ids": [
+        "sage-profile"
+      ],
+      "derivation": "Manual mutation of a valid fixture; SAGE 0.10.0 rejection rule.",
+      "input": {
+        "algorithm": "ed25519",
+        "public_key_hex": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
+        "message_hex": "",
+        "signature_hex": "e5564300c360ac729086e2cc806e828a84877f1eb8e5d974d873e065224901555fb8821590a33bacc61e39701cf9b46bd25bf5f0595bbe24655141438e7a100b00"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "ed25519-scalar-L",
+      "operation": "signature.verify",
+      "rule_ids": [
+        "CRYPTO-02"
+      ],
+      "source_ids": [
+        "sage-profile"
+      ],
+      "derivation": "Manual mutation of a valid fixture; SAGE 0.10.0 rejection rule.",
+      "input": {
+        "algorithm": "ed25519",
+        "public_key_hex": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
+        "message_hex": "",
+        "signature_hex": "e5564300c360ac729086e2cc806e828a84877f1eb8e5d974d873e06522490155edd3f55c1a631258d69cf7a2def9de1400000000000000000000000000000010"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "ed25519-scalar-malleability",
+      "operation": "signature.verify",
+      "rule_ids": [
+        "CRYPTO-02"
+      ],
+      "source_ids": [
+        "sage-profile"
+      ],
+      "derivation": "Manual mutation of a valid fixture; SAGE 0.10.0 rejection rule.",
+      "input": {
+        "algorithm": "ed25519",
+        "public_key_hex": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
+        "message_hex": "",
+        "signature_hex": "e5564300c360ac729086e2cc806e828a84877f1eb8e5d974d873e065224901554c8c7872aa064e049dbb3013fbf29380d25bf5f0595bbe24655141438e7a101b"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "ed25519-noncanonical-A",
+      "operation": "signature.verify",
+      "rule_ids": [
+        "CRYPTO-02"
+      ],
+      "source_ids": [
+        "sage-profile"
+      ],
+      "derivation": "Manual mutation of a valid fixture; SAGE 0.10.0 rejection rule.",
+      "input": {
+        "algorithm": "ed25519",
+        "public_key_hex": "edffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7f",
+        "message_hex": "",
+        "signature_hex": "e5564300c360ac729086e2cc806e828a84877f1eb8e5d974d873e065224901555fb8821590a33bacc61e39701cf9b46bd25bf5f0595bbe24655141438e7a100b"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "ed25519-noncanonical-R",
+      "operation": "signature.verify",
+      "rule_ids": [
+        "CRYPTO-02"
+      ],
+      "source_ids": [
+        "sage-profile"
+      ],
+      "derivation": "Manual mutation of a valid fixture; SAGE 0.10.0 rejection rule.",
+      "input": {
+        "algorithm": "ed25519",
+        "public_key_hex": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
+        "message_hex": "",
+        "signature_hex": "edffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7f5fb8821590a33bacc61e39701cf9b46bd25bf5f0595bbe24655141438e7a100b"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "ed25519-identity-A",
+      "operation": "signature.verify",
+      "rule_ids": [
+        "CRYPTO-02"
+      ],
+      "source_ids": [
+        "sage-profile"
+      ],
+      "derivation": "Independent affine Edwards construction: uncofactored signature equation holds, but A or R is identity or has order-2 torsion. SAGE prime-subgroup rule requires rejection.",
+      "input": {
+        "algorithm": "ed25519",
+        "public_key_hex": "0100000000000000000000000000000000000000000000000000000000000000",
+        "message_hex": "00",
+        "signature_hex": "58666666666666666666666666666666666666666666666666666666666666660100000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "ed25519-identity-R",
+      "operation": "signature.verify",
+      "rule_ids": [
+        "CRYPTO-02"
+      ],
+      "source_ids": [
+        "sage-profile"
+      ],
+      "derivation": "Independent affine Edwards construction: uncofactored signature equation holds, but A or R is identity or has order-2 torsion. SAGE prime-subgroup rule requires rejection.",
+      "input": {
+        "algorithm": "ed25519",
+        "public_key_hex": "5866666666666666666666666666666666666666666666666666666666666666",
+        "message_hex": "00",
+        "signature_hex": "0100000000000000000000000000000000000000000000000000000000000000b5ba0c6aa6387de265c51b9023ef0a1bbfb0801b6459a136babebdfeb49a2101"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "ed25519-mixed-A",
+      "operation": "signature.verify",
+      "rule_ids": [
+        "CRYPTO-02"
+      ],
+      "source_ids": [
+        "sage-profile"
+      ],
+      "derivation": "Independent affine Edwards construction: uncofactored signature equation holds, but A or R is identity or has order-2 torsion. SAGE prime-subgroup rule requires rejection.",
+      "input": {
+        "algorithm": "ed25519",
+        "public_key_hex": "9599999999999999999999999999999999999999999999999999999999999999",
+        "message_hex": "00",
+        "signature_hex": "58666666666666666666666666666666666666666666666666666666666666668503e09487313c50b32bbc5abd644abf54c501cba21507f9b6b167939dc5c007"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "ed25519-mixed-R",
+      "operation": "signature.verify",
+      "rule_ids": [
+        "CRYPTO-02"
+      ],
+      "source_ids": [
+        "sage-profile"
+      ],
+      "derivation": "Independent affine Edwards construction: uncofactored signature equation holds, but A or R is identity or has order-2 torsion. SAGE prime-subgroup rule requires rejection.",
+      "input": {
+        "algorithm": "ed25519",
+        "public_key_hex": "9599999999999999999999999999999999999999999999999999999999999999",
+        "message_hex": "00",
+        "signature_hex": "95999999999999999999999999999999999999999999999999999999999999994ab53c61ea749c230c80d884c4fc9dd16cb479354fd370f86c1b6056c4a4f60f"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "p256-valid",
+      "operation": "signature.verify",
+      "rule_ids": [
+        "CRYPTO-02"
+      ],
+      "source_ids": [
+        "ecdsa-arithmetic"
+      ],
+      "derivation": "Test-only d=k=1 arithmetic with low-S and recovery parity adjustment; independently checked by OpenSSL over fixed digest. Keccak empty digest from keccak-hash source constant.",
+      "input": {
+        "algorithm": "ecdsa-p256-sha256",
+        "public_key_hex": "046b17d1f2e12c4247f8bce6e563a440f277037d812deb33a0f4a13945d898c2964fe342e2fe1a7f9b8ee7eb4a7c0f9e162bce33576b315ececbb6406837bf51f5",
+        "message_hex": "",
+        "signature_hex": "6b17d1f2e12c4247f8bce6e563a440f277037d812deb33a0f4a13945d898c2964ec896367a285e5b93b8dbadfd13fa16e1cac4b7eb6f2868a57d079e5488559a"
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      }
+    },
+    {
+      "id": "p256-high-s",
+      "operation": "signature.verify",
+      "rule_ids": [
+        "CRYPTO-02"
+      ],
+      "source_ids": [
+        "sage-profile"
+      ],
+      "derivation": "Manual mutation of a valid fixture; SAGE 0.10.0 rejection rule.",
+      "input": {
+        "algorithm": "ecdsa-p256-sha256",
+        "public_key_hex": "046b17d1f2e12c4247f8bce6e563a440f277037d812deb33a0f4a13945d898c2964fe342e2fe1a7f9b8ee7eb4a7c0f9e162bce33576b315ececbb6406837bf51f5",
+        "message_hex": "",
+        "signature_hex": "6b17d1f2e12c4247f8bce6e563a440f277037d812deb33a0f4a13945d898c296b13769c885d7a1a56c47245202ec05e8db1c35f5bba8761c4e3cc324a7dacfb7"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "p256-zero-r",
+      "operation": "signature.verify",
+      "rule_ids": [
+        "CRYPTO-02"
+      ],
+      "source_ids": [
+        "sage-profile"
+      ],
+      "derivation": "Manual mutation of a valid fixture; SAGE 0.10.0 rejection rule.",
+      "input": {
+        "algorithm": "ecdsa-p256-sha256",
+        "public_key_hex": "046b17d1f2e12c4247f8bce6e563a440f277037d812deb33a0f4a13945d898c2964fe342e2fe1a7f9b8ee7eb4a7c0f9e162bce33576b315ececbb6406837bf51f5",
+        "message_hex": "",
+        "signature_hex": "00000000000000000000000000000000000000000000000000000000000000004ec896367a285e5b93b8dbadfd13fa16e1cac4b7eb6f2868a57d079e5488559a"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "p256-zero-s",
+      "operation": "signature.verify",
+      "rule_ids": [
+        "CRYPTO-02"
+      ],
+      "source_ids": [
+        "sage-profile"
+      ],
+      "derivation": "Manual mutation of a valid fixture; SAGE 0.10.0 rejection rule.",
+      "input": {
+        "algorithm": "ecdsa-p256-sha256",
+        "public_key_hex": "046b17d1f2e12c4247f8bce6e563a440f277037d812deb33a0f4a13945d898c2964fe342e2fe1a7f9b8ee7eb4a7c0f9e162bce33576b315ececbb6406837bf51f5",
+        "message_hex": "",
+        "signature_hex": "6b17d1f2e12c4247f8bce6e563a440f277037d812deb33a0f4a13945d898c2960000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "p256-der",
+      "operation": "signature.verify",
+      "rule_ids": [
+        "CRYPTO-02"
+      ],
+      "source_ids": [
+        "sage-profile"
+      ],
+      "derivation": "Manual mutation of a valid fixture; SAGE 0.10.0 rejection rule.",
+      "input": {
+        "algorithm": "ecdsa-p256-sha256",
+        "public_key_hex": "046b17d1f2e12c4247f8bce6e563a440f277037d812deb33a0f4a13945d898c2964fe342e2fe1a7f9b8ee7eb4a7c0f9e162bce33576b315ececbb6406837bf51f5",
+        "message_hex": "",
+        "signature_hex": "304402206b17d1f2e12c4247f8bce6e563a440f277037d812deb33a0f4a13945d898c29602204ec896367a285e5b93b8dbadfd13fa16e1cac4b7eb6f2868a57d079e5488559a"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "p256-compressed-key",
+      "operation": "signature.verify",
+      "rule_ids": [
+        "CRYPTO-02"
+      ],
+      "source_ids": [
+        "sage-profile"
+      ],
+      "derivation": "Manual mutation of a valid fixture; SAGE 0.10.0 rejection rule.",
+      "input": {
+        "algorithm": "ecdsa-p256-sha256",
+        "public_key_hex": "036b17d1f2e12c4247f8bce6e563a440f277037d812deb33a0f4a13945d898c296",
+        "message_hex": "",
+        "signature_hex": "6b17d1f2e12c4247f8bce6e563a440f277037d812deb33a0f4a13945d898c2964ec896367a285e5b93b8dbadfd13fa16e1cac4b7eb6f2868a57d079e5488559a"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "p256-off-curve",
+      "operation": "signature.verify",
+      "rule_ids": [
+        "CRYPTO-02"
+      ],
+      "source_ids": [
+        "sage-profile"
+      ],
+      "derivation": "Manual mutation of a valid fixture; SAGE 0.10.0 rejection rule.",
+      "input": {
+        "algorithm": "ecdsa-p256-sha256",
+        "public_key_hex": "0400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "message_hex": "",
+        "signature_hex": "6b17d1f2e12c4247f8bce6e563a440f277037d812deb33a0f4a13945d898c2964ec896367a285e5b93b8dbadfd13fa16e1cac4b7eb6f2868a57d079e5488559a"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "p256-truncated",
+      "operation": "signature.verify",
+      "rule_ids": [
+        "CRYPTO-02"
+      ],
+      "source_ids": [
+        "sage-profile"
+      ],
+      "derivation": "Manual mutation of a valid fixture; SAGE 0.10.0 rejection rule.",
+      "input": {
+        "algorithm": "ecdsa-p256-sha256",
+        "public_key_hex": "046b17d1f2e12c4247f8bce6e563a440f277037d812deb33a0f4a13945d898c2964fe342e2fe1a7f9b8ee7eb4a7c0f9e162bce33576b315ececbb6406837bf51f5",
+        "message_hex": "",
+        "signature_hex": "6b17d1f2e12c4247f8bce6e563a440f277037d812deb33a0f4a13945d898c2964ec896367a285e5b93b8dbadfd13fa16e1cac4b7eb6f2868a57d079e548855"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "secp256k1-valid",
+      "operation": "signature.verify",
+      "rule_ids": [
+        "CRYPTO-02"
+      ],
+      "source_ids": [
+        "ecdsa-arithmetic"
+      ],
+      "derivation": "Test-only d=k=1 arithmetic with low-S and recovery parity adjustment; independently checked by OpenSSL over fixed digest. Keccak empty digest from keccak-hash source constant.",
+      "input": {
+        "algorithm": "sage-secp256k1-keccak256",
+        "public_key_hex": "0479be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798483ada7726a3c4655da4fbfc0e1108a8fd17b448a68554199c47d08ffb10d4b8",
+        "message_hex": "",
+        "signature_hex": "79be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f817983f90ac8080d3dee8e81ee048ab4e0ec92cedd6484907afd9161afad2a4477ac700"
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      }
+    },
+    {
+      "id": "secp256k1-high-s",
+      "operation": "signature.verify",
+      "rule_ids": [
+        "CRYPTO-02"
+      ],
+      "source_ids": [
+        "sage-profile"
+      ],
+      "derivation": "Manual mutation of a valid fixture; SAGE 0.10.0 rejection rule.",
+      "input": {
+        "algorithm": "sage-secp256k1-keccak256",
+        "public_key_hex": "0479be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798483ada7726a3c4655da4fbfc0e1108a8fd17b448a68554199c47d08ffb10d4b8",
+        "message_hex": "",
+        "signature_hex": "79be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798c06f537f7f2c211717e11fb754b1f1358dc1069e6640f062a9b763ba2beec67a01"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "secp256k1-zero-r",
+      "operation": "signature.verify",
+      "rule_ids": [
+        "CRYPTO-02"
+      ],
+      "source_ids": [
+        "sage-profile"
+      ],
+      "derivation": "Manual mutation of a valid fixture; SAGE 0.10.0 rejection rule.",
+      "input": {
+        "algorithm": "sage-secp256k1-keccak256",
+        "public_key_hex": "0479be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798483ada7726a3c4655da4fbfc0e1108a8fd17b448a68554199c47d08ffb10d4b8",
+        "message_hex": "",
+        "signature_hex": "00000000000000000000000000000000000000000000000000000000000000003f90ac8080d3dee8e81ee048ab4e0ec92cedd6484907afd9161afad2a4477ac700"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "secp256k1-zero-s",
+      "operation": "signature.verify",
+      "rule_ids": [
+        "CRYPTO-02"
+      ],
+      "source_ids": [
+        "sage-profile"
+      ],
+      "derivation": "Manual mutation of a valid fixture; SAGE 0.10.0 rejection rule.",
+      "input": {
+        "algorithm": "sage-secp256k1-keccak256",
+        "public_key_hex": "0479be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798483ada7726a3c4655da4fbfc0e1108a8fd17b448a68554199c47d08ffb10d4b8",
+        "message_hex": "",
+        "signature_hex": "79be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798000000000000000000000000000000000000000000000000000000000000000000"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "secp256k1-der",
+      "operation": "signature.verify",
+      "rule_ids": [
+        "CRYPTO-02"
+      ],
+      "source_ids": [
+        "sage-profile"
+      ],
+      "derivation": "Manual mutation of a valid fixture; SAGE 0.10.0 rejection rule.",
+      "input": {
+        "algorithm": "sage-secp256k1-keccak256",
+        "public_key_hex": "0479be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798483ada7726a3c4655da4fbfc0e1108a8fd17b448a68554199c47d08ffb10d4b8",
+        "message_hex": "",
+        "signature_hex": "3044022079be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f8179802203f90ac8080d3dee8e81ee048ab4e0ec92cedd6484907afd9161afad2a4477ac7"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "secp256k1-compressed-key",
+      "operation": "signature.verify",
+      "rule_ids": [
+        "CRYPTO-02"
+      ],
+      "source_ids": [
+        "sage-profile"
+      ],
+      "derivation": "Manual mutation of a valid fixture; SAGE 0.10.0 rejection rule.",
+      "input": {
+        "algorithm": "sage-secp256k1-keccak256",
+        "public_key_hex": "0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798",
+        "message_hex": "",
+        "signature_hex": "79be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f817983f90ac8080d3dee8e81ee048ab4e0ec92cedd6484907afd9161afad2a4477ac700"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "secp256k1-off-curve",
+      "operation": "signature.verify",
+      "rule_ids": [
+        "CRYPTO-02"
+      ],
+      "source_ids": [
+        "sage-profile"
+      ],
+      "derivation": "Manual mutation of a valid fixture; SAGE 0.10.0 rejection rule.",
+      "input": {
+        "algorithm": "sage-secp256k1-keccak256",
+        "public_key_hex": "0400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+        "message_hex": "",
+        "signature_hex": "79be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f817983f90ac8080d3dee8e81ee048ab4e0ec92cedd6484907afd9161afad2a4477ac700"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "secp256k1-truncated",
+      "operation": "signature.verify",
+      "rule_ids": [
+        "CRYPTO-02"
+      ],
+      "source_ids": [
+        "sage-profile"
+      ],
+      "derivation": "Manual mutation of a valid fixture; SAGE 0.10.0 rejection rule.",
+      "input": {
+        "algorithm": "sage-secp256k1-keccak256",
+        "public_key_hex": "0479be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798483ada7726a3c4655da4fbfc0e1108a8fd17b448a68554199c47d08ffb10d4b8",
+        "message_hex": "",
+        "signature_hex": "79be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f817983f90ac8080d3dee8e81ee048ab4e0ec92cedd6484907afd9161afad2a4477ac7"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "secp256k1-wrong-recovery",
+      "operation": "signature.verify",
+      "rule_ids": [
+        "CRYPTO-02"
+      ],
+      "source_ids": [
+        "sage-profile"
+      ],
+      "derivation": "Manual mutation of a valid fixture; SAGE 0.10.0 rejection rule.",
+      "input": {
+        "algorithm": "sage-secp256k1-keccak256",
+        "public_key_hex": "0479be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798483ada7726a3c4655da4fbfc0e1108a8fd17b448a68554199c47d08ffb10d4b8",
+        "message_hex": "",
+        "signature_hex": "79be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f817983f90ac8080d3dee8e81ee048ab4e0ec92cedd6484907afd9161afad2a4477ac701"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "secp256k1-recovery-2",
+      "operation": "signature.verify",
+      "rule_ids": [
+        "CRYPTO-02"
+      ],
+      "source_ids": [
+        "sage-profile"
+      ],
+      "derivation": "Manual mutation of a valid fixture; SAGE 0.10.0 rejection rule.",
+      "input": {
+        "algorithm": "sage-secp256k1-keccak256",
+        "public_key_hex": "0479be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798483ada7726a3c4655da4fbfc0e1108a8fd17b448a68554199c47d08ffb10d4b8",
+        "message_hex": "",
+        "signature_hex": "79be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f817983f90ac8080d3dee8e81ee048ab4e0ec92cedd6484907afd9161afad2a4477ac702"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "secp256k1-recovery-27",
+      "operation": "signature.verify",
+      "rule_ids": [
+        "CRYPTO-02"
+      ],
+      "source_ids": [
+        "sage-profile"
+      ],
+      "derivation": "Manual mutation of a valid fixture; SAGE 0.10.0 rejection rule.",
+      "input": {
+        "algorithm": "sage-secp256k1-keccak256",
+        "public_key_hex": "0479be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798483ada7726a3c4655da4fbfc0e1108a8fd17b448a68554199c47d08ffb10d4b8",
+        "message_hex": "",
+        "signature_hex": "79be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f817983f90ac8080d3dee8e81ee048ab4e0ec92cedd6484907afd9161afad2a4477ac71b"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    }
+  ]
+}

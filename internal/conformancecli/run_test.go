@@ -16,7 +16,7 @@ func TestReportsAndExitCodes(t *testing.T) {
 	if code != 0 {
 		t.Fatalf("%d %s", code, &err)
 	}
-	saved, e := os.ReadFile(report)
+	saved, e := os.ReadFile(report) // #nosec G304 -- Test-owned temporary report path.
 	if e != nil || !bytes.Equal(saved, out.Bytes()) {
 		t.Fatal("report differs from stdout")
 	}

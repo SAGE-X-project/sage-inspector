@@ -6,8 +6,9 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	"github.com/sage-x-project/sage-inspector/pkg/conformance"
 	"os"
+
+	"github.com/sage-x-project/sage-inspector/pkg/conformance"
 )
 
 func main() { os.Exit(run()) }
@@ -18,32 +19,32 @@ func run() int {
 	revision := flag.String("revision", "", "source revision")
 	flag.Parse()
 	if flag.NArg() != 0 || *fixture == "" || *adapter == "" || *subject == "" || *revision == "" {
-		fmt.Fprintln(os.Stderr, "scenario, adapter, subject and revision are required")
+		_, _ = fmt.Fprintln(os.Stderr, "scenario, adapter, subject and revision are required")
 		return 2
 	}
 	f, e := os.Open(*fixture)
 	if e != nil {
-		fmt.Fprintln(os.Stderr, e)
+		_, _ = fmt.Fprintln(os.Stderr, e)
 		return 2
 	}
 	s, e := conformance.LoadScenario(f)
-	f.Close()
+	_ = f.Close()
 	if e != nil {
-		fmt.Fprintln(os.Stderr, e)
+		_, _ = fmt.Fprintln(os.Stderr, e)
 		return 2
 	}
 	p, e := conformance.NewProcess(*adapter, nil)
 	if e != nil {
-		fmt.Fprintln(os.Stderr, e)
+		_, _ = fmt.Fprintln(os.Stderr, e)
 		return 2
 	}
 	r, e := conformance.RunScenario(context.Background(), s, p, conformance.Subject{Name: *subject, Revision: *revision})
 	if e != nil {
-		fmt.Fprintln(os.Stderr, e)
+		_, _ = fmt.Fprintln(os.Stderr, e)
 		return 2
 	}
 	if e = json.NewEncoder(os.Stdout).Encode(r); e != nil {
-		fmt.Fprintln(os.Stderr, e)
+		_, _ = fmt.Fprintln(os.Stderr, e)
 		return 2
 	}
 	switch r.Status {

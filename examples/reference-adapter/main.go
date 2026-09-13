@@ -6,19 +6,20 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/sage-x-project/sage-inspector/pkg/conformance"
 	"os"
+
+	"github.com/sage-x-project/sage-inspector/pkg/conformance"
 )
 
 func main() {
 	q, e := conformance.ReadRequest(os.Stdin)
 	if e != nil {
-		fmt.Fprintln(os.Stderr, e)
+		_, _ = fmt.Fprintln(os.Stderr, e)
 		os.Exit(2)
 	}
 	o, e := (conformance.Reference{}).Observe(context.Background(), q)
 	if e != nil {
-		fmt.Fprintln(os.Stderr, e)
+		_, _ = fmt.Fprintln(os.Stderr, e)
 		os.Exit(1)
 	}
 	if e = json.NewEncoder(os.Stdout).Encode(o); e != nil {

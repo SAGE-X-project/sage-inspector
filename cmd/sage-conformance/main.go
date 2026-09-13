@@ -3,8 +3,9 @@
 package main
 
 import (
-	"github.com/sage-x-project/sage-inspector/internal/conformancecli"
 	"os"
+
+	"github.com/sage-x-project/sage-inspector/internal/conformancecli"
 )
 
 var Version = "dev"

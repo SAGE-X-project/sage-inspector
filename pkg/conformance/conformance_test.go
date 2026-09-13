@@ -18,7 +18,7 @@ func fixture(t *testing.T) *Suite {
 	if e != nil {
 		t.Fatal(e)
 	}
-	defer f.Close()
+	defer func() { _ = f.Close() }()
 	s, e := Load(f)
 	if e != nil {
 		t.Fatal(e)
@@ -171,7 +171,9 @@ func TestAdapterHelper(t *testing.T) {
 	if mode == "wrong-case" {
 		o.CaseID = "wrong"
 	}
-	json.NewEncoder(os.Stdout).Encode(o)
+	if err := json.NewEncoder(os.Stdout).Encode(o); err != nil {
+		os.Exit(1)
+	}
 	os.Exit(0)
 }
 func TestExternalAdapterFailures(t *testing.T) {

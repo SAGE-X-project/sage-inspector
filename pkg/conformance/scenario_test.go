@@ -40,16 +40,18 @@ func TestScenarioChild(t *testing.T) {
 		case "effect":
 			o.Effects["dispatch"] = 99
 		case "malformed":
-			os.Stdout.WriteString("{\n")
+			_, _ = os.Stdout.WriteString("{\n")
 			os.Exit(0)
 		}
-		json.NewEncoder(os.Stdout).Encode(o)
+		if err := json.NewEncoder(os.Stdout).Encode(o); err != nil {
+			os.Exit(1)
+		}
 		if mode == "exit" {
 			os.Exit(1)
 		}
 	}
 	if mode == "trailing" {
-		os.Stdout.WriteString("extra\n")
+		_, _ = os.Stdout.WriteString("extra\n")
 	}
 	os.Exit(0)
 }

@@ -3,6 +3,7 @@ package conformance
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"math"
@@ -134,7 +135,7 @@ func strictJSON(b []byte) (any, error) {
 	if e != nil {
 		return nil, e
 	}
-	if _, e = d.Token(); e != io.EOF {
+	if _, e = d.Token(); !errors.Is(e, io.EOF) {
 		return nil, fmt.Errorf("trailing JSON data")
 	}
 	return v, nil

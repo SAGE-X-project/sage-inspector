@@ -5,6 +5,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"os"
@@ -128,7 +129,7 @@ func RunScenario(parent context.Context, s *Scenario, p *Process, subject Subjec
 	if e != nil || !reflect.DeepEqual(s, frozen) {
 		return nil, fmt.Errorf("scenario changed")
 	}
-	binary, e := os.ReadFile(p.Path)
+	binary, e := os.ReadFile(p.Path) // #nosec G304 G703 -- Hash recheck of the operator-selected executable.
 	if e != nil || Digest(binary) != p.ExpectedSHA256 {
 		return nil, fmt.Errorf("adapter changed")
 	}
@@ -140,7 +141,7 @@ func RunScenario(parent context.Context, s *Scenario, p *Process, subject Subjec
 	}
 	ctx, cancel := context.WithTimeout(parent, 60*time.Second)
 	defer cancel()
-	cmd := exec.CommandContext(ctx, p.Path, p.Args...)
+	cmd := exec.CommandContext(ctx, p.Path, p.Args...) // #nosec G204 G702 -- Explicit trusted executable; no shell or fixture-provided command.
 	cmd.WaitDelay = 100 * time.Millisecond
 	stderr := &boundedBuffer{limit: 64 << 10}
 	cmd.Stderr = stderr
@@ -151,12 +152,12 @@ func RunScenario(parent context.Context, s *Scenario, p *Process, subject Subjec
 	if e != nil {
 		return nil, e
 	}
-	defer in.Close()
+	defer func() { _ = in.Close() }()
 	out, e := cmd.StdoutPipe()
 	if e != nil {
 		return nil, e
 	}
-	defer out.Close()
+	defer func() { _ = out.Close() }()
 	if e = cmd.Start(); e != nil {
 		return nil, e
 	}
@@ -188,13 +189,13 @@ func RunScenario(parent context.Context, s *Scenario, p *Process, subject Subjec
 		case <-timer.C:
 			a.e = fmt.Errorf("step timeout")
 			cancel()
-			in.Close()
-			out.Close()
+			_ = in.Close()
+			_ = out.Close()
 			<-done
 		case <-ctx.Done():
 			a.e = ctx.Err()
-			in.Close()
-			out.Close()
+			_ = in.Close()
+			_ = out.Close()
 			<-done
 		}
 		timer.Stop()
@@ -239,16 +240,16 @@ func RunScenario(parent context.Context, s *Scenario, p *Process, subject Subjec
 			break
 		}
 	}
-	in.Close()
+	_ = in.Close()
 	// EOF is required after the last response; close/timeout bounds escaped pipe holders.
 	extra := make(chan bool, 1)
-	go func() { _, err := reader.ReadByte(); extra <- err != io.EOF }()
+	go func() { _, err := reader.ReadByte(); extra <- !errors.Is(err, io.EOF) }()
 	var trailing bool
 	select {
 	case trailing = <-extra:
 	case <-ctx.Done():
 		trailing = true
-		out.Close()
+		_ = out.Close()
 		<-extra
 	}
 	waitErr := cmd.Wait()

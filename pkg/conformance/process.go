@@ -28,7 +28,7 @@ func NewProcess(path string, args []string) (*Process, error) {
 	if e != nil {
 		return nil, e
 	}
-	b, e := os.ReadFile(p)
+	b, e := os.ReadFile(p) // #nosec G304 -- Trusted operator-selected adapter binary, never a fixture path.
 	if e != nil {
 		return nil, e
 	}
@@ -51,7 +51,7 @@ func (b *boundedBuffer) Write(p []byte) (int, error) {
 func (p *Process) Observe(ctx context.Context, q Request) (Observation, error) {
 	// Detect ordinary replacement between cases. This does not pin interpreter,
 	// dynamic libraries, or defend against a malicious host/check-use race.
-	b, e := os.ReadFile(p.Path)
+	b, e := os.ReadFile(p.Path) // #nosec G304 G703 -- Hash recheck of the operator-selected executable.
 	if e != nil || Digest(b) != p.ExpectedSHA256 {
 		return Observation{}, fmt.Errorf("adapter executable changed or unreadable")
 	}
@@ -59,7 +59,7 @@ func (p *Process) Observe(ctx context.Context, q Request) (Observation, error) {
 	if e != nil {
 		return Observation{}, e
 	}
-	cmd := exec.CommandContext(ctx, p.Path, p.Args...)
+	cmd := exec.CommandContext(ctx, p.Path, p.Args...) // #nosec G204 G702 -- Explicit trusted executable; no shell or fixture-provided command.
 	cmd.Stdin = bytes.NewReader(input)
 	cmd.WaitDelay = 100 * time.Millisecond
 	out := &boundedBuffer{limit: MaxJSONBytes}

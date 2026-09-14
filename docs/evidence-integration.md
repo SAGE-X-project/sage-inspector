@@ -77,3 +77,5 @@ observed result/effect and stop progression and preserves per-step effects. Omit
 bindings remain NOT_RUN. Test-generated reports only exercise this ingestion path;
 they are never included in core evidence. Actual host bypass, chain deployment and
 Go↔Rust interoperability evidence remain separate follow-up work.
+
+추가 진단: [수신·종료 경합](close-race-inspection.md)은 Go DATA_RACE 실패와 Rust 직접 병행 종료 미지원을 별도 기록한다. 원시 프로세스 오류와 stderr를 검증하며, 기존 primitive/계획 사례 통과 수에는 합산하지 않는다.

@@ -1,0 +1,27 @@
+==================
+WARNING: DATA RACE
+Write at 0x00c0001a43f0 by goroutine 15:
+  github.com/sage-x-project/sage/pkg/agent/session.(*SecureSession).Close()
+      /Users/0xtopaz/work/github/sage-x-project/sage/pkg/agent/session/session.go:623 +0x2c4
+  main.main.func2()
+      /Users/0xtopaz/work/github/sage-x-project/sage-inspector/adapters/go/cmd/sage-close-probe/main.go:113 +0x134
+
+Previous read at 0x00c0001a43f0 by goroutine 9:
+  github.com/sage-x-project/sage/pkg/agent/session.(*SecureSession).DecryptWithAADInbound()
+      /Users/0xtopaz/work/github/sage-x-project/sage/pkg/agent/session/session.go:807 +0x50
+  main.open()
+      /Users/0xtopaz/work/github/sage-x-project/sage-inspector/adapters/go/cmd/sage-close-probe/main.go:34 +0xbc
+  main.main.func1()
+      /Users/0xtopaz/work/github/sage-x-project/sage-inspector/adapters/go/cmd/sage-close-probe/main.go:105 +0x118
+  main.main.gowrap1()
+      /Users/0xtopaz/work/github/sage-x-project/sage-inspector/adapters/go/cmd/sage-close-probe/main.go:106 +0x38
+
+Goroutine 15 (running) created at:
+  main.main()
+      /Users/0xtopaz/work/github/sage-x-project/sage-inspector/adapters/go/cmd/sage-close-probe/main.go:108 +0xcac
+
+Goroutine 9 (running) created at:
+  main.main()
+      /Users/0xtopaz/work/github/sage-x-project/sage-inspector/adapters/go/cmd/sage-close-probe/main.go:101 +0x8f8
+==================
+Found 1 data race(s)

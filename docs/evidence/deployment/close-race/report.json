@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "protocol_version": "0.10.0",
+  "conformance": "NOT_ESTABLISHED",
+  "scope": "Legacy Go close/receive API safety diagnostic; not a normative protocol verdict",
+  "created": "2026-09-14T07:07:37.094992+00:00",
+  "environment": "macOS-26.6.2-arm64-arm-64bit",
+  "executable_sha256": "9f59b97b23e378741d0aa122dd8a61aa68d7e3ebea08832b64d6c3b22d3dd0bf",
+  "go_build_info": "/private/tmp/sage-close-probe: go1.26.0\n\tpath\tsage-inspector-go-adapter/cmd/sage-close-probe\n\tmod\tsage-inspector-go-adapter\t(devel)\t\n\tdep\tgithub.com/sage-x-project/sage\tv0.0.0\n\t=>\t../../../sage\t(devel)\t\n\t\n\tdep\tgolang.org/x/crypto\tv0.57.0\th1:3ZVCjf8Ggz7zneR/EHRVx68Ctf+2pmIMP2UFhh9cC6M=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-race=true\n\tbuild\tCGO_ENABLED=1\n\tbuild\tCGO_CFLAGS=\n\tbuild\tCGO_CPPFLAGS=\n\tbuild\tCGO_CXXFLAGS=\n\tbuild\tCGO_LDFLAGS=\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=3e1468cc0aa3eca1e6457ec62ce985c98c9dbc30\n\tbuild\tvcs.time=2026-09-14T06:36:04Z\n\tbuild\tvcs.modified=true\n",
+  "environment_controls": {
+    "GORACE": "halt_on_error=0 exitcode=66",
+    "GOMAXPROCS": "8"
+  },
+  "core_revisions": {
+    "sage": "c7709b7486e0da94336edc0931fddd87f6a45343",
+    "rs-sage-core": "206bbbb5a66667ae2feb3b0e9991ed1ca4622bb2"
+  },
+  "runs": [
+    {
+      "mode": "control",
+      "returncode": 0,
+      "timed_out": false,
+      "status": "PASS",
+      "reason": "BOUNDED_OBSERVATION",
+      "completed_rounds": 2,
+      "overlapping_rounds": 0
+    },
+    {
+      "mode": "race",
+      "returncode": 66,
+      "timed_out": false,
+      "status": "FAIL",
+      "reason": "DATA_RACE",
+      "completed_rounds": 0,
+      "overlapping_rounds": 0
+    }
+  ],
+  "go_status": "FAIL",
+  "rust_status": "UNSUPPORTED",
+  "rust_reason": "close(&mut self) requires exclusive ownership; manager removal does not close retained Arc handles"
+}

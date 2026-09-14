@@ -177,7 +177,13 @@
     "docs/evidence/deployment/replay.json": "79f5b7f71cafb9f49fe0a956663a925dbc1adc756b101acaab8a4d3daf320c43",
     "docs/evidence/deployment/replay-provenance.json": "1133ab29f4675239bd9ad1b5462c7c019b4a7b628bd0060e6e2d3dcfe8beca47",
     "docs/evidence/deployment/concurrent.json": "ea819042f2723da2a5dd954d030b34a9bc30083dfcfa62c2a734d30b919ac299",
-    "docs/evidence/deployment/concurrent-provenance.json": "c0d89ea3d6a1755514be0ba8f227b66cefa0f2fa7394af14486dca7a747c3604"
+    "docs/evidence/deployment/concurrent-provenance.json": "c0d89ea3d6a1755514be0ba8f227b66cefa0f2fa7394af14486dca7a747c3604",
+    "docs/evidence/deployment/close-race/control.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/evidence/deployment/close-race/control.stdout": "88c35e7167f610a56a41d0eacbfb00052c1050e6e9f22ad503c3a3a24f31e5dc",
+    "docs/evidence/deployment/close-race/provenance.json": "40a532398201899c16d900c16e60fb8b5ac8b488aec2d6989706d9fb6d7e6c29",
+    "docs/evidence/deployment/close-race/race.stderr": "66011d03ac4362d7746a8a09c4e9e0ee968ff8fe6960b2a341811418e6fe6d48",
+    "docs/evidence/deployment/close-race/race.stdout": "0390584319d40997dc5b717c2a0d0028daf4a35fd8e8a2fc57e32f5208e08634",
+    "docs/evidence/deployment/close-race/report.json": "d3f3ad9a502062a804bd825f26dbe9e109f3653bcbeaadc3edbf5d488410cc99"
   },
   "cores": [
     {

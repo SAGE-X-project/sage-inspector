@@ -1,0 +1,19 @@
+{
+  "scope": "Bounded legacy API diagnostic. Raw stderr and nonzero process exits retained; no normative protocol verdict.",
+  "files": {
+    "docs/evidence/deployment/close-race/control.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "docs/evidence/deployment/close-race/control.stdout": "88c35e7167f610a56a41d0eacbfb00052c1050e6e9f22ad503c3a3a24f31e5dc",
+    "docs/evidence/deployment/close-race/race.stderr": "66011d03ac4362d7746a8a09c4e9e0ee968ff8fe6960b2a341811418e6fe6d48",
+    "docs/evidence/deployment/close-race/race.stdout": "0390584319d40997dc5b717c2a0d0028daf4a35fd8e8a2fc57e32f5208e08634",
+    "docs/evidence/deployment/close-race/report.json": "d3f3ad9a502062a804bd825f26dbe9e109f3653bcbeaadc3edbf5d488410cc99",
+    "docs/evidence/core-source-lock.json": "18229a6202c01dc70629ca22db3d3f3754c11bd0a89e2d9d76e3050bdd64a7b7"
+  },
+  "inspector_sources": {
+    "adapters/go/cmd/sage-close-probe/main.go": "b78cf3a4a60e7f3c9c563036c2014834f181d50195384636361c66271dd17096",
+    "adapters/go/go.mod": "60020542ee62748a990841fa703eea59d19d273f0406951aa43878bba51a43ce",
+    "adapters/go/go.sum": "5648d3be401efb82727c2ababf7a12afb5c09b4c28f81ac9885119636688810c",
+    "scripts/inspect_close_race.py": "b421181e95a0e994087b6def865d8d2d485c3cdb2c30befbb0478877608896d8",
+    "scripts/check_close_evidence.py": "06f4f7c91a9377b46f3a76498a54637630a3e3eac4f573b76e4e95f3be22c599",
+    "scripts/test_close_inspection.py": "11a78fc2b523286e403c6ae219b1d1fd952aedf3548c4fab7555ef54cf2ef8aa"
+  }
+}

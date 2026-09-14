@@ -116,6 +116,14 @@ func run(r io.Reader, w io.Writer) error {
 		}
 	}
 
+	if q.Operation == "rfc9180.export" || q.Operation == "sage.hpke.combine" {
+		var e error
+		verdict, output, e = hpkeObserve(q.Operation, q.Input)
+		if e != nil {
+			return e
+		}
+	}
+
 	return json.NewEncoder(w).Encode(map[string]any{"schema_version": 1, "case_id": q.Case, "verdict": verdict, "output": output})
 }
 func main() {

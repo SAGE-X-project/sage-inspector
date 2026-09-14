@@ -1,3 +1,4 @@
+mod hpke_checks;
 mod http_checks;
 use sage_crypto_core::crypto::{KeyType, PublicKey, Signature, Verifier};
 use serde::Deserialize;
@@ -36,6 +37,10 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
     .contains(&q.operation.as_str())
     {
         http_checks::observe(&q.operation, q.input)?
+    } else if ["rfc9180.export", "sage.hpke.combine", "x25519.exchange"]
+        .contains(&q.operation.as_str())
+    {
+        hpke_checks::observe(&q.operation, q.input)?
     } else if q.operation == "sha256" {
         let data = hex::decode(
             q.input

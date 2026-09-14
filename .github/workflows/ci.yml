@@ -28,6 +28,10 @@ jobs:
           node scripts/check_envelope_signatures.js vectors/0.10.0/http-envelope-primitives.json
           python3 scripts/test_http_boundary_audit.py
           python3 scripts/test_http_inspection.py
+      - name: Audit independent HPKE fixtures
+        run: |
+          node scripts/check_hpke_vectors.js
+          python3 scripts/test_hpke_inspection.py
       - name: Vet
         run: go vet ./...
       - name: Test

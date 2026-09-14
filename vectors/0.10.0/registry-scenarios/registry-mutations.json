@@ -1,0 +1,335 @@
+{
+  "schema_version": 2,
+  "protocol_version": "0.10.0",
+  "profile": "stateful-scenario",
+  "id": "registry-mutations",
+  "sources": [
+    {
+      "id": "registry-spec",
+      "kind": "spec-derived",
+      "uri": "sage-spec/spec/09-registry.md",
+      "reference": "0.10.0 chapters06/07/09/10: ID, REG, CARD and RESOLVE rules. Independent public Python fixtures, Node audit, synthetic authority only."
+    }
+  ],
+  "steps": [
+    {
+      "id": "step-0",
+      "operation": "control.registry.create",
+      "input": {
+        "record": {
+          "id": "did:sage:eip155:1:0xabababababababababababababababababababab:alice",
+          "controller": "0xcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+          "keys": [
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:eip155:1:0xabababababababababababababababababababab:alice#signing-1",
+                "value": "TGcFfjhsgeNpnBP9fxLd3K9LuSEcdrs2tPFIgyrRUIbwey9KW5G8joPp2dhXfK3K7Rx42NLX0Hfxozepq0imCw"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:eip155:1:0xabababababababababababababababababababab:alice#signing-1",
+                "value": "rXfRw8Oh4zjvP2ZObHOI4T0Kv315exp4QWgw0R8EqDxuG7ZiOjEfI2Y3Eq2Ww48UOg5lUVBHKqRVJZftxPyaDQ"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "created",
+          "version": "1"
+        },
+        "source": "fixture-authority",
+        "trusted": true,
+        "ready": true,
+        "highest_finalized_version": "0"
+      },
+      "timeout_ms": 5000,
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {}
+      },
+      "effects": {
+        "observations": 0,
+        "authorized": 0,
+        "mutations": 0
+      }
+    },
+    {
+      "id": "step-1",
+      "operation": "subject.call",
+      "input": {
+        "action": "mutate",
+        "authorized": false,
+        "expected_version": "1",
+        "new_state": "active"
+      },
+      "timeout_ms": 5000,
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "effects": {
+        "observations": 0,
+        "authorized": 0,
+        "mutations": 0
+      }
+    },
+    {
+      "id": "step-2",
+      "operation": "subject.call",
+      "input": {
+        "action": "inspect"
+      },
+      "timeout_ms": 5000,
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "highest_finalized_version": "0",
+          "tombstone": false,
+          "ready": true,
+          "version": "1",
+          "state": "created"
+        }
+      },
+      "effects": {
+        "observations": 0,
+        "authorized": 0,
+        "mutations": 0
+      }
+    },
+    {
+      "id": "step-3",
+      "operation": "subject.call",
+      "input": {
+        "action": "mutate",
+        "authorized": true,
+        "expected_version": "0",
+        "new_state": "active"
+      },
+      "timeout_ms": 5000,
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "effects": {
+        "observations": 0,
+        "authorized": 0,
+        "mutations": 0
+      }
+    },
+    {
+      "id": "step-4",
+      "operation": "subject.call",
+      "input": {
+        "action": "inspect"
+      },
+      "timeout_ms": 5000,
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "highest_finalized_version": "0",
+          "tombstone": false,
+          "ready": true,
+          "version": "1",
+          "state": "created"
+        }
+      },
+      "effects": {
+        "observations": 0,
+        "authorized": 0,
+        "mutations": 0
+      }
+    },
+    {
+      "id": "step-5",
+      "operation": "subject.call",
+      "input": {
+        "action": "mutate",
+        "authorized": true,
+        "expected_version": "1",
+        "new_state": "active"
+      },
+      "timeout_ms": 5000,
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "version": "2",
+          "state": "active"
+        }
+      },
+      "effects": {
+        "observations": 0,
+        "authorized": 0,
+        "mutations": 1
+      }
+    },
+    {
+      "id": "step-6",
+      "operation": "subject.call",
+      "input": {
+        "action": "inspect"
+      },
+      "timeout_ms": 5000,
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "highest_finalized_version": "0",
+          "tombstone": false,
+          "ready": true,
+          "version": "2",
+          "state": "active"
+        }
+      },
+      "effects": {
+        "observations": 0,
+        "authorized": 0,
+        "mutations": 1
+      }
+    },
+    {
+      "id": "step-7",
+      "operation": "subject.call",
+      "input": {
+        "action": "mutate",
+        "authorized": true,
+        "expected_version": "1",
+        "new_state": "deactivated"
+      },
+      "timeout_ms": 5000,
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "effects": {
+        "observations": 0,
+        "authorized": 0,
+        "mutations": 1
+      }
+    },
+    {
+      "id": "step-8",
+      "operation": "subject.call",
+      "input": {
+        "action": "inspect"
+      },
+      "timeout_ms": 5000,
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "highest_finalized_version": "0",
+          "tombstone": false,
+          "ready": true,
+          "version": "2",
+          "state": "active"
+        }
+      },
+      "effects": {
+        "observations": 0,
+        "authorized": 0,
+        "mutations": 1
+      }
+    },
+    {
+      "id": "step-9",
+      "operation": "subject.call",
+      "input": {
+        "action": "mutate",
+        "authorized": true,
+        "expected_version": "2",
+        "new_state": "deactivated"
+      },
+      "timeout_ms": 5000,
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "version": "3",
+          "state": "deactivated"
+        }
+      },
+      "effects": {
+        "observations": 0,
+        "authorized": 0,
+        "mutations": 2
+      }
+    },
+    {
+      "id": "step-10",
+      "operation": "subject.call",
+      "input": {
+        "action": "inspect"
+      },
+      "timeout_ms": 5000,
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "highest_finalized_version": "0",
+          "tombstone": false,
+          "ready": true,
+          "version": "3",
+          "state": "deactivated"
+        }
+      },
+      "effects": {
+        "observations": 0,
+        "authorized": 0,
+        "mutations": 2
+      }
+    },
+    {
+      "id": "step-11",
+      "operation": "subject.call",
+      "input": {
+        "action": "mutate",
+        "authorized": true,
+        "expected_version": "3",
+        "new_state": "active"
+      },
+      "timeout_ms": 5000,
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "effects": {
+        "observations": 0,
+        "authorized": 0,
+        "mutations": 2
+      }
+    },
+    {
+      "id": "step-12",
+      "operation": "subject.call",
+      "input": {
+        "action": "inspect"
+      },
+      "timeout_ms": 5000,
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "highest_finalized_version": "0",
+          "tombstone": false,
+          "ready": true,
+          "version": "3",
+          "state": "deactivated"
+        }
+      },
+      "effects": {
+        "observations": 0,
+        "authorized": 0,
+        "mutations": 2
+      }
+    }
+  ]
+}

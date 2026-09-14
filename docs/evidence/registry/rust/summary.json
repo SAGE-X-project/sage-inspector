@@ -1,0 +1,1669 @@
+{
+  "schema_version": 1,
+  "protocol_version": "0.10.0",
+  "bundle": "registry-inspection",
+  "subject": {
+    "name": "sage-rust",
+    "revision": "206bbbb5a66667ae2feb3b0e9991ed1ca4622bb2",
+    "kind": "external",
+    "executable_sha256": "50668378b588f95eeb570c508cbac6565d0aff6adebf031534e0df24fb9552a2"
+  },
+  "state_subject": null,
+  "status": "FAIL",
+  "manifest_sha256": "6e82b3782a1092d57a2cdcad63629a0f9067c923c48eaf93dc365078e36208ea",
+  "primitive_counts": {
+    "PASS": 23,
+    "FAIL": 8,
+    "UNSUPPORTED": 63,
+    "NOT_RUN": 0
+  },
+  "suites": [
+    {
+      "suite_id": "sage-registry-records-0.10.0",
+      "suite_sha256": "63b83051cbe684c36af2eb3689550d9746f66da0b3d21b2ed1b3d3d37de2ee0d",
+      "status": "FAIL",
+      "counts": {
+        "FAIL": 8,
+        "NOT_RUN": 0,
+        "PASS": 23,
+        "UNSUPPORTED": 63
+      }
+    }
+  ],
+  "rules": {
+    "ID-01": [
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "did-web",
+        "status": "FAIL"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "did-chain",
+        "status": "FAIL"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "did-agent-max",
+        "status": "FAIL"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "did-agent-over",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "did-legacy",
+        "status": "FAIL"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "did-alias",
+        "status": "FAIL"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "did-reserved",
+        "status": "FAIL"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "did-upper-kind",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "did-upper-domain",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "did-port",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "did-ip",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "did-percent",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "did-query",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "did-fragment",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "did-empty",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "did-unicode",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "did-dot",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "did-chain-leading-zero",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "did-upper-address",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "did-extra-locator",
+        "status": "PASS"
+      }
+    ],
+    "ID-02": [
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "did-web",
+        "status": "FAIL"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "did-chain",
+        "status": "FAIL"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "did-agent-max",
+        "status": "FAIL"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "did-agent-over",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "did-legacy",
+        "status": "FAIL"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "did-alias",
+        "status": "FAIL"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "did-reserved",
+        "status": "FAIL"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "did-upper-kind",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "did-upper-domain",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "did-port",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "did-ip",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "did-percent",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "did-query",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "did-fragment",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "did-empty",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "did-unicode",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "did-dot",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "did-chain-leading-zero",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "did-upper-address",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "did-extra-locator",
+        "status": "PASS"
+      }
+    ],
+    "REG-04": [
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "signing-1-signature-valid",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "signing-1-signature-registry",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "signing-1-signature-name",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "signing-1-signature-agent",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "pop-current",
+        "status": "FAIL"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "pop-legacy",
+        "status": "FAIL"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "kem-1-signature-valid",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "kem-1-signature-registry",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "kem-1-signature-name",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "kem-1-signature-agent",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-valid",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-unknown",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-version-zero",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-version-leading-zero",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-version-overflow",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-private",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-duplicate-name",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-duplicate-material",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-unsorted",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-service-collision",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-service-http",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-service-userinfo",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-service-fragment",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-missing-proof",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-wrong-endorser",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-padded-key",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-wrong-id",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-key-state",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-created",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-deactivated",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-historical-False",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-new-endorsement-False",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "authenticate-historical-False",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-historical-True",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-new-endorsement-True",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "authenticate-historical-True",
+        "status": "UNSUPPORTED"
+      }
+    ],
+    "REG-01": [
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-valid",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-unknown",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-version-zero",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-version-leading-zero",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-version-overflow",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-private",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-duplicate-name",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-duplicate-material",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-unsorted",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-service-collision",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-service-http",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-service-userinfo",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-service-fragment",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-missing-proof",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-wrong-endorser",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-padded-key",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-wrong-id",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-key-state",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-created",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-deactivated",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-historical-False",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-new-endorsement-False",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-historical-True",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-new-endorsement-True",
+        "status": "UNSUPPORTED"
+      }
+    ],
+    "REG-02": [
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-valid",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-unknown",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-version-zero",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-version-leading-zero",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-version-overflow",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-private",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-duplicate-name",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-duplicate-material",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-unsorted",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-service-collision",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-service-http",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-service-userinfo",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-service-fragment",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-missing-proof",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-wrong-endorser",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-padded-key",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-wrong-id",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-key-state",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-created",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-deactivated",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-historical-False",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-new-endorsement-False",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-historical-True",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-new-endorsement-True",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "kem-select-valid",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "kem-select-no-kem",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "kem-select-revoked-kem",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "kem-select-expired-kem",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "kem-select-first-ascii",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "kem-select-first-revoked",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "kem-select-first-expired",
+        "status": "UNSUPPORTED"
+      }
+    ],
+    "RESOLVE-02": [
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-valid",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-unknown",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-version-zero",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-version-leading-zero",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-version-overflow",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-private",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-duplicate-name",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-duplicate-material",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-unsorted",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-service-collision",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-service-http",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-service-userinfo",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-service-fragment",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-missing-proof",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-wrong-endorser",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-padded-key",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-wrong-id",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-key-state",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-created",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-deactivated",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-historical-False",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-new-endorsement-False",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-historical-True",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "record-new-endorsement-True",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "scenario_id": "registry-finalized-tombstone",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "registry-freshness",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "registry-inactive-resolution",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "registry-positive-cache",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "registry-reject-clock_trusted",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "registry-reject-conflicting",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "registry-reject-keys_block_hash",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "registry-reject-lookup",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "registry-reject-ready",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "registry-reject-registry_id",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "registry-reject-source",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "registry-reject-transport_ok",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "registry-reject-trusted",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "registry-restart",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "registry-rollback",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "registry-unfinalized-reorg",
+        "status": "NOT_RUN"
+      }
+    ],
+    "RESOLVE-01": [
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "resolve-created",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "resolve-deactivated",
+        "status": "UNSUPPORTED"
+      }
+    ],
+    "RESOLVE-03": [
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "resolve-created",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "authenticate-created",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "resolve-deactivated",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "authenticate-deactivated",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "scenario_id": "registry-finalized-tombstone",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "registry-freshness",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "registry-inactive-resolution",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "registry-positive-cache",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "registry-reject-clock_trusted",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "registry-reject-conflicting",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "registry-reject-keys_block_hash",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "registry-reject-lookup",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "registry-reject-ready",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "registry-reject-registry_id",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "registry-reject-source",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "registry-reject-transport_ok",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "registry-reject-trusted",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "registry-restart",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "registry-rollback",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "registry-unfinalized-reorg",
+        "status": "NOT_RUN"
+      }
+    ],
+    "ID-03": [
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "authenticate-created",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "authenticate-deactivated",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "authenticate-historical-False",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "authenticate-historical-True",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "authenticate-valid",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "authenticate-unknown-key",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "authenticate-other-sender",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "authenticate-other-peer",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "authenticate-algorithm",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "authenticate-missing-fragment",
+        "status": "UNSUPPORTED"
+      }
+    ],
+    "RESOLVE-04": [
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "authenticate-historical-False",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "authenticate-historical-True",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "authenticate-valid",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "authenticate-unknown-key",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "authenticate-other-sender",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "authenticate-other-peer",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "authenticate-algorithm",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "authenticate-missing-fragment",
+        "status": "UNSUPPORTED"
+      }
+    ],
+    "CARD-01": [
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-valid",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-last-second",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-expired",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-future",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-clock",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-peer",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-version",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-record-version",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-services",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-lifetime",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-empty-name",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-name-size",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-description-size",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-null",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-unknown",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-capabilities-duplicate",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-capabilities-order",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-legacy-proof",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-wrong-key",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-signature",
+        "status": "UNSUPPORTED"
+      }
+    ],
+    "CARD-02": [
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-valid",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-last-second",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-expired",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-future",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-clock",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-peer",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-version",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-record-version",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-services",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-lifetime",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-empty-name",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-name-size",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-description-size",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-null",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-unknown",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-capabilities-duplicate",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-capabilities-order",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-legacy-proof",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-wrong-key",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-signature",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-signature-primitive",
+        "status": "PASS"
+      }
+    ],
+    "CARD-03": [
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-valid",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-last-second",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-expired",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-future",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-clock",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-peer",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-version",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-record-version",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-services",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-lifetime",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-empty-name",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-name-size",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-description-size",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-null",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-unknown",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-capabilities-duplicate",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-capabilities-order",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-legacy-proof",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-wrong-key",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-registry-records-0.10.0",
+        "case_id": "card-signature",
+        "status": "UNSUPPORTED"
+      }
+    ],
+    "REG-05": [
+      {
+        "scenario_id": "registry-finalized-tombstone",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "registry-freshness",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "registry-inactive-resolution",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "registry-positive-cache",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "registry-reject-clock_trusted",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "registry-reject-conflicting",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "registry-reject-keys_block_hash",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "registry-reject-lookup",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "registry-reject-ready",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "registry-reject-registry_id",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "registry-reject-source",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "registry-reject-transport_ok",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "registry-reject-trusted",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "registry-restart",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "registry-rollback",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "registry-unfinalized-reorg",
+        "status": "NOT_RUN"
+      }
+    ],
+    "REG-03": [
+      {
+        "scenario_id": "registry-mutations",
+        "status": "NOT_RUN"
+      }
+    ]
+  },
+  "scenarios": [
+    {
+      "rule_ids": [
+        "REG-05",
+        "RESOLVE-02",
+        "RESOLVE-03"
+      ],
+      "id": "registry-finalized-tombstone",
+      "fixture_sha256": "b034c68b0745f4748e09b3013d35c6fca2ab2af686d698c0c15ceac88fc07e3b",
+      "status": "NOT_RUN",
+      "steps": 5,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "REG-05",
+        "RESOLVE-02",
+        "RESOLVE-03"
+      ],
+      "id": "registry-freshness",
+      "fixture_sha256": "5e0e14ef5e046e8c65cee9c3d2942943bb9dc29c07ef948ca172b740875cc259",
+      "status": "NOT_RUN",
+      "steps": 5,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "REG-05",
+        "RESOLVE-02",
+        "RESOLVE-03"
+      ],
+      "id": "registry-inactive-resolution",
+      "fixture_sha256": "bc20e0ecac50dd5969a6ac5ab52ead9e76e9c0a0c888baeac477dd315b94827b",
+      "status": "NOT_RUN",
+      "steps": 5,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "REG-03"
+      ],
+      "id": "registry-mutations",
+      "fixture_sha256": "89b1e11a38aff6e50a127b8956d3b86fe4915def2951ae7b438c5252ed7d15cf",
+      "status": "NOT_RUN",
+      "steps": 13,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "REG-05",
+        "RESOLVE-02",
+        "RESOLVE-03"
+      ],
+      "id": "registry-positive-cache",
+      "fixture_sha256": "d832d7e5d01904deb8185e3ed4f1d64a25dfa5e5df5b23679a85568fa4b0a699",
+      "status": "NOT_RUN",
+      "steps": 5,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "REG-05",
+        "RESOLVE-02",
+        "RESOLVE-03"
+      ],
+      "id": "registry-reject-clock_trusted",
+      "fixture_sha256": "789df01d3f5389fd3d745f9756b5360a93f148b0ba70102902f797c8b71dfb49",
+      "status": "NOT_RUN",
+      "steps": 3,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "REG-05",
+        "RESOLVE-02",
+        "RESOLVE-03"
+      ],
+      "id": "registry-reject-conflicting",
+      "fixture_sha256": "a5c7be94989b8d274fc7b584a530be0c6fe6c048d33c6b0faab080e262e9eb29",
+      "status": "NOT_RUN",
+      "steps": 3,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "REG-05",
+        "RESOLVE-02",
+        "RESOLVE-03"
+      ],
+      "id": "registry-reject-keys_block_hash",
+      "fixture_sha256": "9d80cb47a440d2e592f8341b436e62d89f15c26889cbdda764e095b0956685ff",
+      "status": "NOT_RUN",
+      "steps": 3,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "REG-05",
+        "RESOLVE-02",
+        "RESOLVE-03"
+      ],
+      "id": "registry-reject-lookup",
+      "fixture_sha256": "3c2e30ce4045737c866d28bc647866aea399036cd8c55acf87ea5d12bfe33964",
+      "status": "NOT_RUN",
+      "steps": 3,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "REG-05",
+        "RESOLVE-02",
+        "RESOLVE-03"
+      ],
+      "id": "registry-reject-ready",
+      "fixture_sha256": "ae51f6b89c2892be357522dbdc9f30da1c091e8929000d94108fc90612a5c4e6",
+      "status": "NOT_RUN",
+      "steps": 3,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "REG-05",
+        "RESOLVE-02",
+        "RESOLVE-03"
+      ],
+      "id": "registry-reject-registry_id",
+      "fixture_sha256": "62dda6387ca5788b7e704480a1e75a6c5f8a0d437ff047217d2c5e198d91272a",
+      "status": "NOT_RUN",
+      "steps": 3,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "REG-05",
+        "RESOLVE-02",
+        "RESOLVE-03"
+      ],
+      "id": "registry-reject-source",
+      "fixture_sha256": "a5caf7abf35982bbc86427a678b2e3ed61e8f01b9a044b30a4bcf3f6eb40b335",
+      "status": "NOT_RUN",
+      "steps": 3,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "REG-05",
+        "RESOLVE-02",
+        "RESOLVE-03"
+      ],
+      "id": "registry-reject-transport_ok",
+      "fixture_sha256": "bba4d4b654b3331ecb663b224639d844767f079857da16b59c8cf81587d70580",
+      "status": "NOT_RUN",
+      "steps": 3,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "REG-05",
+        "RESOLVE-02",
+        "RESOLVE-03"
+      ],
+      "id": "registry-reject-trusted",
+      "fixture_sha256": "4973965057cd67b0e854fff95a691f1bdc25f1b939be558a71c5598222aa6f05",
+      "status": "NOT_RUN",
+      "steps": 3,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "REG-05",
+        "RESOLVE-02",
+        "RESOLVE-03"
+      ],
+      "id": "registry-restart",
+      "fixture_sha256": "60298673b5fedd7742e343e8c281c7f409d7f48bc697677db376569e7f247cc9",
+      "status": "NOT_RUN",
+      "steps": 13,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "REG-05",
+        "RESOLVE-02",
+        "RESOLVE-03"
+      ],
+      "id": "registry-rollback",
+      "fixture_sha256": "f166e42e9b871ea3c4df53179faafb6aea2764ca92b3c524a955216fe3a4a13f",
+      "status": "NOT_RUN",
+      "steps": 5,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "REG-05",
+        "RESOLVE-02",
+        "RESOLVE-03"
+      ],
+      "id": "registry-unfinalized-reorg",
+      "fixture_sha256": "2a0147b7f02e4486bfc0eec25a8357420cd6b4421e763a27f2d8111d64cd2ac5",
+      "status": "NOT_RUN",
+      "steps": 5,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    }
+  ],
+  "evidence_files": {
+    "registry-records.json": "aa0519c57c7d29dc5425606782fb2a93b4d82515d31dca96fd8861dd8608f85b"
+  },
+  "scope": "DID/PoP API and signature projections, with independent registry/Card contracts. Missing current registry/authority bindings are not certified. No deployed chain, origin or revocation latency measurement."
+}

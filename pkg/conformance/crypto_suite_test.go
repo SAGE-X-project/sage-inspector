@@ -9,7 +9,7 @@ import (
 
 // The reference must never appear to certify operations it does not implement.
 func TestCryptographicSuiteRequiresSubject(t *testing.T) {
-	for _, path := range []string{"../../vectors/0.10.0/jcs-signatures.json", "../../vectors/0.10.0/http-signatures.json", "../../vectors/0.10.0/http-boundaries.json", "../../vectors/0.10.0/http-envelope-primitives.json", "../../vectors/0.10.0/hpke-primitives.json", "../../vectors/0.10.0/hpke-schedule.json", "../../vectors/0.10.0/session-records.json"} {
+	for _, path := range []string{"../../vectors/0.10.0/jcs-signatures.json", "../../vectors/0.10.0/http-signatures.json", "../../vectors/0.10.0/http-boundaries.json", "../../vectors/0.10.0/http-envelope-primitives.json", "../../vectors/0.10.0/hpke-primitives.json", "../../vectors/0.10.0/hpke-schedule.json", "../../vectors/0.10.0/session-records.json", "../../vectors/0.10.0/registry-records.json"} {
 		t.Run(path, func(t *testing.T) {
 			f, err := os.Open(path) // #nosec G304 -- Fixed repository test fixture paths.
 			if err != nil {

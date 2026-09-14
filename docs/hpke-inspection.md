@@ -32,9 +32,14 @@ OpenSSL and are not an external expert audit.
 | `rfc9180.export` | Hex private key, enc, info and export_context | `exporter_hex`; actual Go HPKEOpenSharedSecretWithX25519Priv and Rust kem_open |
 | `x25519.exchange` | Hex local private and peer public bytes | `shared_secret_hex`; Rust X25519KeyPair.diffie_hellman; Go raw-equivalent binding unavailable |
 | `sage.hpke.combine` | exporter_hex, ss_e2e_hex, th_hex | `seed_hex`; actual legacy combiner helper with normative th supplied as salt, preserving observed differences |
-| `sage.hpke.derive` | B binding, four deterministic private-key controls, UUID kid | Exact named intermediates in fixture output; future 0.10.0 complete derivation binding |
+| `sage.hpke.derive` | B binding, four X25519 private controls, responder signing seed, UUID kid | Exact named intermediates in fixture output; future 0.10.0 complete derivation binding |
 | `sage.hpke.complete.verify` | Stored pending initiation/private controls/current signing public observation and received completion_hex | seed_hex, th_hex, sid after all projection checks; future core binding |
 | Existing JCS/signature operations | Fixed B/T and completion signing bytes | Actual core canonicalization and signature verification |
+
+The derivation controls use serialized 32-byte X25519 private values, not HPKE
+DeriveKeyPair IKM. `responder_signing_private_hex` is a public-test 32-byte Ed25519
+seed, so a future subject can reproduce the completion signature from explicit
+inputs without any hidden fixture key.
 
 REJECT has empty output. Invalid IPC hex or local deterministic private-key controls
 are execution errors; invalid peer enc/public values go unchanged to the selected

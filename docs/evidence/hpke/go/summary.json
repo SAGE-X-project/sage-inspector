@@ -30,7 +30,7 @@
     },
     {
       "suite_id": "sage-hpke-schedule-0.10.0",
-      "suite_sha256": "b71acd0d519fbae8bf1ee7be5d66ef3b2e54d6030d1913f951c256e62b83f91b",
+      "suite_sha256": "79e172d3a31b2c67c507abf348923b6cf140fb8529556d2b2c2192de7a30fe1b",
       "status": "INCOMPLETE",
       "counts": {
         "FAIL": 0,
@@ -432,8 +432,8 @@
     }
   ],
   "evidence_files": {
-    "hpke-primitives.json": "937f9e357061700a36307a3b1d478ddd93935d59e1fb28a75af92bd42156649b",
-    "hpke-schedule.json": "e28ab95b0f4d225edd4b85179735fa6e2f62c9086b895640c7907754dece99dc"
+    "hpke-primitives.json": "8d0d43d7a50123b7bef87eb42640b9a764e1e5427578c1983decabf8d348a1ab",
+    "hpke-schedule.json": "accdcf9477599159988aa64acb549c451d61f52f9ffd4f79c2c90fab342f4b97"
   },
   "scope": "Fixed HPKE derivation and completion projections. State support and security assurance are separate; no formal proof, entropy/erasure or full protocol certification."
 }

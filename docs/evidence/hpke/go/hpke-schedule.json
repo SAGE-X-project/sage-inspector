@@ -3,10 +3,10 @@
   "protocol_version": "0.10.0",
   "profile": "primitive-foundation",
   "suite_id": "sage-hpke-schedule-0.10.0",
-  "suite_sha256": "b71acd0d519fbae8bf1ee7be5d66ef3b2e54d6030d1913f951c256e62b83f91b",
+  "suite_sha256": "79e172d3a31b2c67c507abf348923b6cf140fb8529556d2b2c2192de7a30fe1b",
   "runner_version": "dev",
   "environment": "go1.26.8 darwin/arm64",
-  "created": "2026-09-14T02:22:26.699828Z",
+  "created": "2026-09-14T02:25:49.421461Z",
   "subject": {
     "name": "sage-go-core",
     "revision": "c7709b7486e0da94336edc0931fddd87f6a45343",
@@ -61,8 +61,8 @@
         "sage-session"
       ],
       "derivation": "Public fixed material independently calculated using Python HKDF/X25519 and checked against RFC anchors; no SAGE imports.",
-      "input_sha256": "0949e0387951d3f43c840d285ccd38b32a5a5f1e52e6433846140910661de142",
-      "adapter_request_sha256": "6f24a5a619e38a95a4824154eec86537e3d2d5b8817747b7bb8126938d2b5697",
+      "input_sha256": "8f676365ec92b7d65c84452897ae32579a2bd82d0e0b6e61e1bbf210cf777588",
+      "adapter_request_sha256": "d659dad26c77c4b8d235ee063653bf74fa6c4c89ef33e8aaaa90ecfb57b7224d",
       "expected": {
         "verdict": "ACCEPT",
         "output": {
@@ -97,7 +97,7 @@
       },
       "status": "UNSUPPORTED",
       "reason": "adapter does not support this operation",
-      "duration_ms": 14
+      "duration_ms": 15
     },
     {
       "case_id": "schedule-1",
@@ -112,8 +112,8 @@
         "sage-session"
       ],
       "derivation": "Public fixed material independently calculated using Python HKDF/X25519 and checked against RFC anchors; no SAGE imports.",
-      "input_sha256": "51ff9918b44277c860fce24f3046f86804837fa82274af3f5ab56ac272e49b1e",
-      "adapter_request_sha256": "5e7704489a3a9d2918c38186f53184ffabb127f9c174d525ff62cf4c8325cf95",
+      "input_sha256": "4af7f6d33c2e1c3d592b28b6f27c7f6b50e9194ba95f186a11fba300455e771d",
+      "adapter_request_sha256": "fd84d1136f1dc619747765464a7c4eddf4952a82f0152b6ac3fbcb694510d4ff",
       "expected": {
         "verdict": "ACCEPT",
         "output": {
@@ -163,8 +163,8 @@
         "sage-session"
       ],
       "derivation": "Public fixed material independently calculated using Python HKDF/X25519 and checked against RFC anchors; no SAGE imports.",
-      "input_sha256": "ae196f17f40f0ba69648eb2aa02e8e4c7f9a59363d220c23308a8bb34dcf425d",
-      "adapter_request_sha256": "28de49dd052c1b942ca9c87c9d0490b0e80a6ebf3e11ebccb224983a9cfb7085",
+      "input_sha256": "1d70b10ea37ca2a642348daa56aefa23c8e2116cb316070b6dd9b574886104df",
+      "adapter_request_sha256": "3f006ab44b245ce55accfe1cb05daae561a25ecf8ef2eaf350d67ac87cd2263b",
       "expected": {
         "verdict": "ACCEPT",
         "output": {
@@ -319,7 +319,7 @@
       },
       "status": "UNSUPPORTED",
       "reason": "adapter does not support this operation",
-      "duration_ms": 11
+      "duration_ms": 12
     },
     {
       "case_id": "echo-ephC",
@@ -348,7 +348,7 @@
       },
       "status": "UNSUPPORTED",
       "reason": "adapter does not support this operation",
-      "duration_ms": 11
+      "duration_ms": 17
     },
     {
       "case_id": "echo-initDid",
@@ -377,7 +377,7 @@
       },
       "status": "UNSUPPORTED",
       "reason": "adapter does not support this operation",
-      "duration_ms": 12
+      "duration_ms": 14
     },
     {
       "case_id": "echo-initKid",
@@ -406,7 +406,7 @@
       },
       "status": "UNSUPPORTED",
       "reason": "adapter does not support this operation",
-      "duration_ms": 11
+      "duration_ms": 13
     },
     {
       "case_id": "echo-kemKid",
@@ -435,7 +435,7 @@
       },
       "status": "UNSUPPORTED",
       "reason": "adapter does not support this operation",
-      "duration_ms": 11
+      "duration_ms": 14
     },
     {
       "case_id": "echo-nonce",
@@ -464,7 +464,7 @@
       },
       "status": "UNSUPPORTED",
       "reason": "adapter does not support this operation",
-      "duration_ms": 11
+      "duration_ms": 12
     },
     {
       "case_id": "echo-respDid",
@@ -609,7 +609,7 @@
       },
       "status": "UNSUPPORTED",
       "reason": "adapter does not support this operation",
-      "duration_ms": 11
+      "duration_ms": 12
     },
     {
       "case_id": "wrong-ack",
@@ -638,7 +638,7 @@
       },
       "status": "UNSUPPORTED",
       "reason": "adapter does not support this operation",
-      "duration_ms": 14
+      "duration_ms": 12
     },
     {
       "case_id": "short-ack",
@@ -696,7 +696,7 @@
       },
       "status": "UNSUPPORTED",
       "reason": "adapter does not support this operation",
-      "duration_ms": 11
+      "duration_ms": 12
     },
     {
       "case_id": "wrong-version",
@@ -725,7 +725,7 @@
       },
       "status": "UNSUPPORTED",
       "reason": "adapter does not support this operation",
-      "duration_ms": 11
+      "duration_ms": 15
     },
     {
       "case_id": "wrong-task",
@@ -754,7 +754,7 @@
       },
       "status": "UNSUPPORTED",
       "reason": "adapter does not support this operation",
-      "duration_ms": 11
+      "duration_ms": 13
     },
     {
       "case_id": "unknown-member",
@@ -783,7 +783,7 @@
       },
       "status": "UNSUPPORTED",
       "reason": "adapter does not support this operation",
-      "duration_ms": 13
+      "duration_ms": 12
     },
     {
       "case_id": "invalid-signature",
@@ -812,7 +812,7 @@
       },
       "status": "UNSUPPORTED",
       "reason": "adapter does not support this operation",
-      "duration_ms": 15
+      "duration_ms": 11
     },
     {
       "case_id": "padded-signature",
@@ -899,7 +899,7 @@
       },
       "status": "UNSUPPORTED",
       "reason": "adapter does not support this operation",
-      "duration_ms": 11
+      "duration_ms": 12
     },
     {
       "case_id": "zero-ephS",
@@ -1001,8 +1001,8 @@
         "sage-session"
       ],
       "derivation": "Public fixed material independently calculated using Python HKDF/X25519 and checked against RFC anchors; no SAGE imports. Rejection: binding",
-      "input_sha256": "f4ca660cd6c563bdd214f0e629302aabb270da41355ab27568bb769894f869dc",
-      "adapter_request_sha256": "75aab9e6f9639becf5d2f94d9eb7fabd841a2fa3cbca4693d12f5699ddc0abf7",
+      "input_sha256": "110a1a6bec6e8dc83fa74dd84578ac95bc81e141d0737ecd80afbb3e974456b3",
+      "adapter_request_sha256": "9c6e63c5820f23037e5eab29eeef2ffa51c1384c06ef992cb595d3c26fd9f3e9",
       "expected": {
         "verdict": "REJECT",
         "output": {}
@@ -1015,7 +1015,7 @@
       },
       "status": "UNSUPPORTED",
       "reason": "adapter does not support this operation",
-      "duration_ms": 12
+      "duration_ms": 11
     },
     {
       "case_id": "derive-unknown-combiner",
@@ -1030,8 +1030,8 @@
         "sage-session"
       ],
       "derivation": "Public fixed material independently calculated using Python HKDF/X25519 and checked against RFC anchors; no SAGE imports. Rejection: binding",
-      "input_sha256": "612ff05e4c7a4fed1015b6ea0a631d5e439a58baab61a8c4ac460e83010c087c",
-      "adapter_request_sha256": "ad419677c2c295a352b5bb67962f5b4c6d7c6433e16ca125aa4a22f23d6db1c6",
+      "input_sha256": "e7b0ab8979e978a9020cafe9cb0bada3ca73ecbb9ee8ffd65004417593887afe",
+      "adapter_request_sha256": "288a60e7a2d7947781eb4650bb75251a5bc8d3f017083b5dd539bc73799d9120",
       "expected": {
         "verdict": "REJECT",
         "output": {}
@@ -1044,7 +1044,7 @@
       },
       "status": "UNSUPPORTED",
       "reason": "adapter does not support this operation",
-      "duration_ms": 11
+      "duration_ms": 12
     },
     {
       "case_id": "derive-old-version",
@@ -1059,8 +1059,8 @@
         "sage-session"
       ],
       "derivation": "Public fixed material independently calculated using Python HKDF/X25519 and checked against RFC anchors; no SAGE imports. Rejection: binding",
-      "input_sha256": "99dfed44721e1866ce1ebf06ede77b05c924edac1dda8119a4901a4642ebc2a6",
-      "adapter_request_sha256": "2ce4fdf18ec93b7eb9f4a4e38eaca828a1df11ffd6a68ae10372405e83171049",
+      "input_sha256": "4b0c50b3748a3edd803ecb67fd5e5eb3b4bdbae9984f566ddbcd75fafdf0760d",
+      "adapter_request_sha256": "768bea21ef26f79e21b80dccb354ee9ffa6adb095ec400a85dbb2c447cbd7e27",
       "expected": {
         "verdict": "REJECT",
         "output": {}
@@ -1073,7 +1073,7 @@
       },
       "status": "UNSUPPORTED",
       "reason": "adapter does not support this operation",
-      "duration_ms": 11
+      "duration_ms": 21
     },
     {
       "case_id": "derive-extra-binding",
@@ -1088,8 +1088,8 @@
         "sage-session"
       ],
       "derivation": "Public fixed material independently calculated using Python HKDF/X25519 and checked against RFC anchors; no SAGE imports. Rejection: binding",
-      "input_sha256": "5b816d19a619ea4260a69458826889da75a8f0d88643b9cbdc9da83db08ab8b7",
-      "adapter_request_sha256": "0864fb3aab5a56e79e2a0132b6ff47e7c2a988b201d297aebc7601704124bea9",
+      "input_sha256": "6ed556c5ffc479787acfe8e2b0159759b95f36115e5d4516d27e29ee28c038e0",
+      "adapter_request_sha256": "6614008d7a169e6450aacfcbcd79d50204c64dc27fff8aec5f7451b975e7f700",
       "expected": {
         "verdict": "REJECT",
         "output": {}
@@ -1102,7 +1102,7 @@
       },
       "status": "UNSUPPORTED",
       "reason": "adapter does not support this operation",
-      "duration_ms": 11
+      "duration_ms": 12
     },
     {
       "case_id": "completion-size-16384",
@@ -1164,7 +1164,7 @@
       },
       "status": "UNSUPPORTED",
       "reason": "adapter does not support this operation",
-      "duration_ms": 11
+      "duration_ms": 12
     },
     {
       "case_id": "short-ephS",
@@ -1193,7 +1193,7 @@
       },
       "status": "UNSUPPORTED",
       "reason": "adapter does not support this operation",
-      "duration_ms": 11
+      "duration_ms": 12
     }
   ]
 }

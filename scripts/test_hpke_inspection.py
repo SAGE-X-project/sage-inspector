@@ -33,6 +33,10 @@ class HPKEInspectionTests(unittest.TestCase):
             changed['cases'][0]['input']['binding']['ctx']='changed'
             (directory/'hpke-schedule.json').write_text(json.dumps(changed))
             self.assertNotEqual(run().returncode,0)
+            changed=copy.deepcopy(original)
+            changed['cases'][0]['input']['responder_signing_private_hex']='00'*32
+            (directory/'hpke-schedule.json').write_text(json.dumps(changed))
+            self.assertNotEqual(run().returncode,0)
 
     def test_reports_do_not_promote_missing_or_unsupported(self):
         raw=(ROOT/'vectors/0.10.0/hpke-primitives.json').read_bytes()

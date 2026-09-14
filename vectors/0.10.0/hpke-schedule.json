@@ -60,6 +60,7 @@
         "hpke_ephemeral_private_hex": "f4ec9b33b792c372c1d2c2063507b684ef925b8c75a42dbcbf57d63ccd381600",
         "client_ephemeral_private_hex": "2c26c5885569ac453186c9f3d5244ed67c506c6fb5769411ee6cb974291e49d0",
         "server_ephemeral_private_hex": "a4b35452cccbd728e123a277bfad5dfac8093e582f7a4b2347a72be483552e18",
+        "responder_signing_private_hex": "9d61b19deffd5a60ba844af492ec2cc44449c5697b326919703bac031cae7f60",
         "kid": "33333333-3333-4333-8333-333333333330"
       },
       "expected": {
@@ -119,6 +120,7 @@
         "hpke_ephemeral_private_hex": "f4ec9b33b792c372c1d2c2063507b684ef925b8c75a42dbcbf57d63ccd381600",
         "client_ephemeral_private_hex": "19d20228fed6b5305fca5c87b610913fb509c46199a7d95cf15931418d5f10cd",
         "server_ephemeral_private_hex": "6ac78be325625e2802bfea17c46c978db26657e086aad32dc9eb437aef8edcc1",
+        "responder_signing_private_hex": "9d61b19deffd5a60ba844af492ec2cc44449c5697b326919703bac031cae7f60",
         "kid": "33333333-3333-4333-8333-333333333331"
       },
       "expected": {
@@ -178,6 +180,7 @@
         "hpke_ephemeral_private_hex": "f4ec9b33b792c372c1d2c2063507b684ef925b8c75a42dbcbf57d63ccd381600",
         "client_ephemeral_private_hex": "fbc52d221d435ad692e614bf70701ea6bd46c2b86e568f6432348d1678e69c1d",
         "server_ephemeral_private_hex": "ab5b5c43df82b8c8dccddcccc68cee3d08a2b487c3d52a5a45fc7122819939fc",
+        "responder_signing_private_hex": "9d61b19deffd5a60ba844af492ec2cc44449c5697b326919703bac031cae7f60",
         "kid": "33333333-3333-4333-8333-333333333332"
       },
       "expected": {
@@ -997,6 +1000,7 @@
         "hpke_ephemeral_private_hex": "f4ec9b33b792c372c1d2c2063507b684ef925b8c75a42dbcbf57d63ccd381600",
         "client_ephemeral_private_hex": "2c26c5885569ac453186c9f3d5244ed67c506c6fb5769411ee6cb974291e49d0",
         "server_ephemeral_private_hex": "a4b35452cccbd728e123a277bfad5dfac8093e582f7a4b2347a72be483552e18",
+        "responder_signing_private_hex": "9d61b19deffd5a60ba844af492ec2cc44449c5697b326919703bac031cae7f60",
         "kid": "33333333-3333-4333-8333-333333333330"
       },
       "expected": {
@@ -1034,6 +1038,7 @@
         "hpke_ephemeral_private_hex": "f4ec9b33b792c372c1d2c2063507b684ef925b8c75a42dbcbf57d63ccd381600",
         "client_ephemeral_private_hex": "2c26c5885569ac453186c9f3d5244ed67c506c6fb5769411ee6cb974291e49d0",
         "server_ephemeral_private_hex": "a4b35452cccbd728e123a277bfad5dfac8093e582f7a4b2347a72be483552e18",
+        "responder_signing_private_hex": "9d61b19deffd5a60ba844af492ec2cc44449c5697b326919703bac031cae7f60",
         "kid": "33333333-3333-4333-8333-333333333330"
       },
       "expected": {
@@ -1071,6 +1076,7 @@
         "hpke_ephemeral_private_hex": "f4ec9b33b792c372c1d2c2063507b684ef925b8c75a42dbcbf57d63ccd381600",
         "client_ephemeral_private_hex": "2c26c5885569ac453186c9f3d5244ed67c506c6fb5769411ee6cb974291e49d0",
         "server_ephemeral_private_hex": "a4b35452cccbd728e123a277bfad5dfac8093e582f7a4b2347a72be483552e18",
+        "responder_signing_private_hex": "9d61b19deffd5a60ba844af492ec2cc44449c5697b326919703bac031cae7f60",
         "kid": "33333333-3333-4333-8333-333333333330"
       },
       "expected": {
@@ -1109,6 +1115,7 @@
         "hpke_ephemeral_private_hex": "f4ec9b33b792c372c1d2c2063507b684ef925b8c75a42dbcbf57d63ccd381600",
         "client_ephemeral_private_hex": "2c26c5885569ac453186c9f3d5244ed67c506c6fb5769411ee6cb974291e49d0",
         "server_ephemeral_private_hex": "a4b35452cccbd728e123a277bfad5dfac8093e582f7a4b2347a72be483552e18",
+        "responder_signing_private_hex": "9d61b19deffd5a60ba844af492ec2cc44449c5697b326919703bac031cae7f60",
         "kid": "33333333-3333-4333-8333-333333333330"
       },
       "expected": {

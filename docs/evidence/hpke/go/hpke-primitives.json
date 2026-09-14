@@ -6,7 +6,7 @@
   "suite_sha256": "9a2807de94d9b9f8b9f25b7cfd8c5bcf23279ebe1a0de520ac8ec1187bb32753",
   "runner_version": "dev",
   "environment": "go1.26.8 darwin/arm64",
-  "created": "2026-09-14T02:22:26.235501Z",
+  "created": "2026-09-14T02:25:48.968753Z",
   "subject": {
     "name": "sage-go-core",
     "revision": "c7709b7486e0da94336edc0931fddd87f6a45343",
@@ -78,7 +78,7 @@
         }
       },
       "status": "PASS",
-      "duration_ms": 18
+      "duration_ms": 14
     },
     {
       "case_id": "rfc9180-export-1",
@@ -142,7 +142,7 @@
         }
       },
       "status": "PASS",
-      "duration_ms": 12
+      "duration_ms": 13
     },
     {
       "case_id": "sage-export-0",
@@ -174,7 +174,7 @@
         }
       },
       "status": "PASS",
-      "duration_ms": 12
+      "duration_ms": 13
     },
     {
       "case_id": "combiner-0",
@@ -207,7 +207,7 @@
       },
       "status": "FAIL",
       "reason": "output mismatch",
-      "duration_ms": 15
+      "duration_ms": 14
     },
     {
       "case_id": "binding-jcs-0",
@@ -239,7 +239,7 @@
         }
       },
       "status": "PASS",
-      "duration_ms": 12
+      "duration_ms": 13
     },
     {
       "case_id": "transcript-jcs-0",
@@ -271,7 +271,7 @@
         }
       },
       "status": "PASS",
-      "duration_ms": 12
+      "duration_ms": 16
     },
     {
       "case_id": "completion-signature-0",
@@ -335,7 +335,7 @@
         }
       },
       "status": "PASS",
-      "duration_ms": 12
+      "duration_ms": 13
     },
     {
       "case_id": "combiner-1",
@@ -368,7 +368,7 @@
       },
       "status": "FAIL",
       "reason": "output mismatch",
-      "duration_ms": 11
+      "duration_ms": 12
     },
     {
       "case_id": "binding-jcs-1",
@@ -400,7 +400,7 @@
         }
       },
       "status": "PASS",
-      "duration_ms": 11
+      "duration_ms": 12
     },
     {
       "case_id": "transcript-jcs-1",
@@ -432,7 +432,7 @@
         }
       },
       "status": "PASS",
-      "duration_ms": 11
+      "duration_ms": 12
     },
     {
       "case_id": "completion-signature-1",
@@ -464,7 +464,7 @@
         }
       },
       "status": "PASS",
-      "duration_ms": 12
+      "duration_ms": 13
     },
     {
       "case_id": "sage-export-2",
@@ -496,7 +496,7 @@
         }
       },
       "status": "PASS",
-      "duration_ms": 11
+      "duration_ms": 14
     },
     {
       "case_id": "combiner-2",
@@ -529,7 +529,7 @@
       },
       "status": "FAIL",
       "reason": "output mismatch",
-      "duration_ms": 12
+      "duration_ms": 14
     },
     {
       "case_id": "binding-jcs-2",
@@ -561,7 +561,7 @@
         }
       },
       "status": "PASS",
-      "duration_ms": 11
+      "duration_ms": 15
     },
     {
       "case_id": "transcript-jcs-2",
@@ -593,7 +593,7 @@
         }
       },
       "status": "PASS",
-      "duration_ms": 11
+      "duration_ms": 13
     },
     {
       "case_id": "completion-signature-2",
@@ -625,7 +625,7 @@
         }
       },
       "status": "PASS",
-      "duration_ms": 12
+      "duration_ms": 11
     },
     {
       "case_id": "changed-info",
@@ -657,7 +657,7 @@
         }
       },
       "status": "PASS",
-      "duration_ms": 15
+      "duration_ms": 20
     },
     {
       "case_id": "changed-export-context",
@@ -745,7 +745,7 @@
         "output": {}
       },
       "status": "PASS",
-      "duration_ms": 11
+      "duration_ms": 13
     },
     {
       "case_id": "kem-short",
@@ -773,7 +773,7 @@
         "output": {}
       },
       "status": "PASS",
-      "duration_ms": 11
+      "duration_ms": 12
     },
     {
       "case_id": "e2e-client",
@@ -804,7 +804,7 @@
       },
       "status": "UNSUPPORTED",
       "reason": "adapter does not support this operation",
-      "duration_ms": 11
+      "duration_ms": 20
     },
     {
       "case_id": "e2e-server",
@@ -835,7 +835,7 @@
       },
       "status": "UNSUPPORTED",
       "reason": "adapter does not support this operation",
-      "duration_ms": 11
+      "duration_ms": 13
     },
     {
       "case_id": "e2e-zero",
@@ -864,7 +864,7 @@
       },
       "status": "UNSUPPORTED",
       "reason": "adapter does not support this operation",
-      "duration_ms": 11
+      "duration_ms": 14
     },
     {
       "case_id": "e2e-one",
@@ -893,7 +893,7 @@
       },
       "status": "UNSUPPORTED",
       "reason": "adapter does not support this operation",
-      "duration_ms": 11
+      "duration_ms": 12
     },
     {
       "case_id": "e2e-short",
@@ -953,7 +953,7 @@
       },
       "status": "FAIL",
       "reason": "verdict mismatch",
-      "duration_ms": 11
+      "duration_ms": 12
     },
     {
       "case_id": "combiner-short",
@@ -984,7 +984,7 @@
       },
       "status": "FAIL",
       "reason": "verdict mismatch",
-      "duration_ms": 12
+      "duration_ms": 11
     }
   ]
 }

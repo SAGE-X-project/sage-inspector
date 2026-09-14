@@ -39,7 +39,7 @@ function derive(i){
  if(!dh(skR,enc).equals(dh(skE,pkR))||!dh(c,ps).equals(dh(s,pc)))fail('agreement');
  const h=hpke(dh(skR,enc),enc,pkR,info,ec),init={...i.binding,task:'hpke/init@0.10.0',enc:enc.toString('base64url'),ephC:pc.toString('base64url')},t={...init,ephS:ps.toString('base64url'),kid:i.kid},th=H(canonical(t)),ss=dh(c,ps),f=combine(hex(h.exporter_hex),ss,th);
  const p={v:'0.10.0',task:'hpke/complete@0.10.0',transcript:t,ackTagB64:hex(f.ack_tag_hex).toString('base64url')};
- const signing=priv(hex('9d61b19deffd5a60ba844af492ec2cc44449c5697b326919703bac031cae7f60'),'ed25519');
+ const signing=priv(hex(i.responder_signing_private_hex),'ed25519');
  p.sigB64=crypto.sign(null,cat('sage-hpke-complete|0.10.0\n',canonical(p)),signing).toString('base64url');
  return {...h,...f,binding_hex:Buffer.from(canonical(i.binding)).toString('hex'),info_hex:info.toString('hex'),export_context_hex:ec.toString('hex'),enc_hex:enc.toString('hex'),ephemeral_c_hex:pc.toString('hex'),ephemeral_s_hex:ps.toString('hex'),initiation_hex:Buffer.from(canonical(init)).toString('hex'),completion_hex:Buffer.from(canonical(p)).toString('hex'),transcript_hex:Buffer.from(canonical(t)).toString('hex'),th_hex:th.toString('hex'),ss_e2e_hex:ss.toString('hex')};
 }

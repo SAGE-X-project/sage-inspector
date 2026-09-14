@@ -15,7 +15,8 @@ from cryptography.hazmat.primitives.kdf.hkdf import HKDFExpand
 ROOT = Path(__file__).resolve().parents[1]
 SKR = bytes.fromhex('8057991eef8f1f1af18f4a9491d16a1ce333f695d4db8e38da75975c4478e0fb')
 SKE = bytes.fromhex('f4ec9b33b792c372c1d2c2063507b684ef925b8c75a42dbcbf57d63ccd381600')
-SIGN = ed25519.Ed25519PrivateKey.from_private_bytes(bytes.fromhex('9d61b19deffd5a60ba844af492ec2cc44449c5697b326919703bac031cae7f60'))
+SIGN_SEED = bytes.fromhex('9d61b19deffd5a60ba844af492ec2cc44449c5697b326919703bac031cae7f60')
+SIGN = ed25519.Ed25519PrivateKey.from_private_bytes(SIGN_SEED)
 PUB = SIGN.public_key().public_bytes(serialization.Encoding.Raw, serialization.PublicFormat.Raw)
 KEM = b'KEM\x00\x20'
 SUITE = b'HPKE\x00\x20\x00\x01\x00\x03'
@@ -152,7 +153,7 @@ for n in range(3):
     kid='33333333-3333-4333-8333-33333333333'+str(n)
     values=derive(binding,c,s,kid)
     inp=dict(binding=binding,recipient_private_hex=SKR.hex(),hpke_ephemeral_private_hex=SKE.hex(),
-             client_ephemeral_private_hex=c.hex(),server_ephemeral_private_hex=s.hex(),kid=kid)
+             client_ephemeral_private_hex=c.hex(),server_ephemeral_private_hex=s.hex(),responder_signing_private_hex=SIGN_SEED.hex(),kid=kid)
     add(full,'schedule-'+str(n),'sage.hpke.derive',inp,values)
     schedules.append((inp,values))
     add(primitive,'sage-export-'+str(n),'rfc9180.export',dict(private_key_hex=SKR.hex(),enc_hex=values['enc_hex'],info_hex=values['info_hex'],export_context_hex=values['export_context_hex']),{'exporter_hex':values['exporter_hex']},rule='HPKE-02')

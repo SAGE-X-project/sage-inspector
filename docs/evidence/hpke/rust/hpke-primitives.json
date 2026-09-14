@@ -6,7 +6,7 @@
   "suite_sha256": "9a2807de94d9b9f8b9f25b7cfd8c5bcf23279ebe1a0de520ac8ec1187bb32753",
   "runner_version": "dev",
   "environment": "go1.26.8 darwin/arm64",
-  "created": "2026-09-14T02:16:33.558049Z",
+  "created": "2026-09-14T02:25:50.023078Z",
   "subject": {
     "name": "sage-rust-core",
     "revision": "206bbbb5a66667ae2feb3b0e9991ed1ca4622bb2",
@@ -78,7 +78,7 @@
         }
       },
       "status": "PASS",
-      "duration_ms": 9
+      "duration_ms": 11
     },
     {
       "case_id": "rfc9180-export-1",
@@ -142,7 +142,7 @@
         }
       },
       "status": "PASS",
-      "duration_ms": 8
+      "duration_ms": 13
     },
     {
       "case_id": "sage-export-0",
@@ -174,7 +174,7 @@
         }
       },
       "status": "PASS",
-      "duration_ms": 7
+      "duration_ms": 8
     },
     {
       "case_id": "combiner-0",
@@ -207,7 +207,7 @@
       },
       "status": "FAIL",
       "reason": "output mismatch",
-      "duration_ms": 8
+      "duration_ms": 7
     },
     {
       "case_id": "binding-jcs-0",
@@ -239,7 +239,7 @@
         }
       },
       "status": "PASS",
-      "duration_ms": 7
+      "duration_ms": 8
     },
     {
       "case_id": "transcript-jcs-0",
@@ -368,7 +368,7 @@
       },
       "status": "FAIL",
       "reason": "output mismatch",
-      "duration_ms": 6
+      "duration_ms": 7
     },
     {
       "case_id": "binding-jcs-1",
@@ -432,7 +432,7 @@
         }
       },
       "status": "PASS",
-      "duration_ms": 6
+      "duration_ms": 7
     },
     {
       "case_id": "completion-signature-1",
@@ -529,7 +529,7 @@
       },
       "status": "FAIL",
       "reason": "output mismatch",
-      "duration_ms": 7
+      "duration_ms": 6
     },
     {
       "case_id": "binding-jcs-2",
@@ -561,7 +561,7 @@
         }
       },
       "status": "PASS",
-      "duration_ms": 6
+      "duration_ms": 7
     },
     {
       "case_id": "transcript-jcs-2",
@@ -593,7 +593,7 @@
         }
       },
       "status": "PASS",
-      "duration_ms": 7
+      "duration_ms": 10
     },
     {
       "case_id": "completion-signature-2",
@@ -625,7 +625,7 @@
         }
       },
       "status": "PASS",
-      "duration_ms": 7
+      "duration_ms": 8
     },
     {
       "case_id": "changed-info",
@@ -689,7 +689,7 @@
         }
       },
       "status": "PASS",
-      "duration_ms": 7
+      "duration_ms": 8
     },
     {
       "case_id": "kem-zero",
@@ -773,7 +773,7 @@
         "output": {}
       },
       "status": "PASS",
-      "duration_ms": 7
+      "duration_ms": 6
     },
     {
       "case_id": "e2e-client",
@@ -837,7 +837,7 @@
         }
       },
       "status": "PASS",
-      "duration_ms": 7
+      "duration_ms": 10
     },
     {
       "case_id": "e2e-zero",
@@ -868,7 +868,7 @@
       },
       "status": "FAIL",
       "reason": "verdict mismatch",
-      "duration_ms": 7
+      "duration_ms": 11
     },
     {
       "case_id": "e2e-one",
@@ -899,7 +899,7 @@
       },
       "status": "FAIL",
       "reason": "verdict mismatch",
-      "duration_ms": 7
+      "duration_ms": 8
     },
     {
       "case_id": "e2e-short",
@@ -927,7 +927,7 @@
         "output": {}
       },
       "status": "PASS",
-      "duration_ms": 7
+      "duration_ms": 9
     },
     {
       "case_id": "combiner-zero",
@@ -958,7 +958,7 @@
       },
       "status": "FAIL",
       "reason": "verdict mismatch",
-      "duration_ms": 7
+      "duration_ms": 14
     },
     {
       "case_id": "combiner-short",

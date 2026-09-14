@@ -1,0 +1,127 @@
+{
+  "schema_version": 2,
+  "protocol_version": "0.10.0",
+  "profile": "stateful-scenario",
+  "id": "registry-reject-lookup",
+  "sources": [
+    {
+      "id": "registry-spec",
+      "kind": "spec-derived",
+      "uri": "sage-spec/spec/09-registry.md",
+      "reference": "0.10.0 chapters06/07/09/10: ID, REG, CARD and RESOLVE rules. Independent public Python fixtures, Node audit, synthetic authority only."
+    }
+  ],
+  "steps": [
+    {
+      "id": "step-0",
+      "operation": "control.registry.create",
+      "input": {
+        "record": {
+          "id": "did:sage:eip155:1:0xabababababababababababababababababababab:alice",
+          "controller": "0xcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+          "keys": [
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:eip155:1:0xabababababababababababababababababababab:alice#signing-1",
+                "value": "TGcFfjhsgeNpnBP9fxLd3K9LuSEcdrs2tPFIgyrRUIbwey9KW5G8joPp2dhXfK3K7Rx42NLX0Hfxozepq0imCw"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:eip155:1:0xabababababababababababababababababababab:alice#signing-1",
+                "value": "rXfRw8Oh4zjvP2ZObHOI4T0Kv315exp4QWgw0R8EqDxuG7ZiOjEfI2Y3Eq2Ww48UOg5lUVBHKqRVJZftxPyaDQ"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "created",
+          "version": "1"
+        },
+        "source": "fixture-authority",
+        "trusted": true,
+        "ready": true,
+        "highest_finalized_version": "0"
+      },
+      "timeout_ms": 5000,
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {}
+      },
+      "effects": {
+        "observations": 0,
+        "authorized": 0,
+        "mutations": 0
+      }
+    },
+    {
+      "id": "step-1",
+      "operation": "subject.call",
+      "input": {
+        "action": "observe",
+        "version": "2",
+        "state": "active",
+        "source": "fixture-authority",
+        "trusted": true,
+        "clock_trusted": true,
+        "ready": true,
+        "finalized": true,
+        "block_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "keys_block_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "registry_id": "eip155:1:0xabababababababababababababababababababab",
+        "operation_started": 10,
+        "observed": 10,
+        "gate": 10,
+        "conflicting": false,
+        "lookup": false,
+        "transport_ok": true
+      },
+      "timeout_ms": 5000,
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "effects": {
+        "observations": 1,
+        "authorized": 0,
+        "mutations": 0
+      }
+    },
+    {
+      "id": "step-2",
+      "operation": "subject.call",
+      "input": {
+        "action": "inspect"
+      },
+      "timeout_ms": 5000,
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "highest_finalized_version": "0",
+          "tombstone": false,
+          "ready": true,
+          "version": "1",
+          "state": "created"
+        }
+      },
+      "effects": {
+        "observations": 1,
+        "authorized": 0,
+        "mutations": 0
+      }
+    }
+  ]
+}

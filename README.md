@@ -84,3 +84,5 @@ Run all HTTP/envelope inspections with [the versioned bundle command](docs/http-
 HPKE schedule, completion and lifecycle inspection: [workflow and evidence](docs/hpke-inspection.md).
 
 Session 0.10.0 inspection: [independent records, lifecycle scenarios and core results](docs/session-inspection.md).
+
+Registry 0.10.0 inspection: [DID, Card, authoritative observation and core results](docs/registry-inspection.md).

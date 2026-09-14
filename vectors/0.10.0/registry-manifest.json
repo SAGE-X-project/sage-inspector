@@ -1,0 +1,175 @@
+{
+  "schema_version": 1,
+  "protocol_version": "0.10.0",
+  "records_sha256": "63b83051cbe684c36af2eb3689550d9746f66da0b3d21b2ed1b3d3d37de2ee0d",
+  "scenarios": [
+    {
+      "id": "registry-freshness",
+      "file": "registry-freshness.json",
+      "sha256": "5e0e14ef5e046e8c65cee9c3d2942943bb9dc29c07ef948ca172b740875cc259",
+      "rule_ids": [
+        "REG-05",
+        "RESOLVE-02",
+        "RESOLVE-03"
+      ]
+    },
+    {
+      "id": "registry-positive-cache",
+      "file": "registry-positive-cache.json",
+      "sha256": "d832d7e5d01904deb8185e3ed4f1d64a25dfa5e5df5b23679a85568fa4b0a699",
+      "rule_ids": [
+        "REG-05",
+        "RESOLVE-02",
+        "RESOLVE-03"
+      ]
+    },
+    {
+      "id": "registry-rollback",
+      "file": "registry-rollback.json",
+      "sha256": "f166e42e9b871ea3c4df53179faafb6aea2764ca92b3c524a955216fe3a4a13f",
+      "rule_ids": [
+        "REG-05",
+        "RESOLVE-02",
+        "RESOLVE-03"
+      ]
+    },
+    {
+      "id": "registry-restart",
+      "file": "registry-restart.json",
+      "sha256": "60298673b5fedd7742e343e8c281c7f409d7f48bc697677db376569e7f247cc9",
+      "rule_ids": [
+        "REG-05",
+        "RESOLVE-02",
+        "RESOLVE-03"
+      ]
+    },
+    {
+      "id": "registry-unfinalized-reorg",
+      "file": "registry-unfinalized-reorg.json",
+      "sha256": "2a0147b7f02e4486bfc0eec25a8357420cd6b4421e763a27f2d8111d64cd2ac5",
+      "rule_ids": [
+        "REG-05",
+        "RESOLVE-02",
+        "RESOLVE-03"
+      ]
+    },
+    {
+      "id": "registry-finalized-tombstone",
+      "file": "registry-finalized-tombstone.json",
+      "sha256": "b034c68b0745f4748e09b3013d35c6fca2ab2af686d698c0c15ceac88fc07e3b",
+      "rule_ids": [
+        "REG-05",
+        "RESOLVE-02",
+        "RESOLVE-03"
+      ]
+    },
+    {
+      "id": "registry-inactive-resolution",
+      "file": "registry-inactive-resolution.json",
+      "sha256": "bc20e0ecac50dd5969a6ac5ab52ead9e76e9c0a0c888baeac477dd315b94827b",
+      "rule_ids": [
+        "REG-05",
+        "RESOLVE-02",
+        "RESOLVE-03"
+      ]
+    },
+    {
+      "id": "registry-reject-trusted",
+      "file": "registry-reject-trusted.json",
+      "sha256": "4973965057cd67b0e854fff95a691f1bdc25f1b939be558a71c5598222aa6f05",
+      "rule_ids": [
+        "REG-05",
+        "RESOLVE-02",
+        "RESOLVE-03"
+      ]
+    },
+    {
+      "id": "registry-reject-clock_trusted",
+      "file": "registry-reject-clock_trusted.json",
+      "sha256": "789df01d3f5389fd3d745f9756b5360a93f148b0ba70102902f797c8b71dfb49",
+      "rule_ids": [
+        "REG-05",
+        "RESOLVE-02",
+        "RESOLVE-03"
+      ]
+    },
+    {
+      "id": "registry-reject-source",
+      "file": "registry-reject-source.json",
+      "sha256": "a5caf7abf35982bbc86427a678b2e3ed61e8f01b9a044b30a4bcf3f6eb40b335",
+      "rule_ids": [
+        "REG-05",
+        "RESOLVE-02",
+        "RESOLVE-03"
+      ]
+    },
+    {
+      "id": "registry-reject-ready",
+      "file": "registry-reject-ready.json",
+      "sha256": "ae51f6b89c2892be357522dbdc9f30da1c091e8929000d94108fc90612a5c4e6",
+      "rule_ids": [
+        "REG-05",
+        "RESOLVE-02",
+        "RESOLVE-03"
+      ]
+    },
+    {
+      "id": "registry-reject-keys_block_hash",
+      "file": "registry-reject-keys_block_hash.json",
+      "sha256": "9d80cb47a440d2e592f8341b436e62d89f15c26889cbdda764e095b0956685ff",
+      "rule_ids": [
+        "REG-05",
+        "RESOLVE-02",
+        "RESOLVE-03"
+      ]
+    },
+    {
+      "id": "registry-reject-conflicting",
+      "file": "registry-reject-conflicting.json",
+      "sha256": "a5c7be94989b8d274fc7b584a530be0c6fe6c048d33c6b0faab080e262e9eb29",
+      "rule_ids": [
+        "REG-05",
+        "RESOLVE-02",
+        "RESOLVE-03"
+      ]
+    },
+    {
+      "id": "registry-reject-lookup",
+      "file": "registry-reject-lookup.json",
+      "sha256": "3c2e30ce4045737c866d28bc647866aea399036cd8c55acf87ea5d12bfe33964",
+      "rule_ids": [
+        "REG-05",
+        "RESOLVE-02",
+        "RESOLVE-03"
+      ]
+    },
+    {
+      "id": "registry-reject-transport_ok",
+      "file": "registry-reject-transport_ok.json",
+      "sha256": "bba4d4b654b3331ecb663b224639d844767f079857da16b59c8cf81587d70580",
+      "rule_ids": [
+        "REG-05",
+        "RESOLVE-02",
+        "RESOLVE-03"
+      ]
+    },
+    {
+      "id": "registry-reject-registry_id",
+      "file": "registry-reject-registry_id.json",
+      "sha256": "62dda6387ca5788b7e704480a1e75a6c5f8a0d437ff047217d2c5e198d91272a",
+      "rule_ids": [
+        "REG-05",
+        "RESOLVE-02",
+        "RESOLVE-03"
+      ]
+    },
+    {
+      "id": "registry-mutations",
+      "file": "registry-mutations.json",
+      "sha256": "89b1e11a38aff6e50a127b8956d3b86fe4915def2951ae7b438c5252ed7d15cf",
+      "rule_ids": [
+        "REG-03"
+      ]
+    }
+  ]
+}

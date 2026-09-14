@@ -1,0 +1,3615 @@
+{
+  "schema_version": 1,
+  "protocol_version": "0.10.0",
+  "profile": "primitive-foundation",
+  "id": "sage-registry-records-0.10.0",
+  "sources": [
+    {
+      "id": "registry-spec",
+      "kind": "spec-derived",
+      "uri": "sage-spec/spec/09-registry.md",
+      "reference": "0.10.0 chapters06/07/09/10: ID, REG, CARD and RESOLVE rules. Independent public Python fixtures, Node audit, synthetic authority only."
+    }
+  ],
+  "cases": [
+    {
+      "id": "did-web",
+      "operation": "sage.did.validate",
+      "rule_ids": [
+        "ID-01",
+        "ID-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "did": "did:sage:web:agents.example.com:alice",
+        "supported_kinds": [
+          "eip155",
+          "web"
+        ]
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      }
+    },
+    {
+      "id": "did-chain",
+      "operation": "sage.did.validate",
+      "rule_ids": [
+        "ID-01",
+        "ID-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "did": "did:sage:eip155:1:0xabababababababababababababababababababab:alice",
+        "supported_kinds": [
+          "eip155",
+          "web"
+        ]
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      }
+    },
+    {
+      "id": "did-agent-max",
+      "operation": "sage.did.validate",
+      "rule_ids": [
+        "ID-01",
+        "ID-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "did": "did:sage:web:agents.example.com:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "supported_kinds": [
+          "eip155",
+          "web"
+        ]
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      }
+    },
+    {
+      "id": "did-agent-over",
+      "operation": "sage.did.validate",
+      "rule_ids": [
+        "ID-01",
+        "ID-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "did": "did:sage:web:agents.example.com:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "supported_kinds": [
+          "eip155",
+          "web"
+        ]
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "did-legacy",
+      "operation": "sage.did.validate",
+      "rule_ids": [
+        "ID-01",
+        "ID-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "did": "did:sage:ethereum:0xabc",
+        "supported_kinds": [
+          "eip155",
+          "web"
+        ]
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "did-alias",
+      "operation": "sage.did.validate",
+      "rule_ids": [
+        "ID-01",
+        "ID-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "did": "did:sage:eth:0xabc",
+        "supported_kinds": [
+          "eip155",
+          "web"
+        ]
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "did-reserved",
+      "operation": "sage.did.validate",
+      "rule_ids": [
+        "ID-01",
+        "ID-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "did": "did:sage:solana:mainnet:alice",
+        "supported_kinds": [
+          "eip155",
+          "web"
+        ]
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "did-upper-kind",
+      "operation": "sage.did.validate",
+      "rule_ids": [
+        "ID-01",
+        "ID-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "did": "did:sage:WEB:agents.example.com:alice",
+        "supported_kinds": [
+          "eip155",
+          "web"
+        ]
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "did-upper-domain",
+      "operation": "sage.did.validate",
+      "rule_ids": [
+        "ID-01",
+        "ID-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "did": "did:sage:web:Agents.example.com:alice",
+        "supported_kinds": [
+          "eip155",
+          "web"
+        ]
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "did-port",
+      "operation": "sage.did.validate",
+      "rule_ids": [
+        "ID-01",
+        "ID-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "did": "did:sage:web:agents.example.com:443:alice",
+        "supported_kinds": [
+          "eip155",
+          "web"
+        ]
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "did-ip",
+      "operation": "sage.did.validate",
+      "rule_ids": [
+        "ID-01",
+        "ID-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "did": "did:sage:web:127.0.0.1:alice",
+        "supported_kinds": [
+          "eip155",
+          "web"
+        ]
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "did-percent",
+      "operation": "sage.did.validate",
+      "rule_ids": [
+        "ID-01",
+        "ID-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "did": "did:sage:web:agents.example.com:alice%20",
+        "supported_kinds": [
+          "eip155",
+          "web"
+        ]
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "did-query",
+      "operation": "sage.did.validate",
+      "rule_ids": [
+        "ID-01",
+        "ID-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "did": "did:sage:web:agents.example.com:alice?x=1",
+        "supported_kinds": [
+          "eip155",
+          "web"
+        ]
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "did-fragment",
+      "operation": "sage.did.validate",
+      "rule_ids": [
+        "ID-01",
+        "ID-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "did": "did:sage:web:agents.example.com:alice#key",
+        "supported_kinds": [
+          "eip155",
+          "web"
+        ]
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "did-empty",
+      "operation": "sage.did.validate",
+      "rule_ids": [
+        "ID-01",
+        "ID-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "did": "did:sage:web:agents.example.com:",
+        "supported_kinds": [
+          "eip155",
+          "web"
+        ]
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "did-unicode",
+      "operation": "sage.did.validate",
+      "rule_ids": [
+        "ID-01",
+        "ID-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "did": "did:sage:web:agents.example.com:alice\uac00",
+        "supported_kinds": [
+          "eip155",
+          "web"
+        ]
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "did-dot",
+      "operation": "sage.did.validate",
+      "rule_ids": [
+        "ID-01",
+        "ID-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "did": "did:sage:web:agents.example.com:.",
+        "supported_kinds": [
+          "eip155",
+          "web"
+        ]
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "did-chain-leading-zero",
+      "operation": "sage.did.validate",
+      "rule_ids": [
+        "ID-01",
+        "ID-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "did": "did:sage:eip155:01:0xabababababababababababababababababababab:alice",
+        "supported_kinds": [
+          "eip155",
+          "web"
+        ]
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "did-upper-address",
+      "operation": "sage.did.validate",
+      "rule_ids": [
+        "ID-01",
+        "ID-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "did": "did:sage:eip155:1:0xABABABABABABABABABABABABABABABABABABABAB:alice",
+        "supported_kinds": [
+          "eip155",
+          "web"
+        ]
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "did-extra-locator",
+      "operation": "sage.did.validate",
+      "rule_ids": [
+        "ID-01",
+        "ID-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "did": "did:sage:web:agents.example.com:alice:other",
+        "supported_kinds": [
+          "eip155",
+          "web"
+        ]
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "signing-1-signature-valid",
+      "operation": "signature.verify",
+      "rule_ids": [
+        "REG-04"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "algorithm": "ed25519",
+        "public_key_hex": "0343a58a4967c40b3ba00257d1d1e19af69b8a3a5dda072eeaf8778466ddd742",
+        "message_hex": "736167652d706f702d302e31302e3000167765623a6167656e74732e6578616d706c652e636f6d0005616c69636500097369676e696e672d3100076564323535313900200343a58a4967c40b3ba00257d1d1e19af69b8a3a5dda072eeaf8778466ddd742",
+        "signature_hex": "69810a8f3c07e8997e77f98ad8dd79692a2a759c2cfb63b6fea13c55351451c0f5dc5319d567f372d3aaa9983a100ae76fcc15b86f46c954b433fa10b7b23a08"
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      }
+    },
+    {
+      "id": "signing-1-signature-registry",
+      "operation": "signature.verify",
+      "rule_ids": [
+        "REG-04"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "algorithm": "ed25519",
+        "public_key_hex": "0343a58a4967c40b3ba00257d1d1e19af69b8a3a5dda072eeaf8778466ddd742",
+        "message_hex": "736167652d706f702d302e31302e3000117765623a6f746865722e6578616d706c650005616c69636500097369676e696e672d3100076564323535313900200343a58a4967c40b3ba00257d1d1e19af69b8a3a5dda072eeaf8778466ddd742",
+        "signature_hex": "69810a8f3c07e8997e77f98ad8dd79692a2a759c2cfb63b6fea13c55351451c0f5dc5319d567f372d3aaa9983a100ae76fcc15b86f46c954b433fa10b7b23a08"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "signing-1-signature-name",
+      "operation": "signature.verify",
+      "rule_ids": [
+        "REG-04"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "algorithm": "ed25519",
+        "public_key_hex": "0343a58a4967c40b3ba00257d1d1e19af69b8a3a5dda072eeaf8778466ddd742",
+        "message_hex": "736167652d706f702d302e31302e3000167765623a6167656e74732e6578616d706c652e636f6d0005616c69636500056f7468657200076564323535313900200343a58a4967c40b3ba00257d1d1e19af69b8a3a5dda072eeaf8778466ddd742",
+        "signature_hex": "69810a8f3c07e8997e77f98ad8dd79692a2a759c2cfb63b6fea13c55351451c0f5dc5319d567f372d3aaa9983a100ae76fcc15b86f46c954b433fa10b7b23a08"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "signing-1-signature-agent",
+      "operation": "signature.verify",
+      "rule_ids": [
+        "REG-04"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "algorithm": "ed25519",
+        "public_key_hex": "0343a58a4967c40b3ba00257d1d1e19af69b8a3a5dda072eeaf8778466ddd742",
+        "message_hex": "736167652d706f702d302e31302e3000167765623a6167656e74732e6578616d706c652e636f6d0003626f6200097369676e696e672d3100076564323535313900200343a58a4967c40b3ba00257d1d1e19af69b8a3a5dda072eeaf8778466ddd742",
+        "signature_hex": "69810a8f3c07e8997e77f98ad8dd79692a2a759c2cfb63b6fea13c55351451c0f5dc5319d567f372d3aaa9983a100ae76fcc15b86f46c954b433fa10b7b23a08"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "pop-current",
+      "operation": "sage.registry.pop.verify",
+      "rule_ids": [
+        "REG-04"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "did": "did:sage:web:agents.example.com:alice",
+        "name": "signing-1",
+        "alg": "ed25519",
+        "public_key_hex": "0343a58a4967c40b3ba00257d1d1e19af69b8a3a5dda072eeaf8778466ddd742",
+        "signature_hex": "69810a8f3c07e8997e77f98ad8dd79692a2a759c2cfb63b6fea13c55351451c0f5dc5319d567f372d3aaa9983a100ae76fcc15b86f46c954b433fa10b7b23a08"
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      }
+    },
+    {
+      "id": "pop-legacy",
+      "operation": "sage.registry.pop.verify",
+      "rule_ids": [
+        "REG-04"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "did": "did:sage:web:agents.example.com:alice",
+        "name": "signing-1",
+        "alg": "ed25519",
+        "public_key_hex": "0343a58a4967c40b3ba00257d1d1e19af69b8a3a5dda072eeaf8778466ddd742",
+        "signature_hex": "b6e22d084c424699e3c37db5d26f3a11cd0408fcb3f24dc013a2748e167342a3c072c61407d8d2e7c3c732549aa017af27c4446ff4a3fafccecf8359419b0508"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "kem-1-signature-valid",
+      "operation": "signature.verify",
+      "rule_ids": [
+        "REG-04"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "algorithm": "ed25519",
+        "public_key_hex": "0343a58a4967c40b3ba00257d1d1e19af69b8a3a5dda072eeaf8778466ddd742",
+        "message_hex": "736167652d706f702d302e31302e3000167765623a6167656e74732e6578616d706c652e636f6d0005616c69636500056b656d2d31000678323535313900206604c47928b02a2f106b098cced13128bd5b3f12509a3e9dca76a61085d31a3a",
+        "signature_hex": "b9737c349ef566f73e2258070196d1c6f1135844e25331f012d75c466bbbe2244a2b61f7f39ce70293b020d1c036c3a1dfe5a2eca54a5a4dec6efdd52d3b3f06"
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      }
+    },
+    {
+      "id": "kem-1-signature-registry",
+      "operation": "signature.verify",
+      "rule_ids": [
+        "REG-04"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "algorithm": "ed25519",
+        "public_key_hex": "0343a58a4967c40b3ba00257d1d1e19af69b8a3a5dda072eeaf8778466ddd742",
+        "message_hex": "736167652d706f702d302e31302e3000117765623a6f746865722e6578616d706c650005616c69636500056b656d2d31000678323535313900206604c47928b02a2f106b098cced13128bd5b3f12509a3e9dca76a61085d31a3a",
+        "signature_hex": "b9737c349ef566f73e2258070196d1c6f1135844e25331f012d75c466bbbe2244a2b61f7f39ce70293b020d1c036c3a1dfe5a2eca54a5a4dec6efdd52d3b3f06"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "kem-1-signature-name",
+      "operation": "signature.verify",
+      "rule_ids": [
+        "REG-04"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "algorithm": "ed25519",
+        "public_key_hex": "0343a58a4967c40b3ba00257d1d1e19af69b8a3a5dda072eeaf8778466ddd742",
+        "message_hex": "736167652d706f702d302e31302e3000167765623a6167656e74732e6578616d706c652e636f6d0005616c69636500056f74686572000678323535313900206604c47928b02a2f106b098cced13128bd5b3f12509a3e9dca76a61085d31a3a",
+        "signature_hex": "b9737c349ef566f73e2258070196d1c6f1135844e25331f012d75c466bbbe2244a2b61f7f39ce70293b020d1c036c3a1dfe5a2eca54a5a4dec6efdd52d3b3f06"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "kem-1-signature-agent",
+      "operation": "signature.verify",
+      "rule_ids": [
+        "REG-04"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "algorithm": "ed25519",
+        "public_key_hex": "0343a58a4967c40b3ba00257d1d1e19af69b8a3a5dda072eeaf8778466ddd742",
+        "message_hex": "736167652d706f702d302e31302e3000167765623a6167656e74732e6578616d706c652e636f6d0003626f6200056b656d2d31000678323535313900206604c47928b02a2f106b098cced13128bd5b3f12509a3e9dca76a61085d31a3a",
+        "signature_hex": "b9737c349ef566f73e2258070196d1c6f1135844e25331f012d75c466bbbe2244a2b61f7f39ce70293b020d1c036c3a1dfe5a2eca54a5a4dec6efdd52d3b3f06"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "record-valid",
+      "operation": "sage.registry.record.verify",
+      "rule_ids": [
+        "REG-01",
+        "REG-02",
+        "REG-04",
+        "RESOLVE-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "record_hex": "7b22636f6e74726f6c6c6572223a22746573742d636f6e74726f6c6c6572222c226964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c226b657973223a5b7b22616c67223a22783235353139222c226b6579223a225a675445655369774b69385161776d4d7a7445784b4c316250784a516d6a3664796e616d45495854476a6f222c226e616d65223a226b656d2d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a2275584e384e4a37315a76632d496c6748415a62527876455457455469557a487745746463526d75373469524b4b32483338357a6e41704f77494e48414e734f68332d5769374b564b576b3373627633564c54735f4267227d2c227374617465223a226163636570746564227d2c7b22616c67223a2265643235353139222c226b6579223a2241304f6c696b6c6e784173376f414a58306448686d766162696a7064326763753676683368476264313049222c226e616d65223a227369676e696e672d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a226159454b6a7a7748364a6c2d645f6d4b324e313561536f71645a77732d324f325f714538565455555563443133464d5a3157667a63744f71715a67364541726e6238775675473947795653304d5f6f51743749364341227d2c227374617465223a226163636570746564227d5d2c227365727669636573223a5b7b226e616d65223a22617069222c2274797065223a224167656e74222c22757269223a2268747470733a2f2f6167656e74732e6578616d706c652e636f6d2f617069227d5d2c227374617465223a22616374697665222c2276657273696f6e223a2231227d",
+        "expected_did": "did:sage:web:agents.example.com:alice",
+        "now": 1700000000,
+        "mode": "read"
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      }
+    },
+    {
+      "id": "record-unknown",
+      "operation": "sage.registry.record.verify",
+      "rule_ids": [
+        "REG-01",
+        "REG-02",
+        "REG-04",
+        "RESOLVE-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "record_hex": "7b22636f6e74726f6c6c6572223a22746573742d636f6e74726f6c6c6572222c226578747261223a747275652c226964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c226b657973223a5b7b22616c67223a22783235353139222c226b6579223a225a675445655369774b69385161776d4d7a7445784b4c316250784a516d6a3664796e616d45495854476a6f222c226e616d65223a226b656d2d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a2275584e384e4a37315a76632d496c6748415a62527876455457455469557a487745746463526d75373469524b4b32483338357a6e41704f77494e48414e734f68332d5769374b564b576b3373627633564c54735f4267227d2c227374617465223a226163636570746564227d2c7b22616c67223a2265643235353139222c226b6579223a2241304f6c696b6c6e784173376f414a58306448686d766162696a7064326763753676683368476264313049222c226e616d65223a227369676e696e672d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a226159454b6a7a7748364a6c2d645f6d4b324e313561536f71645a77732d324f325f714538565455555563443133464d5a3157667a63744f71715a67364541726e6238775675473947795653304d5f6f51743749364341227d2c227374617465223a226163636570746564227d5d2c227365727669636573223a5b7b226e616d65223a22617069222c2274797065223a224167656e74222c22757269223a2268747470733a2f2f6167656e74732e6578616d706c652e636f6d2f617069227d5d2c227374617465223a22616374697665222c2276657273696f6e223a2231227d",
+        "expected_did": "did:sage:web:agents.example.com:alice",
+        "now": 1700000000,
+        "mode": "read"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "record-version-zero",
+      "operation": "sage.registry.record.verify",
+      "rule_ids": [
+        "REG-01",
+        "REG-02",
+        "REG-04",
+        "RESOLVE-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "record_hex": "7b22636f6e74726f6c6c6572223a22746573742d636f6e74726f6c6c6572222c226964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c226b657973223a5b7b22616c67223a22783235353139222c226b6579223a225a675445655369774b69385161776d4d7a7445784b4c316250784a516d6a3664796e616d45495854476a6f222c226e616d65223a226b656d2d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a2275584e384e4a37315a76632d496c6748415a62527876455457455469557a487745746463526d75373469524b4b32483338357a6e41704f77494e48414e734f68332d5769374b564b576b3373627633564c54735f4267227d2c227374617465223a226163636570746564227d2c7b22616c67223a2265643235353139222c226b6579223a2241304f6c696b6c6e784173376f414a58306448686d766162696a7064326763753676683368476264313049222c226e616d65223a227369676e696e672d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a226159454b6a7a7748364a6c2d645f6d4b324e313561536f71645a77732d324f325f714538565455555563443133464d5a3157667a63744f71715a67364541726e6238775675473947795653304d5f6f51743749364341227d2c227374617465223a226163636570746564227d5d2c227365727669636573223a5b7b226e616d65223a22617069222c2274797065223a224167656e74222c22757269223a2268747470733a2f2f6167656e74732e6578616d706c652e636f6d2f617069227d5d2c227374617465223a22616374697665222c2276657273696f6e223a2230227d",
+        "expected_did": "did:sage:web:agents.example.com:alice",
+        "now": 1700000000,
+        "mode": "read"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "record-version-leading-zero",
+      "operation": "sage.registry.record.verify",
+      "rule_ids": [
+        "REG-01",
+        "REG-02",
+        "REG-04",
+        "RESOLVE-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "record_hex": "7b22636f6e74726f6c6c6572223a22746573742d636f6e74726f6c6c6572222c226964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c226b657973223a5b7b22616c67223a22783235353139222c226b6579223a225a675445655369774b69385161776d4d7a7445784b4c316250784a516d6a3664796e616d45495854476a6f222c226e616d65223a226b656d2d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a2275584e384e4a37315a76632d496c6748415a62527876455457455469557a487745746463526d75373469524b4b32483338357a6e41704f77494e48414e734f68332d5769374b564b576b3373627633564c54735f4267227d2c227374617465223a226163636570746564227d2c7b22616c67223a2265643235353139222c226b6579223a2241304f6c696b6c6e784173376f414a58306448686d766162696a7064326763753676683368476264313049222c226e616d65223a227369676e696e672d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a226159454b6a7a7748364a6c2d645f6d4b324e313561536f71645a77732d324f325f714538565455555563443133464d5a3157667a63744f71715a67364541726e6238775675473947795653304d5f6f51743749364341227d2c227374617465223a226163636570746564227d5d2c227365727669636573223a5b7b226e616d65223a22617069222c2274797065223a224167656e74222c22757269223a2268747470733a2f2f6167656e74732e6578616d706c652e636f6d2f617069227d5d2c227374617465223a22616374697665222c2276657273696f6e223a223031227d",
+        "expected_did": "did:sage:web:agents.example.com:alice",
+        "now": 1700000000,
+        "mode": "read"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "record-version-overflow",
+      "operation": "sage.registry.record.verify",
+      "rule_ids": [
+        "REG-01",
+        "REG-02",
+        "REG-04",
+        "RESOLVE-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "record_hex": "7b22636f6e74726f6c6c6572223a22746573742d636f6e74726f6c6c6572222c226964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c226b657973223a5b7b22616c67223a22783235353139222c226b6579223a225a675445655369774b69385161776d4d7a7445784b4c316250784a516d6a3664796e616d45495854476a6f222c226e616d65223a226b656d2d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a2275584e384e4a37315a76632d496c6748415a62527876455457455469557a487745746463526d75373469524b4b32483338357a6e41704f77494e48414e734f68332d5769374b564b576b3373627633564c54735f4267227d2c227374617465223a226163636570746564227d2c7b22616c67223a2265643235353139222c226b6579223a2241304f6c696b6c6e784173376f414a58306448686d766162696a7064326763753676683368476264313049222c226e616d65223a227369676e696e672d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a226159454b6a7a7748364a6c2d645f6d4b324e313561536f71645a77732d324f325f714538565455555563443133464d5a3157667a63744f71715a67364541726e6238775675473947795653304d5f6f51743749364341227d2c227374617465223a226163636570746564227d5d2c227365727669636573223a5b7b226e616d65223a22617069222c2274797065223a224167656e74222c22757269223a2268747470733a2f2f6167656e74732e6578616d706c652e636f6d2f617069227d5d2c227374617465223a22616374697665222c2276657273696f6e223a223138343436373434303733373039353531363136227d",
+        "expected_did": "did:sage:web:agents.example.com:alice",
+        "now": 1700000000,
+        "mode": "read"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "record-private",
+      "operation": "sage.registry.record.verify",
+      "rule_ids": [
+        "REG-01",
+        "REG-02",
+        "REG-04",
+        "RESOLVE-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "record_hex": "7b22636f6e74726f6c6c6572223a22746573742d636f6e74726f6c6c6572222c226964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c226b657973223a5b7b22616c67223a22783235353139222c226b6579223a225a675445655369774b69385161776d4d7a7445784b4c316250784a516d6a3664796e616d45495854476a6f222c226e616d65223a226b656d2d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a2275584e384e4a37315a76632d496c6748415a62527876455457455469557a487745746463526d75373469524b4b32483338357a6e41704f77494e48414e734f68332d5769374b564b576b3373627633564c54735f4267227d2c227374617465223a226163636570746564227d2c7b22616c67223a2265643235353139222c2264223a22736563726574222c226b6579223a2241304f6c696b6c6e784173376f414a58306448686d766162696a7064326763753676683368476264313049222c226e616d65223a227369676e696e672d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a226159454b6a7a7748364a6c2d645f6d4b324e313561536f71645a77732d324f325f714538565455555563443133464d5a3157667a63744f71715a67364541726e6238775675473947795653304d5f6f51743749364341227d2c227374617465223a226163636570746564227d5d2c227365727669636573223a5b7b226e616d65223a22617069222c2274797065223a224167656e74222c22757269223a2268747470733a2f2f6167656e74732e6578616d706c652e636f6d2f617069227d5d2c227374617465223a22616374697665222c2276657273696f6e223a2231227d",
+        "expected_did": "did:sage:web:agents.example.com:alice",
+        "now": 1700000000,
+        "mode": "read"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "record-duplicate-name",
+      "operation": "sage.registry.record.verify",
+      "rule_ids": [
+        "REG-01",
+        "REG-02",
+        "REG-04",
+        "RESOLVE-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "record_hex": "7b22636f6e74726f6c6c6572223a22746573742d636f6e74726f6c6c6572222c226964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c226b657973223a5b7b22616c67223a22783235353139222c226b6579223a225a675445655369774b69385161776d4d7a7445784b4c316250784a516d6a3664796e616d45495854476a6f222c226e616d65223a226b656d2d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a2275584e384e4a37315a76632d496c6748415a62527876455457455469557a487745746463526d75373469524b4b32483338357a6e41704f77494e48414e734f68332d5769374b564b576b3373627633564c54735f4267227d2c227374617465223a226163636570746564227d2c7b22616c67223a2265643235353139222c226b6579223a2241304f6c696b6c6e784173376f414a58306448686d766162696a7064326763753676683368476264313049222c226e616d65223a227369676e696e672d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a226159454b6a7a7748364a6c2d645f6d4b324e313561536f71645a77732d324f325f714538565455555563443133464d5a3157667a63744f71715a67364541726e6238775675473947795653304d5f6f51743749364341227d2c227374617465223a226163636570746564227d2c7b22616c67223a2265643235353139222c226b6579223a2241304f6c696b6c6e784173376f414a58306448686d766162696a7064326763753676683368476264313049222c226e616d65223a227369676e696e672d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a226159454b6a7a7748364a6c2d645f6d4b324e313561536f71645a77732d324f325f714538565455555563443133464d5a3157667a63744f71715a67364541726e6238775675473947795653304d5f6f51743749364341227d2c227374617465223a226163636570746564227d5d2c227365727669636573223a5b7b226e616d65223a22617069222c2274797065223a224167656e74222c22757269223a2268747470733a2f2f6167656e74732e6578616d706c652e636f6d2f617069227d5d2c227374617465223a22616374697665222c2276657273696f6e223a2231227d",
+        "expected_did": "did:sage:web:agents.example.com:alice",
+        "now": 1700000000,
+        "mode": "read"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "record-duplicate-material",
+      "operation": "sage.registry.record.verify",
+      "rule_ids": [
+        "REG-01",
+        "REG-02",
+        "REG-04",
+        "RESOLVE-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "record_hex": "7b22636f6e74726f6c6c6572223a22746573742d636f6e74726f6c6c6572222c226964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c226b657973223a5b7b22616c67223a22783235353139222c226b6579223a225a675445655369774b69385161776d4d7a7445784b4c316250784a516d6a3664796e616d45495854476a6f222c226e616d65223a226b656d2d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a2275584e384e4a37315a76632d496c6748415a62527876455457455469557a487745746463526d75373469524b4b32483338357a6e41704f77494e48414e734f68332d5769374b564b576b3373627633564c54735f4267227d2c227374617465223a226163636570746564227d2c7b22616c67223a2265643235353139222c226b6579223a2241304f6c696b6c6e784173376f414a58306448686d766162696a7064326763753676683368476264313049222c226e616d65223a227369676e696e672d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a226159454b6a7a7748364a6c2d645f6d4b324e313561536f71645a77732d324f325f714538565455555563443133464d5a3157667a63744f71715a67364541726e6238775675473947795653304d5f6f51743749364341227d2c227374617465223a226163636570746564227d2c7b22616c67223a2265643235353139222c226b6579223a2241304f6c696b6c6e784173376f414a58306448686d766162696a7064326763753676683368476264313049222c226e616d65223a227369676e696e672d32222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a226159454b6a7a7748364a6c2d645f6d4b324e313561536f71645a77732d324f325f714538565455555563443133464d5a3157667a63744f71715a67364541726e6238775675473947795653304d5f6f51743749364341227d2c227374617465223a226163636570746564227d5d2c227365727669636573223a5b7b226e616d65223a22617069222c2274797065223a224167656e74222c22757269223a2268747470733a2f2f6167656e74732e6578616d706c652e636f6d2f617069227d5d2c227374617465223a22616374697665222c2276657273696f6e223a2231227d",
+        "expected_did": "did:sage:web:agents.example.com:alice",
+        "now": 1700000000,
+        "mode": "read"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "record-unsorted",
+      "operation": "sage.registry.record.verify",
+      "rule_ids": [
+        "REG-01",
+        "REG-02",
+        "REG-04",
+        "RESOLVE-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "record_hex": "7b22636f6e74726f6c6c6572223a22746573742d636f6e74726f6c6c6572222c226964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c226b657973223a5b7b22616c67223a2265643235353139222c226b6579223a2241304f6c696b6c6e784173376f414a58306448686d766162696a7064326763753676683368476264313049222c226e616d65223a227369676e696e672d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a226159454b6a7a7748364a6c2d645f6d4b324e313561536f71645a77732d324f325f714538565455555563443133464d5a3157667a63744f71715a67364541726e6238775675473947795653304d5f6f51743749364341227d2c227374617465223a226163636570746564227d2c7b22616c67223a22783235353139222c226b6579223a225a675445655369774b69385161776d4d7a7445784b4c316250784a516d6a3664796e616d45495854476a6f222c226e616d65223a226b656d2d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a2275584e384e4a37315a76632d496c6748415a62527876455457455469557a487745746463526d75373469524b4b32483338357a6e41704f77494e48414e734f68332d5769374b564b576b3373627633564c54735f4267227d2c227374617465223a226163636570746564227d5d2c227365727669636573223a5b7b226e616d65223a22617069222c2274797065223a224167656e74222c22757269223a2268747470733a2f2f6167656e74732e6578616d706c652e636f6d2f617069227d5d2c227374617465223a22616374697665222c2276657273696f6e223a2231227d",
+        "expected_did": "did:sage:web:agents.example.com:alice",
+        "now": 1700000000,
+        "mode": "read"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "record-service-collision",
+      "operation": "sage.registry.record.verify",
+      "rule_ids": [
+        "REG-01",
+        "REG-02",
+        "REG-04",
+        "RESOLVE-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "record_hex": "7b22636f6e74726f6c6c6572223a22746573742d636f6e74726f6c6c6572222c226964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c226b657973223a5b7b22616c67223a22783235353139222c226b6579223a225a675445655369774b69385161776d4d7a7445784b4c316250784a516d6a3664796e616d45495854476a6f222c226e616d65223a226b656d2d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a2275584e384e4a37315a76632d496c6748415a62527876455457455469557a487745746463526d75373469524b4b32483338357a6e41704f77494e48414e734f68332d5769374b564b576b3373627633564c54735f4267227d2c227374617465223a226163636570746564227d2c7b22616c67223a2265643235353139222c226b6579223a2241304f6c696b6c6e784173376f414a58306448686d766162696a7064326763753676683368476264313049222c226e616d65223a227369676e696e672d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a226159454b6a7a7748364a6c2d645f6d4b324e313561536f71645a77732d324f325f714538565455555563443133464d5a3157667a63744f71715a67364541726e6238775675473947795653304d5f6f51743749364341227d2c227374617465223a226163636570746564227d5d2c227365727669636573223a5b7b226e616d65223a227369676e696e672d31222c2274797065223a224167656e74222c22757269223a2268747470733a2f2f6167656e74732e6578616d706c652e636f6d2f617069227d5d2c227374617465223a22616374697665222c2276657273696f6e223a2231227d",
+        "expected_did": "did:sage:web:agents.example.com:alice",
+        "now": 1700000000,
+        "mode": "read"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "record-service-http",
+      "operation": "sage.registry.record.verify",
+      "rule_ids": [
+        "REG-01",
+        "REG-02",
+        "REG-04",
+        "RESOLVE-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "record_hex": "7b22636f6e74726f6c6c6572223a22746573742d636f6e74726f6c6c6572222c226964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c226b657973223a5b7b22616c67223a22783235353139222c226b6579223a225a675445655369774b69385161776d4d7a7445784b4c316250784a516d6a3664796e616d45495854476a6f222c226e616d65223a226b656d2d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a2275584e384e4a37315a76632d496c6748415a62527876455457455469557a487745746463526d75373469524b4b32483338357a6e41704f77494e48414e734f68332d5769374b564b576b3373627633564c54735f4267227d2c227374617465223a226163636570746564227d2c7b22616c67223a2265643235353139222c226b6579223a2241304f6c696b6c6e784173376f414a58306448686d766162696a7064326763753676683368476264313049222c226e616d65223a227369676e696e672d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a226159454b6a7a7748364a6c2d645f6d4b324e313561536f71645a77732d324f325f714538565455555563443133464d5a3157667a63744f71715a67364541726e6238775675473947795653304d5f6f51743749364341227d2c227374617465223a226163636570746564227d5d2c227365727669636573223a5b7b226e616d65223a22617069222c2274797065223a224167656e74222c22757269223a22687474703a2f2f6167656e74732e6578616d706c652e636f6d227d5d2c227374617465223a22616374697665222c2276657273696f6e223a2231227d",
+        "expected_did": "did:sage:web:agents.example.com:alice",
+        "now": 1700000000,
+        "mode": "read"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "record-service-userinfo",
+      "operation": "sage.registry.record.verify",
+      "rule_ids": [
+        "REG-01",
+        "REG-02",
+        "REG-04",
+        "RESOLVE-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "record_hex": "7b22636f6e74726f6c6c6572223a22746573742d636f6e74726f6c6c6572222c226964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c226b657973223a5b7b22616c67223a22783235353139222c226b6579223a225a675445655369774b69385161776d4d7a7445784b4c316250784a516d6a3664796e616d45495854476a6f222c226e616d65223a226b656d2d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a2275584e384e4a37315a76632d496c6748415a62527876455457455469557a487745746463526d75373469524b4b32483338357a6e41704f77494e48414e734f68332d5769374b564b576b3373627633564c54735f4267227d2c227374617465223a226163636570746564227d2c7b22616c67223a2265643235353139222c226b6579223a2241304f6c696b6c6e784173376f414a58306448686d766162696a7064326763753676683368476264313049222c226e616d65223a227369676e696e672d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a226159454b6a7a7748364a6c2d645f6d4b324e313561536f71645a77732d324f325f714538565455555563443133464d5a3157667a63744f71715a67364541726e6238775675473947795653304d5f6f51743749364341227d2c227374617465223a226163636570746564227d5d2c227365727669636573223a5b7b226e616d65223a22617069222c2274797065223a224167656e74222c22757269223a2268747470733a2f2f75736572406167656e74732e6578616d706c652e636f6d227d5d2c227374617465223a22616374697665222c2276657273696f6e223a2231227d",
+        "expected_did": "did:sage:web:agents.example.com:alice",
+        "now": 1700000000,
+        "mode": "read"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "record-service-fragment",
+      "operation": "sage.registry.record.verify",
+      "rule_ids": [
+        "REG-01",
+        "REG-02",
+        "REG-04",
+        "RESOLVE-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "record_hex": "7b22636f6e74726f6c6c6572223a22746573742d636f6e74726f6c6c6572222c226964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c226b657973223a5b7b22616c67223a22783235353139222c226b6579223a225a675445655369774b69385161776d4d7a7445784b4c316250784a516d6a3664796e616d45495854476a6f222c226e616d65223a226b656d2d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a2275584e384e4a37315a76632d496c6748415a62527876455457455469557a487745746463526d75373469524b4b32483338357a6e41704f77494e48414e734f68332d5769374b564b576b3373627633564c54735f4267227d2c227374617465223a226163636570746564227d2c7b22616c67223a2265643235353139222c226b6579223a2241304f6c696b6c6e784173376f414a58306448686d766162696a7064326763753676683368476264313049222c226e616d65223a227369676e696e672d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a226159454b6a7a7748364a6c2d645f6d4b324e313561536f71645a77732d324f325f714538565455555563443133464d5a3157667a63744f71715a67364541726e6238775675473947795653304d5f6f51743749364341227d2c227374617465223a226163636570746564227d5d2c227365727669636573223a5b7b226e616d65223a22617069222c2274797065223a224167656e74222c22757269223a2268747470733a2f2f6167656e74732e6578616d706c652e636f6d2f2378227d5d2c227374617465223a22616374697665222c2276657273696f6e223a2231227d",
+        "expected_did": "did:sage:web:agents.example.com:alice",
+        "now": 1700000000,
+        "mode": "read"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "record-missing-proof",
+      "operation": "sage.registry.record.verify",
+      "rule_ids": [
+        "REG-01",
+        "REG-02",
+        "REG-04",
+        "RESOLVE-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "record_hex": "7b22636f6e74726f6c6c6572223a22746573742d636f6e74726f6c6c6572222c226964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c226b657973223a5b7b22616c67223a22783235353139222c226b6579223a225a675445655369774b69385161776d4d7a7445784b4c316250784a516d6a3664796e616d45495854476a6f222c226e616d65223a226b656d2d31222c227374617465223a226163636570746564227d2c7b22616c67223a2265643235353139222c226b6579223a2241304f6c696b6c6e784173376f414a58306448686d766162696a7064326763753676683368476264313049222c226e616d65223a227369676e696e672d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a226159454b6a7a7748364a6c2d645f6d4b324e313561536f71645a77732d324f325f714538565455555563443133464d5a3157667a63744f71715a67364541726e6238775675473947795653304d5f6f51743749364341227d2c227374617465223a226163636570746564227d5d2c227365727669636573223a5b7b226e616d65223a22617069222c2274797065223a224167656e74222c22757269223a2268747470733a2f2f6167656e74732e6578616d706c652e636f6d2f617069227d5d2c227374617465223a22616374697665222c2276657273696f6e223a2231227d",
+        "expected_did": "did:sage:web:agents.example.com:alice",
+        "now": 1700000000,
+        "mode": "read"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "record-wrong-endorser",
+      "operation": "sage.registry.record.verify",
+      "rule_ids": [
+        "REG-01",
+        "REG-02",
+        "REG-04",
+        "RESOLVE-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "record_hex": "7b22636f6e74726f6c6c6572223a22746573742d636f6e74726f6c6c6572222c226964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c226b657973223a5b7b22616c67223a22783235353139222c226b6579223a225a675445655369774b69385161776d4d7a7445784b4c316250784a516d6a3664796e616d45495854476a6f222c226e616d65223a226b656d2d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365236d697373696e67222c2276616c7565223a2275584e384e4a37315a76632d496c6748415a62527876455457455469557a487745746463526d75373469524b4b32483338357a6e41704f77494e48414e734f68332d5769374b564b576b3373627633564c54735f4267227d2c227374617465223a226163636570746564227d2c7b22616c67223a2265643235353139222c226b6579223a2241304f6c696b6c6e784173376f414a58306448686d766162696a7064326763753676683368476264313049222c226e616d65223a227369676e696e672d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a226159454b6a7a7748364a6c2d645f6d4b324e313561536f71645a77732d324f325f714538565455555563443133464d5a3157667a63744f71715a67364541726e6238775675473947795653304d5f6f51743749364341227d2c227374617465223a226163636570746564227d5d2c227365727669636573223a5b7b226e616d65223a22617069222c2274797065223a224167656e74222c22757269223a2268747470733a2f2f6167656e74732e6578616d706c652e636f6d2f617069227d5d2c227374617465223a22616374697665222c2276657273696f6e223a2231227d",
+        "expected_did": "did:sage:web:agents.example.com:alice",
+        "now": 1700000000,
+        "mode": "read"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "record-padded-key",
+      "operation": "sage.registry.record.verify",
+      "rule_ids": [
+        "REG-01",
+        "REG-02",
+        "REG-04",
+        "RESOLVE-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "record_hex": "7b22636f6e74726f6c6c6572223a22746573742d636f6e74726f6c6c6572222c226964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c226b657973223a5b7b22616c67223a22783235353139222c226b6579223a225a675445655369774b69385161776d4d7a7445784b4c316250784a516d6a3664796e616d45495854476a6f3d222c226e616d65223a226b656d2d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a2275584e384e4a37315a76632d496c6748415a62527876455457455469557a487745746463526d75373469524b4b32483338357a6e41704f77494e48414e734f68332d5769374b564b576b3373627633564c54735f4267227d2c227374617465223a226163636570746564227d2c7b22616c67223a2265643235353139222c226b6579223a2241304f6c696b6c6e784173376f414a58306448686d766162696a7064326763753676683368476264313049222c226e616d65223a227369676e696e672d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a226159454b6a7a7748364a6c2d645f6d4b324e313561536f71645a77732d324f325f714538565455555563443133464d5a3157667a63744f71715a67364541726e6238775675473947795653304d5f6f51743749364341227d2c227374617465223a226163636570746564227d5d2c227365727669636573223a5b7b226e616d65223a22617069222c2274797065223a224167656e74222c22757269223a2268747470733a2f2f6167656e74732e6578616d706c652e636f6d2f617069227d5d2c227374617465223a22616374697665222c2276657273696f6e223a2231227d",
+        "expected_did": "did:sage:web:agents.example.com:alice",
+        "now": 1700000000,
+        "mode": "read"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "record-wrong-id",
+      "operation": "sage.registry.record.verify",
+      "rule_ids": [
+        "REG-01",
+        "REG-02",
+        "REG-04",
+        "RESOLVE-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "record_hex": "7b22636f6e74726f6c6c6572223a22746573742d636f6e74726f6c6c6572222c226964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c69636578222c226b657973223a5b7b22616c67223a22783235353139222c226b6579223a225a675445655369774b69385161776d4d7a7445784b4c316250784a516d6a3664796e616d45495854476a6f222c226e616d65223a226b656d2d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a2275584e384e4a37315a76632d496c6748415a62527876455457455469557a487745746463526d75373469524b4b32483338357a6e41704f77494e48414e734f68332d5769374b564b576b3373627633564c54735f4267227d2c227374617465223a226163636570746564227d2c7b22616c67223a2265643235353139222c226b6579223a2241304f6c696b6c6e784173376f414a58306448686d766162696a7064326763753676683368476264313049222c226e616d65223a227369676e696e672d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a226159454b6a7a7748364a6c2d645f6d4b324e313561536f71645a77732d324f325f714538565455555563443133464d5a3157667a63744f71715a67364541726e6238775675473947795653304d5f6f51743749364341227d2c227374617465223a226163636570746564227d5d2c227365727669636573223a5b7b226e616d65223a22617069222c2274797065223a224167656e74222c22757269223a2268747470733a2f2f6167656e74732e6578616d706c652e636f6d2f617069227d5d2c227374617465223a22616374697665222c2276657273696f6e223a2231227d",
+        "expected_did": "did:sage:web:agents.example.com:alice",
+        "now": 1700000000,
+        "mode": "read"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "record-key-state",
+      "operation": "sage.registry.record.verify",
+      "rule_ids": [
+        "REG-01",
+        "REG-02",
+        "REG-04",
+        "RESOLVE-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "record_hex": "7b22636f6e74726f6c6c6572223a22746573742d636f6e74726f6c6c6572222c226964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c226b657973223a5b7b22616c67223a22783235353139222c226b6579223a225a675445655369774b69385161776d4d7a7445784b4c316250784a516d6a3664796e616d45495854476a6f222c226e616d65223a226b656d2d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a2275584e384e4a37315a76632d496c6748415a62527876455457455469557a487745746463526d75373469524b4b32483338357a6e41704f77494e48414e734f68332d5769374b564b576b3373627633564c54735f4267227d2c227374617465223a226163636570746564227d2c7b22616c67223a2265643235353139222c226b6579223a2241304f6c696b6c6e784173376f414a58306448686d766162696a7064326763753676683368476264313049222c226e616d65223a227369676e696e672d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a226159454b6a7a7748364a6c2d645f6d4b324e313561536f71645a77732d324f325f714538565455555563443133464d5a3157667a63744f71715a67364541726e6238775675473947795653304d5f6f51743749364341227d2c227374617465223a2270656e64696e67227d5d2c227365727669636573223a5b7b226e616d65223a22617069222c2274797065223a224167656e74222c22757269223a2268747470733a2f2f6167656e74732e6578616d706c652e636f6d2f617069227d5d2c227374617465223a22616374697665222c2276657273696f6e223a2231227d",
+        "expected_did": "did:sage:web:agents.example.com:alice",
+        "now": 1700000000,
+        "mode": "read"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "record-created",
+      "operation": "sage.registry.record.verify",
+      "rule_ids": [
+        "REG-01",
+        "REG-02",
+        "REG-04",
+        "RESOLVE-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "record_hex": "7b22636f6e74726f6c6c6572223a22746573742d636f6e74726f6c6c6572222c226964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c226b657973223a5b7b22616c67223a22783235353139222c226b6579223a225a675445655369774b69385161776d4d7a7445784b4c316250784a516d6a3664796e616d45495854476a6f222c226e616d65223a226b656d2d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a2275584e384e4a37315a76632d496c6748415a62527876455457455469557a487745746463526d75373469524b4b32483338357a6e41704f77494e48414e734f68332d5769374b564b576b3373627633564c54735f4267227d2c227374617465223a226163636570746564227d2c7b22616c67223a2265643235353139222c226b6579223a2241304f6c696b6c6e784173376f414a58306448686d766162696a7064326763753676683368476264313049222c226e616d65223a227369676e696e672d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a226159454b6a7a7748364a6c2d645f6d4b324e313561536f71645a77732d324f325f714538565455555563443133464d5a3157667a63744f71715a67364541726e6238775675473947795653304d5f6f51743749364341227d2c227374617465223a226163636570746564227d5d2c227365727669636573223a5b7b226e616d65223a22617069222c2274797065223a224167656e74222c22757269223a2268747470733a2f2f6167656e74732e6578616d706c652e636f6d2f617069227d5d2c227374617465223a2263726561746564222c2276657273696f6e223a2231227d",
+        "expected_did": "did:sage:web:agents.example.com:alice",
+        "now": 1700000000,
+        "mode": "read"
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      }
+    },
+    {
+      "id": "resolve-created",
+      "operation": "sage.registry.resolve",
+      "rule_ids": [
+        "RESOLVE-01",
+        "RESOLVE-03"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "record": {
+          "id": "did:sage:web:agents.example.com:alice",
+          "controller": "test-controller",
+          "keys": [
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "created",
+          "version": "1"
+        },
+        "now": 1700000000
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "state": "created",
+          "version": "1",
+          "verification_methods": [],
+          "authentication": [],
+          "assertion_method": [],
+          "key_agreement": [],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "authenticate-created",
+      "operation": "sage.registry.authenticate",
+      "rule_ids": [
+        "ID-03",
+        "RESOLVE-03"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "record": {
+          "id": "did:sage:web:agents.example.com:alice",
+          "controller": "test-controller",
+          "keys": [
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "created",
+          "version": "1"
+        },
+        "keyid": "did:sage:web:agents.example.com:alice#signing-1",
+        "sender": "did:sage:web:agents.example.com:alice",
+        "expected_peer": "did:sage:web:agents.example.com:alice",
+        "alg": "ed25519",
+        "now": 1700000000
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "record-deactivated",
+      "operation": "sage.registry.record.verify",
+      "rule_ids": [
+        "REG-01",
+        "REG-02",
+        "REG-04",
+        "RESOLVE-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "record_hex": "7b22636f6e74726f6c6c6572223a22746573742d636f6e74726f6c6c6572222c226964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c226b657973223a5b7b22616c67223a22783235353139222c226b6579223a225a675445655369774b69385161776d4d7a7445784b4c316250784a516d6a3664796e616d45495854476a6f222c226e616d65223a226b656d2d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a2275584e384e4a37315a76632d496c6748415a62527876455457455469557a487745746463526d75373469524b4b32483338357a6e41704f77494e48414e734f68332d5769374b564b576b3373627633564c54735f4267227d2c227374617465223a226163636570746564227d2c7b22616c67223a2265643235353139222c226b6579223a2241304f6c696b6c6e784173376f414a58306448686d766162696a7064326763753676683368476264313049222c226e616d65223a227369676e696e672d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a226159454b6a7a7748364a6c2d645f6d4b324e313561536f71645a77732d324f325f714538565455555563443133464d5a3157667a63744f71715a67364541726e6238775675473947795653304d5f6f51743749364341227d2c227374617465223a226163636570746564227d5d2c227365727669636573223a5b7b226e616d65223a22617069222c2274797065223a224167656e74222c22757269223a2268747470733a2f2f6167656e74732e6578616d706c652e636f6d2f617069227d5d2c227374617465223a226465616374697661746564222c2276657273696f6e223a2231227d",
+        "expected_did": "did:sage:web:agents.example.com:alice",
+        "now": 1700000000,
+        "mode": "read"
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      }
+    },
+    {
+      "id": "resolve-deactivated",
+      "operation": "sage.registry.resolve",
+      "rule_ids": [
+        "RESOLVE-01",
+        "RESOLVE-03"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "record": {
+          "id": "did:sage:web:agents.example.com:alice",
+          "controller": "test-controller",
+          "keys": [
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "deactivated",
+          "version": "1"
+        },
+        "now": 1700000000
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "state": "deactivated",
+          "version": "1",
+          "verification_methods": [],
+          "authentication": [],
+          "assertion_method": [],
+          "key_agreement": [],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "authenticate-deactivated",
+      "operation": "sage.registry.authenticate",
+      "rule_ids": [
+        "ID-03",
+        "RESOLVE-03"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "record": {
+          "id": "did:sage:web:agents.example.com:alice",
+          "controller": "test-controller",
+          "keys": [
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "deactivated",
+          "version": "1"
+        },
+        "keyid": "did:sage:web:agents.example.com:alice#signing-1",
+        "sender": "did:sage:web:agents.example.com:alice",
+        "expected_peer": "did:sage:web:agents.example.com:alice",
+        "alg": "ed25519",
+        "now": 1700000000
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "record-historical-False",
+      "operation": "sage.registry.record.verify",
+      "rule_ids": [
+        "REG-01",
+        "REG-02",
+        "REG-04",
+        "RESOLVE-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "record_hex": "7b22636f6e74726f6c6c6572223a22746573742d636f6e74726f6c6c6572222c226964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c226b657973223a5b7b22616c67223a22783235353139222c226b6579223a225a675445655369774b69385161776d4d7a7445784b4c316250784a516d6a3664796e616d45495854476a6f222c226e616d65223a226b656d2d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a2275584e384e4a37315a76632d496c6748415a62527876455457455469557a487745746463526d75373469524b4b32483338357a6e41704f77494e48414e734f68332d5769374b564b576b3373627633564c54735f4267227d2c227374617465223a226163636570746564227d2c7b22616c67223a2265643235353139222c226b6579223a2241304f6c696b6c6e784173376f414a58306448686d766162696a7064326763753676683368476264313049222c226e616d65223a227369676e696e672d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a226159454b6a7a7748364a6c2d645f6d4b324e313561536f71645a77732d324f325f714538565455555563443133464d5a3157667a63744f71715a67364541726e6238775675473947795653304d5f6f51743749364341227d2c227374617465223a227265766f6b6564227d2c7b22616c67223a2265643235353139222c226b6579223a22684531786561577959477a4e4659596a444246506b6d61494f466f71626257695f68392d47684357784a67222c226e616d65223a227369676e696e672d32222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d32222c2276616c7565223a226b77335f4b4138486f6936356e6c4d6c5170333265566461587453343073577846316e5a4a6e427a6f6d525974376166465f674165574f5a4e614e386d54394c65726d5a2d663045344c334e366f392d4442416a4477227d2c227374617465223a226163636570746564227d5d2c227365727669636573223a5b7b226e616d65223a22617069222c2274797065223a224167656e74222c22757269223a2268747470733a2f2f6167656e74732e6578616d706c652e636f6d2f617069227d5d2c227374617465223a22616374697665222c2276657273696f6e223a2231227d",
+        "expected_did": "did:sage:web:agents.example.com:alice",
+        "now": 1700000000,
+        "mode": "read"
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      }
+    },
+    {
+      "id": "record-new-endorsement-False",
+      "operation": "sage.registry.record.verify",
+      "rule_ids": [
+        "REG-01",
+        "REG-02",
+        "REG-04",
+        "RESOLVE-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "record_hex": "7b22636f6e74726f6c6c6572223a22746573742d636f6e74726f6c6c6572222c226964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c226b657973223a5b7b22616c67223a22783235353139222c226b6579223a225a675445655369774b69385161776d4d7a7445784b4c316250784a516d6a3664796e616d45495854476a6f222c226e616d65223a226b656d2d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a2275584e384e4a37315a76632d496c6748415a62527876455457455469557a487745746463526d75373469524b4b32483338357a6e41704f77494e48414e734f68332d5769374b564b576b3373627633564c54735f4267227d2c227374617465223a226163636570746564227d2c7b22616c67223a2265643235353139222c226b6579223a2241304f6c696b6c6e784173376f414a58306448686d766162696a7064326763753676683368476264313049222c226e616d65223a227369676e696e672d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a226159454b6a7a7748364a6c2d645f6d4b324e313561536f71645a77732d324f325f714538565455555563443133464d5a3157667a63744f71715a67364541726e6238775675473947795653304d5f6f51743749364341227d2c227374617465223a227265766f6b6564227d2c7b22616c67223a2265643235353139222c226b6579223a22684531786561577959477a4e4659596a444246506b6d61494f466f71626257695f68392d47684357784a67222c226e616d65223a227369676e696e672d32222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d32222c2276616c7565223a226b77335f4b4138486f6936356e6c4d6c5170333265566461587453343073577846316e5a4a6e427a6f6d525974376166465f674165574f5a4e614e386d54394c65726d5a2d663045344c334e366f392d4442416a4477227d2c227374617465223a226163636570746564227d5d2c227365727669636573223a5b7b226e616d65223a22617069222c2274797065223a224167656e74222c22757269223a2268747470733a2f2f6167656e74732e6578616d706c652e636f6d2f617069227d5d2c227374617465223a22616374697665222c2276657273696f6e223a2231227d",
+        "expected_did": "did:sage:web:agents.example.com:alice",
+        "now": 1700000000,
+        "mode": "add-kem"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "authenticate-historical-False",
+      "operation": "sage.registry.authenticate",
+      "rule_ids": [
+        "ID-03",
+        "REG-04",
+        "RESOLVE-04"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "record": {
+          "id": "did:sage:web:agents.example.com:alice",
+          "controller": "test-controller",
+          "keys": [
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+              },
+              "state": "revoked"
+            },
+            {
+              "name": "signing-2",
+              "alg": "ed25519",
+              "key": "hE1xeaWyYGzNFYYjDBFPkmaIOFoqbbWi_h9-GhCWxJg",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-2",
+                "value": "kw3_KA8Hoi65nlMlQp32eVdaXtS40sWxF1nZJnBzomRYt7afF_gAeWOZNaN8mT9LermZ-f0E4L3N6o9-DBAjDw"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "active",
+          "version": "1"
+        },
+        "keyid": "did:sage:web:agents.example.com:alice#signing-1",
+        "sender": "did:sage:web:agents.example.com:alice",
+        "expected_peer": "did:sage:web:agents.example.com:alice",
+        "alg": "ed25519",
+        "now": 1700000000
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "record-historical-True",
+      "operation": "sage.registry.record.verify",
+      "rule_ids": [
+        "REG-01",
+        "REG-02",
+        "REG-04",
+        "RESOLVE-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "record_hex": "7b22636f6e74726f6c6c6572223a22746573742d636f6e74726f6c6c6572222c226964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c226b657973223a5b7b22616c67223a22783235353139222c226b6579223a225a675445655369774b69385161776d4d7a7445784b4c316250784a516d6a3664796e616d45495854476a6f222c226e616d65223a226b656d2d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a2275584e384e4a37315a76632d496c6748415a62527876455457455469557a487745746463526d75373469524b4b32483338357a6e41704f77494e48414e734f68332d5769374b564b576b3373627633564c54735f4267227d2c227374617465223a226163636570746564227d2c7b22616c67223a2265643235353139222c2265787069726573223a313730303030303030302c226b6579223a2241304f6c696b6c6e784173376f414a58306448686d766162696a7064326763753676683368476264313049222c226e616d65223a227369676e696e672d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a226159454b6a7a7748364a6c2d645f6d4b324e313561536f71645a77732d324f325f714538565455555563443133464d5a3157667a63744f71715a67364541726e6238775675473947795653304d5f6f51743749364341227d2c227374617465223a226163636570746564227d2c7b22616c67223a2265643235353139222c226b6579223a22684531786561577959477a4e4659596a444246506b6d61494f466f71626257695f68392d47684357784a67222c226e616d65223a227369676e696e672d32222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d32222c2276616c7565223a226b77335f4b4138486f6936356e6c4d6c5170333265566461587453343073577846316e5a4a6e427a6f6d525974376166465f674165574f5a4e614e386d54394c65726d5a2d663045344c334e366f392d4442416a4477227d2c227374617465223a226163636570746564227d5d2c227365727669636573223a5b7b226e616d65223a22617069222c2274797065223a224167656e74222c22757269223a2268747470733a2f2f6167656e74732e6578616d706c652e636f6d2f617069227d5d2c227374617465223a22616374697665222c2276657273696f6e223a2231227d",
+        "expected_did": "did:sage:web:agents.example.com:alice",
+        "now": 1700000000,
+        "mode": "read"
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      }
+    },
+    {
+      "id": "record-new-endorsement-True",
+      "operation": "sage.registry.record.verify",
+      "rule_ids": [
+        "REG-01",
+        "REG-02",
+        "REG-04",
+        "RESOLVE-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "record_hex": "7b22636f6e74726f6c6c6572223a22746573742d636f6e74726f6c6c6572222c226964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c226b657973223a5b7b22616c67223a22783235353139222c226b6579223a225a675445655369774b69385161776d4d7a7445784b4c316250784a516d6a3664796e616d45495854476a6f222c226e616d65223a226b656d2d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a2275584e384e4a37315a76632d496c6748415a62527876455457455469557a487745746463526d75373469524b4b32483338357a6e41704f77494e48414e734f68332d5769374b564b576b3373627633564c54735f4267227d2c227374617465223a226163636570746564227d2c7b22616c67223a2265643235353139222c2265787069726573223a313730303030303030302c226b6579223a2241304f6c696b6c6e784173376f414a58306448686d766162696a7064326763753676683368476264313049222c226e616d65223a227369676e696e672d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a226159454b6a7a7748364a6c2d645f6d4b324e313561536f71645a77732d324f325f714538565455555563443133464d5a3157667a63744f71715a67364541726e6238775675473947795653304d5f6f51743749364341227d2c227374617465223a226163636570746564227d2c7b22616c67223a2265643235353139222c226b6579223a22684531786561577959477a4e4659596a444246506b6d61494f466f71626257695f68392d47684357784a67222c226e616d65223a227369676e696e672d32222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d32222c2276616c7565223a226b77335f4b4138486f6936356e6c4d6c5170333265566461587453343073577846316e5a4a6e427a6f6d525974376166465f674165574f5a4e614e386d54394c65726d5a2d663045344c334e366f392d4442416a4477227d2c227374617465223a226163636570746564227d5d2c227365727669636573223a5b7b226e616d65223a22617069222c2274797065223a224167656e74222c22757269223a2268747470733a2f2f6167656e74732e6578616d706c652e636f6d2f617069227d5d2c227374617465223a22616374697665222c2276657273696f6e223a2231227d",
+        "expected_did": "did:sage:web:agents.example.com:alice",
+        "now": 1700000000,
+        "mode": "add-kem"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "authenticate-historical-True",
+      "operation": "sage.registry.authenticate",
+      "rule_ids": [
+        "ID-03",
+        "REG-04",
+        "RESOLVE-04"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "record": {
+          "id": "did:sage:web:agents.example.com:alice",
+          "controller": "test-controller",
+          "keys": [
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+              },
+              "state": "accepted",
+              "expires": 1700000000
+            },
+            {
+              "name": "signing-2",
+              "alg": "ed25519",
+              "key": "hE1xeaWyYGzNFYYjDBFPkmaIOFoqbbWi_h9-GhCWxJg",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-2",
+                "value": "kw3_KA8Hoi65nlMlQp32eVdaXtS40sWxF1nZJnBzomRYt7afF_gAeWOZNaN8mT9LermZ-f0E4L3N6o9-DBAjDw"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "active",
+          "version": "1"
+        },
+        "keyid": "did:sage:web:agents.example.com:alice#signing-1",
+        "sender": "did:sage:web:agents.example.com:alice",
+        "expected_peer": "did:sage:web:agents.example.com:alice",
+        "alg": "ed25519",
+        "now": 1700000000
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "authenticate-valid",
+      "operation": "sage.registry.authenticate",
+      "rule_ids": [
+        "ID-03",
+        "RESOLVE-04"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "record": {
+          "id": "did:sage:web:agents.example.com:alice",
+          "controller": "test-controller",
+          "keys": [
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "active",
+          "version": "1"
+        },
+        "keyid": "did:sage:web:agents.example.com:alice#signing-1",
+        "sender": "did:sage:web:agents.example.com:alice",
+        "expected_peer": "did:sage:web:agents.example.com:alice",
+        "alg": "ed25519",
+        "now": 1700000000
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      }
+    },
+    {
+      "id": "authenticate-unknown-key",
+      "operation": "sage.registry.authenticate",
+      "rule_ids": [
+        "ID-03",
+        "RESOLVE-04"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "record": {
+          "id": "did:sage:web:agents.example.com:alice",
+          "controller": "test-controller",
+          "keys": [
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "active",
+          "version": "1"
+        },
+        "keyid": "did:sage:web:agents.example.com:alice#missing",
+        "sender": "did:sage:web:agents.example.com:alice",
+        "expected_peer": "did:sage:web:agents.example.com:alice",
+        "alg": "ed25519",
+        "now": 1700000000
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "authenticate-other-sender",
+      "operation": "sage.registry.authenticate",
+      "rule_ids": [
+        "ID-03",
+        "RESOLVE-04"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "record": {
+          "id": "did:sage:web:agents.example.com:alice",
+          "controller": "test-controller",
+          "keys": [
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "active",
+          "version": "1"
+        },
+        "keyid": "did:sage:web:agents.example.com:alice#signing-1",
+        "sender": "did:sage:web:agents.example.com:alicex",
+        "expected_peer": "did:sage:web:agents.example.com:alice",
+        "alg": "ed25519",
+        "now": 1700000000
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "authenticate-other-peer",
+      "operation": "sage.registry.authenticate",
+      "rule_ids": [
+        "ID-03",
+        "RESOLVE-04"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "record": {
+          "id": "did:sage:web:agents.example.com:alice",
+          "controller": "test-controller",
+          "keys": [
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "active",
+          "version": "1"
+        },
+        "keyid": "did:sage:web:agents.example.com:alice#signing-1",
+        "sender": "did:sage:web:agents.example.com:alice",
+        "expected_peer": "did:sage:web:agents.example.com:alicex",
+        "alg": "ed25519",
+        "now": 1700000000
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "authenticate-algorithm",
+      "operation": "sage.registry.authenticate",
+      "rule_ids": [
+        "ID-03",
+        "RESOLVE-04"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "record": {
+          "id": "did:sage:web:agents.example.com:alice",
+          "controller": "test-controller",
+          "keys": [
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "active",
+          "version": "1"
+        },
+        "keyid": "did:sage:web:agents.example.com:alice#signing-1",
+        "sender": "did:sage:web:agents.example.com:alice",
+        "expected_peer": "did:sage:web:agents.example.com:alice",
+        "alg": "ecdsa-p256-sha256",
+        "now": 1700000000
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "authenticate-missing-fragment",
+      "operation": "sage.registry.authenticate",
+      "rule_ids": [
+        "ID-03",
+        "RESOLVE-04"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "record": {
+          "id": "did:sage:web:agents.example.com:alice",
+          "controller": "test-controller",
+          "keys": [
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "active",
+          "version": "1"
+        },
+        "keyid": "did:sage:web:agents.example.com:alice",
+        "sender": "did:sage:web:agents.example.com:alice",
+        "expected_peer": "did:sage:web:agents.example.com:alice",
+        "alg": "ed25519",
+        "now": 1700000000
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "card-valid",
+      "operation": "sage.card.verify",
+      "rule_ids": [
+        "CARD-01",
+        "CARD-02",
+        "CARD-03"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "card_hex": "7b226361706162696c6974696573223a5b2272656164225d2c2265787069726573223a313730303030303330302c226964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c22697373756564223a313730303030303030302c226e616d65223a22416c696365222c2270726f6f66223a7b22616c67223a2265643235353139222c2270726f6f6656616c7565223a226e6943494a77674432553650342d35793063484d70567034684f4278514d73364d35344a53583358504d654f6169714572794e5a372d38363443732d435045446d44545a4132666571582d4b503643747775617a4377222c2274797065223a22536167654167656e74436172645369676e6174757265305f31305f30222c22766572696669636174696f6e4d6574686f64223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31227d2c227265636f726456657273696f6e223a2231222c227365727669636573223a5b7b226e616d65223a22617069222c2274797065223a224167656e74222c22757269223a2268747470733a2f2f6167656e74732e6578616d706c652e636f6d2f617069227d5d2c2276657273696f6e223a22302e31302e30227d",
+        "record": {
+          "id": "did:sage:web:agents.example.com:alice",
+          "controller": "test-controller",
+          "keys": [
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "active",
+          "version": "1"
+        },
+        "now": 1700000000,
+        "clock_trusted": true,
+        "expected_peer": "did:sage:web:agents.example.com:alice"
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      }
+    },
+    {
+      "id": "card-last-second",
+      "operation": "sage.card.verify",
+      "rule_ids": [
+        "CARD-01",
+        "CARD-02",
+        "CARD-03"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "card_hex": "7b226361706162696c6974696573223a5b2272656164225d2c2265787069726573223a313730303030303330302c226964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c22697373756564223a313730303030303030302c226e616d65223a22416c696365222c2270726f6f66223a7b22616c67223a2265643235353139222c2270726f6f6656616c7565223a226e6943494a77674432553650342d35793063484d70567034684f4278514d73364d35344a53583358504d654f6169714572794e5a372d38363443732d435045446d44545a4132666571582d4b503643747775617a4377222c2274797065223a22536167654167656e74436172645369676e6174757265305f31305f30222c22766572696669636174696f6e4d6574686f64223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31227d2c227265636f726456657273696f6e223a2231222c227365727669636573223a5b7b226e616d65223a22617069222c2274797065223a224167656e74222c22757269223a2268747470733a2f2f6167656e74732e6578616d706c652e636f6d2f617069227d5d2c2276657273696f6e223a22302e31302e30227d",
+        "record": {
+          "id": "did:sage:web:agents.example.com:alice",
+          "controller": "test-controller",
+          "keys": [
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "active",
+          "version": "1"
+        },
+        "now": 1700000299,
+        "clock_trusted": true,
+        "expected_peer": "did:sage:web:agents.example.com:alice"
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      }
+    },
+    {
+      "id": "card-expired",
+      "operation": "sage.card.verify",
+      "rule_ids": [
+        "CARD-01",
+        "CARD-02",
+        "CARD-03"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "card_hex": "7b226361706162696c6974696573223a5b2272656164225d2c2265787069726573223a313730303030303330302c226964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c22697373756564223a313730303030303030302c226e616d65223a22416c696365222c2270726f6f66223a7b22616c67223a2265643235353139222c2270726f6f6656616c7565223a226e6943494a77674432553650342d35793063484d70567034684f4278514d73364d35344a53583358504d654f6169714572794e5a372d38363443732d435045446d44545a4132666571582d4b503643747775617a4377222c2274797065223a22536167654167656e74436172645369676e6174757265305f31305f30222c22766572696669636174696f6e4d6574686f64223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31227d2c227265636f726456657273696f6e223a2231222c227365727669636573223a5b7b226e616d65223a22617069222c2274797065223a224167656e74222c22757269223a2268747470733a2f2f6167656e74732e6578616d706c652e636f6d2f617069227d5d2c2276657273696f6e223a22302e31302e30227d",
+        "record": {
+          "id": "did:sage:web:agents.example.com:alice",
+          "controller": "test-controller",
+          "keys": [
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "active",
+          "version": "1"
+        },
+        "now": 1700000300,
+        "clock_trusted": true,
+        "expected_peer": "did:sage:web:agents.example.com:alice"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "card-future",
+      "operation": "sage.card.verify",
+      "rule_ids": [
+        "CARD-01",
+        "CARD-02",
+        "CARD-03"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "card_hex": "7b226361706162696c6974696573223a5b2272656164225d2c2265787069726573223a313730303030303330302c226964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c22697373756564223a313730303030303030302c226e616d65223a22416c696365222c2270726f6f66223a7b22616c67223a2265643235353139222c2270726f6f6656616c7565223a226e6943494a77674432553650342d35793063484d70567034684f4278514d73364d35344a53583358504d654f6169714572794e5a372d38363443732d435045446d44545a4132666571582d4b503643747775617a4377222c2274797065223a22536167654167656e74436172645369676e6174757265305f31305f30222c22766572696669636174696f6e4d6574686f64223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31227d2c227265636f726456657273696f6e223a2231222c227365727669636573223a5b7b226e616d65223a22617069222c2274797065223a224167656e74222c22757269223a2268747470733a2f2f6167656e74732e6578616d706c652e636f6d2f617069227d5d2c2276657273696f6e223a22302e31302e30227d",
+        "record": {
+          "id": "did:sage:web:agents.example.com:alice",
+          "controller": "test-controller",
+          "keys": [
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "active",
+          "version": "1"
+        },
+        "now": 1699999999,
+        "clock_trusted": true,
+        "expected_peer": "did:sage:web:agents.example.com:alice"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "card-clock",
+      "operation": "sage.card.verify",
+      "rule_ids": [
+        "CARD-01",
+        "CARD-02",
+        "CARD-03"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "card_hex": "7b226361706162696c6974696573223a5b2272656164225d2c2265787069726573223a313730303030303330302c226964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c22697373756564223a313730303030303030302c226e616d65223a22416c696365222c2270726f6f66223a7b22616c67223a2265643235353139222c2270726f6f6656616c7565223a226e6943494a77674432553650342d35793063484d70567034684f4278514d73364d35344a53583358504d654f6169714572794e5a372d38363443732d435045446d44545a4132666571582d4b503643747775617a4377222c2274797065223a22536167654167656e74436172645369676e6174757265305f31305f30222c22766572696669636174696f6e4d6574686f64223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31227d2c227265636f726456657273696f6e223a2231222c227365727669636573223a5b7b226e616d65223a22617069222c2274797065223a224167656e74222c22757269223a2268747470733a2f2f6167656e74732e6578616d706c652e636f6d2f617069227d5d2c2276657273696f6e223a22302e31302e30227d",
+        "record": {
+          "id": "did:sage:web:agents.example.com:alice",
+          "controller": "test-controller",
+          "keys": [
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "active",
+          "version": "1"
+        },
+        "now": 1700000000,
+        "clock_trusted": false,
+        "expected_peer": "did:sage:web:agents.example.com:alice"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "card-peer",
+      "operation": "sage.card.verify",
+      "rule_ids": [
+        "CARD-01",
+        "CARD-02",
+        "CARD-03"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "card_hex": "7b226361706162696c6974696573223a5b2272656164225d2c2265787069726573223a313730303030303330302c226964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c22697373756564223a313730303030303030302c226e616d65223a22416c696365222c2270726f6f66223a7b22616c67223a2265643235353139222c2270726f6f6656616c7565223a226e6943494a77674432553650342d35793063484d70567034684f4278514d73364d35344a53583358504d654f6169714572794e5a372d38363443732d435045446d44545a4132666571582d4b503643747775617a4377222c2274797065223a22536167654167656e74436172645369676e6174757265305f31305f30222c22766572696669636174696f6e4d6574686f64223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31227d2c227265636f726456657273696f6e223a2231222c227365727669636573223a5b7b226e616d65223a22617069222c2274797065223a224167656e74222c22757269223a2268747470733a2f2f6167656e74732e6578616d706c652e636f6d2f617069227d5d2c2276657273696f6e223a22302e31302e30227d",
+        "record": {
+          "id": "did:sage:web:agents.example.com:alice",
+          "controller": "test-controller",
+          "keys": [
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "active",
+          "version": "1"
+        },
+        "now": 1700000000,
+        "clock_trusted": true,
+        "expected_peer": "did:sage:web:agents.example.com:alicex"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "card-version",
+      "operation": "sage.card.verify",
+      "rule_ids": [
+        "CARD-01",
+        "CARD-02",
+        "CARD-03"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "card_hex": "7b226361706162696c6974696573223a5b2272656164225d2c2265787069726573223a313730303030303330302c226964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c22697373756564223a313730303030303030302c226e616d65223a22416c696365222c2270726f6f66223a7b22616c67223a2265643235353139222c2270726f6f6656616c7565223a22587633736a6232424f77476139553054524a4d524c52556e474c4d4a44684e59316d7774536d4a387439337078687a346a4158716e734443596763345f796b35596e5749417a6d59385f6d6b626c394738666d434377222c2274797065223a22536167654167656e74436172645369676e6174757265305f31305f30222c22766572696669636174696f6e4d6574686f64223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31227d2c227265636f726456657273696f6e223a2231222c227365727669636573223a5b7b226e616d65223a22617069222c2274797065223a224167656e74222c22757269223a2268747470733a2f2f6167656e74732e6578616d706c652e636f6d2f617069227d5d2c2276657273696f6e223a22302e392e30227d",
+        "record": {
+          "id": "did:sage:web:agents.example.com:alice",
+          "controller": "test-controller",
+          "keys": [
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "active",
+          "version": "1"
+        },
+        "now": 1700000000,
+        "clock_trusted": true,
+        "expected_peer": "did:sage:web:agents.example.com:alice"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "card-record-version",
+      "operation": "sage.card.verify",
+      "rule_ids": [
+        "CARD-01",
+        "CARD-02",
+        "CARD-03"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "card_hex": "7b226361706162696c6974696573223a5b2272656164225d2c2265787069726573223a313730303030303330302c226964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c22697373756564223a313730303030303030302c226e616d65223a22416c696365222c2270726f6f66223a7b22616c67223a2265643235353139222c2270726f6f6656616c7565223a22586964592d546f6e4b72554452724a4658754c776d32307a354c596a734f6f78375172385832334550464e41654d7067576d48682d7459794543504c7a323652532d5564664d5078304e6b367445734d435a48774467222c2274797065223a22536167654167656e74436172645369676e6174757265305f31305f30222c22766572696669636174696f6e4d6574686f64223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31227d2c227265636f726456657273696f6e223a2232222c227365727669636573223a5b7b226e616d65223a22617069222c2274797065223a224167656e74222c22757269223a2268747470733a2f2f6167656e74732e6578616d706c652e636f6d2f617069227d5d2c2276657273696f6e223a22302e31302e30227d",
+        "record": {
+          "id": "did:sage:web:agents.example.com:alice",
+          "controller": "test-controller",
+          "keys": [
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "active",
+          "version": "1"
+        },
+        "now": 1700000000,
+        "clock_trusted": true,
+        "expected_peer": "did:sage:web:agents.example.com:alice"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "card-services",
+      "operation": "sage.card.verify",
+      "rule_ids": [
+        "CARD-01",
+        "CARD-02",
+        "CARD-03"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "card_hex": "7b226361706162696c6974696573223a5b2272656164225d2c2265787069726573223a313730303030303330302c226964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c22697373756564223a313730303030303030302c226e616d65223a22416c696365222c2270726f6f66223a7b22616c67223a2265643235353139222c2270726f6f6656616c7565223a22554a7335626975464d7238634638365f4c6b777a4336456b44696332442d745470756b784636432d6946453367614b497577794f6d534747385175714f4f426e4730414575354f4d72563742586268785a7076654367222c2274797065223a22536167654167656e74436172645369676e6174757265305f31305f30222c22766572696669636174696f6e4d6574686f64223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31227d2c227265636f726456657273696f6e223a2231222c227365727669636573223a5b5d2c2276657273696f6e223a22302e31302e30227d",
+        "record": {
+          "id": "did:sage:web:agents.example.com:alice",
+          "controller": "test-controller",
+          "keys": [
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "active",
+          "version": "1"
+        },
+        "now": 1700000000,
+        "clock_trusted": true,
+        "expected_peer": "did:sage:web:agents.example.com:alice"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "card-lifetime",
+      "operation": "sage.card.verify",
+      "rule_ids": [
+        "CARD-01",
+        "CARD-02",
+        "CARD-03"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "card_hex": "7b226361706162696c6974696573223a5b2272656164225d2c2265787069726573223a313730303030303330312c226964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c22697373756564223a313730303030303030302c226e616d65223a22416c696365222c2270726f6f66223a7b22616c67223a2265643235353139222c2270726f6f6656616c7565223a22796c4438357669584173384930395243554e6439482d6d68317950643549636d53386e69726a67546d706a565f4f4b435679525059346c6354386331726f52644877454f734f574c6a45393179744d76426f79444477222c2274797065223a22536167654167656e74436172645369676e6174757265305f31305f30222c22766572696669636174696f6e4d6574686f64223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31227d2c227265636f726456657273696f6e223a2231222c227365727669636573223a5b7b226e616d65223a22617069222c2274797065223a224167656e74222c22757269223a2268747470733a2f2f6167656e74732e6578616d706c652e636f6d2f617069227d5d2c2276657273696f6e223a22302e31302e30227d",
+        "record": {
+          "id": "did:sage:web:agents.example.com:alice",
+          "controller": "test-controller",
+          "keys": [
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "active",
+          "version": "1"
+        },
+        "now": 1700000000,
+        "clock_trusted": true,
+        "expected_peer": "did:sage:web:agents.example.com:alice"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "card-empty-name",
+      "operation": "sage.card.verify",
+      "rule_ids": [
+        "CARD-01",
+        "CARD-02",
+        "CARD-03"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "card_hex": "7b226361706162696c6974696573223a5b2272656164225d2c2265787069726573223a313730303030303330302c226964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c22697373756564223a313730303030303030302c226e616d65223a22222c2270726f6f66223a7b22616c67223a2265643235353139222c2270726f6f6656616c7565223a2243623552556c6a4a45694b363564526b666372547254414231526b6179455953663944374132624854423157554d783749664f6b7146476d3057305f74474b635a55616f6e576b3442336d58684d542d4953465a4341222c2274797065223a22536167654167656e74436172645369676e6174757265305f31305f30222c22766572696669636174696f6e4d6574686f64223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31227d2c227265636f726456657273696f6e223a2231222c227365727669636573223a5b7b226e616d65223a22617069222c2274797065223a224167656e74222c22757269223a2268747470733a2f2f6167656e74732e6578616d706c652e636f6d2f617069227d5d2c2276657273696f6e223a22302e31302e30227d",
+        "record": {
+          "id": "did:sage:web:agents.example.com:alice",
+          "controller": "test-controller",
+          "keys": [
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "active",
+          "version": "1"
+        },
+        "now": 1700000000,
+        "clock_trusted": true,
+        "expected_peer": "did:sage:web:agents.example.com:alice"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "card-name-size",
+      "operation": "sage.card.verify",
+      "rule_ids": [
+        "CARD-01",
+        "CARD-02",
+        "CARD-03"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "card_hex": "7b226361706162696c6974696573223a5b2272656164225d2c2265787069726573223a313730303030303330302c226964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c22697373756564223a313730303030303030302c226e616d65223a22616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161222c2270726f6f66223a7b22616c67223a2265643235353139222c2270726f6f6656616c7565223a22505a5668556f6266647a507933416666547a6573773771774a337033746c5842496a6b57456e67713431754158496c334a615473714a355f52484e72774a2d7453726644754753385930596859436b6b676f5a444351222c2274797065223a22536167654167656e74436172645369676e6174757265305f31305f30222c22766572696669636174696f6e4d6574686f64223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31227d2c227265636f726456657273696f6e223a2231222c227365727669636573223a5b7b226e616d65223a22617069222c2274797065223a224167656e74222c22757269223a2268747470733a2f2f6167656e74732e6578616d706c652e636f6d2f617069227d5d2c2276657273696f6e223a22302e31302e30227d",
+        "record": {
+          "id": "did:sage:web:agents.example.com:alice",
+          "controller": "test-controller",
+          "keys": [
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "active",
+          "version": "1"
+        },
+        "now": 1700000000,
+        "clock_trusted": true,
+        "expected_peer": "did:sage:web:agents.example.com:alice"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "card-description-size",
+      "operation": "sage.card.verify",
+      "rule_ids": [
+        "CARD-01",
+        "CARD-02",
+        "CARD-03"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "card_hex": "7b226361706162696c6974696573223a5b2272656164225d2c226465736372697074696f6e223a226161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161222c2265787069726573223a313730303030303330302c226964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c22697373756564223a313730303030303030302c226e616d65223a22416c696365222c2270726f6f66223a7b22616c67223a2265643235353139222c2270726f6f6656616c7565223a2245664c5a454136686a4a324738415239594933674d3951476b534a506c68654d5935635134416741545f71717354455367777638353459644d317445634f534c326d774a58683550425153336a786951744354584377222c2274797065223a22536167654167656e74436172645369676e6174757265305f31305f30222c22766572696669636174696f6e4d6574686f64223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31227d2c227265636f726456657273696f6e223a2231222c227365727669636573223a5b7b226e616d65223a22617069222c2274797065223a224167656e74222c22757269223a2268747470733a2f2f6167656e74732e6578616d706c652e636f6d2f617069227d5d2c2276657273696f6e223a22302e31302e30227d",
+        "record": {
+          "id": "did:sage:web:agents.example.com:alice",
+          "controller": "test-controller",
+          "keys": [
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "active",
+          "version": "1"
+        },
+        "now": 1700000000,
+        "clock_trusted": true,
+        "expected_peer": "did:sage:web:agents.example.com:alice"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "card-null",
+      "operation": "sage.card.verify",
+      "rule_ids": [
+        "CARD-01",
+        "CARD-02",
+        "CARD-03"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "card_hex": "7b226361706162696c6974696573223a5b2272656164225d2c226465736372697074696f6e223a6e756c6c2c2265787069726573223a313730303030303330302c226964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c22697373756564223a313730303030303030302c226e616d65223a22416c696365222c2270726f6f66223a7b22616c67223a2265643235353139222c2270726f6f6656616c7565223a2237546571416d646d38647239396e71507051444d50754471665f774e49314b6d5448627a5551753350735474713676396c6c6b557933574c704852433258317757676d6e797a6d64794d5253703778375f316b674367222c2274797065223a22536167654167656e74436172645369676e6174757265305f31305f30222c22766572696669636174696f6e4d6574686f64223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31227d2c227265636f726456657273696f6e223a2231222c227365727669636573223a5b7b226e616d65223a22617069222c2274797065223a224167656e74222c22757269223a2268747470733a2f2f6167656e74732e6578616d706c652e636f6d2f617069227d5d2c2276657273696f6e223a22302e31302e30227d",
+        "record": {
+          "id": "did:sage:web:agents.example.com:alice",
+          "controller": "test-controller",
+          "keys": [
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "active",
+          "version": "1"
+        },
+        "now": 1700000000,
+        "clock_trusted": true,
+        "expected_peer": "did:sage:web:agents.example.com:alice"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "card-unknown",
+      "operation": "sage.card.verify",
+      "rule_ids": [
+        "CARD-01",
+        "CARD-02",
+        "CARD-03"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "card_hex": "7b226361706162696c6974696573223a5b2272656164225d2c2265787069726573223a313730303030303330302c226964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c22697373756564223a313730303030303030302c226b657973223a5b5d2c226e616d65223a22416c696365222c2270726f6f66223a7b22616c67223a2265643235353139222c2270726f6f6656616c7565223a22653169575a41374f314c67554a374b694b666a426d4e4233496b4e53355f64734e6a642d55654b5064334e486e627a5a456834697777344f59373656582d393573396a7369563444314b617867315359503471614277222c2274797065223a22536167654167656e74436172645369676e6174757265305f31305f30222c22766572696669636174696f6e4d6574686f64223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31227d2c227265636f726456657273696f6e223a2231222c227365727669636573223a5b7b226e616d65223a22617069222c2274797065223a224167656e74222c22757269223a2268747470733a2f2f6167656e74732e6578616d706c652e636f6d2f617069227d5d2c2276657273696f6e223a22302e31302e30227d",
+        "record": {
+          "id": "did:sage:web:agents.example.com:alice",
+          "controller": "test-controller",
+          "keys": [
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "active",
+          "version": "1"
+        },
+        "now": 1700000000,
+        "clock_trusted": true,
+        "expected_peer": "did:sage:web:agents.example.com:alice"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "card-capabilities-duplicate",
+      "operation": "sage.card.verify",
+      "rule_ids": [
+        "CARD-01",
+        "CARD-02",
+        "CARD-03"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "card_hex": "7b226361706162696c6974696573223a5b2272656164222c2272656164225d2c2265787069726573223a313730303030303330302c226964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c22697373756564223a313730303030303030302c226e616d65223a22416c696365222c2270726f6f66223a7b22616c67223a2265643235353139222c2270726f6f6656616c7565223a22494f5673343268786664693567494b316a347769513247595a44767044425976337979614978373165527346456546554f314d38347758543154514f456350315456536d75664464494971494d6a6e59784f45574141222c2274797065223a22536167654167656e74436172645369676e6174757265305f31305f30222c22766572696669636174696f6e4d6574686f64223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31227d2c227265636f726456657273696f6e223a2231222c227365727669636573223a5b7b226e616d65223a22617069222c2274797065223a224167656e74222c22757269223a2268747470733a2f2f6167656e74732e6578616d706c652e636f6d2f617069227d5d2c2276657273696f6e223a22302e31302e30227d",
+        "record": {
+          "id": "did:sage:web:agents.example.com:alice",
+          "controller": "test-controller",
+          "keys": [
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "active",
+          "version": "1"
+        },
+        "now": 1700000000,
+        "clock_trusted": true,
+        "expected_peer": "did:sage:web:agents.example.com:alice"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "card-capabilities-order",
+      "operation": "sage.card.verify",
+      "rule_ids": [
+        "CARD-01",
+        "CARD-02",
+        "CARD-03"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "card_hex": "7b226361706162696c6974696573223a5b227a222c2261225d2c2265787069726573223a313730303030303330302c226964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c22697373756564223a313730303030303030302c226e616d65223a22416c696365222c2270726f6f66223a7b22616c67223a2265643235353139222c2270726f6f6656616c7565223a225056726873757668595f7442324b6248662d4a655836616a32784a4174304b667578396552347166424c4736316e304453674e5239654d346a2d7937354557695944375434494f76686e424b33385650725a48614467222c2274797065223a22536167654167656e74436172645369676e6174757265305f31305f30222c22766572696669636174696f6e4d6574686f64223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31227d2c227265636f726456657273696f6e223a2231222c227365727669636573223a5b7b226e616d65223a22617069222c2274797065223a224167656e74222c22757269223a2268747470733a2f2f6167656e74732e6578616d706c652e636f6d2f617069227d5d2c2276657273696f6e223a22302e31302e30227d",
+        "record": {
+          "id": "did:sage:web:agents.example.com:alice",
+          "controller": "test-controller",
+          "keys": [
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "active",
+          "version": "1"
+        },
+        "now": 1700000000,
+        "clock_trusted": true,
+        "expected_peer": "did:sage:web:agents.example.com:alice"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "card-legacy-proof",
+      "operation": "sage.card.verify",
+      "rule_ids": [
+        "CARD-01",
+        "CARD-02",
+        "CARD-03"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "card_hex": "7b226361706162696c6974696573223a5b2272656164225d2c2265787069726573223a313730303030303330302c226964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c22697373756564223a313730303030303030302c226e616d65223a22416c696365222c2270726f6f66223a7b22616c67223a2265643235353139222c2270726f6f6656616c7565223a226534586e6759676139774c4a797351456f4e354c7374506e784a43345a5a7a654b78465a4b4e723142694e565478445163716a5942634635477634595846785739734569745a6d435251457a34333158316a68334141222c2274797065223a22456432353531395369676e617475726532303230222c22766572696669636174696f6e4d6574686f64223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31227d2c227265636f726456657273696f6e223a2231222c227365727669636573223a5b7b226e616d65223a22617069222c2274797065223a224167656e74222c22757269223a2268747470733a2f2f6167656e74732e6578616d706c652e636f6d2f617069227d5d2c2276657273696f6e223a22302e31302e30227d",
+        "record": {
+          "id": "did:sage:web:agents.example.com:alice",
+          "controller": "test-controller",
+          "keys": [
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "active",
+          "version": "1"
+        },
+        "now": 1700000000,
+        "clock_trusted": true,
+        "expected_peer": "did:sage:web:agents.example.com:alice"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "card-wrong-key",
+      "operation": "sage.card.verify",
+      "rule_ids": [
+        "CARD-01",
+        "CARD-02",
+        "CARD-03"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "card_hex": "7b226361706162696c6974696573223a5b2272656164225d2c2265787069726573223a313730303030303330302c226964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c22697373756564223a313730303030303030302c226e616d65223a22416c696365222c2270726f6f66223a7b22616c67223a2265643235353139222c2270726f6f6656616c7565223a2273744d73435854393347325568495252684a2d697978774a38307338755a4f37447a39366367334e736b5a306d4868355152537952302d576b3267624270476d674859644a65456473636a2d4a596559365a565f4241222c2274797065223a22536167654167656e74436172645369676e6174757265305f31305f30222c22766572696669636174696f6e4d6574686f64223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365236d697373696e67227d2c227265636f726456657273696f6e223a2231222c227365727669636573223a5b7b226e616d65223a22617069222c2274797065223a224167656e74222c22757269223a2268747470733a2f2f6167656e74732e6578616d706c652e636f6d2f617069227d5d2c2276657273696f6e223a22302e31302e30227d",
+        "record": {
+          "id": "did:sage:web:agents.example.com:alice",
+          "controller": "test-controller",
+          "keys": [
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "active",
+          "version": "1"
+        },
+        "now": 1700000000,
+        "clock_trusted": true,
+        "expected_peer": "did:sage:web:agents.example.com:alice"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "card-signature",
+      "operation": "sage.card.verify",
+      "rule_ids": [
+        "CARD-01",
+        "CARD-02",
+        "CARD-03"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "card_hex": "7b226361706162696c6974696573223a5b2272656164225d2c2265787069726573223a313730303030303330302c226964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c22697373756564223a313730303030303030302c226e616d65223a2254616d7065726564222c2270726f6f66223a7b22616c67223a2265643235353139222c2270726f6f6656616c7565223a226e6943494a77674432553650342d35793063484d70567034684f4278514d73364d35344a53583358504d654f6169714572794e5a372d38363443732d435045446d44545a4132666571582d4b503643747775617a4377222c2274797065223a22536167654167656e74436172645369676e6174757265305f31305f30222c22766572696669636174696f6e4d6574686f64223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31227d2c227265636f726456657273696f6e223a2231222c227365727669636573223a5b7b226e616d65223a22617069222c2274797065223a224167656e74222c22757269223a2268747470733a2f2f6167656e74732e6578616d706c652e636f6d2f617069227d5d2c2276657273696f6e223a22302e31302e30227d",
+        "record": {
+          "id": "did:sage:web:agents.example.com:alice",
+          "controller": "test-controller",
+          "keys": [
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "active",
+          "version": "1"
+        },
+        "now": 1700000000,
+        "clock_trusted": true,
+        "expected_peer": "did:sage:web:agents.example.com:alice"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "card-signature-primitive",
+      "operation": "signature.verify",
+      "rule_ids": [
+        "CARD-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "algorithm": "ed25519",
+        "public_key_hex": "0343a58a4967c40b3ba00257d1d1e19af69b8a3a5dda072eeaf8778466ddd742",
+        "message_hex": "736167652d636172642d302e31302e30007b226361706162696c6974696573223a5b2272656164225d2c2265787069726573223a313730303030303330302c226964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c22697373756564223a313730303030303030302c226e616d65223a22416c696365222c2270726f6f66223a7b22616c67223a2265643235353139222c2274797065223a22536167654167656e74436172645369676e6174757265305f31305f30222c22766572696669636174696f6e4d6574686f64223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31227d2c227265636f726456657273696f6e223a2231222c227365727669636573223a5b7b226e616d65223a22617069222c2274797065223a224167656e74222c22757269223a2268747470733a2f2f6167656e74732e6578616d706c652e636f6d2f617069227d5d2c2276657273696f6e223a22302e31302e30227d",
+        "signature_hex": "9e2088270803d94e8fe3ee72d1c1cca55a7884e07140cb3a339e09497dd73cc78e6a2a84af2359efef3ae02b3e08f1039834d90367dea97f8a3fa0adc2e6b30b"
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      }
+    },
+    {
+      "id": "kem-select-valid",
+      "operation": "sage.registry.kem.select",
+      "rule_ids": [
+        "REG-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "record": {
+          "id": "did:sage:web:agents.example.com:alice",
+          "controller": "test-controller",
+          "keys": [
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "active",
+          "version": "1"
+        },
+        "now": 1700000000
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "keyid": "did:sage:web:agents.example.com:alice#kem-1"
+        }
+      }
+    },
+    {
+      "id": "kem-select-no-kem",
+      "operation": "sage.registry.kem.select",
+      "rule_ids": [
+        "REG-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "record": {
+          "id": "did:sage:web:agents.example.com:alice",
+          "controller": "test-controller",
+          "keys": [
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "active",
+          "version": "1"
+        },
+        "now": 1700000000
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "kem-select-revoked-kem",
+      "operation": "sage.registry.kem.select",
+      "rule_ids": [
+        "REG-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "record": {
+          "id": "did:sage:web:agents.example.com:alice",
+          "controller": "test-controller",
+          "keys": [
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+              },
+              "state": "revoked"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "active",
+          "version": "1"
+        },
+        "now": 1700000000
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "kem-select-expired-kem",
+      "operation": "sage.registry.kem.select",
+      "rule_ids": [
+        "REG-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "record": {
+          "id": "did:sage:web:agents.example.com:alice",
+          "controller": "test-controller",
+          "keys": [
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+              },
+              "state": "accepted",
+              "expires": 1700000000
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "active",
+          "version": "1"
+        },
+        "now": 1700000000
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "kem-select-first-ascii",
+      "operation": "sage.registry.kem.select",
+      "rule_ids": [
+        "REG-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "record": {
+          "id": "did:sage:web:agents.example.com:alice",
+          "controller": "test-controller",
+          "keys": [
+            {
+              "name": "kem-0",
+              "alg": "x25519",
+              "key": "sa74I0s96oXAFTIjJGO-NkpzGW98xSqHYtDY6Wtpj20",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "qiOPVtjpIDaHxfng1KNk-EPOBxeJjBFSkf5C0pLOb0SCbfKjFtWXFPfycIqVLFCJ2iQ0UcAF8dw0BDGbTFpIBQ"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "active",
+          "version": "1"
+        },
+        "now": 1700000000
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "keyid": "did:sage:web:agents.example.com:alice#kem-0"
+        }
+      }
+    },
+    {
+      "id": "kem-select-first-revoked",
+      "operation": "sage.registry.kem.select",
+      "rule_ids": [
+        "REG-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "record": {
+          "id": "did:sage:web:agents.example.com:alice",
+          "controller": "test-controller",
+          "keys": [
+            {
+              "name": "kem-0",
+              "alg": "x25519",
+              "key": "sa74I0s96oXAFTIjJGO-NkpzGW98xSqHYtDY6Wtpj20",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "qiOPVtjpIDaHxfng1KNk-EPOBxeJjBFSkf5C0pLOb0SCbfKjFtWXFPfycIqVLFCJ2iQ0UcAF8dw0BDGbTFpIBQ"
+              },
+              "state": "revoked"
+            },
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "active",
+          "version": "1"
+        },
+        "now": 1700000000
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "keyid": "did:sage:web:agents.example.com:alice#kem-1"
+        }
+      }
+    },
+    {
+      "id": "kem-select-first-expired",
+      "operation": "sage.registry.kem.select",
+      "rule_ids": [
+        "REG-02"
+      ],
+      "source_ids": [
+        "registry-spec"
+      ],
+      "derivation": "Explicit independently authored boundary expectation; Ed25519 signatures from Python cryptography, no core imports. See registry-inspection.md.",
+      "input": {
+        "record": {
+          "id": "did:sage:web:agents.example.com:alice",
+          "controller": "test-controller",
+          "keys": [
+            {
+              "name": "kem-0",
+              "alg": "x25519",
+              "key": "sa74I0s96oXAFTIjJGO-NkpzGW98xSqHYtDY6Wtpj20",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "qiOPVtjpIDaHxfng1KNk-EPOBxeJjBFSkf5C0pLOb0SCbfKjFtWXFPfycIqVLFCJ2iQ0UcAF8dw0BDGbTFpIBQ"
+              },
+              "state": "accepted",
+              "expires": 1700000000
+            },
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "active",
+          "version": "1"
+        },
+        "now": 1700000000
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "keyid": "did:sage:web:agents.example.com:alice#kem-1"
+        }
+      }
+    }
+  ]
+}

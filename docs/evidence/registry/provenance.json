@@ -1,0 +1,45 @@
+{
+  "scope": "Independent public fixtures and local legacy core API projections; synthetic authority only, no deployed registry certification.",
+  "repositories": {
+    "sage": {
+      "revision": "c7709b7486e0da94336edc0931fddd87f6a45343",
+      "sha256": {
+        "pkg/agent/did/did.go": "9eddc5e9bf7225e99db6ae1df0578df0571e8228c4e7e737b2bc657be830c0b1",
+        "pkg/agent/did/utils.go": "0df8092ee1eda9e6e711c277e2d8dfc41876d30c4df7260447d80f84a35693e7",
+        "pkg/agent/did/key_proof.go": "352de9660ac8ed4f65d08122ae10d49c8171af2fba2f99c708422e35241f2423"
+      }
+    },
+    "rs-sage-core": {
+      "revision": "206bbbb5a66667ae2feb3b0e9991ed1ca4622bb2",
+      "sha256": {
+        "src/did/mod.rs": "3db5dcb5fbbbdff231ab782f6c24be372324d3f4f90d7b8f83322b6d5b6ea254",
+        "src/did/proof.rs": "f819166105a4fc98431534e3a6fa7603bf11db4c4ba9d09548e18cbc0f9ec7d7"
+      }
+    },
+    "sage-spec": {
+      "revision": "f4a4e7fbf71a665785984eef7609b2e8fabe833d",
+      "sha256": {
+        "spec/06-did-sage.md": "5791cc368111216a6539f7c423811abeb9821f9741e0c5d6ce177d5100b0b059",
+        "spec/07-a2a.md": "5ded622fdaf67342d5c6b4327da0f5787bfe9df2dc58b233cdfb500ffc96b042",
+        "spec/09-registry.md": "ccd34125fb49b281475534773c81bd58d87b86cc7f6c88544b92f1f9e212f7e3",
+        "spec/10-resolution.md": "7d970c29b55cafba2220206987c15f71a839e5a0c165db6b64d7a5d717deef1f"
+      }
+    }
+  },
+  "inspector_file_sha256": {
+    "scripts/check_registry_vectors.js": "5e28454d3b9e4ae332abd47a81d3815ff181b752e4685728dc5e97d196ca75b5",
+    "scripts/test_registry_inspection.py": "cf8d2a646e9a6832b4000126dfda10234e7b027479b0d52010a5140390f5d4a6",
+    "scripts/inspect_registry.py": "63637038b48f219a8968c2c57960dbce38ecdefb59c183e810a1ad2ff51d7d5c",
+    "scripts/test_registry_adapters.py": "e375f2681c9d9933ecc7060fff88dbb6c53dddd6a094c8f38837a8c9cb7268f8",
+    "scripts/generate_registry_vectors.py": "5551bb96c99f63f3b6f8838e129b036f1191c01fb46bfa8fbdf0d1810e0eaf67",
+    "adapters/go/registry.go": "4205f01990b3508a97af7efeb23b9b05026f6b2b897c137dc568dec72a05ab00",
+    "adapters/rust/src/registry_checks.rs": "d8f5857af0a348405d83c6fa6cbcca552675b0fcda1b2f38c7659ebb7bdd4c0a",
+    "vectors/0.10.0/registry-records.json": "63b83051cbe684c36af2eb3689550d9746f66da0b3d21b2ed1b3d3d37de2ee0d",
+    "vectors/0.10.0/registry-manifest.json": "6e82b3782a1092d57a2cdcad63629a0f9067c923c48eaf93dc365078e36208ea"
+  },
+  "state_binding": "17 NOT_RUN pending actual authoritative state bindings",
+  "tools": {
+    "python": "3.10.11",
+    "node": "v24.4.1"
+  }
+}

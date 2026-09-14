@@ -61,6 +61,15 @@ pub fn observe(
     let mut results = Vec::new();
     for action in actions {
         match action.get("kind").and_then(Value::as_str) {
+            Some("parallel_open") => {
+                results.push(crate::parallel_checks::open(
+                    &core,
+                    action
+                        .get("records_hex")
+                        .ok_or("missing parallel records")?,
+                    &aad,
+                )?);
+            }
             Some("close") => {
                 core.close()?;
                 results.push(json!({"verdict":"ACCEPT","output":{}}));

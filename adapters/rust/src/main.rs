@@ -1,5 +1,6 @@
 mod hpke_checks;
 mod http_checks;
+mod parallel_checks;
 mod registry_checks;
 mod sequence_checks;
 mod session_checks;

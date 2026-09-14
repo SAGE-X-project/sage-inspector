@@ -18,7 +18,12 @@ func run() int {
 	leftRev := flag.String("go-revision", "", "Go core source revision")
 	rightRev := flag.String("rust-revision", "", "Rust core source revision")
 	stateful := flag.Bool("stateful", false, "Keep receiver state across replay and close actions")
+	concurrent := flag.Bool("concurrent", false, "Exercise start-gated concurrent receiver calls")
 	flag.Parse()
+	if *concurrent && *stateful {
+		fmt.Fprintln(os.Stderr, "select either concurrent or stateful mode")
+		return 2
+	}
 	a, err := conformance.NewProcess(*left, nil)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
@@ -34,7 +39,14 @@ func run() int {
 	subjects := []conformance.Subject{{Name: "sage-go", Revision: *leftRev, Kind: "external", ExecutableSHA256: a.ExpectedSHA256}, {Name: "sage-rust", Revision: *rightRev, Kind: "external", ExecutableSHA256: b.ExpectedSHA256}}
 	var report any
 	var status string
-	if *stateful {
+	if *concurrent {
+		r, e := conformance.RunConcurrentExchange(ctx, subjects, []conformance.Adapter{a, b})
+		err = e
+		report = r
+		if e == nil {
+			status = r.Status
+		}
+	} else if *stateful {
 		r, e := conformance.RunReplayExchange(ctx, subjects, []conformance.Adapter{a, b})
 		err = e
 		report = r

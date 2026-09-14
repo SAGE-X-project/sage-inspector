@@ -90,7 +90,9 @@ def check(root=ROOT):
     print(json.dumps({'exchange':counts,'host_NOT_RUN':len(fixtures),'conformance':'NOT_ESTABLISHED'}))
     from check_replay_evidence import check as check_replay
     replay = check_replay(root)
-    return dict(replay=replay,exchange_report='docs/evidence/deployment/exchange.json',exchange_counts=counts,
+    from check_concurrent_evidence import check as check_concurrent
+    concurrent = check_concurrent(root)
+    return dict(concurrent=concurrent,replay=replay,exchange_report='docs/evidence/deployment/exchange.json',exchange_counts=counts,
                 host_report='docs/evidence/deployment/host/summary.json',host_not_run=len(fixtures),conformance='NOT_ESTABLISHED')
 
 if __name__=='__main__':check()

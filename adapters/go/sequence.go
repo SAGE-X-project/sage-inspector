@@ -18,8 +18,9 @@ func sequenceObserve(op string, raw json.RawMessage) (string, map[string]any, er
 		AAD       string   `json:"caller_aad_hex"`
 		Messages  []string `json:"messages_hex"`
 		Actions   []struct {
-			Kind   string `json:"kind"`
-			Record string `json:"record_hex"`
+			Kind    string   `json:"kind"`
+			Record  string   `json:"record_hex"`
+			Records []string `json:"records_hex"`
 		} `json:"actions"`
 	}
 	if e := json.Unmarshal(raw, &in); e != nil {
@@ -69,6 +70,14 @@ func sequenceObserve(op string, raw json.RawMessage) (string, map[string]any, er
 	}
 	results := []map[string]any{}
 	for _, a := range in.Actions {
+		if a.Kind == "parallel_open" {
+			result, e := parallelOpen(core, a.Records, aad)
+			if e != nil {
+				return "", nil, e
+			}
+			results = append(results, result)
+			continue
+		}
 		if a.Kind == "close" {
 			if e := core.Close(); e != nil {
 				return "", nil, e

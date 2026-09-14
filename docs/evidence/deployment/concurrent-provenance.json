@@ -1,0 +1,29 @@
+{
+  "scope": "Bounded live core contention with measured API interval overlap. Existing core source revisions unchanged; no complete scheduling or protocol certification.",
+  "files": {
+    "docs/evidence/deployment/concurrent.json": "ea819042f2723da2a5dd954d030b34a9bc30083dfcfa62c2a734d30b919ac299",
+    "docs/evidence/core-source-lock.json": "18229a6202c01dc70629ca22db3d3f3754c11bd0a89e2d9d76e3050bdd64a7b7"
+  },
+  "inspector_sources": {
+    "pkg/conformance/concurrent_exchange.go": "47226bcc53e598a4767bc54d39a0613972b54bc930324363b873283885cebc0c",
+    "pkg/conformance/exchange.go": "2c91cc5dce8c68a2c8197b05af40b0ca4fb409156d7b8c2f2cc791c03752dc71",
+    "cmd/sage-exchange/main.go": "25b4ed3050ce1e7b86cc0aee282d047cd3906ce0ee1da1273aa88beb67f8154e",
+    "adapters/go/main.go": "3c725354cf64d726e830a55b308d91ea49de16a94ede97e4836db329e85a2d3e",
+    "adapters/go/sequence.go": "87263f25bc74034458eec08f1f731ffb02bc3ba07c34bc677e576642efe03d92",
+    "adapters/go/parallel.go": "d8f407e92bebd08995e13b15ad3482e06095f5e497397fac34f9ce686b2da780",
+    "adapters/go/go.mod": "60020542ee62748a990841fa703eea59d19d273f0406951aa43878bba51a43ce",
+    "adapters/go/go.sum": "5648d3be401efb82727c2ababf7a12afb5c09b4c28f81ac9885119636688810c",
+    "adapters/rust/src/main.rs": "85c139e30b9182d298798bf3d96227224e430f9a91b2bc03d56dbb36b160bc27",
+    "adapters/rust/src/sequence_checks.rs": "bdf5d19daeb448f773f154f56427c1d6948aec239ca3c31cff6ed51c1e75ddea",
+    "adapters/rust/src/parallel_checks.rs": "b47820c4ff63c3f7238eeca6c2966dd535a0645c6f3f4d3a0b49fbcc0c08f0df",
+    "adapters/rust/Cargo.toml": "e42adcae4b6e9b48c769d36a309007540890541be62dbcd46c928c5911f43a8e",
+    "adapters/rust/Cargo.lock": "e921f9e081912b4f4b4657ea1ccda4191b5d90288fb61f7f3df7d47cf234c908"
+  },
+  "runner_sha256": "031d6b34de4262efb89f9d34248ed291e45a05aca103a733e4a635003b1adc0f",
+  "go_build_flags": [
+    "-race"
+  ],
+  "GORACE": "",
+  "GOMAXPROCS": "",
+  "go_binary_build_info": "/private/tmp/sage-go-adapter-concurrent: go1.26.0\n\tpath\tsage-inspector-go-adapter\n\tmod\tsage-inspector-go-adapter\t(devel)\t\n\tdep\tfilippo.io/edwards25519\tv1.2.0\th1:crnVqOiS4jqYleHd9vaKZ+HKtHfllngJIiOpNpoJsjo=\n\tdep\tgithub.com/cloudflare/circl\tv1.6.5\th1:O64F26HEqNhznd/hrC5KZXVKYuKM2rx4deZDTc4ihQA=\n\tdep\tgithub.com/decred/dcrd/dcrec/secp256k1/v4\tv4.4.1\th1:5RVFMOWjMyRy8cARdy79nAmgYw3hK/4HUq48LQ6Wwqo=\n\tdep\tgithub.com/ethereum/go-ethereum\tv1.17.5\th1:o9BIXs2Q/3cPHVxw49n+Zjn2i6rB9TOXatev46duOC4=\n\tdep\tgithub.com/google/uuid\tv1.6.0\th1:NIvaJDMOsjHA8n1jAhLSgzrAzy1Hgr+hNrb57e+94F0=\n\tdep\tgithub.com/holiman/uint256\tv1.3.2\th1:a9EgMPSC1AAaj1SZL5zIQD3WbwTuHrMGOerLjGmM/TA=\n\tdep\tgithub.com/mr-tron/base58\tv1.3.0\th1:K6Y13R2h+dku0wOqKtecgRnBUBPrZzLZy5aIj8lCcJI=\n\tdep\tgithub.com/sage-x-project/sage\tv0.0.0\n\t=>\t../../../sage\t(devel)\t\n\t\n\tdep\tgolang.org/x/crypto\tv0.57.0\th1:3ZVCjf8Ggz7zneR/EHRVx68Ctf+2pmIMP2UFhh9cC6M=\n\tdep\tgolang.org/x/sys\tv0.48.0\th1:bbX/i/6MgT9BVLM9RT1thmxL04yeTAhbEz4SyadbXoo=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\t-race=true\n\tbuild\tCGO_ENABLED=1\n\tbuild\tCGO_CFLAGS=\n\tbuild\tCGO_CPPFLAGS=\n\tbuild\tCGO_CXXFLAGS=\n\tbuild\tCGO_LDFLAGS=\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=22e1a7d0ef59a3aefb1b6c0d58a5a5a3397774bc\n\tbuild\tvcs.time=2026-09-14T05:51:50Z\n\tbuild\tvcs.modified=true\n"
+}

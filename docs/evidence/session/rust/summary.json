@@ -1,0 +1,1073 @@
+{
+  "schema_version": 1,
+  "protocol_version": "0.10.0",
+  "bundle": "session-inspection",
+  "subject": {
+    "name": "sage-rust",
+    "revision": "206bbbb5a66667ae2feb3b0e9991ed1ca4622bb2",
+    "kind": "external",
+    "executable_sha256": "5a527847e2b6589323c6895b0a2ca4ee67c220c742a69012e72dfea3015e41a3"
+  },
+  "state_subject": null,
+  "status": "FAIL",
+  "manifest_sha256": "353c6f71db259287f6817fe4b166af7f8c2aef59a7035988b04f72134a238e57",
+  "primitive_counts": {
+    "PASS": 11,
+    "FAIL": 26,
+    "UNSUPPORTED": 18,
+    "NOT_RUN": 0
+  },
+  "suites": [
+    {
+      "suite_id": "sage-session-records-0.10.0",
+      "suite_sha256": "cf0dcefeab7e82161445d6f6d05e4c70855e50336fcb6b01edbbdb2d999d05bd",
+      "status": "FAIL",
+      "counts": {
+        "FAIL": 26,
+        "NOT_RUN": 0,
+        "PASS": 11,
+        "UNSUPPORTED": 18
+      }
+    }
+  ],
+  "rules": {
+    "SESSION-02": [
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "c2s-key-0",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "c2s-key-1",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "c2s-key-255",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "c2s-key-256",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "c2s-key-511",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "c2s-key-512",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "c2s-key-767",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "c2s-key-768",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "c2s-key-999",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "s2c-key-0",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "s2c-key-1",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "s2c-key-255",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "s2c-key-256",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "s2c-key-511",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "s2c-key-512",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "s2c-key-767",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "s2c-key-768",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "s2c-key-999",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "short",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "tag",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "seq",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "nonce",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "nonce-valid-tag",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "seq-1000",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "seq-max",
+        "status": "PASS"
+      },
+      {
+        "scenario_id": "session-absolute-boundary",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-direction-independent",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-idle-boundary",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-invalid-idle",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-provisional-application-reject",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-provisional-commit-deadline",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-provisional-confirm",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-provisional-deadline",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-provisional-invalid-retry",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-provisional-no-clock-reset",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-provisional-race",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-responder-direction",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-send-cap",
+        "status": "NOT_RUN"
+      }
+    ],
+    "SESSION-03": [
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "c2s-open-0",
+        "status": "FAIL"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "c2s-open-1",
+        "status": "FAIL"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "c2s-open-255",
+        "status": "FAIL"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "c2s-open-256",
+        "status": "FAIL"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "c2s-open-511",
+        "status": "FAIL"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "c2s-open-512",
+        "status": "FAIL"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "c2s-open-767",
+        "status": "FAIL"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "c2s-open-768",
+        "status": "FAIL"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "c2s-open-999",
+        "status": "FAIL"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "s2c-open-0",
+        "status": "FAIL"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "s2c-open-1",
+        "status": "FAIL"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "s2c-open-255",
+        "status": "FAIL"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "s2c-open-256",
+        "status": "FAIL"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "s2c-open-511",
+        "status": "FAIL"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "s2c-open-512",
+        "status": "FAIL"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "s2c-open-767",
+        "status": "FAIL"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "s2c-open-768",
+        "status": "FAIL"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "s2c-open-999",
+        "status": "FAIL"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "aad-open-0",
+        "status": "FAIL"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "aad-open-4033",
+        "status": "FAIL"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "aad-open-4034",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "aad-seal-4033",
+        "status": "FAIL"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "aad-seal-4034",
+        "status": "FAIL"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "plaintext-size-0",
+        "status": "FAIL"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "plaintext-size-1",
+        "status": "FAIL"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "plaintext-size-8388572",
+        "status": "FAIL"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "plaintext-size-8388573",
+        "status": "FAIL"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "short",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "tag",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "seq",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "nonce",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "nonce-valid-tag",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "seq-1000",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "seq-max",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "reflection",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "transcript",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-session-records-0.10.0",
+        "case_id": "aad-changed",
+        "status": "PASS"
+      }
+    ],
+    "SESSION-06": [
+      {
+        "scenario_id": "session-close",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-pinned-context_id",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-pinned-did",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-pinned-kid-active-alternative",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-pinned-recipient",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-pinned-sender-role",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-pinned-session_id",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-pinned-signature",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-pinned-tag",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-pinned-version",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-registry-changed-algorithm",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-registry-changed-bytes",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-registry-expired",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-registry-revoked-init-key",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-registry-revoked-kem-key",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-registry-revoked-resp-key",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-registry-unavailable",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-registry-unrelated",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-restart",
+        "status": "NOT_RUN"
+      }
+    ],
+    "SESSION-05": [
+      {
+        "scenario_id": "session-concurrent-duplicate",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-invalid-does-not-reserve",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-provisional-application-reject",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-provisional-commit-deadline",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-provisional-confirm",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-provisional-deadline",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-provisional-invalid-retry",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-provisional-no-clock-reset",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-provisional-race",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-reorder-replay",
+        "status": "NOT_RUN"
+      }
+    ],
+    "SESSION-04": [
+      {
+        "scenario_id": "session-concurrent-send",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-transport-gap",
+        "status": "NOT_RUN"
+      }
+    ],
+    "SESSION-01": [
+      {
+        "scenario_id": "session-pinned-context_id",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-pinned-did",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-pinned-kid-active-alternative",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-pinned-recipient",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-pinned-sender-role",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-pinned-session_id",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-pinned-signature",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-pinned-tag",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-pinned-version",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-provisional-application-reject",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-provisional-commit-deadline",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-provisional-confirm",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-provisional-deadline",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-provisional-invalid-retry",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-provisional-no-clock-reset",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-provisional-race",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-registry-changed-algorithm",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-registry-changed-bytes",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-registry-expired",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-registry-revoked-init-key",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-registry-revoked-kem-key",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-registry-revoked-resp-key",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-registry-unavailable",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-registry-unrelated",
+        "status": "NOT_RUN"
+      }
+    ],
+    "HPKE-05": [
+      {
+        "scenario_id": "session-provisional-application-reject",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-provisional-commit-deadline",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-provisional-confirm",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-provisional-deadline",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-provisional-invalid-retry",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-provisional-no-clock-reset",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "session-provisional-race",
+        "status": "NOT_RUN"
+      }
+    ]
+  },
+  "scenarios": [
+    {
+      "rule_ids": [
+        "SESSION-02"
+      ],
+      "id": "session-absolute-boundary",
+      "fixture_sha256": "cb5424a9e79e30781f895a907c10dff8f8dc4d3b8b37aa904b6d6a06f8ea9456",
+      "status": "NOT_RUN",
+      "steps": 25,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "SESSION-06"
+      ],
+      "id": "session-close",
+      "fixture_sha256": "945a321577c9cda525f07c117c169612b0f5fb9be96ee99dc858efbf8b51f745",
+      "status": "NOT_RUN",
+      "steps": 9,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "SESSION-05"
+      ],
+      "id": "session-concurrent-duplicate",
+      "fixture_sha256": "e6abfcd9578e9d53713d62af0e271ea18918712e038f0442dd8dc010c8d81ba1",
+      "status": "NOT_RUN",
+      "steps": 5,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "SESSION-04"
+      ],
+      "id": "session-concurrent-send",
+      "fixture_sha256": "538088b74b22882a3b99c673933a8e1f8e8216ca1d236a72742153c7cce293d7",
+      "status": "NOT_RUN",
+      "steps": 5,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "SESSION-02"
+      ],
+      "id": "session-direction-independent",
+      "fixture_sha256": "873201038af18b3ec65f6f3e980b67caa8902fa7436418c90c6bbe47b4ae8a92",
+      "status": "NOT_RUN",
+      "steps": 5,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "SESSION-02"
+      ],
+      "id": "session-idle-boundary",
+      "fixture_sha256": "784d01f29de647764501498776b24c21892c7e4e431cfec88db7ebf23a14af37",
+      "status": "NOT_RUN",
+      "steps": 7,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "SESSION-05"
+      ],
+      "id": "session-invalid-does-not-reserve",
+      "fixture_sha256": "2286457e3a3e11ed7913607df4be5e9768b99f78664b1003a13c153cb3ec445a",
+      "status": "NOT_RUN",
+      "steps": 7,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "SESSION-02"
+      ],
+      "id": "session-invalid-idle",
+      "fixture_sha256": "c3ca5ff18df70e6ec0f9508332e38e77e687edfe8a5400abcc1e2fef9e767770",
+      "status": "NOT_RUN",
+      "steps": 7,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "SESSION-01",
+        "SESSION-06"
+      ],
+      "id": "session-pinned-context_id",
+      "fixture_sha256": "80d0c8c731d2d99716ea3a87740871be8babc07dfa2555cf9d4550ff836484b2",
+      "status": "NOT_RUN",
+      "steps": 5,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "SESSION-01",
+        "SESSION-06"
+      ],
+      "id": "session-pinned-did",
+      "fixture_sha256": "b51ef8d75604a5ace3d4e9e57dae567c76f26ac82b1485315512a2a36a338511",
+      "status": "NOT_RUN",
+      "steps": 5,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "SESSION-01",
+        "SESSION-06"
+      ],
+      "id": "session-pinned-kid-active-alternative",
+      "fixture_sha256": "0c30c57af3c029f511f9d4125c7f8632dffb93f678911a79d27ef82468a507e3",
+      "status": "NOT_RUN",
+      "steps": 5,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "SESSION-01",
+        "SESSION-06"
+      ],
+      "id": "session-pinned-recipient",
+      "fixture_sha256": "d70aac1bcd9243c50139720e169a685add65a3cdf60814810ad5f642b56cd5b6",
+      "status": "NOT_RUN",
+      "steps": 5,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "SESSION-01",
+        "SESSION-06"
+      ],
+      "id": "session-pinned-sender-role",
+      "fixture_sha256": "fb5fc038258e34b060a09ff29e757180d8d38a314437b29cbe1dcd457c2105f1",
+      "status": "NOT_RUN",
+      "steps": 5,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "SESSION-01",
+        "SESSION-06"
+      ],
+      "id": "session-pinned-session_id",
+      "fixture_sha256": "4270d880916dd2b35be74780ff0ea3852ed54e4ee71a4fbf1b6d2b38b2b11f8d",
+      "status": "NOT_RUN",
+      "steps": 5,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "SESSION-01",
+        "SESSION-06"
+      ],
+      "id": "session-pinned-signature",
+      "fixture_sha256": "bc1040939408054c90a9d80f050a8ba974ad017de8cca3ed18fcfb0bc52b9d54",
+      "status": "NOT_RUN",
+      "steps": 5,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "SESSION-01",
+        "SESSION-06"
+      ],
+      "id": "session-pinned-tag",
+      "fixture_sha256": "7b9d2d9a8355eda694f9f5e234b95e389c157f8099accd330f5090d79157a539",
+      "status": "NOT_RUN",
+      "steps": 5,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "SESSION-01",
+        "SESSION-06"
+      ],
+      "id": "session-pinned-version",
+      "fixture_sha256": "dfe019f8e2a9e1175d92c3553f8440f722a328661c967926ef661bd27decf418",
+      "status": "NOT_RUN",
+      "steps": 5,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "HPKE-05",
+        "SESSION-01",
+        "SESSION-02",
+        "SESSION-05"
+      ],
+      "id": "session-provisional-application-reject",
+      "fixture_sha256": "786bcbccbd48fa407d9689dda7a7b132f16a958c59c24bceedc9e5e3c847e043",
+      "status": "NOT_RUN",
+      "steps": 5,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "HPKE-05",
+        "SESSION-01",
+        "SESSION-02",
+        "SESSION-05"
+      ],
+      "id": "session-provisional-commit-deadline",
+      "fixture_sha256": "5f548e7a1be456727869a7f985dd3d82ed17a001fca16435a6a4e4752b450b02",
+      "status": "NOT_RUN",
+      "steps": 4,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "HPKE-05",
+        "SESSION-01",
+        "SESSION-02",
+        "SESSION-05"
+      ],
+      "id": "session-provisional-confirm",
+      "fixture_sha256": "33d856e1c8bd5af8e82e70eaf3434579daf14668267fe706c87c8eb7474036a3",
+      "status": "NOT_RUN",
+      "steps": 7,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "HPKE-05",
+        "SESSION-01",
+        "SESSION-02",
+        "SESSION-05"
+      ],
+      "id": "session-provisional-deadline",
+      "fixture_sha256": "42a6d0378f6139e80a651696250d698162ab082cd7bfe88e6dd24133034b977e",
+      "status": "NOT_RUN",
+      "steps": 4,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "HPKE-05",
+        "SESSION-01",
+        "SESSION-02",
+        "SESSION-05"
+      ],
+      "id": "session-provisional-invalid-retry",
+      "fixture_sha256": "1ab77433a0e027d484d2a810c1bb9e89e28ac3b58d0ae933555d651fd2d0ef7d",
+      "status": "NOT_RUN",
+      "steps": 5,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "HPKE-05",
+        "SESSION-01",
+        "SESSION-02",
+        "SESSION-05"
+      ],
+      "id": "session-provisional-no-clock-reset",
+      "fixture_sha256": "d619ae8c40fc290977e1e025f6befd758029f3cd251a3fe15282510d7880a72f",
+      "status": "NOT_RUN",
+      "steps": 28,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "HPKE-05",
+        "SESSION-01",
+        "SESSION-02",
+        "SESSION-05"
+      ],
+      "id": "session-provisional-race",
+      "fixture_sha256": "3bf2acb5732325bbff00642a480432c36d6a9094d974e30a78d1560ead1ce194",
+      "status": "NOT_RUN",
+      "steps": 3,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "SESSION-01",
+        "SESSION-06"
+      ],
+      "id": "session-registry-changed-algorithm",
+      "fixture_sha256": "b71fe6e34feb07c348776e1e68a25d6117a16db528ad01f2828be1ec86b54166",
+      "status": "NOT_RUN",
+      "steps": 5,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "SESSION-01",
+        "SESSION-06"
+      ],
+      "id": "session-registry-changed-bytes",
+      "fixture_sha256": "2ec53a4f0d87dcfb42dfbc627f0cd166e13c9f1729597c9b72759cde1b041006",
+      "status": "NOT_RUN",
+      "steps": 5,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "SESSION-01",
+        "SESSION-06"
+      ],
+      "id": "session-registry-expired",
+      "fixture_sha256": "becb3e6852fd7be497e474013801a1ae01028873b29203e78b108fc67182c713",
+      "status": "NOT_RUN",
+      "steps": 5,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "SESSION-01",
+        "SESSION-06"
+      ],
+      "id": "session-registry-revoked-init-key",
+      "fixture_sha256": "bac4e77edf2fd6f1ce8c06ca9083401d2e91bc386f4238c5ae6e138ffdf498a6",
+      "status": "NOT_RUN",
+      "steps": 5,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "SESSION-01",
+        "SESSION-06"
+      ],
+      "id": "session-registry-revoked-kem-key",
+      "fixture_sha256": "7cb4925aa6522a2f04d6e95254e021b72e7778346a942619524a081b370972be",
+      "status": "NOT_RUN",
+      "steps": 5,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "SESSION-01",
+        "SESSION-06"
+      ],
+      "id": "session-registry-revoked-resp-key",
+      "fixture_sha256": "5392e7bc53ad9637f3d89193f555d415dbc569439c436195e127c07de6deea2d",
+      "status": "NOT_RUN",
+      "steps": 5,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "SESSION-01",
+        "SESSION-06"
+      ],
+      "id": "session-registry-unavailable",
+      "fixture_sha256": "591e543645438403eae2aae28e770c2c124f27f2a55ac4219ff27d625ddfdaa4",
+      "status": "NOT_RUN",
+      "steps": 5,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "SESSION-01",
+        "SESSION-06"
+      ],
+      "id": "session-registry-unrelated",
+      "fixture_sha256": "b0341bb9fce42c677878da9d909b56e97c64c637645d35f3e7fadc4bf9d0d962",
+      "status": "NOT_RUN",
+      "steps": 5,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "SESSION-05"
+      ],
+      "id": "session-reorder-replay",
+      "fixture_sha256": "f9897fed5916774ffd976ee4a4d5c67bc29741035ff1a473ed77000735446be9",
+      "status": "NOT_RUN",
+      "steps": 11,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "SESSION-02"
+      ],
+      "id": "session-responder-direction",
+      "fixture_sha256": "21c1f710f44bad4a96714306eff331e5a53ad972ef995addef27a4e560fc846d",
+      "status": "NOT_RUN",
+      "steps": 3,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "SESSION-06"
+      ],
+      "id": "session-restart",
+      "fixture_sha256": "864f140e273583ae022e8ab90d8e9c4f5b282251aa51d16a7cac6b4ecce61a7a",
+      "status": "NOT_RUN",
+      "steps": 9,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "SESSION-02"
+      ],
+      "id": "session-send-cap",
+      "fixture_sha256": "c03261be2db257fc261236487a6143d4008bcd7e14af4f80e0b85996a2d72da1",
+      "status": "NOT_RUN",
+      "steps": 5,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "SESSION-04"
+      ],
+      "id": "session-transport-gap",
+      "fixture_sha256": "b9883ccf29274dd501335b745f9d0962f30ff000a191972c8ac48663017826e1",
+      "status": "NOT_RUN",
+      "steps": 9,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    }
+  ],
+  "evidence_files": {
+    "session-records.json": "ec28598158b936e01ffd686084bd1c159bc3177599395388341555d1aa608482"
+  },
+  "scope": "Legacy record API projections against fixed 0.10.0 inputs. Negative passes do not isolate defenses when positive controls fail. Stateful support, concurrency and key erasure remain separate; no full protocol certification."
+}

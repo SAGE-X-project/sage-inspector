@@ -116,6 +116,14 @@ func run(r io.Reader, w io.Writer) error {
 		}
 	}
 
+	if q.Operation == "sage.session.record.open" || q.Operation == "sage.session.record.seal" {
+		var e error
+		verdict, output, e = sessionObserve(q.Operation, q.Input)
+		if e != nil {
+			return e
+		}
+	}
+
 	if q.Operation == "rfc9180.export" || q.Operation == "sage.hpke.combine" {
 		var e error
 		verdict, output, e = hpkeObserve(q.Operation, q.Input)

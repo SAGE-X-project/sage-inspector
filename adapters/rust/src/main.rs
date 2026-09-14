@@ -1,5 +1,6 @@
 mod hpke_checks;
 mod http_checks;
+mod session_checks;
 use sage_crypto_core::crypto::{KeyType, PublicKey, Signature, Verifier};
 use serde::Deserialize;
 use serde_json::{json, Value};
@@ -41,6 +42,10 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
         .contains(&q.operation.as_str())
     {
         hpke_checks::observe(&q.operation, q.input)?
+    } else if ["sage.session.record.open", "sage.session.record.seal"]
+        .contains(&q.operation.as_str())
+    {
+        session_checks::observe(&q.operation, q.input)?
     } else if q.operation == "sha256" {
         let data = hex::decode(
             q.input

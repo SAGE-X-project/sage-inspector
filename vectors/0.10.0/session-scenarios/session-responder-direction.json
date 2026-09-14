@@ -1,0 +1,153 @@
+{
+  "schema_version": 2,
+  "protocol_version": "0.10.0",
+  "profile": "stateful-scenario",
+  "id": "session-responder-direction",
+  "sources": [
+    {
+      "id": "sage-session",
+      "kind": "spec-derived",
+      "uri": "sage-spec/spec/05-session.md",
+      "reference": "SESSION-01..06; HPKE-05 responder confirmation. Public fixed inputs, independent Python cryptography calculation."
+    }
+  ],
+  "steps": [
+    {
+      "id": "step-0",
+      "operation": "control.session.create",
+      "input": {
+        "seed_hex": "a670cc6a4cf4eed950a26f2e85a185457e283ba617fd87da485625d96a2a61a6",
+        "th_hex": "a4dcfbf2cfe2b3ffd09acd65fbb78c675612b93c93b512a11b9b064786ee5488",
+        "tuple": {
+          "combiner": "e2e-x25519-hkdf-v1",
+          "ctx": "11111111-1111-4111-8111-111111111111",
+          "enc": "GvoI097AR6ZDiFFj8RgEdvp921TGqAKeoz-VeWvyrEo",
+          "ephC": "Dv1Vxea5UE6GamVaQdnb64IyGbpY-jhb2Q8usyBl4X8",
+          "ephS": "NdGHXIRr67ol5Uxa8b6eOAHBaOzdH9iFCdQa4Ll_Fxg",
+          "initDid": "did:sage:web:agent.example:alice",
+          "initKid": "did:sage:web:agent.example:alice#signing-1",
+          "kemKid": "did:sage:web:agent.example:bob#kem-1",
+          "kid": "33333333-3333-4333-8333-333333333330",
+          "nonce": "AAAAAAAAAAAAAAAAAAAAAA",
+          "respDid": "did:sage:web:agent.example:bob",
+          "respKid": "did:sage:web:agent.example:bob#signing-1",
+          "suite": "hpke-base+x25519+hkdf-sha256",
+          "task": "hpke/init@0.10.0",
+          "v": "0.10.0"
+        },
+        "pinned_keys": {
+          "did:sage:web:agent.example:alice#signing-1": {
+            "algorithm": "ed25519",
+            "public_hex": "5fd2377e017af85ec913045f4a7d8d664605207cf3b07ae90236384a6ecb40bd",
+            "status": "active"
+          },
+          "did:sage:web:agent.example:bob#signing-1": {
+            "algorithm": "ed25519",
+            "public_hex": "20534b92d1bdcd3600b72eb00dc9da64fcacb167e6b5bee88668d20d7a8fad21",
+            "status": "active"
+          },
+          "did:sage:web:agent.example:bob#kem-1": {
+            "algorithm": "x25519",
+            "public_hex": "4310ee97d88cc1f088a5576c77ab0cf5c3ac797f3d95139c6c84b5429c59662a",
+            "status": "active"
+          }
+        },
+        "sid": "7_DwdcM8kMwneSBrBd-9Yg",
+        "local_role": "initiator",
+        "state": "ESTABLISHED",
+        "created_monotonic": 0,
+        "idle_monotonic": 0,
+        "deadline_monotonic": 300,
+        "policy": {
+          "absolute_seconds": 3600,
+          "idle_seconds": 600,
+          "max_records_per_direction": 1000,
+          "rekey_interval": 256,
+          "close_on_invalid": false
+        }
+      },
+      "timeout_ms": 5000,
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "state": "ESTABLISHED"
+        }
+      },
+      "effects": {
+        "accepted": 0,
+        "emitted": 0,
+        "allocated": 0,
+        "dispatch": 0,
+        "confirmations": 0,
+        "closed": 0
+      }
+    },
+    {
+      "id": "step-1",
+      "operation": "subject.call",
+      "input": {
+        "action": "receive",
+        "seq": 0,
+        "record_hex": "0000000000000000000000000000000000000000f1557417e39f16176dfc2b21f48908774bd1131fb0e576ee96a77e36fdce1884c2734bdb97",
+        "caller_aad_hex": "7b7d",
+        "sender_role": "responder",
+        "envelope_projection": {
+          "version": "0.10.0",
+          "context_id": "11111111-1111-4111-8111-111111111111",
+          "session_id": "7_DwdcM8kMwneSBrBd-9Yg",
+          "did": "did:sage:web:agent.example:bob",
+          "recipient": "did:sage:web:agent.example:alice",
+          "kid": "did:sage:web:agent.example:bob#signing-1"
+        },
+        "signature_verified": true
+      },
+      "timeout_ms": 5000,
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "accepted": 1,
+          "rejected": 0,
+          "verdicts": [
+            "ACCEPT"
+          ]
+        }
+      },
+      "effects": {
+        "accepted": 1,
+        "emitted": 0,
+        "allocated": 0,
+        "dispatch": 1,
+        "confirmations": 0,
+        "closed": 0
+      }
+    },
+    {
+      "id": "step-2",
+      "operation": "subject.call",
+      "input": {
+        "action": "inspect"
+      },
+      "timeout_ms": 5000,
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "state": "ESTABLISHED",
+          "next_send": 0,
+          "received": [
+            0
+          ],
+          "last_activity": 0,
+          "keys_available": true
+        }
+      },
+      "effects": {
+        "accepted": 1,
+        "emitted": 0,
+        "allocated": 0,
+        "dispatch": 1,
+        "confirmations": 0,
+        "closed": 0
+      }
+    }
+  ]
+}

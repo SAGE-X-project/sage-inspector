@@ -67,7 +67,7 @@ never implements missing subject policy or cryptography to manufacture success.
 | `control.clock.set` | Set injected protocol UTC/monotonic clocks to explicit integer values; report values actually used. Do not change machine clock. |
 | `control.registry.replace` | Install a synthetic authoritative snapshot including version/finality/freshness metadata; acknowledge exact snapshot identity. No production chain writes. |
 | `control.fault.set` | Arm named before/after reservation, commit, persistence or resolver fault; report armed point. An executor restart must preserve the fixture's chosen durable store; restarting the adapter ends the scenario. |
-| `subject.parallel` | Run the supplied action group using an explicit barrier/schedule; return per-action IDs/results and aggregate effects only when all actions complete. No serial loop presented as a concurrent race test. |
+| `subject.parallel` | Run the supplied action group using an explicit barrier/schedule; return per-action results and aggregate effects only when all actions complete. A fixture may specify a canonical sorted multiset when winner identity is immaterial; it must preserve every observed outcome and its multiplicity. No serial loop presented as a concurrent race test. |
 | `subject.call` | Dispatch one test invocation through actual subject gates; return outcome/state and exact cumulative effects. |
 
 For concurrency the Inspector step is one group transaction: its wall deadline

@@ -1,0 +1,1584 @@
+{
+  "schema_version": 1,
+  "protocol_version": "0.10.0",
+  "profile": "primitive-foundation",
+  "suite_id": "sage-session-records-0.10.0",
+  "suite_sha256": "cf0dcefeab7e82161445d6f6d05e4c70855e50336fcb6b01edbbdb2d999d05bd",
+  "runner_version": "dev",
+  "environment": "go1.26.8 darwin/arm64",
+  "created": "2026-09-14T02:50:43.015119Z",
+  "subject": {
+    "name": "sage-go",
+    "revision": "c7709b7486e0da94336edc0931fddd87f6a45343",
+    "kind": "external",
+    "executable_sha256": "1b28ed8dbd94d43750996d10602778a73ab99ca1686a15d60bf11395c0224c09"
+  },
+  "sources": [
+    {
+      "id": "sage-session",
+      "kind": "spec-derived",
+      "uri": "sage-spec/spec/05-session.md",
+      "reference": "SESSION-01..06; HPKE-05 responder confirmation. Public fixed inputs, independent Python cryptography calculation."
+    }
+  ],
+  "scope": "Only listed primitive cases; no full SAGE, state-machine, registry or Execution Guard certification.",
+  "status": "FAIL",
+  "counts": {
+    "FAIL": 26,
+    "NOT_RUN": 0,
+    "PASS": 11,
+    "UNSUPPORTED": 18
+  },
+  "results": [
+    {
+      "case_id": "c2s-key-0",
+      "operation": "sage.session.key",
+      "rule_ids": [
+        "SESSION-02"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "803dc5a6805fe3c2e27a2348f41e37b53112f74b55ebe6899f6cbabfa30b1e21",
+      "adapter_request_sha256": "97aa3b3d788183ce6a2dbb5d09171e5d3b3687cbdd56c9d1831eaab9ed5830a6",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "key_hex": "c3a89552907e15483754f111e2460fd86a7eed19948cf21b9da1be328c7491bd",
+          "generation": 0
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "c2s-key-0",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 566
+    },
+    {
+      "case_id": "c2s-open-0",
+      "operation": "sage.session.record.open",
+      "rule_ids": [
+        "SESSION-03"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "16b6767b620b5c284a7e73d14377546a9c087632f277ac9e453afd7bf05289ff",
+      "adapter_request_sha256": "109db11d7ead95fb8ea56a40ab2d128ab6171895d38f7e18bdfabd81452d3fcb",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "plaintext_hex": "7075626c69632073657373696f6e207265636f7264"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "c2s-open-0",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "FAIL",
+      "reason": "verdict mismatch",
+      "duration_ms": 22
+    },
+    {
+      "case_id": "c2s-key-1",
+      "operation": "sage.session.key",
+      "rule_ids": [
+        "SESSION-02"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "77dc5c7d65ccb84338f084c5a6ad482d6cd72507b2e92de77eb3b28c0e2d863d",
+      "adapter_request_sha256": "735c286a86b136a37755a43914cdb0b98342a006c662a99a0b221adf99c93cfd",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "key_hex": "c3a89552907e15483754f111e2460fd86a7eed19948cf21b9da1be328c7491bd",
+          "generation": 0
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "c2s-key-1",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 16
+    },
+    {
+      "case_id": "c2s-open-1",
+      "operation": "sage.session.record.open",
+      "rule_ids": [
+        "SESSION-03"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "2c86899f5753d9668ff63d1962f1f799e245d184c1e316b5a413d4eda31e76fa",
+      "adapter_request_sha256": "09e5710b4da31121e2f0317d49c41fa851b7d1c1a8d3e03d3d66e27b9457652a",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "plaintext_hex": "7075626c69632073657373696f6e207265636f7264"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "c2s-open-1",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "FAIL",
+      "reason": "verdict mismatch",
+      "duration_ms": 14
+    },
+    {
+      "case_id": "c2s-key-255",
+      "operation": "sage.session.key",
+      "rule_ids": [
+        "SESSION-02"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "4874e39914bd249c44d3189954a5b5f3cda602574cd8651e300761f31803b53d",
+      "adapter_request_sha256": "58f3b710b2ab971ffacc96afdf8439d6f560415b82a8d8e14e0416cb9e8c1041",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "key_hex": "c3a89552907e15483754f111e2460fd86a7eed19948cf21b9da1be328c7491bd",
+          "generation": 0
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "c2s-key-255",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 13
+    },
+    {
+      "case_id": "c2s-open-255",
+      "operation": "sage.session.record.open",
+      "rule_ids": [
+        "SESSION-03"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "14aee988d3d45fe682eabf1690a7b451c640c41d2ff684c9fca615e75368eb39",
+      "adapter_request_sha256": "27db550ab215e51e9eae17da38503a9d30ba5aaed0b08f75f99ae07bd5e83f35",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "plaintext_hex": "7075626c69632073657373696f6e207265636f7264"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "c2s-open-255",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "FAIL",
+      "reason": "verdict mismatch",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "c2s-key-256",
+      "operation": "sage.session.key",
+      "rule_ids": [
+        "SESSION-02"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "546bf6f0f42ddf8152efce20809802da8ebb512551a1dc31066637977bad166e",
+      "adapter_request_sha256": "cdbfad9e863a256aa5f8a2472a08f4edd74d008a56f8838c70da387173198e44",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "key_hex": "9b1f13889532013ee3c3f93841d1495521b235cf272b3136bc4831d6852ff8b9",
+          "generation": 1
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "c2s-key-256",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "c2s-open-256",
+      "operation": "sage.session.record.open",
+      "rule_ids": [
+        "SESSION-03"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "958e95c2717052b239a84ad5c20dde197ea1619ed06f41a6ded0d8a4dde79627",
+      "adapter_request_sha256": "1425828187d1c798a8a1cd449833969c4e2403972b2583e0d1f5f7fd7f052487",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "plaintext_hex": "7075626c69632073657373696f6e207265636f7264"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "c2s-open-256",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "FAIL",
+      "reason": "verdict mismatch",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "c2s-key-511",
+      "operation": "sage.session.key",
+      "rule_ids": [
+        "SESSION-02"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "2eb108f451055914b31f4994612ddabb6fb4d0ffb72e0b23735d9422f856645f",
+      "adapter_request_sha256": "7bd22cfc4b3404d02b8d65988ca52b9f71dd4b5f059dd21f1311cd56c87d03bf",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "key_hex": "9b1f13889532013ee3c3f93841d1495521b235cf272b3136bc4831d6852ff8b9",
+          "generation": 1
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "c2s-key-511",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "c2s-open-511",
+      "operation": "sage.session.record.open",
+      "rule_ids": [
+        "SESSION-03"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "0683aaf52da864988a5fe984d44c67c81c3c34801a6a1e06e426dea1f0112705",
+      "adapter_request_sha256": "db3272f6b6502da4fb9efcecb21889101817312c978f936ec6624455d201af02",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "plaintext_hex": "7075626c69632073657373696f6e207265636f7264"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "c2s-open-511",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "FAIL",
+      "reason": "verdict mismatch",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "c2s-key-512",
+      "operation": "sage.session.key",
+      "rule_ids": [
+        "SESSION-02"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "274f6748e0aede69e89a307478cf33eb38046e76fc7fe1f1f7307a78203dcdaf",
+      "adapter_request_sha256": "face9a626ba1e2b7afe2516690d780a7915493d0ca25073cb1c3943553bb50e1",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "key_hex": "2a5899795dda1a25f0135381898a07f1d8b568ce61cacf441e77ccbcc17afb6d",
+          "generation": 2
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "c2s-key-512",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "c2s-open-512",
+      "operation": "sage.session.record.open",
+      "rule_ids": [
+        "SESSION-03"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "b14f4b1feec2c373b70fcbeea78cc4f4ba80b491b3dcdf389a96b8132d9cafd8",
+      "adapter_request_sha256": "94916253469923021404eda694b51393857c086587449b2918550df5014f9b8a",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "plaintext_hex": "7075626c69632073657373696f6e207265636f7264"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "c2s-open-512",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "FAIL",
+      "reason": "verdict mismatch",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "c2s-key-767",
+      "operation": "sage.session.key",
+      "rule_ids": [
+        "SESSION-02"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "6a5c271ed57f43bbbbd5e8ff6a941bae543c16943b69ce7ac3500cbced57d331",
+      "adapter_request_sha256": "09bf2ce61fa95addb79d895e4d51747a1fa5f702d2ef144ca9cdfddcaa97f209",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "key_hex": "2a5899795dda1a25f0135381898a07f1d8b568ce61cacf441e77ccbcc17afb6d",
+          "generation": 2
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "c2s-key-767",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "c2s-open-767",
+      "operation": "sage.session.record.open",
+      "rule_ids": [
+        "SESSION-03"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "da39f18277076fe7b7617d5a8c8b46a5cc25043e58b281ab072286972c0c6781",
+      "adapter_request_sha256": "d5e330c63af4bb6ea9e43bea0119ff2ee375cf29e68a6ca6441ce9902a6b920e",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "plaintext_hex": "7075626c69632073657373696f6e207265636f7264"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "c2s-open-767",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "FAIL",
+      "reason": "verdict mismatch",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "c2s-key-768",
+      "operation": "sage.session.key",
+      "rule_ids": [
+        "SESSION-02"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "f1df456abb2d9dbb7c43f6a3f808bd2a3c34ab84f7d22e943d95d652ca8e0550",
+      "adapter_request_sha256": "3590386c9e17b921d27d35036881c610973c7b29e4e7e4ba7ed5451ea70b649e",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "key_hex": "0fc66e22c946a7622f4bfb9f3e0f901acfe3199348f891e56e6d4f1e43fd5f93",
+          "generation": 3
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "c2s-key-768",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "c2s-open-768",
+      "operation": "sage.session.record.open",
+      "rule_ids": [
+        "SESSION-03"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "c78661feb6fc6e57b7f88944a8f71a956207ff7b9ee3fedbdb25be20c328aa76",
+      "adapter_request_sha256": "1c70130d0908e1f9e7c0935b36d4b2a72efd8a623acfa2b4a982a238bbacd367",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "plaintext_hex": "7075626c69632073657373696f6e207265636f7264"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "c2s-open-768",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "FAIL",
+      "reason": "verdict mismatch",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "c2s-key-999",
+      "operation": "sage.session.key",
+      "rule_ids": [
+        "SESSION-02"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "e64be26a30ff6697af140eb1e350623f3bc1291e4a90790d863086d1aa8af8f1",
+      "adapter_request_sha256": "1e53b3da6923c2f5f09fd4a6f9421f5c83b1e5558777017fa8c912654a70aba4",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "key_hex": "0fc66e22c946a7622f4bfb9f3e0f901acfe3199348f891e56e6d4f1e43fd5f93",
+          "generation": 3
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "c2s-key-999",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "c2s-open-999",
+      "operation": "sage.session.record.open",
+      "rule_ids": [
+        "SESSION-03"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "993b9d5f91064776c9a3e941f43a8bb8e14f7160e7da2918ae9009cecc6f0027",
+      "adapter_request_sha256": "bafd7bb02ccfa1cf40edc9142765f9245b1b86579287dca6adef55a101abe8cd",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "plaintext_hex": "7075626c69632073657373696f6e207265636f7264"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "c2s-open-999",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "FAIL",
+      "reason": "verdict mismatch",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "s2c-key-0",
+      "operation": "sage.session.key",
+      "rule_ids": [
+        "SESSION-02"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "f197df810149311482e6faada271bf68b88ccf613d59bf84787d28c4e4088d00",
+      "adapter_request_sha256": "7bb27b6641f42cc509e2981b7a1a72bfa9ca2c6ac5402e73c2120cb9c5f25d93",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "key_hex": "f6175cf0d50d04f039693b1c1c40606f92f603d1c2ba8226f5c9e1a05dcacb2a",
+          "generation": 0
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "s2c-key-0",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "s2c-open-0",
+      "operation": "sage.session.record.open",
+      "rule_ids": [
+        "SESSION-03"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "c832a7d69256e5cace8c006b0e86f7adfe29c5bcd0e3162b94a0e1df2b411b15",
+      "adapter_request_sha256": "c433975ff11fb0c97be2dd1786174d23c578855e507eb0c9514a8cf9c65436d2",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "plaintext_hex": "7075626c69632073657373696f6e207265636f7264"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "s2c-open-0",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "FAIL",
+      "reason": "verdict mismatch",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "s2c-key-1",
+      "operation": "sage.session.key",
+      "rule_ids": [
+        "SESSION-02"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "db6331fbac248e3b144d2d9b48e78f6011546b26f017db860ad4b311de0c5ff5",
+      "adapter_request_sha256": "2ce90c9df8c1e462dd0b4906e0f63080095e48c5839083c019d1b74143b0f3c5",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "key_hex": "f6175cf0d50d04f039693b1c1c40606f92f603d1c2ba8226f5c9e1a05dcacb2a",
+          "generation": 0
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "s2c-key-1",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "s2c-open-1",
+      "operation": "sage.session.record.open",
+      "rule_ids": [
+        "SESSION-03"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "c06c7c1cf81bd7c86f3e1b769a57e2339fcf7fb679b4cd68fef5842579670a6a",
+      "adapter_request_sha256": "ed67cf185e876f10d981e97e2ed09bc8a3a69f962c2d36948a189c1d179987ab",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "plaintext_hex": "7075626c69632073657373696f6e207265636f7264"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "s2c-open-1",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "FAIL",
+      "reason": "verdict mismatch",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "s2c-key-255",
+      "operation": "sage.session.key",
+      "rule_ids": [
+        "SESSION-02"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "e0028e5cae1100166be23511995f865a44cfd0760786f0f8d961d6929dd7e054",
+      "adapter_request_sha256": "d3f35aa164243af6aff07e0858760c1ededafe2d4a9e2806faaa3cf986921119",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "key_hex": "f6175cf0d50d04f039693b1c1c40606f92f603d1c2ba8226f5c9e1a05dcacb2a",
+          "generation": 0
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "s2c-key-255",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "s2c-open-255",
+      "operation": "sage.session.record.open",
+      "rule_ids": [
+        "SESSION-03"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "4bb5bc3c6897e4cd03c77b75de54ed3fec3d52930a427b9adb3f21a0e0cbf0ee",
+      "adapter_request_sha256": "9be55dc810f346f410ab1c63458c28f8068e28e3e36cf85ca24531ccf61fcedf",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "plaintext_hex": "7075626c69632073657373696f6e207265636f7264"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "s2c-open-255",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "FAIL",
+      "reason": "verdict mismatch",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "s2c-key-256",
+      "operation": "sage.session.key",
+      "rule_ids": [
+        "SESSION-02"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "1fe68891bced2469d12d2cb957211050cbb2b99e0f92046d7f43838d9c6b4af8",
+      "adapter_request_sha256": "b12bb21420311308d964d3d1fa92f7fbfa7482b539dc4fb224645cccd9ca0515",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "key_hex": "221de416b0ce0cf34cc4559d289ec37a947365967656cea5c79a7fb6cc5f60bb",
+          "generation": 1
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "s2c-key-256",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "s2c-open-256",
+      "operation": "sage.session.record.open",
+      "rule_ids": [
+        "SESSION-03"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "f3604854b30eb392f42cf9ecc4f2eadb3001e546523470f16ec2018915a4c132",
+      "adapter_request_sha256": "e7e7de17defc10e2fac058fa5ea9df6173612faf27e8b147100896b785435533",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "plaintext_hex": "7075626c69632073657373696f6e207265636f7264"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "s2c-open-256",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "FAIL",
+      "reason": "verdict mismatch",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "s2c-key-511",
+      "operation": "sage.session.key",
+      "rule_ids": [
+        "SESSION-02"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "8567c8697dce8f1344900ca8f733f9c1f5f9b632c76fc1595552b084284d1d72",
+      "adapter_request_sha256": "eba16f620ffda53c0a6155100bef9f26d4e72ad7b5440dd249b3282f7fb783b5",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "key_hex": "221de416b0ce0cf34cc4559d289ec37a947365967656cea5c79a7fb6cc5f60bb",
+          "generation": 1
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "s2c-key-511",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "s2c-open-511",
+      "operation": "sage.session.record.open",
+      "rule_ids": [
+        "SESSION-03"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "556ae6d80a741facf5db14875a7db24dbac84e4717988b78b74563c4ec803195",
+      "adapter_request_sha256": "7ba36f47f4e63c86ded7ab9b6b57511be919ea0209430cf174fd85187fa9f329",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "plaintext_hex": "7075626c69632073657373696f6e207265636f7264"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "s2c-open-511",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "FAIL",
+      "reason": "verdict mismatch",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "s2c-key-512",
+      "operation": "sage.session.key",
+      "rule_ids": [
+        "SESSION-02"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "a52158804e7233576b8a9398a790d36ef115c062218027c2baee70060bd11841",
+      "adapter_request_sha256": "62d6910dec8b0f5a9b0036b3beefb41adb9ac8710cecebc9ce02c050c8330cfd",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "key_hex": "be8483351fc219268f0839a004188ec157eff6fb463c8631aa3361b92ffd8252",
+          "generation": 2
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "s2c-key-512",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 13
+    },
+    {
+      "case_id": "s2c-open-512",
+      "operation": "sage.session.record.open",
+      "rule_ids": [
+        "SESSION-03"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "e968cd6e3d235de681b821d093055e7763ff34b4d32e7d4c8a289ba217039815",
+      "adapter_request_sha256": "94d77fec5a993695e01dcc8bad4af5774e3e8589d51b10b1cd0de8696e2e6d5b",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "plaintext_hex": "7075626c69632073657373696f6e207265636f7264"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "s2c-open-512",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "FAIL",
+      "reason": "verdict mismatch",
+      "duration_ms": 14
+    },
+    {
+      "case_id": "s2c-key-767",
+      "operation": "sage.session.key",
+      "rule_ids": [
+        "SESSION-02"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "66f0cdfaf772929f27096c00240a55c5b4e19af0eb0f620be2e590ac58c36193",
+      "adapter_request_sha256": "a1a6fe5e8c61145964778d6a27475b2796309552b1e49b3c4274ba1530545796",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "key_hex": "be8483351fc219268f0839a004188ec157eff6fb463c8631aa3361b92ffd8252",
+          "generation": 2
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "s2c-key-767",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 16
+    },
+    {
+      "case_id": "s2c-open-767",
+      "operation": "sage.session.record.open",
+      "rule_ids": [
+        "SESSION-03"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "44f06a23d287f927794ccd8d0a3c4f9d75085765773f27e98aa27e9202b65b37",
+      "adapter_request_sha256": "56a9d5f89a98cb4d8f994980ec6af91a71b19555fcefbae7a9b975969743815c",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "plaintext_hex": "7075626c69632073657373696f6e207265636f7264"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "s2c-open-767",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "FAIL",
+      "reason": "verdict mismatch",
+      "duration_ms": 16
+    },
+    {
+      "case_id": "s2c-key-768",
+      "operation": "sage.session.key",
+      "rule_ids": [
+        "SESSION-02"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "4353b6c37f2d63e9e22a729880e5ead20d03e70a71f676a7c2cea6d5a2206839",
+      "adapter_request_sha256": "48963e63f09145e0b925a699c5be73ef3780aca5d5f7c54599d53a83a525328f",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "key_hex": "8e813ca92c4580f409bb3d0b281a24412c8e86591eab0befd2df79b2104f797f",
+          "generation": 3
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "s2c-key-768",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "s2c-open-768",
+      "operation": "sage.session.record.open",
+      "rule_ids": [
+        "SESSION-03"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "cfacd9dfd95f9d7bda9fadba283f2aca6b2acbc9297c5c384063ad87c86e3b3b",
+      "adapter_request_sha256": "2f3f0b8194ff07a395202b794e7318485f1b1be334ba55ec1246ae28577ca36f",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "plaintext_hex": "7075626c69632073657373696f6e207265636f7264"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "s2c-open-768",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "FAIL",
+      "reason": "verdict mismatch",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "s2c-key-999",
+      "operation": "sage.session.key",
+      "rule_ids": [
+        "SESSION-02"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "a64f8780f28073dfde207635e227741b1c14fcb8cb7e9470ee923f54dd719797",
+      "adapter_request_sha256": "8eb09aaf36aee1ed329280dc9318c07282bfe83051219d5775a707da2afa46b1",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "key_hex": "8e813ca92c4580f409bb3d0b281a24412c8e86591eab0befd2df79b2104f797f",
+          "generation": 3
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "s2c-key-999",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "s2c-open-999",
+      "operation": "sage.session.record.open",
+      "rule_ids": [
+        "SESSION-03"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "2090619b6900ddadb7217d8d86ee199d5be4a5dc46438dc09d633a61aff349e6",
+      "adapter_request_sha256": "47733c718dfdcaadee13ca6e8e2f1bf5757b123af96d19a3ceacb3e4dada3d42",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "plaintext_hex": "7075626c69632073657373696f6e207265636f7264"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "s2c-open-999",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "FAIL",
+      "reason": "verdict mismatch",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "aad-open-0",
+      "operation": "sage.session.record.open",
+      "rule_ids": [
+        "SESSION-03"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "f085f739751e3c5c118e774d4a269a7998a934abb080c10ff28eafa144e45a0f",
+      "adapter_request_sha256": "9b31745c5b54c110616a479420fbdfa5d71f01b1ee386026a224b59c61818d3d",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "plaintext_hex": "7075626c69632073657373696f6e207265636f7264"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "aad-open-0",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "FAIL",
+      "reason": "verdict mismatch",
+      "duration_ms": 13
+    },
+    {
+      "case_id": "aad-open-4033",
+      "operation": "sage.session.record.open",
+      "rule_ids": [
+        "SESSION-03"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "2dfa6053e8f5600a632a306ae80c2d00d902b10edcd2dc5533c9e09c70ff32db",
+      "adapter_request_sha256": "fb058121f1e93c6b331759feb6bcc955049c283395d7dafd04dfa2e41773c650",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "plaintext_hex": "7075626c69632073657373696f6e207265636f7264"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "aad-open-4033",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "FAIL",
+      "reason": "verdict mismatch",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "aad-open-4034",
+      "operation": "sage.session.record.open",
+      "rule_ids": [
+        "SESSION-03"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "5d2c1d965364d558e34dc0af3bee82382164d5b45155812c7e49097d58867c17",
+      "adapter_request_sha256": "2163020468cca6edcbdcba8e3a2e05e9ee332c155de7cdb925d787d4c4c0dbb7",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "aad-open-4034",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "PASS",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "aad-seal-4033",
+      "operation": "sage.session.record.seal",
+      "rule_ids": [
+        "SESSION-03"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "3f35582ebd0d7e33988fecd1c89f0a3fd782ef635da4ebe55bc094a236c79e52",
+      "adapter_request_sha256": "ccd05cd5f257f7c66653d2d06b95829d7a9fef6f42d60e1d6a818190d6ef6e20",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "record_sha256": "3c3b3a7664eefb189906b7248563c81f392afbde7e3906f05020f072aeb23b4f",
+          "record_bytes": 37
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "aad-seal-4033",
+        "verdict": "ACCEPT",
+        "output": {
+          "record_bytes": 37,
+          "record_sha256": "43cc8f7e3a9214126312a21a5d80e12b2a3cdbd20d0ad0def1b5646bd15559aa"
+        }
+      },
+      "status": "FAIL",
+      "reason": "output mismatch",
+      "duration_ms": 14
+    },
+    {
+      "case_id": "aad-seal-4034",
+      "operation": "sage.session.record.seal",
+      "rule_ids": [
+        "SESSION-03"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "b38e33cf00757a0a5097f7456140c97aea597381eeb386ec3056e0763b6d0268",
+      "adapter_request_sha256": "9c8f22d7d243e7341427baf8b8d7537ab03664667b74d5c6a6f94d4791dd0e96",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "aad-seal-4034",
+        "verdict": "ACCEPT",
+        "output": {
+          "record_bytes": 37,
+          "record_sha256": "6f3bc1483a3f6d48f233126d41363f16d7458358f881cda7f67c9f51dab92084"
+        }
+      },
+      "status": "FAIL",
+      "reason": "verdict mismatch",
+      "duration_ms": 17
+    },
+    {
+      "case_id": "plaintext-size-0",
+      "operation": "sage.session.record.seal",
+      "rule_ids": [
+        "SESSION-03"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "900c705707047cd8c1bec1c66fe3385e2d233fb9766e15902ebd742ffcce4abb",
+      "adapter_request_sha256": "3018d7a3832a07ad12a12f25474e3fd6898ba06de866f0c5a93de22c722dcabc",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "record_sha256": "8f1f4940b1793c13a5c82a6424c81eee3da71ce670f5cc3642b9800bb59c2dc5",
+          "record_bytes": 36
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "plaintext-size-0",
+        "verdict": "ACCEPT",
+        "output": {
+          "record_bytes": 36,
+          "record_sha256": "7b0fc19c9e65f18f7dd0b5b87c1d8ece3a016929c41010c58b2c6e053e1afdbe"
+        }
+      },
+      "status": "FAIL",
+      "reason": "output mismatch",
+      "duration_ms": 26
+    },
+    {
+      "case_id": "plaintext-size-1",
+      "operation": "sage.session.record.seal",
+      "rule_ids": [
+        "SESSION-03"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "77d55e3824ee08331f10186de6ff6c782240cbc32896008b456c93a7da7d72b4",
+      "adapter_request_sha256": "1fb89e0ac003eb69a8a7854494033cbee5386827afe58a48349aeb95ec08ad1f",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "record_sha256": "43baadc5c37ed33fa163d114b1c3b7d86911a154dea094dab01dbe9e0001877c",
+          "record_bytes": 37
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "plaintext-size-1",
+        "verdict": "ACCEPT",
+        "output": {
+          "record_bytes": 37,
+          "record_sha256": "19070d3028e8b70a1df391ac3b5bf8e0750f0c03a5e35dde0bb050eedbe7dcc7"
+        }
+      },
+      "status": "FAIL",
+      "reason": "output mismatch",
+      "duration_ms": 15
+    },
+    {
+      "case_id": "plaintext-size-8388572",
+      "operation": "sage.session.record.seal",
+      "rule_ids": [
+        "SESSION-03"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "ddd049aea3fe54f845682b1b664b1f7f11719cf72d306099b4394d7f61ff24a1",
+      "adapter_request_sha256": "4def38731ea6f165630a7baa40db6a63ba34ec0eebb84617456fae494d14cb73",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "record_sha256": "5981e5f0345bda9e580699a295e938af5d894f0e972225932fc6612c4c82371b",
+          "record_bytes": 8388608
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "plaintext-size-8388572",
+        "verdict": "ACCEPT",
+        "output": {
+          "record_bytes": 8388608,
+          "record_sha256": "17c0880390fbbd47c2bd0e0299118b079cf47f2dac83bfd23d5c2a4b31e96f87"
+        }
+      },
+      "status": "FAIL",
+      "reason": "output mismatch",
+      "duration_ms": 27
+    },
+    {
+      "case_id": "plaintext-size-8388573",
+      "operation": "sage.session.record.seal",
+      "rule_ids": [
+        "SESSION-03"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "2d6b68a9be9c3097cbf31feb0de40e2b051c83f0f563d996c8b63df28f673bc4",
+      "adapter_request_sha256": "96d141c659076b670eb0ae9d6ae44c7c34bdfdae771cb80db9596f3442236d76",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "plaintext-size-8388573",
+        "verdict": "ACCEPT",
+        "output": {
+          "record_bytes": 8388609,
+          "record_sha256": "b1bf4b6c8c502901ffdd934a02c42beebd18e5bbb00d6efa2a36244f962a2a77"
+        }
+      },
+      "status": "FAIL",
+      "reason": "verdict mismatch",
+      "duration_ms": 27
+    },
+    {
+      "case_id": "short",
+      "operation": "sage.session.record.open",
+      "rule_ids": [
+        "SESSION-02",
+        "SESSION-03"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "0488a5a968dee579d5168405780e54cca96ddd083d083c3c061d6b53a67cc80a",
+      "adapter_request_sha256": "07614543f95530538c9b42b264213b8cd4856a13548baa2db9822497ce5cb01e",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "short",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "PASS",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "tag",
+      "operation": "sage.session.record.open",
+      "rule_ids": [
+        "SESSION-02",
+        "SESSION-03"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "aaf66a4fd146adce350a08b0c486a09306d090f39f6b2e9932422e6e597d8a0c",
+      "adapter_request_sha256": "d164bea1b283b3a0618d3b77619d7d7dcd1f8da6d7f4d0fd0deb66008100f662",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "tag",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "PASS",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "seq",
+      "operation": "sage.session.record.open",
+      "rule_ids": [
+        "SESSION-02",
+        "SESSION-03"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "43ccba674e0071950fab580f1b898fee40e5813827b2f08003354b8da50605be",
+      "adapter_request_sha256": "cabaa5c63226d31b84320c334f0d0743acb8c4974ee752359deb89ed40d3b442",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "seq",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "PASS",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "nonce",
+      "operation": "sage.session.record.open",
+      "rule_ids": [
+        "SESSION-02",
+        "SESSION-03"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "174e4551f444d0ebd98e974a9dffb11e5a8c4e9e733fd7c64633e7f5d4cb799c",
+      "adapter_request_sha256": "40cee17916d4187b5412f13c00ff0482b981ae12e8d52aa4a4a4ea4f411762c7",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "nonce",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "PASS",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "nonce-valid-tag",
+      "operation": "sage.session.record.open",
+      "rule_ids": [
+        "SESSION-02",
+        "SESSION-03"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "879b2b4171cec14a2fa660f60a0dbaa1e221c0cc9537c70423170839b670a79e",
+      "adapter_request_sha256": "a0beca844be75fefdefe62f48fd6dd8d5da0e26d27d543e2e3e29335b10619bb",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "nonce-valid-tag",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "PASS",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "seq-1000",
+      "operation": "sage.session.record.open",
+      "rule_ids": [
+        "SESSION-02",
+        "SESSION-03"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "f1a799e96000aa35a70a77f6807fd9ceb29e26645e4ef27e5f052cd82f8ad1a5",
+      "adapter_request_sha256": "5f808733454db2a621b01e3dada02e8e80ec1ec947b398f58d8b026b79d0b904",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "seq-1000",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "PASS",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "seq-max",
+      "operation": "sage.session.record.open",
+      "rule_ids": [
+        "SESSION-02",
+        "SESSION-03"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "956dc805f13f4e3c025d5df8be38b9f375f97ee9ce65f7797fd2688c4680922f",
+      "adapter_request_sha256": "b630129a16bc80ca8e7a577797654ac1897976f247ca9b686bc296a09ac10114",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "seq-max",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "PASS",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "reflection",
+      "operation": "sage.session.record.open",
+      "rule_ids": [
+        "SESSION-03"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "79a769df11df6c5d0a366caf6fadb96d9c9f2773fc685972ec3d18a30f5c19c4",
+      "adapter_request_sha256": "dd027b8397f3d690ae462d3ba8cf914be5aacec115a651ba65d38fa6262fde0e",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "reflection",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "PASS",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "transcript",
+      "operation": "sage.session.record.open",
+      "rule_ids": [
+        "SESSION-03"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "1d9dc18c38dd4f473db5e7fde5c19876d1b76461d7154ab0197576f30ceb7bc8",
+      "adapter_request_sha256": "8d83f46483df2b53105410f1348c31ebd818d8c4aa7b3dab881fe16c524142b2",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "transcript",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "PASS",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "aad-changed",
+      "operation": "sage.session.record.open",
+      "rule_ids": [
+        "SESSION-03"
+      ],
+      "source_ids": [
+        "sage-session"
+      ],
+      "derivation": "Independent HKDF-Expand and ChaCha20-Poly1305; each case starts a fresh subject. See session-inspection.md for projections and controls.",
+      "input_sha256": "be6a4c371ae923ce26d5fa9a0064628816c611c3347a3083e433ad25acdccf8a",
+      "adapter_request_sha256": "3688ff66fdebad0d37bebd6ff489f564d3756412dd10025e0237ff8042d22954",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "aad-changed",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "PASS",
+      "duration_ms": 11
+    }
+  ]
+}

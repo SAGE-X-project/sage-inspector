@@ -1,0 +1,341 @@
+{
+  "schema_version": 1,
+  "protocol_version": "0.10.0",
+  "records_sha256": "cf0dcefeab7e82161445d6f6d05e4c70855e50336fcb6b01edbbdb2d999d05bd",
+  "scenarios": [
+    {
+      "id": "session-reorder-replay",
+      "file": "session-reorder-replay.json",
+      "sha256": "f9897fed5916774ffd976ee4a4d5c67bc29741035ff1a473ed77000735446be9",
+      "rule_ids": [
+        "SESSION-05"
+      ]
+    },
+    {
+      "id": "session-invalid-does-not-reserve",
+      "file": "session-invalid-does-not-reserve.json",
+      "sha256": "2286457e3a3e11ed7913607df4be5e9768b99f78664b1003a13c153cb3ec445a",
+      "rule_ids": [
+        "SESSION-05"
+      ]
+    },
+    {
+      "id": "session-concurrent-duplicate",
+      "file": "session-concurrent-duplicate.json",
+      "sha256": "e6abfcd9578e9d53713d62af0e271ea18918712e038f0442dd8dc010c8d81ba1",
+      "rule_ids": [
+        "SESSION-05"
+      ]
+    },
+    {
+      "id": "session-concurrent-send",
+      "file": "session-concurrent-send.json",
+      "sha256": "538088b74b22882a3b99c673933a8e1f8e8216ca1d236a72742153c7cce293d7",
+      "rule_ids": [
+        "SESSION-04"
+      ]
+    },
+    {
+      "id": "session-transport-gap",
+      "file": "session-transport-gap.json",
+      "sha256": "b9883ccf29274dd501335b745f9d0962f30ff000a191972c8ac48663017826e1",
+      "rule_ids": [
+        "SESSION-04"
+      ]
+    },
+    {
+      "id": "session-send-cap",
+      "file": "session-send-cap.json",
+      "sha256": "c03261be2db257fc261236487a6143d4008bcd7e14af4f80e0b85996a2d72da1",
+      "rule_ids": [
+        "SESSION-02"
+      ]
+    },
+    {
+      "id": "session-direction-independent",
+      "file": "session-direction-independent.json",
+      "sha256": "873201038af18b3ec65f6f3e980b67caa8902fa7436418c90c6bbe47b4ae8a92",
+      "rule_ids": [
+        "SESSION-02"
+      ]
+    },
+    {
+      "id": "session-responder-direction",
+      "file": "session-responder-direction.json",
+      "sha256": "21c1f710f44bad4a96714306eff331e5a53ad972ef995addef27a4e560fc846d",
+      "rule_ids": [
+        "SESSION-02"
+      ]
+    },
+    {
+      "id": "session-idle-boundary",
+      "file": "session-idle-boundary.json",
+      "sha256": "784d01f29de647764501498776b24c21892c7e4e431cfec88db7ebf23a14af37",
+      "rule_ids": [
+        "SESSION-02"
+      ]
+    },
+    {
+      "id": "session-invalid-idle",
+      "file": "session-invalid-idle.json",
+      "sha256": "c3ca5ff18df70e6ec0f9508332e38e77e687edfe8a5400abcc1e2fef9e767770",
+      "rule_ids": [
+        "SESSION-02"
+      ]
+    },
+    {
+      "id": "session-absolute-boundary",
+      "file": "session-absolute-boundary.json",
+      "sha256": "cb5424a9e79e30781f895a907c10dff8f8dc4d3b8b37aa904b6d6a06f8ea9456",
+      "rule_ids": [
+        "SESSION-02"
+      ]
+    },
+    {
+      "id": "session-close",
+      "file": "session-close.json",
+      "sha256": "945a321577c9cda525f07c117c169612b0f5fb9be96ee99dc858efbf8b51f745",
+      "rule_ids": [
+        "SESSION-06"
+      ]
+    },
+    {
+      "id": "session-restart",
+      "file": "session-restart.json",
+      "sha256": "864f140e273583ae022e8ab90d8e9c4f5b282251aa51d16a7cac6b4ecce61a7a",
+      "rule_ids": [
+        "SESSION-06"
+      ]
+    },
+    {
+      "id": "session-registry-revoked-init-key",
+      "file": "session-registry-revoked-init-key.json",
+      "sha256": "bac4e77edf2fd6f1ce8c06ca9083401d2e91bc386f4238c5ae6e138ffdf498a6",
+      "rule_ids": [
+        "SESSION-01",
+        "SESSION-06"
+      ]
+    },
+    {
+      "id": "session-registry-revoked-resp-key",
+      "file": "session-registry-revoked-resp-key.json",
+      "sha256": "5392e7bc53ad9637f3d89193f555d415dbc569439c436195e127c07de6deea2d",
+      "rule_ids": [
+        "SESSION-01",
+        "SESSION-06"
+      ]
+    },
+    {
+      "id": "session-registry-revoked-kem-key",
+      "file": "session-registry-revoked-kem-key.json",
+      "sha256": "7cb4925aa6522a2f04d6e95254e021b72e7778346a942619524a081b370972be",
+      "rule_ids": [
+        "SESSION-01",
+        "SESSION-06"
+      ]
+    },
+    {
+      "id": "session-registry-expired",
+      "file": "session-registry-expired.json",
+      "sha256": "becb3e6852fd7be497e474013801a1ae01028873b29203e78b108fc67182c713",
+      "rule_ids": [
+        "SESSION-01",
+        "SESSION-06"
+      ]
+    },
+    {
+      "id": "session-registry-unavailable",
+      "file": "session-registry-unavailable.json",
+      "sha256": "591e543645438403eae2aae28e770c2c124f27f2a55ac4219ff27d625ddfdaa4",
+      "rule_ids": [
+        "SESSION-01",
+        "SESSION-06"
+      ]
+    },
+    {
+      "id": "session-registry-changed-bytes",
+      "file": "session-registry-changed-bytes.json",
+      "sha256": "2ec53a4f0d87dcfb42dfbc627f0cd166e13c9f1729597c9b72759cde1b041006",
+      "rule_ids": [
+        "SESSION-01",
+        "SESSION-06"
+      ]
+    },
+    {
+      "id": "session-registry-changed-algorithm",
+      "file": "session-registry-changed-algorithm.json",
+      "sha256": "b71fe6e34feb07c348776e1e68a25d6117a16db528ad01f2828be1ec86b54166",
+      "rule_ids": [
+        "SESSION-01",
+        "SESSION-06"
+      ]
+    },
+    {
+      "id": "session-registry-unrelated",
+      "file": "session-registry-unrelated.json",
+      "sha256": "b0341bb9fce42c677878da9d909b56e97c64c637645d35f3e7fadc4bf9d0d962",
+      "rule_ids": [
+        "SESSION-01",
+        "SESSION-06"
+      ]
+    },
+    {
+      "id": "session-pinned-did",
+      "file": "session-pinned-did.json",
+      "sha256": "b51ef8d75604a5ace3d4e9e57dae567c76f26ac82b1485315512a2a36a338511",
+      "rule_ids": [
+        "SESSION-01",
+        "SESSION-06"
+      ]
+    },
+    {
+      "id": "session-pinned-recipient",
+      "file": "session-pinned-recipient.json",
+      "sha256": "d70aac1bcd9243c50139720e169a685add65a3cdf60814810ad5f642b56cd5b6",
+      "rule_ids": [
+        "SESSION-01",
+        "SESSION-06"
+      ]
+    },
+    {
+      "id": "session-pinned-kid-active-alternative",
+      "file": "session-pinned-kid-active-alternative.json",
+      "sha256": "0c30c57af3c029f511f9d4125c7f8632dffb93f678911a79d27ef82468a507e3",
+      "rule_ids": [
+        "SESSION-01",
+        "SESSION-06"
+      ]
+    },
+    {
+      "id": "session-pinned-context_id",
+      "file": "session-pinned-context_id.json",
+      "sha256": "80d0c8c731d2d99716ea3a87740871be8babc07dfa2555cf9d4550ff836484b2",
+      "rule_ids": [
+        "SESSION-01",
+        "SESSION-06"
+      ]
+    },
+    {
+      "id": "session-pinned-session_id",
+      "file": "session-pinned-session_id.json",
+      "sha256": "4270d880916dd2b35be74780ff0ea3852ed54e4ee71a4fbf1b6d2b38b2b11f8d",
+      "rule_ids": [
+        "SESSION-01",
+        "SESSION-06"
+      ]
+    },
+    {
+      "id": "session-pinned-version",
+      "file": "session-pinned-version.json",
+      "sha256": "dfe019f8e2a9e1175d92c3553f8440f722a328661c967926ef661bd27decf418",
+      "rule_ids": [
+        "SESSION-01",
+        "SESSION-06"
+      ]
+    },
+    {
+      "id": "session-pinned-sender-role",
+      "file": "session-pinned-sender-role.json",
+      "sha256": "fb5fc038258e34b060a09ff29e757180d8d38a314437b29cbe1dcd457c2105f1",
+      "rule_ids": [
+        "SESSION-01",
+        "SESSION-06"
+      ]
+    },
+    {
+      "id": "session-pinned-signature",
+      "file": "session-pinned-signature.json",
+      "sha256": "bc1040939408054c90a9d80f050a8ba974ad017de8cca3ed18fcfb0bc52b9d54",
+      "rule_ids": [
+        "SESSION-01",
+        "SESSION-06"
+      ]
+    },
+    {
+      "id": "session-pinned-tag",
+      "file": "session-pinned-tag.json",
+      "sha256": "7b9d2d9a8355eda694f9f5e234b95e389c157f8099accd330f5090d79157a539",
+      "rule_ids": [
+        "SESSION-01",
+        "SESSION-06"
+      ]
+    },
+    {
+      "id": "session-provisional-confirm",
+      "file": "session-provisional-confirm.json",
+      "sha256": "33d856e1c8bd5af8e82e70eaf3434579daf14668267fe706c87c8eb7474036a3",
+      "rule_ids": [
+        "HPKE-05",
+        "SESSION-01",
+        "SESSION-02",
+        "SESSION-05"
+      ]
+    },
+    {
+      "id": "session-provisional-application-reject",
+      "file": "session-provisional-application-reject.json",
+      "sha256": "786bcbccbd48fa407d9689dda7a7b132f16a958c59c24bceedc9e5e3c847e043",
+      "rule_ids": [
+        "HPKE-05",
+        "SESSION-01",
+        "SESSION-02",
+        "SESSION-05"
+      ]
+    },
+    {
+      "id": "session-provisional-invalid-retry",
+      "file": "session-provisional-invalid-retry.json",
+      "sha256": "1ab77433a0e027d484d2a810c1bb9e89e28ac3b58d0ae933555d651fd2d0ef7d",
+      "rule_ids": [
+        "HPKE-05",
+        "SESSION-01",
+        "SESSION-02",
+        "SESSION-05"
+      ]
+    },
+    {
+      "id": "session-provisional-race",
+      "file": "session-provisional-race.json",
+      "sha256": "3bf2acb5732325bbff00642a480432c36d6a9094d974e30a78d1560ead1ce194",
+      "rule_ids": [
+        "HPKE-05",
+        "SESSION-01",
+        "SESSION-02",
+        "SESSION-05"
+      ]
+    },
+    {
+      "id": "session-provisional-commit-deadline",
+      "file": "session-provisional-commit-deadline.json",
+      "sha256": "5f548e7a1be456727869a7f985dd3d82ed17a001fca16435a6a4e4752b450b02",
+      "rule_ids": [
+        "HPKE-05",
+        "SESSION-01",
+        "SESSION-02",
+        "SESSION-05"
+      ]
+    },
+    {
+      "id": "session-provisional-deadline",
+      "file": "session-provisional-deadline.json",
+      "sha256": "42a6d0378f6139e80a651696250d698162ab082cd7bfe88e6dd24133034b977e",
+      "rule_ids": [
+        "HPKE-05",
+        "SESSION-01",
+        "SESSION-02",
+        "SESSION-05"
+      ]
+    },
+    {
+      "id": "session-provisional-no-clock-reset",
+      "file": "session-provisional-no-clock-reset.json",
+      "sha256": "d619ae8c40fc290977e1e025f6befd758029f3cd251a3fe15282510d7880a72f",
+      "rule_ids": [
+        "HPKE-05",
+        "SESSION-01",
+        "SESSION-02",
+        "SESSION-05"
+      ]
+    }
+  ]
+}

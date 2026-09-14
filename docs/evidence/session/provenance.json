@@ -1,0 +1,43 @@
+{
+  "scope": "Independent session fixture computation and legacy record API projections; no core changes, no real state/concurrency certification.",
+  "repositories": {
+    "sage": {
+      "revision": "c7709b7486e0da94336edc0931fddd87f6a45343",
+      "sha256": {
+        "pkg/agent/session/session.go": "ba0cc9cfe24c8874d348bf6a5106b1a9dc811a526f3750f002b8256005f240b9",
+        "pkg/agent/session/types.go": "dfad68b7bcf6b42a65128d437ab03d7b9473629e4b9f601cd19d435f2f1ff18e"
+      }
+    },
+    "rs-sage-core": {
+      "revision": "206bbbb5a66667ae2feb3b0e9991ed1ca4622bb2",
+      "sha256": {
+        "src/session/secure_session.rs": "f24a0919eead72c86d75a965325fb0bde130598997afaa7afdb0597764d40d72",
+        "src/session/types.rs": "8b979c2413abd67879c1fcc19da8876aa3ee6fda3039bc473f03c94c0f24cccf"
+      }
+    },
+    "sage-spec": {
+      "revision": "f4a4e7fbf71a665785984eef7609b2e8fabe833d",
+      "sha256": {
+        "spec/04-hpke.md": "1420818451ce8363a16e391647dbaca8ec2f06efa56b6507027a4e17f399fdd6",
+        "spec/05-session.md": "8a45b8bdd3b6bfc399a94c420b2161b8f16db5c6b29ed2e85584a6282b17cce5"
+      }
+    }
+  },
+  "inspector_file_sha256": {
+    "scripts/check_session_vectors.js": "92eb0b197c5899f9738f0b4d3df1e1ba46fd121329fb5e03c2c067cf5739be2a",
+    "scripts/test_session_inspection.py": "617c8afdc4b4dbe417f6638515a1ca332b07705068dec95462939608ceaf2139",
+    "scripts/generate_session_vectors.py": "3003bfee096d8bf9d616318e436a877fcb92278c5b08b07ea25a5fdedfe5b1f9",
+    "scripts/test_session_adapters.py": "55f01687c0687abc31ddc9b436f0c846244663798a9688f856538daac8d9cd27",
+    "scripts/inspect_session.py": "667b397a9939ea8708ba1f62c5d66f5110bc1ce6835e4891ebdcfe88b2188213",
+    "adapters/go/session.go": "7942af67520c2eb0d293b214f1e1216436b6f58c14b7f04eaf13f378b9b8a8d3",
+    "adapters/rust/src/session_checks.rs": "f253a9a10292015b77ed4c716d68c806dc2c72c4dfe62ae4168fdef5f774b630",
+    "vectors/0.10.0/session-records.json": "cf0dcefeab7e82161445d6f6d05e4c70855e50336fcb6b01edbbdb2d999d05bd",
+    "vectors/0.10.0/session-manifest.json": "353c6f71db259287f6817fe4b166af7f8c2aef59a7035988b04f72134a238e57",
+    "vectors/0.10.0/hpke-schedule.json": "79e172d3a31b2c67c507abf348923b6cf140fb8529556d2b2c2192de7a30fe1b"
+  },
+  "state_binding": "37 NOT_RUN; no schema2 real core binding supplied",
+  "tools": {
+    "python": "3.10.11",
+    "node": "v24.4.1"
+  }
+}

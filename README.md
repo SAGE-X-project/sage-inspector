@@ -82,3 +82,5 @@ HTTP/envelope boundary fixtures and current binding limitations: [evidence and r
 Run all HTTP/envelope inspections with [the versioned bundle command](docs/http-inspection.md).
 
 HPKE schedule, completion and lifecycle inspection: [workflow and evidence](docs/hpke-inspection.md).
+
+Session 0.10.0 inspection: [independent records, lifecycle scenarios and core results](docs/session-inspection.md).

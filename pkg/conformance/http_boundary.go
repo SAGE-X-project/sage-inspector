@@ -101,7 +101,7 @@ func expandHTTPPadding(encoded string, padding int) ([]byte, error) {
 	if padding == 0 {
 		return raw, nil
 	}
-	if len(raw) == 0 || raw[len(raw)-1] != ' ' || bytes.Index(raw, []byte("\r\n\r\n")) < 0 || len(raw)-1+padding > maxExpanded {
+	if len(raw) == 0 || raw[len(raw)-1] != ' ' || !bytes.Contains(raw, []byte("\r\n\r\n")) || len(raw)-1+padding > maxExpanded {
 		return nil, fmt.Errorf("invalid HTTP padding recipe")
 	}
 	return append(raw[:len(raw)-1], bytes.Repeat([]byte{' '}, padding)...), nil

@@ -44,6 +44,11 @@ jobs:
           python3 scripts/test_recovery_runtime.py "${RUNNER_TEMP}/sage-scenario-recovery"
           python3 scripts/test_session_close_inspection.py
           python3 scripts/test_session_close_runtime.py "${RUNNER_TEMP}/sage-scenario-recovery"
+      - name: Verify protocol bindings with unit and runtime tests
+        run: |
+          python3 scripts/test_protocol_binding_inspection.py
+          go build -o "${RUNNER_TEMP}/sage-conformance-protocol" ./cmd/sage-conformance
+          python3 scripts/test_protocol_binding_runtime.py "${RUNNER_TEMP}/sage-conformance-protocol" "${RUNNER_TEMP}/sage-scenario-recovery"
       - name: Audit independent registry fixtures
         run: |
           node scripts/check_registry_vectors.js

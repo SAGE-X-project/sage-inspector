@@ -58,4 +58,4 @@ python3 scripts/test_session_close_runtime.py /private/tmp/sage-scenario-close-o
 
 CI에도 두 검사를 등록한다. 과거 Go 경합 FAIL, Rust 직접 병행 종료 UNSUPPORTED,
 386개 계획 사례의 NOT_RUN 및 전체 NOT_ESTABLISHED 판정은 그대로 유지한다.
-다음 작업은 transcript·HPKE 확인·HTTP/WS 연결의 판정 테스트다.
+프로토콜 연결의 판정 테스트는 [별도 검증](protocol-binding-verification.md)으로 추가했다. 다음은 Guard 방어 판정 테스트다.

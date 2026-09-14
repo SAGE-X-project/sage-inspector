@@ -53,5 +53,5 @@ CI의 세션 검증 단계에 새 단위 테스트를 등록한다. 합성 보�
 [재시작·복구 검증](recovery-verification.md)에 범위와 실행 방법을 기록했다.
 [종료·수신 순서 테스트](session-close-order.md)도 추가했다.
 [프로토콜 연결 판정](protocol-binding-verification.md)도 추가했다.
-다음은 Guard 방어 판정, 단위 테스트 커버리지
-정리를 진행한다. 실제 코어·호스트 연결과 배포 적합성 평가는 후속 범위로 남긴다.
+[Guard 실행 차단 및 오류 보고 판정](guard-gate-verification.md)도 추가했다.
+다음은 단위 테스트 커버리지와 CI·보고서 정리를 진행한다. 실제 코어·호스트 연결과 배포 적합성 평가는 후속 범위로 남긴다.

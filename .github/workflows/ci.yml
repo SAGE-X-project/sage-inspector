@@ -40,6 +40,10 @@ jobs:
         run: |
           node scripts/check_registry_vectors.js
           python3 scripts/test_registry_inspection.py
+      - name: Audit independent Execution Guard fixtures
+        run: |
+          node scripts/check_guard_vectors.js
+          python3 scripts/test_guard_inspection.py
       - name: Vet
         run: go vet ./...
       - name: Test

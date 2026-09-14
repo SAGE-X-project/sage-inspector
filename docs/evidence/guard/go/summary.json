@@ -1,0 +1,2188 @@
+{
+  "schema_version": 1,
+  "protocol_version": "0.10.0",
+  "bundle": "guard-inspection",
+  "subject": {
+    "name": "sage-go",
+    "revision": "c7709b7486e0da94336edc0931fddd87f6a45343",
+    "kind": "external",
+    "executable_sha256": "9cc52f5cca7d052e2db728732ce36e0f9bae2d6edb560b97c27ea5269c5fbfbe"
+  },
+  "state_subject": null,
+  "status": "INCOMPLETE",
+  "closure_links_sha256": "f7ce4674fa3540c63be7e34b7b439e25c4cf8c2f0a6e9535fb0c185399be8245",
+  "closure_links": {
+    "scope": "Fixture readiness links only. Existing session evidence remains separate; no closure group is promoted to runtime conformance.",
+    "links": [
+      {
+        "group": "CST-01",
+        "file": "guard-scenarios/guard-pending-completed.json",
+        "id": "guard-pending-completed",
+        "sha256": "275c6613f908ec85c8397c56b2fa0f0a79fce528e4ed942a7251dae3f9ae715e"
+      },
+      {
+        "group": "CST-01",
+        "file": "guard-scenarios/guard-client-pending-terminal.json",
+        "id": "guard-client-pending-terminal",
+        "sha256": "7927a6772cdf446a4b89130d22614d3d3cac146e73eca1ae3429f018014c83dd"
+      },
+      {
+        "group": "CST-01",
+        "file": "guard-scenarios/guard-client-terminal-conflict.json",
+        "id": "guard-client-terminal-conflict",
+        "sha256": "f41092016291131d44aaebbc86d570a6bce0051dfdec89862354974720df2b8c"
+      },
+      {
+        "group": "CST-01",
+        "file": "guard-scenarios/guard-crash-executing.json",
+        "id": "guard-crash-executing",
+        "sha256": "ea54080640096caeab6fa1cf1d7beacf52c146463c670e88cbdfe0e12e1921f5"
+      },
+      {
+        "group": "CST-01",
+        "file": "guard-scenarios/guard-race-reject-reserve.json",
+        "id": "guard-race-reject-reserve",
+        "sha256": "4c1c508071f882c55edc51406b778aae164880d9948b6a34a86c6c76398229cc"
+      },
+      {
+        "group": "CST-02",
+        "file": "guard-records.json",
+        "id": "sage-guard-records-0.10.0",
+        "sha256": "68bd8c57a9a572849ea5f57f77d93c0e7d2fe813ea7b158c47b24c832efdef0f"
+      },
+      {
+        "group": "CST-02",
+        "file": "guard-scenarios/guard-scope-recovery.json",
+        "id": "guard-scope-recovery",
+        "sha256": "3e2c02b037a41c6789b2c6ffac1062036334c8eb0988b098e78b01ec0e15aa75"
+      },
+      {
+        "group": "CST-02",
+        "file": "guard-scenarios/guard-race-retire-first.json",
+        "id": "guard-race-retire-first",
+        "sha256": "883491f4a20f9b0ac180d0d5c6f8ea87e9076aa83fbc5460a9d8af9064f49b09"
+      },
+      {
+        "group": "CST-03",
+        "file": "session-records.json",
+        "id": "sage-session-records-0.10.0",
+        "sha256": "cf0dcefeab7e82161445d6f6d05e4c70855e50336fcb6b01edbbdb2d999d05bd"
+      },
+      {
+        "group": "CST-04",
+        "file": "session-scenarios/session-pinned-did.json",
+        "id": "session-pinned-did",
+        "sha256": "b51ef8d75604a5ace3d4e9e57dae567c76f26ac82b1485315512a2a36a338511"
+      },
+      {
+        "group": "CST-04",
+        "file": "session-scenarios/session-pinned-kid-active-alternative.json",
+        "id": "session-pinned-kid-active-alternative",
+        "sha256": "0c30c57af3c029f511f9d4125c7f8632dffb93f678911a79d27ef82468a507e3"
+      },
+      {
+        "group": "CST-05",
+        "file": "session-scenarios/session-provisional-race.json",
+        "id": "session-provisional-race",
+        "sha256": "3bf2acb5732325bbff00642a480432c36d6a9094d974e30a78d1560ead1ce194"
+      },
+      {
+        "group": "CST-05",
+        "file": "session-scenarios/session-provisional-application-reject.json",
+        "id": "session-provisional-application-reject",
+        "sha256": "786bcbccbd48fa407d9689dda7a7b132f16a958c59c24bceedc9e5e3c847e043"
+      },
+      {
+        "group": "CST-05",
+        "file": "session-scenarios/session-provisional-commit-deadline.json",
+        "id": "session-provisional-commit-deadline",
+        "sha256": "5f548e7a1be456727869a7f985dd3d82ed17a001fca16435a6a4e4752b450b02"
+      }
+    ]
+  },
+  "manifest_sha256": "92ab01eae646aa351e437429c6e32ab1311a80651b50e3bd56aef61e60975a84",
+  "primitive_counts": {
+    "PASS": 8,
+    "FAIL": 0,
+    "UNSUPPORTED": 94,
+    "NOT_RUN": 0
+  },
+  "suites": [
+    {
+      "suite_id": "sage-guard-records-0.10.0",
+      "suite_sha256": "68bd8c57a9a572849ea5f57f77d93c0e7d2fe813ea7b158c47b24c832efdef0f",
+      "status": "INCOMPLETE",
+      "counts": {
+        "FAIL": 0,
+        "NOT_RUN": 0,
+        "PASS": 8,
+        "UNSUPPORTED": 94
+      }
+    }
+  ],
+  "rules": {
+    "EXEC-02": [
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "original-single",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "original-bundle",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "original-space",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "original-composed",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "original-decomposed",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "original-empty-item",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "original-count-max",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "original-count-over",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "original-bytes-max",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "original-bytes-over",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "policy-members-2044",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "policy-members-2045",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "policy-valid",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "policy-empty",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "policy-version",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "policy-epoch",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "policy-engine",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "policy-published-example",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "jcs-manifest",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "jcs-policy",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "jcs-intent",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "jcs-result",
+        "status": "PASS"
+      },
+      {
+        "scenario_id": "guard-changed-inner-envelope",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-changed-valid-intent",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-check-load-replacement",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-client-pending-terminal",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-client-poll-spacing",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-client-terminal-conflict",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-client-unknown-new-id",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-client-unsolicited",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-crash-executing",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-crash-reserved",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-dispatch-expiry",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-gate-direct-call",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-gate-disconnect",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-gate-exception",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-gate-signing-oracle",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-gate-skip",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-gate-timeout",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-intact-absence-retry",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-lost-clock",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-lost-ledger",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-no-rollback-after-dispatch",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-nonce-collision",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-outer-replay",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-peer-policy-install",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-pending-completed",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-race-dispatch-first",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-race-duplicate",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-race-reject-reserve",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-race-reserve-reject",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-race-retire-first",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-retire-reservation",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-retrieval-expiry",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-retrieval-revocation",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-scope-recovery",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-terminal-persistence-failure",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-uncovered-load",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-unknown-signer-recovery",
+        "status": "NOT_RUN"
+      }
+    ],
+    "EXEC-06": [
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "manifest-valid",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "manifest-parent",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "manifest-dot",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "manifest-empty",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "manifest-absolute",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "manifest-backslash",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "manifest-nul",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "manifest-duplicate",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "manifest-unsorted",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "manifest-hash",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "jcs-manifest",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "jcs-policy",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "jcs-intent",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "jcs-result",
+        "status": "PASS"
+      },
+      {
+        "scenario_id": "guard-changed-inner-envelope",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-changed-valid-intent",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-check-load-replacement",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-client-pending-terminal",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-client-poll-spacing",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-client-terminal-conflict",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-client-unknown-new-id",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-client-unsolicited",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-crash-executing",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-crash-reserved",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-dispatch-expiry",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-gate-direct-call",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-gate-disconnect",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-gate-exception",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-gate-signing-oracle",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-gate-skip",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-gate-timeout",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-intact-absence-retry",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-lost-clock",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-lost-ledger",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-no-rollback-after-dispatch",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-nonce-collision",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-outer-replay",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-peer-policy-install",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-pending-completed",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-race-dispatch-first",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-race-duplicate",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-race-reject-reserve",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-race-reserve-reject",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-race-retire-first",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-retire-reservation",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-retrieval-expiry",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-retrieval-revocation",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-scope-recovery",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-terminal-persistence-failure",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-uncovered-load",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-unknown-signer-recovery",
+        "status": "NOT_RUN"
+      }
+    ],
+    "EXEC-03": [
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "json-bytes-1048576",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "json-bytes-1048577",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "json-depth-32",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "json-depth-33",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "json-members-4096",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "json-members-4097",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "intent-valid",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "intent-last-second",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "intent-expiry",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "intent-early-limit",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "intent-too-early",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "intent-clock",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "intent-inactive-key",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "intent-recipient",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "intent-original",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "intent-policy-deny",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "intent-version",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "intent-profile",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "intent-tool",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "intent-recursive",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "intent-arguments-extra",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "intent-arguments-missing",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "intent-arguments-type",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "intent-lifetime",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "intent-policy-self-approved",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "intent-manifest-self-approved",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "intent-key-binding",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "intent-parent-invalid",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "intent-unknown-field",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "intent-null-arguments",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "intent-array-arguments",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "intent-tampered",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "intent-signature-valid",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "intent-signature-domain",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "jcs-manifest",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "jcs-policy",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "jcs-intent",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "jcs-result",
+        "status": "PASS"
+      }
+    ],
+    "EXEC-07": [
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "json-bytes-1048576",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "json-bytes-1048577",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "json-depth-32",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "json-depth-33",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "json-members-4096",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "json-members-4097",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "result-pending-valid",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "result-pending-unsolicited",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "result-pending-wrong-intent",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "result-pending-output",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "result-completed-valid",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "result-completed-unsolicited",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "result-completed-accepted-invocation-late-result",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "result-completed-expired",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "result-completed-revoked",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "result-completed-wrong-intent",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "result-rejected-valid",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "result-rejected-unsolicited",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "result-rejected-wrong-intent",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "result-rejected-output",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "result-unknown-valid",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "result-unknown-unsolicited",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "result-unknown-wrong-intent",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "result-unknown-output",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "result-signature-valid",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "result-signature-domain",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "jcs-manifest",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "jcs-policy",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "jcs-intent",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "jcs-result",
+        "status": "PASS"
+      },
+      {
+        "scenario_id": "guard-changed-inner-envelope",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-changed-valid-intent",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-check-load-replacement",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-client-pending-terminal",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-client-poll-spacing",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-client-terminal-conflict",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-client-unknown-new-id",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-client-unsolicited",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-crash-executing",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-crash-reserved",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-dispatch-expiry",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-gate-direct-call",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-gate-disconnect",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-gate-exception",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-gate-signing-oracle",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-gate-skip",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-gate-timeout",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-intact-absence-retry",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-lost-clock",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-lost-ledger",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-no-rollback-after-dispatch",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-nonce-collision",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-outer-replay",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-peer-policy-install",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-pending-completed",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-race-dispatch-first",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-race-duplicate",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-race-reject-reserve",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-race-reserve-reject",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-race-retire-first",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-retire-reservation",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-retrieval-expiry",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-retrieval-revocation",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-scope-recovery",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-terminal-persistence-failure",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-uncovered-load",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-unknown-signer-recovery",
+        "status": "NOT_RUN"
+      }
+    ],
+    "EXEC-08": [
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "mcp-pending-valid",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "mcp-pending-error-flag",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "mcp-pending-extra-block",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "mcp-pending-text-mismatch",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "mcp-completed-valid",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "mcp-completed-error-flag",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "mcp-completed-extra-block",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "mcp-completed-text-mismatch",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "mcp-rejected-valid",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "mcp-rejected-error-flag",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "mcp-rejected-extra-block",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "mcp-rejected-text-mismatch",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "mcp-unknown-valid",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "mcp-unknown-error-flag",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "mcp-unknown-extra-block",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-guard-records-0.10.0",
+        "case_id": "mcp-unknown-text-mismatch",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "scenario_id": "guard-changed-inner-envelope",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-changed-valid-intent",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-check-load-replacement",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-client-pending-terminal",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-client-poll-spacing",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-client-terminal-conflict",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-client-unknown-new-id",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-client-unsolicited",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-crash-executing",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-crash-reserved",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-dispatch-expiry",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-gate-direct-call",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-gate-disconnect",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-gate-exception",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-gate-signing-oracle",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-gate-skip",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-gate-timeout",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-intact-absence-retry",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-lost-clock",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-lost-ledger",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-no-rollback-after-dispatch",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-nonce-collision",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-outer-replay",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-peer-policy-install",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-pending-completed",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-race-dispatch-first",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-race-duplicate",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-race-reject-reserve",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-race-reserve-reject",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-race-retire-first",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-retire-reservation",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-retrieval-expiry",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-retrieval-revocation",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-scope-recovery",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-terminal-persistence-failure",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-uncovered-load",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-unknown-signer-recovery",
+        "status": "NOT_RUN"
+      }
+    ],
+    "EXEC-04": [
+      {
+        "scenario_id": "guard-changed-inner-envelope",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-changed-valid-intent",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-check-load-replacement",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-client-pending-terminal",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-client-poll-spacing",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-client-terminal-conflict",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-client-unknown-new-id",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-client-unsolicited",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-crash-executing",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-crash-reserved",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-dispatch-expiry",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-gate-direct-call",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-gate-disconnect",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-gate-exception",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-gate-signing-oracle",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-gate-skip",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-gate-timeout",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-intact-absence-retry",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-lost-clock",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-lost-ledger",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-no-rollback-after-dispatch",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-nonce-collision",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-outer-replay",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-peer-policy-install",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-pending-completed",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-race-dispatch-first",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-race-duplicate",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-race-reject-reserve",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-race-reserve-reject",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-race-retire-first",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-retire-reservation",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-retrieval-expiry",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-retrieval-revocation",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-scope-recovery",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-terminal-persistence-failure",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-uncovered-load",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-unknown-signer-recovery",
+        "status": "NOT_RUN"
+      }
+    ],
+    "EXEC-05": [
+      {
+        "scenario_id": "guard-changed-inner-envelope",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-changed-valid-intent",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-check-load-replacement",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-client-pending-terminal",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-client-poll-spacing",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-client-terminal-conflict",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-client-unknown-new-id",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-client-unsolicited",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-crash-executing",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-crash-reserved",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-dispatch-expiry",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-gate-direct-call",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-gate-disconnect",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-gate-exception",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-gate-signing-oracle",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-gate-skip",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-gate-timeout",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-intact-absence-retry",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-lost-clock",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-lost-ledger",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-no-rollback-after-dispatch",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-nonce-collision",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-outer-replay",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-peer-policy-install",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-pending-completed",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-race-dispatch-first",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-race-duplicate",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-race-reject-reserve",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-race-reserve-reject",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-race-retire-first",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-retire-reservation",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-retrieval-expiry",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-retrieval-revocation",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-scope-recovery",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-terminal-persistence-failure",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-uncovered-load",
+        "status": "NOT_RUN"
+      },
+      {
+        "scenario_id": "guard-unknown-signer-recovery",
+        "status": "NOT_RUN"
+      }
+    ]
+  },
+  "scenarios": [
+    {
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ],
+      "id": "guard-changed-inner-envelope",
+      "fixture_sha256": "b2df05e028b629653de1ee1d0af486935cddfa6dad74b1819305c24e692df4f0",
+      "status": "NOT_RUN",
+      "steps": 7,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ],
+      "id": "guard-changed-valid-intent",
+      "fixture_sha256": "deb9d67a3c575abd7e034a7cbdee434cde4166118951fd98e633ac19ce2bf4f7",
+      "status": "NOT_RUN",
+      "steps": 7,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ],
+      "id": "guard-check-load-replacement",
+      "fixture_sha256": "702267377b15ba4cd699b6cf4118f8fd970cd567393214442ca4fed537993fad",
+      "status": "NOT_RUN",
+      "steps": 7,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ],
+      "id": "guard-client-pending-terminal",
+      "fixture_sha256": "7927a6772cdf446a4b89130d22614d3d3cac146e73eca1ae3429f018014c83dd",
+      "status": "NOT_RUN",
+      "steps": 11,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ],
+      "id": "guard-client-poll-spacing",
+      "fixture_sha256": "3786926ca6cacc861878b4decfc2f0bfe7b5e8395be71835faca3e2f69319bcb",
+      "status": "NOT_RUN",
+      "steps": 13,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ],
+      "id": "guard-client-terminal-conflict",
+      "fixture_sha256": "f41092016291131d44aaebbc86d570a6bce0051dfdec89862354974720df2b8c",
+      "status": "NOT_RUN",
+      "steps": 5,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ],
+      "id": "guard-client-unknown-new-id",
+      "fixture_sha256": "19d826f72e370ab309a578a6b1fa7acfc131f28310c120b9c2a600cb4b76fc69",
+      "status": "NOT_RUN",
+      "steps": 5,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ],
+      "id": "guard-client-unsolicited",
+      "fixture_sha256": "a7333f7bcdf4d55b41c75d4cad51db41b83beaaa85a0fc034356b6a0bef9ab66",
+      "status": "NOT_RUN",
+      "steps": 5,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ],
+      "id": "guard-crash-executing",
+      "fixture_sha256": "ea54080640096caeab6fa1cf1d7beacf52c146463c670e88cbdfe0e12e1921f5",
+      "status": "NOT_RUN",
+      "steps": 13,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ],
+      "id": "guard-crash-reserved",
+      "fixture_sha256": "bd4e757548ef7647691f7f5a00e70a3031ee194720fef16338a7d9290f4ec855",
+      "status": "NOT_RUN",
+      "steps": 11,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ],
+      "id": "guard-dispatch-expiry",
+      "fixture_sha256": "1425526d6d6b5afc096306e57e3bfcae3d0d75667aa48ee364e654561181febf",
+      "status": "NOT_RUN",
+      "steps": 9,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ],
+      "id": "guard-gate-direct-call",
+      "fixture_sha256": "f509b108be196b376e8423ef19fd27bebecfcfb4f272ed48ac82d7c4ede0cc7b",
+      "status": "NOT_RUN",
+      "steps": 5,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ],
+      "id": "guard-gate-disconnect",
+      "fixture_sha256": "7f816d70273c98921968b4ecabda823f949b0ad11060ebfbc162db47b92f8dc1",
+      "status": "NOT_RUN",
+      "steps": 5,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ],
+      "id": "guard-gate-exception",
+      "fixture_sha256": "ad3c90111241aef903404f09e858004292c6e6f82be4bfc9f895bd2caf6e0fae",
+      "status": "NOT_RUN",
+      "steps": 5,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ],
+      "id": "guard-gate-signing-oracle",
+      "fixture_sha256": "b5513c45863a7740abc9213c2e67cd3a3c31589a50f0a749e8385002f1aa110a",
+      "status": "NOT_RUN",
+      "steps": 5,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ],
+      "id": "guard-gate-skip",
+      "fixture_sha256": "e52f70a0573bd08b2e94b6d7fac35593bca845180010d871466926f3065cfac5",
+      "status": "NOT_RUN",
+      "steps": 5,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ],
+      "id": "guard-gate-timeout",
+      "fixture_sha256": "bec98cd78b5afe3edb5c161bf144096b059e562f53c6273b8839963c2f3f7c58",
+      "status": "NOT_RUN",
+      "steps": 5,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ],
+      "id": "guard-intact-absence-retry",
+      "fixture_sha256": "9ed6529284165b14e3c87a79217b1b6545db8883b03c3186ab402f5f985f5a51",
+      "status": "NOT_RUN",
+      "steps": 9,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ],
+      "id": "guard-lost-clock",
+      "fixture_sha256": "70915d6a0b97ce03caf99f7ade1520e9bc7c00f2835f4274d83e49fd0453f022",
+      "status": "NOT_RUN",
+      "steps": 5,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ],
+      "id": "guard-lost-ledger",
+      "fixture_sha256": "79f55bbeb869494375b8891644e536cd3a0f01581f4886dfeadfef85f02adaf6",
+      "status": "NOT_RUN",
+      "steps": 15,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ],
+      "id": "guard-no-rollback-after-dispatch",
+      "fixture_sha256": "a40ee869da2cb85c97fdcd4bb3b60847a5943ce35f5070c5a3f8b7caa633d652",
+      "status": "NOT_RUN",
+      "steps": 11,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ],
+      "id": "guard-nonce-collision",
+      "fixture_sha256": "f556c329d76f4ec81873b34d93517d922347447025665195654b5a6494fc2b98",
+      "status": "NOT_RUN",
+      "steps": 5,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ],
+      "id": "guard-outer-replay",
+      "fixture_sha256": "68631109bbad86ffa9eb621490a104e26deccef9bdb194c54ff4c0773ad83d0f",
+      "status": "NOT_RUN",
+      "steps": 7,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ],
+      "id": "guard-peer-policy-install",
+      "fixture_sha256": "b42a34b3c247b554c0954535b2f81ebb9850dace6fc2cba1a803cbb845414b15",
+      "status": "NOT_RUN",
+      "steps": 7,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ],
+      "id": "guard-pending-completed",
+      "fixture_sha256": "275c6613f908ec85c8397c56b2fa0f0a79fce528e4ed942a7251dae3f9ae715e",
+      "status": "NOT_RUN",
+      "steps": 11,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ],
+      "id": "guard-race-dispatch-first",
+      "fixture_sha256": "82dddfbd1e6b7ae026b0caee953ac68f0e68a880a79304e827b299040bc5a5ae",
+      "status": "NOT_RUN",
+      "steps": 5,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ],
+      "id": "guard-race-duplicate",
+      "fixture_sha256": "8dbb8c162703efcd3aa6a32b3365c38bed065ad0f928c1c4796072cf4af12e6d",
+      "status": "NOT_RUN",
+      "steps": 5,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ],
+      "id": "guard-race-reject-reserve",
+      "fixture_sha256": "4c1c508071f882c55edc51406b778aae164880d9948b6a34a86c6c76398229cc",
+      "status": "NOT_RUN",
+      "steps": 5,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ],
+      "id": "guard-race-reserve-reject",
+      "fixture_sha256": "2bfa387f0f2785c4686c70e05e42deaab11cbfca8ecb91871b0946bb0c232e83",
+      "status": "NOT_RUN",
+      "steps": 5,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ],
+      "id": "guard-race-retire-first",
+      "fixture_sha256": "883491f4a20f9b0ac180d0d5c6f8ea87e9076aa83fbc5460a9d8af9064f49b09",
+      "status": "NOT_RUN",
+      "steps": 5,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ],
+      "id": "guard-retire-reservation",
+      "fixture_sha256": "5442f622f0be4f6e098756c06852ae5bd2082fca26040b86ec0c9e89cdea3f0f",
+      "status": "NOT_RUN",
+      "steps": 9,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ],
+      "id": "guard-retrieval-expiry",
+      "fixture_sha256": "e3ec64574a12564e6230d878f2ddc3fe5658e2d14c49eea9d355c5fe3cf344b6",
+      "status": "NOT_RUN",
+      "steps": 11,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ],
+      "id": "guard-retrieval-revocation",
+      "fixture_sha256": "9999aa6e3381bb384561e5d4ccc2ba49833a000dcfacf67b30030bf8ad9d7966",
+      "status": "NOT_RUN",
+      "steps": 11,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ],
+      "id": "guard-scope-recovery",
+      "fixture_sha256": "3e2c02b037a41c6789b2c6ffac1062036334c8eb0988b098e78b01ec0e15aa75",
+      "status": "NOT_RUN",
+      "steps": 15,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ],
+      "id": "guard-terminal-persistence-failure",
+      "fixture_sha256": "cd0972947b726215506cabe93b33a22a0982522a3fb69ae9202467c8641e17d2",
+      "status": "NOT_RUN",
+      "steps": 11,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ],
+      "id": "guard-uncovered-load",
+      "fixture_sha256": "623fcd9f3a05bf1c2608e686d90e5c13342237d9e98628a8268289abf0c6c3cc",
+      "status": "NOT_RUN",
+      "steps": 5,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ],
+      "id": "guard-unknown-signer-recovery",
+      "fixture_sha256": "290087685263508a58a8759412178f760e9e4c05ab798ae8ed90215ad0a2522c",
+      "status": "NOT_RUN",
+      "steps": 17,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    }
+  ],
+  "evidence_files": {
+    "guard-records.json": "fa63445474dd45a419806afadccb3f356733fce9f84c9ee0521d2b64021935bf"
+  },
+  "scope": "JCS/signature projections and independent Guard boundary contracts. Stateful dispatch requires actual protected instrumentation. No semantic safety, host isolation or whole-host compromise certification."
+}

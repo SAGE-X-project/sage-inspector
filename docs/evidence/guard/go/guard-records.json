@@ -1,0 +1,2774 @@
+{
+  "schema_version": 1,
+  "protocol_version": "0.10.0",
+  "profile": "primitive-foundation",
+  "suite_id": "sage-guard-records-0.10.0",
+  "suite_sha256": "68bd8c57a9a572849ea5f57f77d93c0e7d2fe813ea7b158c47b24c832efdef0f",
+  "runner_version": "dev",
+  "environment": "go1.26.8 darwin/arm64",
+  "created": "2026-09-14T04:40:23.862604Z",
+  "subject": {
+    "name": "sage-go",
+    "revision": "c7709b7486e0da94336edc0931fddd87f6a45343",
+    "kind": "external",
+    "executable_sha256": "9cc52f5cca7d052e2db728732ce36e0f9bae2d6edb560b97c27ea5269c5fbfbe"
+  },
+  "sources": [
+    {
+      "id": "guard-spec",
+      "kind": "spec-derived",
+      "uri": "sage-spec/profiles/agent-mcp-security.md",
+      "reference": "EXEC-01..09; CST-01/02 closure. Exact test-only inputs and independent Python signatures, Node audits. No host isolation or real dispatch claim."
+    }
+  ],
+  "scope": "Only listed primitive cases; no full SAGE, state-machine, registry or Execution Guard certification.",
+  "status": "INCOMPLETE",
+  "counts": {
+    "FAIL": 0,
+    "NOT_RUN": 0,
+    "PASS": 8,
+    "UNSUPPORTED": 94
+  },
+  "results": [
+    {
+      "case_id": "original-single",
+      "operation": "sage.guard.original.commit",
+      "rule_ids": [
+        "EXEC-02"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "cd492004224ca355c6b7136f921cae3875d0f2ad97d37b2d87a250898ca56d15",
+      "adapter_request_sha256": "b05914ee595f67653c6c97d2d5649c4d9e4dc14512af9f698b325e50026d9ebe",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "original_digest": "db93b451ee40f05fc85722a70231b38b071deeb4f846c55181071b7e1d958dc6"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "original-single",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 15
+    },
+    {
+      "case_id": "original-bundle",
+      "operation": "sage.guard.original.commit",
+      "rule_ids": [
+        "EXEC-02"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "cb703b343d1bdef2c963ba6fc70e617bad9d5ddcd01afa1f53720a270a221272",
+      "adapter_request_sha256": "50cda0a23ef6797c36164789f13d0fd5418caf57431392ec6cca257cc8433bc6",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "original_digest": "f309c867a0cf4de68397db6dca13a90be14a5f2501ee8baa77da6e821ba2ce60"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "original-bundle",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 13
+    },
+    {
+      "case_id": "original-space",
+      "operation": "sage.guard.original.commit",
+      "rule_ids": [
+        "EXEC-02"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "f88a8c5357d57ae430b54420c2a1b4e4a8416afa25e0c21e421651e00bb59225",
+      "adapter_request_sha256": "0e551d962b26b35ff92a8f56531845fbdbc7eaa6596c8632ae609a433a040f42",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "original_digest": "da2a810d3b92bce5873a4b23259f0e963605be40551fa50b26f17750534d0339"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "original-space",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 14
+    },
+    {
+      "case_id": "original-composed",
+      "operation": "sage.guard.original.commit",
+      "rule_ids": [
+        "EXEC-02"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "7fdf2eaa5ca6c27fb344c0b358faa895ec7c5bdb3c9b7a6152a3e28b661ffb27",
+      "adapter_request_sha256": "993954a0087139093b1bef98f024c9351fbea06456c57b2a53454efc22949943",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "original_digest": "cbc9c736ded32c6ba6bfb06f353d23dc478934b6dd636a71d957c633018ed974"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "original-composed",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "original-decomposed",
+      "operation": "sage.guard.original.commit",
+      "rule_ids": [
+        "EXEC-02"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "18c75ac939df45b3d4cadeae473985e6426cb60d0476ac8437624c1abcf33858",
+      "adapter_request_sha256": "28bbfaf9562d12fc9bed0225f334cc418f5e68ddd678823461aee85db2fd1036",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "original_digest": "c7c50f3625dff207d7f07b35a831a3fea32fac8045d44b09690fcf0d1ef51010"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "original-decomposed",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "original-empty-item",
+      "operation": "sage.guard.original.commit",
+      "rule_ids": [
+        "EXEC-02"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "cd570e3da404b503c0622609171fd807e575513e879e28d2a6170cb1c84d1828",
+      "adapter_request_sha256": "3d9f7306acbc13649cd16c4e0c1ceb0c1fd843116b49262cd789b12ad9646d9d",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "original_digest": "db82ecfcef710abaf09722432dd1c38f7ec66404b7aa41f939895e20a87c462b"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "original-empty-item",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "original-count-max",
+      "operation": "sage.guard.original.commit",
+      "rule_ids": [
+        "EXEC-02"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "a0b9e99ef7f55ee74dfcafe7c530571ed543b63a78212e9969f90d4521322286",
+      "adapter_request_sha256": "3cb9e70ca96d15f42e74289d48222d3848e0fd5a3c2f362be92711e57f5a60ee",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "original_digest": "8c15e3133f4e0d176933c1eb39c0e4d880c4c243d90313cfd91b24483b8bd8b2"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "original-count-max",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "original-count-over",
+      "operation": "sage.guard.original.commit",
+      "rule_ids": [
+        "EXEC-02"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "77d2a5c0706de4cfc1ae44a0a837074e372fa328def5bb8a771af6c64c6a02f5",
+      "adapter_request_sha256": "a6fa659ad0ac6a1e7023557e4fc9ab401cf292bd489edb8b311e5df214a262c2",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "original-count-over",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "original-bytes-max",
+      "operation": "sage.guard.original.commit",
+      "rule_ids": [
+        "EXEC-02"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "f7e323c256e5f5c507833d7c3801108386b4f1f6d1f0b4ce86ae56f44d9c7835",
+      "adapter_request_sha256": "d27cae8ef777df6eacd5f793095bb6ecc7ae8d45897dedbd57f2cdefbc4b759a",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "original_digest": "3429a52bc9834bbf5a09cecbf4f5751fa91a57076b71ac3520ac595192341897"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "original-bytes-max",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "original-bytes-over",
+      "operation": "sage.guard.original.commit",
+      "rule_ids": [
+        "EXEC-02"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "d4ee6874e544b926e1071a248899c2c3cf267c9f2e80b93d9e4b5d94a042f8f8",
+      "adapter_request_sha256": "9f74b7d9e0d8787ce28be69fde3736f4d96d4f083ceb8e41140a401b640581a8",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "original-bytes-over",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "manifest-valid",
+      "operation": "sage.guard.manifest.verify",
+      "rule_ids": [
+        "EXEC-06"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "6f32fa51e3531ee2f9fb969ae1234b71526666c7e8fee82b53fbe0b846a395fd",
+      "adapter_request_sha256": "57c821bb14dfa387cf3418df050523af45204d88f6caae7a69308a617f625c57",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "manifest_digest": "2013a4561345167cd7a8751f26e9093a7300193bf3f6a94c6e49a5c30b0b0bdb"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "manifest-valid",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "manifest-parent",
+      "operation": "sage.guard.manifest.verify",
+      "rule_ids": [
+        "EXEC-06"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "0c93f310db204e5f2671818974beb08858faf7c8e43ab5404b60b856aaa25824",
+      "adapter_request_sha256": "7014f8add5efe7d69a5953bc7848e178ad5ddf14ef0a8890a8d760dd589bf12e",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "manifest-parent",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "manifest-dot",
+      "operation": "sage.guard.manifest.verify",
+      "rule_ids": [
+        "EXEC-06"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "a4cbebdeebaf02b67b5f9aa21e14be2dc49f0a364f63994d099d6a59cdb9bff6",
+      "adapter_request_sha256": "c508235d4afe99009462ae14131fa7268364b5690b9460950807c16d98bdd6ee",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "manifest-dot",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 14
+    },
+    {
+      "case_id": "manifest-empty",
+      "operation": "sage.guard.manifest.verify",
+      "rule_ids": [
+        "EXEC-06"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "fd6691d3c5593d83d8cd28b1f4fb0813f293d9146c0c2839cea6ce06eec28435",
+      "adapter_request_sha256": "56dc8c0b698d669f7368202a411034d93d3b77218c52824d843d52a4de240f3c",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "manifest-empty",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "manifest-absolute",
+      "operation": "sage.guard.manifest.verify",
+      "rule_ids": [
+        "EXEC-06"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "682fa053417cfd6f7025db61f95ccb7d0d1c8c59b7401cc93f9745624c16216d",
+      "adapter_request_sha256": "3437a6bb4e7613be4bd81c91afe6e136eb82fc2b7b81faabf3f919f28ca6efeb",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "manifest-absolute",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "manifest-backslash",
+      "operation": "sage.guard.manifest.verify",
+      "rule_ids": [
+        "EXEC-06"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "bfff012e87f1010783482684f33609d7cb943b37e9898f1da1e3362719cc0c28",
+      "adapter_request_sha256": "635337dfee250a3a377acc66854e7974c11840720e06ba14e3190440b0f36d39",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "manifest-backslash",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "manifest-nul",
+      "operation": "sage.guard.manifest.verify",
+      "rule_ids": [
+        "EXEC-06"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "4a8d1c959b450a539b8e042d0457d2eafa565fa30794e55d350f6c3cf5bf7b93",
+      "adapter_request_sha256": "dabb4796235290e24f7245866923eb85eb5300cb04805f8248b6e48927c125cc",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "manifest-nul",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "manifest-duplicate",
+      "operation": "sage.guard.manifest.verify",
+      "rule_ids": [
+        "EXEC-06"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "24d3ad92e2f2ea864b57369028c77c3550babb50376e8ac1ea11b331992876e5",
+      "adapter_request_sha256": "56afca5a989784f479e2eaa7614391402ca7c92d8cadc9562d9051dab715a14c",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "manifest-duplicate",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "manifest-unsorted",
+      "operation": "sage.guard.manifest.verify",
+      "rule_ids": [
+        "EXEC-06"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "75702420e660e70e78b53f4add6781d96f2c2f2f8acd82ba38f114d27feada27",
+      "adapter_request_sha256": "3e306d7cee354df294021a7969a3cefea0bd9e8e476be8c055b1273960624093",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "manifest-unsorted",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 22
+    },
+    {
+      "case_id": "manifest-hash",
+      "operation": "sage.guard.manifest.verify",
+      "rule_ids": [
+        "EXEC-06"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "e78a829d1899180b43c4cf836e35ace3af52635371f1195acc82c022f8dc70d4",
+      "adapter_request_sha256": "0cac9b10d8e9a90c7db275207dc1488271e9fbf353e6b4d994f2da3b17e9d182",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "manifest-hash",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 19
+    },
+    {
+      "case_id": "policy-members-2044",
+      "operation": "sage.guard.policy.commit",
+      "rule_ids": [
+        "EXEC-02"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "9f9f17bd165b92199ae14a4f1e6e37c9d2319fa9dcbf4c3986e39dc9dd744c85",
+      "adapter_request_sha256": "143f573ad4fa6400d4f096b2aace49d3e05e3037ed36bf5cc98348447adb731d",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "policy_digest": "5c88a7827b5015cb57aef7067cb9b27b37274903e0b3fe81ce4b62e802094127"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "policy-members-2044",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 25
+    },
+    {
+      "case_id": "policy-members-2045",
+      "operation": "sage.guard.policy.commit",
+      "rule_ids": [
+        "EXEC-02"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "3ed6287d425fa70106b135e8824befacee76bac331964d8d60b88ea0402018e2",
+      "adapter_request_sha256": "e3826b5cb417a966feb751b0d9dbdd256928a9125e070f632af58f45783fb4a1",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "policy-members-2045",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 15
+    },
+    {
+      "case_id": "json-bytes-1048576",
+      "operation": "sage.guard.json.bounds",
+      "rule_ids": [
+        "EXEC-03",
+        "EXEC-07"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "6ee120e36c94ea9fdb4646f5b61fb80a1abd600f93d0010bf3ffe50d111e1a07",
+      "adapter_request_sha256": "eb51f6869bd74435d1d3f9c92992a6050ffcbaa960de674d9fd757ec3ac91bd1",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "json-bytes-1048576",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "json-bytes-1048577",
+      "operation": "sage.guard.json.bounds",
+      "rule_ids": [
+        "EXEC-03",
+        "EXEC-07"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "04538e2bd6a1a64cc2b0aaf6f670a84463062e948e897a5e1e4de444a70ed6bf",
+      "adapter_request_sha256": "94fd91341ade99b0961d91aedba540900386f10a5442e8f6854d8802caa98201",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "json-bytes-1048577",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "json-depth-32",
+      "operation": "sage.guard.json.bounds",
+      "rule_ids": [
+        "EXEC-03",
+        "EXEC-07"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "0669bcaeae376111633fc0b81b90bafb5849cca42afdcc76ae4321347c9b80c2",
+      "adapter_request_sha256": "475430ed4dd3ec58b9206c1290dd5201a0beee04e1cd807be4c8f1190c328d49",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "json-depth-32",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "json-depth-33",
+      "operation": "sage.guard.json.bounds",
+      "rule_ids": [
+        "EXEC-03",
+        "EXEC-07"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "3f8ceeb22effc48cdeabe9862b2f03f9508176ef15365a6fc56e224323eadda1",
+      "adapter_request_sha256": "9e2bd5b11f69dfb6be00331efd6e6ced9fa216aa5cc9e816d2df2a26775f83a4",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "json-depth-33",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "json-members-4096",
+      "operation": "sage.guard.json.bounds",
+      "rule_ids": [
+        "EXEC-03",
+        "EXEC-07"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "7bf8659c93e72479d82fafb161b87b6d3d07e2e7b282a4cd47206b64d87b8e88",
+      "adapter_request_sha256": "e5caf30e9b6b7ff57332fab284c675b2bf22b805be177e2dd564a19176079479",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "json-members-4096",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "json-members-4097",
+      "operation": "sage.guard.json.bounds",
+      "rule_ids": [
+        "EXEC-03",
+        "EXEC-07"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "4fdd369ee8d4feeaee1de01cfad56915f9397e3a2f5e2ee2cb3a86dfb5db5d48",
+      "adapter_request_sha256": "91d86651b57c8a61912a3c05b54a220e79509dc9cda11b6928476a490bb6636b",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "json-members-4097",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "policy-valid",
+      "operation": "sage.guard.policy.commit",
+      "rule_ids": [
+        "EXEC-02"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "27d1977354eea688bdd1fe6b94ece52639faaf579065c44fb4e9117348027d75",
+      "adapter_request_sha256": "87712c6241ddf7b23436e5c63a10eedfd08885164c6c8e0d350853e594aaa3ce",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "policy_digest": "254b236b6c77f9967c1615cb781503596c36eea988620d0f6a794985e5999d7c"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "policy-valid",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "policy-empty",
+      "operation": "sage.guard.policy.commit",
+      "rule_ids": [
+        "EXEC-02"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "9a0c08a42ddc05d9e49c6b833a4e2ec7c1d84f822c71d71f311467c0b32de85c",
+      "adapter_request_sha256": "861bc3cbf9547fbe67ff0116d59e97cecf0fcfe28ebfe0d78b043c0de01ccd70",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "policy-empty",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "policy-version",
+      "operation": "sage.guard.policy.commit",
+      "rule_ids": [
+        "EXEC-02"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "3a89f37918160fa812d30212319fc382b41d2fc4942d24cf39bf0a5476915b15",
+      "adapter_request_sha256": "873fe4e3a28085d96e1a6a166f9fcdaf3b87323bf576fe7cf32b9cf049f079a5",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "policy-version",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "policy-epoch",
+      "operation": "sage.guard.policy.commit",
+      "rule_ids": [
+        "EXEC-02"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "2de8ac7f349443859f36469bf688f727e835e49a5d55141bbbf8d2553cb8df47",
+      "adapter_request_sha256": "a39422d2c44d964c51ff1c74c98483b4184aafceaabd42b79b5123a655f1d51e",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "policy-epoch",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "policy-engine",
+      "operation": "sage.guard.policy.commit",
+      "rule_ids": [
+        "EXEC-02"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "ab26d0aec1fc2779cc54e441640f5de52dab797712472d903e6c9519e0d32a02",
+      "adapter_request_sha256": "09b1b0d4ee9be4edc1f57b5889d8c21923c01c428ad386c4f7459d5b4f933e7f",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "policy-engine",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "policy-published-example",
+      "operation": "sage.guard.policy.commit",
+      "rule_ids": [
+        "EXEC-02"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "94166462a004e0f1f72198beaa101d6c7ef59c211b1505942dfe2750993fbb56",
+      "adapter_request_sha256": "358cbac0f5a4d85f65ba5ea9fc309f9890b9079f768d5256e3e51653a3828860",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "policy_digest": "e70a2dfb87b9a2760e540a2ca96e16d55ec1fb346cfeba7515ed40ca5ab08bdb"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "policy-published-example",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "intent-valid",
+      "operation": "sage.guard.intent.verify",
+      "rule_ids": [
+        "EXEC-03"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "89df0aad90208b56f3972a7b778f233e1258d3ef8842d863250b935531609fb9",
+      "adapter_request_sha256": "4250aff0fff3288bffbda10e97daa5421736db7610bde88f60de191b68e38f86",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "intent-valid",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "intent-last-second",
+      "operation": "sage.guard.intent.verify",
+      "rule_ids": [
+        "EXEC-03"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "051a874a843e148dad584fc24c4734d4b99058566a2fee2b0aee928a877d80cb",
+      "adapter_request_sha256": "68d67742f9d563541beb5ab9cc03ad9248e69220f66c6a2f8a92cb2a3a8e8458",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "intent-last-second",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "intent-expiry",
+      "operation": "sage.guard.intent.verify",
+      "rule_ids": [
+        "EXEC-03"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "f130b455591d93ef011e1b4f3e1b14a44afbeae7d6e9260c0a7bb3d74d8c3d83",
+      "adapter_request_sha256": "126c6bc2847dc844628743e516102e6e1b145de8abd87757a34e7b6aca9c51a9",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "intent-expiry",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "intent-early-limit",
+      "operation": "sage.guard.intent.verify",
+      "rule_ids": [
+        "EXEC-03"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "4ae33cd434889907e820dfc1652611232d8f73b09f0cbd7ea0acc660896fef3b",
+      "adapter_request_sha256": "97879500e8820a540280dbfb35e817b7d6da7c94e6f2b0e42673b9b937307b5f",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "intent-early-limit",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "intent-too-early",
+      "operation": "sage.guard.intent.verify",
+      "rule_ids": [
+        "EXEC-03"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "6faa0b65c252805823c53a64ccf37713aba4323f000dc1f03002416c710f87cc",
+      "adapter_request_sha256": "28cc0e8c460ec5b06c85769997f49c0e506f1a67b31e5ed2bdc165a1c859c3e9",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "intent-too-early",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "intent-clock",
+      "operation": "sage.guard.intent.verify",
+      "rule_ids": [
+        "EXEC-03"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "f130575f2a47a42ff02993ef2339ad8c70fc3e3a550fe59511d8f0907316cd1a",
+      "adapter_request_sha256": "18de73ba20d66ecde420ae80a373a16ea60e556061dc6ce93c1a2cad838af917",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "intent-clock",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "intent-inactive-key",
+      "operation": "sage.guard.intent.verify",
+      "rule_ids": [
+        "EXEC-03"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "507ca9a3ae3eee2026b258d3953b0fdf89bd9a744ea9f98fc8a56a76fd78bc4b",
+      "adapter_request_sha256": "950dfa742a53ef1f0f1123d058c1543ca7ded89508c668719469f84ebbc63c75",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "intent-inactive-key",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "intent-recipient",
+      "operation": "sage.guard.intent.verify",
+      "rule_ids": [
+        "EXEC-03"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "21cfaf0e84a33a8f72e10962521f04034cc47290c5119262c800209721583767",
+      "adapter_request_sha256": "e760cc6700ab0c1e68adb2d51a249fe2d5a3387d026c05e47fb3fec2aced225c",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "intent-recipient",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "intent-original",
+      "operation": "sage.guard.intent.verify",
+      "rule_ids": [
+        "EXEC-03"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "0b7c6c9a44e6b60a8760adfe6fca2a14e2b3617abb31e6fa947f4b73f3a71550",
+      "adapter_request_sha256": "39429753d2272d93f867730f742eab16e882f048873fc11bf4b410c6f49b4f7f",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "intent-original",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "intent-policy-deny",
+      "operation": "sage.guard.intent.verify",
+      "rule_ids": [
+        "EXEC-03"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "5650e545799e748e0b21d0a6fbc5a05119cd7e004c5806135561fa35ea4edde9",
+      "adapter_request_sha256": "c3feecf8f5e81bed4061e36a173b16648c139e3a64d4bf9615235b9aa385580f",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "intent-policy-deny",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "intent-version",
+      "operation": "sage.guard.intent.verify",
+      "rule_ids": [
+        "EXEC-03"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "c7203ed3a294fb96d1b51c5a718485755417d6174d8a69055dcc7eaed633424d",
+      "adapter_request_sha256": "61876c62de4664390944eb27258eb6da96aa92a752613dcaea6b8c8ce1589057",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "intent-version",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "intent-profile",
+      "operation": "sage.guard.intent.verify",
+      "rule_ids": [
+        "EXEC-03"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "d6ab0bc69d1b02b2455617cbb1b75c4db498558c460311b7c5acd7ca85031ac3",
+      "adapter_request_sha256": "a6763c9d3614490457ddf3f49605313449267c4981d98d560b974addca998566",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "intent-profile",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "intent-tool",
+      "operation": "sage.guard.intent.verify",
+      "rule_ids": [
+        "EXEC-03"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "22db6daa105a64cc9aee3c8aff103dfd102fc616f07e75b75127492c724fc06a",
+      "adapter_request_sha256": "4708c559de781f390d00f8af36b029bd5ec29d9af92f81f603194cb9aa6c75a7",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "intent-tool",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "intent-recursive",
+      "operation": "sage.guard.intent.verify",
+      "rule_ids": [
+        "EXEC-03"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "0f63c207d2dff70831091c6130d51f1b46e04a31315c90d8a0d4f211c6cbaeb5",
+      "adapter_request_sha256": "c444369f2116454e4720da5e27d759688ff31fb82f3f353d46b03a959c443876",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "intent-recursive",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "intent-arguments-extra",
+      "operation": "sage.guard.intent.verify",
+      "rule_ids": [
+        "EXEC-03"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "67623540b49db9aed0b951f578c168139c54b6cf5dfb71653c6d860e80453b8b",
+      "adapter_request_sha256": "e11195f0db1681241c56354c9efdc4e3f3f256568baaaefdf817e177d85276c3",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "intent-arguments-extra",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "intent-arguments-missing",
+      "operation": "sage.guard.intent.verify",
+      "rule_ids": [
+        "EXEC-03"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "7f42160f86c760dcbb4067c1617c34b8c567c3c1ec7fa74915c34090434f08b7",
+      "adapter_request_sha256": "7f3d0aeef346765def0187f11ef45fe018e9403e3eff7a03eaa24b9aa5d0acd6",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "intent-arguments-missing",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "intent-arguments-type",
+      "operation": "sage.guard.intent.verify",
+      "rule_ids": [
+        "EXEC-03"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "2ac6b817fc1958978fe1f1ede0bd65386e78d62ba0d498e93865ca5573322746",
+      "adapter_request_sha256": "ea95ced2c071ba203ed62c93b8675ca669416bf9f0eeead699673e20fa5240a9",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "intent-arguments-type",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 14
+    },
+    {
+      "case_id": "intent-lifetime",
+      "operation": "sage.guard.intent.verify",
+      "rule_ids": [
+        "EXEC-03"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "1cb085faeb8effba8b50623d4ad90100bef12112a9abd66ed9358d8d9b5eab50",
+      "adapter_request_sha256": "a8780654cf811a33113650883684941488803c9d005b3ec417e935df90b23f41",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "intent-lifetime",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "intent-policy-self-approved",
+      "operation": "sage.guard.intent.verify",
+      "rule_ids": [
+        "EXEC-03"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "7768c3e9ad945a26c931266680cbcf133f58dd3113928a2cb8ba54b71ee89814",
+      "adapter_request_sha256": "83b20c94e7ceab6797da95090cca8703799236a743e5152f16b5adc24e5963c8",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "intent-policy-self-approved",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "intent-manifest-self-approved",
+      "operation": "sage.guard.intent.verify",
+      "rule_ids": [
+        "EXEC-03"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "9c8929ee1aff3fca54436039f1e08dfde6b45154b16379f9876383b921ba81c4",
+      "adapter_request_sha256": "5172b8d89d4f5bb1c330b1eee50b8ce39f13eab0868cb91594431d3ee3b1e675",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "intent-manifest-self-approved",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 14
+    },
+    {
+      "case_id": "intent-key-binding",
+      "operation": "sage.guard.intent.verify",
+      "rule_ids": [
+        "EXEC-03"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "80ca3704ec81d9a0a4c3ef6fc81388788d874863bda7c77b5eb59eaa2cb46c75",
+      "adapter_request_sha256": "664a7f1add822a3d2b0cadf0f5392997e74b6ffa14c36735257df253b43bd2b6",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "intent-key-binding",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "intent-parent-invalid",
+      "operation": "sage.guard.intent.verify",
+      "rule_ids": [
+        "EXEC-03"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "d21aa243829a833f6d29667f80030462b3c0fbec04d7242916d600d722c1d4b2",
+      "adapter_request_sha256": "23eb4c742d667b0aa9885d5dd8d9b2018f15236161bf32f04ec0070fa113416e",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "intent-parent-invalid",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "intent-unknown-field",
+      "operation": "sage.guard.intent.verify",
+      "rule_ids": [
+        "EXEC-03"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "b9c841cbd4df02b17eb17dc677ad4c6094f22dab1a25958ec200a86d43e7a5b1",
+      "adapter_request_sha256": "bbcb59a574833f7d44e9dda09527e1e7eacc40bf7e17aa1f98a0a6315a1feac9",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "intent-unknown-field",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "intent-null-arguments",
+      "operation": "sage.guard.intent.verify",
+      "rule_ids": [
+        "EXEC-03"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "bd14a97ebb43f20a2cb2a3b778fe15a85b4658f283ffe6b3ade660804eeb7186",
+      "adapter_request_sha256": "66951586c732a1f9652f6a9b75ae458a0057decf3d6b8439e2d7d08b24a00ab8",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "intent-null-arguments",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "intent-array-arguments",
+      "operation": "sage.guard.intent.verify",
+      "rule_ids": [
+        "EXEC-03"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "593008ab8358fca55bf17998c4ba5abe878343957c110a3cef7a92b26020d953",
+      "adapter_request_sha256": "4c390bac63aaa380ff2f14df148e7834bcf37004d8f297011a57536662f78ec1",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "intent-array-arguments",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "intent-tampered",
+      "operation": "sage.guard.intent.verify",
+      "rule_ids": [
+        "EXEC-03"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "42414aae46ecacd0b19d5feaf07aaea8f53a5b6b013257f4b8fee52d4276b545",
+      "adapter_request_sha256": "75dbc882a10f2fc839ee461dd3fc8212c89b0c5bde2caa7dfc2ae8debe2dcf58",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "intent-tampered",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "result-pending-valid",
+      "operation": "sage.guard.result.verify",
+      "rule_ids": [
+        "EXEC-07"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "bdb52a9c0409be74946887cf4b04e11eb3a0de5b8ef367cc835dcafe8d552c26",
+      "adapter_request_sha256": "45f815750d691168d0960e1c2b489e7e9ddf25438415e5cbc1e6ef35314f8d20",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "result-pending-valid",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "result-pending-unsolicited",
+      "operation": "sage.guard.result.verify",
+      "rule_ids": [
+        "EXEC-07"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "75c91b846d172c2ab36a5040c11f4807bd555587fdf91e70dc899a28a2d49cbe",
+      "adapter_request_sha256": "3f7d9507a0335ae70fcb53b649f1aa99f9d3a6426d66452e184d262bb441d5fe",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "result-pending-unsolicited",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "result-pending-wrong-intent",
+      "operation": "sage.guard.result.verify",
+      "rule_ids": [
+        "EXEC-07"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "b36108d68ac07ae69a16cf1f627a2f746acc7086eb89677779c9c33fbced4247",
+      "adapter_request_sha256": "edfb360fa1ce357dd6f1cd5b63ac2c12c463dc593b4c120eccfa15ead2892d00",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "result-pending-wrong-intent",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "result-pending-output",
+      "operation": "sage.guard.result.verify",
+      "rule_ids": [
+        "EXEC-07"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "41cfff1d36e8c703cf01de49caa1de02880ac8feff6ee6092923cfaa34e58c80",
+      "adapter_request_sha256": "67b8d7018d5517fbc06e3628ed81c54c944ab0607f84aa7ff558308f3ce706f5",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "result-pending-output",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "mcp-pending-valid",
+      "operation": "sage.guard.mcp.result",
+      "rule_ids": [
+        "EXEC-08"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "020c4b3d1e6274eb90031636128ab1da9f45877a1a8a0785a5812f88e00bc7e0",
+      "adapter_request_sha256": "64ba4d8a467c906b68e16157816347172389e98327b4fd2c768eb1ca10090cdc",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "mcp-pending-valid",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "mcp-pending-error-flag",
+      "operation": "sage.guard.mcp.result",
+      "rule_ids": [
+        "EXEC-08"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "3e42538a13464339d2a25be52dc22a63763b3ac1ca8ea4ecf169ef10060fc999",
+      "adapter_request_sha256": "f3f3bfe6393014d17fec986cea0b86b5a5a00f370a3c83e0e119c654dbce21cb",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "mcp-pending-error-flag",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "mcp-pending-extra-block",
+      "operation": "sage.guard.mcp.result",
+      "rule_ids": [
+        "EXEC-08"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "f28db473264243ecad9ac7428cda1b6807dcf7fed3f4aeae948c6e934de684f3",
+      "adapter_request_sha256": "7f1721ae02c30e9f309e2e842060b1708d736c72d1cb3d28057e0f3df4eeebdf",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "mcp-pending-extra-block",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "mcp-pending-text-mismatch",
+      "operation": "sage.guard.mcp.result",
+      "rule_ids": [
+        "EXEC-08"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "59b941e9bb7bd7ee2d1c2a99dd140cb518dbcae003ff5cd0a0a82b0a51dedc50",
+      "adapter_request_sha256": "f91437a62013ea17a2a44f6b1b2ace562e7f94cdcd6d8028b8e25e7d267a709c",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "mcp-pending-text-mismatch",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "result-completed-valid",
+      "operation": "sage.guard.result.verify",
+      "rule_ids": [
+        "EXEC-07"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "a76d2096e0420b70270a99d33bd521214d250b69101069b100b921874e146773",
+      "adapter_request_sha256": "67520af3f4e13e7e0e2715c8a855d6db5d81bd894d89ee543affa9439d34a3ae",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "result-completed-valid",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "result-completed-unsolicited",
+      "operation": "sage.guard.result.verify",
+      "rule_ids": [
+        "EXEC-07"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "d6620150938da9a873890e47fc478a48e54529c05a1803261c311c6e44c4c28c",
+      "adapter_request_sha256": "accad4cacf735ded8c00e1a00707a67a8eda9e6421397520efabceb48bb98684",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "result-completed-unsolicited",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "result-completed-accepted-invocation-late-result",
+      "operation": "sage.guard.result.verify",
+      "rule_ids": [
+        "EXEC-07"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "754c1237cc44b300aff8132309d8d8d8141da7ac6aeb7be0f546c316238f4b23",
+      "adapter_request_sha256": "689c99c5d0369b4164e4b36a08c24924593b44e3c7c40ab9c414b4c265b35c5c",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "result-completed-accepted-invocation-late-result",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "result-completed-expired",
+      "operation": "sage.guard.result.verify",
+      "rule_ids": [
+        "EXEC-07"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "1e791a14268965b6527317e879445c7379d31f243a70a742a42c4c55c6c85d5d",
+      "adapter_request_sha256": "1230146409d6403abb699b37fd3ccca49785e045a251671ca724e316aea72a1b",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "result-completed-expired",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "result-completed-revoked",
+      "operation": "sage.guard.result.verify",
+      "rule_ids": [
+        "EXEC-07"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "8d2125b1e4005c36e36e27fae75382d931c974506064a772f51a1fae0c59b1d4",
+      "adapter_request_sha256": "293cafb028471394aba417f42275ae50b46683489c92996827621ae82c43fa16",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "result-completed-revoked",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "result-completed-wrong-intent",
+      "operation": "sage.guard.result.verify",
+      "rule_ids": [
+        "EXEC-07"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "50f2bac5a89f3f97083a6f011732cda5871adb6c20026848a37016fdceb23dc7",
+      "adapter_request_sha256": "4581a5a462fa5febf19baa40a0d9e11117d052676248159feff834194fb6ee64",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "result-completed-wrong-intent",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "mcp-completed-valid",
+      "operation": "sage.guard.mcp.result",
+      "rule_ids": [
+        "EXEC-08"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "52266ef93e52e4bf79bba98b0b340730b30c659c5e8dfc050a2d9f8bfd52c28a",
+      "adapter_request_sha256": "e7af84f3259bd11edc622197c4883102180f5ceadf15c90188be264241f4754d",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "mcp-completed-valid",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "mcp-completed-error-flag",
+      "operation": "sage.guard.mcp.result",
+      "rule_ids": [
+        "EXEC-08"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "8f7360c7d13ca3ca5f733c569fd17ce77de00bf17064928c80b9b3e019996755",
+      "adapter_request_sha256": "298064b83dd708f7dbbef9c6dc2b387ff8c71c1ad1e1cf0a101cfc609590bc2c",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "mcp-completed-error-flag",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "mcp-completed-extra-block",
+      "operation": "sage.guard.mcp.result",
+      "rule_ids": [
+        "EXEC-08"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "621bf2402c1ef930a0fe9d4105fa9d52b49fb94bb5511e11b7eadf31ec1cdb16",
+      "adapter_request_sha256": "632ee56636d6579d3923566c74d4475d52fac0e9292e5211d2246c1a3d6f0047",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "mcp-completed-extra-block",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "mcp-completed-text-mismatch",
+      "operation": "sage.guard.mcp.result",
+      "rule_ids": [
+        "EXEC-08"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "6594d776b79d28247632bbbdc7665fbc1b89c3098c098f8ce73e4db5e8f73996",
+      "adapter_request_sha256": "75e56f0918050b68c39d2d1766e8fb16b2af44b6f3878c73a56152d2f36c8ea9",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "mcp-completed-text-mismatch",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "result-rejected-valid",
+      "operation": "sage.guard.result.verify",
+      "rule_ids": [
+        "EXEC-07"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "54b71444aa003fb4cc31e7588f2e54531252fe047872091f977c352349267769",
+      "adapter_request_sha256": "559a1936948af986bb89bc2082ae76307b0cd76cc384c2201a457331c8c9ab19",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "result-rejected-valid",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "result-rejected-unsolicited",
+      "operation": "sage.guard.result.verify",
+      "rule_ids": [
+        "EXEC-07"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "a46102e0d58061958932bf6357cb24988413d429eb1f8e95de94639c155ea584",
+      "adapter_request_sha256": "7ed5a1baf4898b18ab72628dfb37025fafc997fd3c10fd534cf6fc880a0fa56f",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "result-rejected-unsolicited",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "result-rejected-wrong-intent",
+      "operation": "sage.guard.result.verify",
+      "rule_ids": [
+        "EXEC-07"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "c08fda1384f51337f8b1c41d5edd4f2c24da3889324d36fe6edca15e85844b74",
+      "adapter_request_sha256": "7c678e8b6b8cfa4df73dcecbc2d8229b702e7385f26025e29367b7f2b401e222",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "result-rejected-wrong-intent",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "result-rejected-output",
+      "operation": "sage.guard.result.verify",
+      "rule_ids": [
+        "EXEC-07"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "f99d657d17b584374596ea45497b30b2ee5a04cf865ac6564e3d3f4d4b40b6b3",
+      "adapter_request_sha256": "666bf7f67f28e9dd8c56ee1659627e3b9b50f9f4b24fb8527d2b8a739ce665ea",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "result-rejected-output",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "mcp-rejected-valid",
+      "operation": "sage.guard.mcp.result",
+      "rule_ids": [
+        "EXEC-08"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "9d75bb4dfb2ed5a0026d3a3b5f68dcfa33a88838a5f4531642294e4a7ee32977",
+      "adapter_request_sha256": "74ac0b93105dc200d55e2baecf045727b487eedb8dbf11fb529237df12754e7a",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "mcp-rejected-valid",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "mcp-rejected-error-flag",
+      "operation": "sage.guard.mcp.result",
+      "rule_ids": [
+        "EXEC-08"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "da0943c1cc4ae95301cb1c8ba91bf6a48bfe00b009967b432c4dc3d5bd3807d4",
+      "adapter_request_sha256": "98d0a87a76447ff412df2743c44f102b20524b9d0571552f1759599338b885fe",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "mcp-rejected-error-flag",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "mcp-rejected-extra-block",
+      "operation": "sage.guard.mcp.result",
+      "rule_ids": [
+        "EXEC-08"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "88ecee99d2e26a72c5a68798abc59f82b76c11a989aa954474be9c86c1c4b9fd",
+      "adapter_request_sha256": "957a753242a8081568479c2b72c257e98cf0b09ea036ee3143e1e6f0e0ac7bad",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "mcp-rejected-extra-block",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "mcp-rejected-text-mismatch",
+      "operation": "sage.guard.mcp.result",
+      "rule_ids": [
+        "EXEC-08"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "59a444c2df3609c2ef7d4782074e79cab21be9289368f69d0c69ab3e1983c65c",
+      "adapter_request_sha256": "d7a275524dd7d47cc6f52b906d0a269cd8313107ec2bcd8ee98c7e5f94846217",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "mcp-rejected-text-mismatch",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "result-unknown-valid",
+      "operation": "sage.guard.result.verify",
+      "rule_ids": [
+        "EXEC-07"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "c28d522127353ec2c5284846e14c60c3a2110ee806abb17cd54e98cf470e4f12",
+      "adapter_request_sha256": "603666c763dcc64d011e0c6e80698d7507cad70c4a07e4135f199fe556074864",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "result-unknown-valid",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "result-unknown-unsolicited",
+      "operation": "sage.guard.result.verify",
+      "rule_ids": [
+        "EXEC-07"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "6d55a9e0cfd51311680b34dec27615d12bb12e2b1bc92ebeb5c165163106299c",
+      "adapter_request_sha256": "4158c2ed426cbd8b37aa1775886b963f784686b97f6a73f6bbfb18e5e3920fd3",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "result-unknown-unsolicited",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "result-unknown-wrong-intent",
+      "operation": "sage.guard.result.verify",
+      "rule_ids": [
+        "EXEC-07"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "67ea6815735dc0f74945def9bf15c5f7cfbfd5162086aa21d24d9bdfa564f809",
+      "adapter_request_sha256": "24bc52eec0575acca05361d33a0230a0e1cf6fcf3831c58de4178151a2146692",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "result-unknown-wrong-intent",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "result-unknown-output",
+      "operation": "sage.guard.result.verify",
+      "rule_ids": [
+        "EXEC-07"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "448d669a5f9a43c7ab2a644df2b1d6139caba73627b6b0fab07bccd02b9306af",
+      "adapter_request_sha256": "2101cd58f89ff4343a8e2c7f6373db8064790eaa6d87fca1cb6543f15bcff2ea",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "result-unknown-output",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "mcp-unknown-valid",
+      "operation": "sage.guard.mcp.result",
+      "rule_ids": [
+        "EXEC-08"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "2ccbabb0491760245255fd04c4eccf5d68517b1b74d0eac609d432348665720e",
+      "adapter_request_sha256": "2bab9e6cf7720480a9deded77a458b1aa6ed0fb1c33d47333682dd4245ce9c11",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "mcp-unknown-valid",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "mcp-unknown-error-flag",
+      "operation": "sage.guard.mcp.result",
+      "rule_ids": [
+        "EXEC-08"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "068b51d7b8974d6375e5e5fc10bd36047e3caf2babc0503b1991717179409b18",
+      "adapter_request_sha256": "76eae2978672092b57bc211f51fdfbf9ed881a823f8bd23c83264c5e90ce9bd9",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "mcp-unknown-error-flag",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "mcp-unknown-extra-block",
+      "operation": "sage.guard.mcp.result",
+      "rule_ids": [
+        "EXEC-08"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "e6ebe3fd5968a149b2a4fbede49f07f28f68db6f5cb4d1152eb9dcefcaa412a5",
+      "adapter_request_sha256": "ab9286c509af52f437e8aa0780263c9054be42474cccccf3139130e6076e9842",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "mcp-unknown-extra-block",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "mcp-unknown-text-mismatch",
+      "operation": "sage.guard.mcp.result",
+      "rule_ids": [
+        "EXEC-08"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "d15ab8ec78694595d7634d72de06157b1bf779982efc252d401c9e3cf1473710",
+      "adapter_request_sha256": "f9465e2dff75e29f4e5ac921a5cf7db9f717cad9397326c7db73113481b8ff15",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "mcp-unknown-text-mismatch",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "intent-signature-valid",
+      "operation": "signature.verify",
+      "rule_ids": [
+        "EXEC-03"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "160fe7794492a85b55c513e9433aff0d922d148fa7ddf598c0f73dd7bf3c14a5",
+      "adapter_request_sha256": "365508d92d92c00a53b1f34f15cca5d536d15e516b0c0d62b8712369b217f68d",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "intent-signature-valid",
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "status": "PASS",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "intent-signature-domain",
+      "operation": "signature.verify",
+      "rule_ids": [
+        "EXEC-03"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "e1ce4f4681b3ec592cde012b28295cbdfd8947b5b93f8328f295811a23a0bb22",
+      "adapter_request_sha256": "504640352b05d2375f726e1db6abef258f329245647793854f51310bb83bd0e9",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "intent-signature-domain",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "PASS",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "result-signature-valid",
+      "operation": "signature.verify",
+      "rule_ids": [
+        "EXEC-07"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "0017fcdeedd0120493d370d0d17eb0d5e808384f44c634338a082a38afe42bf0",
+      "adapter_request_sha256": "6c44c3a60eacc92d26e7475fee6153361a05a0b4860e1900c5e7effcf7eca2a3",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "result-signature-valid",
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "status": "PASS",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "result-signature-domain",
+      "operation": "signature.verify",
+      "rule_ids": [
+        "EXEC-07"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "6c67cc1062710c6e578ba068ce9c343bc2b0221f2819ac985e04000761609a3e",
+      "adapter_request_sha256": "e635b093bbef5799799612845819a86d3fbdb61a8532ecada4a0e33cdd721b29",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "result-signature-domain",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "PASS",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "jcs-manifest",
+      "operation": "jcs.canonicalize",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-03",
+        "EXEC-06",
+        "EXEC-07"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "f45ea9e839420aeccee3366f555d222b2c2eb503d92d73d763a86e16a3e15a4e",
+      "adapter_request_sha256": "e08108e80cc078b866126ee35378b47d7aad3ff1d75a991258f0581831330a32",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "canonical_hex": "7b2266696c6573223a5b7b2270617468223a22656e67696e652e62696e222c22736861323536223a2266663632316462373439663136353266313435646664313130363332303735653162383335633136343930633538343735396338393334333164383265623639227d2c7b2270617468223a2272756c65732e6a736f6e222c22736861323536223a2265623161656266303363643563636236653233316131663163643433333330326161653763333432363139396339343038376636343761303463383036643038227d5d2c2276657273696f6e223a22302e31302e30227d"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "jcs-manifest",
+        "verdict": "ACCEPT",
+        "output": {
+          "canonical_hex": "7b2266696c6573223a5b7b2270617468223a22656e67696e652e62696e222c22736861323536223a2266663632316462373439663136353266313435646664313130363332303735653162383335633136343930633538343735396338393334333164383265623639227d2c7b2270617468223a2272756c65732e6a736f6e222c22736861323536223a2265623161656266303363643563636236653233316131663163643433333330326161653763333432363139396339343038376636343761303463383036643038227d5d2c2276657273696f6e223a22302e31302e30227d"
+        }
+      },
+      "status": "PASS",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "jcs-policy",
+      "operation": "jcs.canonicalize",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-03",
+        "EXEC-06",
+        "EXEC-07"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "0abbadffbdb613a51954da03abd27c65ae46cde84da9c4f2c5684a1778d14f6e",
+      "adapter_request_sha256": "bff7edfe1ff60d5a009a51a9b9b7c700a18da453e68c063e23d7d44818d3a8b6",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "canonical_hex": "7b22617274696661637473223a7b2266696c6573223a5b7b2270617468223a22656e67696e652e62696e222c22736861323536223a2266663632316462373439663136353266313435646664313130363332303735653162383335633136343930633538343735396338393334333164383265623639227d2c7b2270617468223a2272756c65732e6a736f6e222c22736861323536223a2265623161656266303363643563636236653233316131663163643433333330326161653763333432363139396339343038376636343761303463383036643038227d5d2c2276657273696f6e223a22302e31302e30227d2c22656e67696e65223a22666978747572652d6576616c7561746f722f31222c2265706f6368223a2230303030303030302d303030302d343030302d383030302d303030303030303030303031222c22697373756572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c2276657273696f6e223a22302e31302e30227d"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "jcs-policy",
+        "verdict": "ACCEPT",
+        "output": {
+          "canonical_hex": "7b22617274696661637473223a7b2266696c6573223a5b7b2270617468223a22656e67696e652e62696e222c22736861323536223a2266663632316462373439663136353266313435646664313130363332303735653162383335633136343930633538343735396338393334333164383265623639227d2c7b2270617468223a2272756c65732e6a736f6e222c22736861323536223a2265623161656266303363643563636236653233316131663163643433333330326161653763333432363139396339343038376636343761303463383036643038227d5d2c2276657273696f6e223a22302e31302e30227d2c22656e67696e65223a22666978747572652d6576616c7561746f722f31222c2265706f6368223a2230303030303030302d303030302d343030302d383030302d303030303030303030303031222c22697373756572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c2276657273696f6e223a22302e31302e30227d"
+        }
+      },
+      "status": "PASS",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "jcs-intent",
+      "operation": "jcs.canonicalize",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-03",
+        "EXEC-06",
+        "EXEC-07"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "f6ec027568332b8f518e8f5aafa670fd567a9ce03711c5bf75505d1073c36960",
+      "adapter_request_sha256": "48e19d9ee2ab83a386fb39e9a03265d7fcdda88d23ab6b43c0f39ac89b29bb93",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "canonical_hex": "7b22696e74656e74223a7b22616c67223a2265643235353139222c22617267756d656e7473223a7b2270617468223a227075626c69632e747874227d2c2263616c6c5f6964223a2230303030303030302d303030302d343030302d383030302d303030303030303030303033222c2263726561746564223a313730303030303030302c2265787069726573223a313730303030303330302c22697373756572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c226b65796964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c226d616e69666573745f646967657374223a2232303133613435363133343531363763643761383735316632366539303933613733303031393362663366366139346336653439613563333062306230626462222c226e6f6e6365223a2241414543417751464267634943516f4c4441304f4477222c226f726967696e616c5f646967657374223a2263646432313737646561643339383763623162363664326364326264323861306137353566353732653163373030313331626435396335316539316466343638222c22706172656e745f63616c6c5f6964223a6e756c6c2c22706f6c6963795f646967657374223a2232353462323336623663373766393936376331363135636237383135303335393663333665656139383836323064306636613739343938356535393939643763222c2270726f66696c65223a22736167652d657865637574696f6e2d6775617264222c22726563697069656e74223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a6578656375746f72222c22726571756573745f6964223a2230303030303030302d303030302d343030302d383030302d303030303030303030303032222c22746f6f6c223a2272656164222c2276657273696f6e223a22302e31302e30227d2c2270726f6f66223a2237392d617853556d72534b415039556b306d477133516b55706b4c4d73366a5f4c5675614e6938734a716d376d417657754a316a565732643377542d414c566b4d6647777841623759534c51696e665a4a6c4f524451227d"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "jcs-intent",
+        "verdict": "ACCEPT",
+        "output": {
+          "canonical_hex": "7b22696e74656e74223a7b22616c67223a2265643235353139222c22617267756d656e7473223a7b2270617468223a227075626c69632e747874227d2c2263616c6c5f6964223a2230303030303030302d303030302d343030302d383030302d303030303030303030303033222c2263726561746564223a313730303030303030302c2265787069726573223a313730303030303330302c22697373756572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c226b65796964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c226d616e69666573745f646967657374223a2232303133613435363133343531363763643761383735316632366539303933613733303031393362663366366139346336653439613563333062306230626462222c226e6f6e6365223a2241414543417751464267634943516f4c4441304f4477222c226f726967696e616c5f646967657374223a2263646432313737646561643339383763623162363664326364326264323861306137353566353732653163373030313331626435396335316539316466343638222c22706172656e745f63616c6c5f6964223a6e756c6c2c22706f6c6963795f646967657374223a2232353462323336623663373766393936376331363135636237383135303335393663333665656139383836323064306636613739343938356535393939643763222c2270726f66696c65223a22736167652d657865637574696f6e2d6775617264222c22726563697069656e74223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a6578656375746f72222c22726571756573745f6964223a2230303030303030302d303030302d343030302d383030302d303030303030303030303032222c22746f6f6c223a2272656164222c2276657273696f6e223a22302e31302e30227d2c2270726f6f66223a2237392d617853556d72534b415039556b306d477133516b55706b4c4d73366a5f4c5675614e6938734a716d376d417657754a316a565732643377542d414c566b4d6647777841623759534c51696e665a4a6c4f524451227d"
+        }
+      },
+      "status": "PASS",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "jcs-result",
+      "operation": "jcs.canonicalize",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-03",
+        "EXEC-06",
+        "EXEC-07"
+      ],
+      "source_ids": [
+        "guard-spec"
+      ],
+      "derivation": "Independently authored protocol expectation; exact public test bytes, Python cryptography Ed25519/SHA256 and separate Node audit.",
+      "input_sha256": "b3908044f3855cd34fd6d09b69f797cc5f940d116ee2b7e2113ec01f34073663",
+      "adapter_request_sha256": "68be834ac8cd9242c55d74170c7e33a3457297ed28d43bb00f505bae64a55eb6",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "canonical_hex": "7b2270726f6f66223a2271466b484b67624843614d466d79623046572d516f5a415a47426b496c38393344676d792d74512d55484d4d4e59714d6d7761713647495457584a32566b323044774d534a4f636932746238365f6445765278384177222c22726573756c74223a7b22616c67223a2265643235353139222c2263616c6c5f6964223a2230303030303030302d303030302d343030302d383030302d303030303030303030303033222c2263726561746564223a313730303030303030302c2265787069726573223a313730303030303330302c22696e74656e745f646967657374223a2236356335303466333936663432333839303238666162313066383434353035636233353034323561386230333632646233636336386132656637316562366161222c22697373756572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a6578656375746f72222c226b65796964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a6578656375746f72237369676e696e672d31222c226f7574707574223a7b2274657874223a227075626c6963206f7574707574227d2c22726563697069656e74223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c22726571756573745f6964223a2230303030303030302d303030302d343030302d383030302d303030303030303030303032222c22737461747573223a22636f6d706c65746564222c2276657273696f6e223a22302e31302e30227d7d"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "jcs-result",
+        "verdict": "ACCEPT",
+        "output": {
+          "canonical_hex": "7b2270726f6f66223a2271466b484b67624843614d466d79623046572d516f5a415a47426b496c38393344676d792d74512d55484d4d4e59714d6d7761713647495457584a32566b323044774d534a4f636932746238365f6445765278384177222c22726573756c74223a7b22616c67223a2265643235353139222c2263616c6c5f6964223a2230303030303030302d303030302d343030302d383030302d303030303030303030303033222c2263726561746564223a313730303030303030302c2265787069726573223a313730303030303330302c22696e74656e745f646967657374223a2236356335303466333936663432333839303238666162313066383434353035636233353034323561386230333632646233636336386132656637316562366161222c22697373756572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a6578656375746f72222c226b65796964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a6578656375746f72237369676e696e672d31222c226f7574707574223a7b2274657874223a227075626c6963206f7574707574227d2c22726563697069656e74223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c22726571756573745f6964223a2230303030303030302d303030302d343030302d383030302d303030303030303030303032222c22737461747573223a22636f6d706c65746564222c2276657273696f6e223a22302e31302e30227d7d"
+        }
+      },
+      "status": "PASS",
+      "duration_ms": 11
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 # 다음 작업 목록 — SAGE Inspector 0.10.0
 
-작성일: 2026-09-14. 상태: 계획 수립 완료, INS-01·INS-02·INS-03·INS-04·INS-05·INS-06·INS-07·INS-08의 Inspector 구현 완료. 나머지는 미착수. 코어 적합성은 별도 판정한다.
+작성일: 2026-09-14. 상태: 계획 수립 완료, INS-01·INS-02·INS-03·INS-04·INS-05·INS-06·INS-07·INS-08·INS-09의 Inspector 구현 완료. 나머지는 미착수. 코어 적합성은 별도 판정한다.
 구현 위치: `/Users/0xtopaz/work/github/sage-x-project/sage-inspector`.
 규범 원본: `../sage-spec`; 실제 코어 변경은 별도 작업으로 관리한다.
 
@@ -30,7 +30,7 @@ P0는 다음 개발의 선행 조건, P1은 핵심 검증 기능, P2는 통합·
 | [x] | INS-06 / P1 | HPKE 조합의 독립 중간값 자료와 검토 | INS-03, INS-05 | B/info/exportCtx/exporter/ssE2E/T/th/prk/seed/ack/sid를 추적하는 고정 자료를 만든다. 검사 대상 코어와 다른 근거로 기대값을 확인한다. 변조·역할 교체·0 공유값·잘못된 확인 메시지를 다룬다. 비밀성/인증/침해 시점 분석은 벡터 통과와 별도 기록한다. |
 | [x] | INS-07 / P1 | 세션 수명·재전송·동시성 검증 | INS-02, INS-05, INS-06 | 방향별 키/시퀀스, 세대 경계, 1000개 상한, AAD 4033/4034 경계, 고정 DID·키, 임시 세션 확인, 만료·재시작·중복을 시험한다. 잘못된 레코드는 상태를 전진시키지 않고 중복은 한 번만 수락함을 관측한다. |
 | [x] | INS-08 / P1 | DID·Card·레지스트리 관측 검증 | INS-02, INS-03, INS-05 | 통제된 권위 있는 관측 자료로 PoP/endorsement, 활성·폐기·만료, 버전 후퇴, stale 상태와 조회 실패를 시험한다. 비활성 DID 조회 성공과 인증 거부를 구분한다. 실제 체인 적합성은 명시적 배포 바인딩이 있을 때만 별도 판정한다. |
-| [ ] | INS-09 / P1 | Execution Guard 실행·결과·복구 검증 | INS-04, INS-05, INS-08 | 원본 연결, 정책 epoch/폐기, manifest와 실제 로드 대상, 실행 ledger를 검증한다. pending→terminal, 늦은 pending, 충돌 결과, 동일 요청 재조회, UNKNOWN, 거부/예약 경합에서 실제 dispatch 횟수·인자를 기록한다. CST-01..05 보완 사례를 포함한다. |
+| [x] | INS-09 / P1 | Execution Guard 실행·결과·복구 검증 | INS-04, INS-05, INS-08 | 원본 연결, 정책 epoch/폐기, manifest와 실제 로드 대상, 실행 ledger를 검증한다. pending→terminal, 늦은 pending, 충돌 결과, 동일 요청 재조회, UNKNOWN, 거부/예약 경합에서 실제 dispatch 횟수·인자를 기록한다. CST-01..05 보완 사례를 포함한다. |
 | [ ] | INS-10 / P2 | CI 및 커버리지·증거 보고서 통합 | 최소 CI는 INS-01 후, 통합 판정은 INS-02..09 후 | 기반 테스트를 재현 가능한 환경에서 실행한다. 요구사항→사례→관측 결과를 연결하고 미실행/미지원/부분 검증을 표시한다. 주체 revision·명세/벡터 해시·실행 환경·효과 증거를 보존하며 부족한 증거로 전체 적합성 PASS를 만들지 않는다. |
 | [ ] | INS-11 / P2 | 실제 호스트 우회 시험과 양방향 상호운용 | INS-04, INS-06..10 및 코어/호스트 준비 | Go→Rust·Rust→Go 교환과 고정 호스트 버전의 hook 누락/timeout/direct call/하위 프로세스/파일·네트워크 우회를 관측한다. 호스트 격리 증거가 없으면 Execution Guard 인증을 부여하지 않는다. |
 
@@ -80,8 +80,10 @@ INS-04 완료 증거: [HTTP inspection 실행과 후속 코어 연결](http-insp
 정확한 필드 크기 계산 기준은 조건부 사례로 명시하며 스펙 확정 후 다듬는다.
 이는 사용자 지시에 따른 **Inspector 선구현 완료**이며 코어 적합성 승인과 다르다.
 
-INS-06 완료 증거: [HPKE inspection](hpke-inspection.md), [암호 구성·침해 시점 검토](hpke-security-review.md). 독립 중간값 및 변조 67개 사례와 상태 시나리오 6개를 준비했다. 코어별 API 차이와 미지원/미실행을 보존하며, 실제 상태 연결과 보안 보증은 별도 후속 항목이다. 다음 구현 항목은 INS-09이다.
+INS-06 완료 증거: [HPKE inspection](hpke-inspection.md), [암호 구성·침해 시점 검토](hpke-security-review.md). 독립 중간값 및 변조 67개 사례와 상태 시나리오 6개를 준비했다. 코어별 API 차이와 미지원/미실행을 보존하며, 실제 상태 연결과 보안 보증은 별도 후속 항목이다. 다음 구현 항목은 INS-10이다.
 
 INS-07 완료 증거: [세션 inspection](session-inspection.md). 55개 독립 레코드/키 사례와 37개 상태 시나리오(248단계), 규칙·해시 추적 및 실행/보고를 준비했다. 두 코어는 각각 11 PASS·26 FAIL·18 UNSUPPORTED이고 상태 시나리오는 37 NOT_RUN이다. Inspector 선구현 완료와 실제 코어·동시성 검증 완료를 구분한다.
 
 INS-08 완료 증거: [레지스트리·DID·Card inspection](registry-inspection.md). 독립 사례 94개와 상태 시나리오 17개(83단계), 실제 DID/PoP/서명 API 연결, 규칙별 보고 및 독립 검산을 준비했다. 두 코어 각각 23 PASS·8 FAIL·63 UNSUPPORTED이며 실제 권위 관측 바인딩은 17 NOT_RUN이다. 배포·체인 보증과 Inspector 선구현 완료를 구분한다.
+
+INS-09 완료 증거: [Execution Guard inspection](guard-inspection.md). 독립 사례 102개, 상태 시나리오 37개(297단계), 정확한 인자·실행 인스턴스·효과 카운터 계약, CST-01..05 자료 연결과 보고를 준비했다. 두 코어는 각각 8 PASS·94 UNSUPPORTED이며 Guard 상태는 37 NOT_RUN이다. 실제 Guard/호스트 격리 검증 완료와 구분한다.

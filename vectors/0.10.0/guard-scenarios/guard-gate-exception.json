@@ -1,0 +1,402 @@
+{
+  "schema_version": 2,
+  "protocol_version": "0.10.0",
+  "profile": "stateful-scenario",
+  "id": "guard-gate-exception",
+  "sources": [
+    {
+      "id": "guard-spec",
+      "kind": "spec-derived",
+      "uri": "sage-spec/profiles/agent-mcp-security.md",
+      "reference": "EXEC-01..09; CST-01/02 closure. Exact test-only inputs and independent Python signatures, Node audits. No host isolation or real dispatch claim."
+    }
+  ],
+  "steps": [
+    {
+      "id": "step-0",
+      "operation": "control.guard.setup",
+      "input": {
+        "envelope": {
+          "intent": {
+            "version": "0.10.0",
+            "profile": "sage-execution-guard",
+            "request_id": "00000000-0000-4000-8000-000000000002",
+            "call_id": "00000000-0000-4000-8000-000000000003",
+            "parent_call_id": null,
+            "original_digest": "cdd2177dead3987cb1b66d2cd2bd28a0a755f572e1c700131bd59c51e91df468",
+            "issuer": "did:sage:web:agents.example.com:alice",
+            "recipient": "did:sage:web:agents.example.com:executor",
+            "tool": "read",
+            "arguments": {
+              "path": "public.txt"
+            },
+            "policy_digest": "254b236b6c77f9967c1615cb781503596c36eea988620d0f6a794985e5999d7c",
+            "manifest_digest": "2013a4561345167cd7a8751f26e9093a7300193bf3f6a94c6e49a5c30b0b0bdb",
+            "created": 1700000000,
+            "expires": 1700000300,
+            "nonce": "AAECAwQFBgcICQoLDA0ODw",
+            "keyid": "did:sage:web:agents.example.com:alice#signing-1",
+            "alg": "ed25519"
+          },
+          "proof": "79-axSUmrSKAP9Uk0mGq3QkUpkLMs6j_LVuaNi8sJqm7mAvWuJ1jVW2d3wT-ALVkMfGwxAb7YSLQinfZJlORDQ"
+        },
+        "policy": {
+          "version": "0.10.0",
+          "issuer": "did:sage:web:agents.example.com:alice",
+          "epoch": "00000000-0000-4000-8000-000000000001",
+          "engine": "fixture-evaluator/1",
+          "artifacts": {
+            "version": "0.10.0",
+            "files": [
+              {
+                "path": "engine.bin",
+                "sha256": "ff621db749f1652f145dfd110632075e1b835c16490c584759c893431d82eb69"
+              },
+              {
+                "path": "rules.json",
+                "sha256": "eb1aebf03cd5ccb6e231a1f1cd433302aae7c3426199c94087f647a04c806d08"
+              }
+            ]
+          }
+        },
+        "manifest": {
+          "version": "0.10.0",
+          "files": [
+            {
+              "path": "engine.bin",
+              "sha256": "ff621db749f1652f145dfd110632075e1b835c16490c584759c893431d82eb69"
+            },
+            {
+              "path": "rules.json",
+              "sha256": "eb1aebf03cd5ccb6e231a1f1cd433302aae7c3426199c94087f647a04c806d08"
+            }
+          ]
+        },
+        "artifacts": [
+          {
+            "path": "engine.bin",
+            "bytes_hex": "7075626c69632070696e6e6564206576616c7561746f72"
+          },
+          {
+            "path": "rules.json",
+            "bytes_hex": "7b22616c6c6f77223a5b2272656164225d7d"
+          }
+        ],
+        "issuer_public_key_hex": "7ced12b7c7e1ba9a5dec808d5bcc27592f5b2de949cbbab935c8766a9247f713",
+        "executor_public_key_hex": "d26404db24bee886c56dd17272896c406c2f7865ba2ea72226e14b0f2886a3cd",
+        "now": 1700000000,
+        "clock_trusted": true,
+        "ledger_intact": true,
+        "artifact_instance": "artifact-A",
+        "signer_fixtures": {
+          "pending": {
+            "result": {
+              "version": "0.10.0",
+              "request_id": "00000000-0000-4000-8000-000000000002",
+              "call_id": "00000000-0000-4000-8000-000000000003",
+              "issuer": "did:sage:web:agents.example.com:executor",
+              "recipient": "did:sage:web:agents.example.com:alice",
+              "created": 1700000000,
+              "expires": 1700000300,
+              "keyid": "did:sage:web:agents.example.com:executor#signing-1",
+              "alg": "ed25519",
+              "intent_digest": "65c504f396f42389028fab10f844505cb350425a8b0362db3cc68a2ef71eb6aa",
+              "status": "pending",
+              "output": {}
+            },
+            "proof": "pjMNdQGVPGoBCiui5o4uGOGQWqSVyjE0obAZ6-jGa08ia3MextSZ78Tp_4qZ_goI2MMmrjs0N_7_VQbHwpPZBg"
+          },
+          "completed": {
+            "result": {
+              "version": "0.10.0",
+              "request_id": "00000000-0000-4000-8000-000000000002",
+              "call_id": "00000000-0000-4000-8000-000000000003",
+              "issuer": "did:sage:web:agents.example.com:executor",
+              "recipient": "did:sage:web:agents.example.com:alice",
+              "created": 1700000000,
+              "expires": 1700000300,
+              "keyid": "did:sage:web:agents.example.com:executor#signing-1",
+              "alg": "ed25519",
+              "intent_digest": "65c504f396f42389028fab10f844505cb350425a8b0362db3cc68a2ef71eb6aa",
+              "status": "completed",
+              "output": {
+                "text": "public output"
+              }
+            },
+            "proof": "qFkHKgbHCaMFmyb0FW-QoZAZGBkIl893Dgmy-tQ-UHMMNYqMmwaq6GITWXJ2Vk20DwMSJOci2tb86_dEvRx8Aw"
+          },
+          "rejected": {
+            "result": {
+              "version": "0.10.0",
+              "request_id": "00000000-0000-4000-8000-000000000002",
+              "call_id": "00000000-0000-4000-8000-000000000003",
+              "issuer": "did:sage:web:agents.example.com:executor",
+              "recipient": "did:sage:web:agents.example.com:alice",
+              "created": 1700000000,
+              "expires": 1700000300,
+              "keyid": "did:sage:web:agents.example.com:executor#signing-1",
+              "alg": "ed25519",
+              "intent_digest": "65c504f396f42389028fab10f844505cb350425a8b0362db3cc68a2ef71eb6aa",
+              "status": "rejected",
+              "output": {}
+            },
+            "proof": "sboKXILQ925f0Be4i8NSjY41KXUzp6DHCkEF0eNTksoBgbzpUwuBtthWpsEuVHdRhpkW4TCXMq6d3KxC2VvvDQ"
+          },
+          "unknown": {
+            "result": {
+              "version": "0.10.0",
+              "request_id": "00000000-0000-4000-8000-000000000002",
+              "call_id": "00000000-0000-4000-8000-000000000003",
+              "issuer": "did:sage:web:agents.example.com:executor",
+              "recipient": "did:sage:web:agents.example.com:alice",
+              "created": 1700000000,
+              "expires": 1700000300,
+              "keyid": "did:sage:web:agents.example.com:executor#signing-1",
+              "alg": "ed25519",
+              "intent_digest": "65c504f396f42389028fab10f844505cb350425a8b0362db3cc68a2ef71eb6aa",
+              "status": "unknown",
+              "output": {}
+            },
+            "proof": "LA8RdPRVeM6YgHz5BEKvxidyyYBZb31zpc4BL0HOznG3ZaGyXm71gIO4tx7fdAMZpacjNTrlJ2Fwi0_pBne5AA"
+          }
+        },
+        "outstanding_invocations": [
+          "a",
+          "b",
+          "c",
+          "d"
+        ],
+        "client": false,
+        "recovery_policy": {
+          "version": "0.10.0",
+          "issuer": "did:sage:web:agents.example.com:alice",
+          "epoch": "00000000-0000-4000-8000-000000000090",
+          "engine": "fixture-evaluator/1",
+          "artifacts": {
+            "version": "0.10.0",
+            "files": [
+              {
+                "path": "engine.bin",
+                "sha256": "ff621db749f1652f145dfd110632075e1b835c16490c584759c893431d82eb69"
+              },
+              {
+                "path": "rules.json",
+                "sha256": "eb1aebf03cd5ccb6e231a1f1cd433302aae7c3426199c94087f647a04c806d08"
+              }
+            ]
+          }
+        },
+        "recovery_envelope": {
+          "intent": {
+            "version": "0.10.0",
+            "profile": "sage-execution-guard",
+            "request_id": "00000000-0000-4000-8000-000000000092",
+            "call_id": "00000000-0000-4000-8000-000000000091",
+            "parent_call_id": null,
+            "original_digest": "cdd2177dead3987cb1b66d2cd2bd28a0a755f572e1c700131bd59c51e91df468",
+            "issuer": "did:sage:web:agents.example.com:alice",
+            "recipient": "did:sage:web:agents.example.com:executor",
+            "tool": "read",
+            "arguments": {
+              "path": "public.txt"
+            },
+            "policy_digest": "c8f4167c4f846eda2b96399b002cd43211994b26b9939685f0c18615589ccee9",
+            "manifest_digest": "2013a4561345167cd7a8751f26e9093a7300193bf3f6a94c6e49a5c30b0b0bdb",
+            "created": 1700000000,
+            "expires": 1700000300,
+            "nonce": "AQEBAQEBAQEBAQEBAQEBAQ",
+            "keyid": "did:sage:web:agents.example.com:alice#signing-1",
+            "alg": "ed25519"
+          },
+          "proof": "Zpekaz4X2_YF57RQ5ghPJBCT_0GXux34so5y7rj553XySXv-Q3tz4aAS_feDUD0EeVTsd4VpnNewWK8cjA6hAQ"
+        },
+        "recovery_signer_fixtures": {
+          "pending": {
+            "result": {
+              "version": "0.10.0",
+              "request_id": "00000000-0000-4000-8000-000000000092",
+              "call_id": "00000000-0000-4000-8000-000000000091",
+              "issuer": "did:sage:web:agents.example.com:executor",
+              "recipient": "did:sage:web:agents.example.com:alice",
+              "created": 1700000000,
+              "expires": 1700000300,
+              "keyid": "did:sage:web:agents.example.com:executor#signing-1",
+              "alg": "ed25519",
+              "intent_digest": "9ab90f7bf0411027239530e2ce944ca0a58ad2053680491b962fbdc0ffcca6a4",
+              "status": "pending",
+              "output": {}
+            },
+            "proof": "ts-5X24NQ07lG9Dhu0DCExQO8x-9iMR-vvZXLi-BqXDDAS6N5-Ju4O11KoDudzFQuM9qFxPXfIL4aTPWeF2WBA"
+          },
+          "completed": {
+            "result": {
+              "version": "0.10.0",
+              "request_id": "00000000-0000-4000-8000-000000000092",
+              "call_id": "00000000-0000-4000-8000-000000000091",
+              "issuer": "did:sage:web:agents.example.com:executor",
+              "recipient": "did:sage:web:agents.example.com:alice",
+              "created": 1700000000,
+              "expires": 1700000300,
+              "keyid": "did:sage:web:agents.example.com:executor#signing-1",
+              "alg": "ed25519",
+              "intent_digest": "9ab90f7bf0411027239530e2ce944ca0a58ad2053680491b962fbdc0ffcca6a4",
+              "status": "completed",
+              "output": {
+                "text": "public output"
+              }
+            },
+            "proof": "BWzmbuL8di8XiGSOLk_g6lnCpt-DrXWBpKUpSAbrGv69Evuj2g0gwZl6BkCH4zyHSxmKgI8Wwngu88ThDl3jCA"
+          },
+          "rejected": {
+            "result": {
+              "version": "0.10.0",
+              "request_id": "00000000-0000-4000-8000-000000000092",
+              "call_id": "00000000-0000-4000-8000-000000000091",
+              "issuer": "did:sage:web:agents.example.com:executor",
+              "recipient": "did:sage:web:agents.example.com:alice",
+              "created": 1700000000,
+              "expires": 1700000300,
+              "keyid": "did:sage:web:agents.example.com:executor#signing-1",
+              "alg": "ed25519",
+              "intent_digest": "9ab90f7bf0411027239530e2ce944ca0a58ad2053680491b962fbdc0ffcca6a4",
+              "status": "rejected",
+              "output": {}
+            },
+            "proof": "UdYRrg7HUzSN338rTXzhTWYsSv96i3S89FQIt_fht4DqZ7GMGnB_Lme0Ocs-9_yuxfOdklHCnAdFHqex0zxJCw"
+          },
+          "unknown": {
+            "result": {
+              "version": "0.10.0",
+              "request_id": "00000000-0000-4000-8000-000000000092",
+              "call_id": "00000000-0000-4000-8000-000000000091",
+              "issuer": "did:sage:web:agents.example.com:executor",
+              "recipient": "did:sage:web:agents.example.com:alice",
+              "created": 1700000000,
+              "expires": 1700000300,
+              "keyid": "did:sage:web:agents.example.com:executor#signing-1",
+              "alg": "ed25519",
+              "intent_digest": "9ab90f7bf0411027239530e2ce944ca0a58ad2053680491b962fbdc0ffcca6a4",
+              "status": "unknown",
+              "output": {}
+            },
+            "proof": "i0ppti8cuvDCRoyy5F7MbvxkgVs8lRoY1s97-ZxHGV71-95hBEK0Z4IiQ37IMMDW8EwJZ6Rg_IeAmfkLGY43DA"
+          }
+        }
+      },
+      "timeout_ms": 5000,
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {}
+      },
+      "effects": {
+        "reservations": 0,
+        "dispatch": 0,
+        "responses": 0,
+        "result_signatures": 0,
+        "consumed": 0,
+        "polls": 0
+      }
+    },
+    {
+      "id": "step-1",
+      "operation": "subject.call",
+      "input": {
+        "action": "gate-failure",
+        "reason": "exception"
+      },
+      "timeout_ms": 5000,
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {}
+      },
+      "effects": {
+        "reservations": 0,
+        "dispatch": 0,
+        "responses": 0,
+        "result_signatures": 0,
+        "consumed": 0,
+        "polls": 0
+      }
+    },
+    {
+      "id": "step-2",
+      "operation": "subject.call",
+      "input": {
+        "action": "inspect"
+      },
+      "timeout_ms": 5000,
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "entries": {},
+          "ledger_intact": true,
+          "policy_active": false,
+          "measured": true,
+          "clock_trusted": true,
+          "approved_policy": "254b236b6c77f9967c1615cb781503596c36eea988620d0f6a794985e5999d7c",
+          "dispatch_arguments": [],
+          "dispatch_instances": [],
+          "client_terminal": null
+        }
+      },
+      "effects": {
+        "reservations": 0,
+        "dispatch": 0,
+        "responses": 0,
+        "result_signatures": 0,
+        "consumed": 0,
+        "polls": 0
+      }
+    },
+    {
+      "id": "step-3",
+      "operation": "subject.call",
+      "input": {
+        "action": "submit"
+      },
+      "timeout_ms": 5000,
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "effects": {
+        "reservations": 0,
+        "dispatch": 0,
+        "responses": 0,
+        "result_signatures": 0,
+        "consumed": 0,
+        "polls": 0
+      }
+    },
+    {
+      "id": "step-4",
+      "operation": "subject.call",
+      "input": {
+        "action": "inspect"
+      },
+      "timeout_ms": 5000,
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "entries": {},
+          "ledger_intact": true,
+          "policy_active": false,
+          "measured": true,
+          "clock_trusted": true,
+          "approved_policy": "254b236b6c77f9967c1615cb781503596c36eea988620d0f6a794985e5999d7c",
+          "dispatch_arguments": [],
+          "dispatch_instances": [],
+          "client_terminal": null
+        }
+      },
+      "effects": {
+        "reservations": 0,
+        "dispatch": 0,
+        "responses": 0,
+        "result_signatures": 0,
+        "consumed": 0,
+        "polls": 0
+      }
+    }
+  ]
+}

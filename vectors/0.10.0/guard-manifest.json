@@ -1,0 +1,488 @@
+{
+  "schema_version": 1,
+  "protocol_version": "0.10.0",
+  "records_sha256": "68bd8c57a9a572849ea5f57f77d93c0e7d2fe813ea7b158c47b24c832efdef0f",
+  "scenarios": [
+    {
+      "id": "guard-pending-completed",
+      "file": "guard-pending-completed.json",
+      "sha256": "275c6613f908ec85c8397c56b2fa0f0a79fce528e4ed942a7251dae3f9ae715e",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-intact-absence-retry",
+      "file": "guard-intact-absence-retry.json",
+      "sha256": "9ed6529284165b14e3c87a79217b1b6545db8883b03c3186ab402f5f985f5a51",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-outer-replay",
+      "file": "guard-outer-replay.json",
+      "sha256": "68631109bbad86ffa9eb621490a104e26deccef9bdb194c54ff4c0773ad83d0f",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-changed-inner-envelope",
+      "file": "guard-changed-inner-envelope.json",
+      "sha256": "b2df05e028b629653de1ee1d0af486935cddfa6dad74b1819305c24e692df4f0",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-changed-valid-intent",
+      "file": "guard-changed-valid-intent.json",
+      "sha256": "deb9d67a3c575abd7e034a7cbdee434cde4166118951fd98e633ac19ce2bf4f7",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-nonce-collision",
+      "file": "guard-nonce-collision.json",
+      "sha256": "f556c329d76f4ec81873b34d93517d922347447025665195654b5a6494fc2b98",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-crash-reserved",
+      "file": "guard-crash-reserved.json",
+      "sha256": "bd4e757548ef7647691f7f5a00e70a3031ee194720fef16338a7d9290f4ec855",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-crash-executing",
+      "file": "guard-crash-executing.json",
+      "sha256": "ea54080640096caeab6fa1cf1d7beacf52c146463c670e88cbdfe0e12e1921f5",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-unknown-signer-recovery",
+      "file": "guard-unknown-signer-recovery.json",
+      "sha256": "290087685263508a58a8759412178f760e9e4c05ab798ae8ed90215ad0a2522c",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-terminal-persistence-failure",
+      "file": "guard-terminal-persistence-failure.json",
+      "sha256": "cd0972947b726215506cabe93b33a22a0982522a3fb69ae9202467c8641e17d2",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-lost-ledger",
+      "file": "guard-lost-ledger.json",
+      "sha256": "79f55bbeb869494375b8891644e536cd3a0f01581f4886dfeadfef85f02adaf6",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-scope-recovery",
+      "file": "guard-scope-recovery.json",
+      "sha256": "3e2c02b037a41c6789b2c6ffac1062036334c8eb0988b098e78b01ec0e15aa75",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-client-unknown-new-id",
+      "file": "guard-client-unknown-new-id.json",
+      "sha256": "19d826f72e370ab309a578a6b1fa7acfc131f28310c120b9c2a600cb4b76fc69",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-dispatch-expiry",
+      "file": "guard-dispatch-expiry.json",
+      "sha256": "1425526d6d6b5afc096306e57e3bfcae3d0d75667aa48ee364e654561181febf",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-retrieval-expiry",
+      "file": "guard-retrieval-expiry.json",
+      "sha256": "e3ec64574a12564e6230d878f2ddc3fe5658e2d14c49eea9d355c5fe3cf344b6",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-retrieval-revocation",
+      "file": "guard-retrieval-revocation.json",
+      "sha256": "9999aa6e3381bb384561e5d4ccc2ba49833a000dcfacf67b30030bf8ad9d7966",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-retire-reservation",
+      "file": "guard-retire-reservation.json",
+      "sha256": "5442f622f0be4f6e098756c06852ae5bd2082fca26040b86ec0c9e89cdea3f0f",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-no-rollback-after-dispatch",
+      "file": "guard-no-rollback-after-dispatch.json",
+      "sha256": "a40ee869da2cb85c97fdcd4bb3b60847a5943ce35f5070c5a3f8b7caa633d652",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-check-load-replacement",
+      "file": "guard-check-load-replacement.json",
+      "sha256": "702267377b15ba4cd699b6cf4118f8fd970cd567393214442ca4fed537993fad",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-uncovered-load",
+      "file": "guard-uncovered-load.json",
+      "sha256": "623fcd9f3a05bf1c2608e686d90e5c13342237d9e98628a8268289abf0c6c3cc",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-peer-policy-install",
+      "file": "guard-peer-policy-install.json",
+      "sha256": "b42a34b3c247b554c0954535b2f81ebb9850dace6fc2cba1a803cbb845414b15",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-gate-skip",
+      "file": "guard-gate-skip.json",
+      "sha256": "e52f70a0573bd08b2e94b6d7fac35593bca845180010d871466926f3065cfac5",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-gate-timeout",
+      "file": "guard-gate-timeout.json",
+      "sha256": "bec98cd78b5afe3edb5c161bf144096b059e562f53c6273b8839963c2f3f7c58",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-gate-exception",
+      "file": "guard-gate-exception.json",
+      "sha256": "ad3c90111241aef903404f09e858004292c6e6f82be4bfc9f895bd2caf6e0fae",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-gate-disconnect",
+      "file": "guard-gate-disconnect.json",
+      "sha256": "7f816d70273c98921968b4ecabda823f949b0ad11060ebfbc162db47b92f8dc1",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-gate-direct-call",
+      "file": "guard-gate-direct-call.json",
+      "sha256": "f509b108be196b376e8423ef19fd27bebecfcfb4f272ed48ac82d7c4ede0cc7b",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-gate-signing-oracle",
+      "file": "guard-gate-signing-oracle.json",
+      "sha256": "b5513c45863a7740abc9213c2e67cd3a3c31589a50f0a749e8385002f1aa110a",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-lost-clock",
+      "file": "guard-lost-clock.json",
+      "sha256": "70915d6a0b97ce03caf99f7ade1520e9bc7c00f2835f4274d83e49fd0453f022",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-race-retire-first",
+      "file": "guard-race-retire-first.json",
+      "sha256": "883491f4a20f9b0ac180d0d5c6f8ea87e9076aa83fbc5460a9d8af9064f49b09",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-race-dispatch-first",
+      "file": "guard-race-dispatch-first.json",
+      "sha256": "82dddfbd1e6b7ae026b0caee953ac68f0e68a880a79304e827b299040bc5a5ae",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-race-reserve-reject",
+      "file": "guard-race-reserve-reject.json",
+      "sha256": "2bfa387f0f2785c4686c70e05e42deaab11cbfca8ecb91871b0946bb0c232e83",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-race-reject-reserve",
+      "file": "guard-race-reject-reserve.json",
+      "sha256": "4c1c508071f882c55edc51406b778aae164880d9948b6a34a86c6c76398229cc",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-race-duplicate",
+      "file": "guard-race-duplicate.json",
+      "sha256": "8dbb8c162703efcd3aa6a32b3365c38bed065ad0f928c1c4796072cf4af12e6d",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-client-poll-spacing",
+      "file": "guard-client-poll-spacing.json",
+      "sha256": "3786926ca6cacc861878b4decfc2f0bfe7b5e8395be71835faca3e2f69319bcb",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-client-pending-terminal",
+      "file": "guard-client-pending-terminal.json",
+      "sha256": "7927a6772cdf446a4b89130d22614d3d3cac146e73eca1ae3429f018014c83dd",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-client-terminal-conflict",
+      "file": "guard-client-terminal-conflict.json",
+      "sha256": "f41092016291131d44aaebbc86d570a6bce0051dfdec89862354974720df2b8c",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-client-unsolicited",
+      "file": "guard-client-unsolicited.json",
+      "sha256": "a7333f7bcdf4d55b41c75d4cad51db41b83beaaa85a0fc034356b6a0bef9ab66",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    }
+  ]
+}

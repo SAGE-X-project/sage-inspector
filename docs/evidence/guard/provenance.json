@@ -1,0 +1,39 @@
+{
+  "scope": "Independent public commitment/signature and Guard state expectation fixtures. Only existing JCS/signature core APIs executed; no actual Guard, host isolation or deployment certification.",
+  "repositories": {
+    "sage": {
+      "revision": "c7709b7486e0da94336edc0931fddd87f6a45343",
+      "sha256": {}
+    },
+    "rs-sage-core": {
+      "revision": "206bbbb5a66667ae2feb3b0e9991ed1ca4622bb2",
+      "sha256": {}
+    },
+    "sage-spec": {
+      "revision": "f4a4e7fbf71a665785984eef7609b2e8fabe833d",
+      "sha256": {
+        "profiles/agent-mcp-security.md": "99d5dc57d12d59d6e33102b2fdaa44efb137e48deab65e8012ff5128838d04b1",
+        "verification/crypto-trust-closure.md": "85555b082d173b8b4db552561efb4f4f20e3d9389752587a2c5c8653f8fe2d2b",
+        "spec/02-jcs.md": "4d4b202c8ddb5eb00c47a8e8056813a589834526e2174c023fb005a484eb3d94"
+      }
+    }
+  },
+  "inspector_file_sha256": {
+    "scripts/test_guard_inspection.py": "f7a9f812d23a380358316ca85d50d2144dd72bfa74888bfc38984191fefaab08",
+    "scripts/check_guard_vectors.js": "2f6be1e11f11894bd84657a0ac9e7681808d602a94b1240443ec1e7b333ab562",
+    "scripts/inspect_guard.py": "7731eee31d74e89ea84f767511769bdb7df7cf3d1f6fe5c4931945d112843d2e",
+    "scripts/generate_guard_vectors.py": "728badc7ffad6f1548471f460dd44980c4f660996bb2191bc1c6cb98419ed81b",
+    "scripts/guard_scenarios.py": "9cef0b235a6a846e0edd78f95f50dc725858f67132ed751cd347cce2d1108ac4",
+    "vectors/0.10.0/guard-records.json": "68bd8c57a9a572849ea5f57f77d93c0e7d2fe813ea7b158c47b24c832efdef0f",
+    "vectors/0.10.0/guard-manifest.json": "92ab01eae646aa351e437429c6e32ab1311a80651b50e3bd56aef61e60975a84",
+    "vectors/0.10.0/guard-closure-links.json": "f7ce4674fa3540c63be7e34b7b439e25c4cf8c2f0a6e9535fb0c185399be8245",
+    "adapters/go/main.go": "8c68045b776e5f14a1186f5b4fdcb3c7848f7490c527ba615457fdf70bca66c3",
+    "adapters/rust/src/main.rs": "d611a8774f0033e8e23657d563603fbb1410db0bd3dbaf1d0fc3ad67e5a71cf0",
+    "docs/evidence/core-source-lock.json": "18229a6202c01dc70629ca22db3d3f3754c11bd0a89e2d9d76e3050bdd64a7b7"
+  },
+  "state_binding": "37 NOT_RUN pending protected Guard state/dispatcher instrumentation",
+  "tools": {
+    "python": "3.10.11",
+    "node": "v24.4.1"
+  }
+}

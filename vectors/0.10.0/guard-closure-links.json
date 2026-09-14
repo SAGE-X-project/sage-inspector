@@ -1,0 +1,89 @@
+{
+  "scope": "Fixture readiness links only. Existing session evidence remains separate; no closure group is promoted to runtime conformance.",
+  "links": [
+    {
+      "group": "CST-01",
+      "file": "guard-scenarios/guard-pending-completed.json",
+      "id": "guard-pending-completed",
+      "sha256": "275c6613f908ec85c8397c56b2fa0f0a79fce528e4ed942a7251dae3f9ae715e"
+    },
+    {
+      "group": "CST-01",
+      "file": "guard-scenarios/guard-client-pending-terminal.json",
+      "id": "guard-client-pending-terminal",
+      "sha256": "7927a6772cdf446a4b89130d22614d3d3cac146e73eca1ae3429f018014c83dd"
+    },
+    {
+      "group": "CST-01",
+      "file": "guard-scenarios/guard-client-terminal-conflict.json",
+      "id": "guard-client-terminal-conflict",
+      "sha256": "f41092016291131d44aaebbc86d570a6bce0051dfdec89862354974720df2b8c"
+    },
+    {
+      "group": "CST-01",
+      "file": "guard-scenarios/guard-crash-executing.json",
+      "id": "guard-crash-executing",
+      "sha256": "ea54080640096caeab6fa1cf1d7beacf52c146463c670e88cbdfe0e12e1921f5"
+    },
+    {
+      "group": "CST-01",
+      "file": "guard-scenarios/guard-race-reject-reserve.json",
+      "id": "guard-race-reject-reserve",
+      "sha256": "4c1c508071f882c55edc51406b778aae164880d9948b6a34a86c6c76398229cc"
+    },
+    {
+      "group": "CST-02",
+      "file": "guard-records.json",
+      "id": "sage-guard-records-0.10.0",
+      "sha256": "68bd8c57a9a572849ea5f57f77d93c0e7d2fe813ea7b158c47b24c832efdef0f"
+    },
+    {
+      "group": "CST-02",
+      "file": "guard-scenarios/guard-scope-recovery.json",
+      "id": "guard-scope-recovery",
+      "sha256": "3e2c02b037a41c6789b2c6ffac1062036334c8eb0988b098e78b01ec0e15aa75"
+    },
+    {
+      "group": "CST-02",
+      "file": "guard-scenarios/guard-race-retire-first.json",
+      "id": "guard-race-retire-first",
+      "sha256": "883491f4a20f9b0ac180d0d5c6f8ea87e9076aa83fbc5460a9d8af9064f49b09"
+    },
+    {
+      "group": "CST-03",
+      "file": "session-records.json",
+      "id": "sage-session-records-0.10.0",
+      "sha256": "cf0dcefeab7e82161445d6f6d05e4c70855e50336fcb6b01edbbdb2d999d05bd"
+    },
+    {
+      "group": "CST-04",
+      "file": "session-scenarios/session-pinned-did.json",
+      "id": "session-pinned-did",
+      "sha256": "b51ef8d75604a5ace3d4e9e57dae567c76f26ac82b1485315512a2a36a338511"
+    },
+    {
+      "group": "CST-04",
+      "file": "session-scenarios/session-pinned-kid-active-alternative.json",
+      "id": "session-pinned-kid-active-alternative",
+      "sha256": "0c30c57af3c029f511f9d4125c7f8632dffb93f678911a79d27ef82468a507e3"
+    },
+    {
+      "group": "CST-05",
+      "file": "session-scenarios/session-provisional-race.json",
+      "id": "session-provisional-race",
+      "sha256": "3bf2acb5732325bbff00642a480432c36d6a9094d974e30a78d1560ead1ce194"
+    },
+    {
+      "group": "CST-05",
+      "file": "session-scenarios/session-provisional-application-reject.json",
+      "id": "session-provisional-application-reject",
+      "sha256": "786bcbccbd48fa407d9689dda7a7b132f16a958c59c24bceedc9e5e3c847e043"
+    },
+    {
+      "group": "CST-05",
+      "file": "session-scenarios/session-provisional-commit-deadline.json",
+      "id": "session-provisional-commit-deadline",
+      "sha256": "5f548e7a1be456727869a7f985dd3d82ed17a001fca16435a6a4e4752b450b02"
+    }
+  ]
+}

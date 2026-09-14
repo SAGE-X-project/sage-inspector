@@ -44,24 +44,31 @@ def validate_report(raw,report):
     return counts
 
 
+def same_json(left, right):
+    # Python equates False with 0; protocol clocks/counters and booleans differ.
+    return json.dumps(left, sort_keys=True, allow_nan=False) == json.dumps(right, sort_keys=True, allow_nan=False)
+
+
 def validate_scenario(raw, report):
     fixture=json.loads(raw)
-    if report['fixture_sha256']!=sha(raw) or report['case_id']!=fixture['id'] or report['schema_version']!=2 or report['protocol_version']!='0.10.0' or report['profile']!='stateful-scenario':
+    if report['fixture_sha256']!=sha(raw) or report['case_id']!=fixture['id'] or (type(report['schema_version']) is not int or report['schema_version']!=2) or report['protocol_version']!='0.10.0' or report['profile']!='stateful-scenario':
         raise ValueError('scenario identity mismatch')
     if len(report['steps'])!=len(fixture['steps']):
         raise ValueError('scenario membership mismatch')
     stopped=False;failed=False;incomplete=False
     for expected,actual in zip(fixture['steps'], report['steps']):
         status=actual['status']
-        if actual['step_id']!=expected['id'] or actual['input']!=expected['input'] or actual['expected']!=expected['expected'] or actual['expected_effects']!=expected['effects']:
+        if actual['step_id']!=expected['id'] or not same_json(actual['input'],expected['input']) or not same_json(actual['expected'],expected['expected']) or not same_json(actual['expected_effects'],expected['effects']):
             raise ValueError('scenario step mismatch')
         if status not in STATUSES or (stopped and status!='NOT_RUN'):
             raise ValueError('invalid scenario progression')
         observation=actual.get('actual')
+        if status=='NOT_RUN' and observation is not None:
+            raise ValueError('unexecuted step has an observation')
         if status in ('PASS','UNSUPPORTED'):
-            if not observation or observation['schema_version']!=2 or observation['case_id']!=fixture['id'] or observation['step_id']!=expected['id']:
+            if not observation or (type(observation['schema_version']) is not int or observation['schema_version']!=2) or observation['case_id']!=fixture['id'] or observation['step_id']!=expected['id']:
                 raise ValueError('scenario observation identity mismatch')
-            if status=='PASS' and (observation['verdict']!=expected['expected']['verdict'] or observation['output']!=expected['expected']['output'] or observation['effects']!=expected['effects']):
+            if status=='PASS' and (observation['verdict']!=expected['expected']['verdict'] or not same_json(observation['output'],expected['expected']['output']) or not same_json(observation['effects'],expected['effects'])):
                 raise ValueError('false scenario PASS')
             if status=='UNSUPPORTED' and observation['verdict']!='UNSUPPORTED':
                 raise ValueError('false scenario unsupported')

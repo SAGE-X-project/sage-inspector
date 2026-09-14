@@ -36,6 +36,7 @@ jobs:
         run: |
           node scripts/check_session_vectors.js
           python3 scripts/test_session_inspection.py
+          python3 scripts/test_session_expiry.py
       - name: Audit independent registry fixtures
         run: |
           node scripts/check_registry_vectors.js

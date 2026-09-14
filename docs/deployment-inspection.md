@@ -12,7 +12,7 @@ still require core and host bindings. No host was selected or executed.
 | Legacy record API exchange in both directions | Executed | Rerun when core implementations change |
 | Transcript-bound record API | UNSUPPORTED | A real API accepting the transcript binding |
 | Full HPKE confirmation and HTTP/WS request/response exchange | NOT_RUN | Two complete 0.10.0 endpoints and observed wire bytes |
-| Cross-core replay and explicit close | Executed | [36 actions and four fresh-record controls](replay-inspection.md) passed; expiry, recovery and simultaneous races remain pending |
+| Cross-core replay and explicit close | Executed | [36 actions and four fresh-record controls](replay-inspection.md) passed; [bounded concurrent receive checks](concurrent-inspection.md) also passed; expiry, recovery and close races remain pending |
 | Host hook/direct-call/process/file/network/key access probes | Prepared; 8 NOT_RUN | Pinned host executable/configuration and a trusted external witness |
 | Deployment-level conformance review | NOT_ESTABLISHED | Complete relevant bindings, passing positive controls and scoped isolation evidence |
 

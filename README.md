@@ -94,3 +94,5 @@ Integrated CI evidence and requirement coverage: [validation, results and reprod
 Live Go↔Rust exchanges and host bypass probes: [execution evidence and remaining bindings](docs/deployment-inspection.md).
 
 Stateful cross-core replay and close: [live observations and reproduction](docs/replay-inspection.md).
+
+Concurrent cross-core receive contention: [live observations, overlap evidence and limits](docs/concurrent-inspection.md).

@@ -1,5 +1,17 @@
 {
   "deployment_evidence": {
+    "concurrent": {
+      "report": "docs/evidence/deployment/concurrent.json",
+      "check_counts": {
+        "PASS": 224,
+        "FAIL": 0,
+        "INCOMPLETE": 0,
+        "NOT_RUN": 0
+      },
+      "observed_workers": 512,
+      "status": "PASS",
+      "conformance": "NOT_ESTABLISHED"
+    },
     "replay": {
       "report": "docs/evidence/deployment/replay.json",
       "action_counts": {
@@ -25,7 +37,7 @@
   "schema_version": 1,
   "protocol_version": "0.10.0",
   "evidence_validation": "VALID",
-  "catalog_sha256": "e88784f435ab4ef0e3ffe8653dacae9145298f3482ebe0356643310450ee3516",
+  "catalog_sha256": "5f35b41184c5902e85a4826715f110f99260c72aecde8bdcbc22f7efecdfdc2f",
   "spec_snapshot": {
     "schema_version": 1,
     "protocol_version": "0.10.0",
@@ -309,7 +321,9 @@
     "vectors/0.10.0/host-scenarios/host-verifier-replacement.json": "802ba7c9a0e0e06b62818c06c69a88c8f4af097d46a22797f916850c13399a74",
     "docs/evidence/deployment/provenance.json": "eae2fa62cf9c002ad11d64a4ba8baa65d043a6231ab6d2c543be4cf07784605e",
     "docs/evidence/deployment/replay.json": "79f5b7f71cafb9f49fe0a956663a925dbc1adc756b101acaab8a4d3daf320c43",
-    "docs/evidence/deployment/replay-provenance.json": "1133ab29f4675239bd9ad1b5462c7c019b4a7b628bd0060e6e2d3dcfe8beca47"
+    "docs/evidence/deployment/replay-provenance.json": "1133ab29f4675239bd9ad1b5462c7c019b4a7b628bd0060e6e2d3dcfe8beca47",
+    "docs/evidence/deployment/concurrent.json": "ea819042f2723da2a5dd954d030b34a9bc30083dfcfa62c2a734d30b919ac299",
+    "docs/evidence/deployment/concurrent-provenance.json": "c0d89ea3d6a1755514be0ba8f227b66cefa0f2fa7394af14486dca7a747c3604"
   },
   "cores": {
     "go": {

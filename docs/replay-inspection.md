@@ -72,5 +72,7 @@ pretend to rerun the real cores on the CI runner. Core implementation and expect
 remain separate; matching legacy implementations do not prove the revised protocol.
 
 Remaining work: transcript-bound API, complete HPKE/HTTP/WS exchange, virtual-clock
-expiry and recovery, actual simultaneous duplicate handling, and a pinned host
+expiry and recovery, close-versus-receive races, and a pinned host
 with a trustworthy external witness for the eight prepared bypass probes.
+
+Concurrent duplicate/distinct/invalid-record delivery is now covered by the separate [bounded concurrency run](concurrent-inspection.md).

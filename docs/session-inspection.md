@@ -1,6 +1,6 @@
 # Session inspection for SAGE 0.10.0
 
-현재 실행 범위는 [시나리오 기반 단위 테스트](unit-test-verification.md)다. 아래 실제 코어 실행 설명과 재현 명령은 과거 증거의 기술 기록이며 현재 작업에서 실행하지 않는다.
+현재는 [유닛 중심 검증과 안전한 런타임 테스트](unit-test-verification.md)를 적용한다. 아래 실측은 과거 증거이며, 공격 재현 기능이 될 수 있는 경합·호스트 우회 프로그램은 현재 작업에서 실행하지 않는다.
 
 Inspector preparation is complete: 55 independent record/key cases, 37 state
 scenarios containing 248 steps, strict scenario execution, rule/hash manifests,

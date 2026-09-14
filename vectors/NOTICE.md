@@ -20,3 +20,8 @@ checks are described in ../docs/jcs-signature-vectors.md.
 
 HTTP fixtures use synthetic messages, a public RFC8032 test seed and independently
 constructed RFC9421 bases and SHA-256 Content-Digest values. See ../docs/http-signature-vectors.md.
+
+HPKE fixtures include selected RFC9180 Appendix A.2.1 public test private keys and
+exported values, RFC5869 Appendix A.1 HKDF anchors, and synthetic SAGE0.10.0
+transcripts using public deterministic test entropy. No production secrets are used.
+See ../docs/hpke-inspection.md for independent derivation and scope.

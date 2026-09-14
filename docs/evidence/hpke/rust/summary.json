@@ -1,0 +1,439 @@
+{
+  "schema_version": 1,
+  "protocol_version": "0.10.0",
+  "bundle": "hpke-inspection",
+  "subject": {
+    "name": "sage-rust-core",
+    "revision": "206bbbb5a66667ae2feb3b0e9991ed1ca4622bb2",
+    "kind": "external",
+    "executable_sha256": "73188236c9efc6e9e5dae2b7805ddfd543d3e0ee3075b4583e4e6d85b8ed70cb"
+  },
+  "state_subject": null,
+  "status": "FAIL",
+  "primitive_counts": {
+    "PASS": 23,
+    "FAIL": 7,
+    "UNSUPPORTED": 37,
+    "NOT_RUN": 0
+  },
+  "suites": [
+    {
+      "suite_id": "sage-hpke-primitives-0.10.0",
+      "suite_sha256": "9a2807de94d9b9f8b9f25b7cfd8c5bcf23279ebe1a0de520ac8ec1187bb32753",
+      "status": "FAIL",
+      "counts": {
+        "FAIL": 7,
+        "NOT_RUN": 0,
+        "PASS": 23,
+        "UNSUPPORTED": 0
+      }
+    },
+    {
+      "suite_id": "sage-hpke-schedule-0.10.0",
+      "suite_sha256": "b71acd0d519fbae8bf1ee7be5d66ef3b2e54d6030d1913f951c256e62b83f91b",
+      "status": "INCOMPLETE",
+      "counts": {
+        "FAIL": 0,
+        "NOT_RUN": 0,
+        "PASS": 0,
+        "UNSUPPORTED": 37
+      }
+    }
+  ],
+  "rules": {
+    "HPKE-01": [
+      {
+        "suite_id": "sage-hpke-primitives-0.10.0",
+        "case_id": "rfc9180-export-0",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-hpke-primitives-0.10.0",
+        "case_id": "rfc9180-export-1",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-hpke-primitives-0.10.0",
+        "case_id": "rfc9180-export-2",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-hpke-primitives-0.10.0",
+        "case_id": "kem-zero",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-hpke-primitives-0.10.0",
+        "case_id": "kem-one",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-hpke-primitives-0.10.0",
+        "case_id": "kem-short",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-hpke-schedule-0.10.0",
+        "case_id": "derive-unknown-suite",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-hpke-schedule-0.10.0",
+        "case_id": "derive-unknown-combiner",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-hpke-schedule-0.10.0",
+        "case_id": "derive-old-version",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-hpke-schedule-0.10.0",
+        "case_id": "derive-extra-binding",
+        "status": "UNSUPPORTED"
+      }
+    ],
+    "HPKE-02": [
+      {
+        "suite_id": "sage-hpke-primitives-0.10.0",
+        "case_id": "sage-export-0",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-hpke-primitives-0.10.0",
+        "case_id": "binding-jcs-0",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-hpke-primitives-0.10.0",
+        "case_id": "sage-export-1",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-hpke-primitives-0.10.0",
+        "case_id": "binding-jcs-1",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-hpke-primitives-0.10.0",
+        "case_id": "sage-export-2",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-hpke-primitives-0.10.0",
+        "case_id": "binding-jcs-2",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-hpke-primitives-0.10.0",
+        "case_id": "changed-info",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-hpke-primitives-0.10.0",
+        "case_id": "changed-export-context",
+        "status": "PASS"
+      }
+    ],
+    "HPKE-03": [
+      {
+        "suite_id": "sage-hpke-primitives-0.10.0",
+        "case_id": "combiner-0",
+        "status": "FAIL"
+      },
+      {
+        "suite_id": "sage-hpke-primitives-0.10.0",
+        "case_id": "transcript-jcs-0",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-hpke-primitives-0.10.0",
+        "case_id": "combiner-1",
+        "status": "FAIL"
+      },
+      {
+        "suite_id": "sage-hpke-primitives-0.10.0",
+        "case_id": "transcript-jcs-1",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-hpke-primitives-0.10.0",
+        "case_id": "combiner-2",
+        "status": "FAIL"
+      },
+      {
+        "suite_id": "sage-hpke-primitives-0.10.0",
+        "case_id": "transcript-jcs-2",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-hpke-primitives-0.10.0",
+        "case_id": "e2e-client",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-hpke-primitives-0.10.0",
+        "case_id": "e2e-server",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-hpke-primitives-0.10.0",
+        "case_id": "e2e-zero",
+        "status": "FAIL"
+      },
+      {
+        "suite_id": "sage-hpke-primitives-0.10.0",
+        "case_id": "e2e-one",
+        "status": "FAIL"
+      },
+      {
+        "suite_id": "sage-hpke-primitives-0.10.0",
+        "case_id": "e2e-short",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-hpke-primitives-0.10.0",
+        "case_id": "combiner-zero",
+        "status": "FAIL"
+      },
+      {
+        "suite_id": "sage-hpke-primitives-0.10.0",
+        "case_id": "combiner-short",
+        "status": "FAIL"
+      },
+      {
+        "suite_id": "sage-hpke-schedule-0.10.0",
+        "case_id": "schedule-0",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-hpke-schedule-0.10.0",
+        "case_id": "schedule-1",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-hpke-schedule-0.10.0",
+        "case_id": "schedule-2",
+        "status": "UNSUPPORTED"
+      }
+    ],
+    "HPKE-04": [
+      {
+        "suite_id": "sage-hpke-primitives-0.10.0",
+        "case_id": "completion-signature-0",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-hpke-primitives-0.10.0",
+        "case_id": "completion-signature-1",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-hpke-primitives-0.10.0",
+        "case_id": "completion-signature-2",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-hpke-schedule-0.10.0",
+        "case_id": "completion-valid",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-hpke-schedule-0.10.0",
+        "case_id": "echo-combiner",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-hpke-schedule-0.10.0",
+        "case_id": "echo-ctx",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-hpke-schedule-0.10.0",
+        "case_id": "echo-enc",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-hpke-schedule-0.10.0",
+        "case_id": "echo-ephC",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-hpke-schedule-0.10.0",
+        "case_id": "echo-initDid",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-hpke-schedule-0.10.0",
+        "case_id": "echo-initKid",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-hpke-schedule-0.10.0",
+        "case_id": "echo-kemKid",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-hpke-schedule-0.10.0",
+        "case_id": "echo-nonce",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-hpke-schedule-0.10.0",
+        "case_id": "echo-respDid",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-hpke-schedule-0.10.0",
+        "case_id": "echo-respKid",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-hpke-schedule-0.10.0",
+        "case_id": "echo-suite",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-hpke-schedule-0.10.0",
+        "case_id": "echo-task",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-hpke-schedule-0.10.0",
+        "case_id": "echo-v",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-hpke-schedule-0.10.0",
+        "case_id": "wrong-ack",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-hpke-schedule-0.10.0",
+        "case_id": "short-ack",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-hpke-schedule-0.10.0",
+        "case_id": "padded-ack",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-hpke-schedule-0.10.0",
+        "case_id": "wrong-version",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-hpke-schedule-0.10.0",
+        "case_id": "wrong-task",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-hpke-schedule-0.10.0",
+        "case_id": "unknown-member",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-hpke-schedule-0.10.0",
+        "case_id": "invalid-signature",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-hpke-schedule-0.10.0",
+        "case_id": "padded-signature",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-hpke-schedule-0.10.0",
+        "case_id": "unsigned-completion",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-hpke-schedule-0.10.0",
+        "case_id": "unknown-transcript-member",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-hpke-schedule-0.10.0",
+        "case_id": "zero-ephS",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-hpke-schedule-0.10.0",
+        "case_id": "invalid-handle",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-hpke-schedule-0.10.0",
+        "case_id": "different-pending-request",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-hpke-schedule-0.10.0",
+        "case_id": "short-ephS",
+        "status": "UNSUPPORTED"
+      }
+    ],
+    "HPKE-06": [
+      {
+        "suite_id": "sage-hpke-schedule-0.10.0",
+        "case_id": "completion-size-16384",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-hpke-schedule-0.10.0",
+        "case_id": "completion-size-16385",
+        "status": "UNSUPPORTED"
+      }
+    ]
+  },
+  "scenarios": [
+    {
+      "id": "hpke-bound-key-invalid",
+      "fixture_sha256": "39e6d1d36f45b53130404551fb29fab6354736e9b631dad0c110b20be2ec1525",
+      "status": "NOT_RUN",
+      "steps": 3,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "id": "hpke-monotonic-expiry",
+      "fixture_sha256": "f83a270f4a6d9a7f913b410c02542fd83b86bae1bbb2c72e621a03c33726ac8b",
+      "status": "NOT_RUN",
+      "steps": 3,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "id": "hpke-utc-expiry",
+      "fixture_sha256": "1ff7f90a3bd5e0b1450e9f50e2078962ceb223138c6505bda32cbfd81a857bc5",
+      "status": "NOT_RUN",
+      "steps": 3,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "id": "hpke-valid",
+      "fixture_sha256": "b10f7342e20da3163971fb5227f16b01040d263d0931a0bc9eae363cb35e596a",
+      "status": "NOT_RUN",
+      "steps": 3,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "id": "hpke-wrong-ack",
+      "fixture_sha256": "63d35fffabe26e7807d6a42cce7f0cf86779fc34c8b99ce53c4286e3d2f9632c",
+      "status": "NOT_RUN",
+      "steps": 4,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    },
+    {
+      "id": "hpke-wrong-pending",
+      "fixture_sha256": "a1ef7e693d47f9c667c2391534c7c9038fc19d8be5182fd9966d118aaa83e010",
+      "status": "NOT_RUN",
+      "steps": 4,
+      "reason": "No stateful core binding supplied; schema1 adapters are not scenario adapters."
+    }
+  ],
+  "evidence_files": {
+    "hpke-primitives.json": "01a385ea81a7cb295a37f2c72d449dd0e8959d07471d7cb84cec10fc3b04a024",
+    "hpke-schedule.json": "0e21162f90d3ee6702a9c3eda04453f9e9705cac1a8ca18d0ce87832e419c170"
+  },
+  "scope": "Fixed HPKE derivation and completion projections. State support and security assurance are separate; no formal proof, entropy/erasure or full protocol certification."
+}

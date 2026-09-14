@@ -1,0 +1,990 @@
+{
+  "schema_version": 1,
+  "protocol_version": "0.10.0",
+  "profile": "primitive-foundation",
+  "suite_id": "sage-hpke-primitives-0.10.0",
+  "suite_sha256": "9a2807de94d9b9f8b9f25b7cfd8c5bcf23279ebe1a0de520ac8ec1187bb32753",
+  "runner_version": "dev",
+  "environment": "go1.26.8 darwin/arm64",
+  "created": "2026-09-14T02:22:26.235501Z",
+  "subject": {
+    "name": "sage-go-core",
+    "revision": "c7709b7486e0da94336edc0931fddd87f6a45343",
+    "kind": "external",
+    "executable_sha256": "21bc9b6255cbedc73ae4b311a9abb00aba5421b5dc7d7b4569e2ef4b0bce4cee"
+  },
+  "sources": [
+    {
+      "id": "rfc9180",
+      "kind": "published",
+      "uri": "https://www.rfc-editor.org/rfc/rfc9180.html#appendix-A.2.1",
+      "reference": "Base mode 0, suite 0020/0001/0003; Appendix A.2.1 known answers. KEM suite prefix corrected by verified erratum 7937."
+    },
+    {
+      "id": "rfc5869",
+      "kind": "published",
+      "uri": "https://www.rfc-editor.org/rfc/rfc5869.html#appendix-A.1",
+      "reference": "SHA-256 extract and expand meanings; Appendix A.1 known-answer check."
+    },
+    {
+      "id": "sage-hpke",
+      "kind": "spec-derived",
+      "uri": "sage-spec/spec/04-hpke.md",
+      "reference": "Pinned HPKE-01..06; B/info/exportCtx/T/th/combiner/ACK/closed completion, test-only entropy controls."
+    },
+    {
+      "id": "sage-session",
+      "kind": "spec-derived",
+      "uri": "sage-spec/spec/05-session.md",
+      "reference": "SESSION-01 transcript-derived public session id."
+    }
+  ],
+  "scope": "Only listed primitive cases; no full SAGE, state-machine, registry or Execution Guard certification.",
+  "status": "FAIL",
+  "counts": {
+    "FAIL": 5,
+    "NOT_RUN": 0,
+    "PASS": 20,
+    "UNSUPPORTED": 5
+  },
+  "results": [
+    {
+      "case_id": "rfc9180-export-0",
+      "operation": "rfc9180.export",
+      "rule_ids": [
+        "HPKE-01"
+      ],
+      "source_ids": [
+        "rfc9180",
+        "rfc5869",
+        "sage-hpke",
+        "sage-session"
+      ],
+      "derivation": "Public fixed material independently calculated using Python HKDF/X25519 and checked against RFC anchors; no SAGE imports.",
+      "input_sha256": "5f405ca725b830c78bb866a9e8c26a622d5ea5161c62dc7d3d91271fcef484d9",
+      "adapter_request_sha256": "7a64850b79b8556908764ce79a4010e48216f059f6310eae0878fe3e2f73029c",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "exporter_hex": "4bbd6243b8bb54cec311fac9df81841b6fd61f56538a775e7c80a9f40160606e"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "rfc9180-export-0",
+        "verdict": "ACCEPT",
+        "output": {
+          "exporter_hex": "4bbd6243b8bb54cec311fac9df81841b6fd61f56538a775e7c80a9f40160606e"
+        }
+      },
+      "status": "PASS",
+      "duration_ms": 18
+    },
+    {
+      "case_id": "rfc9180-export-1",
+      "operation": "rfc9180.export",
+      "rule_ids": [
+        "HPKE-01"
+      ],
+      "source_ids": [
+        "rfc9180",
+        "rfc5869",
+        "sage-hpke",
+        "sage-session"
+      ],
+      "derivation": "Public fixed material independently calculated using Python HKDF/X25519 and checked against RFC anchors; no SAGE imports.",
+      "input_sha256": "01271949266a9d6dafd4a422d4f04fefe8596aea4df0c59050ef150b43e3a124",
+      "adapter_request_sha256": "55dfcfc3dd72c31a8d0627bc5f3e525fb939cc6f42e8516fcf6a7c7dc7005085",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "exporter_hex": "8c1df14732580e5501b00f82b10a1647b40713191b7c1240ac80e2b68808ba69"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "rfc9180-export-1",
+        "verdict": "ACCEPT",
+        "output": {
+          "exporter_hex": "8c1df14732580e5501b00f82b10a1647b40713191b7c1240ac80e2b68808ba69"
+        }
+      },
+      "status": "PASS",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "rfc9180-export-2",
+      "operation": "rfc9180.export",
+      "rule_ids": [
+        "HPKE-01"
+      ],
+      "source_ids": [
+        "rfc9180",
+        "rfc5869",
+        "sage-hpke",
+        "sage-session"
+      ],
+      "derivation": "Public fixed material independently calculated using Python HKDF/X25519 and checked against RFC anchors; no SAGE imports.",
+      "input_sha256": "de191c717bcaee664e8e2008ac7db5bf0e324f0c3bb5ecf6725ebcc74ab45c37",
+      "adapter_request_sha256": "b13f093e306042254354ac28e13544898383da95edbf07efb661edb8cd774d22",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "exporter_hex": "5acb09211139c43b3090489a9da433e8a30ee7188ba8b0a9a1ccf0c229283e53"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "rfc9180-export-2",
+        "verdict": "ACCEPT",
+        "output": {
+          "exporter_hex": "5acb09211139c43b3090489a9da433e8a30ee7188ba8b0a9a1ccf0c229283e53"
+        }
+      },
+      "status": "PASS",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "sage-export-0",
+      "operation": "rfc9180.export",
+      "rule_ids": [
+        "HPKE-02"
+      ],
+      "source_ids": [
+        "rfc9180",
+        "rfc5869",
+        "sage-hpke",
+        "sage-session"
+      ],
+      "derivation": "Public fixed material independently calculated using Python HKDF/X25519 and checked against RFC anchors; no SAGE imports.",
+      "input_sha256": "9f5d582665214f296ac8650ee08271e8e7394335938ab20bb23054541cbcff72",
+      "adapter_request_sha256": "fc6dd42620f0e9b219e174c192b493dbebe5919145001a3858144a57320fea73",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "exporter_hex": "a8de62cfb50aae8058d494a86b9420a9a04fbb5f19c4b25bda7c4cf251aa882c"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "sage-export-0",
+        "verdict": "ACCEPT",
+        "output": {
+          "exporter_hex": "a8de62cfb50aae8058d494a86b9420a9a04fbb5f19c4b25bda7c4cf251aa882c"
+        }
+      },
+      "status": "PASS",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "combiner-0",
+      "operation": "sage.hpke.combine",
+      "rule_ids": [
+        "HPKE-03"
+      ],
+      "source_ids": [
+        "rfc9180",
+        "rfc5869",
+        "sage-hpke",
+        "sage-session"
+      ],
+      "derivation": "Public fixed material independently calculated using Python HKDF/X25519 and checked against RFC anchors; no SAGE imports.",
+      "input_sha256": "8002077451c0581eac375236e3c5774330cc9ed6a6aac43e0e8c6d6d79b51575",
+      "adapter_request_sha256": "8a58757e9d0d319a129e5ade0d1e5ef8febba2c2a62b02f33456cf5df4e7f0e4",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "seed_hex": "a670cc6a4cf4eed950a26f2e85a185457e283ba617fd87da485625d96a2a61a6"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "combiner-0",
+        "verdict": "ACCEPT",
+        "output": {
+          "seed_hex": "4b4e39761359b9efab0788a58015390fdece0d4cbc9499bda7e6f0f0af1d6541"
+        }
+      },
+      "status": "FAIL",
+      "reason": "output mismatch",
+      "duration_ms": 15
+    },
+    {
+      "case_id": "binding-jcs-0",
+      "operation": "jcs.canonicalize",
+      "rule_ids": [
+        "HPKE-02"
+      ],
+      "source_ids": [
+        "rfc9180",
+        "rfc5869",
+        "sage-hpke",
+        "sage-session"
+      ],
+      "derivation": "Public fixed material independently calculated using Python HKDF/X25519 and checked against RFC anchors; no SAGE imports.",
+      "input_sha256": "a30c0c9bed66dc08821ff0152ef92cf50ded08afaeb658000fc3597a526caebc",
+      "adapter_request_sha256": "0a10e41a5f105694172a6ec88f538fe85eb613d40c9be949e79d623548b6c445",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "canonical_hex": "7b22636f6d62696e6572223a226532652d7832353531392d686b64662d7631222c22637478223a2231313131313131312d313131312d343131312d383131312d313131313131313131313131222c22696e6974446964223a226469643a736167653a7765623a6167656e742e6578616d706c653a616c696365222c22696e69744b6964223a226469643a736167653a7765623a6167656e742e6578616d706c653a616c696365237369676e696e672d31222c226b656d4b6964223a226469643a736167653a7765623a6167656e742e6578616d706c653a626f62236b656d2d31222c226e6f6e6365223a2241414141414141414141414141414141414141414141222c2272657370446964223a226469643a736167653a7765623a6167656e742e6578616d706c653a626f62222c22726573704b6964223a226469643a736167653a7765623a6167656e742e6578616d706c653a626f62237369676e696e672d31222c227375697465223a2268706b652d626173652b7832353531392b686b64662d736861323536222c2276223a22302e31302e30227d"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "binding-jcs-0",
+        "verdict": "ACCEPT",
+        "output": {
+          "canonical_hex": "7b22636f6d62696e6572223a226532652d7832353531392d686b64662d7631222c22637478223a2231313131313131312d313131312d343131312d383131312d313131313131313131313131222c22696e6974446964223a226469643a736167653a7765623a6167656e742e6578616d706c653a616c696365222c22696e69744b6964223a226469643a736167653a7765623a6167656e742e6578616d706c653a616c696365237369676e696e672d31222c226b656d4b6964223a226469643a736167653a7765623a6167656e742e6578616d706c653a626f62236b656d2d31222c226e6f6e6365223a2241414141414141414141414141414141414141414141222c2272657370446964223a226469643a736167653a7765623a6167656e742e6578616d706c653a626f62222c22726573704b6964223a226469643a736167653a7765623a6167656e742e6578616d706c653a626f62237369676e696e672d31222c227375697465223a2268706b652d626173652b7832353531392b686b64662d736861323536222c2276223a22302e31302e30227d"
+        }
+      },
+      "status": "PASS",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "transcript-jcs-0",
+      "operation": "jcs.canonicalize",
+      "rule_ids": [
+        "HPKE-03"
+      ],
+      "source_ids": [
+        "rfc9180",
+        "rfc5869",
+        "sage-hpke",
+        "sage-session"
+      ],
+      "derivation": "Public fixed material independently calculated using Python HKDF/X25519 and checked against RFC anchors; no SAGE imports.",
+      "input_sha256": "66ef6b9d82a1b56d73d8b123d3a542b1818dbb286199f47a46c383ac381dd31f",
+      "adapter_request_sha256": "07451e912507a474bbdaef0959d05c016cf12f83750c833f81dd88a829efd122",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "canonical_hex": "7b22636f6d62696e6572223a226532652d7832353531392d686b64662d7631222c22637478223a2231313131313131312d313131312d343131312d383131312d313131313131313131313131222c22656e63223a2247766f493039374152365a446946466a38526745647670393231544771414b656f7a2d566557767972456f222c2265706843223a22447631567865613555453647616d566151646e6236344979476270592d6a6862325138757379426c345838222c2265706853223a224e6447485849527236376f6c35557861386236654f414842614f7a644839694643645161344c6c5f467867222c22696e6974446964223a226469643a736167653a7765623a6167656e742e6578616d706c653a616c696365222c22696e69744b6964223a226469643a736167653a7765623a6167656e742e6578616d706c653a616c696365237369676e696e672d31222c226b656d4b6964223a226469643a736167653a7765623a6167656e742e6578616d706c653a626f62236b656d2d31222c226b6964223a2233333333333333332d333333332d343333332d383333332d333333333333333333333330222c226e6f6e6365223a2241414141414141414141414141414141414141414141222c2272657370446964223a226469643a736167653a7765623a6167656e742e6578616d706c653a626f62222c22726573704b6964223a226469643a736167653a7765623a6167656e742e6578616d706c653a626f62237369676e696e672d31222c227375697465223a2268706b652d626173652b7832353531392b686b64662d736861323536222c227461736b223a2268706b652f696e697440302e31302e30222c2276223a22302e31302e30227d"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "transcript-jcs-0",
+        "verdict": "ACCEPT",
+        "output": {
+          "canonical_hex": "7b22636f6d62696e6572223a226532652d7832353531392d686b64662d7631222c22637478223a2231313131313131312d313131312d343131312d383131312d313131313131313131313131222c22656e63223a2247766f493039374152365a446946466a38526745647670393231544771414b656f7a2d566557767972456f222c2265706843223a22447631567865613555453647616d566151646e6236344979476270592d6a6862325138757379426c345838222c2265706853223a224e6447485849527236376f6c35557861386236654f414842614f7a644839694643645161344c6c5f467867222c22696e6974446964223a226469643a736167653a7765623a6167656e742e6578616d706c653a616c696365222c22696e69744b6964223a226469643a736167653a7765623a6167656e742e6578616d706c653a616c696365237369676e696e672d31222c226b656d4b6964223a226469643a736167653a7765623a6167656e742e6578616d706c653a626f62236b656d2d31222c226b6964223a2233333333333333332d333333332d343333332d383333332d333333333333333333333330222c226e6f6e6365223a2241414141414141414141414141414141414141414141222c2272657370446964223a226469643a736167653a7765623a6167656e742e6578616d706c653a626f62222c22726573704b6964223a226469643a736167653a7765623a6167656e742e6578616d706c653a626f62237369676e696e672d31222c227375697465223a2268706b652d626173652b7832353531392b686b64662d736861323536222c227461736b223a2268706b652f696e697440302e31302e30222c2276223a22302e31302e30227d"
+        }
+      },
+      "status": "PASS",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "completion-signature-0",
+      "operation": "signature.verify",
+      "rule_ids": [
+        "HPKE-04"
+      ],
+      "source_ids": [
+        "rfc9180",
+        "rfc5869",
+        "sage-hpke",
+        "sage-session"
+      ],
+      "derivation": "Public fixed material independently calculated using Python HKDF/X25519 and checked against RFC anchors; no SAGE imports.",
+      "input_sha256": "ea9c1f8260e3a5379deffae5b16fe674249a9577621b710e3bd96d9b8355c7e5",
+      "adapter_request_sha256": "d0eed3e27e29578d1ed3ac7b12e914f9e8889a321159af5922a69b93b143864d",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "completion-signature-0",
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "status": "PASS",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "sage-export-1",
+      "operation": "rfc9180.export",
+      "rule_ids": [
+        "HPKE-02"
+      ],
+      "source_ids": [
+        "rfc9180",
+        "rfc5869",
+        "sage-hpke",
+        "sage-session"
+      ],
+      "derivation": "Public fixed material independently calculated using Python HKDF/X25519 and checked against RFC anchors; no SAGE imports.",
+      "input_sha256": "9af4c75d650e54134a966fded96fa49efd395d3cfd36538d57344e32dbc708e0",
+      "adapter_request_sha256": "82d039af567a2cafceb86fc8fd5c4904ced7982ce9ae3008b0ac732a967baf21",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "exporter_hex": "c4e401e2ba7ddd1e82200d524906ac9583a400a34c1b5ab575a4b323aa0a42b2"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "sage-export-1",
+        "verdict": "ACCEPT",
+        "output": {
+          "exporter_hex": "c4e401e2ba7ddd1e82200d524906ac9583a400a34c1b5ab575a4b323aa0a42b2"
+        }
+      },
+      "status": "PASS",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "combiner-1",
+      "operation": "sage.hpke.combine",
+      "rule_ids": [
+        "HPKE-03"
+      ],
+      "source_ids": [
+        "rfc9180",
+        "rfc5869",
+        "sage-hpke",
+        "sage-session"
+      ],
+      "derivation": "Public fixed material independently calculated using Python HKDF/X25519 and checked against RFC anchors; no SAGE imports.",
+      "input_sha256": "d034377592a8f2fc967bcffc5be639fa00d34148f8463372bc5bdb688872e016",
+      "adapter_request_sha256": "e0e19eb1f59d7860552c8d448e7e269f83e90f69b617787adeeb7cb89954cc9f",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "seed_hex": "8b32bf27a27af10cee3c7752c9d0f882316977302137b4698d2f5ffd9621c7af"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "combiner-1",
+        "verdict": "ACCEPT",
+        "output": {
+          "seed_hex": "060238385ee019bb1cbb61150491caa42f0c97569180b55d4167167fc4e05a49"
+        }
+      },
+      "status": "FAIL",
+      "reason": "output mismatch",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "binding-jcs-1",
+      "operation": "jcs.canonicalize",
+      "rule_ids": [
+        "HPKE-02"
+      ],
+      "source_ids": [
+        "rfc9180",
+        "rfc5869",
+        "sage-hpke",
+        "sage-session"
+      ],
+      "derivation": "Public fixed material independently calculated using Python HKDF/X25519 and checked against RFC anchors; no SAGE imports.",
+      "input_sha256": "f32e734c13978e8f2cb147333cfad0fbc4db3eea548403f76dfefffbafb159e1",
+      "adapter_request_sha256": "4d49852fc02d53e81832dfed5d9d148f0ec9237d8d1a5726ff071069d1efc301",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "canonical_hex": "7b22636f6d62696e6572223a226532652d7832353531392d686b64662d7631222c22637478223a2232323232323232322d323232322d343232322d383232322d323232323232323232323232222c22696e6974446964223a226469643a736167653a7765623a6167656e742e6578616d706c653a616c696365222c22696e69744b6964223a226469643a736167653a7765623a6167656e742e6578616d706c653a616c696365237369676e696e672d31222c226b656d4b6964223a226469643a736167653a7765623a6167656e742e6578616d706c653a626f62236b656d2d31222c226e6f6e6365223a2241514542415145424151454241514542415145424151222c2272657370446964223a226469643a736167653a7765623a6167656e742e6578616d706c653a626f62222c22726573704b6964223a226469643a736167653a7765623a6167656e742e6578616d706c653a626f62237369676e696e672d31222c227375697465223a2268706b652d626173652b7832353531392b686b64662d736861323536222c2276223a22302e31302e30227d"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "binding-jcs-1",
+        "verdict": "ACCEPT",
+        "output": {
+          "canonical_hex": "7b22636f6d62696e6572223a226532652d7832353531392d686b64662d7631222c22637478223a2232323232323232322d323232322d343232322d383232322d323232323232323232323232222c22696e6974446964223a226469643a736167653a7765623a6167656e742e6578616d706c653a616c696365222c22696e69744b6964223a226469643a736167653a7765623a6167656e742e6578616d706c653a616c696365237369676e696e672d31222c226b656d4b6964223a226469643a736167653a7765623a6167656e742e6578616d706c653a626f62236b656d2d31222c226e6f6e6365223a2241514542415145424151454241514542415145424151222c2272657370446964223a226469643a736167653a7765623a6167656e742e6578616d706c653a626f62222c22726573704b6964223a226469643a736167653a7765623a6167656e742e6578616d706c653a626f62237369676e696e672d31222c227375697465223a2268706b652d626173652b7832353531392b686b64662d736861323536222c2276223a22302e31302e30227d"
+        }
+      },
+      "status": "PASS",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "transcript-jcs-1",
+      "operation": "jcs.canonicalize",
+      "rule_ids": [
+        "HPKE-03"
+      ],
+      "source_ids": [
+        "rfc9180",
+        "rfc5869",
+        "sage-hpke",
+        "sage-session"
+      ],
+      "derivation": "Public fixed material independently calculated using Python HKDF/X25519 and checked against RFC anchors; no SAGE imports.",
+      "input_sha256": "7993140761a0a4cf71c50d9f9aa48f4aa7796cc25431bda13eb1c16da53c91e5",
+      "adapter_request_sha256": "9c031eb7ffab500efa68e43f4ac80a677ca6e6051184757665e4674a51470d44",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "canonical_hex": "7b22636f6d62696e6572223a226532652d7832353531392d686b64662d7631222c22637478223a2232323232323232322d323232322d343232322d383232322d323232323232323232323232222c22656e63223a2247766f493039374152365a446946466a38526745647670393231544771414b656f7a2d566557767972456f222c2265706843223a22334b6268586b736c694c74707036396a316a4249597459737872375a6a437753636534366e61725872576b222c2265706853223a2259646a6e5a33323632334438587a48414e7174587756686267496a6a2d376e763031686466477244316773222c22696e6974446964223a226469643a736167653a7765623a6167656e742e6578616d706c653a616c696365222c22696e69744b6964223a226469643a736167653a7765623a6167656e742e6578616d706c653a616c696365237369676e696e672d31222c226b656d4b6964223a226469643a736167653a7765623a6167656e742e6578616d706c653a626f62236b656d2d31222c226b6964223a2233333333333333332d333333332d343333332d383333332d333333333333333333333331222c226e6f6e6365223a2241514542415145424151454241514542415145424151222c2272657370446964223a226469643a736167653a7765623a6167656e742e6578616d706c653a626f62222c22726573704b6964223a226469643a736167653a7765623a6167656e742e6578616d706c653a626f62237369676e696e672d31222c227375697465223a2268706b652d626173652b7832353531392b686b64662d736861323536222c227461736b223a2268706b652f696e697440302e31302e30222c2276223a22302e31302e30227d"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "transcript-jcs-1",
+        "verdict": "ACCEPT",
+        "output": {
+          "canonical_hex": "7b22636f6d62696e6572223a226532652d7832353531392d686b64662d7631222c22637478223a2232323232323232322d323232322d343232322d383232322d323232323232323232323232222c22656e63223a2247766f493039374152365a446946466a38526745647670393231544771414b656f7a2d566557767972456f222c2265706843223a22334b6268586b736c694c74707036396a316a4249597459737872375a6a437753636534366e61725872576b222c2265706853223a2259646a6e5a33323632334438587a48414e7174587756686267496a6a2d376e763031686466477244316773222c22696e6974446964223a226469643a736167653a7765623a6167656e742e6578616d706c653a616c696365222c22696e69744b6964223a226469643a736167653a7765623a6167656e742e6578616d706c653a616c696365237369676e696e672d31222c226b656d4b6964223a226469643a736167653a7765623a6167656e742e6578616d706c653a626f62236b656d2d31222c226b6964223a2233333333333333332d333333332d343333332d383333332d333333333333333333333331222c226e6f6e6365223a2241514542415145424151454241514542415145424151222c2272657370446964223a226469643a736167653a7765623a6167656e742e6578616d706c653a626f62222c22726573704b6964223a226469643a736167653a7765623a6167656e742e6578616d706c653a626f62237369676e696e672d31222c227375697465223a2268706b652d626173652b7832353531392b686b64662d736861323536222c227461736b223a2268706b652f696e697440302e31302e30222c2276223a22302e31302e30227d"
+        }
+      },
+      "status": "PASS",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "completion-signature-1",
+      "operation": "signature.verify",
+      "rule_ids": [
+        "HPKE-04"
+      ],
+      "source_ids": [
+        "rfc9180",
+        "rfc5869",
+        "sage-hpke",
+        "sage-session"
+      ],
+      "derivation": "Public fixed material independently calculated using Python HKDF/X25519 and checked against RFC anchors; no SAGE imports.",
+      "input_sha256": "2a8de9f6d96f829a8fbbfeb7b7a43e95775fe0ec34a09fa4ffd71c95a16f64fb",
+      "adapter_request_sha256": "0ac775b6acd3e35e5e94ddc22653fadec6ef12a3573d197faf7ad44f4f6bcfc8",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "completion-signature-1",
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "status": "PASS",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "sage-export-2",
+      "operation": "rfc9180.export",
+      "rule_ids": [
+        "HPKE-02"
+      ],
+      "source_ids": [
+        "rfc9180",
+        "rfc5869",
+        "sage-hpke",
+        "sage-session"
+      ],
+      "derivation": "Public fixed material independently calculated using Python HKDF/X25519 and checked against RFC anchors; no SAGE imports.",
+      "input_sha256": "1c48aa7bfb030443b164918cb17cf66ee9e04f9c1322d4336b62b0a4e899e66b",
+      "adapter_request_sha256": "dbe4b3014824f0273769d6ce025f0f9758da7f790fe0d6ec220e9e564f9c5f05",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "exporter_hex": "c8356d2148832c4d14f05b738de7900f47179ea43dabd702a05a5938722adbea"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "sage-export-2",
+        "verdict": "ACCEPT",
+        "output": {
+          "exporter_hex": "c8356d2148832c4d14f05b738de7900f47179ea43dabd702a05a5938722adbea"
+        }
+      },
+      "status": "PASS",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "combiner-2",
+      "operation": "sage.hpke.combine",
+      "rule_ids": [
+        "HPKE-03"
+      ],
+      "source_ids": [
+        "rfc9180",
+        "rfc5869",
+        "sage-hpke",
+        "sage-session"
+      ],
+      "derivation": "Public fixed material independently calculated using Python HKDF/X25519 and checked against RFC anchors; no SAGE imports.",
+      "input_sha256": "eddc6f3f17326b286b64b8e05e967ebc876c60ee504f55708a966e9c80398d20",
+      "adapter_request_sha256": "b1ce14415be129b867c3d7d52ae96ac7dcc296cc235c5ab50f30dd41eb9f2b4e",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "seed_hex": "aafef6c5e1f744e6f069491c5532d5dd1e00fc3d61ac94c5e37921aa26bfb2d1"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "combiner-2",
+        "verdict": "ACCEPT",
+        "output": {
+          "seed_hex": "f5e76b244f78c989e42eef405e32d0643a3b7cb8df411809fd4072da4932b2e4"
+        }
+      },
+      "status": "FAIL",
+      "reason": "output mismatch",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "binding-jcs-2",
+      "operation": "jcs.canonicalize",
+      "rule_ids": [
+        "HPKE-02"
+      ],
+      "source_ids": [
+        "rfc9180",
+        "rfc5869",
+        "sage-hpke",
+        "sage-session"
+      ],
+      "derivation": "Public fixed material independently calculated using Python HKDF/X25519 and checked against RFC anchors; no SAGE imports.",
+      "input_sha256": "03ee2e6fe0675aa4572d11ec8bc265fec36d396b9e955239b33dd84c5aa41916",
+      "adapter_request_sha256": "8d1a81106d46d6915923649de1a2f40d0a4cba4fa2d0f1764a80eae8291d1145",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "canonical_hex": "7b22636f6d62696e6572223a226532652d7832353531392d686b64662d7631222c22637478223a2231313131313131312d313131312d343131312d383131312d313131313131313131313131222c22696e6974446964223a226469643a736167653a7765623a6167656e742e6578616d706c653a626f62222c22696e69744b6964223a226469643a736167653a7765623a6167656e742e6578616d706c653a626f62237369676e696e672d31222c226b656d4b6964223a226469643a736167653a7765623a6167656e742e6578616d706c653a616c696365236b656d2d31222c226e6f6e6365223a2241414141414141414141414141414141414141414141222c2272657370446964223a226469643a736167653a7765623a6167656e742e6578616d706c653a616c696365222c22726573704b6964223a226469643a736167653a7765623a6167656e742e6578616d706c653a616c696365237369676e696e672d31222c227375697465223a2268706b652d626173652b7832353531392b686b64662d736861323536222c2276223a22302e31302e30227d"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "binding-jcs-2",
+        "verdict": "ACCEPT",
+        "output": {
+          "canonical_hex": "7b22636f6d62696e6572223a226532652d7832353531392d686b64662d7631222c22637478223a2231313131313131312d313131312d343131312d383131312d313131313131313131313131222c22696e6974446964223a226469643a736167653a7765623a6167656e742e6578616d706c653a626f62222c22696e69744b6964223a226469643a736167653a7765623a6167656e742e6578616d706c653a626f62237369676e696e672d31222c226b656d4b6964223a226469643a736167653a7765623a6167656e742e6578616d706c653a616c696365236b656d2d31222c226e6f6e6365223a2241414141414141414141414141414141414141414141222c2272657370446964223a226469643a736167653a7765623a6167656e742e6578616d706c653a616c696365222c22726573704b6964223a226469643a736167653a7765623a6167656e742e6578616d706c653a616c696365237369676e696e672d31222c227375697465223a2268706b652d626173652b7832353531392b686b64662d736861323536222c2276223a22302e31302e30227d"
+        }
+      },
+      "status": "PASS",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "transcript-jcs-2",
+      "operation": "jcs.canonicalize",
+      "rule_ids": [
+        "HPKE-03"
+      ],
+      "source_ids": [
+        "rfc9180",
+        "rfc5869",
+        "sage-hpke",
+        "sage-session"
+      ],
+      "derivation": "Public fixed material independently calculated using Python HKDF/X25519 and checked against RFC anchors; no SAGE imports.",
+      "input_sha256": "9ce184661c4a7c676f07de121ce007e9c50d607ba02181c70816f9a6bd58dd32",
+      "adapter_request_sha256": "b8c507bdfcc17fe43757c9bd11d1258c6b428563e9fef44f21b8619d77b21789",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "canonical_hex": "7b22636f6d62696e6572223a226532652d7832353531392d686b64662d7631222c22637478223a2231313131313131312d313131312d343131312d383131312d313131313131313131313131222c22656e63223a2247766f493039374152365a446946466a38526745647670393231544771414b656f7a2d566557767972456f222c2265706843223a22524d3658616b4a61534d69505064726e4169713145695235697a4d35746a415f53697a6c374a4964796949222c2265706853223a227866326c30595777454b5a624b67434a554177537746334677784d5576674937746e734c794e6f4f506c45222c22696e6974446964223a226469643a736167653a7765623a6167656e742e6578616d706c653a626f62222c22696e69744b6964223a226469643a736167653a7765623a6167656e742e6578616d706c653a626f62237369676e696e672d31222c226b656d4b6964223a226469643a736167653a7765623a6167656e742e6578616d706c653a616c696365236b656d2d31222c226b6964223a2233333333333333332d333333332d343333332d383333332d333333333333333333333332222c226e6f6e6365223a2241414141414141414141414141414141414141414141222c2272657370446964223a226469643a736167653a7765623a6167656e742e6578616d706c653a616c696365222c22726573704b6964223a226469643a736167653a7765623a6167656e742e6578616d706c653a616c696365237369676e696e672d31222c227375697465223a2268706b652d626173652b7832353531392b686b64662d736861323536222c227461736b223a2268706b652f696e697440302e31302e30222c2276223a22302e31302e30227d"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "transcript-jcs-2",
+        "verdict": "ACCEPT",
+        "output": {
+          "canonical_hex": "7b22636f6d62696e6572223a226532652d7832353531392d686b64662d7631222c22637478223a2231313131313131312d313131312d343131312d383131312d313131313131313131313131222c22656e63223a2247766f493039374152365a446946466a38526745647670393231544771414b656f7a2d566557767972456f222c2265706843223a22524d3658616b4a61534d69505064726e4169713145695235697a4d35746a415f53697a6c374a4964796949222c2265706853223a227866326c30595777454b5a624b67434a554177537746334677784d5576674937746e734c794e6f4f506c45222c22696e6974446964223a226469643a736167653a7765623a6167656e742e6578616d706c653a626f62222c22696e69744b6964223a226469643a736167653a7765623a6167656e742e6578616d706c653a626f62237369676e696e672d31222c226b656d4b6964223a226469643a736167653a7765623a6167656e742e6578616d706c653a616c696365236b656d2d31222c226b6964223a2233333333333333332d333333332d343333332d383333332d333333333333333333333332222c226e6f6e6365223a2241414141414141414141414141414141414141414141222c2272657370446964223a226469643a736167653a7765623a6167656e742e6578616d706c653a616c696365222c22726573704b6964223a226469643a736167653a7765623a6167656e742e6578616d706c653a616c696365237369676e696e672d31222c227375697465223a2268706b652d626173652b7832353531392b686b64662d736861323536222c227461736b223a2268706b652f696e697440302e31302e30222c2276223a22302e31302e30227d"
+        }
+      },
+      "status": "PASS",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "completion-signature-2",
+      "operation": "signature.verify",
+      "rule_ids": [
+        "HPKE-04"
+      ],
+      "source_ids": [
+        "rfc9180",
+        "rfc5869",
+        "sage-hpke",
+        "sage-session"
+      ],
+      "derivation": "Public fixed material independently calculated using Python HKDF/X25519 and checked against RFC anchors; no SAGE imports.",
+      "input_sha256": "803174af5e05fdae33a7ae28deb6cf6460c4b0b23ba69393bd069b9d6d6bb1e7",
+      "adapter_request_sha256": "2b92f2478a4c9c29ee36eebd146af53af3cfb90cafff694056518e10b2b9e7d3",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "completion-signature-2",
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "status": "PASS",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "changed-info",
+      "operation": "rfc9180.export",
+      "rule_ids": [
+        "HPKE-02"
+      ],
+      "source_ids": [
+        "rfc9180",
+        "rfc5869",
+        "sage-hpke",
+        "sage-session"
+      ],
+      "derivation": "Public fixed material independently calculated using Python HKDF/X25519 and checked against RFC anchors; no SAGE imports.",
+      "input_sha256": "07571774fa57efc5ee1735841ccad4ecc1dd3672f9d37954741cf0fa3c1a89ed",
+      "adapter_request_sha256": "253bdf74fdc70fdbb20facb178dc827175775af7a4f514e912c2b2a521302b27",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "exporter_hex": "985ec7387a6dfed13d34d3e523f5fd72cb0e430c48e93a83a1dc488a2e889fcb"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "changed-info",
+        "verdict": "ACCEPT",
+        "output": {
+          "exporter_hex": "985ec7387a6dfed13d34d3e523f5fd72cb0e430c48e93a83a1dc488a2e889fcb"
+        }
+      },
+      "status": "PASS",
+      "duration_ms": 15
+    },
+    {
+      "case_id": "changed-export-context",
+      "operation": "rfc9180.export",
+      "rule_ids": [
+        "HPKE-02"
+      ],
+      "source_ids": [
+        "rfc9180",
+        "rfc5869",
+        "sage-hpke",
+        "sage-session"
+      ],
+      "derivation": "Public fixed material independently calculated using Python HKDF/X25519 and checked against RFC anchors; no SAGE imports.",
+      "input_sha256": "b380b405ff4315bde4d2f3daddceb805225588dbc80cf72690cd1e1792cea22a",
+      "adapter_request_sha256": "0fcde74459acc385fd0e33dd548d4de41ca8b9d818d16782b2e47fa95b2c603b",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "exporter_hex": "1098d4942868c095aeee1b0748edc0b6d50bcc5e09fb13c0fb3ab2014199fb2a"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "changed-export-context",
+        "verdict": "ACCEPT",
+        "output": {
+          "exporter_hex": "1098d4942868c095aeee1b0748edc0b6d50bcc5e09fb13c0fb3ab2014199fb2a"
+        }
+      },
+      "status": "PASS",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "kem-zero",
+      "operation": "rfc9180.export",
+      "rule_ids": [
+        "HPKE-01"
+      ],
+      "source_ids": [
+        "rfc9180",
+        "rfc5869",
+        "sage-hpke",
+        "sage-session"
+      ],
+      "derivation": "Public fixed material independently calculated using Python HKDF/X25519 and checked against RFC anchors; no SAGE imports. Rejection: invalid-kem",
+      "input_sha256": "86e004f1e36bf66cbfb8b9c422320675010266968e35bc9a767474d89ee90528",
+      "adapter_request_sha256": "2187be3095790103e8eeddd0f49f8ae0dcc2d17ded225bc9c883a40782914368",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "kem-zero",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "PASS",
+      "duration_ms": 12
+    },
+    {
+      "case_id": "kem-one",
+      "operation": "rfc9180.export",
+      "rule_ids": [
+        "HPKE-01"
+      ],
+      "source_ids": [
+        "rfc9180",
+        "rfc5869",
+        "sage-hpke",
+        "sage-session"
+      ],
+      "derivation": "Public fixed material independently calculated using Python HKDF/X25519 and checked against RFC anchors; no SAGE imports. Rejection: invalid-kem",
+      "input_sha256": "9c7f4fd609f6b8415f33eaa36de2a1aa5686ad4dcca9fd562faf6b1d2c5f5e34",
+      "adapter_request_sha256": "667a1bf0016c8d38bb22e29b8fe7f72febcbd71d1f005eeb6f2df233ec03d5be",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "kem-one",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "PASS",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "kem-short",
+      "operation": "rfc9180.export",
+      "rule_ids": [
+        "HPKE-01"
+      ],
+      "source_ids": [
+        "rfc9180",
+        "rfc5869",
+        "sage-hpke",
+        "sage-session"
+      ],
+      "derivation": "Public fixed material independently calculated using Python HKDF/X25519 and checked against RFC anchors; no SAGE imports. Rejection: invalid-kem",
+      "input_sha256": "33b824f6dfa4a9ff8fa317387702f658fc66100ff0f62de5ec6360dfe06a2c1a",
+      "adapter_request_sha256": "325c8def9feeee4dc88f6a3e8c4d70feff880ce8a23db0b463c6e2c18d5cf286",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "kem-short",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "PASS",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "e2e-client",
+      "operation": "x25519.exchange",
+      "rule_ids": [
+        "HPKE-03"
+      ],
+      "source_ids": [
+        "rfc9180",
+        "rfc5869",
+        "sage-hpke",
+        "sage-session"
+      ],
+      "derivation": "Public fixed material independently calculated using Python HKDF/X25519 and checked against RFC anchors; no SAGE imports.",
+      "input_sha256": "5b5721658f16baf3142e588663b30527f385b057f6634632c3e1b07175ec5215",
+      "adapter_request_sha256": "3f565bf0c74b63e6d919aae772a2b698fa2e758508b2ea071bfe6accc752dc32",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "shared_secret_hex": "7cc2b7b281a0742951106c397572ff7ba1fc702a9fc46c9d8a0d984f52ed166f"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "e2e-client",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "e2e-server",
+      "operation": "x25519.exchange",
+      "rule_ids": [
+        "HPKE-03"
+      ],
+      "source_ids": [
+        "rfc9180",
+        "rfc5869",
+        "sage-hpke",
+        "sage-session"
+      ],
+      "derivation": "Public fixed material independently calculated using Python HKDF/X25519 and checked against RFC anchors; no SAGE imports.",
+      "input_sha256": "4de0377174f9c4c97ecb8dca16a968f5bf900f62a68aef44e9b7b72031444a22",
+      "adapter_request_sha256": "bcc7ed43802d678f3c7b59c7ffc844799563f3bdad2cde83127313722981ca69",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "shared_secret_hex": "7cc2b7b281a0742951106c397572ff7ba1fc702a9fc46c9d8a0d984f52ed166f"
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "e2e-server",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "e2e-zero",
+      "operation": "x25519.exchange",
+      "rule_ids": [
+        "HPKE-03"
+      ],
+      "source_ids": [
+        "rfc9180",
+        "rfc5869",
+        "sage-hpke",
+        "sage-session"
+      ],
+      "derivation": "Public fixed material independently calculated using Python HKDF/X25519 and checked against RFC anchors; no SAGE imports. Rejection: invalid-dh",
+      "input_sha256": "3a69ed347bc4398f0f159c35128add7999dca90600af3372cd36842e8ca7feb4",
+      "adapter_request_sha256": "19ab37f8526a558555d7c5145790b8bf5fa72005d8ca1fa310102258ef64c6ba",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "e2e-zero",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "e2e-one",
+      "operation": "x25519.exchange",
+      "rule_ids": [
+        "HPKE-03"
+      ],
+      "source_ids": [
+        "rfc9180",
+        "rfc5869",
+        "sage-hpke",
+        "sage-session"
+      ],
+      "derivation": "Public fixed material independently calculated using Python HKDF/X25519 and checked against RFC anchors; no SAGE imports. Rejection: invalid-dh",
+      "input_sha256": "ab5cdb0c79872f49b91b95c53325a622a5c1abdc5732a66c77d5e13b5205cde5",
+      "adapter_request_sha256": "7dbaa10a4d3bcd38bd267d720333eb287045531f731893825cfbc0bad5498fc7",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "e2e-one",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "e2e-short",
+      "operation": "x25519.exchange",
+      "rule_ids": [
+        "HPKE-03"
+      ],
+      "source_ids": [
+        "rfc9180",
+        "rfc5869",
+        "sage-hpke",
+        "sage-session"
+      ],
+      "derivation": "Public fixed material independently calculated using Python HKDF/X25519 and checked against RFC anchors; no SAGE imports. Rejection: invalid-dh",
+      "input_sha256": "57b0c9c900b5ea235e35749a59ffa59ef35778a5a87ba1f7e366051754acf29e",
+      "adapter_request_sha256": "16d352bc6009adc6470fdd8ae7d21ca4f38c3b87e80f452b1ee64140fb92251c",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "e2e-short",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "combiner-zero",
+      "operation": "sage.hpke.combine",
+      "rule_ids": [
+        "HPKE-03"
+      ],
+      "source_ids": [
+        "rfc9180",
+        "rfc5869",
+        "sage-hpke",
+        "sage-session"
+      ],
+      "derivation": "Public fixed material independently calculated using Python HKDF/X25519 and checked against RFC anchors; no SAGE imports. Rejection: invalid-combiner-input",
+      "input_sha256": "5d3e97b48f2973028afa49a85a35890baa22d607f72571d934b1f1ec8cf4c29c",
+      "adapter_request_sha256": "cb03ea77e24740c1ab3ffea06c4967a678b458a78223d272922bee28a83bad00",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "combiner-zero",
+        "verdict": "ACCEPT",
+        "output": {
+          "seed_hex": "4ad3f18137516dd443904418c4dd354efdc0074c30e3394f23dad7172efe8f6a"
+        }
+      },
+      "status": "FAIL",
+      "reason": "verdict mismatch",
+      "duration_ms": 11
+    },
+    {
+      "case_id": "combiner-short",
+      "operation": "sage.hpke.combine",
+      "rule_ids": [
+        "HPKE-03"
+      ],
+      "source_ids": [
+        "rfc9180",
+        "rfc5869",
+        "sage-hpke",
+        "sage-session"
+      ],
+      "derivation": "Public fixed material independently calculated using Python HKDF/X25519 and checked against RFC anchors; no SAGE imports. Rejection: invalid-combiner-input",
+      "input_sha256": "6c0b8b2a5b2e585b5a9a99316817044a24060b8de21b2429a02b38c60d7907d2",
+      "adapter_request_sha256": "d10ebd00e025cdabe8b3f08aec80015dfd8910955be0275b3b2f9a25263bc378",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "combiner-short",
+        "verdict": "ACCEPT",
+        "output": {
+          "seed_hex": "baab0a4d524acd6968f38abaf6bc6ccf94ba7f7ac28a55e935beb425896f1837"
+        }
+      },
+      "status": "FAIL",
+      "reason": "verdict mismatch",
+      "duration_ms": 12
+    }
+  ]
+}

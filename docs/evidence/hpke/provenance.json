@@ -1,0 +1,48 @@
+{
+  "scope": "Independent fixed test calculations and local core API observations; no core sources modified, no formal or external security audit.",
+  "repositories": {
+    "sage": {
+      "revision": "c7709b7486e0da94336edc0931fddd87f6a45343",
+      "sha256": {
+        "pkg/agent/hpke/common.go": "a06d1b25ed57a1d870f6d388578eafba1d5915209c8cb184ec057cb5cb2a668b",
+        "pkg/agent/crypto/keys/x25519.go": "95aba9bdf8bc98ce826d8500d3a8bfa1ef04b916471be4fe68589c74bc7eae14"
+      }
+    },
+    "rs-sage-core": {
+      "revision": "206bbbb5a66667ae2feb3b0e9991ed1ca4622bb2",
+      "sha256": {
+        "src/hpke/common.rs": "c484d888a8c8f41f96c667968022908e781daf0adbf6e5f7ac0e84356a4aa548",
+        "src/crypto/x25519.rs": "3855b2c47eb5f02b39cfaa172715ca352cbd2f12313c6ae8de4315f911e6c099",
+        "src/hpke/client.rs": "4fca0748db97a040ee4e14d620e25db76c559c5b9580710f4d1f4a0ada4cdd83",
+        "src/hpke/server.rs": "6738665377c5ddf9f8af3d78c11859473aaf3ea70e90625dd27c21a37860b1f0"
+      }
+    },
+    "sage-spec": {
+      "revision": "f4a4e7fbf71a665785984eef7609b2e8fabe833d",
+      "sha256": {
+        "spec/04-hpke.md": "1420818451ce8363a16e391647dbaca8ec2f06efa56b6507027a4e17f399fdd6",
+        "spec/05-session.md": "8a45b8bdd3b6bfc399a94c420b2161b8f16db5c6b29ed2e85584a6282b17cce5"
+      }
+    }
+  },
+  "inspector_file_sha256": {
+    "scripts/generate_hpke_vectors.py": "8149670b4edf44d58a1ca834c8aae6929573c01d8977f62dd4e63057a877494c",
+    "scripts/check_hpke_vectors.js": "72ccb7bfb4bc8d7bd6cfb86ebbe4ecb0d7220a06f0817b0e86c8f2bb5a494770",
+    "scripts/inspect_hpke.py": "57faa6a13401cb74cbe64ee4acd2225f62080bc46329a3d3ecf5573255b44e52",
+    "adapters/go/hpke.go": "e0fb7e149eb9d75f3331d105a4b2d8aff2f647b8cf551db179e05acaa71b23dc",
+    "adapters/rust/src/hpke_checks.rs": "fb4b37c50637f5f25bcf14f5001331b5e3b4b25005b18cbfe30c18ced69820f8",
+    "scripts/test_hpke_adapters.py": "acf232f99c9157634684dfb37411428a6e6e9b426d6994c365e2d4934056328e"
+  },
+  "anchors": {
+    "rfc9180": "https://www.rfc-editor.org/rfc/rfc9180.html#appendix-A.2.1",
+    "kem_erratum": "https://www.rfc-editor.org/errata/eid7937",
+    "hkdf": "https://www.rfc-editor.org/rfc/rfc5869.html#appendix-A.1"
+  },
+  "tools": {
+    "python": "Python 3.10.11",
+    "node": "v24.4.1",
+    "cryptography": "50.0.0",
+    "python_ssl": "OpenSSL 1.1.1t  7 Feb 2023"
+  },
+  "state_binding": "NOT_RUN until actual schema2 core adapters exist; independent lifecycle model is not a core observation."
+}

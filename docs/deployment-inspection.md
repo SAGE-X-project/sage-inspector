@@ -12,7 +12,7 @@ still require core and host bindings. No host was selected or executed.
 | Legacy record API exchange in both directions | Executed | Rerun when core implementations change |
 | Transcript-bound record API | UNSUPPORTED | A real API accepting the transcript binding |
 | Full HPKE confirmation and HTTP/WS request/response exchange | NOT_RUN | Two complete 0.10.0 endpoints and observed wire bytes |
-| Cross-core replay and lifecycle state | NOT_RUN | Persistent receiver state, duplicates and observed effects |
+| Cross-core replay and explicit close | Executed | [36 actions and four fresh-record controls](replay-inspection.md) passed; expiry, recovery and simultaneous races remain pending |
 | Host hook/direct-call/process/file/network/key access probes | Prepared; 8 NOT_RUN | Pinned host executable/configuration and a trusted external witness |
 | Deployment-level conformance review | NOT_ESTABLISHED | Complete relevant bindings, passing positive controls and scoped isolation evidence |
 
@@ -49,7 +49,7 @@ At the pinned core revisions, all four exchanges recover the sender's plaintext.
 The final evidence has **28 PASS, 0 FAIL, 4 UNSUPPORTED**: four producer observations,
 four intact recoveries, twenty mutation rejections and four missing transcript
 bindings. The aggregate is INCOMPLETE. A fresh receiving process is used for every
-check, so replay rejection has not been tested. Matching legacy implementations can
+check, so that report alone does not test replay rejection. The separate [stateful run](replay-inspection.md) now covers replay and explicit close. Matching legacy implementations can
 share a specification deviation; these results do not replace the frozen normative
 vectors or establish full 0.10.0 interoperability.
 

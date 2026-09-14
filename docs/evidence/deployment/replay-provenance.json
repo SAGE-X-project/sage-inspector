@@ -1,0 +1,17 @@
+{
+  "scope": "Real legacy cross-core replay/close batches and separate fresh-record positive controls. No core modifications or host execution.",
+  "files": {
+    "docs/evidence/deployment/replay.json": "79f5b7f71cafb9f49fe0a956663a925dbc1adc756b101acaab8a4d3daf320c43",
+    "docs/evidence/core-source-lock.json": "18229a6202c01dc70629ca22db3d3f3754c11bd0a89e2d9d76e3050bdd64a7b7"
+  },
+  "inspector_sources": {
+    "pkg/conformance/replay_exchange.go": "b2b2eac473ac7a9207d72d7b5f764793db0c3b1dba581e9327feb8efe2cebfe9",
+    "pkg/conformance/exchange.go": "2c91cc5dce8c68a2c8197b05af40b0ca4fb409156d7b8c2f2cc791c03752dc71",
+    "cmd/sage-exchange/main.go": "dd17324d582d042090ff643ec9961db865c94f8a08ccc00e8ea65c452ce82b66",
+    "adapters/go/main.go": "3c725354cf64d726e830a55b308d91ea49de16a94ede97e4836db329e85a2d3e",
+    "adapters/go/sequence.go": "29f89fe501a60a7fb0c47dd208d16ca749bddb32033d4a690ac1c4e4e0a08b23",
+    "adapters/rust/src/main.rs": "ec2bbe0966fb48742ec207b6ed9aae12fe570e97038492f9c55344a3a5b82bb4",
+    "adapters/rust/src/sequence_checks.rs": "a02aa3364f73f66a1c66008cd5828902f12e4c55b08ea196ad3cd308170ee2d2"
+  },
+  "runner_sha256": "2d564e80cf4dbf0dde7287eb97572dbf01ea817601d8d6f9f5858aa68e86b4a6"
+}

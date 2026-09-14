@@ -173,7 +173,9 @@
     "vectors/0.10.0/host-scenarios/host-network-access.json": "82e3aa304abc9e653d0b63db3ca7a811741bbbc734442a1449c4c2ce34cd24ea",
     "vectors/0.10.0/host-scenarios/host-signing-key-access.json": "30f38425a165998f39b527a554ab46646fae2d391c6afaaab9e0dc6c298e22f6",
     "vectors/0.10.0/host-scenarios/host-verifier-replacement.json": "802ba7c9a0e0e06b62818c06c69a88c8f4af097d46a22797f916850c13399a74",
-    "docs/evidence/deployment/provenance.json": "eae2fa62cf9c002ad11d64a4ba8baa65d043a6231ab6d2c543be4cf07784605e"
+    "docs/evidence/deployment/provenance.json": "eae2fa62cf9c002ad11d64a4ba8baa65d043a6231ab6d2c543be4cf07784605e",
+    "docs/evidence/deployment/replay.json": "79f5b7f71cafb9f49fe0a956663a925dbc1adc756b101acaab8a4d3daf320c43",
+    "docs/evidence/deployment/replay-provenance.json": "1133ab29f4675239bd9ad1b5462c7c019b4a7b628bd0060e6e2d3dcfe8beca47"
   },
   "cores": [
     {

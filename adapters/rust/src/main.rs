@@ -1,6 +1,7 @@
 mod hpke_checks;
 mod http_checks;
 mod registry_checks;
+mod sequence_checks;
 mod session_checks;
 use sage_crypto_core::crypto::{KeyType, PublicKey, Signature, Verifier};
 use serde::Deserialize;
@@ -31,6 +32,13 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
         return Err("invalid request".into());
     }
     let (verdict, output) = if [
+        "legacy.session.export-sequence",
+        "legacy.session.receive-sequence",
+    ]
+    .contains(&q.operation.as_str())
+    {
+        sequence_checks::observe(&q.operation, q.input)?
+    } else if [
         "rfc9421.base",
         "sage.content-digest",
         "rfc9421.archived.verify",

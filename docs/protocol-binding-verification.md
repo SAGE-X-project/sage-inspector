@@ -70,4 +70,4 @@ python3 scripts/test_protocol_binding_runtime.py /private/tmp/sage-conformance-p
 CI에서도 실행한다. 결과는 Inspector 실행 경로에 대한 테스트이며 암호 연산,
 상태 정책, WebSocket 보안이나 완전한 프로토콜 상호운용의 실제 코어 통과 증거가 아니다.
 기존 FAIL/UNSUPPORTED/NOT_RUN과 전체 NOT_ESTABLISHED 판정은 그대로 유지한다.
-다음 작업은 Guard의 hook 누락·시간 초과·검증 실패에 대한 판정 테스트다.
+후속 [Guard 차단 판정 테스트](guard-gate-verification.md)를 추가했다.

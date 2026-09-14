@@ -43,8 +43,12 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
         .contains(&q.operation.as_str())
     {
         hpke_checks::observe(&q.operation, q.input)?
-    } else if ["sage.session.record.open", "sage.session.record.seal"]
-        .contains(&q.operation.as_str())
+    } else if [
+        "sage.session.record.open",
+        "sage.session.record.seal",
+        "sage.session.record.export",
+    ]
+    .contains(&q.operation.as_str())
     {
         session_checks::observe(&q.operation, q.input)?
     } else if ["sage.did.validate", "sage.registry.pop.verify"].contains(&q.operation.as_str()) {

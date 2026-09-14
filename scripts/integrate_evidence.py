@@ -234,7 +234,9 @@ def build(root, catalog_path):
             planned_case_counts=counts(c['evidence_status'] for c in case_rows),
             runs=runs, observations=observations, scenarios=state_rows, rules=by_rule,
             requirements=req_rows, planned_cases=case_rows)
-    return dict(schema_version=1, protocol_version='0.10.0', evidence_validation='VALID',
+    from check_deployment_evidence import check as check_deployment
+    deployment = check_deployment(root)
+    return dict(deployment_evidence=deployment, schema_version=1, protocol_version='0.10.0', evidence_validation='VALID',
                 catalog_sha256=sha(catalog_raw), spec_snapshot=snapshot,
                 scope='Archived observations joined to the plan; no fresh core run or whole-protocol certification. '
                       'Rule links and primitive PASS are partial evidence. Hashes detect drift relative to this reviewed inventory, not malicious replacement of the inventory itself.',

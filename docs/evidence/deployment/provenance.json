@@ -1,0 +1,25 @@
+{
+  "scope": "Live legacy core record exchange and prepared host probes. Inspector source hashes identify this working-tree build; no host execution or full 0.10.0 interoperability claim.",
+  "files": {
+    "docs/evidence/deployment/exchange.json": "71cd971c780e9e17c2d8e7ecb5e16c286455f56cf037983952353494a55fafd7",
+    "docs/evidence/deployment/host/summary.json": "10a6071aa06312321be7e707e53032c543f5b17541197e2d37acc1f44314c1d8",
+    "docs/evidence/core-source-lock.json": "18229a6202c01dc70629ca22db3d3f3754c11bd0a89e2d9d76e3050bdd64a7b7",
+    "vectors/0.10.0/host-manifest.json": "f4e6bfd02f475700305a040bc0190f29f704cdde8550f6bc836a3f83ee933ede",
+    "vectors/0.10.0/host-scenarios/host-child-process.json": "b3ec5674f455ee26d5ac7ce5a6a719d93193ad57d2a44a4ebfb612d1c64ca763",
+    "vectors/0.10.0/host-scenarios/host-direct-call.json": "91bbad152b38acfb056c1b7bc6dbdca5f198824d875e2a6c0b1ecd8ecabd1fd9",
+    "vectors/0.10.0/host-scenarios/host-file-access.json": "6f23a7aae6368280b8be37836c895a92c5c00f7a1dfef21ad53813706cf86f38",
+    "vectors/0.10.0/host-scenarios/host-hook-missing.json": "75b6f788dcf7eaa9b60dcc3d1770d87b80c73d749697bf7e700711250d206b6b",
+    "vectors/0.10.0/host-scenarios/host-hook-timeout.json": "bb2451c8adb9aac9f7ee151d71778b4ce152a2b411dabe69f0eca8509ee2ce0b",
+    "vectors/0.10.0/host-scenarios/host-network-access.json": "82e3aa304abc9e653d0b63db3ca7a811741bbbc734442a1449c4c2ce34cd24ea",
+    "vectors/0.10.0/host-scenarios/host-signing-key-access.json": "30f38425a165998f39b527a554ab46646fae2d391c6afaaab9e0dc6c298e22f6",
+    "vectors/0.10.0/host-scenarios/host-verifier-replacement.json": "802ba7c9a0e0e06b62818c06c69a88c8f4af097d46a22797f916850c13399a74"
+  },
+  "inspector_sources": {
+    "pkg/conformance/exchange.go": "2c91cc5dce8c68a2c8197b05af40b0ca4fb409156d7b8c2f2cc791c03752dc71",
+    "cmd/sage-exchange/main.go": "20dd7a8a0b9583b8ec6f56d194261de1797453c10cc7062b1618780167432c55",
+    "adapters/go/main.go": "ba4440422dde07886ce0e2acd7d90419aea094a933fd576ebb1eb841f3890d3c",
+    "adapters/go/session.go": "d4afda8f3c4cba79c3c12322dae5fa9570c4bf3ba539a0d8b92462b30dc7e405",
+    "adapters/rust/src/main.rs": "96717ea1db11989b4457e4dcf449fb3e2988cf7bb23e7bf623062b0568b9e95c",
+    "adapters/rust/src/session_checks.rs": "63f4516df8d8458b040c8e4e97296b05077b0271b7f8e2c77e5f236ec9dd053f"
+  }
+}

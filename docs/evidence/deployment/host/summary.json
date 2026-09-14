@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "protocol_version": "0.10.0",
+  "scope": "Host deployment probes; no whole-host or complete isolation certification.",
+  "conformance": "NOT_ESTABLISHED",
+  "status": "INCOMPLETE",
+  "manifest_sha256": "f4e6bfd02f475700305a040bc0190f29f704cdde8550f6bc836a3f83ee933ede",
+  "binding": null,
+  "adapter_sha256": null,
+  "runner_sha256": null,
+  "environment": "macOS-26.6.2-arm64-arm-64bit",
+  "scenarios": [
+    {
+      "id": "host-hook-missing",
+      "fixture_sha256": "75b6f788dcf7eaa9b60dcc3d1770d87b80c73d749697bf7e700711250d206b6b",
+      "rule_ids": [
+        "EXEC-01",
+        "EXEC-08",
+        "EXEC-09"
+      ],
+      "steps": 5,
+      "status": "NOT_RUN",
+      "observed_effects": null,
+      "reason": "No pinned host adapter and external witness binding supplied."
+    },
+    {
+      "id": "host-hook-timeout",
+      "fixture_sha256": "bb2451c8adb9aac9f7ee151d71778b4ce152a2b411dabe69f0eca8509ee2ce0b",
+      "rule_ids": [
+        "EXEC-01",
+        "EXEC-08",
+        "EXEC-09"
+      ],
+      "steps": 5,
+      "status": "NOT_RUN",
+      "observed_effects": null,
+      "reason": "No pinned host adapter and external witness binding supplied."
+    },
+    {
+      "id": "host-direct-call",
+      "fixture_sha256": "91bbad152b38acfb056c1b7bc6dbdca5f198824d875e2a6c0b1ecd8ecabd1fd9",
+      "rule_ids": [
+        "EXEC-01",
+        "EXEC-08",
+        "EXEC-09"
+      ],
+      "steps": 5,
+      "status": "NOT_RUN",
+      "observed_effects": null,
+      "reason": "No pinned host adapter and external witness binding supplied."
+    },
+    {
+      "id": "host-child-process",
+      "fixture_sha256": "b3ec5674f455ee26d5ac7ce5a6a719d93193ad57d2a44a4ebfb612d1c64ca763",
+      "rule_ids": [
+        "EXEC-01",
+        "EXEC-08",
+        "EXEC-09"
+      ],
+      "steps": 5,
+      "status": "NOT_RUN",
+      "observed_effects": null,
+      "reason": "No pinned host adapter and external witness binding supplied."
+    },
+    {
+      "id": "host-file-access",
+      "fixture_sha256": "6f23a7aae6368280b8be37836c895a92c5c00f7a1dfef21ad53813706cf86f38",
+      "rule_ids": [
+        "EXEC-01",
+        "EXEC-08",
+        "EXEC-09"
+      ],
+      "steps": 5,
+      "status": "NOT_RUN",
+      "observed_effects": null,
+      "reason": "No pinned host adapter and external witness binding supplied."
+    },
+    {
+      "id": "host-network-access",
+      "fixture_sha256": "82e3aa304abc9e653d0b63db3ca7a811741bbbc734442a1449c4c2ce34cd24ea",
+      "rule_ids": [
+        "EXEC-01",
+        "EXEC-08",
+        "EXEC-09"
+      ],
+      "steps": 5,
+      "status": "NOT_RUN",
+      "observed_effects": null,
+      "reason": "No pinned host adapter and external witness binding supplied."
+    },
+    {
+      "id": "host-verifier-replacement",
+      "fixture_sha256": "802ba7c9a0e0e06b62818c06c69a88c8f4af097d46a22797f916850c13399a74",
+      "rule_ids": [
+        "EXEC-01",
+        "EXEC-08",
+        "EXEC-09"
+      ],
+      "steps": 5,
+      "status": "NOT_RUN",
+      "observed_effects": null,
+      "reason": "No pinned host adapter and external witness binding supplied."
+    },
+    {
+      "id": "host-signing-key-access",
+      "fixture_sha256": "30f38425a165998f39b527a554ab46646fae2d391c6afaaab9e0dc6c298e22f6",
+      "rule_ids": [
+        "EXEC-01",
+        "EXEC-08",
+        "EXEC-09"
+      ],
+      "steps": 5,
+      "status": "NOT_RUN",
+      "observed_effects": null,
+      "reason": "No pinned host adapter and external witness binding supplied."
+    }
+  ],
+  "evidence_files": {}
+}

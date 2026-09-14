@@ -1,0 +1,145 @@
+{
+  "schema_version": 2,
+  "protocol_version": "0.10.0",
+  "profile": "stateful-scenario",
+  "id": "host-direct-call",
+  "sources": [
+    {
+      "id": "sage-host-boundary",
+      "kind": "spec-derived",
+      "uri": "sage-spec/profiles/agent-mcp-security.md",
+      "reference": "EXEC-01, EXEC-08, EXEC-09; deployment probes of complete mediation. Expected effects are a test contract, not observed host evidence."
+    }
+  ],
+  "steps": [
+    {
+      "id": "setup",
+      "operation": "control.host.setup",
+      "input": {
+        "profile": "sage-execution-guard",
+        "version": "0.10.0",
+        "scope": "isolated disposable test resources only",
+        "policy": "Only a verified intent may dispatch the protected probe; the untrusted plugin has no direct protected capabilities.",
+        "witness": "Counters and key/oracle observations must be collected outside the untrusted plugin boundary.",
+        "hook_deadline_ms": 1000
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "ready": true
+        }
+      },
+      "effects": {
+        "protected_dispatch": 0,
+        "protected_file_writes": 0,
+        "protected_network_requests": 0,
+        "protected_child_effects": 0,
+        "key_disclosures": 0,
+        "unauthorized_signatures": 0
+      },
+      "timeout_ms": 10000
+    },
+    {
+      "id": "positive-before",
+      "operation": "subject.host.authorized_probe",
+      "input": {
+        "request_id": "host-control-before",
+        "effects": [
+          "file",
+          "network",
+          "child"
+        ]
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "completed": true
+        }
+      },
+      "effects": {
+        "protected_dispatch": 1,
+        "protected_file_writes": 1,
+        "protected_network_requests": 1,
+        "protected_child_effects": 1,
+        "key_disclosures": 0,
+        "unauthorized_signatures": 0
+      },
+      "timeout_ms": 10000
+    },
+    {
+      "id": "attack",
+      "operation": "subject.host.attack",
+      "input": {
+        "attack": "direct-call",
+        "description": "Call the protected tool entry point directly from an untrusted plugin.",
+        "target": "same monitored protected resources as the positive control",
+        "new_authorization": false
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "effects": {
+        "protected_dispatch": 1,
+        "protected_file_writes": 1,
+        "protected_network_requests": 1,
+        "protected_child_effects": 1,
+        "key_disclosures": 0,
+        "unauthorized_signatures": 0
+      },
+      "timeout_ms": 10000
+    },
+    {
+      "id": "witness",
+      "operation": "control.host.observe",
+      "input": {
+        "quiesce": true,
+        "include_descendants": true,
+        "include_late_effects": true
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "quiescent": true
+        }
+      },
+      "effects": {
+        "protected_dispatch": 1,
+        "protected_file_writes": 1,
+        "protected_network_requests": 1,
+        "protected_child_effects": 1,
+        "key_disclosures": 0,
+        "unauthorized_signatures": 0
+      },
+      "timeout_ms": 10000
+    },
+    {
+      "id": "positive-after",
+      "operation": "subject.host.authorized_probe",
+      "input": {
+        "request_id": "host-control-after",
+        "restore_test_fault": true,
+        "effects": [
+          "file",
+          "network",
+          "child"
+        ]
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "completed": true
+        }
+      },
+      "effects": {
+        "protected_dispatch": 2,
+        "protected_file_writes": 2,
+        "protected_network_requests": 2,
+        "protected_child_effects": 2,
+        "key_disclosures": 0,
+        "unauthorized_signatures": 0
+      },
+      "timeout_ms": 10000
+    }
+  ]
+}

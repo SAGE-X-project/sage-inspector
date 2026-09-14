@@ -90,3 +90,5 @@ Registry 0.10.0 inspection: [DID, Card, authoritative observation and core resul
 Execution Guard inspection: [commitments, dispatch/recovery scenarios and evidence](docs/guard-inspection.md).
 
 Integrated CI evidence and requirement coverage: [validation, results and reproduction](docs/evidence-integration.md).
+
+Live Go↔Rust exchanges and host bypass probes: [execution evidence and remaining bindings](docs/deployment-inspection.md).

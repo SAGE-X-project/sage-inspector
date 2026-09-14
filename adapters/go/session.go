@@ -97,6 +97,9 @@ func sessionObserve(op string, raw json.RawMessage) (string, map[string]any, err
 		sum := sha256.Sum256(wire)
 		out["record_sha256"] = hex.EncodeToString(sum[:])
 		out["record_bytes"] = len(wire)
+		if op == "sage.session.record.export" {
+			out["record_hex"] = hex.EncodeToString(wire)
+		}
 	}
 	return "ACCEPT", out, nil
 }

@@ -161,7 +161,19 @@
     "verification/0.10.0/snapshot/spec/11-registries.md": "b8485756b78b8e561b2a1747b0fb350958eba746ea82229d79168317a2c9d07b",
     "verification/0.10.0/snapshot/verification/crypto-trust-closure.md": "85555b082d173b8b4db552561efb4f4f20e3d9389752587a2c5c8653f8fe2d2b",
     "verification/0.10.0/snapshot/verification/inspector-plan.md": "a5c6ba25e4cd4d1d1a687034c698bcfd0e07d634173582f74827c36fcd83a33e",
-    "verification/0.10.0/snapshot/verification/traceability.json": "c4db008e83ad9491559941ce6cb36960eea4fe3ba1ec6c698d7d77ea91ea009c"
+    "verification/0.10.0/snapshot/verification/traceability.json": "c4db008e83ad9491559941ce6cb36960eea4fe3ba1ec6c698d7d77ea91ea009c",
+    "docs/evidence/deployment/exchange.json": "71cd971c780e9e17c2d8e7ecb5e16c286455f56cf037983952353494a55fafd7",
+    "docs/evidence/deployment/host/summary.json": "10a6071aa06312321be7e707e53032c543f5b17541197e2d37acc1f44314c1d8",
+    "vectors/0.10.0/host-manifest.json": "f4e6bfd02f475700305a040bc0190f29f704cdde8550f6bc836a3f83ee933ede",
+    "vectors/0.10.0/host-scenarios/host-child-process.json": "b3ec5674f455ee26d5ac7ce5a6a719d93193ad57d2a44a4ebfb612d1c64ca763",
+    "vectors/0.10.0/host-scenarios/host-direct-call.json": "91bbad152b38acfb056c1b7bc6dbdca5f198824d875e2a6c0b1ecd8ecabd1fd9",
+    "vectors/0.10.0/host-scenarios/host-file-access.json": "6f23a7aae6368280b8be37836c895a92c5c00f7a1dfef21ad53813706cf86f38",
+    "vectors/0.10.0/host-scenarios/host-hook-missing.json": "75b6f788dcf7eaa9b60dcc3d1770d87b80c73d749697bf7e700711250d206b6b",
+    "vectors/0.10.0/host-scenarios/host-hook-timeout.json": "bb2451c8adb9aac9f7ee151d71778b4ce152a2b411dabe69f0eca8509ee2ce0b",
+    "vectors/0.10.0/host-scenarios/host-network-access.json": "82e3aa304abc9e653d0b63db3ca7a811741bbbc734442a1449c4c2ce34cd24ea",
+    "vectors/0.10.0/host-scenarios/host-signing-key-access.json": "30f38425a165998f39b527a554ab46646fae2d391c6afaaab9e0dc6c298e22f6",
+    "vectors/0.10.0/host-scenarios/host-verifier-replacement.json": "802ba7c9a0e0e06b62818c06c69a88c8f4af097d46a22797f916850c13399a74",
+    "docs/evidence/deployment/provenance.json": "eae2fa62cf9c002ad11d64a4ba8baa65d043a6231ab6d2c543be4cf07784605e"
   },
   "cores": [
     {

@@ -25,7 +25,7 @@ pub fn observe(
     if caller.len() > 4034 {
         return Err("fixture AAD exceeds transport bound".into());
     }
-    let sending = op == "sage.session.record.seal";
+    let sending = op != "sage.session.record.open";
     let core = SecureSession::from_exporter_with_role(
         field("sid")?.into(),
         &seed,
@@ -54,7 +54,11 @@ pub fn observe(
         match core.encrypt_with_aad_outbound(&vec![byte as u8; len as usize], &caller) {
             Ok(w) => (
                 "ACCEPT",
-                json!({"record_sha256":sage_crypto_core::hpke::sha256_hash_hex(&w),"record_bytes":w.len()}),
+                if op == "sage.session.record.export" {
+                    json!({"record_hex":hex::encode(&w),"record_sha256":sage_crypto_core::hpke::sha256_hash_hex(&w),"record_bytes":w.len()})
+                } else {
+                    json!({"record_sha256":sage_crypto_core::hpke::sha256_hash_hex(&w),"record_bytes":w.len()})
+                },
             ),
             Err(_) => ("REJECT", json!({})),
         },

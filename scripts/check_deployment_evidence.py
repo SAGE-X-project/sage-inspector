@@ -88,7 +88,9 @@ def check(root=ROOT):
     for row,(entry,_,_) in zip(host['scenarios'],fixtures):
         require(row['id']==entry['id'] and row['fixture_sha256']==entry['sha256'] and row['status']=='NOT_RUN' and row['observed_effects'] is None,'false host coverage')
     print(json.dumps({'exchange':counts,'host_NOT_RUN':len(fixtures),'conformance':'NOT_ESTABLISHED'}))
-    return dict(exchange_report='docs/evidence/deployment/exchange.json',exchange_counts=counts,
+    from check_replay_evidence import check as check_replay
+    replay = check_replay(root)
+    return dict(replay=replay,exchange_report='docs/evidence/deployment/exchange.json',exchange_counts=counts,
                 host_report='docs/evidence/deployment/host/summary.json',host_not_run=len(fixtures),conformance='NOT_ESTABLISHED')
 
 if __name__=='__main__':check()

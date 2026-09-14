@@ -92,3 +92,5 @@ Execution Guard inspection: [commitments, dispatch/recovery scenarios and eviden
 Integrated CI evidence and requirement coverage: [validation, results and reproduction](docs/evidence-integration.md).
 
 Live Go↔Rust exchanges and host bypass probes: [execution evidence and remaining bindings](docs/deployment-inspection.md).
+
+Stateful cross-core replay and close: [live observations and reproduction](docs/replay-inspection.md).

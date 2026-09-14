@@ -116,6 +116,13 @@ func run(r io.Reader, w io.Writer) error {
 		}
 	}
 
+	if q.Operation == "legacy.session.export-sequence" || q.Operation == "legacy.session.receive-sequence" {
+		var e error
+		verdict, output, e = sequenceObserve(q.Operation, q.Input)
+		if e != nil {
+			return e
+		}
+	}
 	if q.Operation == "sage.did.validate" || q.Operation == "sage.registry.pop.verify" {
 		var e error
 		verdict, output, e = registryObserve(q.Operation, q.Input)

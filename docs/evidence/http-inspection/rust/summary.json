@@ -1,0 +1,783 @@
+{
+  "schema_version": 1,
+  "protocol_version": "0.10.0",
+  "bundle": "http-envelope-inspection",
+  "subject": {
+    "name": "sage-rust-core",
+    "revision": "206bbbb5a66667ae2feb3b0e9991ed1ca4622bb2",
+    "kind": "external",
+    "executable_sha256": "9e7f8cab5582e092f80c6a422fd0b4e6e9e700a93757176842e0a89cc562c449"
+  },
+  "status": "FAIL",
+  "counts": {
+    "PASS": 55,
+    "FAIL": 4,
+    "UNSUPPORTED": 75,
+    "NOT_RUN": 0
+  },
+  "suites": [
+    {
+      "id": "sage-http-signatures-0.10.0",
+      "sha256": "13c4592c68f31c47f110636c95d2c925f22b9935ad4ce3f352b4a764eb710fe8",
+      "status": "FAIL",
+      "counts": {
+        "PASS": 31,
+        "FAIL": 4,
+        "UNSUPPORTED": 6,
+        "NOT_RUN": 0
+      }
+    },
+    {
+      "id": "sage-http-boundaries-0.10.0",
+      "sha256": "c8986a85ec4a75f5cb347fb4803d181bb262e9ac88280dc7ffe1fa7cdf2ae4ab",
+      "status": "INCOMPLETE",
+      "counts": {
+        "PASS": 0,
+        "FAIL": 0,
+        "UNSUPPORTED": 69,
+        "NOT_RUN": 0
+      }
+    },
+    {
+      "id": "sage-http-envelope-primitives-0.10.0",
+      "sha256": "db254f850c781a1f421587b24e85a8317448f85b6cd27fd36b0b42900871803f",
+      "status": "PASS",
+      "counts": {
+        "PASS": 24,
+        "FAIL": 0,
+        "UNSUPPORTED": 0,
+        "NOT_RUN": 0
+      }
+    }
+  ],
+  "rules": {
+    "MSG-01": [
+      {
+        "suite_id": "sage-http-signatures-0.10.0",
+        "case_id": "base-request",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-http-signatures-0.10.0",
+        "case_id": "base-sage-request",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-http-signatures-0.10.0",
+        "case_id": "base-reordered-request",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-http-signatures-0.10.0",
+        "case_id": "archive-reordered",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-http-signatures-0.10.0",
+        "case_id": "archive-added-tag",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-http-signatures-0.10.0",
+        "case_id": "digest-valid",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-http-signatures-0.10.0",
+        "case_id": "digest-wrong",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-http-signatures-0.10.0",
+        "case_id": "digest-other-algorithm",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-http-signatures-0.10.0",
+        "case_id": "digest-additional-member",
+        "status": "FAIL"
+      },
+      {
+        "suite_id": "sage-http-signatures-0.10.0",
+        "case_id": "digest-duplicate-member",
+        "status": "FAIL"
+      },
+      {
+        "suite_id": "sage-http-signatures-0.10.0",
+        "case_id": "digest-unpadded",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-http-signatures-0.10.0",
+        "case_id": "digest-raw-whitespace",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "valid-reordered-parameters",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "wrong-tag",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "missing-tag",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "duplicate-tag",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "unknown-param",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "nonce-body-mismatch",
+        "status": "UNSUPPORTED"
+      }
+    ],
+    "MSG-03": [
+      {
+        "suite_id": "sage-http-signatures-0.10.0",
+        "case_id": "base-response",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-http-signatures-0.10.0",
+        "case_id": "base-sage-response",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-http-signatures-0.10.0",
+        "case_id": "base-missing-request",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-http-signatures-0.10.0",
+        "case_id": "archive-response",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-http-signatures-0.10.0",
+        "case_id": "archive-response-wrong-request-signature",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-http-signatures-0.10.0",
+        "case_id": "archive-response-wrong-request-target",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-http-signatures-0.10.0",
+        "case_id": "archive-response-wrong-request-body-digest",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-http-signatures-0.10.0",
+        "case_id": "archive-response-missing-request",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-http-signatures-0.10.0",
+        "case_id": "archive-response-status",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-http-signatures-0.10.0",
+        "case_id": "archive-response-body",
+        "status": "PASS"
+      }
+    ],
+    "MSG-02": [
+      {
+        "suite_id": "sage-http-signatures-0.10.0",
+        "case_id": "base-escaped-target",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-http-signatures-0.10.0",
+        "case_id": "archive-request",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-http-signatures-0.10.0",
+        "case_id": "archive-tamper-body",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-http-signatures-0.10.0",
+        "case_id": "archive-tamper-target",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-http-signatures-0.10.0",
+        "case_id": "archive-tamper-content-type",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-http-signatures-0.10.0",
+        "case_id": "archive-tamper-did",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-http-signatures-0.10.0",
+        "case_id": "archive-tamper-version",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-http-signatures-0.10.0",
+        "case_id": "archive-tamper-signature",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-http-signatures-0.10.0",
+        "case_id": "archive-forwarded-ignored",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-http-signatures-0.10.0",
+        "case_id": "archive-unsigned",
+        "status": "PASS"
+      }
+    ],
+    "MSG-04": [
+      {
+        "suite_id": "sage-http-signatures-0.10.0",
+        "case_id": "digest-duplicate-field",
+        "status": "FAIL"
+      },
+      {
+        "suite_id": "sage-http-signatures-0.10.0",
+        "case_id": "digest-body-16777216",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-http-signatures-0.10.0",
+        "case_id": "digest-body-16777217",
+        "status": "FAIL"
+      },
+      {
+        "suite_id": "sage-http-signatures-0.10.0",
+        "case_id": "boundary-duplicate-content-type",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-signatures-0.10.0",
+        "case_id": "boundary-conflicting-length",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-signatures-0.10.0",
+        "case_id": "boundary-transfer-and-length",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-signatures-0.10.0",
+        "case_id": "boundary-fields-over-32k",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-signatures-0.10.0",
+        "case_id": "boundary-expired",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-signatures-0.10.0",
+        "case_id": "boundary-wrong-tag",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "valid-request",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "valid-whitespace-body",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "duplicate-signature",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "duplicate-signature-input",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "duplicate-content-digest",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "duplicate-content-type",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "duplicate-x-sage-did",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "duplicate-x-sage-version",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "conflicting-length",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "transfer-and-length",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "ambiguous-authority",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "truncated-body",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "trailing-body",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "fields-32768",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "fields-32769",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "signature-value-8192",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "signature-value-8193",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "signature-input-value-8192",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "signature-input-value-8193",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "unsigned-response",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "request-body-16777216",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "response-body-16777216",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "request-body-16777217",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "response-body-16777217",
+        "status": "UNSUPPORTED"
+      }
+    ],
+    "TRANSPORT-03": [
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "valid-response",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "valid-response-canonical-request-hash",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "wrong-request-hash",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "wrong-message-id",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "wrong-recipient",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "context-injected",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "task-injected",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "error-on-success",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "hash-without-signature",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "payload-only-hash",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "hash-raw-pretty-request",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "stale-hash-with-valid-outer-binding",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "missing-stored-request",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "valid-signed-application-error",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "response-inner-signature",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-envelope-primitives-0.10.0",
+        "case_id": "valid-response-jcs",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-http-envelope-primitives-0.10.0",
+        "case_id": "valid-response-inner-signature",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-http-envelope-primitives-0.10.0",
+        "case_id": "valid-response-wrong-domain",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-http-envelope-primitives-0.10.0",
+        "case_id": "valid-response-canonical-request-hash-jcs",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-http-envelope-primitives-0.10.0",
+        "case_id": "valid-response-canonical-request-hash-inner-signature",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-http-envelope-primitives-0.10.0",
+        "case_id": "wrong-request-hash-jcs",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-http-envelope-primitives-0.10.0",
+        "case_id": "wrong-request-hash-inner-signature",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-http-envelope-primitives-0.10.0",
+        "case_id": "hash-without-signature-jcs",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-http-envelope-primitives-0.10.0",
+        "case_id": "hash-without-signature-inner-signature",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-http-envelope-primitives-0.10.0",
+        "case_id": "payload-only-hash-jcs",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-http-envelope-primitives-0.10.0",
+        "case_id": "payload-only-hash-inner-signature",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-http-envelope-primitives-0.10.0",
+        "case_id": "stale-hash-with-valid-outer-binding-jcs",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-http-envelope-primitives-0.10.0",
+        "case_id": "stale-hash-with-valid-outer-binding-inner-signature",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-http-envelope-primitives-0.10.0",
+        "case_id": "response-inner-signature-jcs",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-http-envelope-primitives-0.10.0",
+        "case_id": "response-inner-signature-inner-signature",
+        "status": "PASS"
+      }
+    ],
+    "MSG-05": [
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "created-minus-30",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "created-minus-31",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "expiry-plus-29",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "expiry-plus-30",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "untrusted-clock",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "lifetime-one",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "lifetime-zero",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "lifetime-301",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "negative-created",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "fractional-created",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "response-expiry-1700000129",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "response-expiry-1700000130",
+        "status": "UNSUPPORTED"
+      }
+    ],
+    "TRANSPORT-05": [
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "header-content-encoding",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "header-trailer",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "header-content-type",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "header-x-sage-message-id",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "header-x-sage-context-id",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "header-x-sage-version",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "header-x-sage-did",
+        "status": "UNSUPPORTED"
+      }
+    ],
+    "TRANSPORT-02": [
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "request-inner-signature",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "request-payload-tamper",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-envelope-primitives-0.10.0",
+        "case_id": "valid-request-jcs",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-http-envelope-primitives-0.10.0",
+        "case_id": "valid-request-inner-signature",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-http-envelope-primitives-0.10.0",
+        "case_id": "valid-request-wrong-domain",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-http-envelope-primitives-0.10.0",
+        "case_id": "valid-whitespace-body-jcs",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-http-envelope-primitives-0.10.0",
+        "case_id": "valid-whitespace-body-inner-signature",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-http-envelope-primitives-0.10.0",
+        "case_id": "request-inner-signature-jcs",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-http-envelope-primitives-0.10.0",
+        "case_id": "request-inner-signature-inner-signature",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-http-envelope-primitives-0.10.0",
+        "case_id": "request-payload-tamper-jcs",
+        "status": "PASS"
+      },
+      {
+        "suite_id": "sage-http-envelope-primitives-0.10.0",
+        "case_id": "request-payload-tamper-inner-signature",
+        "status": "PASS"
+      }
+    ],
+    "TRANSPORT-01": [
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "unknown-member",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "padded-payload",
+        "status": "UNSUPPORTED"
+      },
+      {
+        "suite_id": "sage-http-boundaries-0.10.0",
+        "case_id": "null-context",
+        "status": "UNSUPPORTED"
+      }
+    ]
+  },
+  "conditional_cases": [
+    {
+      "suite_id": "sage-http-boundaries-0.10.0",
+      "case_id": "fields-32768",
+      "status": "UNSUPPORTED"
+    },
+    {
+      "suite_id": "sage-http-boundaries-0.10.0",
+      "case_id": "fields-32769",
+      "status": "UNSUPPORTED"
+    },
+    {
+      "suite_id": "sage-http-boundaries-0.10.0",
+      "case_id": "signature-value-8192",
+      "status": "UNSUPPORTED"
+    },
+    {
+      "suite_id": "sage-http-boundaries-0.10.0",
+      "case_id": "signature-value-8193",
+      "status": "UNSUPPORTED"
+    },
+    {
+      "suite_id": "sage-http-boundaries-0.10.0",
+      "case_id": "signature-input-value-8192",
+      "status": "UNSUPPORTED"
+    },
+    {
+      "suite_id": "sage-http-boundaries-0.10.0",
+      "case_id": "signature-input-value-8193",
+      "status": "UNSUPPORTED"
+    }
+  ],
+  "condition": "Exact field-size counting uses the declared fixture convention pending normative clarification.",
+  "scope": "Listed HTTP/envelope inspection cases only. Inspector implementation readiness is separate from subject conformance; no whole-protocol certification.",
+  "follow_up": "Reconnect unsupported operations after core implementation; retain frozen expectations and rerun the complete bundle.",
+  "evidence_files": {
+    "http-signatures.json": "7811051717520bf6f386012ac89466d281aeaa9b09bbd8ddd59d9bcf3129d75c",
+    "http-boundaries.json": "70c20d37a4f167d701d263413bed539c1c0db937ddc9f7c3ca22a8808057f95d",
+    "http-envelope-primitives.json": "160c7951d4ffbd8cfba04f80bbaaa6493fba26c40e28425e594a95f930aa250f"
+  }
+}

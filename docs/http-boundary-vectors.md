@@ -2,8 +2,10 @@
 
 The Inspector now has 69 deterministic cryptographic-boundary cases and 24
 executable inner-envelope primitive projections, supplementing the existing 41
-HTTP cases. This closes the missing fixture work, **not the actual core boundary
-binding**. INS-04 remains open until that binding produces real observations.
+HTTP cases. The Inspector implementation is complete with the reusable input contract and
+[inspection bundle](http-inspection.md). Actual core boundary binding is follow-up
+work after the corresponding core implementation, not a prerequisite for Inspector
+readiness.
 No core implementation was modified and no unsupported result counts as PASS.
 
 ## Evidence
@@ -111,7 +113,7 @@ regression also ensures the built-in reference reports every new case UNSUPPORTE
 it cannot accidentally certify these operations. Adapter execution remains a local
 cross-repository measurement, not a claim that CI rebuilt either core.
 
-## Remaining binding work and exit conditions
+## Follow-up core binding
 
 [Capability evidence](evidence/http-boundary-capabilities.json) identifies the actual
 missing boundaries. Go `checkSignatureTimes` calls `time.Now`; Rust `check_params`
@@ -124,8 +126,8 @@ HTTP/envelope cryptographic boundary, trusted-clock/key observation test control
 and bounded raw-message input. Then the Inspector adapters must bind these controls
 and run all positive/negative pairs without injecting the missing security checks.
 A conforming result is not required to finish Inspector measurement: actual FAIL
-observations are valid evidence. An unconditional UNSUPPORTED stub is not sufficient
-to close that integration work. Exact field-byte counting also needs a normative
+observations are valid evidence. UNSUPPORTED remains the correct subject result until that integration exists; it
+does not prevent completion of the spec-based Inspector implementation. Exact field-byte counting also needs a normative
 clarification before size-boundary certification.
 
 ## Reproduction

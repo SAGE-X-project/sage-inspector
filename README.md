@@ -78,3 +78,5 @@ Canonicalization and strict signature cases: [vectors and core observations](doc
 HTTP signature bases, content checks and archived verification: [scope and observations](docs/http-signature-vectors.md).
 
 HTTP/envelope boundary fixtures and current binding limitations: [evidence and reproduction](docs/http-boundary-vectors.md).
+
+Run all HTTP/envelope inspections with [the versioned bundle command](docs/http-inspection.md).

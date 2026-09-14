@@ -3,8 +3,9 @@
 SAGE0.10.0 Inspector expansion: 41 fixed cases using the schema1 primitive tooling
 profile. The SAGE/Rust core and user-designated rfc9421 repository were not modified.
 This delivery implements the reproducible base, body and archived-verification
-checks. INS-04 remains partially complete: deterministic full HTTP boundary tests
-and the transport-envelope request hash still need subject bindings.
+checks. The subsequent [inspection bundle](http-inspection.md) completes the spec-based
+Inspector implementation. Full HTTP boundary and envelope subject bindings remain
+after-core implementation follow-up.
 
 ## Operations and claim boundaries
 

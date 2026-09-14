@@ -1,0 +1,1312 @@
+{
+  "schema_version": 1,
+  "protocol_version": "0.10.0",
+  "scope": "Explicit archived evidence selection. Superseded reports and reference adapters are excluded. Review and repin when collecting a new run.",
+  "files": {
+    "docs/evidence/core-go.json": "1bb7af01c0fd4b51c0100753fc9af86404a44bac072f4a3247445adfba92a015",
+    "docs/evidence/core-rust.json": "287ae6b8aa3c02619f6ed77a1884f71f2ab6fb892cace43d88f056d5c9a6f720",
+    "docs/evidence/core-source-lock.json": "18229a6202c01dc70629ca22db3d3f3754c11bd0a89e2d9d76e3050bdd64a7b7",
+    "docs/evidence/guard/go/guard-records.json": "fa63445474dd45a419806afadccb3f356733fce9f84c9ee0521d2b64021935bf",
+    "docs/evidence/guard/provenance.json": "ffbed27d8dc912f812d3739ebc6337244a9e8047a206eae10cf4859680d5881a",
+    "docs/evidence/guard/rust/guard-records.json": "5442d9051d996610ceb95ac1315f94ce99cc6f4b50bc65dc861e8b1bab21eb22",
+    "docs/evidence/hpke/go/hpke-primitives.json": "8d0d43d7a50123b7bef87eb42640b9a764e1e5427578c1983decabf8d348a1ab",
+    "docs/evidence/hpke/go/hpke-schedule.json": "accdcf9477599159988aa64acb549c451d61f52f9ffd4f79c2c90fab342f4b97",
+    "docs/evidence/hpke/provenance.json": "c7617772430d6f58cd362f5a619152371e1fa0450b1b6e954750036056c9ca82",
+    "docs/evidence/hpke/rust/hpke-primitives.json": "04751320bd01643d62cc501ef0cc4904bb0f5f28402eae0f0682a6622173052a",
+    "docs/evidence/hpke/rust/hpke-schedule.json": "a24787c1b1e5c4b79b16e77bf7c342e837a61df7bc21e37c79ba2d7b3b6b4139",
+    "docs/evidence/http-inspection/go/http-boundaries.json": "15faa4f213616810007a8123812a3a89b0582287e42875a1b5c2a6acb2c1752c",
+    "docs/evidence/http-inspection/go/http-envelope-primitives.json": "7658a939ae946042f271f0ee2b463a487c7fa8b78dff4f8df17a2bba6f1af2d3",
+    "docs/evidence/http-inspection/go/http-signatures.json": "b6ac8d9e618ccd24314c1e980af004dfa9e6060a21a74aa9da5ecb642b0579c9",
+    "docs/evidence/http-inspection/rust/http-boundaries.json": "70c20d37a4f167d701d263413bed539c1c0db937ddc9f7c3ca22a8808057f95d",
+    "docs/evidence/http-inspection/rust/http-envelope-primitives.json": "160c7951d4ffbd8cfba04f80bbaaa6493fba26c40e28425e594a95f930aa250f",
+    "docs/evidence/http-inspection/rust/http-signatures.json": "7811051717520bf6f386012ac89466d281aeaa9b09bbd8ddd59d9bcf3129d75c",
+    "docs/evidence/http-provenance.json": "5578c0dbd28beca15f301d89ce7a99a53d891f1438cf0e099b9bcbb178b9f42b",
+    "docs/evidence/jcs-signatures-go.json": "94691c3fd870b719037d6b2cbb2a05f62483e605dc6d324fd18239ac4cbacf19",
+    "docs/evidence/jcs-signatures-provenance.json": "b69134f1878600efe4170fe928b9e92553cdf80ddf6d37f3060a0be4764aab64",
+    "docs/evidence/jcs-signatures-rust.json": "b48ddce6129a3846edb1cce4ebba674030893e5f22020d022436d58c95affcea",
+    "docs/evidence/registry/go/registry-records.json": "6d35d3413d3e94f9cabadb99990f361c3d4eaca4cb47320db779923d4baa5a56",
+    "docs/evidence/registry/provenance.json": "4010ae454fcd40f21ad3c9585bb598c6b06d3eba2f80620ff11459ee3a342b49",
+    "docs/evidence/registry/rust/registry-records.json": "aa0519c57c7d29dc5425606782fb2a93b4d82515d31dca96fd8861dd8608f85b",
+    "docs/evidence/session/go/session-records.json": "75dc6e9e3dde2586f6ae65cb8934220f6b2e613e27d7a64b6c8bf4c54e477255",
+    "docs/evidence/session/provenance.json": "ee4d7cba976ccba89e22b1be2ae5200e71147ee17815a09b88262c0a42274ce1",
+    "docs/evidence/session/rust/session-records.json": "ec28598158b936e01ffd686084bd1c159bc3177599395388341555d1aa608482",
+    "vectors/0.10.0/foundation.json": "e48f26b50db9be7df309709761261f14d5f6f5c2eabe348c879406c822870cf7",
+    "vectors/0.10.0/guard-closure-links.json": "f7ce4674fa3540c63be7e34b7b439e25c4cf8c2f0a6e9535fb0c185399be8245",
+    "vectors/0.10.0/guard-manifest.json": "92ab01eae646aa351e437429c6e32ab1311a80651b50e3bd56aef61e60975a84",
+    "vectors/0.10.0/guard-records.json": "68bd8c57a9a572849ea5f57f77d93c0e7d2fe813ea7b158c47b24c832efdef0f",
+    "vectors/0.10.0/guard-scenarios/guard-changed-inner-envelope.json": "b2df05e028b629653de1ee1d0af486935cddfa6dad74b1819305c24e692df4f0",
+    "vectors/0.10.0/guard-scenarios/guard-changed-valid-intent.json": "deb9d67a3c575abd7e034a7cbdee434cde4166118951fd98e633ac19ce2bf4f7",
+    "vectors/0.10.0/guard-scenarios/guard-check-load-replacement.json": "702267377b15ba4cd699b6cf4118f8fd970cd567393214442ca4fed537993fad",
+    "vectors/0.10.0/guard-scenarios/guard-client-pending-terminal.json": "7927a6772cdf446a4b89130d22614d3d3cac146e73eca1ae3429f018014c83dd",
+    "vectors/0.10.0/guard-scenarios/guard-client-poll-spacing.json": "3786926ca6cacc861878b4decfc2f0bfe7b5e8395be71835faca3e2f69319bcb",
+    "vectors/0.10.0/guard-scenarios/guard-client-terminal-conflict.json": "f41092016291131d44aaebbc86d570a6bce0051dfdec89862354974720df2b8c",
+    "vectors/0.10.0/guard-scenarios/guard-client-unknown-new-id.json": "19d826f72e370ab309a578a6b1fa7acfc131f28310c120b9c2a600cb4b76fc69",
+    "vectors/0.10.0/guard-scenarios/guard-client-unsolicited.json": "a7333f7bcdf4d55b41c75d4cad51db41b83beaaa85a0fc034356b6a0bef9ab66",
+    "vectors/0.10.0/guard-scenarios/guard-crash-executing.json": "ea54080640096caeab6fa1cf1d7beacf52c146463c670e88cbdfe0e12e1921f5",
+    "vectors/0.10.0/guard-scenarios/guard-crash-reserved.json": "bd4e757548ef7647691f7f5a00e70a3031ee194720fef16338a7d9290f4ec855",
+    "vectors/0.10.0/guard-scenarios/guard-dispatch-expiry.json": "1425526d6d6b5afc096306e57e3bfcae3d0d75667aa48ee364e654561181febf",
+    "vectors/0.10.0/guard-scenarios/guard-gate-direct-call.json": "f509b108be196b376e8423ef19fd27bebecfcfb4f272ed48ac82d7c4ede0cc7b",
+    "vectors/0.10.0/guard-scenarios/guard-gate-disconnect.json": "7f816d70273c98921968b4ecabda823f949b0ad11060ebfbc162db47b92f8dc1",
+    "vectors/0.10.0/guard-scenarios/guard-gate-exception.json": "ad3c90111241aef903404f09e858004292c6e6f82be4bfc9f895bd2caf6e0fae",
+    "vectors/0.10.0/guard-scenarios/guard-gate-signing-oracle.json": "b5513c45863a7740abc9213c2e67cd3a3c31589a50f0a749e8385002f1aa110a",
+    "vectors/0.10.0/guard-scenarios/guard-gate-skip.json": "e52f70a0573bd08b2e94b6d7fac35593bca845180010d871466926f3065cfac5",
+    "vectors/0.10.0/guard-scenarios/guard-gate-timeout.json": "bec98cd78b5afe3edb5c161bf144096b059e562f53c6273b8839963c2f3f7c58",
+    "vectors/0.10.0/guard-scenarios/guard-intact-absence-retry.json": "9ed6529284165b14e3c87a79217b1b6545db8883b03c3186ab402f5f985f5a51",
+    "vectors/0.10.0/guard-scenarios/guard-lost-clock.json": "70915d6a0b97ce03caf99f7ade1520e9bc7c00f2835f4274d83e49fd0453f022",
+    "vectors/0.10.0/guard-scenarios/guard-lost-ledger.json": "79f55bbeb869494375b8891644e536cd3a0f01581f4886dfeadfef85f02adaf6",
+    "vectors/0.10.0/guard-scenarios/guard-no-rollback-after-dispatch.json": "a40ee869da2cb85c97fdcd4bb3b60847a5943ce35f5070c5a3f8b7caa633d652",
+    "vectors/0.10.0/guard-scenarios/guard-nonce-collision.json": "f556c329d76f4ec81873b34d93517d922347447025665195654b5a6494fc2b98",
+    "vectors/0.10.0/guard-scenarios/guard-outer-replay.json": "68631109bbad86ffa9eb621490a104e26deccef9bdb194c54ff4c0773ad83d0f",
+    "vectors/0.10.0/guard-scenarios/guard-peer-policy-install.json": "b42a34b3c247b554c0954535b2f81ebb9850dace6fc2cba1a803cbb845414b15",
+    "vectors/0.10.0/guard-scenarios/guard-pending-completed.json": "275c6613f908ec85c8397c56b2fa0f0a79fce528e4ed942a7251dae3f9ae715e",
+    "vectors/0.10.0/guard-scenarios/guard-race-dispatch-first.json": "82dddfbd1e6b7ae026b0caee953ac68f0e68a880a79304e827b299040bc5a5ae",
+    "vectors/0.10.0/guard-scenarios/guard-race-duplicate.json": "8dbb8c162703efcd3aa6a32b3365c38bed065ad0f928c1c4796072cf4af12e6d",
+    "vectors/0.10.0/guard-scenarios/guard-race-reject-reserve.json": "4c1c508071f882c55edc51406b778aae164880d9948b6a34a86c6c76398229cc",
+    "vectors/0.10.0/guard-scenarios/guard-race-reserve-reject.json": "2bfa387f0f2785c4686c70e05e42deaab11cbfca8ecb91871b0946bb0c232e83",
+    "vectors/0.10.0/guard-scenarios/guard-race-retire-first.json": "883491f4a20f9b0ac180d0d5c6f8ea87e9076aa83fbc5460a9d8af9064f49b09",
+    "vectors/0.10.0/guard-scenarios/guard-retire-reservation.json": "5442f622f0be4f6e098756c06852ae5bd2082fca26040b86ec0c9e89cdea3f0f",
+    "vectors/0.10.0/guard-scenarios/guard-retrieval-expiry.json": "e3ec64574a12564e6230d878f2ddc3fe5658e2d14c49eea9d355c5fe3cf344b6",
+    "vectors/0.10.0/guard-scenarios/guard-retrieval-revocation.json": "9999aa6e3381bb384561e5d4ccc2ba49833a000dcfacf67b30030bf8ad9d7966",
+    "vectors/0.10.0/guard-scenarios/guard-scope-recovery.json": "3e2c02b037a41c6789b2c6ffac1062036334c8eb0988b098e78b01ec0e15aa75",
+    "vectors/0.10.0/guard-scenarios/guard-terminal-persistence-failure.json": "cd0972947b726215506cabe93b33a22a0982522a3fb69ae9202467c8641e17d2",
+    "vectors/0.10.0/guard-scenarios/guard-uncovered-load.json": "623fcd9f3a05bf1c2608e686d90e5c13342237d9e98628a8268289abf0c6c3cc",
+    "vectors/0.10.0/guard-scenarios/guard-unknown-signer-recovery.json": "290087685263508a58a8759412178f760e9e4c05ab798ae8ed90215ad0a2522c",
+    "vectors/0.10.0/hpke-primitives.json": "9a2807de94d9b9f8b9f25b7cfd8c5bcf23279ebe1a0de520ac8ec1187bb32753",
+    "vectors/0.10.0/hpke-rejection-reasons.json": "b8f61548c78f3787d3dafd4591b8d9196d6c19616567d88334cdaa82397f4be4",
+    "vectors/0.10.0/hpke-scenarios/hpke-bound-key-invalid.json": "39e6d1d36f45b53130404551fb29fab6354736e9b631dad0c110b20be2ec1525",
+    "vectors/0.10.0/hpke-scenarios/hpke-monotonic-expiry.json": "f83a270f4a6d9a7f913b410c02542fd83b86bae1bbb2c72e621a03c33726ac8b",
+    "vectors/0.10.0/hpke-scenarios/hpke-utc-expiry.json": "1ff7f90a3bd5e0b1450e9f50e2078962ceb223138c6505bda32cbfd81a857bc5",
+    "vectors/0.10.0/hpke-scenarios/hpke-valid.json": "b10f7342e20da3163971fb5227f16b01040d263d0931a0bc9eae363cb35e596a",
+    "vectors/0.10.0/hpke-scenarios/hpke-wrong-ack.json": "63d35fffabe26e7807d6a42cce7f0cf86779fc34c8b99ce53c4286e3d2f9632c",
+    "vectors/0.10.0/hpke-scenarios/hpke-wrong-pending.json": "a1ef7e693d47f9c667c2391534c7c9038fc19d8be5182fd9966d118aaa83e010",
+    "vectors/0.10.0/hpke-schedule.json": "79e172d3a31b2c67c507abf348923b6cf140fb8529556d2b2c2192de7a30fe1b",
+    "vectors/0.10.0/http-boundaries.json": "c8986a85ec4a75f5cb347fb4803d181bb262e9ac88280dc7ffe1fa7cdf2ae4ab",
+    "vectors/0.10.0/http-envelope-primitives.json": "db254f850c781a1f421587b24e85a8317448f85b6cd27fd36b0b42900871803f",
+    "vectors/0.10.0/http-signatures.json": "13c4592c68f31c47f110636c95d2c925f22b9935ad4ce3f352b4a764eb710fe8",
+    "vectors/0.10.0/jcs-signatures.json": "8b7b202db497bb40a65b64f62a4afc0a3bd0a24b624fd76557d69f4b211bdd26",
+    "vectors/0.10.0/registry-manifest.json": "6e82b3782a1092d57a2cdcad63629a0f9067c923c48eaf93dc365078e36208ea",
+    "vectors/0.10.0/registry-records.json": "63b83051cbe684c36af2eb3689550d9746f66da0b3d21b2ed1b3d3d37de2ee0d",
+    "vectors/0.10.0/registry-scenarios/registry-finalized-tombstone.json": "b034c68b0745f4748e09b3013d35c6fca2ab2af686d698c0c15ceac88fc07e3b",
+    "vectors/0.10.0/registry-scenarios/registry-freshness.json": "5e0e14ef5e046e8c65cee9c3d2942943bb9dc29c07ef948ca172b740875cc259",
+    "vectors/0.10.0/registry-scenarios/registry-inactive-resolution.json": "bc20e0ecac50dd5969a6ac5ab52ead9e76e9c0a0c888baeac477dd315b94827b",
+    "vectors/0.10.0/registry-scenarios/registry-mutations.json": "89b1e11a38aff6e50a127b8956d3b86fe4915def2951ae7b438c5252ed7d15cf",
+    "vectors/0.10.0/registry-scenarios/registry-positive-cache.json": "d832d7e5d01904deb8185e3ed4f1d64a25dfa5e5df5b23679a85568fa4b0a699",
+    "vectors/0.10.0/registry-scenarios/registry-reject-clock_trusted.json": "789df01d3f5389fd3d745f9756b5360a93f148b0ba70102902f797c8b71dfb49",
+    "vectors/0.10.0/registry-scenarios/registry-reject-conflicting.json": "a5c7be94989b8d274fc7b584a530be0c6fe6c048d33c6b0faab080e262e9eb29",
+    "vectors/0.10.0/registry-scenarios/registry-reject-keys_block_hash.json": "9d80cb47a440d2e592f8341b436e62d89f15c26889cbdda764e095b0956685ff",
+    "vectors/0.10.0/registry-scenarios/registry-reject-lookup.json": "3c2e30ce4045737c866d28bc647866aea399036cd8c55acf87ea5d12bfe33964",
+    "vectors/0.10.0/registry-scenarios/registry-reject-ready.json": "ae51f6b89c2892be357522dbdc9f30da1c091e8929000d94108fc90612a5c4e6",
+    "vectors/0.10.0/registry-scenarios/registry-reject-registry_id.json": "62dda6387ca5788b7e704480a1e75a6c5f8a0d437ff047217d2c5e198d91272a",
+    "vectors/0.10.0/registry-scenarios/registry-reject-source.json": "a5caf7abf35982bbc86427a678b2e3ed61e8f01b9a044b30a4bcf3f6eb40b335",
+    "vectors/0.10.0/registry-scenarios/registry-reject-transport_ok.json": "bba4d4b654b3331ecb663b224639d844767f079857da16b59c8cf81587d70580",
+    "vectors/0.10.0/registry-scenarios/registry-reject-trusted.json": "4973965057cd67b0e854fff95a691f1bdc25f1b939be558a71c5598222aa6f05",
+    "vectors/0.10.0/registry-scenarios/registry-restart.json": "60298673b5fedd7742e343e8c281c7f409d7f48bc697677db376569e7f247cc9",
+    "vectors/0.10.0/registry-scenarios/registry-rollback.json": "f166e42e9b871ea3c4df53179faafb6aea2764ca92b3c524a955216fe3a4a13f",
+    "vectors/0.10.0/registry-scenarios/registry-unfinalized-reorg.json": "2a0147b7f02e4486bfc0eec25a8357420cd6b4421e763a27f2d8111d64cd2ac5",
+    "vectors/0.10.0/session-manifest.json": "353c6f71db259287f6817fe4b166af7f8c2aef59a7035988b04f72134a238e57",
+    "vectors/0.10.0/session-records.json": "cf0dcefeab7e82161445d6f6d05e4c70855e50336fcb6b01edbbdb2d999d05bd",
+    "vectors/0.10.0/session-scenarios/session-absolute-boundary.json": "cb5424a9e79e30781f895a907c10dff8f8dc4d3b8b37aa904b6d6a06f8ea9456",
+    "vectors/0.10.0/session-scenarios/session-close.json": "945a321577c9cda525f07c117c169612b0f5fb9be96ee99dc858efbf8b51f745",
+    "vectors/0.10.0/session-scenarios/session-concurrent-duplicate.json": "e6abfcd9578e9d53713d62af0e271ea18918712e038f0442dd8dc010c8d81ba1",
+    "vectors/0.10.0/session-scenarios/session-concurrent-send.json": "538088b74b22882a3b99c673933a8e1f8e8216ca1d236a72742153c7cce293d7",
+    "vectors/0.10.0/session-scenarios/session-direction-independent.json": "873201038af18b3ec65f6f3e980b67caa8902fa7436418c90c6bbe47b4ae8a92",
+    "vectors/0.10.0/session-scenarios/session-idle-boundary.json": "784d01f29de647764501498776b24c21892c7e4e431cfec88db7ebf23a14af37",
+    "vectors/0.10.0/session-scenarios/session-invalid-does-not-reserve.json": "2286457e3a3e11ed7913607df4be5e9768b99f78664b1003a13c153cb3ec445a",
+    "vectors/0.10.0/session-scenarios/session-invalid-idle.json": "c3ca5ff18df70e6ec0f9508332e38e77e687edfe8a5400abcc1e2fef9e767770",
+    "vectors/0.10.0/session-scenarios/session-pinned-context_id.json": "80d0c8c731d2d99716ea3a87740871be8babc07dfa2555cf9d4550ff836484b2",
+    "vectors/0.10.0/session-scenarios/session-pinned-did.json": "b51ef8d75604a5ace3d4e9e57dae567c76f26ac82b1485315512a2a36a338511",
+    "vectors/0.10.0/session-scenarios/session-pinned-kid-active-alternative.json": "0c30c57af3c029f511f9d4125c7f8632dffb93f678911a79d27ef82468a507e3",
+    "vectors/0.10.0/session-scenarios/session-pinned-recipient.json": "d70aac1bcd9243c50139720e169a685add65a3cdf60814810ad5f642b56cd5b6",
+    "vectors/0.10.0/session-scenarios/session-pinned-sender-role.json": "fb5fc038258e34b060a09ff29e757180d8d38a314437b29cbe1dcd457c2105f1",
+    "vectors/0.10.0/session-scenarios/session-pinned-session_id.json": "4270d880916dd2b35be74780ff0ea3852ed54e4ee71a4fbf1b6d2b38b2b11f8d",
+    "vectors/0.10.0/session-scenarios/session-pinned-signature.json": "bc1040939408054c90a9d80f050a8ba974ad017de8cca3ed18fcfb0bc52b9d54",
+    "vectors/0.10.0/session-scenarios/session-pinned-tag.json": "7b9d2d9a8355eda694f9f5e234b95e389c157f8099accd330f5090d79157a539",
+    "vectors/0.10.0/session-scenarios/session-pinned-version.json": "dfe019f8e2a9e1175d92c3553f8440f722a328661c967926ef661bd27decf418",
+    "vectors/0.10.0/session-scenarios/session-provisional-application-reject.json": "786bcbccbd48fa407d9689dda7a7b132f16a958c59c24bceedc9e5e3c847e043",
+    "vectors/0.10.0/session-scenarios/session-provisional-commit-deadline.json": "5f548e7a1be456727869a7f985dd3d82ed17a001fca16435a6a4e4752b450b02",
+    "vectors/0.10.0/session-scenarios/session-provisional-confirm.json": "33d856e1c8bd5af8e82e70eaf3434579daf14668267fe706c87c8eb7474036a3",
+    "vectors/0.10.0/session-scenarios/session-provisional-deadline.json": "42a6d0378f6139e80a651696250d698162ab082cd7bfe88e6dd24133034b977e",
+    "vectors/0.10.0/session-scenarios/session-provisional-invalid-retry.json": "1ab77433a0e027d484d2a810c1bb9e89e28ac3b58d0ae933555d651fd2d0ef7d",
+    "vectors/0.10.0/session-scenarios/session-provisional-no-clock-reset.json": "d619ae8c40fc290977e1e025f6befd758029f3cd251a3fe15282510d7880a72f",
+    "vectors/0.10.0/session-scenarios/session-provisional-race.json": "3bf2acb5732325bbff00642a480432c36d6a9094d974e30a78d1560ead1ce194",
+    "vectors/0.10.0/session-scenarios/session-registry-changed-algorithm.json": "b71fe6e34feb07c348776e1e68a25d6117a16db528ad01f2828be1ec86b54166",
+    "vectors/0.10.0/session-scenarios/session-registry-changed-bytes.json": "2ec53a4f0d87dcfb42dfbc627f0cd166e13c9f1729597c9b72759cde1b041006",
+    "vectors/0.10.0/session-scenarios/session-registry-expired.json": "becb3e6852fd7be497e474013801a1ae01028873b29203e78b108fc67182c713",
+    "vectors/0.10.0/session-scenarios/session-registry-revoked-init-key.json": "bac4e77edf2fd6f1ce8c06ca9083401d2e91bc386f4238c5ae6e138ffdf498a6",
+    "vectors/0.10.0/session-scenarios/session-registry-revoked-kem-key.json": "7cb4925aa6522a2f04d6e95254e021b72e7778346a942619524a081b370972be",
+    "vectors/0.10.0/session-scenarios/session-registry-revoked-resp-key.json": "5392e7bc53ad9637f3d89193f555d415dbc569439c436195e127c07de6deea2d",
+    "vectors/0.10.0/session-scenarios/session-registry-unavailable.json": "591e543645438403eae2aae28e770c2c124f27f2a55ac4219ff27d625ddfdaa4",
+    "vectors/0.10.0/session-scenarios/session-registry-unrelated.json": "b0341bb9fce42c677878da9d909b56e97c64c637645d35f3e7fadc4bf9d0d962",
+    "vectors/0.10.0/session-scenarios/session-reorder-replay.json": "f9897fed5916774ffd976ee4a4d5c67bc29741035ff1a473ed77000735446be9",
+    "vectors/0.10.0/session-scenarios/session-responder-direction.json": "21c1f710f44bad4a96714306eff331e5a53ad972ef995addef27a4e560fc846d",
+    "vectors/0.10.0/session-scenarios/session-restart.json": "864f140e273583ae022e8ab90d8e9c4f5b282251aa51d16a7cac6b4ecce61a7a",
+    "vectors/0.10.0/session-scenarios/session-send-cap.json": "c03261be2db257fc261236487a6143d4008bcd7e14af4f80e0b85996a2d72da1",
+    "vectors/0.10.0/session-scenarios/session-transport-gap.json": "b9883ccf29274dd501335b745f9d0962f30ff000a191972c8ac48663017826e1",
+    "verification/0.10.0/case-map.json": "e6ca5e402c43379eb12e58dd00c91a80ca218f175956cd6bec923c454a9026b3",
+    "verification/0.10.0/snapshot.json": "b08c6183bee9841979895c46b2820919653b4080f4ca4a2d85efeb0f276f41c6",
+    "verification/0.10.0/snapshot/PROCESS.md": "584ad61d932ab016387963bc944be08949b10d73f9ccaf0c59094f60de414372",
+    "verification/0.10.0/snapshot/charter.md": "1cb5ac4c29eb0a536ec9e3fb80c37431c18610f65357d8b52d41933aa2568c60",
+    "verification/0.10.0/snapshot/profiles/agent-mcp-security.md": "99d5dc57d12d59d6e33102b2fdaa44efb137e48deab65e8012ff5128838d04b1",
+    "verification/0.10.0/snapshot/spec/00-overview.md": "3ad861a60bcb21d26eb974109da5f753ad8fefffd04780ed2f2b0f2a10a82227",
+    "verification/0.10.0/snapshot/spec/01-crypto.md": "fe9fd00066b259b99a63e5adab7db739757e3ad2597ccc71e2019fa34319faec",
+    "verification/0.10.0/snapshot/spec/02-jcs.md": "4d4b202c8ddb5eb00c47a8e8056813a589834526e2174c023fb005a484eb3d94",
+    "verification/0.10.0/snapshot/spec/03-rfc9421.md": "61bf709c8f7b079eb8a5ca5ff853b9cfedbc88621b326ced838106dc6d7c1694",
+    "verification/0.10.0/snapshot/spec/04-hpke.md": "1420818451ce8363a16e391647dbaca8ec2f06efa56b6507027a4e17f399fdd6",
+    "verification/0.10.0/snapshot/spec/05-session.md": "8a45b8bdd3b6bfc399a94c420b2161b8f16db5c6b29ed2e85584a6282b17cce5",
+    "verification/0.10.0/snapshot/spec/06-did-sage.md": "5791cc368111216a6539f7c423811abeb9821f9741e0c5d6ce177d5100b0b059",
+    "verification/0.10.0/snapshot/spec/07-a2a.md": "5ded622fdaf67342d5c6b4327da0f5787bfe9df2dc58b233cdfb500ffc96b042",
+    "verification/0.10.0/snapshot/spec/08-transport.md": "87bb1adc1aae4883e13f8ba52a7c86153c71efb621ffc50458f7e2aa57db3eeb",
+    "verification/0.10.0/snapshot/spec/09-registry.md": "ccd34125fb49b281475534773c81bd58d87b86cc7f6c88544b92f1f9e212f7e3",
+    "verification/0.10.0/snapshot/spec/10-resolution.md": "7d970c29b55cafba2220206987c15f71a839e5a0c165db6b64d7a5d717deef1f",
+    "verification/0.10.0/snapshot/spec/11-registries.md": "b8485756b78b8e561b2a1747b0fb350958eba746ea82229d79168317a2c9d07b",
+    "verification/0.10.0/snapshot/verification/crypto-trust-closure.md": "85555b082d173b8b4db552561efb4f4f20e3d9389752587a2c5c8653f8fe2d2b",
+    "verification/0.10.0/snapshot/verification/inspector-plan.md": "a5c6ba25e4cd4d1d1a687034c698bcfd0e07d634173582f74827c36fcd83a33e",
+    "verification/0.10.0/snapshot/verification/traceability.json": "c4db008e83ad9491559941ce6cb36960eea4fe3ba1ec6c698d7d77ea91ea009c"
+  },
+  "cores": [
+    {
+      "id": "go",
+      "repository": "sage",
+      "revision": "c7709b7486e0da94336edc0931fddd87f6a45343",
+      "subject_names": [
+        "sage-go",
+        "sage-go-core"
+      ],
+      "reports": [
+        {
+          "suite": "foundation",
+          "report": "docs/evidence/core-go.json"
+        },
+        {
+          "suite": "jcs-signatures",
+          "report": "docs/evidence/jcs-signatures-go.json"
+        },
+        {
+          "suite": "http-signatures",
+          "report": "docs/evidence/http-inspection/go/http-signatures.json"
+        },
+        {
+          "suite": "http-boundaries",
+          "report": "docs/evidence/http-inspection/go/http-boundaries.json"
+        },
+        {
+          "suite": "http-envelope-primitives",
+          "report": "docs/evidence/http-inspection/go/http-envelope-primitives.json"
+        },
+        {
+          "suite": "hpke-primitives",
+          "report": "docs/evidence/hpke/go/hpke-primitives.json"
+        },
+        {
+          "suite": "hpke-schedule",
+          "report": "docs/evidence/hpke/go/hpke-schedule.json"
+        },
+        {
+          "suite": "session-records",
+          "report": "docs/evidence/session/go/session-records.json"
+        },
+        {
+          "suite": "registry-records",
+          "report": "docs/evidence/registry/go/registry-records.json"
+        },
+        {
+          "suite": "guard-records",
+          "report": "docs/evidence/guard/go/guard-records.json"
+        }
+      ],
+      "scenario_reports": {}
+    },
+    {
+      "id": "rust",
+      "repository": "rs-sage-core",
+      "revision": "206bbbb5a66667ae2feb3b0e9991ed1ca4622bb2",
+      "subject_names": [
+        "sage-rust",
+        "sage-rust-core",
+        "rs-sage-core"
+      ],
+      "reports": [
+        {
+          "suite": "foundation",
+          "report": "docs/evidence/core-rust.json"
+        },
+        {
+          "suite": "jcs-signatures",
+          "report": "docs/evidence/jcs-signatures-rust.json"
+        },
+        {
+          "suite": "http-signatures",
+          "report": "docs/evidence/http-inspection/rust/http-signatures.json"
+        },
+        {
+          "suite": "http-boundaries",
+          "report": "docs/evidence/http-inspection/rust/http-boundaries.json"
+        },
+        {
+          "suite": "http-envelope-primitives",
+          "report": "docs/evidence/http-inspection/rust/http-envelope-primitives.json"
+        },
+        {
+          "suite": "hpke-primitives",
+          "report": "docs/evidence/hpke/rust/hpke-primitives.json"
+        },
+        {
+          "suite": "hpke-schedule",
+          "report": "docs/evidence/hpke/rust/hpke-schedule.json"
+        },
+        {
+          "suite": "session-records",
+          "report": "docs/evidence/session/rust/session-records.json"
+        },
+        {
+          "suite": "registry-records",
+          "report": "docs/evidence/registry/rust/registry-records.json"
+        },
+        {
+          "suite": "guard-records",
+          "report": "docs/evidence/guard/rust/guard-records.json"
+        }
+      ],
+      "scenario_reports": {}
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "hpke-bound-key-invalid",
+      "group": "hpke",
+      "fixture": "vectors/0.10.0/hpke-scenarios/hpke-bound-key-invalid.json",
+      "rule_ids": [
+        "HPKE-04",
+        "HPKE-05"
+      ]
+    },
+    {
+      "id": "hpke-monotonic-expiry",
+      "group": "hpke",
+      "fixture": "vectors/0.10.0/hpke-scenarios/hpke-monotonic-expiry.json",
+      "rule_ids": [
+        "HPKE-04",
+        "HPKE-05"
+      ]
+    },
+    {
+      "id": "hpke-utc-expiry",
+      "group": "hpke",
+      "fixture": "vectors/0.10.0/hpke-scenarios/hpke-utc-expiry.json",
+      "rule_ids": [
+        "HPKE-04",
+        "HPKE-05"
+      ]
+    },
+    {
+      "id": "hpke-valid",
+      "group": "hpke",
+      "fixture": "vectors/0.10.0/hpke-scenarios/hpke-valid.json",
+      "rule_ids": [
+        "HPKE-04",
+        "HPKE-05"
+      ]
+    },
+    {
+      "id": "hpke-wrong-ack",
+      "group": "hpke",
+      "fixture": "vectors/0.10.0/hpke-scenarios/hpke-wrong-ack.json",
+      "rule_ids": [
+        "HPKE-04",
+        "HPKE-05"
+      ]
+    },
+    {
+      "id": "hpke-wrong-pending",
+      "group": "hpke",
+      "fixture": "vectors/0.10.0/hpke-scenarios/hpke-wrong-pending.json",
+      "rule_ids": [
+        "HPKE-04",
+        "HPKE-05"
+      ]
+    },
+    {
+      "id": "session-absolute-boundary",
+      "group": "session",
+      "fixture": "vectors/0.10.0/session-scenarios/session-absolute-boundary.json",
+      "rule_ids": [
+        "SESSION-02"
+      ]
+    },
+    {
+      "id": "session-close",
+      "group": "session",
+      "fixture": "vectors/0.10.0/session-scenarios/session-close.json",
+      "rule_ids": [
+        "SESSION-06"
+      ]
+    },
+    {
+      "id": "session-concurrent-duplicate",
+      "group": "session",
+      "fixture": "vectors/0.10.0/session-scenarios/session-concurrent-duplicate.json",
+      "rule_ids": [
+        "SESSION-05"
+      ]
+    },
+    {
+      "id": "session-concurrent-send",
+      "group": "session",
+      "fixture": "vectors/0.10.0/session-scenarios/session-concurrent-send.json",
+      "rule_ids": [
+        "SESSION-04"
+      ]
+    },
+    {
+      "id": "session-direction-independent",
+      "group": "session",
+      "fixture": "vectors/0.10.0/session-scenarios/session-direction-independent.json",
+      "rule_ids": [
+        "SESSION-02"
+      ]
+    },
+    {
+      "id": "session-idle-boundary",
+      "group": "session",
+      "fixture": "vectors/0.10.0/session-scenarios/session-idle-boundary.json",
+      "rule_ids": [
+        "SESSION-02"
+      ]
+    },
+    {
+      "id": "session-invalid-does-not-reserve",
+      "group": "session",
+      "fixture": "vectors/0.10.0/session-scenarios/session-invalid-does-not-reserve.json",
+      "rule_ids": [
+        "SESSION-05"
+      ]
+    },
+    {
+      "id": "session-invalid-idle",
+      "group": "session",
+      "fixture": "vectors/0.10.0/session-scenarios/session-invalid-idle.json",
+      "rule_ids": [
+        "SESSION-02"
+      ]
+    },
+    {
+      "id": "session-pinned-context_id",
+      "group": "session",
+      "fixture": "vectors/0.10.0/session-scenarios/session-pinned-context_id.json",
+      "rule_ids": [
+        "SESSION-01",
+        "SESSION-06"
+      ]
+    },
+    {
+      "id": "session-pinned-did",
+      "group": "session",
+      "fixture": "vectors/0.10.0/session-scenarios/session-pinned-did.json",
+      "rule_ids": [
+        "SESSION-01",
+        "SESSION-06"
+      ]
+    },
+    {
+      "id": "session-pinned-kid-active-alternative",
+      "group": "session",
+      "fixture": "vectors/0.10.0/session-scenarios/session-pinned-kid-active-alternative.json",
+      "rule_ids": [
+        "SESSION-01",
+        "SESSION-06"
+      ]
+    },
+    {
+      "id": "session-pinned-recipient",
+      "group": "session",
+      "fixture": "vectors/0.10.0/session-scenarios/session-pinned-recipient.json",
+      "rule_ids": [
+        "SESSION-01",
+        "SESSION-06"
+      ]
+    },
+    {
+      "id": "session-pinned-sender-role",
+      "group": "session",
+      "fixture": "vectors/0.10.0/session-scenarios/session-pinned-sender-role.json",
+      "rule_ids": [
+        "SESSION-01",
+        "SESSION-06"
+      ]
+    },
+    {
+      "id": "session-pinned-session_id",
+      "group": "session",
+      "fixture": "vectors/0.10.0/session-scenarios/session-pinned-session_id.json",
+      "rule_ids": [
+        "SESSION-01",
+        "SESSION-06"
+      ]
+    },
+    {
+      "id": "session-pinned-signature",
+      "group": "session",
+      "fixture": "vectors/0.10.0/session-scenarios/session-pinned-signature.json",
+      "rule_ids": [
+        "SESSION-01",
+        "SESSION-06"
+      ]
+    },
+    {
+      "id": "session-pinned-tag",
+      "group": "session",
+      "fixture": "vectors/0.10.0/session-scenarios/session-pinned-tag.json",
+      "rule_ids": [
+        "SESSION-01",
+        "SESSION-06"
+      ]
+    },
+    {
+      "id": "session-pinned-version",
+      "group": "session",
+      "fixture": "vectors/0.10.0/session-scenarios/session-pinned-version.json",
+      "rule_ids": [
+        "SESSION-01",
+        "SESSION-06"
+      ]
+    },
+    {
+      "id": "session-provisional-application-reject",
+      "group": "session",
+      "fixture": "vectors/0.10.0/session-scenarios/session-provisional-application-reject.json",
+      "rule_ids": [
+        "HPKE-05",
+        "SESSION-01",
+        "SESSION-02",
+        "SESSION-05"
+      ]
+    },
+    {
+      "id": "session-provisional-commit-deadline",
+      "group": "session",
+      "fixture": "vectors/0.10.0/session-scenarios/session-provisional-commit-deadline.json",
+      "rule_ids": [
+        "HPKE-05",
+        "SESSION-01",
+        "SESSION-02",
+        "SESSION-05"
+      ]
+    },
+    {
+      "id": "session-provisional-confirm",
+      "group": "session",
+      "fixture": "vectors/0.10.0/session-scenarios/session-provisional-confirm.json",
+      "rule_ids": [
+        "HPKE-05",
+        "SESSION-01",
+        "SESSION-02",
+        "SESSION-05"
+      ]
+    },
+    {
+      "id": "session-provisional-deadline",
+      "group": "session",
+      "fixture": "vectors/0.10.0/session-scenarios/session-provisional-deadline.json",
+      "rule_ids": [
+        "HPKE-05",
+        "SESSION-01",
+        "SESSION-02",
+        "SESSION-05"
+      ]
+    },
+    {
+      "id": "session-provisional-invalid-retry",
+      "group": "session",
+      "fixture": "vectors/0.10.0/session-scenarios/session-provisional-invalid-retry.json",
+      "rule_ids": [
+        "HPKE-05",
+        "SESSION-01",
+        "SESSION-02",
+        "SESSION-05"
+      ]
+    },
+    {
+      "id": "session-provisional-no-clock-reset",
+      "group": "session",
+      "fixture": "vectors/0.10.0/session-scenarios/session-provisional-no-clock-reset.json",
+      "rule_ids": [
+        "HPKE-05",
+        "SESSION-01",
+        "SESSION-02",
+        "SESSION-05"
+      ]
+    },
+    {
+      "id": "session-provisional-race",
+      "group": "session",
+      "fixture": "vectors/0.10.0/session-scenarios/session-provisional-race.json",
+      "rule_ids": [
+        "HPKE-05",
+        "SESSION-01",
+        "SESSION-02",
+        "SESSION-05"
+      ]
+    },
+    {
+      "id": "session-registry-changed-algorithm",
+      "group": "session",
+      "fixture": "vectors/0.10.0/session-scenarios/session-registry-changed-algorithm.json",
+      "rule_ids": [
+        "SESSION-01",
+        "SESSION-06"
+      ]
+    },
+    {
+      "id": "session-registry-changed-bytes",
+      "group": "session",
+      "fixture": "vectors/0.10.0/session-scenarios/session-registry-changed-bytes.json",
+      "rule_ids": [
+        "SESSION-01",
+        "SESSION-06"
+      ]
+    },
+    {
+      "id": "session-registry-expired",
+      "group": "session",
+      "fixture": "vectors/0.10.0/session-scenarios/session-registry-expired.json",
+      "rule_ids": [
+        "SESSION-01",
+        "SESSION-06"
+      ]
+    },
+    {
+      "id": "session-registry-revoked-init-key",
+      "group": "session",
+      "fixture": "vectors/0.10.0/session-scenarios/session-registry-revoked-init-key.json",
+      "rule_ids": [
+        "SESSION-01",
+        "SESSION-06"
+      ]
+    },
+    {
+      "id": "session-registry-revoked-kem-key",
+      "group": "session",
+      "fixture": "vectors/0.10.0/session-scenarios/session-registry-revoked-kem-key.json",
+      "rule_ids": [
+        "SESSION-01",
+        "SESSION-06"
+      ]
+    },
+    {
+      "id": "session-registry-revoked-resp-key",
+      "group": "session",
+      "fixture": "vectors/0.10.0/session-scenarios/session-registry-revoked-resp-key.json",
+      "rule_ids": [
+        "SESSION-01",
+        "SESSION-06"
+      ]
+    },
+    {
+      "id": "session-registry-unavailable",
+      "group": "session",
+      "fixture": "vectors/0.10.0/session-scenarios/session-registry-unavailable.json",
+      "rule_ids": [
+        "SESSION-01",
+        "SESSION-06"
+      ]
+    },
+    {
+      "id": "session-registry-unrelated",
+      "group": "session",
+      "fixture": "vectors/0.10.0/session-scenarios/session-registry-unrelated.json",
+      "rule_ids": [
+        "SESSION-01",
+        "SESSION-06"
+      ]
+    },
+    {
+      "id": "session-reorder-replay",
+      "group": "session",
+      "fixture": "vectors/0.10.0/session-scenarios/session-reorder-replay.json",
+      "rule_ids": [
+        "SESSION-05"
+      ]
+    },
+    {
+      "id": "session-responder-direction",
+      "group": "session",
+      "fixture": "vectors/0.10.0/session-scenarios/session-responder-direction.json",
+      "rule_ids": [
+        "SESSION-02"
+      ]
+    },
+    {
+      "id": "session-restart",
+      "group": "session",
+      "fixture": "vectors/0.10.0/session-scenarios/session-restart.json",
+      "rule_ids": [
+        "SESSION-06"
+      ]
+    },
+    {
+      "id": "session-send-cap",
+      "group": "session",
+      "fixture": "vectors/0.10.0/session-scenarios/session-send-cap.json",
+      "rule_ids": [
+        "SESSION-02"
+      ]
+    },
+    {
+      "id": "session-transport-gap",
+      "group": "session",
+      "fixture": "vectors/0.10.0/session-scenarios/session-transport-gap.json",
+      "rule_ids": [
+        "SESSION-04"
+      ]
+    },
+    {
+      "id": "registry-finalized-tombstone",
+      "group": "registry",
+      "fixture": "vectors/0.10.0/registry-scenarios/registry-finalized-tombstone.json",
+      "rule_ids": [
+        "REG-05",
+        "RESOLVE-02",
+        "RESOLVE-03"
+      ]
+    },
+    {
+      "id": "registry-freshness",
+      "group": "registry",
+      "fixture": "vectors/0.10.0/registry-scenarios/registry-freshness.json",
+      "rule_ids": [
+        "REG-05",
+        "RESOLVE-02",
+        "RESOLVE-03"
+      ]
+    },
+    {
+      "id": "registry-inactive-resolution",
+      "group": "registry",
+      "fixture": "vectors/0.10.0/registry-scenarios/registry-inactive-resolution.json",
+      "rule_ids": [
+        "REG-05",
+        "RESOLVE-02",
+        "RESOLVE-03"
+      ]
+    },
+    {
+      "id": "registry-mutations",
+      "group": "registry",
+      "fixture": "vectors/0.10.0/registry-scenarios/registry-mutations.json",
+      "rule_ids": [
+        "REG-03"
+      ]
+    },
+    {
+      "id": "registry-positive-cache",
+      "group": "registry",
+      "fixture": "vectors/0.10.0/registry-scenarios/registry-positive-cache.json",
+      "rule_ids": [
+        "REG-05",
+        "RESOLVE-02",
+        "RESOLVE-03"
+      ]
+    },
+    {
+      "id": "registry-reject-clock_trusted",
+      "group": "registry",
+      "fixture": "vectors/0.10.0/registry-scenarios/registry-reject-clock_trusted.json",
+      "rule_ids": [
+        "REG-05",
+        "RESOLVE-02",
+        "RESOLVE-03"
+      ]
+    },
+    {
+      "id": "registry-reject-conflicting",
+      "group": "registry",
+      "fixture": "vectors/0.10.0/registry-scenarios/registry-reject-conflicting.json",
+      "rule_ids": [
+        "REG-05",
+        "RESOLVE-02",
+        "RESOLVE-03"
+      ]
+    },
+    {
+      "id": "registry-reject-keys_block_hash",
+      "group": "registry",
+      "fixture": "vectors/0.10.0/registry-scenarios/registry-reject-keys_block_hash.json",
+      "rule_ids": [
+        "REG-05",
+        "RESOLVE-02",
+        "RESOLVE-03"
+      ]
+    },
+    {
+      "id": "registry-reject-lookup",
+      "group": "registry",
+      "fixture": "vectors/0.10.0/registry-scenarios/registry-reject-lookup.json",
+      "rule_ids": [
+        "REG-05",
+        "RESOLVE-02",
+        "RESOLVE-03"
+      ]
+    },
+    {
+      "id": "registry-reject-ready",
+      "group": "registry",
+      "fixture": "vectors/0.10.0/registry-scenarios/registry-reject-ready.json",
+      "rule_ids": [
+        "REG-05",
+        "RESOLVE-02",
+        "RESOLVE-03"
+      ]
+    },
+    {
+      "id": "registry-reject-registry_id",
+      "group": "registry",
+      "fixture": "vectors/0.10.0/registry-scenarios/registry-reject-registry_id.json",
+      "rule_ids": [
+        "REG-05",
+        "RESOLVE-02",
+        "RESOLVE-03"
+      ]
+    },
+    {
+      "id": "registry-reject-source",
+      "group": "registry",
+      "fixture": "vectors/0.10.0/registry-scenarios/registry-reject-source.json",
+      "rule_ids": [
+        "REG-05",
+        "RESOLVE-02",
+        "RESOLVE-03"
+      ]
+    },
+    {
+      "id": "registry-reject-transport_ok",
+      "group": "registry",
+      "fixture": "vectors/0.10.0/registry-scenarios/registry-reject-transport_ok.json",
+      "rule_ids": [
+        "REG-05",
+        "RESOLVE-02",
+        "RESOLVE-03"
+      ]
+    },
+    {
+      "id": "registry-reject-trusted",
+      "group": "registry",
+      "fixture": "vectors/0.10.0/registry-scenarios/registry-reject-trusted.json",
+      "rule_ids": [
+        "REG-05",
+        "RESOLVE-02",
+        "RESOLVE-03"
+      ]
+    },
+    {
+      "id": "registry-restart",
+      "group": "registry",
+      "fixture": "vectors/0.10.0/registry-scenarios/registry-restart.json",
+      "rule_ids": [
+        "REG-05",
+        "RESOLVE-02",
+        "RESOLVE-03"
+      ]
+    },
+    {
+      "id": "registry-rollback",
+      "group": "registry",
+      "fixture": "vectors/0.10.0/registry-scenarios/registry-rollback.json",
+      "rule_ids": [
+        "REG-05",
+        "RESOLVE-02",
+        "RESOLVE-03"
+      ]
+    },
+    {
+      "id": "registry-unfinalized-reorg",
+      "group": "registry",
+      "fixture": "vectors/0.10.0/registry-scenarios/registry-unfinalized-reorg.json",
+      "rule_ids": [
+        "REG-05",
+        "RESOLVE-02",
+        "RESOLVE-03"
+      ]
+    },
+    {
+      "id": "guard-changed-inner-envelope",
+      "group": "guard",
+      "fixture": "vectors/0.10.0/guard-scenarios/guard-changed-inner-envelope.json",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-changed-valid-intent",
+      "group": "guard",
+      "fixture": "vectors/0.10.0/guard-scenarios/guard-changed-valid-intent.json",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-check-load-replacement",
+      "group": "guard",
+      "fixture": "vectors/0.10.0/guard-scenarios/guard-check-load-replacement.json",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-client-pending-terminal",
+      "group": "guard",
+      "fixture": "vectors/0.10.0/guard-scenarios/guard-client-pending-terminal.json",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-client-poll-spacing",
+      "group": "guard",
+      "fixture": "vectors/0.10.0/guard-scenarios/guard-client-poll-spacing.json",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-client-terminal-conflict",
+      "group": "guard",
+      "fixture": "vectors/0.10.0/guard-scenarios/guard-client-terminal-conflict.json",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-client-unknown-new-id",
+      "group": "guard",
+      "fixture": "vectors/0.10.0/guard-scenarios/guard-client-unknown-new-id.json",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-client-unsolicited",
+      "group": "guard",
+      "fixture": "vectors/0.10.0/guard-scenarios/guard-client-unsolicited.json",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-crash-executing",
+      "group": "guard",
+      "fixture": "vectors/0.10.0/guard-scenarios/guard-crash-executing.json",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-crash-reserved",
+      "group": "guard",
+      "fixture": "vectors/0.10.0/guard-scenarios/guard-crash-reserved.json",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-dispatch-expiry",
+      "group": "guard",
+      "fixture": "vectors/0.10.0/guard-scenarios/guard-dispatch-expiry.json",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-gate-direct-call",
+      "group": "guard",
+      "fixture": "vectors/0.10.0/guard-scenarios/guard-gate-direct-call.json",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-gate-disconnect",
+      "group": "guard",
+      "fixture": "vectors/0.10.0/guard-scenarios/guard-gate-disconnect.json",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-gate-exception",
+      "group": "guard",
+      "fixture": "vectors/0.10.0/guard-scenarios/guard-gate-exception.json",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-gate-signing-oracle",
+      "group": "guard",
+      "fixture": "vectors/0.10.0/guard-scenarios/guard-gate-signing-oracle.json",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-gate-skip",
+      "group": "guard",
+      "fixture": "vectors/0.10.0/guard-scenarios/guard-gate-skip.json",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-gate-timeout",
+      "group": "guard",
+      "fixture": "vectors/0.10.0/guard-scenarios/guard-gate-timeout.json",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-intact-absence-retry",
+      "group": "guard",
+      "fixture": "vectors/0.10.0/guard-scenarios/guard-intact-absence-retry.json",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-lost-clock",
+      "group": "guard",
+      "fixture": "vectors/0.10.0/guard-scenarios/guard-lost-clock.json",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-lost-ledger",
+      "group": "guard",
+      "fixture": "vectors/0.10.0/guard-scenarios/guard-lost-ledger.json",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-no-rollback-after-dispatch",
+      "group": "guard",
+      "fixture": "vectors/0.10.0/guard-scenarios/guard-no-rollback-after-dispatch.json",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-nonce-collision",
+      "group": "guard",
+      "fixture": "vectors/0.10.0/guard-scenarios/guard-nonce-collision.json",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-outer-replay",
+      "group": "guard",
+      "fixture": "vectors/0.10.0/guard-scenarios/guard-outer-replay.json",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-peer-policy-install",
+      "group": "guard",
+      "fixture": "vectors/0.10.0/guard-scenarios/guard-peer-policy-install.json",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-pending-completed",
+      "group": "guard",
+      "fixture": "vectors/0.10.0/guard-scenarios/guard-pending-completed.json",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-race-dispatch-first",
+      "group": "guard",
+      "fixture": "vectors/0.10.0/guard-scenarios/guard-race-dispatch-first.json",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-race-duplicate",
+      "group": "guard",
+      "fixture": "vectors/0.10.0/guard-scenarios/guard-race-duplicate.json",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-race-reject-reserve",
+      "group": "guard",
+      "fixture": "vectors/0.10.0/guard-scenarios/guard-race-reject-reserve.json",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-race-reserve-reject",
+      "group": "guard",
+      "fixture": "vectors/0.10.0/guard-scenarios/guard-race-reserve-reject.json",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-race-retire-first",
+      "group": "guard",
+      "fixture": "vectors/0.10.0/guard-scenarios/guard-race-retire-first.json",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-retire-reservation",
+      "group": "guard",
+      "fixture": "vectors/0.10.0/guard-scenarios/guard-retire-reservation.json",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-retrieval-expiry",
+      "group": "guard",
+      "fixture": "vectors/0.10.0/guard-scenarios/guard-retrieval-expiry.json",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-retrieval-revocation",
+      "group": "guard",
+      "fixture": "vectors/0.10.0/guard-scenarios/guard-retrieval-revocation.json",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-scope-recovery",
+      "group": "guard",
+      "fixture": "vectors/0.10.0/guard-scenarios/guard-scope-recovery.json",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-terminal-persistence-failure",
+      "group": "guard",
+      "fixture": "vectors/0.10.0/guard-scenarios/guard-terminal-persistence-failure.json",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-uncovered-load",
+      "group": "guard",
+      "fixture": "vectors/0.10.0/guard-scenarios/guard-uncovered-load.json",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    },
+    {
+      "id": "guard-unknown-signer-recovery",
+      "group": "guard",
+      "fixture": "vectors/0.10.0/guard-scenarios/guard-unknown-signer-recovery.json",
+      "rule_ids": [
+        "EXEC-02",
+        "EXEC-04",
+        "EXEC-05",
+        "EXEC-06",
+        "EXEC-07",
+        "EXEC-08"
+      ]
+    }
+  ]
+}

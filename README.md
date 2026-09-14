@@ -40,7 +40,7 @@ make test-foundation
 
 Adapters receive only case identity, operation and input over stdin; they never
 receive expected output. One bounded JSON observation on stdout is compared by
-Inspector. Implementing a real Go/Rust core adapter is subsequent work. The
+Inspector. Real Go/Rust core adapters are available under `adapters/`. The
 [example adapter](examples/reference-adapter/main.go) demonstrates the transport
 using the same reference primitives, so it is **not a second independent core**.
 See the [fixture/report/adapter contract](docs/conformance.md).
@@ -88,3 +88,5 @@ Session 0.10.0 inspection: [independent records, lifecycle scenarios and core re
 Registry 0.10.0 inspection: [DID, Card, authoritative observation and core results](docs/registry-inspection.md).
 
 Execution Guard inspection: [commitments, dispatch/recovery scenarios and evidence](docs/guard-inspection.md).
+
+Integrated CI evidence and requirement coverage: [validation, results and reproduction](docs/evidence-integration.md).

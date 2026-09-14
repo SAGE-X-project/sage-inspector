@@ -52,7 +52,7 @@ jobs:
         run: go build ./...
 
   spec:
-    name: Spec vectors
+    name: Legacy spec vectors
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -60,7 +60,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: SAGE-X-project/sage-spec
-          ref: main
+          ref: f4a4e7fbf71a665785984eef7609b2e8fabe833d
           path: .sage-spec
       - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
         with:
@@ -83,3 +83,47 @@ jobs:
         uses: golangci/golangci-lint-action@ba0d7d2ec06a0ea1cb5fa41b2e4a3ab91d21278a # v9.3.0
         with:
           version: v2.13.2
+
+  evidence:
+    name: Evidence integrity
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        with:
+          go-version-file: go.mod
+          cache: true
+      - name: Validate frozen evidence and coverage
+        run: |
+          python3 scripts/test_evidence_integration.py
+          python3 scripts/integrate_evidence.py --check --output docs/evidence/integrated.json
+      - name: Run reference foundation self-check
+        run: |
+          mkdir -p evidence-run
+          go run ./cmd/sage-conformance -suite vectors/0.10.0/foundation.json -report evidence-run/reference.json
+          python3 - <<'PYMETA'
+          import json, os, platform, subprocess
+          from pathlib import Path
+          data = dict(inspector_revision=os.environ['GITHUB_SHA'], run_id=os.environ['GITHUB_RUN_ID'],
+                      purpose='Evidence validation and reference self-check; no fresh core execution',
+                      python=platform.python_version(), platform=platform.platform(),
+                      go=subprocess.check_output(['go', 'version'], text=True).strip())
+          Path('evidence-run/ci.json').write_text(json.dumps(data, indent=2) + '\n')
+          PYMETA
+      - name: Preserve evidence and reproduction inputs
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: evidence-${{ github.sha }}
+          if-no-files-found: error
+          retention-days: 30
+          path: |
+            evidence-run/
+            docs/evidence/
+            verification/0.10.0/
+            vectors/0.10.0/
+            scripts/
+            .github/workflows/ci.yml
+            go.mod
+            go.sum

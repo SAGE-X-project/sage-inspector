@@ -27,6 +27,7 @@ jobs:
           node scripts/check_jcs_literals.js vectors/0.10.0/http-envelope-primitives.json
           node scripts/check_envelope_signatures.js vectors/0.10.0/http-envelope-primitives.json
           python3 scripts/test_http_boundary_audit.py
+          python3 scripts/test_http_inspection.py
       - name: Vet
         run: go vet ./...
       - name: Test

@@ -35,5 +35,7 @@
   ],
   "size_counting_status": "Declared fixture convention; exact field-byte counting needs normative clarification.",
   "inspector_fixture_status": "IMPLEMENTED_AND_AUDITED",
+  "inspector_implementation_status": "COMPLETE",
+  "core_binding_schedule": "After the corresponding core implementation; rerun the frozen HTTP inspection bundle",
   "core_boundary_integration_status": "INCOMPLETE"
 }

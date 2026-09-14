@@ -37,11 +37,13 @@ jobs:
           node scripts/check_session_vectors.js
           python3 scripts/test_session_inspection.py
           python3 scripts/test_session_expiry.py
-      - name: Verify recovery contracts with unit and runtime tests
+      - name: Verify recovery and close contracts with unit and runtime tests
         run: |
           python3 scripts/test_recovery_inspection.py
           go build -o "${RUNNER_TEMP}/sage-scenario-recovery" ./cmd/sage-scenario
           python3 scripts/test_recovery_runtime.py "${RUNNER_TEMP}/sage-scenario-recovery"
+          python3 scripts/test_session_close_inspection.py
+          python3 scripts/test_session_close_runtime.py "${RUNNER_TEMP}/sage-scenario-recovery"
       - name: Audit independent registry fixtures
         run: |
           node scripts/check_registry_vectors.js

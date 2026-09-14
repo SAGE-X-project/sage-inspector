@@ -58,4 +58,4 @@ python3 scripts/test_recovery_runtime.py /private/tmp/sage-scenario-recovery
 CI에서도 위 단위·런타임 경로를 실행한다. 이는 Inspector CLI 실행 증거이며 실제
 코어의 재시작·저장·복구 방어 증거가 아니다. 합성 보고서를 배포 증거로 출력하지
 않으며, 기존 코어 판정·386개 계획 사례의 NOT_RUN 및 NOT_ESTABLISHED를 유지한다.
-다음 작업은 종료·수신 순서의 상태 전이 및 판정 테스트다.
+종료·수신 순서의 테스트는 [별도 검증](session-close-order.md)으로 추가했다. 다음은 프로토콜 연결의 판정 테스트다.

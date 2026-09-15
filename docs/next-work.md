@@ -140,3 +140,5 @@ INS-11 종료 경합 진단: [수신·종료 경합 검사](close-race-inspectio
 Guard 차단 판정 검증: [단위·런타임 테스트](guard-gate-verification.md). 단위 테스트 6개와 CLI 경로 37개를 추가했다. 실제 hook·호스트 방어를 실행한 결과가 아니다. 다음은 테스트 커버리지와 CI·보고서 정리다.
 
 테스트 커버리지·CI 보고서 정리: [검증 항목과 실행 보고서](verification-test-coverage.md). 현재 유닛 중심 7개 작업을 완료했다. 실제 코어·호스트 연결은 위 후속 범위에 남으며 INS-11 전체 완료를 뜻하지 않는다.
+
+실제 연결 선행 검토(2026-09-16): [Transcript 세션 연결 인계](core-binding-handoff.md). 두 코어의 revision과 고정 소스는 동일하며 현재 세션 API에 th 입력이 없다. 다음 실행 항목은 코어 API 제공 후 어댑터 연결과 bound 정상 대조군 추가다. 코어 구현은 별도 저장소 작업으로 유지한다.

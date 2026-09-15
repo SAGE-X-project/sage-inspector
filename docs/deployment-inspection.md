@@ -119,3 +119,7 @@ exchange/host contract tests and preserves the raw artifacts. Fresh core builds
 and actual host execution are distinct from CI validation of archived evidence.
 
 추가 진단: [수신·종료 경합](close-race-inspection.md)은 Go DATA_RACE 실패와 Rust 직접 병행 종료 미지원을 별도 기록한다. 원시 프로세스 오류와 stderr를 검증하며, 기존 primitive/계획 사례 통과 수에는 합산하지 않는다.
+
+## Transcript binding handoff
+
+The [core binding handoff](core-binding-handoff.md) records the current source review and prerequisites. A future bound receiver needs a positive control through that same API and a matching 0.10.0 producer; the current legacy positive control cannot establish the new binding. Actual binding remains unavailable at the reviewed revisions.

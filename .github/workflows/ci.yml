@@ -36,19 +36,6 @@ jobs:
         run: |
           node scripts/check_session_vectors.js
           python3 scripts/test_session_inspection.py
-          python3 scripts/test_session_expiry.py
-      - name: Verify recovery and close contracts with unit and runtime tests
-        run: |
-          python3 scripts/test_recovery_inspection.py
-          go build -o "${RUNNER_TEMP}/sage-scenario-recovery" ./cmd/sage-scenario
-          python3 scripts/test_recovery_runtime.py "${RUNNER_TEMP}/sage-scenario-recovery"
-          python3 scripts/test_session_close_inspection.py
-          python3 scripts/test_session_close_runtime.py "${RUNNER_TEMP}/sage-scenario-recovery"
-      - name: Verify protocol bindings with unit and runtime tests
-        run: |
-          python3 scripts/test_protocol_binding_inspection.py
-          go build -o "${RUNNER_TEMP}/sage-conformance-protocol" ./cmd/sage-conformance
-          python3 scripts/test_protocol_binding_runtime.py "${RUNNER_TEMP}/sage-conformance-protocol" "${RUNNER_TEMP}/sage-scenario-recovery"
       - name: Audit independent registry fixtures
         run: |
           node scripts/check_registry_vectors.js
@@ -57,10 +44,19 @@ jobs:
         run: |
           node scripts/check_guard_vectors.js
           python3 scripts/test_guard_inspection.py
-      - name: Verify Guard rejection and error reporting
+      - name: Run Inspector contract tests and record results
         run: |
-          python3 scripts/test_guard_gate_inspection.py
-          python3 scripts/test_guard_gate_runtime.py "${RUNNER_TEMP}/sage-scenario-recovery"
+          go build -o "${RUNNER_TEMP}/sage-scenario-tests" ./cmd/sage-scenario
+          go build -o "${RUNNER_TEMP}/sage-conformance-tests" ./cmd/sage-conformance
+          python3 scripts/run_verification_tests.py --scenario "${RUNNER_TEMP}/sage-scenario-tests" --primitive "${RUNNER_TEMP}/sage-conformance-tests" --output "${RUNNER_TEMP}/inspector-tests"
+      - name: Preserve Inspector test results
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: inspector-tests-${{ github.sha }}
+          if-no-files-found: error
+          retention-days: 30
+          path: ${{ runner.temp }}/inspector-tests/
       - name: Vet
         run: go vet ./...
       - name: Test

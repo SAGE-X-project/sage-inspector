@@ -41,4 +41,4 @@ python3 scripts/test_guard_gate_runtime.py /private/tmp/sage-scenario-guard-gate
 
 CI에도 두 테스트를 등록했다. 실제 코어·호스트 실행 증거와 분리하며 기존
 FAIL/UNSUPPORTED/NOT_RUN과 전체 NOT_ESTABLISHED 판정은 유지한다.
-다음 작업은 단위 테스트 커버리지와 CI·보고서 정리다.
+[검증 항목과 실행 보고서](verification-test-coverage.md)에 후속 정리를 기록했다.

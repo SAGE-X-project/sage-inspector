@@ -79,3 +79,12 @@ they are never included in core evidence. Actual host bypass, chain deployment a
 Go↔Rust interoperability evidence remain separate follow-up work.
 
 추가 진단: [수신·종료 경합](close-race-inspection.md)은 Go DATA_RACE 실패와 Rust 직접 병행 종료 미지원을 별도 기록한다. 원시 프로세스 오류와 stderr를 검증하며, 기존 primitive/계획 사례 통과 수에는 합산하지 않는다.
+
+## Inspector test results
+
+The separate `inspector-tests-<revision>` CI artifact contains the recent contract
+unit tests and safe CLI runtime results, command logs, source/input hashes, executable
+hashes, revision and environment metadata. See [test coverage](verification-test-coverage.md).
+Its PASS means the listed test commands succeeded. It never updates the frozen
+catalog, archived core results, or planned normative case status. A partial run stays
+RUNNING; failed, timed-out or missing commands cannot produce a PASS report.

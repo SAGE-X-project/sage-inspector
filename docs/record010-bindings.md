@@ -70,3 +70,5 @@ report.json을 보존한다. report.json은 주체 revision·실행 파일 해�
 
 다음은 새 레코드 API의 상태 유지 어댑터와 관측 계약을 연결하는 작업이다.
 키/tuple·레지스트리·HPKE 확인 등의 추가 코어 계약은 별도로 준비해야 한다.
+
+상태 유지 연결은 [별도 실행 계약과 검증 기록](record010-state-bindings.md)에 정리했다.

@@ -146,3 +146,5 @@ Guard 차단 판정 검증: [단위·런타임 테스트](guard-gate-verificatio
 0.10.0 레코드 연결: [새 코어 어댑터와 정상 대조군](record010-bindings.md). 코어별 독립 레코드 37개, 동일 API의 양방향 정상·transcript 거부 대조군과 제어 오류를 검증한다. 상태 유지 및 인증 tuple·registry 연결은 후속 항목이다.
 
 0.10.0 상태 유지 레코드 연결: [실행 계약과 검증](record010-state-bindings.md). 코어별 14개 실제 세션 시나리오와 네 미지원 제어, 총 12개 입력 오류 경로를 검증한다. 다음은 인증 tuple·레지스트리·HPKE 확인 및 관측 API의 코어 지원 여부를 확인하고 필요한 연결 계약을 준비하는 작업이다.
+
+인증 세션 연결 선행 검토: [코어 지원과 연결 계약](authenticated-session-handoff.md). 두 코어의 레코드 API와 v1 HPKE·resolver 경로를 대조했다. 인증 tuple, 요청별 권위 관측, 임시 응답자의 원자적 확인은 별도 코어 계약이 필요하다. 다음 실행 항목은 두 코어의 0.10.0 HPKE 파생 API와 독립 벡터·Inspector 연결이며 전체 핸드셰이크 완료로 집계하지 않는다.

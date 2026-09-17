@@ -14,7 +14,7 @@ import sys
 import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
-PINS = {'go': '0688d7359f7ea64359bd4eac8ad4cdd68f436b32',
+PINS = {'go': '717fe4b07685891c4d31caeeb4480332914ddfd7',
         'rust': 'c59cd3a5b0950054f46963b8786f29ce80a1fcb8'}
 
 

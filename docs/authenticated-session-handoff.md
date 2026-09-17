@@ -114,3 +114,8 @@ registry의 명시적 role/context를 가진 metadata-free plain handshake를 �
 HTTP 또는 모든 선택 필드를 지원하는 일반 transport가 아니다. 다음은 responder의
 첫 레코드 원자적 확인과 tuple 기반 레코드 수신이다. 영속 replay 저장·quarantine과
 실제 Source/호스트 배포 검증은 별도 의무로 유지한다.
+
+인증 레코드 후속 구현: [첫 레코드 확인](authenticated-record010-bindings.md)에서
+위 4번의 metadata-free session 요청 경로를 연결했다. 확인은 트랜잭션 저장소의
+최종 gate와 private 순서 소비에 의존하며, 배포 저장소의 영속성 증명은 아니다.
+다음은 session 응답의 원본 요청 연결과 양방향 응답 계약이다.

@@ -37,6 +37,7 @@ const ALICE: &str = "did:sage:web:agent.example:alice";
 const BOB: &str = "did:sage:web:agent.example:bob";
 #[derive(Default)]
 struct Control {
+    records: u64,
     expiry: i64,
     mono: i64,
     utc: i64,
@@ -134,6 +135,44 @@ struct Replay {
     seen: HashSet<String>,
 }
 impl ReplayStore010 for Replay {
+    fn reserve_record(
+        &mut self,
+        r: Replay010,
+        validate: &mut dyn FnMut() -> Result<()>,
+    ) -> Result<()> {
+        let prefix = format!("{}|{}", r.sender, r.recipient);
+        let ids = [
+            format!("{prefix}|id|{}", r.id),
+            format!("{prefix}|nonce|{}", r.nonce),
+        ];
+        if self.control.0.borrow().mode == "transport-id" {
+            self.seen.insert(ids[0].clone());
+        }
+        if self.control.0.borrow().mode == "transport-nonce" {
+            self.seen.insert(ids[1].clone());
+        }
+        if ids.iter().any(|id| self.seen.contains(id)) {
+            return Err(bad());
+        }
+        {
+            let mut c = self.control.0.borrow_mut();
+            if c.mode == "store-error" {
+                return Err(bad());
+            }
+            if c.mode == "utc-delay" {
+                c.utc += 1;
+                c.mono += 1000
+            }
+            if c.mode == "store-delay" {
+                c.mono += 5001
+            }
+        }
+        validate()?;
+        self.seen.extend(ids);
+        self.control.0.borrow_mut().records += 1;
+        Ok(())
+    }
+
     fn reserve(&mut self, r: Replay010) -> Result<()> {
         let mut c = self.control.0.borrow_mut();
         if c.mode == "store-error" {
@@ -192,13 +231,15 @@ fn decode(bytes: &[u8]) -> Result<(Request, Vec<u8>)> {
             "revoke-kem",
             "changed-material",
             "unrelated",
+            "transport-id",
+            "transport-nonce",
         ]
         .contains(&q.mode.as_str())
     {
         return Err(bad());
     }
     let wire = match q.action.as_str() {
-        "respond" | "complete" => {
+        "respond" | "complete" | "record-seal" | "record-open" => {
             let s = q.wire_hex.as_ref().ok_or_else(bad)?;
             if s.len() > 65536 {
                 return Err(bad());
@@ -206,7 +247,7 @@ fn decode(bytes: &[u8]) -> Result<(Request, Vec<u8>)> {
             hex::decode(s).map_err(|_| bad())?
         }
         "start" | "inspect" | "check" | "close" | "endpoint-close" | "pending-close"
-        | "dispatch" => {
+        | "dispatch" | "record-inspect" => {
             if q.wire_hex.is_some() {
                 return Err(bad());
             }
@@ -307,6 +348,22 @@ fn run() -> std::result::Result<(), Box<dyn std::error::Error>> {
                     out = json!({"state":next.state(),"tuple":next.tuple()});
                     result = Some(next);
                 }),
+
+            "record-seal" => result.as_mut().ok_or_else(bad).and_then(|s| {
+                s.seal_request(&mut e, &wire, q.ttl.unwrap_or(300))
+                    .map(|wire| {
+                        out = json!({"wire_hex":hex::encode(wire),"state":s.state()});
+                    })
+            }),
+            "record-open" => result.as_mut().ok_or_else(bad).and_then(|s| {
+                s.open_request(&mut e, &wire).map(|plain| {
+                    out = json!({"plaintext_hex":hex::encode(plain),"state":s.state()});
+                })
+            }),
+            "record-inspect" => {
+                out = json!({"state":result.as_ref().map(|s|s.state()).unwrap_or("NONE"),"reservations":controls.0.borrow().records});
+                Ok(())
+            }
             "check" => result.as_mut().ok_or_else(bad).and_then(|s| {
                 s.check(&mut e).map(|()| {
                     out = json!({"state":s.state()});

@@ -18,7 +18,7 @@ func TestControls(t *testing.T) {
 }
 
 func TestHTTPControls(t *testing.T) {
-	for _, action := range []string{"http-request-open", "http-response-open"} {
+	for _, action := range []string{"http-request-open", "http-response-open", "http-respond-raw", "http-complete-raw", "http-record-open-raw", "http-response-open-raw"} {
 		for _, n := range []int{65538, 196608, 196610} {
 			q := map[string]any{"id": "http", "action": action, "mono_ms": 0, "unix": 100, "wire_hex": strings.Repeat("00", n/2)}
 			raw, _ := json.Marshal(q)

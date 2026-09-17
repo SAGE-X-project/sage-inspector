@@ -22,10 +22,11 @@ const completionAlice = "did:sage:web:agent.example:alice"
 const completionBob = "did:sage:web:agent.example:bob"
 
 type completionControl struct {
-	records   int
-	expiry    int64
-	mono, utc int64
-	mode      string
+	handshakes int
+	records    int
+	expiry     int64
+	mono, utc  int64
+	mode       string
 }
 
 func (c *completionControl) Now() (registry010.Stamp, error) {
@@ -108,6 +109,7 @@ func (r *completionReplay) Reserve(v hpke.Replay010) error {
 	if r.c.mode == "store-delay" {
 		r.c.mono += 5001
 	}
+	r.c.handshakes++
 	return nil
 }
 

@@ -15,6 +15,7 @@ import (
 )
 
 type request struct {
+	Target    string  `json:"target,omitempty"`
 	Status    int     `json:"status,omitempty"`
 	MessageID string  `json:"message_id,omitempty"`
 	Success   *bool   `json:"success,omitempty"`
@@ -46,9 +47,9 @@ func decode(b []byte) (request, []byte, error) {
 		return q, nil, errors.New("unknown control")
 	}
 	switch q.Action {
-	case "respond", "complete", "record-seal", "record-open", "response-seal", "response-open", "http-request-seal", "http-request-open", "http-response-seal", "http-response-open":
+	case "respond", "complete", "record-seal", "record-open", "response-seal", "response-open", "http-request-seal", "http-request-open", "http-response-seal", "http-response-open", "http-respond-raw", "http-complete-raw", "http-record-seal-raw", "http-record-open-raw", "http-response-seal-raw", "http-response-open-raw":
 		limit := 65536
-		if q.Action == "http-request-open" || q.Action == "http-response-open" {
+		if q.Action == "http-request-open" || q.Action == "http-response-open" || q.Action == "http-respond-raw" || q.Action == "http-complete-raw" || q.Action == "http-record-open-raw" || q.Action == "http-response-open-raw" {
 			limit = 196608
 		}
 		if q.Wire == nil || len(*q.Wire) > limit {
@@ -56,7 +57,7 @@ func decode(b []byte) (request, []byte, error) {
 		}
 		b, e := hex.DecodeString(*q.Wire)
 		return q, b, e
-	case "start", "inspect", "check", "close", "endpoint-close", "pending-close", "dispatch", "record-inspect", "http-bind":
+	case "start", "inspect", "check", "close", "endpoint-close", "pending-close", "dispatch", "record-inspect", "http-bind", "http-endpoint-bind", "http-start", "http-inspect":
 		if q.Wire != nil {
 			return q, nil, errors.New("unexpected wire")
 		}
@@ -92,6 +93,7 @@ func run() error {
 		return x
 	}
 	defer e.Close()
+	target := "https://agent.example/messages"
 	var p *hpke.PendingCompletion010
 	var result *hpke.AuthenticatedCompletion010
 	defer func() {
@@ -158,6 +160,113 @@ func run() error {
 					out = map[string]any{"state": result.State(), "tuple": result.Tuple()}
 				}
 			}
+		case "http-endpoint-bind":
+			x = e.BindHTTP(q.Target)
+			if x == nil {
+				target = q.Target
+			}
+		case "http-inspect":
+			ps, rs := "NONE", "NONE"
+			if p != nil {
+				ps = p.State()
+			}
+			if result != nil {
+				rs = result.State()
+			}
+			out = map[string]any{"handshakes": c.handshakes, "records": c.records, "pending": ps, "session": rs}
+		case "http-start":
+			if p != nil {
+				x = errors.New("already started")
+			} else {
+				var m hpke.HTTPMessage010
+				p, m, x = e.StartHTTP(context.Background(), completionBob, completionBob+"#signing-1", ttl)
+				if x == nil {
+					wire, x = hpke.EncodeHTTP010(m, target)
+					if x == nil {
+						out = map[string]any{"wire_hex": hex.EncodeToString(wire)}
+					}
+				}
+			}
+		case "http-respond-raw":
+			var m hpke.HTTPMessage010
+			m, x = hpke.ParseHTTP010(wire, target, false)
+			if x == nil {
+				var next *hpke.AuthenticatedCompletion010
+				next, m, x = e.RespondHTTP(context.Background(), m, ttl)
+				if x == nil {
+					wire, x = hpke.EncodeHTTP010(m, target)
+					if x == nil {
+						if result != nil {
+							result.Close()
+						}
+						result = next
+						out = map[string]any{"wire_hex": hex.EncodeToString(wire)}
+					} else {
+						next.Close()
+					}
+				}
+			}
+		case "http-complete-raw":
+			if p == nil {
+				x = errors.New("no pending")
+			} else {
+				var m hpke.HTTPMessage010
+				m, x = hpke.ParseHTTP010(wire, target, true)
+				if x == nil {
+					var next *hpke.AuthenticatedCompletion010
+					next, x = p.CompleteHTTP(context.Background(), m)
+					if x == nil {
+						if result != nil {
+							result.Close()
+						}
+						result = next
+						out = map[string]any{"state": result.State(), "tuple": result.Tuple()}
+					}
+				} else {
+					p.Close()
+				}
+			}
+		case "http-record-seal-raw", "http-response-seal-raw":
+			if result == nil {
+				x = errors.New("no result")
+			} else {
+				var m hpke.HTTPMessage010
+				if q.Action == "http-record-seal-raw" {
+					m, x = result.SealHTTPRequest(context.Background(), wire, ttl)
+				} else if q.Success == nil {
+					x = errors.New("missing response control")
+				} else {
+					m, x = result.SealHTTPResponse(context.Background(), q.MessageID, wire, *q.Success, q.Error, ttl, 200)
+				}
+				if x == nil {
+					wire, x = hpke.EncodeHTTP010(m, target)
+					if x == nil {
+						out = map[string]any{"wire_hex": hex.EncodeToString(wire)}
+					}
+				}
+			}
+		case "http-record-open-raw", "http-response-open-raw":
+			if result == nil {
+				x = errors.New("no result")
+			} else {
+				var m hpke.HTTPMessage010
+				m, x = hpke.ParseHTTP010(wire, target, q.Action == "http-response-open-raw")
+				if x == nil {
+					if q.Action == "http-record-open-raw" {
+						wire, x = result.OpenHTTPRequest(context.Background(), m)
+						if x == nil {
+							out = map[string]any{"plaintext_hex": hex.EncodeToString(wire)}
+						}
+					} else {
+						var v *hpke.SessionResponse010
+						v, x = result.OpenHTTPResponse(context.Background(), m)
+						if x == nil {
+							out = map[string]any{"message_id": v.MessageID, "success": v.Success, "error": v.Error, "plaintext_hex": hex.EncodeToString(v.Data)}
+						}
+					}
+				}
+			}
+
 		case "http-bind":
 			if result == nil {
 				x = errors.New("no result")

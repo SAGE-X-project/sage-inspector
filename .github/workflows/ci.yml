@@ -156,12 +156,12 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           repository: SAGE-X-project/sage
-          ref: a36a90fa6dabcab972b25e2f06f008a87ce82199
+          ref: 6fc763bb2afa45ace356f39de895254decee7103
           path: sage
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           repository: SAGE-X-project/rs-sage-core
-          ref: 47512577540d835711b71ab74cd26a6b7433dc66
+          ref: d5bb16261edadfda6f33e8e769fe029472538513
           path: rs-sage-core
       - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
         with:
@@ -231,6 +231,11 @@ jobs:
         run: |
           python3 scripts/test_http_session010_unit.py
           python3 scripts/test_http_session010.py --go "${RUNNER_TEMP}/sage-completion010" --rust "${RUNNER_TEMP}/record010-rust/debug/completion010" --output "${RUNNER_TEMP}/record010-results/http-session010"
+      - name: Verify HTTP handshakes over authenticated loopback TLS
+        working-directory: sage-inspector
+        run: |
+          python3 scripts/test_http_tls010_unit.py
+          python3 scripts/test_http_handshake010.py --go "${RUNNER_TEMP}/sage-completion010" --rust "${RUNNER_TEMP}/record010-rust/debug/completion010" --output "${RUNNER_TEMP}/record010-results/http-handshake010"
       - name: Preserve record binding test results
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

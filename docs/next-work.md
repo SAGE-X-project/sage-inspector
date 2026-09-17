@@ -189,3 +189,12 @@ HTTP 전용 세션의 bare API 차단을 구현했다. 공통 45개 유닛 시�
 아니다**. 다음 작업은 **실제 전송 메타데이터·중복 헤더를 보존하는 HTTP/TLS 연결과
 핸드셰이크 HTTP 바인딩**, canonical 외 Structured Fields/URI 지원 범위 검토다.
 WS·영속 replay/quarantine·실제 Source·호스트 검증은 계속 후속 범위로 유지한다.
+
+0.10.0 HTTP 핸드셰이크·TLS 연결: [실제 바이트 및 인증 TLS 검증](http-handshake010-bindings.md).
+두 코어의 핸드셰이크에 HTTP 서명·원본 요청 연결·단일 replay 예약을 적용하고,
+엄격한 HTTP/1.1 코덱으로 원시 헤더와 길이·대상 주소를 검증한다. 공통 핸드셰이크
+22개, 오프라인 프레이밍 거부 24개와 크기 경계, 프로세스 88개 및 실제 루프백 TLS
+16개 검사를 연결했다. TLS는 Python/OpenSSL 기반의 통제된 전송 환경이며 실제
+코어 파싱·암호 처리를 호출한다. 운영 Go/Rust TLS 서비스나 전체 HTTP 지원 완료로
+표시하지 않는다. 다음은 **Structured Fields·URI의 표준 직렬화 지원 범위 확장과
+독립 RFC 벡터 연결**이다. WS·영속 replay/quarantine·실제 Source·호스트는 후속 범위다.

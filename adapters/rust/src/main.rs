@@ -1,3 +1,4 @@
+mod hpke010_checks;
 mod hpke_checks;
 mod http_checks;
 mod parallel_checks;
@@ -49,6 +50,14 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
     .contains(&q.operation.as_str())
     {
         http_checks::observe(&q.operation, q.input)?
+    } else if [
+        "sage.hpke.schedule010.combine",
+        "sage.hpke.schedule010.ack",
+        "sage.hpke.schedule010.verify",
+    ]
+    .contains(&q.operation.as_str())
+    {
+        hpke010_checks::observe(&q.operation, q.input)?
     } else if ["rfc9180.export", "sage.hpke.combine", "x25519.exchange"]
         .contains(&q.operation.as_str())
     {

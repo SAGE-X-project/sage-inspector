@@ -107,3 +107,10 @@ gate와 신뢰 경계 검증은 별도 배포 작업으로 남는다.
 레지스트리 원본 17개 중 관리 mutation을 제외한 16개의 관측 부분을 투영했으며,
 새 경계의 39개 시나리오로 검증한다. tuple 생성·인증된 완료·pending 및 dispatch
 통합은 아직 남아 있다. 다음 실행 단위는 이 인증 세션 연결이다.
+
+인증 완료 후속 구현: [완료 검증과 pending 수명](completion010-bindings.md)에서 실제
+서명된 원본 요청과 완료 응답, pinned key/ACK/시각 검사를 연결했다. 현재 API는 같은
+registry의 명시적 role/context를 가진 metadata-free plain handshake를 지원하며,
+HTTP 또는 모든 선택 필드를 지원하는 일반 transport가 아니다. 다음은 responder의
+첫 레코드 원자적 확인과 tuple 기반 레코드 수신이다. 영속 replay 저장·quarantine과
+실제 Source/호스트 배포 검증은 별도 의무로 유지한다.

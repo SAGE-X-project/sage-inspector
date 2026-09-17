@@ -37,18 +37,18 @@ func decode(b []byte) (request, []byte, error) {
 		return q, nil, errors.New("trailing control")
 	}
 	switch q.Mode {
-	case "", "utc-delay", "source-error", "clock-error", "store-error", "store-delay", "revoke-init", "revoke-resp", "revoke-kem", "changed-material", "unrelated":
+	case "", "utc-delay", "source-error", "clock-error", "store-error", "store-delay", "revoke-init", "revoke-resp", "revoke-kem", "changed-material", "unrelated", "transport-id", "transport-nonce":
 	default:
 		return q, nil, errors.New("unknown control")
 	}
 	switch q.Action {
-	case "respond", "complete":
+	case "respond", "complete", "record-seal", "record-open":
 		if q.Wire == nil || len(*q.Wire) > 65536 {
 			return q, nil, errors.New("wire required")
 		}
 		b, e := hex.DecodeString(*q.Wire)
 		return q, b, e
-	case "start", "inspect", "check", "close", "endpoint-close", "pending-close", "dispatch":
+	case "start", "inspect", "check", "close", "endpoint-close", "pending-close", "dispatch", "record-inspect":
 		if q.Wire != nil {
 			return q, nil, errors.New("unexpected wire")
 		}
@@ -150,6 +150,31 @@ func run() error {
 					out = map[string]any{"state": result.State(), "tuple": result.Tuple()}
 				}
 			}
+		case "record-seal":
+			if result == nil {
+				x = errors.New("no result")
+			} else {
+				wire, x = result.SealRequest(context.Background(), wire, ttl)
+				if x == nil {
+					out = map[string]any{"wire_hex": hex.EncodeToString(wire), "state": result.State()}
+				}
+			}
+		case "record-open":
+			if result == nil {
+				x = errors.New("no result")
+			} else {
+				wire, x = result.OpenRequest(context.Background(), wire)
+				if x == nil {
+					out = map[string]any{"plaintext_hex": hex.EncodeToString(wire), "state": result.State()}
+				}
+			}
+		case "record-inspect":
+			state := "NONE"
+			if result != nil {
+				state = result.State()
+			}
+			out = map[string]any{"state": state, "reservations": c.records}
+
 		case "check":
 			if result == nil {
 				x = errors.New("no result")

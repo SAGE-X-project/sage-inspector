@@ -167,3 +167,10 @@ private seed/tuple 소유 결과를 생성하도록 연결했다. 코어별 완�
 고정 키가 만료되는 경계도 포함한다. 다음은 **tuple 기반 레코드 수신과 응답자 첫
 레코드의 원자적 replay/sequence 예약·확정 연결**이다. 일반 WireTransport의 선택
 필드·HTTP/TLS·영속 replay/재시작 quarantine 및 배포 registry는 아직 완료하지 않았다.
+
+0.10.0 인증 레코드 연결: [tuple 수신과 원자적 확인](authenticated-record010-bindings.md).
+두 코어의 private 레코드 소유, 서명·tuple·현재 키·AEAD 검증 및 트랜잭션 저장소
+최종 gate를 통해 순서/응답자 확인을 직렬화한다. 공통 32개 사례와 네 프로세스
+조합의 128개 검사를 연결하며, application 인가·영속 저장소의 배포 증거는 별도다.
+다음은 **session 응답의 request_hash/message_id 연결 및 양방향 응답 계약**이다.
+HTTP/WS·quarantine·실제 Source와 호스트 검증은 이후 범위로 유지한다.

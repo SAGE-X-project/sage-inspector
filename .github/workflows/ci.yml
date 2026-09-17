@@ -178,6 +178,15 @@ jobs:
           (cd adapters/go && go build -o "${RUNNER_TEMP}/sage-go-record010" .)
           cargo build --locked --manifest-path adapters/rust/Cargo.toml --target-dir "${RUNNER_TEMP}/record010-rust"
           python3 scripts/test_record010_adapters.py --go "${RUNNER_TEMP}/sage-go-record010" --rust "${RUNNER_TEMP}/record010-rust/debug/sage-inspector-rust-adapter" --runner "${RUNNER_TEMP}/sage-conformance-record010" --output "${RUNNER_TEMP}/record010-results"
+      - name: Verify retained record sessions
+        working-directory: sage-inspector
+        env:
+          RUSTUP_TOOLCHAIN: 1.88.0
+        run: |
+          go build -o "${RUNNER_TEMP}/sage-scenario-record010" ./cmd/sage-scenario
+          (cd adapters/go && go test -race ./cmd/sage-record010-state && go build -o "${RUNNER_TEMP}/sage-go-record010-state" ./cmd/sage-record010-state)
+          cargo test --locked --manifest-path adapters/rust/Cargo.toml --target-dir "${RUNNER_TEMP}/record010-rust" --bin record010_state
+          python3 scripts/test_record010_state.py --go "${RUNNER_TEMP}/sage-go-record010-state" --rust "${RUNNER_TEMP}/record010-rust/debug/record010_state" --runner "${RUNNER_TEMP}/sage-scenario-record010" --output "${RUNNER_TEMP}/record010-results/stateful"
       - name: Preserve record binding test results
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

@@ -156,12 +156,12 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           repository: SAGE-X-project/sage
-          ref: 65023d18bafb26cb593f59a9189baa0d7af43c5d
+          ref: a36a90fa6dabcab972b25e2f06f008a87ce82199
           path: sage
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           repository: SAGE-X-project/rs-sage-core
-          ref: 3c92509a4e60cbb1f6a09f9021241417274ea9ff
+          ref: 47512577540d835711b71ab74cd26a6b7433dc66
           path: rs-sage-core
       - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
         with:
@@ -226,6 +226,11 @@ jobs:
       - name: Verify exact session response correlation
         working-directory: sage-inspector
         run: python3 scripts/test_session_response010.py --go "${RUNNER_TEMP}/sage-completion010" --rust "${RUNNER_TEMP}/record010-rust/debug/completion010" --output "${RUNNER_TEMP}/record010-results/session-response010"
+      - name: Verify HTTP session signatures and shared acceptance
+        working-directory: sage-inspector
+        run: |
+          python3 scripts/test_http_session010_unit.py
+          python3 scripts/test_http_session010.py --go "${RUNNER_TEMP}/sage-completion010" --rust "${RUNNER_TEMP}/record010-rust/debug/completion010" --output "${RUNNER_TEMP}/record010-results/http-session010"
       - name: Preserve record binding test results
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

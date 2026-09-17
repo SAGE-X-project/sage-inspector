@@ -180,3 +180,12 @@ HTTP/WS·quarantine·실제 Source와 호스트 검증은 이후 범위로 유�
 응답을 한 번만 생성·수락한다. 공통 38개 사례와 네 코어 조합의 152개 실제 검사를
 추가한다. 다음은 **RFC9421 기반 HTTP 요청·응답 바인딩**이며, TLS/WS·영속 저장소·
 quarantine 및 실제 Source/호스트 검증은 별도 후속 범위다.
+
+0.10.0 HTTP session 바인딩: [HTTP 서명 및 단일 승인 검증](http-session010-bindings.md).
+두 코어에 canonical HTTPS POST session 요청·응답 서명과 보관 요청의 `;req` 연결,
+HTTP 전용 세션의 bare API 차단을 구현했다. 공통 45개 유닛 시나리오와 추가 크기·
+파라미터 경계, 독립 검산 5개 및 네 코어 조합의 180개 프로세스 시나리오를 연결한다.
+이 기록은 세션 메시지의 제한된 HTTP 서명 프로파일이며 **전체 RFC9421/HTTP 완료가
+아니다**. 다음 작업은 **실제 전송 메타데이터·중복 헤더를 보존하는 HTTP/TLS 연결과
+핸드셰이크 HTTP 바인딩**, canonical 외 Structured Fields/URI 지원 범위 검토다.
+WS·영속 replay/quarantine·실제 Source·호스트 검증은 계속 후속 범위로 유지한다.

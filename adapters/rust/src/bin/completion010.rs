@@ -204,6 +204,8 @@ impl ReplayStore010 for Replay {
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
 struct Request {
+    #[serde(default)]
+    status: u16,
     message_id: Option<String>,
     success: Option<bool>,
     error: Option<String>,
@@ -243,15 +245,24 @@ fn decode(bytes: &[u8]) -> Result<(Request, Vec<u8>)> {
     }
     let wire = match q.action.as_str() {
         "respond" | "complete" | "record-seal" | "record-open" | "response-seal"
-        | "response-open" => {
+        | "response-open" | "http-request-seal" | "http-request-open" | "http-response-seal"
+        | "http-response-open" => {
             let s = q.wire_hex.as_ref().ok_or_else(bad)?;
-            if s.len() > 65536 {
+            let limit = if matches!(
+                q.action.as_str(),
+                "http-request-open" | "http-response-open"
+            ) {
+                196608
+            } else {
+                65536
+            };
+            if s.len() > limit {
                 return Err(bad());
             }
             hex::decode(s).map_err(|_| bad())?
         }
         "start" | "inspect" | "check" | "close" | "endpoint-close" | "pending-close"
-        | "dispatch" | "record-inspect" => {
+        | "dispatch" | "record-inspect" | "http-bind" => {
             if q.wire_hex.is_some() {
                 return Err(bad());
             }
@@ -354,6 +365,21 @@ fn run() -> std::result::Result<(), Box<dyn std::error::Error>> {
                 }),
 
 
+
+            "http-bind" => result.as_mut().ok_or_else(bad).and_then(|s| s.bind_http("https://agent.example/messages")),
+            "http-request-seal" | "http-response-seal" => result.as_mut().ok_or_else(bad).and_then(|s| {
+                let m=if q.action=="http-request-seal" { s.seal_http_request(&mut e,&wire,q.ttl.unwrap_or(300))? } else {
+                    let success=q.success.ok_or_else(bad)?;
+                    if success && q.error.as_deref().is_some_and(|s| !s.is_empty()) {return Err(bad());}
+                    s.seal_http_response(&mut e,q.message_id.as_deref().ok_or_else(bad)?,&wire,if success {None} else {Some(q.error.as_deref().ok_or_else(bad)?)},q.ttl.unwrap_or(300),if q.status==0 {200} else {q.status})?
+                };
+                out=json!({"wire_hex":hex::encode(serde_json::to_vec(&m).map_err(|_|bad())?)});Ok(())
+            }),
+            "http-request-open" | "http-response-open" => result.as_mut().ok_or_else(bad).and_then(|s| {
+                let m:HTTPMessage010=serde_json::from_slice(&wire).map_err(|_|bad())?;
+                if q.action=="http-request-open" {let v=s.open_http_request(&mut e,&m)?;out=json!({"plaintext_hex":hex::encode(v)});} else {let v=s.open_http_response(&mut e,&m)?;out=json!({"message_id":v.message_id,"success":v.success,"error":v.error,"plaintext_hex":hex::encode(v.data)});}
+                Ok(())
+            }),
             "response-seal" => result.as_mut().ok_or_else(bad).and_then(|s| {
                 let success=q.success.ok_or_else(bad)?;
                 let code=q.error.as_deref().unwrap_or("");
@@ -440,5 +466,27 @@ mod tests {
             assert!(decode(s.as_bytes()).is_err())
         }
         assert!(decode(br#"{"id":"x","action":"start","mono_ms":0,"unix":100}"#).is_ok())
+    }
+    #[test]
+    fn http_controls() {
+        for action in ["http-request-open", "http-response-open"] {
+            for n in [65538, 196608, 196610] {
+                let q = json!({"id":"http","action":action,"mono_ms":0,"unix":100,"wire_hex":"0".repeat(n)});
+                assert_eq!(
+                    decode(&serde_json::to_vec(&q).unwrap()).is_ok(),
+                    n <= 196608
+                );
+            }
+        }
+        for mut q in [
+            json!({"action":"http-request-open"}),
+            json!({"action":"http-bind","wire_hex":""}),
+            json!({"action":"record-open","wire_hex":"0".repeat(65538)}),
+        ] {
+            q["id"] = json!("http");
+            q["mono_ms"] = json!(0);
+            q["unix"] = json!(100);
+            assert!(decode(&serde_json::to_vec(&q).unwrap()).is_err());
+        }
     }
 }

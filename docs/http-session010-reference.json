@@ -1,0 +1,11 @@
+{
+  "reference_revision": "bb17b8b87a09e642ca19ff8a909b1ed6e478a7f6",
+  "spec_revision": "f4a4e7fbf71a665785984eef7609b2e8fabe833d",
+  "files": {
+    "rfc9421/en.txt": "bd168c908b3f436a9e63d7dae6341c933ca01bc628e91ad0770bd8e21e521097",
+    "rfc9421/pkg/rfc9421/builder.go": "4022373222055876e515987c89ac8c31c5b481021abebbceddf984472ea19b86",
+    "rfc9421/pkg/rfc9421/parser.go": "54ee061f71e6f8505b00cebacca1ec450fa7a826eeb7707dfca53ee80cd5f619",
+    "sage-spec/spec/03-rfc9421.md": "61bf709c8f7b079eb8a5ca5ff853b9cfedbc88621b326ced838106dc6d7c1694"
+  },
+  "oracle": "Python constructs signature bases; Node crypto signs/verifies public fixture keys; legacy reference code is not an oracle"
+}

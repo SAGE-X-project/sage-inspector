@@ -37,6 +37,7 @@ const ALICE: &str = "did:sage:web:agent.example:alice";
 const BOB: &str = "did:sage:web:agent.example:bob";
 #[derive(Default)]
 struct Control {
+    handshakes: u64,
     records: u64,
     expiry: i64,
     mono: i64,
@@ -197,6 +198,7 @@ impl ReplayStore010 for Replay {
         if c.mode == "store-delay" {
             c.mono += 5001
         }
+        c.handshakes += 1;
         Ok(())
     }
 }
@@ -204,6 +206,8 @@ impl ReplayStore010 for Replay {
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
 struct Request {
+    #[serde(default)]
+    target: String,
     #[serde(default)]
     status: u16,
     message_id: Option<String>,
@@ -244,13 +248,31 @@ fn decode(bytes: &[u8]) -> Result<(Request, Vec<u8>)> {
         return Err(bad());
     }
     let wire = match q.action.as_str() {
-        "respond" | "complete" | "record-seal" | "record-open" | "response-seal"
-        | "response-open" | "http-request-seal" | "http-request-open" | "http-response-seal"
-        | "http-response-open" => {
+        "respond"
+        | "complete"
+        | "record-seal"
+        | "record-open"
+        | "response-seal"
+        | "response-open"
+        | "http-request-seal"
+        | "http-request-open"
+        | "http-response-seal"
+        | "http-response-open"
+        | "http-respond-raw"
+        | "http-complete-raw"
+        | "http-record-seal-raw"
+        | "http-record-open-raw"
+        | "http-response-seal-raw"
+        | "http-response-open-raw" => {
             let s = q.wire_hex.as_ref().ok_or_else(bad)?;
             let limit = if matches!(
                 q.action.as_str(),
-                "http-request-open" | "http-response-open"
+                "http-request-open"
+                    | "http-response-open"
+                    | "http-respond-raw"
+                    | "http-complete-raw"
+                    | "http-record-open-raw"
+                    | "http-response-open-raw"
             ) {
                 196608
             } else {
@@ -262,7 +284,8 @@ fn decode(bytes: &[u8]) -> Result<(Request, Vec<u8>)> {
             hex::decode(s).map_err(|_| bad())?
         }
         "start" | "inspect" | "check" | "close" | "endpoint-close" | "pending-close"
-        | "dispatch" | "record-inspect" | "http-bind" => {
+        | "dispatch" | "record-inspect" | "http-bind" | "http-endpoint-bind" | "http-start"
+        | "http-inspect" => {
             if q.wire_hex.is_some() {
                 return Err(bad());
             }
@@ -309,6 +332,7 @@ fn run() -> std::result::Result<(), Box<dyn std::error::Error>> {
             seen: HashSet::new(),
         }),
     )?;
+    let mut target = "https://agent.example/messages".to_owned();
     let mut p: Option<PendingCompletion010> = None;
     let mut result: Option<AuthenticatedCompletion010> = None;
     let mut seen = HashSet::new();
@@ -366,6 +390,27 @@ fn run() -> std::result::Result<(), Box<dyn std::error::Error>> {
 
 
 
+
+            "http-endpoint-bind" => e.bind_http(&q.target).map(|()|target=q.target.clone()),
+            "http-inspect" => {let c=controls.0.borrow();out=json!({"handshakes":c.handshakes,"records":c.records,"pending":p.as_ref().map(|p|p.state()).unwrap_or("NONE"),"session":result.as_ref().map(|s|s.state()).unwrap_or("NONE")});Ok(())},
+            "http-start" => {
+                if p.is_some() {Err(bad())} else {e.start_http(BOB,&format!("{BOB}#signing-1"),q.ttl.unwrap_or(300)).and_then(|(pending,m)|{let wire=encode_http_010(&m,&target)?;p=Some(pending);out=json!({"wire_hex":hex::encode(wire)});Ok(())})}
+            },
+            "http-respond-raw" => parse_http_010(&wire,&target,false).and_then(|m|e.respond_http(&m,q.ttl.unwrap_or(300))).and_then(|(mut next,m)|{
+                let raw=match encode_http_010(&m,&target){Ok(v)=>v,Err(e)=>{next.close();return Err(e)}};
+                if let Some(s)=result.as_mut(){s.close();}result=Some(next);out=json!({"wire_hex":hex::encode(raw)});Ok(())
+            }),
+            "http-complete-raw" => p.as_mut().ok_or_else(bad).and_then(|p|{
+                let m=match parse_http_010(&wire,&target,true){Ok(m)=>m,Err(e)=>{p.close();return Err(e)}};
+                let next=p.complete_http(&mut e,&m)?;out=json!({"state":next.state(),"tuple":next.tuple()});if let Some(s)=result.as_mut(){s.close();}result=Some(next);Ok(())
+            }),
+            "http-record-seal-raw" | "http-response-seal-raw" => result.as_mut().ok_or_else(bad).and_then(|s|{
+                let m=if q.action=="http-record-seal-raw"{s.seal_http_request(&mut e,&wire,q.ttl.unwrap_or(300))?}else{let success=q.success.ok_or_else(bad)?;if success && q.error.as_deref().is_some_and(|s|!s.is_empty()){return Err(bad());}s.seal_http_response(&mut e,q.message_id.as_deref().ok_or_else(bad)?,&wire,if success{None}else{Some(q.error.as_deref().ok_or_else(bad)?)},q.ttl.unwrap_or(300),200)?};out=json!({"wire_hex":hex::encode(encode_http_010(&m,&target)?)});Ok(())
+            }),
+            "http-record-open-raw" | "http-response-open-raw" => result.as_mut().ok_or_else(bad).and_then(|s|{
+                let m=parse_http_010(&wire,&target,q.action=="http-response-open-raw")?;
+                if q.action=="http-record-open-raw"{out=json!({"plaintext_hex":hex::encode(s.open_http_request(&mut e,&m)?)});}else{let v=s.open_http_response(&mut e,&m)?;out=json!({"message_id":v.message_id,"success":v.success,"error":v.error,"plaintext_hex":hex::encode(v.data)});}Ok(())
+            }),
             "http-bind" => result.as_mut().ok_or_else(bad).and_then(|s| s.bind_http("https://agent.example/messages")),
             "http-request-seal" | "http-response-seal" => result.as_mut().ok_or_else(bad).and_then(|s| {
                 let m=if q.action=="http-request-seal" { s.seal_http_request(&mut e,&wire,q.ttl.unwrap_or(300))? } else {
@@ -469,7 +514,14 @@ mod tests {
     }
     #[test]
     fn http_controls() {
-        for action in ["http-request-open", "http-response-open"] {
+        for action in [
+            "http-request-open",
+            "http-response-open",
+            "http-respond-raw",
+            "http-complete-raw",
+            "http-record-open-raw",
+            "http-response-open-raw",
+        ] {
             for n in [65538, 196608, 196610] {
                 let q = json!({"id":"http","action":action,"mono_ms":0,"unix":100,"wire_hex":"0".repeat(n)});
                 assert_eq!(

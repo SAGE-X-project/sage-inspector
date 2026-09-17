@@ -156,12 +156,12 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           repository: SAGE-X-project/sage
-          ref: 0b9340d348d95de2b25147d1b65e3ce3e1324c80
+          ref: 1fa426371b9988b890ff587ff8e9aa93dc02d020
           path: sage
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           repository: SAGE-X-project/rs-sage-core
-          ref: c5d226d50512869f270233632a09c6b2c12886fd
+          ref: a9659cb96843b95cee2f69e46755ee99c1021bb1
           path: rs-sage-core
       - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
         with:

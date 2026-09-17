@@ -9,7 +9,6 @@
 
 # Current verification scope
 
-- Develop primarily with scenario-based unit tests. Also implement and run safe runtime tests where practical, such as local CLI, IPC, report handling and bounded test-double processes. Do not create attack-capable vulnerability reproduction or host-bypass code. Use explicit inputs and small test doubles; a simulator is not required for the current work.
-- Do not run vulnerability reproduction probes, live core race diagnostics, or real host bypass tests. Existing raw findings remain historical evidence and must not be erased or promoted to PASS by unit-test results.
-- Ordinary Inspector unit tests, including `go test -race`, safe local runtime tests, and read-only validation of archived evidence remain in scope. They must not launch the live reproduction programs.
+- Implement and run both scenario-based unit tests and runtime tests for changed behavior. Use safe local CLI, IPC, real cryptographic exchanges, and bounded test processes. Exclude attack-capable vulnerability reproduction and host-bypass code; this is not a blanket exclusion of runtime testing.
+- Existing attack-capable reproduction programs remain outside execution scope. Ordinary core and Inspector tests, including go test -race, and safe runtime validation are in scope. Preserve historical raw findings instead of promoting them to PASS from unrelated test results.
 - Keep unit-test results separate from actual core execution and full protocol conformance. Missing real bindings remain UNSUPPORTED or NOT_RUN as appropriate.

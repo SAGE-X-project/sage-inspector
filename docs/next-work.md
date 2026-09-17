@@ -159,3 +159,11 @@ Guard 차단 판정 검증: [단위·런타임 테스트](guard-gate-verificatio
 제어 경로를 연결했다. 다음은 인증 tuple, 서명된 완료와 pending 수명을 연결하는 작업이다.
 실제 validating Source·체인 최종성 측정·세션 종료/dispatch 연결은 남아 있으며
 REG-05 배포 검증이나 전체 인증 핸드셰이크 완료로 집계하지 않는다.
+
+0.10.0 인증 완료·pending 연결: [서명·고정 tuple·수명 검증](completion010-bindings.md).
+두 코어가 실제 서명된 요청·응답·완료, 원본 요청 해시, 고정 키와 ACK를 검증한 후
+private seed/tuple 소유 결과를 생성하도록 연결했다. 코어별 완료 36개·추가 수명 8개,
+네 프로세스 조합의 완료 144개·수명 32개·입력 오류 8개를 검증한다. 최종 저장 중
+고정 키가 만료되는 경계도 포함한다. 다음은 **tuple 기반 레코드 수신과 응답자 첫
+레코드의 원자적 replay/sequence 예약·확정 연결**이다. 일반 WireTransport의 선택
+필드·HTTP/TLS·영속 replay/재시작 quarantine 및 배포 registry는 아직 완료하지 않았다.

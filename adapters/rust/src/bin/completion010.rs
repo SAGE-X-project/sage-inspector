@@ -204,6 +204,9 @@ impl ReplayStore010 for Replay {
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
 struct Request {
+    message_id: Option<String>,
+    success: Option<bool>,
+    error: Option<String>,
     #[serde(default)]
     key_expires: i64,
     id: String,
@@ -239,7 +242,8 @@ fn decode(bytes: &[u8]) -> Result<(Request, Vec<u8>)> {
         return Err(bad());
     }
     let wire = match q.action.as_str() {
-        "respond" | "complete" | "record-seal" | "record-open" => {
+        "respond" | "complete" | "record-seal" | "record-open" | "response-seal"
+        | "response-open" => {
             let s = q.wire_hex.as_ref().ok_or_else(bad)?;
             if s.len() > 65536 {
                 return Err(bad());
@@ -349,6 +353,14 @@ fn run() -> std::result::Result<(), Box<dyn std::error::Error>> {
                     result = Some(next);
                 }),
 
+
+            "response-seal" => result.as_mut().ok_or_else(bad).and_then(|s| {
+                let success=q.success.ok_or_else(bad)?;
+                let code=q.error.as_deref().unwrap_or("");
+                if success && !code.is_empty(){return Err(bad())}
+                s.seal_response(&mut e,q.message_id.as_deref().ok_or_else(bad)?,&wire,if success{None}else{Some(code)},q.ttl.unwrap_or(300)).map(|wire|{out=json!({"wire_hex":hex::encode(wire)})})
+            }),
+            "response-open" => result.as_mut().ok_or_else(bad).and_then(|s|s.open_response(&mut e,&wire).map(|r|{out=json!({"message_id":r.message_id,"success":r.success,"error":r.error,"plaintext_hex":hex::encode(r.data)})})),
             "record-seal" => result.as_mut().ok_or_else(bad).and_then(|s| {
                 s.seal_request(&mut e, &wire, q.ttl.unwrap_or(300))
                     .map(|wire| {

@@ -42,3 +42,7 @@ CI Record API bindings artifact의 authenticated-record010/에 보존한다.
 다음 작업은 **session 응답의 원본 요청 해시·message_id 연결과 양방향 응답 계약**이다.
 그 후 HTTP/WS 바인딩, 실제 영속 replay 저장소·quarantine 및 registry/호스트
 배포 경계를 각각 검증해야 한다.
+
+후속 구현: [session 응답](session-response010-bindings.md)에서 원본 요청 보관,
+정확한 해시·ID 연결과 최종 응답의 한 번만 수락하는 계약을 추가했다.
+위 요청 전용 범위는 해당 구현 시점의 경계이며, HTTP/TLS 및 배포 의무는 계속 남는다.

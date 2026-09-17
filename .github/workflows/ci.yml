@@ -156,12 +156,12 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           repository: SAGE-X-project/sage
-          ref: 8a700c851fe22c3e9e87c84c735cf78b3277d333
+          ref: 717fe4b07685891c4d31caeeb4480332914ddfd7
           path: sage
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           repository: SAGE-X-project/rs-sage-core
-          ref: b3d610922d1f929ec687a40e666411c397f267ec
+          ref: c59cd3a5b0950054f46963b8786f29ce80a1fcb8
           path: rs-sage-core
       - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
         with:
@@ -201,6 +201,16 @@ jobs:
           (cd adapters/go && go test -race ./cmd/sage-hpke010 && go build -o "${RUNNER_TEMP}/sage-hpke010" ./cmd/sage-hpke010)
           cargo test --locked --manifest-path adapters/rust/Cargo.toml --target-dir "${RUNNER_TEMP}/record010-rust" --bin hpke010
           python3 scripts/test_hpke_derivation010.py --go "${RUNNER_TEMP}/sage-hpke010" --rust "${RUNNER_TEMP}/record010-rust/debug/hpke010" --output "${RUNNER_TEMP}/record010-results/derivation010"
+      - name: Verify fresh registry observations and durable restart state
+        working-directory: sage-inspector
+        env:
+          RUSTUP_TOOLCHAIN: 1.88.0
+        run: |
+          node scripts/check_registry_vectors.js
+          python3 scripts/generate_registry010.py --check
+          (cd adapters/go && go test -race ./cmd/sage-registry010 && go build -o "${RUNNER_TEMP}/sage-registry010" ./cmd/sage-registry010)
+          cargo test --locked --manifest-path adapters/rust/Cargo.toml --target-dir "${RUNNER_TEMP}/record010-rust" --bin registry010
+          python3 scripts/test_registry010.py --go "${RUNNER_TEMP}/sage-registry010" --rust "${RUNNER_TEMP}/record010-rust/debug/registry010" --output "${RUNNER_TEMP}/record010-results/registry010"
       - name: Preserve record binding test results
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

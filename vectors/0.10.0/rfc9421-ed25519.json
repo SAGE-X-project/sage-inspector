@@ -1,0 +1,8 @@
+{
+  "source": "https://www.rfc-editor.org/rfc/rfc9421.html#appendix-B.2.6",
+  "key_source": "https://www.rfc-editor.org/rfc/rfc9421.html#appendix-B.1.4",
+  "scope": "Published RFC Ed25519 example; independently verifies primitive and exact base bytes, not SAGE coverage or core admission.",
+  "public_key": "MCowBQYDK2VwAyEAJrQLj5P/89iXES9+vFgrIy29clF9CC/oPPsw3c5D0bs=",
+  "signature": "wqcAqbmYJ2ji2glfAMaRy4gruYYnx2nEFN2HN6jrnDnQCK1u02Gb04v9EDgwUPiu4A0w6vuQv5lIp5WPpBKRCw==",
+  "base": "\"date\": Tue, 20 Apr 2021 02:07:55 GMT\n\"@method\": POST\n\"@path\": /foo\n\"@authority\": example.com\n\"content-type\": application/json\n\"content-length\": 18\n\"@signature-params\": (\"date\" \"@method\" \"@path\" \"@authority\" \"content-type\" \"content-length\");created=1618884473;keyid=\"test-key-ed25519\""
+}

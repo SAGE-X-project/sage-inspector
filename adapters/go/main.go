@@ -155,6 +155,14 @@ func run(r io.Reader, w io.Writer) error {
 		}
 	}
 
+	if q.Operation == "sage.hpke.schedule010.combine" || q.Operation == "sage.hpke.schedule010.ack" || q.Operation == "sage.hpke.schedule010.verify" {
+		var e error
+		verdict, output, e = hpke010Observe(q.Operation, q.Input)
+		if e != nil {
+			return e
+		}
+	}
+
 	return json.NewEncoder(w).Encode(map[string]any{"schema_version": 1, "case_id": q.Case, "verdict": verdict, "output": output})
 }
 func main() {

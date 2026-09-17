@@ -74,3 +74,9 @@ transcript 변경 경로에만 `sage.session.record.open.bound`를 요청한다.
 
 연결되지 않은 기능의 UNSUPPORTED/NOT_RUN, 과거 코어 FAIL과 전체
 NOT_ESTABLISHED는 유지한다. 이번 인계 완료는 실제 연결 또는 INS-11 완료가 아니다.
+
+## 후속 구현
+
+이 문서의 2026-09-16 소스 관측 이후 새 RecordSession010 API가 두 코어에 추가되었다.
+[새 연결 기록](record010-bindings.md)에 revision과 레코드 연산의 검증 범위를 정리했다.
+위 표의 인증 tuple·registry 등 전체 세션 계약이 모두 구현된 것은 아니다.

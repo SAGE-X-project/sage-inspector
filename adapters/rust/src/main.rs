@@ -1,6 +1,7 @@
 mod hpke_checks;
 mod http_checks;
 mod parallel_checks;
+mod record010_checks;
 mod registry_checks;
 mod sequence_checks;
 mod session_checks;
@@ -52,6 +53,14 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
         .contains(&q.operation.as_str())
     {
         hpke_checks::observe(&q.operation, q.input)?
+    } else if [
+        "sage.session.record010.open",
+        "sage.session.record010.seal",
+        "sage.session.record010.export",
+    ]
+    .contains(&q.operation.as_str())
+    {
+        record010_checks::observe(&q.operation, q.input)?
     } else if [
         "sage.session.record.open",
         "sage.session.record.seal",

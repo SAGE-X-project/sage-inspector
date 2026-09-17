@@ -156,12 +156,12 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           repository: SAGE-X-project/sage
-          ref: ff31edd485644a37cb4d27b94e029cf97ea5a14b
+          ref: 8a700c851fe22c3e9e87c84c735cf78b3277d333
           path: sage
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           repository: SAGE-X-project/rs-sage-core
-          ref: 768fde4d368635363ddd4b810a3ffac93079f98b
+          ref: b3d610922d1f929ec687a40e666411c397f267ec
           path: rs-sage-core
       - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
         with:
@@ -192,6 +192,15 @@ jobs:
         run: |
           node scripts/check_hpke_vectors.js
           python3 scripts/test_hpke010_adapters.py --go "${RUNNER_TEMP}/sage-go-record010" --rust "${RUNNER_TEMP}/record010-rust/debug/sage-inspector-rust-adapter" --output "${RUNNER_TEMP}/record010-results/hpke010"
+      - name: Verify complete cryptographic derivation paths
+        working-directory: sage-inspector
+        env:
+          RUSTUP_TOOLCHAIN: 1.88.0
+        run: |
+          python3 scripts/generate_hpke_derivation010.py --check
+          (cd adapters/go && go test -race ./cmd/sage-hpke010 && go build -o "${RUNNER_TEMP}/sage-hpke010" ./cmd/sage-hpke010)
+          cargo test --locked --manifest-path adapters/rust/Cargo.toml --target-dir "${RUNNER_TEMP}/record010-rust" --bin hpke010
+          python3 scripts/test_hpke_derivation010.py --go "${RUNNER_TEMP}/sage-hpke010" --rust "${RUNNER_TEMP}/record010-rust/debug/hpke010" --output "${RUNNER_TEMP}/record010-results/derivation010"
       - name: Preserve record binding test results
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

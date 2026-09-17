@@ -142,3 +142,5 @@ Guard 차단 판정 검증: [단위·런타임 테스트](guard-gate-verificatio
 테스트 커버리지·CI 보고서 정리: [검증 항목과 실행 보고서](verification-test-coverage.md). 현재 유닛 중심 7개 작업을 완료했다. 실제 코어·호스트 연결은 위 후속 범위에 남으며 INS-11 전체 완료를 뜻하지 않는다.
 
 실제 연결 선행 검토(2026-09-16): [Transcript 세션 연결 인계](core-binding-handoff.md). 두 코어의 revision과 고정 소스는 동일하며 현재 세션 API에 th 입력이 없다. 다음 실행 항목은 코어 API 제공 후 어댑터 연결과 bound 정상 대조군 추가다. 코어 구현은 별도 저장소 작업으로 유지한다.
+
+0.10.0 레코드 연결: [새 코어 어댑터와 정상 대조군](record010-bindings.md). 코어별 독립 레코드 37개, 동일 API의 양방향 정상·transcript 거부 대조군과 제어 오류를 검증한다. 상태 유지 및 인증 tuple·registry 연결은 후속 항목이다.

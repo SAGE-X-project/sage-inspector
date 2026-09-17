@@ -144,3 +144,45 @@ jobs:
             .github/workflows/ci.yml
             go.mod
             go.sum
+
+  record010:
+    name: Record API bindings
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          path: sage-inspector
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: SAGE-X-project/sage
+          ref: e36cb2476e900ac6d3421aee42d3bff43dbc82da
+          path: sage
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: SAGE-X-project/rs-sage-core
+          ref: 89949e89083c5f7dc7d0948ccda65d9810f52a10
+          path: rs-sage-core
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
+        with:
+          go-version-file: sage-inspector/go.mod
+          cache-dependency-path: sage-inspector/adapters/go/go.sum
+      - name: Install Rust
+        run: rustup toolchain install 1.88.0 --profile minimal
+      - name: Build pinned record adapters and verify local records
+        working-directory: sage-inspector
+        env:
+          RUSTUP_TOOLCHAIN: 1.88.0
+        run: |
+          go build -o "${RUNNER_TEMP}/sage-conformance-record010" ./cmd/sage-conformance
+          (cd adapters/go && go build -o "${RUNNER_TEMP}/sage-go-record010" .)
+          cargo build --locked --manifest-path adapters/rust/Cargo.toml --target-dir "${RUNNER_TEMP}/record010-rust"
+          python3 scripts/test_record010_adapters.py --go "${RUNNER_TEMP}/sage-go-record010" --rust "${RUNNER_TEMP}/record010-rust/debug/sage-inspector-rust-adapter" --runner "${RUNNER_TEMP}/sage-conformance-record010" --output "${RUNNER_TEMP}/record010-results"
+      - name: Preserve record binding test results
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: record010-bindings-${{ github.sha }}
+          if-no-files-found: error
+          retention-days: 30
+          path: ${{ runner.temp }}/record010-results/

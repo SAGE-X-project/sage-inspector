@@ -131,6 +131,14 @@ func run(r io.Reader, w io.Writer) error {
 		}
 	}
 
+	if q.Operation == "sage.session.record010.open" || q.Operation == "sage.session.record010.seal" || q.Operation == "sage.session.record010.export" {
+		var e error
+		verdict, output, e = record010Observe(q.Operation, q.Input)
+		if e != nil {
+			return e
+		}
+	}
+
 	if q.Operation == "sage.session.record.open" || q.Operation == "sage.session.record.seal" || q.Operation == "sage.session.record.export" {
 		var e error
 		verdict, output, e = sessionObserve(q.Operation, q.Input)

@@ -15,14 +15,17 @@ import (
 )
 
 type request struct {
-	Expiry int64   `json:"key_expires,omitempty"`
-	ID     string  `json:"id"`
-	Action string  `json:"action"`
-	Wire   *string `json:"wire_hex,omitempty"`
-	Mode   string  `json:"mode"`
-	Mono   *int64  `json:"mono_ms"`
-	UTC    *int64  `json:"unix"`
-	TTL    *int64  `json:"ttl,omitempty"`
+	MessageID string  `json:"message_id,omitempty"`
+	Success   *bool   `json:"success,omitempty"`
+	Error     string  `json:"error,omitempty"`
+	Expiry    int64   `json:"key_expires,omitempty"`
+	ID        string  `json:"id"`
+	Action    string  `json:"action"`
+	Wire      *string `json:"wire_hex,omitempty"`
+	Mode      string  `json:"mode"`
+	Mono      *int64  `json:"mono_ms"`
+	UTC       *int64  `json:"unix"`
+	TTL       *int64  `json:"ttl,omitempty"`
 }
 
 func decode(b []byte) (request, []byte, error) {
@@ -42,7 +45,7 @@ func decode(b []byte) (request, []byte, error) {
 		return q, nil, errors.New("unknown control")
 	}
 	switch q.Action {
-	case "respond", "complete", "record-seal", "record-open":
+	case "respond", "complete", "record-seal", "record-open", "response-seal", "response-open":
 		if q.Wire == nil || len(*q.Wire) > 65536 {
 			return q, nil, errors.New("wire required")
 		}
@@ -150,6 +153,26 @@ func run() error {
 					out = map[string]any{"state": result.State(), "tuple": result.Tuple()}
 				}
 			}
+		case "response-seal":
+			if result == nil || q.Success == nil {
+				x = errors.New("missing response control")
+			} else {
+				wire, x = result.SealResponse(context.Background(), q.MessageID, wire, *q.Success, q.Error, ttl)
+				if x == nil {
+					out = map[string]any{"wire_hex": hex.EncodeToString(wire)}
+				}
+			}
+		case "response-open":
+			if result == nil {
+				x = errors.New("no result")
+			} else {
+				var v *hpke.SessionResponse010
+				v, x = result.OpenResponse(context.Background(), wire)
+				if x == nil {
+					out = map[string]any{"message_id": v.MessageID, "success": v.Success, "error": v.Error, "plaintext_hex": hex.EncodeToString(v.Data)}
+				}
+			}
+
 		case "record-seal":
 			if result == nil {
 				x = errors.New("no result")

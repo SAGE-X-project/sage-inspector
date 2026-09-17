@@ -174,3 +174,9 @@ private seed/tuple 소유 결과를 생성하도록 연결했다. 코어별 완�
 조합의 128개 검사를 연결하며, application 인가·영속 저장소의 배포 증거는 별도다.
 다음은 **session 응답의 request_hash/message_id 연결 및 양방향 응답 계약**이다.
 HTTP/WS·quarantine·실제 Source와 호스트 검증은 이후 범위로 유지한다.
+
+0.10.0 session 응답 연결: [원본 요청 및 terminal 검증](session-response010-bindings.md).
+실제 보관 요청에서 message_id/request_hash를 검증하고 양쪽 역할의 성공/오류
+응답을 한 번만 생성·수락한다. 공통 38개 사례와 네 코어 조합의 152개 실제 검사를
+추가한다. 다음은 **RFC9421 기반 HTTP 요청·응답 바인딩**이며, TLS/WS·영속 저장소·
+quarantine 및 실제 Source/호스트 검증은 별도 후속 범위다.

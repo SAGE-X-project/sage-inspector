@@ -156,12 +156,12 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           repository: SAGE-X-project/sage
-          ref: 1fa426371b9988b890ff587ff8e9aa93dc02d020
+          ref: 65023d18bafb26cb593f59a9189baa0d7af43c5d
           path: sage
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           repository: SAGE-X-project/rs-sage-core
-          ref: a9659cb96843b95cee2f69e46755ee99c1021bb1
+          ref: 3c92509a4e60cbb1f6a09f9021241417274ea9ff
           path: rs-sage-core
       - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
         with:
@@ -223,6 +223,9 @@ jobs:
       - name: Verify authenticated session requests and atomic confirmation
         working-directory: sage-inspector
         run: python3 scripts/test_authenticated_record010.py --go "${RUNNER_TEMP}/sage-completion010" --rust "${RUNNER_TEMP}/record010-rust/debug/completion010" --output "${RUNNER_TEMP}/record010-results/authenticated-record010"
+      - name: Verify exact session response correlation
+        working-directory: sage-inspector
+        run: python3 scripts/test_session_response010.py --go "${RUNNER_TEMP}/sage-completion010" --rust "${RUNNER_TEMP}/record010-rust/debug/completion010" --output "${RUNNER_TEMP}/record010-results/session-response010"
       - name: Preserve record binding test results
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

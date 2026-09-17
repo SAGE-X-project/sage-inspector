@@ -15,6 +15,7 @@ import (
 )
 
 type request struct {
+	Status    int     `json:"status,omitempty"`
 	MessageID string  `json:"message_id,omitempty"`
 	Success   *bool   `json:"success,omitempty"`
 	Error     string  `json:"error,omitempty"`
@@ -45,13 +46,17 @@ func decode(b []byte) (request, []byte, error) {
 		return q, nil, errors.New("unknown control")
 	}
 	switch q.Action {
-	case "respond", "complete", "record-seal", "record-open", "response-seal", "response-open":
-		if q.Wire == nil || len(*q.Wire) > 65536 {
+	case "respond", "complete", "record-seal", "record-open", "response-seal", "response-open", "http-request-seal", "http-request-open", "http-response-seal", "http-response-open":
+		limit := 65536
+		if q.Action == "http-request-open" || q.Action == "http-response-open" {
+			limit = 196608
+		}
+		if q.Wire == nil || len(*q.Wire) > limit {
 			return q, nil, errors.New("wire required")
 		}
 		b, e := hex.DecodeString(*q.Wire)
 		return q, b, e
-	case "start", "inspect", "check", "close", "endpoint-close", "pending-close", "dispatch", "record-inspect":
+	case "start", "inspect", "check", "close", "endpoint-close", "pending-close", "dispatch", "record-inspect", "http-bind":
 		if q.Wire != nil {
 			return q, nil, errors.New("unexpected wire")
 		}
@@ -153,6 +158,54 @@ func run() error {
 					out = map[string]any{"state": result.State(), "tuple": result.Tuple()}
 				}
 			}
+		case "http-bind":
+			if result == nil {
+				x = errors.New("no result")
+			} else {
+				x = result.BindHTTP("https://agent.example/messages")
+			}
+		case "http-request-seal", "http-response-seal":
+			if result == nil {
+				x = errors.New("no result")
+			} else {
+				var m hpke.HTTPMessage010
+				if q.Action == "http-request-seal" {
+					m, x = result.SealHTTPRequest(context.Background(), wire, ttl)
+				} else if q.Success == nil {
+					x = errors.New("missing response control")
+				} else {
+					status := q.Status
+					if status == 0 {
+						status = 200
+					}
+					m, x = result.SealHTTPResponse(context.Background(), q.MessageID, wire, *q.Success, q.Error, ttl, status)
+				}
+				if x == nil {
+					wire, x = json.Marshal(m)
+					out = map[string]any{"wire_hex": hex.EncodeToString(wire)}
+				}
+			}
+		case "http-request-open", "http-response-open":
+			var m hpke.HTTPMessage010
+			d := json.NewDecoder(bytes.NewReader(wire))
+			d.DisallowUnknownFields()
+			if result == nil || d.Decode(&m) != nil {
+				x = errors.New("invalid HTTP control")
+			} else {
+				if q.Action == "http-request-open" {
+					wire, x = result.OpenHTTPRequest(context.Background(), m)
+					if x == nil {
+						out = map[string]any{"plaintext_hex": hex.EncodeToString(wire)}
+					}
+				} else {
+					var v *hpke.SessionResponse010
+					v, x = result.OpenHTTPResponse(context.Background(), m)
+					if x == nil {
+						out = map[string]any{"message_id": v.MessageID, "success": v.Success, "error": v.Error, "plaintext_hex": hex.EncodeToString(v.Data)}
+					}
+				}
+			}
+
 		case "response-seal":
 			if result == nil || q.Success == nil {
 				x = errors.New("missing response control")

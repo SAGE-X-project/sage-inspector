@@ -156,7 +156,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           repository: SAGE-X-project/sage
-          ref: 77845728644efaa7026eb4d5361aeb190ebb24a0
+          ref: fdce7315e1d8afa78672fd99ed2478add6f5db9b
           path: sage
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:

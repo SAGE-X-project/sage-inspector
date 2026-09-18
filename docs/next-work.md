@@ -271,3 +271,13 @@ Inspector primitive 연결**이고, 그 뒤 private 검증 결과의 ledger brid
 전체 적합성은 NOT_ESTABLISHED다. 다음은 **정책 retirement·component instance와
 최종 dispatch gate 직렬화**이고, signed pending/terminal 발행·client 단일 소비 및
 MCP mapping·실제 Source·호스트 집행은 후속 범위다.
+
+
+0.10.0 최종 dispatch gate 연결: [현재 인가와 실행 인계 직렬화](guard-dispatch010.md).
+두 코어에서 정책 폐기·component 교체·검증·영속 EXECUTING·bounded 인계를 같은
+gate에 연결했다. 최종 키/정책/시각/component 검사 실패와 인계 불확실성은 UNKNOWN
+또는 저장소 불가로 처리하며 재실행하지 않는다. 유닛 경합 테스트와 실제 프로세스
+30개(시나리오 20개, 네 언어 조합 복구 8개, missing 제어 2개)를 연결했다. 실제
+불변 로더·분산/재시작 retirement·호스트 격리는 배포 통합 경계이며, 37개 lifecycle과
+전체 적합성은 계속 NOT_RUN/NOT_ESTABLISHED다. 다음은 **signed pending/terminal
+발행과 첫 terminal 원문 영속 저장**, 이어서 **client 단일 소비와 MCP mapping**이다.

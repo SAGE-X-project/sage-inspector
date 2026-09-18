@@ -46,6 +46,7 @@ jobs:
           python3 scripts/test_guard_inspection.py
           python3 scripts/test_guard_primitive_reports.py
           python3 scripts/test_guard_reservation_reports.py
+          python3 scripts/test_guard_dispatch_reports.py
       - name: Audit Guard binding readiness
         run: |
           python3 scripts/test_guard_binding.py
@@ -171,12 +172,12 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           repository: SAGE-X-project/sage
-          ref: 707659cf7d20a5999660bd3e6d0ceb9bc1e3cd9d
+          ref: 811252ea7a5105a8329052c40488675398883728
           path: sage
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           repository: SAGE-X-project/rs-sage-core
-          ref: 6826614e76e38ba7b074215b3490c1f089a8b15b
+          ref: 824171d2a8640449131cdf47efecd4d137947bb7
           path: rs-sage-core
       - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
         with:
@@ -224,6 +225,22 @@ jobs:
           if-no-files-found: error
           retention-days: 30
           path: ${{ runner.temp }}/guard-reservation-results/
+      - name: Verify serialized Guard dispatch commitments
+        working-directory: sage-inspector
+        env:
+          RUSTUP_TOOLCHAIN: 1.88.0
+        run: |
+          (cd adapters/go && go build -o "${RUNNER_TEMP}/sage-guard-dispatch010" ./cmd/sage-guard-dispatch010)
+          cargo build --locked --manifest-path adapters/rust/Cargo.toml --target-dir "${RUNNER_TEMP}/record010-rust" --bin guard_dispatch010
+          python3 scripts/test_guard_dispatch010.py --go "${RUNNER_TEMP}/sage-guard-dispatch010" --rust "${RUNNER_TEMP}/record010-rust/debug/guard_dispatch010" --output "${RUNNER_TEMP}/guard-dispatch-results"
+      - name: Preserve Guard dispatch results
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: guard-dispatch-bindings-${{ github.sha }}
+          if-no-files-found: error
+          retention-days: 30
+          path: ${{ runner.temp }}/guard-dispatch-results/
       - name: Verify retained record sessions
         working-directory: sage-inspector
         env:

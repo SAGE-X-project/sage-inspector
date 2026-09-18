@@ -207,3 +207,12 @@ WS·영속 replay/quarantine·실제 Source·호스트 검증은 계속 후속 �
 문자열·비정규 정수 및 일반 URI 정규화는 지원 완료로 표시하지 않는다.
 다음은 **WebSocket 바인딩 계약과 안전한 실제 런타임 검증**이며, 영속 replay/
 quarantine·배포 Source·호스트 검증은 이후 범위다.
+
+
+0.10.0 WebSocket 바인딩: [계약과 실제 WSS 검증](websocket010-bindings.md).
+Inspector의 wsproto/OpenSSL 전송 환경에 기존 두 코어의 envelope API를 연결했다.
+오프라인 유닛 테스트 17개와 네 코어 조합의 실제 WSS 시나리오 32개로 텍스트
+재조립·Ping/Pong·양방향 서명 메시지·오류 응답·종료·TLS 인증 실패를 검증한다.
+잘못된 프레임은 오프라인에서만 처리하며, 운영 Go/Rust WS 서비스나 기존 WS 구현
+검증으로 집계하지 않는다. 다음은 **영속 replay 저장 및 재시작 quarantine 계약과
+안전한 유닛·런타임 검증**이다. 배포 Source·체인 최종성·호스트 집행은 이후 범위다.

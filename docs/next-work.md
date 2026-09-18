@@ -235,3 +235,12 @@ Inspector에 닫힌 배포 설정과 원문 해시를 연결한 관측 입력, �
 실제 validating Source·RPC·전체 record/PoP·배포 체인 측정은 아직 NOT_RUN이다.
 다음은 지정된 배포 바인딩/신뢰 관측기 기반 Source 연결이다. 배포 자료가 없으면
 독립적으로 진행 가능한 **execution ledger 복구 계약·안전한 검증**을 먼저 수행한다.
+
+
+0.10.0 execution ledger 저장·복구: [실제 코어 및 언어 간 검증](execution-ledger010.md).
+두 코어에 별도 durable call/nonce 예약·terminal 원문 보존·재시작 UNKNOWN 복구를
+구현했다. 공통 14개/72단계, 프로세스 28개·복구 20개·파일 제어 6개를 연결한다.
+이는 **저장 기반 완료**이며 signed intent/result·현재 정책·component·실제 dispatch
+및 scope 전체 lost-ledger epoch 복구는 아직 통합되지 않았다. 다음은 **Guard의
+canonical signed intent/result와 ledger 연결 및 dispatch gate 계약**이다.
+배포 Source 지정과 실제 호스트 집행은 계속 별도 의존성으로 남는다.

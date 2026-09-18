@@ -1,0 +1,227 @@
+{
+  "schema_version": 1,
+  "protocol_version": "0.10.0",
+  "kind": "guard-binding-handoff",
+  "conformance": "NOT_ESTABLISHED",
+  "sources": {
+    "verification/0.10.0/snapshot/profiles/agent-mcp-security.md": "99d5dc57d12d59d6e33102b2fdaa44efb137e48deab65e8012ff5128838d04b1",
+    "vectors/0.10.0/guard-records.json": "68bd8c57a9a572849ea5f57f77d93c0e7d2fe813ea7b158c47b24c832efdef0f",
+    "vectors/0.10.0/guard-manifest.json": "92ab01eae646aa351e437429c6e32ab1311a80651b50e3bd56aef61e60975a84"
+  },
+  "reviewed_cores": {
+    "go": {
+      "revision": "6c46fadf5df748801c1868b94444327199225ed4",
+      "evidence": "SOURCE_REVIEW_ONLY",
+      "files": {
+        "pkg/agent/execution010/ledger.go": "768e9f1a0ec129615247f3baabf6f5b39b1284d346714afdf116aebd85fe6eb2",
+        "pkg/agent/hpke/completion010.go": "a14d58169e1e54a66aa4f716d4a3ec0d0907271ea3cda2ef286f4229872d6066"
+      }
+    },
+    "rust": {
+      "revision": "9fc5f044589929fc00b430219b1887af0946c7a4",
+      "evidence": "SOURCE_REVIEW_ONLY",
+      "files": {
+        "src/execution010/mod.rs": "54916d69060b8fa24fe86b023db4a5165d94781bcf4822e54fd3402e9671a0a8",
+        "src/hpke/completion010.rs": "d08bf4c671a2674be603f492f007fe48b2b957f2ff6c4ad95919f8d5e67b5966"
+      }
+    }
+  },
+  "stages": [
+    {
+      "id": "commitments",
+      "requires": [],
+      "binding_status": "NOT_RUN",
+      "primitive_cases": [
+        "original-single",
+        "original-bundle",
+        "original-space",
+        "original-composed",
+        "original-decomposed",
+        "original-empty-item",
+        "original-count-max",
+        "original-count-over",
+        "original-bytes-max",
+        "original-bytes-over",
+        "manifest-valid",
+        "manifest-parent",
+        "manifest-dot",
+        "manifest-empty",
+        "manifest-absolute",
+        "manifest-backslash",
+        "manifest-nul",
+        "manifest-duplicate",
+        "manifest-unsorted",
+        "manifest-hash",
+        "policy-members-2044",
+        "policy-members-2045",
+        "policy-valid",
+        "policy-empty",
+        "policy-version",
+        "policy-epoch",
+        "policy-engine",
+        "policy-published-example"
+      ],
+      "scenarios": [
+        "guard-peer-policy-install"
+      ]
+    },
+    {
+      "id": "intent",
+      "requires": [
+        "commitments"
+      ],
+      "binding_status": "NOT_RUN",
+      "primitive_cases": [
+        "json-bytes-1048576",
+        "json-bytes-1048577",
+        "json-depth-32",
+        "json-depth-33",
+        "json-members-4096",
+        "json-members-4097",
+        "intent-valid",
+        "intent-last-second",
+        "intent-expiry",
+        "intent-early-limit",
+        "intent-too-early",
+        "intent-clock",
+        "intent-inactive-key",
+        "intent-recipient",
+        "intent-original",
+        "intent-policy-deny",
+        "intent-version",
+        "intent-profile",
+        "intent-tool",
+        "intent-recursive",
+        "intent-arguments-extra",
+        "intent-arguments-missing",
+        "intent-arguments-type",
+        "intent-lifetime",
+        "intent-policy-self-approved",
+        "intent-manifest-self-approved",
+        "intent-key-binding",
+        "intent-parent-invalid",
+        "intent-unknown-field",
+        "intent-null-arguments",
+        "intent-array-arguments",
+        "intent-tampered",
+        "intent-signature-valid",
+        "intent-signature-domain",
+        "result-signature-valid",
+        "result-signature-domain",
+        "jcs-manifest",
+        "jcs-policy",
+        "jcs-intent",
+        "jcs-result"
+      ],
+      "scenarios": [
+        "guard-changed-inner-envelope",
+        "guard-changed-valid-intent",
+        "guard-lost-clock",
+        "guard-outer-replay"
+      ]
+    },
+    {
+      "id": "ledger",
+      "requires": [
+        "commitments",
+        "intent"
+      ],
+      "binding_status": "NOT_RUN",
+      "primitive_cases": [],
+      "scenarios": [
+        "guard-intact-absence-retry",
+        "guard-nonce-collision",
+        "guard-race-duplicate",
+        "guard-race-reject-reserve",
+        "guard-race-reserve-reject",
+        "guard-crash-reserved",
+        "guard-crash-executing",
+        "guard-lost-ledger",
+        "guard-scope-recovery"
+      ]
+    },
+    {
+      "id": "dispatch",
+      "requires": [
+        "commitments",
+        "intent",
+        "ledger"
+      ],
+      "binding_status": "NOT_RUN",
+      "primitive_cases": [],
+      "scenarios": [
+        "guard-retire-reservation",
+        "guard-dispatch-expiry",
+        "guard-check-load-replacement",
+        "guard-uncovered-load",
+        "guard-race-retire-first",
+        "guard-race-dispatch-first",
+        "guard-no-rollback-after-dispatch",
+        "guard-gate-skip",
+        "guard-gate-timeout",
+        "guard-gate-exception",
+        "guard-gate-disconnect",
+        "guard-gate-direct-call",
+        "guard-gate-signing-oracle"
+      ]
+    },
+    {
+      "id": "result",
+      "requires": [
+        "commitments",
+        "intent",
+        "ledger",
+        "dispatch"
+      ],
+      "binding_status": "NOT_RUN",
+      "primitive_cases": [
+        "result-pending-valid",
+        "result-pending-unsolicited",
+        "result-pending-wrong-intent",
+        "result-pending-output",
+        "mcp-pending-valid",
+        "mcp-pending-error-flag",
+        "mcp-pending-extra-block",
+        "mcp-pending-text-mismatch",
+        "result-completed-valid",
+        "result-completed-unsolicited",
+        "result-completed-accepted-invocation-late-result",
+        "result-completed-expired",
+        "result-completed-revoked",
+        "result-completed-wrong-intent",
+        "mcp-completed-valid",
+        "mcp-completed-error-flag",
+        "mcp-completed-extra-block",
+        "mcp-completed-text-mismatch",
+        "result-rejected-valid",
+        "result-rejected-unsolicited",
+        "result-rejected-wrong-intent",
+        "result-rejected-output",
+        "mcp-rejected-valid",
+        "mcp-rejected-error-flag",
+        "mcp-rejected-extra-block",
+        "mcp-rejected-text-mismatch",
+        "result-unknown-valid",
+        "result-unknown-unsolicited",
+        "result-unknown-wrong-intent",
+        "result-unknown-output",
+        "mcp-unknown-valid",
+        "mcp-unknown-error-flag",
+        "mcp-unknown-extra-block",
+        "mcp-unknown-text-mismatch"
+      ],
+      "scenarios": [
+        "guard-pending-completed",
+        "guard-terminal-persistence-failure",
+        "guard-unknown-signer-recovery",
+        "guard-retrieval-expiry",
+        "guard-retrieval-revocation",
+        "guard-client-pending-terminal",
+        "guard-client-terminal-conflict",
+        "guard-client-unsolicited",
+        "guard-client-poll-spacing",
+        "guard-client-unknown-new-id"
+      ]
+    }
+  ]
+}

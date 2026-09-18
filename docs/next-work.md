@@ -244,3 +244,12 @@ Inspector에 닫힌 배포 설정과 원문 해시를 연결한 관측 입력, �
 및 scope 전체 lost-ledger epoch 복구는 아직 통합되지 않았다. 다음은 **Guard의
 canonical signed intent/result와 ledger 연결 및 dispatch gate 계약**이다.
 배포 Source 지정과 실제 호스트 집행은 계속 별도 의존성으로 남는다.
+
+
+0.10.0 Guard 연결 선행 계약: [서명·ledger·dispatch 구현 인계](guard-binding-handoff.md).
+고정 profile과 두 코어 저장/핸드셰이크 경계를 검토하고 102개 primitive와 37개/297단계
+scenario를 commitments→intent→ledger→dispatch→result 구현 역할에 연결했다.
+기계 판독 계약·누락/승격 거부 검사 및 실제 검사 CLI의 출력 보존을 검증했다.
+이는 **계약/준비 상태 검사 완료**이며 실제 Guard 바인딩은 모두 NOT_RUN이다.
+다음 구현은 두 코어의 **commitments 및 closed signed intent/result 검증 API와
+Inspector primitive 연결**이고, 그 뒤 private 검증 결과의 ledger bridge와 최종 gate다.

@@ -44,6 +44,7 @@ jobs:
         run: |
           node scripts/check_guard_vectors.js
           python3 scripts/test_guard_inspection.py
+          python3 scripts/test_guard_primitive_reports.py
       - name: Audit Guard binding readiness
         run: |
           python3 scripts/test_guard_binding.py
@@ -169,12 +170,12 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           repository: SAGE-X-project/sage
-          ref: 6c46fadf5df748801c1868b94444327199225ed4
+          ref: 1c64ea193a0cc25d12be21999a4a43d6b280bfb4
           path: sage
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           repository: SAGE-X-project/rs-sage-core
-          ref: 9fc5f044589929fc00b430219b1887af0946c7a4
+          ref: 7a6921d965d18022dafc406cb7914acca28fecd8
           path: rs-sage-core
       - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
         with:
@@ -191,6 +192,21 @@ jobs:
           (cd adapters/go && go build -o "${RUNNER_TEMP}/sage-go-record010" .)
           cargo build --locked --manifest-path adapters/rust/Cargo.toml --target-dir "${RUNNER_TEMP}/record010-rust"
           python3 scripts/test_record010_adapters.py --go "${RUNNER_TEMP}/sage-go-record010" --rust "${RUNNER_TEMP}/record010-rust/debug/sage-inspector-rust-adapter" --runner "${RUNNER_TEMP}/sage-conformance-record010" --output "${RUNNER_TEMP}/record010-results"
+      - name: Verify actual Guard primitive bindings
+        working-directory: sage-inspector
+        run: |
+          node scripts/check_guard_vectors.js
+          cmp vectors/0.10.0/guard-records.json ../sage/pkg/agent/guard010/testdata/guard-records.json
+          cmp vectors/0.10.0/guard-records.json ../rs-sage-core/src/guard010/testdata/guard-records.json
+          python3 scripts/test_guard_primitive_adapters.py --go "${RUNNER_TEMP}/sage-go-record010" --rust "${RUNNER_TEMP}/record010-rust/debug/sage-inspector-rust-adapter" --runner "${RUNNER_TEMP}/sage-conformance-record010" --output "${RUNNER_TEMP}/guard-primitive-results"
+      - name: Preserve Guard primitive results
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: guard-primitive-bindings-${{ github.sha }}
+          if-no-files-found: error
+          retention-days: 30
+          path: ${{ runner.temp }}/guard-primitive-results/
       - name: Verify retained record sessions
         working-directory: sage-inspector
         env:

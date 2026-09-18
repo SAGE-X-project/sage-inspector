@@ -253,3 +253,12 @@ scenario를 commitments→intent→ledger→dispatch→result 구현 역할에 �
 이는 **계약/준비 상태 검사 완료**이며 실제 Guard 바인딩은 모두 NOT_RUN이다.
 다음 구현은 두 코어의 **commitments 및 closed signed intent/result 검증 API와
 Inspector primitive 연결**이고, 그 뒤 private 검증 결과의 ledger bridge와 최종 gate다.
+
+
+0.10.0 Guard primitive 실제 연결: [코어 API와 독립 벡터 실행](guard-primitives010.md).
+두 코어의 commitment·엄격 JSON·closed signed intent/result API에 Inspector를 연결했다.
+각 코어 86 PASS/16 UNSUPPORTED이며 37개/297단계 lifecycle은 NOT_RUN이다.
+앞선 readiness 문서는 당시 revision의 이력으로 유지하며, 새 실행 증거와 합산하지 않는다.
+다음은 **private verified intent → ledger bridge와 원자 예약/재조회**, 이어서
+정책·component instance·최종 dispatch gate 직렬화다. MCP mapping과 client terminal
+소비, 실제 Source와 호스트 집행은 별도 미완료 범위다.

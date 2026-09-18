@@ -1,3 +1,4 @@
+mod guard_checks;
 mod hpke010_checks;
 mod hpke_checks;
 mod http_checks;
@@ -34,7 +35,9 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
     {
         return Err("invalid request".into());
     }
-    let (verdict, output) = if [
+    let (verdict, output) = if q.operation.starts_with("sage.guard.") {
+        guard_checks::observe(&q.operation, q.input)?
+    } else if [
         "legacy.session.export-sequence",
         "legacy.session.receive-sequence",
     ]

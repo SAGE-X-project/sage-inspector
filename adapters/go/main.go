@@ -10,6 +10,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"strings"
 
 	"github.com/sage-x-project/sage/pkg/agent/crypto/jcs"
 	"github.com/sage-x-project/sage/pkg/agent/crypto/keys"
@@ -163,6 +164,13 @@ func run(r io.Reader, w io.Writer) error {
 		}
 	}
 
+	if strings.HasPrefix(q.Operation, "sage.guard.") {
+		var e error
+		verdict, output, e = guardObserve(q.Operation, q.Input)
+		if e != nil {
+			return e
+		}
+	}
 	return json.NewEncoder(w).Encode(map[string]any{"schema_version": 1, "case_id": q.Case, "verdict": verdict, "output": output})
 }
 func main() {

@@ -51,7 +51,7 @@ jobs:
           python3 scripts/run_verification_tests.py --scenario "${RUNNER_TEMP}/sage-scenario-tests" --primitive "${RUNNER_TEMP}/sage-conformance-tests" --output "${RUNNER_TEMP}/inspector-tests"
       - name: Preserve Inspector test results
         if: always()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: inspector-tests-${{ github.sha }}
           if-no-files-found: error
@@ -130,7 +130,7 @@ jobs:
           PYMETA
       - name: Preserve evidence and reproduction inputs
         if: always()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: evidence-${{ github.sha }}
           if-no-files-found: error
@@ -266,7 +266,7 @@ jobs:
           python3 scripts/test_execution_ledger010.py --go "${RUNNER_TEMP}/sage-execution010" --rust "${RUNNER_TEMP}/record010-rust/debug/execution010" --output "${RUNNER_TEMP}/record010-results/execution-ledger010"
       - name: Preserve record binding test results
         if: always()
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
           name: record010-bindings-${{ github.sha }}
           if-no-files-found: error

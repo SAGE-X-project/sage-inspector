@@ -161,7 +161,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           repository: SAGE-X-project/rs-sage-core
-          ref: c2906636cc000979c3572a8548b0f4c32e8b90eb
+          ref: 9c6d464eacaab53e31761b4f420235b57df82973
           path: rs-sage-core
       - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
         with:

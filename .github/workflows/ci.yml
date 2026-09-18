@@ -156,12 +156,12 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           repository: SAGE-X-project/sage
-          ref: 972110ba9b1f0a56ae83c64478d0b73ce87cda3c
+          ref: 6c46fadf5df748801c1868b94444327199225ed4
           path: sage
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           repository: SAGE-X-project/rs-sage-core
-          ref: 2f7a3e1ebc96212ae45120df7b855ecf494decbb
+          ref: c2906636cc000979c3572a8548b0f4c32e8b90eb
           path: rs-sage-core
       - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
         with:
@@ -256,6 +256,14 @@ jobs:
           (cd adapters/go && go build -o "${RUNNER_TEMP}/sage-replay010" ./cmd/sage-replay010)
           cargo build --locked --manifest-path adapters/rust/Cargo.toml --target-dir "${RUNNER_TEMP}/record010-rust" --bin replay010
           python3 scripts/test_replay_journal010.py --go "${RUNNER_TEMP}/sage-replay010" --rust "${RUNNER_TEMP}/record010-rust/debug/replay010" --output "${RUNNER_TEMP}/record010-results/replay-journal010"
+      - name: Verify execution ledger recovery across core processes
+        working-directory: sage-inspector
+        env:
+          RUSTUP_TOOLCHAIN: 1.88.0
+        run: |
+          (cd adapters/go && go build -o "${RUNNER_TEMP}/sage-execution010" ./cmd/sage-execution010)
+          cargo build --locked --manifest-path adapters/rust/Cargo.toml --target-dir "${RUNNER_TEMP}/record010-rust" --bin execution010
+          python3 scripts/test_execution_ledger010.py --go "${RUNNER_TEMP}/sage-execution010" --rust "${RUNNER_TEMP}/record010-rust/debug/execution010" --output "${RUNNER_TEMP}/record010-results/execution-ledger010"
       - name: Preserve record binding test results
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

@@ -44,6 +44,19 @@ jobs:
         run: |
           node scripts/check_guard_vectors.js
           python3 scripts/test_guard_inspection.py
+      - name: Audit Guard binding readiness
+        run: |
+          python3 scripts/test_guard_binding.py
+          status=0
+          python3 scripts/inspect_guard_binding.py --output "${RUNNER_TEMP}/guard-binding-readiness" || status=$?
+          test "$status" -eq 3
+      - name: Preserve Guard binding readiness
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: guard-binding-readiness-${{ github.sha }}
+          if-no-files-found: error
+          retention-days: 30
+          path: ${{ runner.temp }}/guard-binding-readiness/
       - name: Run Inspector contract tests and record results
         run: |
           go build -o "${RUNNER_TEMP}/sage-scenario-tests" ./cmd/sage-scenario

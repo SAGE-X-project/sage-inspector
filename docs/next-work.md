@@ -281,3 +281,12 @@ gate에 연결했다. 최종 키/정책/시각/component 검사 실패와 인계
 불변 로더·분산/재시작 retirement·호스트 격리는 배포 통합 경계이며, 37개 lifecycle과
 전체 적합성은 계속 NOT_RUN/NOT_ESTABLISHED다. 다음은 **signed pending/terminal
 발행과 첫 terminal 원문 영속 저장**, 이어서 **client 단일 소비와 MCP mapping**이다.
+
+
+0.10.0 Guard signed 결과 발행: [첫 terminal 저장과 호출별 응답](guard-results010.md).
+두 코어에 gate 소유 completion token, 호출당 단일 응답 권한, 첫 signed terminal의
+원자 저장과 원문 재사용을 구현했다. 유닛 테스트 및 실제 프로세스 44개, 네 언어
+조합의 completed/rejected/unknown 복구와 독립 서명 검산 102개를 연결한다.
+만료·폐기 결과는 재서명하지 않으며 pending 이후 같은 호출로 terminal을 보내지 않는다.
+37개 lifecycle과 전체 적합성은 계속 NOT_RUN/NOT_ESTABLISHED다.
+다음은 **client terminal 단일 소비와 polling 계약**, 이어서 **MCP result mapping**이다.

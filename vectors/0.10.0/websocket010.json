@@ -1,0 +1,14 @@
+{
+  "version": "0.10.0",
+  "cases": [
+    "success",
+    "fragmented",
+    "ping-fragmented",
+    "application-error",
+    "reverse",
+    "close-pending",
+    "untrusted-ca",
+    "wrong-hostname"
+  ],
+  "scope": "Inspector wsproto/OpenSSL loopback transport with real core envelope APIs; synthetic registry, clocks and replay. No production transport or full conformance."
+}

@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "protocol_version": "0.10.0",
+  "environment": "synthetic",
+  "source": "local-contract-fixture",
+  "trust_model": "explicitly-trusted-resolver",
+  "chain_id": "31337",
+  "registry_address": "0x1111111111111111111111111111111111111111",
+  "code_hash": "2222222222222222222222222222222222222222222222222222222222222222",
+  "upgrade_policy": "Reject code changes pending operator review.",
+  "read_abi_sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+  "write_abi_sha256": "4444444444444444444444444444444444444444444444444444444444444444",
+  "operator_scopes": "Fixture declaration only; no deployed operators.",
+  "transaction_authorization": "Fixture declaration only; no transactions submitted.",
+  "readiness_policy": "Observer must independently check configured node readiness after each restart.",
+  "finality_policy": "Observer must independently validate finalized block identity.",
+  "readiness_max_age_ms": 5000,
+  "observer_revision": "synthetic-fixture-v1",
+  "observer_sha256": "5555555555555555555555555555555555555555555555555555555555555555"
+}

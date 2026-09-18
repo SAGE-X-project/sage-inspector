@@ -226,3 +226,12 @@ Inspector의 wsproto/OpenSSL 전송 환경에 기존 두 코어의 envelope API�
 20개를 연결한다. 하드웨어 전원 장애·악의적 디스크 롤백·운영 저장소 적합성은
 입증하지 않는다. 다음은 **배포 registry Source·체인 최종성 관측 계약과 검증**이며,
 불가피한 호스트 집행·운영 통합·별도 실행 ledger 복구는 후속 범위다.
+
+
+0.10.0 배포 Source 증거 계약: [설정·관측·지연 검사](registry-source010.md).
+Inspector에 닫힌 배포 설정과 원문 해시를 연결한 관측 입력, 재시작 readiness·
+확정 블록/버전 후퇴·혼합 블록 거부 및 지연 누락의 NOT_RUN 처리를 구현했다.
+유닛 및 실제 로컬 CLI 계약 테스트를 CI에 연결했다. 이는 **증거 계약 구현 완료**이며
+실제 validating Source·RPC·전체 record/PoP·배포 체인 측정은 아직 NOT_RUN이다.
+다음은 지정된 배포 바인딩/신뢰 관측기 기반 Source 연결이다. 배포 자료가 없으면
+독립적으로 진행 가능한 **execution ledger 복구 계약·안전한 검증**을 먼저 수행한다.

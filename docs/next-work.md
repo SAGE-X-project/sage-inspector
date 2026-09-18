@@ -262,3 +262,12 @@ Inspector primitive 연결**이고, 그 뒤 private 검증 결과의 ledger brid
 다음은 **private verified intent → ledger bridge와 원자 예약/재조회**, 이어서
 정책·component instance·최종 dispatch gate 직렬화다. MCP mapping과 client terminal
 소비, 실제 Source와 호스트 집행은 별도 미완료 범위다.
+
+
+0.10.0 Guard 원자 예약 연결: [검증된 intent와 영속 ledger](guard-reservations010.md).
+두 코어의 private 검증 결과에서 저장 필드를 도출하고, 현재 키·정책·시각을 매번
+검증하여 원자 예약/재조회를 구현했다. 유닛 테스트와 실제 프로세스 16개, 네 언어
+조합의 재시작 UNKNOWN 보존을 검증한다. 기존 37개 lifecycle은 계속 NOT_RUN이며
+전체 적합성은 NOT_ESTABLISHED다. 다음은 **정책 retirement·component instance와
+최종 dispatch gate 직렬화**이고, signed pending/terminal 발행·client 단일 소비 및
+MCP mapping·실제 Source·호스트 집행은 후속 범위다.

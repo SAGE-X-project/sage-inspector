@@ -45,6 +45,7 @@ jobs:
           node scripts/check_guard_vectors.js
           python3 scripts/test_guard_inspection.py
           python3 scripts/test_guard_primitive_reports.py
+          python3 scripts/test_guard_reservation_reports.py
       - name: Audit Guard binding readiness
         run: |
           python3 scripts/test_guard_binding.py
@@ -170,12 +171,12 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           repository: SAGE-X-project/sage
-          ref: 1c64ea193a0cc25d12be21999a4a43d6b280bfb4
+          ref: 707659cf7d20a5999660bd3e6d0ceb9bc1e3cd9d
           path: sage
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           repository: SAGE-X-project/rs-sage-core
-          ref: 7a6921d965d18022dafc406cb7914acca28fecd8
+          ref: 6826614e76e38ba7b074215b3490c1f089a8b15b
           path: rs-sage-core
       - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
         with:
@@ -207,6 +208,22 @@ jobs:
           if-no-files-found: error
           retention-days: 30
           path: ${{ runner.temp }}/guard-primitive-results/
+      - name: Verify authenticated durable Guard reservations
+        working-directory: sage-inspector
+        env:
+          RUSTUP_TOOLCHAIN: 1.88.0
+        run: |
+          (cd adapters/go && go build -o "${RUNNER_TEMP}/sage-guard-ledger010" ./cmd/sage-guard-ledger010)
+          cargo build --locked --manifest-path adapters/rust/Cargo.toml --target-dir "${RUNNER_TEMP}/record010-rust" --bin guard_ledger010
+          python3 scripts/test_guard_reservations010.py --go "${RUNNER_TEMP}/sage-guard-ledger010" --rust "${RUNNER_TEMP}/record010-rust/debug/guard_ledger010" --output "${RUNNER_TEMP}/guard-reservation-results"
+      - name: Preserve Guard reservation results
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: guard-reservation-bindings-${{ github.sha }}
+          if-no-files-found: error
+          retention-days: 30
+          path: ${{ runner.temp }}/guard-reservation-results/
       - name: Verify retained record sessions
         working-directory: sage-inspector
         env:

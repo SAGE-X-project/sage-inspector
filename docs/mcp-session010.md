@@ -58,3 +58,7 @@ for an operational deployment.
 Next, connect this protected transport to actual Guard dispatch and durable client
 consumption in a bounded local runtime, then establish authenticated setup and
 host enforcement evidence. Transport-only results do not complete those tasks.
+
+The subsequent [protected Guard flow](guard-session010.md) now connects actual
+Guard dispatch and durable client consumption through this transport in a controlled
+local runtime. This earlier transport-only report retains its original scope.

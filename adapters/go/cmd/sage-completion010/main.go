@@ -68,8 +68,14 @@ func decode(b []byte) (request, []byte, error) {
 	return q, nil, nil
 }
 func run() error {
-	if len(os.Args) != 3 || (os.Args[1] != "alice" && os.Args[1] != "bob") {
+	if (len(os.Args) != 3 && (len(os.Args) != 4 || os.Args[3] != "guard-fixture")) || (os.Args[1] != "alice" && os.Args[1] != "bob") {
 		return errors.New("expected role and local journal path")
+	}
+	if len(os.Args) == 4 {
+		guardProfile = true
+		completionRegistry = "web:agents.example.com"
+		completionAlice = "did:sage:web:agents.example.com:alice"
+		completionBob = "did:sage:web:agents.example.com:executor"
 	}
 	did := completionAlice
 	n := byte(1)
@@ -89,7 +95,7 @@ func run() error {
 	if x != nil {
 		return x
 	}
-	e, x := hpke.NewCompletionEndpoint010(did, did+"#signing-1", bytes.Repeat([]byte{n}, 32), kem, g, c, &completionReplay{c, map[string]bool{}})
+	e, x := hpke.NewCompletionEndpoint010(did, did+"#signing-1", completionSeed(n), kem, g, c, &completionReplay{c, map[string]bool{}})
 	if x != nil {
 		return x
 	}

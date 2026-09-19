@@ -47,9 +47,9 @@ def changed(request,response,kind):
  w['data']=encode(body);w.pop('signature');w['signature']=encode(sign(b'sage-wire-response|0.10.0\n'+canonical(w)));return canonical(w)
 
 class Actor:
- def __init__(self,name,role,path,program,log,expiry=0):
+ def __init__(self,name,role,path,program,log,expiry=0,profile=None):
   self.name=name;self.log=log;self.expiry=expiry;self.index=0;self.buffer=b''
-  self.p=subprocess.Popen([str(program),role,str(path)],stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+  self.p=subprocess.Popen([str(program),role,str(path)]+([profile] if profile else []),stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
  def call(self,action,expected='ACCEPT',**controls):
   q=dict(id=str(self.index),action=action,mode='',mono_ms=0,unix=100,key_expires=self.expiry);q.update(controls);self.index+=1
   self.log(dict(actor=self.name,request=q));self.p.stdin.write(canonical(q)+b'\n');self.p.stdin.flush();deadline=time.monotonic()+15

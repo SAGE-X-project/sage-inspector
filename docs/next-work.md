@@ -345,3 +345,11 @@ inner RPC UUID를 구분한다. 네 언어 조합의 실제 프로세스 8개·�
 client 소비는 해당 보고서에서 NOT_RUN이다. 전체 lifecycle 37개와 적합성 판정은
 유지한다. 다음은 **보호 세션 → 실제 Guard dispatch → durable client 소비 연결**,
 이후 인증된 MCP 초기 협상과 호스트 집행 증거다.
+
+
+0.10.0 보호 세션·Guard 실행·client 소비 통합: [실제 API 연결 검증](guard-session010.md).
+네 언어 조합의 실제 프로세스 20개에서 보호 교환 8건, client 재시작 4건,
+독립 서명 검사 44건을 확인한다. 실행 효과 1회와 정확한 인자, execution/client
+journal의 상태 전이 및 재시작 후 중복 소비 거부를 검증한다. 신뢰된 로컬
+오케스트레이션·통제된 Authority·inert effect의 범위이며 전체 lifecycle 판정은 유지한다.
+다음은 **인증된 MCP 초기 설정·버전 협상 경계 검토**, 이후 선정된 호스트의 집행·복구 증거다.

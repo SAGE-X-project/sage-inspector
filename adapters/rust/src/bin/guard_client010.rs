@@ -122,6 +122,13 @@ impl ClientSender for Services {
         ensure(s["send_fail"] != true)
     }
 }
+impl g::MCPWireSender for Services {
+    fn send(&mut self, id: &str, raw: &[u8]) -> g::Result<()> {
+        let intent = g::parse_mcp_request(g::MCP_VERSION, id, raw)?;
+        self.0.lock().map_err(|_| Invalid)?["sent_rpc"] = json!(hex::encode(raw));
+        self.commit(id, &intent)
+    }
+}
 impl Services {
     fn config(&self) -> ClientServices {
         ClientServices {
@@ -182,22 +189,29 @@ fn run() -> std::result::Result<(), Box<dyn std::error::Error>> {
             return Err("bounds".into());
         };
         let q: Request = serde_json::from_slice(&line)?;
-        if client.is_none() && q.action != "open" {
+        if client.is_none() && q.action != "open" && q.action != "open_rpc" {
             return Err("order".into());
         };
         let mut o = observation();
         match q.action.as_str() {
-            "open" => {
+            "open" | "open_rpc" => {
                 if client.is_some() {
                     return Err("already open".into());
                 };
                 let raw = hex::decode(s(&q.input, "envelope_hex"))?;
                 *services.0.lock().map_err(|_| "poison")? = json!({"input":q.input,"public":q.public_key_hex,"utc":q.utc,"mono":q.mono,"clock_ok":true,"result_active":true});
+                let mut config = services.config();
+                if q.action == "open_rpc" {
+                    config.sender = Box::new(g::MCPClientSender::new(
+                        &q.mcp_version,
+                        Box::new(services.clone()),
+                    )?);
+                }
                 client = Some(Client::open(
                     std::path::Path::new(&args[1]),
                     args[2] == "create",
                     &raw,
-                    services.config(),
+                    config,
                 )?);
             }
             "tick" => {
@@ -219,15 +233,20 @@ fn run() -> std::result::Result<(), Box<dyn std::error::Error>> {
                     o["id"] = services.0.lock().map_err(|_| "poison")?["sent_id"].clone();
                     o["intent_hex"] =
                         services.0.lock().map_err(|_| "poison")?["sent_intent"].clone();
+                    if let Some(rpc) = services.0.lock().map_err(|_| "poison")?.get("sent_rpc") {
+                        o["rpc_hex"] = rpc.clone();
+                    }
                     tickets.insert(q.id, t);
                 }
                 Err(_) => o["ok"] = json!(false),
             },
-            "accept" | "accept_mcp" => {
+            "accept" | "accept_mcp" | "accept_rpc" => {
                 let raw = hex::decode(q.envelope_hex)?;
                 match tickets.get(&q.id).ok_or(Invalid).and_then(|t| {
                     let c = client.as_ref().ok_or(Invalid)?;
-                    if q.action == "accept_mcp" {
+                    if q.action == "accept_rpc" {
+                        c.accept_mcp_response(t, &q.mcp_version, &raw)
+                    } else if q.action == "accept_mcp" {
                         c.accept_mcp(t, &q.mcp_version, &raw)
                     } else {
                         c.accept(t, &raw)

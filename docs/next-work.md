@@ -309,3 +309,12 @@ UTC·단조 시계의 1초 간격, 만료·폐기·실패 후 동일 원본 재�
 기존 primitive 집계는 그대로 유지하며 전체 37개 lifecycle과 적합성은
 NOT_RUN/NOT_ESTABLISHED다. 다음은 **MCP 입력 스키마·RPC 경계와 dispatch/client
 연결**, 이어서 실제 Source와 호스트 집행의 통합이다.
+
+
+0.10.0 MCP RPC 경계 연결: [입력·호출 ID·dispatch와 client](guard-rpc010.md).
+두 코어의 closed 도구 schema와 UUID RPC binding을 기존 gate·durable client에
+연결했다. 요청 27개·응답 22개, 실제 프로세스 106개와 네 언어 조합 교환·서명
+16개를 검증한다. 원본 효과·저장소·응답 증거를 별도 artifact로 보존하며 전체
+37개 lifecycle과 적합성은 NOT_RUN/NOT_ESTABLISHED로 유지한다. 다음은 **실제
+Source·보호 transport·호스트 집행 통합 계약과 지원 가능성 검토**이고, 이후
+검증 가능한 연결부터 lifecycle 증거를 구축한다.

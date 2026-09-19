@@ -106,6 +106,10 @@ impl g::Component for Sink {
 #[serde(deny_unknown_fields)]
 struct Request {
     #[serde(default)]
+    id: String,
+    #[serde(default)]
+    mcp_version: String,
+    #[serde(default)]
     slot: usize,
     #[serde(default)]
     output: Value,
@@ -130,7 +134,9 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
     }
     let path = Path::new(&args[1]);
     let effects = Arc::new(Mutex::new(Vec::<Value>::new()));
-    let mut gate: Option<g::DispatchGate> = None;
+    let mut gate: Option<Arc<g::DispatchGate>> = None;
+    let mut endpoint: Option<g::MCPEndpoint> = None;
+    let mut rpc_receipts = std::collections::HashMap::<usize, g::MCPReceipt>::new();
     let completion = Arc::new(Mutex::new(None::<g::Completion>));
     let mut receipts = std::collections::HashMap::<usize, g::DispatchReceipt>::new();
     let mut signer = Signing {
@@ -179,14 +185,14 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
                         )
                         .is_ok())
                 } else {
-                    gate = Some(g::DispatchGate::open(
+                    gate = Some(Arc::new(g::DispatchGate::open(
                         path,
                         args[2] == "create",
                         "did:sage:web:agents.example.com:executor",
                         Box::new(Fixture(q.input.clone())),
                         Box::new(Fixture(q.input)),
                         sink,
-                    )?);
+                    )?));
                     r["ok"] = json!(true)
                 }
             }
@@ -204,6 +210,39 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
                         .ok_or("no gate")?
                         .finish(token, &serde_json::to_vec(&q.output)?, &mut signer)
                         .is_ok())
+                }
+            }
+            "rpc_setup" => {
+                if endpoint.is_some() {
+                    return Err("already setup".into());
+                }
+                if let Ok(e) =
+                    g::MCPEndpoint::new(&q.mcp_version, gate.as_ref().ok_or("no gate")?.clone())
+                {
+                    endpoint = Some(e);
+                    r["ok"] = json!(true);
+                }
+            }
+            "rpc_dispatch" => {
+                let raw = hex::decode(q.envelope_hex)?;
+                if let Some(e) = &endpoint {
+                    if let Ok(v) = e.dispatch(&q.id, &raw) {
+                        r = json!({"ok":true,"created":v.created(),"committed":v.committed(),"state":v.state(),"intent_digest":v.intent_digest()});
+                        rpc_receipts.insert(q.slot, v);
+                    }
+                }
+            }
+            "rpc_reply" => {
+                if let (Some(e), Some(v)) = (&endpoint, rpc_receipts.get_mut(&q.slot)) {
+                    if let Ok(raw) = e.reply(v, &mut signer) {
+                        r["ok"] = json!(true);
+                        r["rpc_hex"] = json!(hex::encode(raw));
+                    }
+                }
+            }
+            "rpc_close" => {
+                if let Some(e) = &endpoint {
+                    r["ok"] = json!(e.close().is_ok())
                 }
             }
             "reply" => {

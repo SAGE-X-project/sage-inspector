@@ -290,3 +290,14 @@ gate에 연결했다. 최종 키/정책/시각/component 검사 실패와 인계
 만료·폐기 결과는 재서명하지 않으며 pending 이후 같은 호출로 terminal을 보내지 않는다.
 37개 lifecycle과 전체 적합성은 계속 NOT_RUN/NOT_ESTABLISHED다.
 다음은 **client terminal 단일 소비와 polling 계약**, 이어서 **MCP result mapping**이다.
+
+
+0.10.0 Guard client 소비·polling: [단일 terminal 소비와 영속 재시작](guard-client010.md).
+두 코어가 첫 terminal을 저장한 뒤 output을 한 번만 반환하며, 늦은 pending·동일
+terminal은 무시하고 충돌 terminal은 거부한다. 보호된 전송 인계를 직렬화하고
+UTC·단조 시계의 1초 간격, 만료·폐기·실패 후 동일 원본 재조회를 검증한다.
+코어별 독립 19개 시나리오와 추가 유닛 검사, 실제 프로세스 64개 및 네 언어 조합의
+서버 결과 교환·client 저장소 복구를 연결했다. 저장 후 전달 전 장애는 재전달 대신
+보호된 조정이 필요하며, 배포 호스트·전송 보호를 보증하지 않는다.
+다음은 **MCP result mapping 및 표현 일치·버전 검사**다. 전체 lifecycle 37개와
+적합성은 계속 NOT_RUN/NOT_ESTABLISHED로 유지한다.

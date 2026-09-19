@@ -140,6 +140,8 @@ fn observation() -> Value {
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
 struct Request {
+    #[serde(default)]
+    mcp_version: String,
     action: String,
     #[serde(default)]
     id: String,
@@ -221,13 +223,16 @@ fn run() -> std::result::Result<(), Box<dyn std::error::Error>> {
                 }
                 Err(_) => o["ok"] = json!(false),
             },
-            "accept" => {
+            "accept" | "accept_mcp" => {
                 let raw = hex::decode(q.envelope_hex)?;
-                match tickets
-                    .get(&q.id)
-                    .ok_or(Invalid)
-                    .and_then(|t| client.as_ref().ok_or(Invalid)?.accept(t, &raw))
-                {
+                match tickets.get(&q.id).ok_or(Invalid).and_then(|t| {
+                    let c = client.as_ref().ok_or(Invalid)?;
+                    if q.action == "accept_mcp" {
+                        c.accept_mcp(t, &q.mcp_version, &raw)
+                    } else {
+                        c.accept(t, &raw)
+                    }
+                }) {
                     Ok(d) => {
                         o["status"] = json!(d.status());
                         o["first"] = json!(d.first_terminal());

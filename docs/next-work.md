@@ -301,3 +301,11 @@ UTC·단조 시계의 1초 간격, 만료·폐기·실패 후 동일 원본 재�
 보호된 조정이 필요하며, 배포 호스트·전송 보호를 보증하지 않는다.
 다음은 **MCP result mapping 및 표현 일치·버전 검사**다. 전체 lifecycle 37개와
 적합성은 계속 NOT_RUN/NOT_ESTABLISHED로 유지한다.
+
+
+0.10.0 MCP 결과 연결: [표현·매핑·버전 및 실제 인증](guard-mcp010.md).
+두 코어에 strict 결과 codec, 인증된 snapshot의 상태 매핑 및 client 단일 소비를
+연결했다. 독립 32개 사례·실제 프로세스 88개·독립 서명 24개를 별도 보고한다.
+기존 primitive 집계는 그대로 유지하며 전체 37개 lifecycle과 적합성은
+NOT_RUN/NOT_ESTABLISHED다. 다음은 **MCP 입력 스키마·RPC 경계와 dispatch/client
+연결**, 이어서 실제 Source와 호스트 집행의 통합이다.

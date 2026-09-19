@@ -50,6 +50,8 @@ jobs:
           python3 scripts/test_guard_result_reports.py
           node scripts/generate_guard_client_vectors.js --check
           python3 scripts/test_guard_client_reports.py
+          python3 scripts/generate_guard_mcp_vectors.py --check
+          python3 scripts/test_guard_mcp_reports.py
       - name: Audit Guard binding readiness
         run: |
           python3 scripts/test_guard_binding.py
@@ -175,12 +177,12 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           repository: SAGE-X-project/sage
-          ref: 0ac1f9358dec5814cde46fd58cabc29cbd0dbc73
+          ref: 659841fa1a47c3e42f6fbe544cfd6f32c870ced0
           path: sage
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           repository: SAGE-X-project/rs-sage-core
-          ref: c735b58a038cfc3416e5193b296d30266205b5e5
+          ref: 1f80888df122be39e91e083dbcc20226c17be547
           path: rs-sage-core
       - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
         with:
@@ -373,3 +375,18 @@ jobs:
           if-no-files-found: error
           retention-days: 30
           path: ${{ runner.temp }}/record010-results/
+
+      - name: Verify MCP result bindings and client consumption
+        working-directory: sage-inspector
+        run: |
+          cmp vectors/0.10.0/guard-mcp.json ../sage/pkg/agent/guard010/testdata/guard-mcp.json
+          cmp vectors/0.10.0/guard-mcp.json ../rs-sage-core/src/guard010/testdata/guard-mcp.json
+          python3 scripts/test_guard_mcp010.py --go "${RUNNER_TEMP}/sage-go-record010" --rust "${RUNNER_TEMP}/record010-rust/debug/sage-inspector-rust-adapter" --go-client "${RUNNER_TEMP}/sage-guard-client010" --rust-client "${RUNNER_TEMP}/record010-rust/debug/guard_client010" --output "${RUNNER_TEMP}/guard-mcp-results"
+      - name: Preserve MCP result verification
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: guard-mcp-bindings-${{ github.sha }}
+          if-no-files-found: error
+          retention-days: 30
+          path: ${{ runner.temp }}/guard-mcp-results/

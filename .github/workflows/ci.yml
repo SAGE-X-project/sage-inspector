@@ -52,6 +52,8 @@ jobs:
           python3 scripts/test_guard_client_reports.py
           python3 scripts/generate_guard_mcp_vectors.py --check
           python3 scripts/test_guard_mcp_reports.py
+          python3 scripts/generate_guard_rpc_vectors.py --check
+          python3 scripts/test_guard_rpc_reports.py
       - name: Audit Guard binding readiness
         run: |
           python3 scripts/test_guard_binding.py
@@ -177,12 +179,12 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           repository: SAGE-X-project/sage
-          ref: 659841fa1a47c3e42f6fbe544cfd6f32c870ced0
+          ref: cd9e84232de197b477802837bc39b36f49618d37
           path: sage
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           repository: SAGE-X-project/rs-sage-core
-          ref: 1f80888df122be39e91e083dbcc20226c17be547
+          ref: 8d3b29b5b1157f8792654591c13ae9d26cd6bd21
           path: rs-sage-core
       - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
         with:
@@ -390,3 +392,19 @@ jobs:
           if-no-files-found: error
           retention-days: 30
           path: ${{ runner.temp }}/guard-mcp-results/
+
+      - name: Verify MCP RPC dispatch and client bindings
+        working-directory: sage-inspector
+        run: |
+          cmp vectors/0.10.0/guard-rpc.json ../sage/pkg/agent/guard010/testdata/guard-rpc.json
+          cmp vectors/0.10.0/guard-rpc.json ../rs-sage-core/src/guard010/testdata/guard-rpc.json
+          cmp ../sage/pkg/agent/guard010/mcp-tool.json ../rs-sage-core/src/guard010/mcp-tool.json
+          python3 scripts/test_guard_rpc010.py --go "${RUNNER_TEMP}/sage-guard-results010" --rust "${RUNNER_TEMP}/record010-rust/debug/guard_results010" --go-client "${RUNNER_TEMP}/sage-guard-client010" --rust-client "${RUNNER_TEMP}/record010-rust/debug/guard_client010" --output "${RUNNER_TEMP}/guard-rpc-results"
+      - name: Preserve MCP RPC verification
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: guard-rpc-bindings-${{ github.sha }}
+          if-no-files-found: error
+          retention-days: 30
+          path: ${{ runner.temp }}/guard-rpc-results/

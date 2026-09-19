@@ -14,6 +14,7 @@ import (
 )
 
 type clientFixture struct {
+	sentRPC    []byte
 	sentID     string
 	sentIntent []byte
 	sendDelay  int64
@@ -65,11 +66,20 @@ func (f *clientFixture) Commit(_ context.Context, id string, raw []byte) error {
 	}
 	return nil
 }
+func (f *clientFixture) Send(ctx context.Context, id string, raw []byte) error {
+	intent, e := g.ParseMCPRequest(g.MCPVersion, id, raw)
+	if e != nil {
+		return e
+	}
+	f.sentRPC = append([]byte(nil), raw...)
+	return f.Commit(ctx, id, intent)
+}
 func (f *clientFixture) services() g.ClientServices {
 	return g.ClientServices{IntentAuthority: f, Policy: f, ResultAuthority: f, Clock: f, Sender: f}
 }
 
 type clientObservation struct {
+	RPC      string `json:"rpc_hex,omitempty"`
 	Handoffs int    `json:"handoffs"`
 	OK       bool   `json:"ok"`
 	ID       string `json:"id"`
@@ -123,11 +133,11 @@ func run() error {
 			return g.ErrInvalid
 		}
 		o := clientObservation{OK: true}
-		if client == nil && q.Action != "open" {
+		if client == nil && q.Action != "open" && q.Action != "open_rpc" {
 			return g.ErrInvalid
 		}
 		switch q.Action {
-		case "open":
+		case "open", "open_rpc":
 			if client != nil {
 				return g.ErrInvalid
 			}
@@ -136,7 +146,14 @@ func run() error {
 			if e != nil {
 				return e
 			}
-			client, e = g.OpenClient(ctx, os.Args[1], os.Args[2] == "create", raw, f.services())
+			services := f.services()
+			if q.Action == "open_rpc" {
+				services.Sender, e = g.NewMCPClientSender(q.Version, f)
+				if e != nil {
+					return e
+				}
+			}
+			client, e = g.OpenClient(ctx, os.Args[1], os.Args[2] == "create", raw, services)
 			if e != nil {
 				return e
 			}
@@ -161,16 +178,21 @@ func run() error {
 			o.OK = e == nil
 			if e == nil {
 				tickets[q.ID] = v
+				if len(f.sentRPC) != 0 {
+					o.RPC = hex.EncodeToString(f.sentRPC)
+				}
 				o.ID = f.sentID
 				o.Intent = hex.EncodeToString(f.sentIntent)
 			}
-		case "accept", "accept_mcp":
+		case "accept", "accept_mcp", "accept_rpc":
 			raw, e := hex.DecodeString(q.Envelope)
 			if e != nil {
 				return e
 			}
 			var d *g.ClientDelivery
-			if q.Action == "accept_mcp" {
+			if q.Action == "accept_rpc" {
+				d, e = client.AcceptMCPResponse(ctx, tickets[q.ID], q.Version, raw)
+			} else if q.Action == "accept_mcp" {
 				d, e = client.AcceptMCP(ctx, tickets[q.ID], q.Version, raw)
 			} else {
 				d, e = client.Accept(ctx, tickets[q.ID], raw)

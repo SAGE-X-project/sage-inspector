@@ -18,6 +18,8 @@ import (
 const recipient = "did:sage:web:agents.example.com:executor"
 
 type request struct {
+	ID       string          `json:"id"`
+	Version  string          `json:"mcp_version"`
 	Slot     int             `json:"slot"`
 	Output   json.RawMessage `json:"output"`
 	Now      int64           `json:"now"`
@@ -37,6 +39,7 @@ type effect struct {
 	Digest    string `json:"intent_digest"`
 }
 type reply struct {
+	RPC       string   `json:"rpc_hex,omitempty"`
 	Result    string   `json:"result_hex"`
 	Signs     int      `json:"signs"`
 	OK        bool     `json:"ok"`
@@ -83,6 +86,8 @@ func run() error {
 		return g.ErrInvalid
 	}
 	var gate *g.DispatchGate
+	var endpoint *g.MCPEndpoint
+	rpcReceipts := map[int]*g.MCPReceipt{}
 	var token *g.Completion
 	receipts := map[int]*g.DispatchReceipt{}
 	signer := &signing{now: 1700000000, active: true}
@@ -137,6 +142,36 @@ func run() error {
 			signer.now = q.Now
 			signer.active = q.Active
 			signer.fail = q.Fail
+			r.OK = true
+		case "rpc_setup":
+			if endpoint != nil {
+				return g.ErrInvalid
+			}
+			var e error
+			endpoint, e = g.NewMCPEndpoint(q.Version, gate)
+			r.OK = e == nil
+		case "rpc_dispatch":
+			raw, e := hex.DecodeString(q.Envelope)
+			if e != nil {
+				return e
+			}
+			v, e := endpoint.Dispatch(context.Background(), q.ID, raw)
+			r.OK = e == nil
+			if e == nil {
+				rpcReceipts[q.Slot] = v
+				r.Created = v.Created()
+				r.Committed = v.Committed()
+				r.State = v.State()
+				r.Digest = v.IntentDigest()
+			}
+		case "rpc_reply":
+			raw, e := endpoint.Reply(context.Background(), rpcReceipts[q.Slot], signer)
+			r.OK = e == nil
+			if e == nil {
+				r.RPC = hex.EncodeToString(raw)
+			}
+		case "rpc_close":
+			endpoint.Close()
 			r.OK = true
 		case "reply":
 			b, e := gate.Reply(context.Background(), receipts[q.Slot], signer)

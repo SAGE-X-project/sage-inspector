@@ -14,8 +14,8 @@ import sys
 import tempfile
 
 ROOT = Path(__file__).resolve().parents[1]
-PINS = {'go': '659841fa1a47c3e42f6fbe544cfd6f32c870ced0',
-        'rust': '1f80888df122be39e91e083dbcc20226c17be547'}
+PINS = {'go': 'cd9e84232de197b477802837bc39b36f49618d37',
+        'rust': '8d3b29b5b1157f8792654591c13ae9d26cd6bd21'}
 
 
 def digest(path):

@@ -192,6 +192,19 @@ jobs:
           cache-dependency-path: sage-inspector/adapters/go/go.sum
       - name: Install Rust
         run: rustup toolchain install 1.88.0 --profile minimal
+      - name: Audit Guard deployment integration prerequisites
+        working-directory: sage-inspector
+        run: |
+          status=0
+          python3 scripts/inspect_guard_integration.py --go-root ../sage --rust-root ../rs-sage-core --output "${RUNNER_TEMP}/guard-integration-readiness" || status=$?
+          test "$status" -eq 3
+      - name: Preserve Guard integration review
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: guard-integration-readiness-${{ github.sha }}
+          path: ${{ runner.temp }}/guard-integration-readiness/
+          if-no-files-found: error
+          retention-days: 30
       - name: Build pinned record adapters and verify local records
         working-directory: sage-inspector
         env:

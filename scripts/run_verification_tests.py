@@ -16,9 +16,10 @@ UNIT = (
     'test_session_expiry.py', 'test_recovery_inspection.py',
     'test_session_close_inspection.py', 'test_protocol_binding_inspection.py',
     'test_guard_gate_inspection.py', 'test_verification_report.py',
-    'test_registry_source010.py',
+    'test_registry_source010.py', 'test_guard_integration.py',
 )
 RUNTIME = (
+    ('test_guard_integration_runtime.py', ()),
     ('test_registry_source_runtime.py', ()),
     ('test_recovery_runtime.py', ('scenario',)),
     ('test_session_close_runtime.py', ('scenario',)),

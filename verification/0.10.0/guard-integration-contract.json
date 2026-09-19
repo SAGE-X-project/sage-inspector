@@ -1,0 +1,143 @@
+{
+  "schema_version": 1,
+  "protocol_version": "0.10.0",
+  "kind": "guard-integration-review",
+  "conformance": "NOT_ESTABLISHED",
+  "lifecycle": {
+    "status": "NOT_RUN",
+    "scenarios": 37
+  },
+  "sources": {
+    "verification/0.10.0/snapshot/profiles/agent-mcp-security.md": "99d5dc57d12d59d6e33102b2fdaa44efb137e48deab65e8012ff5128838d04b1",
+    "verification/0.10.0/snapshot/spec/09-registry.md": "ccd34125fb49b281475534773c81bd58d87b86cc7f6c88544b92f1f9e212f7e3",
+    "verification/0.10.0/snapshot/spec/08-transport.md": "87bb1adc1aae4883e13f8ba52a7c86153c71efb621ffc50458f7e2aa57db3eeb"
+  },
+  "reviewed_cores": {
+    "go": {
+      "revision": "cd9e84232de197b477802837bc39b36f49618d37",
+      "evidence": "SOURCE_REVIEW_ONLY",
+      "files": {
+        "pkg/agent/registry010/gate.go": "2070755c411d0c8373fb69623d132c94c63949b67112407c8fc6312417fecee2",
+        "pkg/agent/guard010/verify.go": "04b1c09f18a54c004d31bbdde1db95af757e815877344981b1b50797c189df60",
+        "pkg/agent/guard010/dispatch.go": "a77f338d003eb628bac7fef78ee37c16303f590dd48f39dfa9fd548e74c2fdbb",
+        "pkg/agent/guard010/client.go": "bc53f1eedaa46284abb5fd6e30cb834961bb88aec9314733482fd22e8e876044",
+        "pkg/agent/guard010/mcp_rpc.go": "8e48f15940001e59a4e61d55b9404f65d5a2bf0836634780fb1f6fcd5147c315",
+        "pkg/agent/hpke/completion010.go": "a14d58169e1e54a66aa4f716d4a3ec0d0907271ea3cda2ef286f4229872d6066"
+      }
+    },
+    "rust": {
+      "revision": "8d3b29b5b1157f8792654591c13ae9d26cd6bd21",
+      "evidence": "SOURCE_REVIEW_ONLY",
+      "files": {
+        "src/registry010/mod.rs": "003f3ec6aa06ce373f58dcb5c1703a3bf8ca65f6bbc47a1231d2c504a6047a64",
+        "src/guard010/mod.rs": "eefa015c323a42aff552b94974d3d8f7b6e0bc65cd522e878ff84fc15ec5c3b5",
+        "src/guard010/dispatch.rs": "1ac20f1f1cf2f0415920f3285c4738ee24cf288b737784511d99cbbf8ea78d7a",
+        "src/guard010/client.rs": "2b574c3fdd3b74a8280eef43d48777cfcd92ff93a2b34c6ef1dad738e6357c90",
+        "src/guard010/mcp_rpc.rs": "ad522ba78fa9fdfe83fe3f9734e71cd3f58963a03ba226415cb7a59d04a0c5c7",
+        "src/hpke/completion010.rs": "d08bf4c671a2674be603f492f007fe48b2b957f2ff6c4ad95919f8d5e67b5966"
+      }
+    }
+  },
+  "boundaries": [
+    {
+      "id": "source",
+      "requires": [],
+      "owner": "deployment",
+      "title": "Trusted validating registry Source",
+      "contract": "Network, deployment code, ABI, upgrade authority and resolver identity are locally pinned; validate full record, proofs, same finalized block, readiness and operation freshness.",
+      "failure": "No validated observation on missing trust, timeout, rollback, inconsistent block or untrusted time.",
+      "required_evidence": [
+        "trusted deployment binding",
+        "complete record and proof validation",
+        "restart readiness and durable finalized watermark",
+        "publication and observation latency"
+      ],
+      "status": "INTEGRATION_NOT_VERIFIED"
+    },
+    {
+      "id": "authority",
+      "requires": [
+        "source"
+      ],
+      "owner": "core-adapter",
+      "title": "Registry Gate to Guard Authority",
+      "contract": "Select the exact issuer/keyid without fallback on every decision; return owned Ed25519 bytes using the same trusted time domain. Recheck freshness at the final dispatch and result gates.",
+      "failure": "Never convert a raw Snapshot flag or an earlier active-key result into current authority.",
+      "required_evidence": [
+        "exact key selection",
+        "no positive cache across operations",
+        "bounded resolution and final-gate freshness"
+      ],
+      "status": "INTEGRATION_NOT_VERIFIED"
+    },
+    {
+      "id": "authorization",
+      "requires": [],
+      "owner": "host",
+      "title": "Protected capture, policy and signer",
+      "contract": "Capture submitted bytes before untrusted expansion; provision issuer policy and manifest mappings administratively; authorize complete final arguments before intent-bound signing.",
+      "failure": "Missing policy, changed original, unsigned defaults or evaluator failure cannot sign or dispatch.",
+      "required_evidence": [
+        "protected original provenance",
+        "durable policy epoch and approval mapping",
+        "closed tool schema and exact-argument authorization",
+        "restricted signer and key custody"
+      ],
+      "status": "INTEGRATION_NOT_VERIFIED"
+    },
+    {
+      "id": "transport",
+      "requires": [
+        "authority"
+      ],
+      "owner": "transport-adapter",
+      "title": "Authenticated MCP transport handoff",
+      "contract": "Authenticate negotiated version, peer identity, full RPC bytes and invocation ID. Compare outer sender/recipient with inner issuer/recipient; maintain distinct outer and Guard replay namespaces.",
+      "failure": "Reject mismatched identity, unsupported setup, stale session and missing response correlation; never retry automatically as a new call.",
+      "required_evidence": [
+        "authenticated initialize and session ownership",
+        "UUID and exact RPC byte binding",
+        "outer replay persistence and restart handling",
+        "separate HTTP carriage mapping decision"
+      ],
+      "status": "INTEGRATION_NOT_VERIFIED"
+    },
+    {
+      "id": "recovery",
+      "requires": [
+        "authorization"
+      ],
+      "owner": "host",
+      "title": "Durable scope ownership and retirement",
+      "contract": "Share durable replay and execution ownership across workers and transports; serialize approved policy/baseline updates and retirement; reconcile UNKNOWN without automatic execution.",
+      "failure": "Missing ledger or uncertain ownership remains closed; do not recreate an empty ledger or imply rollback of committed effects.",
+      "required_evidence": [
+        "exclusive multiworker ownership",
+        "restart and lost-ledger administration",
+        "approved baseline and policy rollout",
+        "terminal persistence and single client consumption"
+      ],
+      "status": "INTEGRATION_NOT_VERIFIED"
+    },
+    {
+      "id": "host",
+      "requires": [
+        "authority",
+        "authorization",
+        "transport",
+        "recovery"
+      ],
+      "owner": "host",
+      "title": "Complete effect mediation and immutable loader",
+      "contract": "Bind measurement to the same immutable loaded instance and all loadable dependencies; gate every protected effect independently of model choices or optional hooks.",
+      "failure": "No verdict, exception, disconnect, timeout or unavailable complete mediation denies the protected path and declares the profile unsupported.",
+      "required_evidence": [
+        "pinned host and loader revision",
+        "complete protected-path inventory",
+        "capability separation from plugins",
+        "bounded commitment and immutable instance"
+      ],
+      "status": "INTEGRATION_NOT_VERIFIED"
+    }
+  ]
+}

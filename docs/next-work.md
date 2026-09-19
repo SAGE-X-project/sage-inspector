@@ -318,3 +318,13 @@ NOT_RUN/NOT_ESTABLISHED다. 다음은 **MCP 입력 스키마·RPC 경계와 disp
 37개 lifecycle과 적합성은 NOT_RUN/NOT_ESTABLISHED로 유지한다. 다음은 **실제
 Source·보호 transport·호스트 집행 통합 계약과 지원 가능성 검토**이고, 이후
 검증 가능한 연결부터 lifecycle 증거를 구축한다.
+
+
+0.10.0 Guard 배포 통합 계약: [Source·전송·호스트의 책임과 증거](guard-integration010.md).
+현재 두 코어 revision의 12개 API 소스와 규범 3개를 고정해 여섯 통합 경계를 검토했다.
+검사기는 소스 식별과 계약의 무결성만 확인하며 배포 지원을 자동 인증하지 않는다.
+HTTP intent payload와 MCP RPC 전체 메시지의 매핑을 별도 미결 경계로 명시했다.
+계약 유닛·CLI 런타임 검사와 pinned checkout CI를 추가했고, 기존 증거는 유지한다.
+다음은 **registry Gate → Guard Authority 연결과 최종 gate freshness 검증**이다.
+실제 Source/호스트 배포 미지정 및 전체 lifecycle 37개 NOT_RUN/적합성
+NOT_ESTABLISHED 상태는 유지한다.

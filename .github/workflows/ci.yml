@@ -440,6 +440,7 @@ jobs:
           path: ${{ runner.temp }}/guard-registry-results/
 
       - name: Verify MCP session bindings across cores
+        working-directory: sage-inspector
         timeout-minutes: 5
         run: python3 scripts/test_mcp_session010.py --go "${RUNNER_TEMP}/sage-completion010" --rust "${RUNNER_TEMP}/record010-rust/debug/completion010" --output "${RUNNER_TEMP}/mcp-session-results"
       - name: Preserve MCP session binding verification

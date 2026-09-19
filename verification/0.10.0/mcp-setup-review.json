@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "kind": "mcp-setup-design-review",
+  "sage_version": "0.10.0",
+  "mcp_baseline": "2025-06-18",
+  "status": "SPEC_DECISION_REQUIRED",
+  "integration_sha256": "d75b1279848a3e5807ce21e8d3f61095951eec38408ee57c241eda9d5e949465",
+  "references": {
+    "lifecycle": "https://modelcontextprotocol.io/specification/2025-06-18/basic/lifecycle",
+    "transports": "https://modelcontextprotocol.io/specification/2025-06-18/basic/transports"
+  },
+  "support_sources": {
+    "go": {
+      "path": "pkg/agent/guard010/mcp.go",
+      "sha256": "96bec863f4e18aacaae16f18eecfe5bbb75e28a7a175556c054dfd40c8db4094"
+    },
+    "rust": {
+      "path": "src/guard010/mcp.rs",
+      "sha256": "53661a5025a4e5360ab8eaf2278d547950177623a5dfe0cc4927092270a5b70e"
+    }
+  },
+  "decisions": [
+    {
+      "id": "bootstrap",
+      "status": "OPEN",
+      "finding": "Version support checks and authenticated HPKE sessions exist, but the MCP initialization exchange is not authenticated by the setup constructors.",
+      "proposal": "For a non-HTTP custom transport, establish the authenticated SAGE channel before the first MCP initialize interaction. Bind the negotiation to that exact peer and session; retain a trusted local handoff to Guard.",
+      "required_evidence": [
+        "Evidence of peer authentication before the first MCP initialize request.",
+        "Captured initialization request and response bound to the same authenticated session, without trusting a supplied boolean."
+      ]
+    },
+    {
+      "id": "readiness",
+      "status": "OPEN",
+      "finding": "The core endpoint accepts a supported version supplied by its caller. It has no initialize/initialized state machine or session-owned readiness object.",
+      "proposal": "Define local readiness states and ownership in the specification before implementation: authenticated channel, correlated initialization response, initialized notification, then protected operation. Readiness must not be a caller-forgeable wire credential.",
+      "required_evidence": [
+        "No protected dispatch before initialization completes; test absence and out-of-order events with unit controls.",
+        "Bind setup request ID, peer, version and session to readiness; reject reuse, late responses and closed-session readiness.",
+        "Bound initialization by a trusted deadline; timeout, malformed replies or authentication failure retire readiness without authorizing a protected call."
+      ]
+    },
+    {
+      "id": "capabilities",
+      "status": "OPEN",
+      "finding": "The reviewed cores accept exactly MCP 2025-06-18. SAGE specifies structured tool results and rejects unsupported setup; tools capability alone does not prove SAGE mediation.",
+      "proposal": "Distinguish current implementation support from the profile baseline. Require the tools capability and the known protected tool contract. Define how tool discovery is authenticated without inventing a structuredContent capability flag.",
+      "required_evidence": [
+        "Supported and unsupported negotiated versions, absent tools capability and mismatched tool schema.",
+        "Do not treat server instructions, implementation names, tool annotations or capability declarations as authorization."
+      ]
+    },
+    {
+      "id": "notification-carriage",
+      "status": "OPEN",
+      "finding": "MCP initialized is a notification. The current MCPSessionCall parser only accepts protected tools/call requests, and raw session records currently expose correlated request/response semantics.",
+      "proposal": "Specify authenticated carriage and processing of notifications separately. Do not turn initialized into a JSON-RPC request or invent an MCP response. Decide outer-record acknowledgement and confirmation behavior before selecting a mapping.",
+      "required_evidence": [
+        "Exact notification bytes and session provenance reach the readiness gate without a fabricated JSON-RPC response.",
+        "Bound lifetime and replay behavior for an outer notification carrier, including responder confirmation and resource accounting."
+      ]
+    },
+    {
+      "id": "reconnect",
+      "status": "OPEN",
+      "finding": "Endpoint invocation history is local to an instance; a durable client result journal does not establish a fresh transport or negotiated readiness after restart.",
+      "proposal": "Retire readiness on closure, peer change or session replacement; initialize a new connection explicitly. Keep Guard call identity and terminal ledger state across reconnect while separating new outer replay state.",
+      "required_evidence": [
+        "Old readiness and initialization messages cannot activate a new session.",
+        "Fresh setup does not authorize repeated execution or erase durable terminal consumption; transport failures do not become completed results."
+      ]
+    },
+    {
+      "id": "http-mapping",
+      "status": "OPEN",
+      "finding": "MCP Streamable HTTP initialization and later version headers are not mapped to the SAGE chapter 08 intent payload by the existing non-HTTP binding.",
+      "proposal": "Design HTTP separately, binding negotiated state, version header and exact message carriage to authenticated peers. An MCP session identifier is correlation state, not peer authentication; no automatic fallback to an older protected profile.",
+      "required_evidence": [
+        "Document HTTP setup and subsequent message mapping, including authentication and header/body consistency.",
+        "Explicitly separate SAGE version, MCP protocol version, MCP session identifier and SAGE cryptographic session identity."
+      ]
+    }
+  ]
+}

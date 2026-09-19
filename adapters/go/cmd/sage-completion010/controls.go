@@ -17,9 +17,24 @@ import (
 
 func canon010(v any) []byte { b, _ := jcs.Marshal(v); return b }
 
-const completionRegistry = "web:agent.example"
-const completionAlice = "did:sage:web:agent.example:alice"
-const completionBob = "did:sage:web:agent.example:bob"
+var completionRegistry = "web:agent.example"
+var completionAlice = "did:sage:web:agent.example:alice"
+var completionBob = "did:sage:web:agent.example:bob"
+
+// This optional profile contains only the existing public Guard fixture keys.
+var guardProfile bool
+
+func completionSeed(n byte) []byte {
+	if guardProfile && (n == 1 || n == 2) {
+		label := "public Guard fixture issuer"
+		if n == 2 {
+			label = "public Guard fixture executor"
+		}
+		seed := sha256.Sum256([]byte(label))
+		return seed[:]
+	}
+	return bytes.Repeat([]byte{n}, 32)
+}
 
 type completionControl struct {
 	handshakes int
@@ -43,7 +58,7 @@ func (c *completionControl) Read(_ context.Context, did string) (registry010.Sna
 	if did == completionBob {
 		seed = 2
 	}
-	key := registry010.Key{Name: "signing-1", Alg: "ed25519", Material: hex.EncodeToString(ed25519.NewKeyFromSeed(bytes.Repeat([]byte{seed}, 32)).Public().(ed25519.PublicKey)), State: "accepted"}
+	key := registry010.Key{Name: "signing-1", Alg: "ed25519", Material: hex.EncodeToString(ed25519.NewKeyFromSeed(completionSeed(seed)).Public().(ed25519.PublicKey)), State: "accepted"}
 	keys := []registry010.Key{}
 	if did == completionBob {
 		p, _ := ecdh.X25519().NewPrivateKey(bytes.Repeat([]byte{3}, 32))

@@ -15,20 +15,20 @@ def response(intent,id,status):
     i=intent['intent'];r=dict(version='0.10.0',request_id=i['request_id'],call_id=i['call_id'],issuer=BOB,recipient=ALICE,created=100,expires=400,keyid=BOB+'#signing-1',alg='ed25519',intent_digest=sha(canonical(intent)),status=status,output={'value':'ok'} if status=='completed' else {})
     e=dict(result=r,proof=encode(sign(b'sage-tool-result|0.10.0\0'+canonical(r),2)))
     return dict(jsonrpc='2.0',id=id,result=dict(structuredContent=e,content=[dict(type='text',text=canonical(e).decode())],isError=status!='completed'))
-def check_exchange(row,expected_intent):
+def check_exchange(row,expected_intent,alice=ALICE,bob=BOB):
     request=bytes.fromhex(row['rpc_hex']);received=bytes.fromhex(row['received_rpc_hex']);reply=bytes.fromhex(row['reply_rpc_hex']);opened=bytes.fromhex(row['opened_reply_hex'])
     if request!=received or reply!=opened:raise ValueError('RPC bytes changed')
     q=json.loads(request);r=json.loads(reply);outer=json.loads(bytes.fromhex(row['request_wire_hex']));answer=json.loads(bytes.fromhex(row['response_wire_hex']))
     expected_request=dict(jsonrpc='2.0',id=row['rpc_id'],method='tools/call',params=dict(name='sage_secure_call',arguments=dict(envelope=expected_intent)))
     if q!=expected_request:raise ValueError('unexpected protected request')
     if q['id']!=row['rpc_id'] or r['id']!=q['id'] or outer['id']==q['id'] or answer['message_id']!=outer['id']:raise ValueError('invocation binding')
-    if outer['did']!=ALICE or outer['recipient']!=BOB or answer['did']!=BOB or answer['recipient']!=ALICE:raise ValueError('peer binding')
+    if outer['did']!=alice or outer['recipient']!=bob or answer['did']!=bob or answer['recipient']!=alice:raise ValueError('peer binding')
     if outer['encoding']!='session' or answer['encoding']!='session' or answer['request_hash']!=encode(hashlib.sha256(canonical(outer)).digest()):raise ValueError('record binding')
     result=r['result']['structuredContent']['result'];intent=q['params']['arguments']['envelope']
     if result['intent_digest']!=sha(canonical(intent)) or result['status']!=row['status']:raise ValueError('intent/result binding')
     envelope=r['result']['structuredContent']
     if set(r)!={'jsonrpc','id','result'} or r['jsonrpc']!='2.0' or r['result']!=dict(structuredContent=envelope,content=[dict(type='text',text=canonical(envelope).decode())],isError=row['status']!='completed'):raise ValueError('MCP result mapping')
-    if result['issuer']!=BOB or result['recipient']!=ALICE or result['request_id']!=expected_intent['intent']['request_id'] or result['call_id']!=expected_intent['intent']['call_id']:raise ValueError('result identity')
+    if result['issuer']!=bob or result['recipient']!=alice or result['request_id']!=expected_intent['intent']['request_id'] or result['call_id']!=expected_intent['intent']['call_id']:raise ValueError('result identity')
     want='unavailable' if row['status']=='pending' else ''
     if answer['success']!=(row['status']=='completed') or answer.get('error','')!=want:raise ValueError('status mapping')
 

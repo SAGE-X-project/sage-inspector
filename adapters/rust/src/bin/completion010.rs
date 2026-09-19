@@ -22,6 +22,8 @@ fn canonical(v: &impl Serialize) -> Vec<u8> {
     sage_crypto_core::jcs::canonicalize(&serde_json::to_vec(v).unwrap()).unwrap()
 }
 fn public(n: u8) -> String {
+    if guard_profile() && n == 1 { return "7ced12b7c7e1ba9a5dec808d5bcc27592f5b2de949cbbab935c8766a9247f713".into(); }
+    if guard_profile() && n == 2 { return "d26404db24bee886c56dd17272896c406c2f7865ba2ea72226e14b0f2886a3cd".into(); }
     match n {
         1 => "8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c",
         2 => "8139770ea87d175f56a35466c34c7ecccb8d8a91b4ee37a25df60f5b8fc9b394",
@@ -34,8 +36,17 @@ fn public(n: u8) -> String {
 fn kem_public() -> String {
     "5dfedd3b6bd47f6fa28ee15d969d5bb0ea53774d488bdaf9df1c6e0124b3ef22".into()
 }
-const ALICE: &str = "did:sage:web:agent.example:alice";
-const BOB: &str = "did:sage:web:agent.example:bob";
+// Explicit public test profile; never accepts caller-selected keys or identities.
+static GUARD_PROFILE: std::sync::OnceLock<bool> = std::sync::OnceLock::new();
+fn guard_profile() -> bool { *GUARD_PROFILE.get().unwrap_or(&false) }
+fn alice() -> &'static str { if guard_profile() { "did:sage:web:agents.example.com:alice" } else { "did:sage:web:agent.example:alice" } }
+fn bob() -> &'static str { if guard_profile() { "did:sage:web:agents.example.com:executor" } else { "did:sage:web:agent.example:bob" } }
+fn registry() -> &'static str { if guard_profile() { "web:agents.example.com" } else { "web:agent.example" } }
+fn seed(n: u8) -> Vec<u8> {
+ if guard_profile() && (n == 1 || n == 2) {
+  sage_crypto_core::hpke::sha256_hash(if n == 1 { b"public Guard fixture issuer" } else { b"public Guard fixture executor" }).to_vec()
+ } else { vec![n;32] }
+}
 #[derive(Default)]
 struct Control {
     handshakes: u64,
@@ -65,7 +76,7 @@ impl Source for Controls {
         if c.mode == "source-error" {
             return Err(bad());
         }
-        let n = if did == BOB { 2 } else { 1 };
+        let n = if did == bob() { 2 } else { 1 };
         let mut k = Key {
             name: "signing-1".into(),
             alg: "ed25519".into(),
@@ -74,7 +85,7 @@ impl Source for Controls {
             expires: None,
         };
         let mut keys = Vec::new();
-        if did == BOB {
+        if did == bob() {
             keys.push(Key {
                 name: "kem-1".into(),
                 alg: "x25519".into(),
@@ -88,10 +99,10 @@ impl Source for Controls {
                 expires: None,
             });
         }
-        if (c.mode == "revoke-init" && did == ALICE) || (c.mode == "revoke-resp" && did == BOB) {
+        if (c.mode == "revoke-init" && did == alice()) || (c.mode == "revoke-resp" && did == bob()) {
             k.state = "revoked".into()
         }
-        if c.mode == "changed-material" && did == BOB {
+        if c.mode == "changed-material" && did == bob() {
             k.material = public(4)
         }
         keys.push(k.clone());
@@ -115,7 +126,7 @@ impl Source for Controls {
         let digest = hex::encode(sage_crypto_core::hpke::sha256_hash(&canonical(&keys)));
         Ok(Snapshot {
             source: "fixture-authority".into(),
-            registry: "web:agent.example".into(),
+            registry: registry().into(),
             network: "local".into(),
             did: did.into(),
             version: version.into(),
@@ -305,13 +316,14 @@ fn decode(bytes: &[u8]) -> Result<(Request, Vec<u8>)> {
 }
 fn run() -> std::result::Result<(), Box<dyn std::error::Error>> {
     let args: Vec<_> = std::env::args().collect();
-    if args.len() != 3 || !["alice", "bob"].contains(&args[1].as_str()) {
+    if (args.len() != 3 && (args.len() != 4 || args[3] != "guard-fixture")) || !["alice", "bob"].contains(&args[1].as_str()) {
         return Err("expected role and local journal path".into());
     }
+    let _ = GUARD_PROFILE.set(args.len() == 4);
     let (did, n) = if args[1] == "alice" {
-        (ALICE, 1)
+        (alice(), 1)
     } else {
-        (BOB, 2)
+        (bob(), 2)
     };
     let controls = Controls(Rc::new(RefCell::new(Control {
         utc: 100,
@@ -320,7 +332,7 @@ fn run() -> std::result::Result<(), Box<dyn std::error::Error>> {
     let gate = Gate::new(
         Config {
             source: "fixture-authority".into(),
-            registry: "web:agent.example".into(),
+            registry: registry().into(),
             network: "local".into(),
             blockchain: false,
         },
@@ -331,7 +343,7 @@ fn run() -> std::result::Result<(), Box<dyn std::error::Error>> {
     let mut e = CompletionEndpoint010::new(
         did,
         &format!("{did}#signing-1"),
-        &[n; 32],
+        &seed(n),
         if n == 2 { &[3; 32] } else { &[] },
         gate,
         Box::new(controls.clone()),
@@ -393,7 +405,7 @@ fn run() -> std::result::Result<(), Box<dyn std::error::Error>> {
                 if p.is_some() {
                     Err(bad())
                 } else {
-                    e.start(BOB, &format!("{BOB}#signing-1"), q.ttl.unwrap_or(300))
+                    e.start(bob(), &format!("{}#signing-1", bob()), q.ttl.unwrap_or(300))
                         .map(|(pending, wire)| {
                             out = json!({"state":pending.state(),"wire_hex":hex::encode(wire)});
                             p = Some(pending);
@@ -420,7 +432,7 @@ fn run() -> std::result::Result<(), Box<dyn std::error::Error>> {
             "http-endpoint-bind" => e.bind_http(&q.target).map(|()|target=q.target.clone()),
             "http-inspect" => {let c=controls.0.borrow();out=json!({"handshakes":c.handshakes,"records":c.records,"pending":p.as_ref().map(|p|p.state()).unwrap_or("NONE"),"session":result.as_ref().map(|s|s.state()).unwrap_or("NONE")});Ok(())},
             "http-start" => {
-                if p.is_some() {Err(bad())} else {e.start_http(BOB,&format!("{BOB}#signing-1"),q.ttl.unwrap_or(300)).and_then(|(pending,m)|{let wire=encode_http_010(&m,&target)?;p=Some(pending);out=json!({"wire_hex":hex::encode(wire)});Ok(())})}
+                if p.is_some() {Err(bad())} else {e.start_http(bob(),&format!("{}#signing-1", bob()),q.ttl.unwrap_or(300)).and_then(|(pending,m)|{let wire=encode_http_010(&m,&target)?;p=Some(pending);out=json!({"wire_hex":hex::encode(wire)});Ok(())})}
             },
             "http-respond-raw" => parse_http_010(&wire,&target,false).and_then(|m|e.respond_http(&m,q.ttl.unwrap_or(300))).and_then(|(mut next,m)|{
                 let raw=match encode_http_010(&m,&target){Ok(v)=>v,Err(e)=>{next.close();return Err(e)}};

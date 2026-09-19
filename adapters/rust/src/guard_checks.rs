@@ -69,6 +69,14 @@ pub fn observe(
     input: Value,
 ) -> Result<(&'static str, Value), Box<dyn std::error::Error>> {
     let result: g::Result<Value> = match op {
+        "sage.guard.mcp.verify" => {
+            let wire = hex::decode(s(&input, "wire_hex"))?;
+            g::parse_mcp_result(s(&input,"mcp_version"), &wire).and_then(|raw| {
+                let v=g::verify_result(&raw,&mut Fixture(input.clone()),&mut Fixture(input.clone()))?;
+                let (success,code)=v.carriage()?;
+                Ok(json!({"success":success,"error":code,"status":v.status(),"wire_hex":hex::encode(v.mcp_result(s(&input,"mcp_version"))?)}))
+            })
+        }
         "sage.guard.original.commit" => {
             let mut items = Vec::new();
             for i in input["items"].as_array().ok_or("items")? {

@@ -81,6 +81,7 @@ type clientObservation struct {
 }
 
 type request struct {
+	Version  string       `json:"mcp_version"`
 	Action   string       `json:"action"`
 	ID       string       `json:"id"`
 	Input    guardFixture `json:"input"`
@@ -163,12 +164,17 @@ func run() error {
 				o.ID = f.sentID
 				o.Intent = hex.EncodeToString(f.sentIntent)
 			}
-		case "accept":
+		case "accept", "accept_mcp":
 			raw, e := hex.DecodeString(q.Envelope)
 			if e != nil {
 				return e
 			}
-			d, e := client.Accept(ctx, tickets[q.ID], raw)
+			var d *g.ClientDelivery
+			if q.Action == "accept_mcp" {
+				d, e = client.AcceptMCP(ctx, tickets[q.ID], q.Version, raw)
+			} else {
+				d, e = client.Accept(ctx, tickets[q.ID], raw)
+			}
 			o.OK = e == nil
 			if e == nil {
 				o.Status = d.Status()

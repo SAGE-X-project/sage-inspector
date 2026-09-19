@@ -79,6 +79,30 @@ func guardObserve(op string, raw json.RawMessage) (string, map[string]any, error
 	output := map[string]any{}
 	var e error
 	switch op {
+	case "sage.guard.mcp.verify":
+		wire, err := hex.DecodeString(f.s("wire_hex"))
+		if err != nil {
+			return "", nil, err
+		}
+		var envelope []byte
+		envelope, e = guard010.ParseMCPResult(f.s("mcp_version"), wire)
+		if e == nil {
+			var v *guard010.VerifiedResult
+			v, e = guard010.VerifyResult(context.Background(), envelope, f, f)
+			if e == nil {
+				success, code, err := v.Carriage()
+				e = err
+				output["success"] = success
+				output["error"] = code
+				output["status"] = v.Status()
+				encoded, err := v.MCPResult(f.s("mcp_version"))
+				if err != nil {
+					e = err
+				} else {
+					output["wire_hex"] = hex.EncodeToString(encoded)
+				}
+			}
+		}
 	case "sage.guard.original.commit":
 		var items []struct {
 			Hex    *string

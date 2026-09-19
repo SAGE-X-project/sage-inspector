@@ -6,8 +6,8 @@ revision이며, 소스 해시 일치는 코드 식별 증거이고 실행·보�
 
 | 코어 | 검토 revision | 연결 가능한 API |
 |---|---|---|
-| Go | `cd9e84232de197b477802837bc39b36f49618d37` | registry010.Source/Gate, guard010.Authority/IntentPolicy/Component, MCPWireSender/MCPEndpoint/Client |
-| Rust | `8d3b29b5b1157f8792654591c13ae9d26cd6bd21` | registry010::Source/Gate, guard010::Authority/IntentPolicy/Component, MCPWireSender/MCPEndpoint/Client |
+| Go | `d5156ac4599dab7ea4f42cc8a877731557ee528e` | registry010.Source/Gate, guard010.Authority/IntentPolicy/Component, MCPWireSender/MCPEndpoint/Client |
+| Rust | `97ad8445659db368c3954368c7ced9a4a3102187` | registry010::Source/Gate, guard010::Authority/IntentPolicy/Component, MCPWireSender/MCPEndpoint/Client |
 
 소스 파일과 규범 해시는 [검토 계약](../verification/0.10.0/guard-integration-contract.json)에
 고정했다. 기존 [RPC 검증](guard-rpc010.md)의 실제 IPC·서명 결과는 유효하지만
@@ -20,7 +20,7 @@ revision이며, 소스 해시 일치는 코드 식별 증거이고 실행·보�
 | 경계 / 소유자 | 현재 지원과 부족한 연결 | 완료에 필요한 증거 |
 |---|---|---|
 | Source / 배포 | Gate는 신뢰된 Snapshot의 freshness·동일 블록·키·영속 version을 검사한다. 실제 노드/해석기, 완전한 record·PoP·endorsement 검증은 Source의 책임이다. | 네트워크·registry·배포 코드·ABI·업그레이드 권한과 source 신원 고정, 동일 확정 블록 원문, 완전한 record 검증, 재시작 readiness, 발행·관측 지연 |
-| Authority / 코어 어댑터 | Guard는 정확한 현재 Ed25519 키와 신뢰된 시각을 요구한다. registry Gate를 Guard Authority로 잇는 운영 바인딩은 이번 검토에서 확립하지 않았다. | 매 결정의 정확한 issuer/keyid 선택, 이전 양성 결과 재사용 금지, 단일 로컬 시계, 최종 gate의 유효한 관측 |
+| Authority / 코어 어댑터 | Guard는 정확한 현재 Ed25519 키와 신뢰된 시각을 요구한다. RegistryAuthority가 registry Gate에 연결되었고 통제된 Source로 검사했다. 운영 배포의 신뢰 검증은 여전히 별도다. | 매 결정의 정확한 issuer/keyid 선택, 이전 양성 결과 재사용 금지, 단일 로컬 시계, 최종 gate의 유효한 관측 |
 | 원본·정책·서명 / 호스트 | 원본·policy·manifest commitments와 IntentPolicy API가 있다. 승인 매핑의 설치·보호, evaluator, signer 권한은 신뢰 의존성이다. | 확장 전 원본 캡처 경로, 최종 arguments의 closed schema 검사, 승인 epoch와 baseline의 영속 관리, exact intent에 한정된 서명 권한 |
 | 전송 / 어댑터 | RPC는 구조·UUID·응답 상관관계를 검사한다. MCPWireSender와 endpoint 입력은 이미 인증된 연결을 가정한다. | 인증된 initialize/version과 peer, 전체 바이트·invocation ID 결합, outer/inner 신원 일치, 별도 outer replay 및 연결 수명 |
 | 복구 / 호스트 | durable ledger·단일 terminal·로컬 retire가 있다. 여러 worker/receiver의 소유권과 관리 복구는 별도다. | 공유 scope의 독점성, 재시작·lost-ledger 조정, baseline/policy rollout, UNKNOWN 재실행 금지, 이미 commit된 효과의 보존 |
@@ -112,7 +112,8 @@ core root를 생략하면 source identity는 `NOT_CHECKED`다. 제공하면 HEAD
 별도 artifact를 보존한다. 유닛 테스트는 누락·중복·의존성·허위 승격을 거부하고,
 CLI 런타임 테스트는 실제 로컬 프로세스의 종료·출력 보존만 검증한다.
 
-다음 구현은 **registry Gate와 Guard Authority의 제한된 연결 및 freshness 검사**다.
+현재 **registry Gate와 Guard Authority의 제한된 연결 및 freshness 검사**는
+[별도 실행 보고](guard-registry010.md)로 검증했다. 다음은 MCP 보호 전송 연결이다.
 신뢰된 test Source로 실제 코어 경로를 실행하되 live registry 인증으로 세지 않는다.
 이후 선택한 MCP 전송의 신원/바이트/ID 연결, 보호된 capture/policy/loader, 복구와
 전체 중재를 각각 구현·검증한다. 실제 배포 검증에는 선정된 네트워크·registry·신뢰할

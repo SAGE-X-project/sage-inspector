@@ -328,3 +328,11 @@ HTTP intent payload와 MCP RPC 전체 메시지의 매핑을 별도 미결 경�
 다음은 **registry Gate → Guard Authority 연결과 최종 gate freshness 검증**이다.
 실제 Source/호스트 배포 미지정 및 전체 lifecycle 37개 NOT_RUN/적합성
 NOT_ESTABLISHED 상태는 유지한다.
+
+
+0.10.0 Registry Authority 연결: [현재 키 관측과 실행 직전 검사](guard-registry010.md).
+두 코어의 RegistryAuthority는 키 조회와 최종 시각 확인마다 새 registry 관측을
+수행하며 첫 키 material/expiry를 고정한다. 8개 최종 gate 시나리오를 실제 프로세스
+16개로 검증하고 32개 원문·journal 파일을 보존한다. 통제된 Source와 메모리 registry
+Store를 사용하므로 live registry·호스트 인증은 아니며 전체 37개 lifecycle 판정은 유지한다.
+다음은 **MCP 보호 전송의 인증 신원·exact RPC 바이트·invocation ID 연결**이다.

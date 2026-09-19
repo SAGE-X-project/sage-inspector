@@ -8,6 +8,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	guard "github.com/sage-x-project/sage/pkg/agent/guard010"
 	"github.com/sage-x-project/sage/pkg/agent/hpke"
 	"github.com/sage-x-project/sage/pkg/agent/registry010"
 	"io"
@@ -47,7 +48,7 @@ func decode(b []byte) (request, []byte, error) {
 		return q, nil, errors.New("unknown control")
 	}
 	switch q.Action {
-	case "respond", "complete", "record-seal", "record-open", "response-seal", "response-open", "http-request-seal", "http-request-open", "http-response-seal", "http-response-open", "http-respond-raw", "http-complete-raw", "http-record-seal-raw", "http-record-open-raw", "http-response-seal-raw", "http-response-open-raw":
+	case "mcp-seal", "mcp-open", "mcp-reply", "mcp-open-reply", "respond", "complete", "record-seal", "record-open", "response-seal", "response-open", "http-request-seal", "http-request-open", "http-response-seal", "http-response-open", "http-respond-raw", "http-complete-raw", "http-record-seal-raw", "http-record-open-raw", "http-response-seal-raw", "http-response-open-raw":
 		limit := 65536
 		if q.Action == "http-request-open" || q.Action == "http-response-open" || q.Action == "http-respond-raw" || q.Action == "http-complete-raw" || q.Action == "http-record-open-raw" || q.Action == "http-response-open-raw" {
 			limit = 196608
@@ -107,6 +108,7 @@ func run() error {
 	scan := bufio.NewScanner(os.Stdin)
 	scan.Buffer(make([]byte, 4096), 256*1024)
 	seen := map[string]bool{}
+	mcpCalls := map[string]*guard.MCPSessionCall{}
 	for count := 0; scan.Scan(); count++ {
 		if count >= 128 {
 			return errors.New("step limit")
@@ -127,6 +129,42 @@ func run() error {
 		out := map[string]any{}
 		verdict := "ACCEPT"
 		switch q.Action {
+		case "mcp-seal":
+			if result == nil || mcpCalls[q.MessageID] != nil {
+				x = errors.New("binding")
+			} else {
+				var call *guard.MCPSessionCall
+				wire, call, x = guard.SealMCPSessionRequest(context.Background(), result, q.Target, q.MessageID, wire, ttl)
+				if x == nil {
+					mcpCalls[q.MessageID] = call
+					out = map[string]any{"wire_hex": hex.EncodeToString(wire)}
+				}
+			}
+		case "mcp-open":
+			var call *guard.MCPSessionCall
+			call, x = guard.OpenMCPSessionRequest(context.Background(), result, q.Target, wire)
+			if x == nil {
+				if mcpCalls[call.ID()] != nil {
+					x = errors.New("duplicate RPC")
+				} else {
+					mcpCalls[call.ID()] = call
+					out = map[string]any{"rpc_id": call.ID(), "rpc_hex": hex.EncodeToString(call.Request())}
+				}
+			}
+		case "mcp-reply", "mcp-open-reply":
+			call := mcpCalls[q.MessageID]
+			if call == nil {
+				x = errors.New("missing invocation")
+			} else {
+				if q.Action == "mcp-reply" {
+					wire, x = call.SealReply(context.Background(), wire, ttl)
+				} else {
+					wire, x = call.OpenReply(context.Background(), wire)
+				}
+				if x == nil {
+					out = map[string]any{"wire_hex": hex.EncodeToString(wire)}
+				}
+			}
 		case "start":
 			if p != nil {
 				x = errors.New("already started")

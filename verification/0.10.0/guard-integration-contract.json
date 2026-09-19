@@ -14,7 +14,7 @@
   },
   "reviewed_cores": {
     "go": {
-      "revision": "d5156ac4599dab7ea4f42cc8a877731557ee528e",
+      "revision": "be621819d8e4f3a51895ccf469617a0aa70ee81c",
       "evidence": "SOURCE_REVIEW_ONLY",
       "files": {
         "pkg/agent/registry010/gate.go": "31e5e7f7a57fb0b9e37d9d6b57532c2ff33b80c859302aa51d5b25ea531817c5",
@@ -22,21 +22,23 @@
         "pkg/agent/guard010/dispatch.go": "a77f338d003eb628bac7fef78ee37c16303f590dd48f39dfa9fd548e74c2fdbb",
         "pkg/agent/guard010/client.go": "bc53f1eedaa46284abb5fd6e30cb834961bb88aec9314733482fd22e8e876044",
         "pkg/agent/guard010/mcp_rpc.go": "8e48f15940001e59a4e61d55b9404f65d5a2bf0836634780fb1f6fcd5147c315",
+        "pkg/agent/guard010/mcp_session.go": "d2cf452012be1825c1618f1f762ca34fdbab4055312b3c741bf535048089113b",
         "pkg/agent/guard010/registry.go": "53a3f4f0a731db1f11c4f0f4330dd552955fcdd9645bc50625c30ecac554c1b9",
-        "pkg/agent/hpke/completion010.go": "a14d58169e1e54a66aa4f716d4a3ec0d0907271ea3cda2ef286f4229872d6066"
+        "pkg/agent/hpke/completion010.go": "32e7c3095321afd65321f965e1b94e373857121bd8fa5f533f76f717b59721b6"
       }
     },
     "rust": {
-      "revision": "97ad8445659db368c3954368c7ced9a4a3102187",
+      "revision": "ad30c6ade287765ac96a500699469599b9696fcd",
       "evidence": "SOURCE_REVIEW_ONLY",
       "files": {
         "src/registry010/mod.rs": "4c546ee59189c8f45e3ca8e4198266856c81d4be31cf783242c47268b245b43a",
-        "src/guard010/mod.rs": "a950d32c8404438441221c61cca97ddf5bb7fea216fb21a9692a720856513003",
+        "src/guard010/mod.rs": "57a187e4dd965df1048aaf7870f180b1d9995694002873b43e1ba074ae83a8e9",
         "src/guard010/dispatch.rs": "1ac20f1f1cf2f0415920f3285c4738ee24cf288b737784511d99cbbf8ea78d7a",
         "src/guard010/client.rs": "2b574c3fdd3b74a8280eef43d48777cfcd92ff93a2b34c6ef1dad738e6357c90",
-        "src/guard010/mcp_rpc.rs": "ad522ba78fa9fdfe83fe3f9734e71cd3f58963a03ba226415cb7a59d04a0c5c7",
+        "src/guard010/mcp_rpc.rs": "c8704132740ee3e51b6e213fba8042d607884521077132d7d7dcb039c4863de8",
+        "src/guard010/mcp_session.rs": "aa86e0757b81ddfd39b59c2d9703343a68918f56dc4d213f4d8a7de6a2a3254b",
         "src/guard010/registry.rs": "e1defdeedd157c9a5994139c92d388a54962adeb784bcb287611095bb85ca426",
-        "src/hpke/completion010.rs": "d08bf4c671a2674be603f492f007fe48b2b957f2ff6c4ad95919f8d5e67b5966"
+        "src/hpke/completion010.rs": "76b5a0ee567403fcc23711f6340d789e7874cc7cf0e98df7c70fd994250dfa04"
       }
     }
   },

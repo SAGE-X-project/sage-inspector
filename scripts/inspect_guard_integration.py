@@ -22,10 +22,10 @@ BOUNDARIES = {
 FILES = {
     'go': ('pkg/agent/registry010/gate.go', 'pkg/agent/guard010/verify.go',
            'pkg/agent/guard010/dispatch.go', 'pkg/agent/guard010/client.go',
-           'pkg/agent/guard010/mcp_rpc.go', 'pkg/agent/guard010/registry.go', 'pkg/agent/hpke/completion010.go'),
+           'pkg/agent/guard010/mcp_rpc.go', 'pkg/agent/guard010/mcp_session.go', 'pkg/agent/guard010/registry.go', 'pkg/agent/hpke/completion010.go'),
     'rust': ('src/registry010/mod.rs', 'src/guard010/mod.rs',
              'src/guard010/dispatch.rs', 'src/guard010/client.rs',
-             'src/guard010/mcp_rpc.rs', 'src/guard010/registry.rs', 'src/hpke/completion010.rs'),
+             'src/guard010/mcp_rpc.rs', 'src/guard010/mcp_session.rs', 'src/guard010/registry.rs', 'src/hpke/completion010.rs'),
 }
 
 

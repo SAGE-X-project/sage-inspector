@@ -336,3 +336,12 @@ NOT_ESTABLISHED 상태는 유지한다.
 16개로 검증하고 32개 원문·journal 파일을 보존한다. 통제된 Source와 메모리 registry
 Store를 사용하므로 live registry·호스트 인증은 아니며 전체 37개 lifecycle 판정은 유지한다.
 다음은 **MCP 보호 전송의 인증 신원·exact RPC 바이트·invocation ID 연결**이다.
+
+
+0.10.0 MCP 보호 세션 연결: [인증 신원·RPC 바이트·호출 ID 검증](mcp-session010.md).
+두 코어의 기존 signed AEAD 세션에 exact RPC 바이트를 연결하고 outer message ID와
+inner RPC UUID를 구분한다. 네 언어 조합의 실제 프로세스 8개·교환 8개·독립 서명
+검사 32개를 별도 artifact로 보존한다. 이 검증은 전송 연결이며 dispatch와 durable
+client 소비는 해당 보고서에서 NOT_RUN이다. 전체 lifecycle 37개와 적합성 판정은
+유지한다. 다음은 **보호 세션 → 실제 Guard dispatch → durable client 소비 연결**,
+이후 인증된 MCP 초기 협상과 호스트 집행 증거다.

@@ -1,4 +1,5 @@
 //! Bounded local test dependencies; no network target or production credentials.
+use sage_crypto_core::guard010 as g;
 use sage_crypto_core::{
     error::{Error, Result},
     hpke::completion010::*,
@@ -248,6 +249,13 @@ fn decode(bytes: &[u8]) -> Result<(Request, Vec<u8>)> {
         return Err(bad());
     }
     let wire = match q.action.as_str() {
+        "mcp-seal" | "mcp-open" | "mcp-reply" | "mcp-open-reply" => {
+            let v = q.wire_hex.as_ref().ok_or_else(bad)?;
+            if v.len() > 65536 {
+                return Err(bad());
+            }
+            hex::decode(v).map_err(|_| bad())?
+        }
         "respond"
         | "complete"
         | "record-seal"
@@ -335,6 +343,7 @@ fn run() -> std::result::Result<(), Box<dyn std::error::Error>> {
     let mut target = "https://agent.example/messages".to_owned();
     let mut p: Option<PendingCompletion010> = None;
     let mut result: Option<AuthenticatedCompletion010> = None;
+    let mut mcp_calls = std::collections::BTreeMap::<String, g::MCPSessionCall>::new();
     let mut seen = HashSet::new();
     let stdin = io::stdin();
     let mut reader = stdin.lock();
@@ -363,6 +372,23 @@ fn run() -> std::result::Result<(), Box<dyn std::error::Error>> {
         let mut out = json!({});
         let mut verdict = "ACCEPT";
         let outcome = match q.action.as_str() {
+            "mcp-seal" => result.as_mut().ok_or_else(bad).and_then(|s| {
+                let id=q.message_id.as_deref().ok_or_else(bad)?;
+                if mcp_calls.contains_key(id){return Err(bad())}
+                let(w,call)=g::seal_mcp_session_request(s,&mut e,&q.target,id,&wire,q.ttl.unwrap_or(300)).map_err(|_|bad())?;
+                mcp_calls.insert(id.into(),call);out=json!({"wire_hex":hex::encode(w)});Ok(())
+            }),
+            "mcp-open" => result.as_mut().ok_or_else(bad).and_then(|s| {
+                let call=g::open_mcp_session_request(s,&mut e,&q.target,&wire).map_err(|_|bad())?;
+                if mcp_calls.contains_key(call.id()){return Err(bad())}
+                out=json!({"rpc_id":call.id(),"rpc_hex":hex::encode(call.request())});mcp_calls.insert(call.id().into(),call);Ok(())
+            }),
+            "mcp-reply" | "mcp-open-reply" => result.as_mut().ok_or_else(bad).and_then(|s| {
+                let call=mcp_calls.get_mut(q.message_id.as_deref().ok_or_else(bad)?).ok_or_else(bad)?;
+                let w=if q.action=="mcp-reply"{call.seal_reply(s,&mut e,&wire,q.ttl.unwrap_or(300))}else{call.open_reply(s,&mut e,&wire)}.map_err(|_|bad())?;
+                out=json!({"wire_hex":hex::encode(w)});Ok(())
+            }),
+
             "start" => {
                 if p.is_some() {
                     Err(bad())

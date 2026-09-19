@@ -43,6 +43,10 @@ JSON Schema만으로 인가하지 않고 기존 서명·현재 키·정책·comp
 응답 및 저장된 terminal 서명 **16개**를 독립 검산한다. 오프라인 보고서 검사 6개는
 잘못된 ID·도구·인자·매핑·미인증 출력·중복 전달·실제 전송 누락을 거부한다.
 
+Go 내부 JSON은 안전한 encoder 이후 canonicalize하여 HTML·Unicode 이스케이프
+팽창을 메시지 크기 증가로 오인하지 않도록 한다. raw 입력 제한은 유지하며, 큰
+실제 서명 결과의 저장·RPC 응답·client 단일 전달도 코어 회귀 테스트로 검증한다.
+
 ## 보증하지 않는 범위와 다음 작업
 
 기존 primitive 및 lifecycle 보고서는 변경하지 않는다. 전체 lifecycle 37개는

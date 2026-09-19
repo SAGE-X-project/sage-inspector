@@ -55,6 +55,7 @@ jobs:
           python3 scripts/generate_guard_rpc_vectors.py --check
           python3 scripts/test_guard_rpc_reports.py
           python3 scripts/test_guard_registry_reports.py
+          python3 scripts/test_mcp_session_reports.py
       - name: Audit Guard binding readiness
         run: |
           python3 scripts/test_guard_binding.py
@@ -180,12 +181,12 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           repository: SAGE-X-project/sage
-          ref: d5156ac4599dab7ea4f42cc8a877731557ee528e
+          ref: be621819d8e4f3a51895ccf469617a0aa70ee81c
           path: sage
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           repository: SAGE-X-project/rs-sage-core
-          ref: 97ad8445659db368c3954368c7ced9a4a3102187
+          ref: ad30c6ade287765ac96a500699469599b9696fcd
           path: rs-sage-core
       - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
         with:
@@ -437,3 +438,16 @@ jobs:
           if-no-files-found: error
           retention-days: 30
           path: ${{ runner.temp }}/guard-registry-results/
+
+      - name: Verify MCP session bindings across cores
+        working-directory: sage-inspector
+        timeout-minutes: 5
+        run: python3 scripts/test_mcp_session010.py --go "${RUNNER_TEMP}/sage-completion010" --rust "${RUNNER_TEMP}/record010-rust/debug/completion010" --output "${RUNNER_TEMP}/mcp-session-results"
+      - name: Preserve MCP session binding verification
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: mcp-session-bindings-${{ github.sha }}
+          if-no-files-found: error
+          retention-days: 30
+          path: ${{ runner.temp }}/mcp-session-results/

@@ -1,0 +1,14 @@
+{
+  "repository": "SAGE-X-project/sage-spec",
+  "revision": "a70784d6c3415b08d344bc7705f738df977ad3f9",
+  "status": "PROPOSAL_NOT_ADOPTED",
+  "files": {
+    "README.md": "8c73c61b1a4487be3ba52a716a2ccba5c58346c8894e4e7004b0dbf14df7652b",
+    "cases.json": "4a6a4ff3f1c0c3a9aba6cfbfe42789c01ab25f28683637e1d423a15e7a59777b",
+    "review.json": "181a4f83f16e13bd3025dcd45fee15f0874090125ea265d69e4dd03747f86f09",
+    "review.md": "d943c6a82e92883c1293327804d981f378faf37b9061ed9b259604449315f59e",
+    "tool.json": "c3edd622a7c90baa028118f63af42a91f354fe7202070ef91a4bd349e4048204",
+    "basis.json": "f55d67530f33294a5b41d7999dd38539be69148ec762e4dc7352d49f25cf3d8b",
+    "verify.py": "b7d4e9a19567ede72ea2d24807cbb09ce7224f66390b49dafd72c9580f79132d"
+  }
+}

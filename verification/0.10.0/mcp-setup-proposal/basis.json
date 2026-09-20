@@ -1,0 +1,25 @@
+{
+  "status": "PROPOSAL_NOT_ADOPTED",
+  "sage_version": "0.10.0",
+  "mcp_version": "2025-06-18",
+  "local_design": {
+    "repository": "sage-spec",
+    "state": "PRE_EXISTING_UNCOMMITTED_DESIGN",
+    "files": {
+      "profiles/agent-mcp-security.md": "99d5dc57d12d59d6e33102b2fdaa44efb137e48deab65e8012ff5128838d04b1",
+      "spec/04-hpke.md": "1420818451ce8363a16e391647dbaca8ec2f06efa56b6507027a4e17f399fdd6",
+      "spec/05-session.md": "8a45b8bdd3b6bfc399a94c420b2161b8f16db5c6b29ed2e85584a6282b17cce5",
+      "spec/08-transport.md": "87bb1adc1aae4883e13f8ba52a7c86153c71efb621ffc50458f7e2aa57db3eeb"
+    }
+  },
+  "reviewed_cores": {
+    "go": "be621819d8e4f3a51895ccf469617a0aa70ee81c",
+    "rust": "ad30c6ade287765ac96a500699469599b9696fcd"
+  },
+  "tool_schema_sha256": "c3edd622a7c90baa028118f63af42a91f354fe7202070ef91a4bd349e4048204",
+  "inspector_review": "3d2c2679e8dc6b70391e7c5a7d4e934445d023c2",
+  "conformance": "NOT_ESTABLISHED",
+  "lifecycle": {
+    "NOT_RUN": 37
+  }
+}

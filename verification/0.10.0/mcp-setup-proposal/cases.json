@@ -1,0 +1,367 @@
+{
+  "kind": "proposal-case-plan",
+  "status": "NOT_RUN",
+  "conformance": "NOT_ESTABLISHED",
+  "cases": [
+    {
+      "id": "mset-01-valid-channel",
+      "rule": "MSET-01",
+      "precondition": "Valid authenticated client channel and provisional responder",
+      "input": "First encrypted initialize confirms responder before MCP processing",
+      "expected": "ALLOW_SETUP",
+      "status": "NOT_RUN",
+      "evidence": "Future core unit or bounded runtime observations with revision, exact state, correlation and effect counters."
+    },
+    {
+      "id": "mset-01-wrong-owner",
+      "rule": "MSET-01",
+      "precondition": "Authenticated channel belongs to another peer or owner",
+      "input": "Reuse the old readiness handle",
+      "expected": "CLOSE",
+      "status": "NOT_RUN",
+      "evidence": "Future core unit or bounded runtime observations with revision, exact state, correlation and effect counters."
+    },
+    {
+      "id": "mset-01-revoked-key",
+      "rule": "MSET-01",
+      "precondition": "Previously accepted session key is now revoked",
+      "input": "Receive the next setup record",
+      "expected": "CLOSE",
+      "status": "NOT_RUN",
+      "evidence": "Future core unit or bounded runtime observations with revision, exact state, correlation and effect counters."
+    },
+    {
+      "id": "mset-02-exact-bytes",
+      "rule": "MSET-02",
+      "precondition": "Same authenticated session and valid control message",
+      "input": "Preserve complete UTF-8 payload and distinct outer/inner request IDs",
+      "expected": "ALLOW_SETUP",
+      "status": "NOT_RUN",
+      "evidence": "Future core unit or bounded runtime observations with revision, exact state, correlation and effect counters."
+    },
+    {
+      "id": "mset-02-size-boundary",
+      "rule": "MSET-02",
+      "precondition": "Control plaintext is 16349 bytes",
+      "input": "Receive the oversized message",
+      "expected": "CLOSE",
+      "status": "NOT_RUN",
+      "evidence": "Future core unit or bounded runtime observations with revision, exact state, correlation and effect counters."
+    },
+    {
+      "id": "mset-02-json-duplicates",
+      "rule": "MSET-02",
+      "precondition": "Bounded local synthetic parser input",
+      "input": "Duplicate a JSON member or provide a batch/trailing JSON",
+      "expected": "CLOSE",
+      "status": "NOT_RUN",
+      "evidence": "Future core unit or bounded runtime observations with revision, exact state, correlation and effect counters."
+    },
+    {
+      "id": "mset-02-id-collision",
+      "rule": "MSET-02",
+      "precondition": "Valid encrypted request",
+      "input": "Use its outer UUID as the inner request UUID",
+      "expected": "CLOSE",
+      "status": "NOT_RUN",
+      "evidence": "Future core unit or bounded runtime observations with revision, exact state, correlation and effect counters."
+    },
+    {
+      "id": "mset-03-initialize-success",
+      "rule": "MSET-03",
+      "precondition": "Client WAIT_INITIALIZE and matching authenticated response",
+      "input": "Select 2025-06-18 and exactly tools capability",
+      "expected": "ALLOW_SETUP",
+      "status": "NOT_RUN",
+      "evidence": "Future core unit or bounded runtime observations with revision, exact state, correlation and effect counters."
+    },
+    {
+      "id": "mset-03-unsupported-version",
+      "rule": "MSET-03",
+      "precondition": "Client WAIT_INITIALIZE",
+      "input": "Return another MCP version without changing the authenticated peer",
+      "expected": "CLOSE",
+      "status": "NOT_RUN",
+      "evidence": "Future core unit or bounded runtime observations with revision, exact state, correlation and effect counters."
+    },
+    {
+      "id": "mset-03-capability-mismatch",
+      "rule": "MSET-03",
+      "precondition": "Client WAIT_INITIALIZE",
+      "input": "Request unsupported optional features or omit tools capability",
+      "expected": "CLOSE",
+      "status": "NOT_RUN",
+      "evidence": "Future core unit or bounded runtime observations with revision, exact state, correlation and effect counters."
+    },
+    {
+      "id": "mset-03-wrong-request",
+      "rule": "MSET-03",
+      "precondition": "Client WAIT_INITIALIZE",
+      "input": "Supply response belonging to another initialization request",
+      "expected": "CLOSE",
+      "status": "NOT_RUN",
+      "evidence": "Future core unit or bounded runtime observations with revision, exact state, correlation and effect counters."
+    },
+    {
+      "id": "mset-04-notification-ack",
+      "rule": "MSET-04",
+      "precondition": "Client WAIT_INITIALIZED_ACK with retained exact carrier",
+      "input": "Verify correlated encrypted success with plaintext exactly {}",
+      "expected": "ALLOW_SETUP",
+      "status": "NOT_RUN",
+      "evidence": "Future core unit or bounded runtime observations with revision, exact state, correlation and effect counters."
+    },
+    {
+      "id": "mset-04-ack-is-not-result",
+      "rule": "MSET-04",
+      "precondition": "Valid notification acknowledgement",
+      "input": "Attempt to consume marker as Guard output",
+      "expected": "DENY_EFFECT",
+      "status": "NOT_RUN",
+      "evidence": "Future core unit or bounded runtime observations with revision, exact state, correlation and effect counters."
+    },
+    {
+      "id": "mset-04-malformed-ack",
+      "rule": "MSET-04",
+      "precondition": "Client WAIT_INITIALIZED_ACK",
+      "input": "Supply MCP result, whitespace variant, error or wrong request hash",
+      "expected": "CLOSE",
+      "status": "NOT_RUN",
+      "evidence": "Future core unit or bounded runtime observations with revision, exact state, correlation and effect counters."
+    },
+    {
+      "id": "mset-04-notification-has-id",
+      "rule": "MSET-04",
+      "precondition": "Server WAIT_INITIALIZED",
+      "input": "Receive initialized with a JSON-RPC request ID",
+      "expected": "CLOSE",
+      "status": "NOT_RUN",
+      "evidence": "Future core unit or bounded runtime observations with revision, exact state, correlation and effect counters."
+    },
+    {
+      "id": "mset-04-lost-ack",
+      "rule": "MSET-04",
+      "precondition": "Server committed acknowledgement; client has not received it",
+      "input": "Deadline expires without acknowledgement; reconnect uses new setup",
+      "expected": "CLOSE",
+      "status": "NOT_RUN",
+      "evidence": "Future core unit or bounded runtime observations with revision, exact state, correlation and effect counters."
+    },
+    {
+      "id": "mset-05-discovery-success",
+      "rule": "MSET-05",
+      "precondition": "Client WAIT_DISCOVERY and prepared local server endpoint",
+      "input": "Authenticate one-tool listing with pinned name/inputSchema",
+      "expected": "READY",
+      "status": "NOT_RUN",
+      "evidence": "Future core unit or bounded runtime observations with revision, exact state, correlation and effect counters."
+    },
+    {
+      "id": "mset-05-schema-replacement",
+      "rule": "MSET-05",
+      "precondition": "Client WAIT_DISCOVERY",
+      "input": "Receive changed schema or nextCursor instead of fixed complete listing",
+      "expected": "CLOSE",
+      "status": "NOT_RUN",
+      "evidence": "Future core unit or bounded runtime observations with revision, exact state, correlation and effect counters."
+    },
+    {
+      "id": "mset-05-early-tool-call",
+      "rule": "MSET-05",
+      "precondition": "Receiver is not READY",
+      "input": "Attempt a protected tool call in a local unit scenario",
+      "expected": "DENY_EFFECT",
+      "status": "NOT_RUN",
+      "evidence": "Future core unit or bounded runtime observations with revision, exact state, correlation and effect counters."
+    },
+    {
+      "id": "mset-05-capability-not-authority",
+      "rule": "MSET-05",
+      "precondition": "Peer claims tools capability; local mediation absent",
+      "input": "Attempt to create readiness without a protected local endpoint",
+      "expected": "DENY_EFFECT",
+      "status": "NOT_RUN",
+      "evidence": "Future core unit or bounded runtime observations with revision, exact state, correlation and effect counters."
+    },
+    {
+      "id": "mset-06-before-deadline",
+      "rule": "MSET-06",
+      "precondition": "Session and initialization otherwise valid",
+      "input": "Commit final READY transition at elapsed 29999ms",
+      "expected": "READY",
+      "status": "NOT_RUN",
+      "evidence": "Future core unit or bounded runtime observations with revision, exact state, correlation and effect counters."
+    },
+    {
+      "id": "mset-06-deadline-equality",
+      "rule": "MSET-06",
+      "precondition": "Session initialization remains incomplete",
+      "input": "Commit final READY transition at elapsed 30000ms",
+      "expected": "CLOSE",
+      "status": "NOT_RUN",
+      "evidence": "Future core unit or bounded runtime observations with revision, exact state, correlation and effect counters."
+    },
+    {
+      "id": "mset-06-slow-callback",
+      "rule": "MSET-06",
+      "precondition": "Setup callback has not returned",
+      "input": "Trusted remaining deadline expires; no effect may proceed",
+      "expected": "CLOSE",
+      "status": "NOT_RUN",
+      "evidence": "Future core unit or bounded runtime observations with revision, exact state, correlation and effect counters."
+    },
+    {
+      "id": "mset-06-uncertain-send",
+      "rule": "MSET-06",
+      "precondition": "Any setup response or acknowledgement output is uncertain",
+      "input": "Attempt resend or another reply on the old connection",
+      "expected": "CLOSE",
+      "status": "NOT_RUN",
+      "evidence": "Future core unit or bounded runtime observations with revision, exact state, correlation and effect counters."
+    },
+    {
+      "id": "mset-07-fresh-reconnect",
+      "rule": "MSET-07",
+      "precondition": "Old connection closed; Guard terminal state persists",
+      "input": "Complete fresh authenticated setup without executing old call again",
+      "expected": "ALLOW_SETUP",
+      "status": "NOT_RUN",
+      "evidence": "Future core unit or bounded runtime observations with revision, exact state, correlation and effect counters."
+    },
+    {
+      "id": "mset-07-stale-ready",
+      "rule": "MSET-07",
+      "precondition": "New session with same DID but different tuple",
+      "input": "Reuse old initialization, acknowledgement, listing or readiness",
+      "expected": "CLOSE",
+      "status": "NOT_RUN",
+      "evidence": "Future core unit or bounded runtime observations with revision, exact state, correlation and effect counters."
+    },
+    {
+      "id": "mset-07-terminal-preserved",
+      "rule": "MSET-07",
+      "precondition": "New connection READY with prior terminal journal",
+      "input": "Request old signed call; preserve terminal and single client consumption",
+      "expected": "NO_REEXECUTION",
+      "status": "NOT_RUN",
+      "evidence": "Future core unit or bounded runtime observations with revision, exact state, correlation and effect counters."
+    },
+    {
+      "id": "mset-07-missing-ledger",
+      "rule": "MSET-07",
+      "precondition": "Previously durable operation state cannot be opened",
+      "input": "Recreate an empty ledger to resume an old call",
+      "expected": "DENY_EFFECT",
+      "status": "NOT_RUN",
+      "evidence": "Future core unit or bounded runtime observations with revision, exact state, correlation and effect counters."
+    },
+    {
+      "id": "mset-08-proposal-scope",
+      "rule": "MSET-08",
+      "precondition": "Only this draft and static checks exist",
+      "input": "Attempt to claim deployed negotiation or full conformance",
+      "expected": "DENY_CLAIM",
+      "status": "NOT_RUN",
+      "evidence": "Future core unit or bounded runtime observations with revision, exact state, correlation and effect counters."
+    },
+    {
+      "id": "mset-08-http-not-defined",
+      "rule": "MSET-08",
+      "precondition": "Non-HTTP setup unavailable",
+      "input": "Fallback to unspecified HTTP mapping or plaintext protected call",
+      "expected": "DENY_EFFECT",
+      "status": "NOT_RUN",
+      "evidence": "Future core unit or bounded runtime observations with revision, exact state, correlation and effect counters."
+    },
+    {
+      "id": "mset-08-historical-evidence",
+      "rule": "MSET-08",
+      "precondition": "Existing 37 lifecycle results are NOT_RUN",
+      "input": "Promote them based only on proposal validation",
+      "expected": "DENY_CLAIM",
+      "status": "NOT_RUN",
+      "evidence": "Future core unit or bounded runtime observations with revision, exact state, correlation and effect counters."
+    },
+    {
+      "id": "mset-02-output-barrier",
+      "rule": "MSET-02",
+      "precondition": "Server has prepared a listing response but local send is pending",
+      "input": "A protected request arrives before the send callback succeeds",
+      "expected": "DENY_EFFECT",
+      "status": "NOT_RUN",
+      "evidence": "Future unit-controlled state and I/O interleavings; no effect before admission, retained replay and bounded request history."
+    },
+    {
+      "id": "mset-02-send-failure-after-prepare",
+      "rule": "MSET-02",
+      "precondition": "Server output is immutable and its next target state would be READY",
+      "input": "Local send reports partial or uncertain completion while input waits",
+      "expected": "CLOSE",
+      "status": "NOT_RUN",
+      "evidence": "Future unit-controlled state and I/O interleavings; no effect before admission, retained replay and bounded request history."
+    },
+    {
+      "id": "mset-02-setup-id-reuse",
+      "rule": "MSET-02",
+      "precondition": "Initialize ID remains in the connection request history",
+      "input": "Reuse it for discovery or a later protected call",
+      "expected": "CLOSE",
+      "status": "NOT_RUN",
+      "evidence": "Future unit-controlled state and I/O interleavings; no effect before admission, retained replay and bounded request history."
+    },
+    {
+      "id": "mset-02-history-exhaustion",
+      "rule": "MSET-02",
+      "precondition": "Connection history already retains 1024 authenticated request IDs",
+      "input": "Allocate a new endpoint and attempt another request",
+      "expected": "CLOSE",
+      "status": "NOT_RUN",
+      "evidence": "Future unit-controlled state and I/O interleavings; no effect before admission, retained replay and bounded request history."
+    },
+    {
+      "id": "mset-02-inner-rejection-replay",
+      "rule": "MSET-02",
+      "precondition": "Outer signature and AEAD succeeded and reserved replay state",
+      "input": "Reject malformed inner JSON; retain consumed sequence and replay IDs",
+      "expected": "CLOSE",
+      "status": "NOT_RUN",
+      "evidence": "Future unit-controlled state and I/O interleavings; no effect before admission, retained replay and bounded request history."
+    },
+    {
+      "id": "mset-05-extended-descriptor",
+      "rule": "MSET-05",
+      "precondition": "Name and inputSchema match but descriptor has an added outputSchema",
+      "input": "Validate the complete descriptor against the fixed baseline",
+      "expected": "CLOSE",
+      "status": "NOT_RUN",
+      "evidence": "Future unit-controlled state and I/O interleavings; no effect before admission, retained replay and bounded request history."
+    },
+    {
+      "id": "mset-06-deadline-after-callback",
+      "rule": "MSET-06",
+      "precondition": "Final validation starts at 29999ms and ends at 30000ms",
+      "input": "Attempt to publish READY after callback completion",
+      "expected": "CLOSE",
+      "status": "NOT_RUN",
+      "evidence": "Future unit-controlled state and I/O interleavings; no effect before admission, retained replay and bounded request history."
+    },
+    {
+      "id": "mset-06-close-completion-race",
+      "rule": "MSET-06",
+      "precondition": "Local send is pending and the owner has become CLOSED",
+      "input": "A successful late send callback tries to publish its target state",
+      "expected": "CLOSE",
+      "status": "NOT_RUN",
+      "evidence": "Future unit-controlled state and I/O interleavings; no effect before admission, retained replay and bounded request history."
+    },
+    {
+      "id": "mset-06-ready-past-setup-deadline",
+      "rule": "MSET-06",
+      "precondition": "Local READY transition completed before the setup deadline; session remains valid",
+      "input": "The old setup deadline passes without a new setup operation",
+      "expected": "ALLOW_OPERATION_CHECKS",
+      "status": "NOT_RUN",
+      "evidence": "Future unit-controlled state and I/O interleavings; no effect before admission, retained replay and bounded request history."
+    }
+  ]
+}

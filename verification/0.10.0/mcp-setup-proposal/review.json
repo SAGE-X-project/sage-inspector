@@ -1,0 +1,67 @@
+{
+  "kind": "proposal-counterexample-review",
+  "reviewed_revision": "48858011b75f69c72f03c0fde1c17a1edc538815",
+  "reviewed_readme_sha256": "fe88639353b3cf0147d8527d4533f1b6dbff6e109b64fff5e2d800574423b23d",
+  "method": "SEPARATE_PASS_SAME_AUTHORING_AGENT",
+  "verdict": "REVISED_DRAFT_EXTERNAL_REVIEW_REQUIRED",
+  "adoption": "PROPOSAL_NOT_ADOPTED",
+  "protocol_execution": "NOT_RUN",
+  "conformance": "NOT_ESTABLISHED",
+  "findings": [
+    {
+      "id": "output-publication",
+      "severity": "HIGH",
+      "rule": "MSET-02",
+      "status": "RESOLVED_IN_DRAFT",
+      "cases": [
+        "mset-02-output-barrier",
+        "mset-02-send-failure-after-prepare"
+      ]
+    },
+    {
+      "id": "request-id-history",
+      "severity": "MEDIUM",
+      "rule": "MSET-02",
+      "status": "RESOLVED_IN_DRAFT",
+      "cases": [
+        "mset-02-setup-id-reuse",
+        "mset-02-history-exhaustion"
+      ]
+    },
+    {
+      "id": "deadline-linearization",
+      "severity": "HIGH",
+      "rule": "MSET-06",
+      "status": "RESOLVED_IN_DRAFT",
+      "cases": [
+        "mset-06-deadline-after-callback",
+        "mset-06-close-completion-race",
+        "mset-06-ready-past-setup-deadline"
+      ]
+    },
+    {
+      "id": "replay-state-order",
+      "severity": "MEDIUM",
+      "rule": "MSET-02",
+      "status": "RESOLVED_IN_DRAFT",
+      "cases": [
+        "mset-02-inner-rejection-replay"
+      ]
+    },
+    {
+      "id": "descriptor-comparison",
+      "severity": "MEDIUM",
+      "rule": "MSET-05",
+      "status": "RESOLVED_IN_DRAFT",
+      "cases": [
+        "mset-05-extended-descriptor"
+      ]
+    }
+  ],
+  "corrected_files": {
+    "README.md": "8c73c61b1a4487be3ba52a716a2ccba5c58346c8894e4e7004b0dbf14df7652b",
+    "cases.json": "4a6a4ff3f1c0c3a9aba6cfbfe42789c01ab25f28683637e1d423a15e7a59777b",
+    "tool.json": "c3edd622a7c90baa028118f63af42a91f354fe7202070ef91a4bd349e4048204",
+    "review.md": "d943c6a82e92883c1293327804d981f378faf37b9061ed9b259604449315f59e"
+  }
+}

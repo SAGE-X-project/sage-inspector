@@ -524,3 +524,22 @@ jobs:
           path: ${{ runner.temp }}/mcp-proposal-catalog/
           if-no-files-found: error
           retention-days: 30
+
+  mcp-owner-model:
+    name: MCP owner admission model
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Verify owner scenarios and finite reachability
+        run: |
+          python3 -B scripts/test_mcp_owner_model.py
+          python3 -B scripts/check_mcp_owner_model.py --output "${RUNNER_TEMP}/mcp-owner-model"
+      - name: Preserve owner model evidence
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: mcp-owner-model-${{ github.sha }}
+          path: ${{ runner.temp }}/mcp-owner-model/
+          if-no-files-found: error
+          retention-days: 30

@@ -1,0 +1,162 @@
+{
+  "kind": "mcp-design-resolution",
+  "method": "SAME_AUTHOR_CORRECTION_AND_REREVIEW",
+  "reviewed_revision": "05c9069e651c0b0debb699e329a7e9093a466741",
+  "external_review": "NOT_PERFORMED",
+  "adoption": "PROPOSAL_NOT_ADOPTED",
+  "conformance": "NOT_ESTABLISHED",
+  "files": {
+    "design-review.md": "425823c498fc133c032f490eea550779dfd041f17ccfdf5eb68dc184381bdffa",
+    "design-review.json": "b625c92ef0eef4b226e4cffa34fea2ddbc38022d4da8756ea9c1de33691028f9",
+    "resolutions.md": "dfa812f4d2c7659e99fbcfce46bc4a21444fd19e6e7c50b50fd3afbdb1ad2bd7",
+    "tool.json": "c3edd622a7c90baa028118f63af42a91f354fe7202070ef91a4bd349e4048204"
+  },
+  "protocol_cases": {
+    "NOT_RUN": 71
+  },
+  "lifecycle": {
+    "NOT_RUN": 37
+  },
+  "findings": [
+    {
+      "id": "DREV-01",
+      "status": "RESOLVED_IN_DRAFT",
+      "execution": "NOT_RUN",
+      "case_ids": [
+        "mres-close-before-reservation",
+        "mres-close-after-reservation",
+        "mres-close-after-admission",
+        "mres-crash-after-admission"
+      ]
+    },
+    {
+      "id": "DREV-02",
+      "status": "RESOLVED_IN_DRAFT",
+      "execution": "NOT_RUN",
+      "case_ids": [
+        "mres-ready-past-setup",
+        "mres-stale-setup-completion",
+        "mres-protected-timeout-before-admission",
+        "mres-protected-timeout-after-admission",
+        "mres-ready-session-expiry"
+      ]
+    },
+    {
+      "id": "DREV-03",
+      "status": "RESOLVED_IN_DRAFT",
+      "execution": "NOT_RUN",
+      "case_ids": [
+        "mres-signature-intent",
+        "mres-signature-result",
+        "mres-signature-carriage",
+        "mres-missing-signing-key"
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "id": "mres-close-before-reservation",
+      "finding": "DREV-01",
+      "input": "Close wins before reservation",
+      "expected": "Deny with zero effects",
+      "status": "NOT_RUN",
+      "planned_method": "unit_and_bounded_local_runtime"
+    },
+    {
+      "id": "mres-close-after-reservation",
+      "finding": "DREV-01",
+      "input": "Reserve, close, then attempt final admission",
+      "expected": "Zero effects; reservation and nonce retained; no false completed outcome",
+      "status": "NOT_RUN",
+      "planned_method": "unit_and_bounded_local_runtime"
+    },
+    {
+      "id": "mres-close-after-admission",
+      "finding": "DREV-01",
+      "input": "Final admission commits before close and effect completion",
+      "expected": "No rollback claim or redispatch; retain execution outcome",
+      "status": "NOT_RUN",
+      "planned_method": "unit_and_bounded_local_runtime"
+    },
+    {
+      "id": "mres-crash-after-admission",
+      "finding": "DREV-01",
+      "input": "Crash after durable admission but before inert effect",
+      "expected": "Recover unresolved/unknown without executing again",
+      "status": "NOT_RUN",
+      "planned_method": "unit_and_bounded_local_runtime"
+    },
+    {
+      "id": "mres-ready-past-setup",
+      "finding": "DREV-02",
+      "input": "READY before 30 seconds; protected exchange after 30 seconds",
+      "expected": "Continue under valid protected and session limits",
+      "status": "NOT_RUN",
+      "planned_method": "unit_and_bounded_local_runtime"
+    },
+    {
+      "id": "mres-stale-setup-completion",
+      "finding": "DREV-02",
+      "input": "Duplicate SETUP completion arrives after READY",
+      "expected": "No readiness change or new output; operation cannot change class",
+      "status": "NOT_RUN",
+      "planned_method": "unit_and_bounded_local_runtime"
+    },
+    {
+      "id": "mres-protected-timeout-before-admission",
+      "finding": "DREV-02",
+      "input": "Protected request deadline expires before final admission",
+      "expected": "Deny with zero effects; do not reset intent or reservation",
+      "status": "NOT_RUN",
+      "planned_method": "unit_and_bounded_local_runtime"
+    },
+    {
+      "id": "mres-protected-timeout-after-admission",
+      "finding": "DREV-02",
+      "input": "Protected deadline expires after final admission",
+      "expected": "Transport failure without rollback claim; retain durable result",
+      "status": "NOT_RUN",
+      "planned_method": "unit_and_bounded_local_runtime"
+    },
+    {
+      "id": "mres-ready-session-expiry",
+      "finding": "DREV-02",
+      "input": "READY session expires while protected deadline remains valid",
+      "expected": "Deny new admission and close the owner",
+      "status": "NOT_RUN",
+      "planned_method": "unit_and_bounded_local_runtime"
+    },
+    {
+      "id": "mres-signature-intent",
+      "finding": "DREV-03",
+      "input": "Valid role-bound intent proofs for Ed25519, P-256 and secp256k1",
+      "expected": "Only Ed25519 continues remaining validation; reject unsupported algorithms",
+      "status": "NOT_RUN",
+      "planned_method": "unit_and_bounded_local_runtime"
+    },
+    {
+      "id": "mres-signature-result",
+      "finding": "DREV-03",
+      "input": "Valid correlated result proofs for Ed25519, P-256 and secp256k1",
+      "expected": "Only Ed25519 continues remaining validation; no unsupported result consumption",
+      "status": "NOT_RUN",
+      "planned_method": "unit_and_bounded_local_runtime"
+    },
+    {
+      "id": "mres-signature-carriage",
+      "finding": "DREV-03",
+      "input": "Outer and handshake signatures under each baseline signing algorithm",
+      "expected": "Only active role-bound Ed25519 continues; HPKE KEM unchanged",
+      "status": "NOT_RUN",
+      "planned_method": "unit_and_bounded_local_runtime"
+    },
+    {
+      "id": "mres-missing-signing-key",
+      "finding": "DREV-03",
+      "input": "Participant lacks a suitable active Ed25519 signing key",
+      "expected": "Binding unsupported; no fallback or substitution",
+      "status": "NOT_RUN",
+      "planned_method": "unit_and_bounded_local_runtime"
+    }
+  ]
+}

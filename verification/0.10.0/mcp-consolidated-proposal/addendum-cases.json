@@ -1,0 +1,164 @@
+{
+  "kind": "mcp-setup-supplemental-case-plan",
+  "status": "PROPOSAL_NOT_ADOPTED",
+  "basis_revision": "48d5f579cbf781143e0bbed89c8771a3b6367544",
+  "addendum_sha256": "74ea440703e267e5e586ef00048a39293fc2a40bd7050254cb2d5a7e2c14d186",
+  "external_review": "NOT_PERFORMED",
+  "actual_core_execution": false,
+  "conformance": "NOT_ESTABLISHED",
+  "original_cases": {
+    "NOT_RUN": 40
+  },
+  "supplemental_cases": {
+    "NOT_RUN": 18
+  },
+  "lifecycle": {
+    "NOT_RUN": 37
+  },
+  "cases": [
+    {
+      "id": "madd-plaintext-boundary",
+      "obligation": "limits",
+      "input": "Complete control and protected request plaintext at 16348 and 16349 UTF-8 bytes",
+      "expected": "Within-limit input continues other checks; oversize fails without dispatch",
+      "planned_method": "unit_and_local_runtime",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "madd-record-boundary",
+      "obligation": "limits",
+      "input": "Decoded records at 16384 and 16385 bytes",
+      "expected": "Boundary continues authentication; excess fails before decryption",
+      "planned_method": "unit_and_local_runtime",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "madd-wire-boundary",
+      "obligation": "limits",
+      "input": "Complete envelopes at 32768 and 32769 bytes including deferred receive",
+      "expected": "Boundary continues other checks; excess is never queued or dispatched",
+      "planned_method": "unit_and_local_runtime",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "madd-utf8-and-escapes",
+      "obligation": "limits",
+      "input": "Non-ASCII and escaped JSON near the plaintext bound",
+      "expected": "Count exact encoded bytes including JSON syntax, not characters or argument length",
+      "planned_method": "unit",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "madd-result-representations",
+      "obligation": "limits",
+      "input": "Structured result plus escaped canonical text jointly exceeds bound",
+      "expected": "Reject complete message even when each representation alone fits",
+      "planned_method": "unit",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "madd-post-effect-oversize",
+      "obligation": "limits",
+      "input": "Inert effect commits; complete terminal response exceeds carriage limit",
+      "expected": "Preserve durable outcome, close delivery, no replacement rejection or redispatch",
+      "planned_method": "unit_and_local_runtime",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "madd-post-reservation-size-failure",
+      "obligation": "limits",
+      "input": "Final wire size fails after sequence and request-ID reservation",
+      "expected": "No send; close without restoring reservations",
+      "planned_method": "unit",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "madd-inner-size-replay",
+      "obligation": "limits",
+      "input": "Outer acceptance succeeds but decrypted size fails",
+      "expected": "Close before inner routing; accepted replay state stays consumed",
+      "planned_method": "unit",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "madd-mutable-buffer",
+      "obligation": "owner",
+      "input": "Caller modifies submitted bytes while work is pending",
+      "expected": "Owner uses captured immutable bytes or rejects invalid ownership",
+      "planned_method": "unit",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "madd-synchronous-completion",
+      "obligation": "owner",
+      "input": "Transport completion fires before send returns",
+      "expected": "Serialized barrier applies and no reentrant readiness publication",
+      "planned_method": "unit",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "madd-duplicate-completion",
+      "obligation": "owner",
+      "input": "Same completed operation reports success again",
+      "expected": "No new phase transition, output or effect",
+      "planned_method": "unit",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "madd-old-incarnation",
+      "obligation": "owner",
+      "input": "Completion from closed owner reaches replacement connection",
+      "expected": "No mutation of replacement owner or readiness transfer",
+      "planned_method": "unit_and_local_runtime",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "madd-bounded-cancellation",
+      "obligation": "owner",
+      "input": "Repeated timeout/cancel with pending callbacks and deferred input",
+      "expected": "Admission revoked, workers and buffers bounded and released, no effects",
+      "planned_method": "unit_and_local_runtime",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "madd-history-capacity",
+      "obligation": "owner",
+      "input": "Two setup IDs followed by 1022 unique protected request attempts and one more",
+      "expected": "All 1024 total entries retained; next attempt closes before dispatch",
+      "planned_method": "unit",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "madd-close-before-handoff",
+      "obligation": "owner",
+      "input": "Close linearizes before Guard admission of inert call",
+      "expected": "Zero protected effects; no success report",
+      "planned_method": "unit_and_local_runtime",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "madd-close-after-handoff",
+      "obligation": "owner",
+      "input": "Close follows Guard effect admission",
+      "expected": "No false rollback claim; durable outcome retained; no automatic redispatch",
+      "planned_method": "unit_and_local_runtime",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "madd-cross-language-setup",
+      "obligation": "owner",
+      "input": "Go/Go, Go/Rust, Rust/Go and Rust/Rust authenticated setup and inert protected exchange",
+      "expected": "Exact discovery and correlation, successful bounded exchange with original Guard checks",
+      "planned_method": "unit_and_local_runtime",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "madd-restart-consumption",
+      "obligation": "owner",
+      "input": "Reconnect and client restart after stored terminal consumption",
+      "expected": "Fresh setup; old callbacks rejected; consumed result not exposed again or redispatched",
+      "planned_method": "unit_and_local_runtime",
+      "status": "NOT_RUN"
+    }
+  ]
+}

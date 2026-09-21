@@ -69,3 +69,26 @@ CI keeps `guard-canonical-signatures-<revision>` separately from the historical 
 Both unsupported elliptic-curve families still reach an Ed25519-only Authority seam;
 this does not establish active-key registry negotiation or complete MCP binding
 conformance. Outer/handshake roles and the 71 proposed protocol cases remain NOT_RUN.
+
+
+## Rechecking canonical evidence
+
+`scripts/verify_guard_signature_evidence.py` checks all 28 canonical exchanges against
+the pinned fixtures and core revisions. It requires the expected Inspector revision
+and the original trusted Go/Rust adapter and secp auditor binaries via `--revision`,
+`--go`, `--rust`, and `--audit`; `--evidence` selects the report directory. It reruns
+the independent signature audit and compares executable hashes with the report.
+The binaries must come from a trusted build, not from an untrusted evidence archive.
+Cross-platform rebuilds need not produce the same executable hash.
+
+The checker rejects missing, extra or symlinked files, altered requests, incorrect
+responses, duplicate JSON members, nonempty stderr, changed response digests,
+missing/duplicate/reordered results, mismatched revisions and conformance promotion.
+CI invokes it directly on the real runtime output before artifact upload. Four unit
+tests also exercise synthetic evidence and negative controls; their fixtures are
+not recorded as actual core execution.
+
+This is a consistency check, not cryptographic attestation of who produced a report,
+when a process ran, or which source built a binary. Report hashes alone cannot prove
+those facts. Full MCP cases remain 71 NOT_RUN, historical lifecycle cases remain
+37 NOT_RUN, and conformance remains NOT_ESTABLISHED.

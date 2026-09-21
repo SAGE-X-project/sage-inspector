@@ -400,3 +400,11 @@ Canonical Guard 증거 재검사기를 저장소와 CI에 추가했다. 고정 f
 적합성 승격을 거부한다. 합성 자료 유닛 검사는 실제 실행 증거와 구분하며, 보고서
 일관성 검사가 실행 출처의 암호학적 증명은 아니다. 다음 선행 과제는 통합 MCP
 제안의 규범 검토·채택이며 실제 owner/협상 구현 및 71개 사례 실행은 미완료다.
+
+
+[MCP owner와 현재 코어의 연결 검토](mcp-owner-core-review.md)에서 네 가지 선행 차이를
+확인했다: EXECUTING 저장과 최종 인가의 순서, callback 중 종료 권한 기록, setup부터
+이어지는 요청 ID 이력, output publication barrier. 기존 bounded Guard 동작의 실패
+판정이 아니라 새 제안과의 연결 조건이다. 다음은 **저장 지연 중 무효화까지 포함한
+admission/close 계약과 lock 순서 확정**, 이후 독립 검토·규범 조정/채택, 두 코어 owner
+구현, 네 언어 조합 실제 협상 검증 순서다. 외부 검토와 규범 채택은 완료되지 않았다.

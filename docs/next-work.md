@@ -381,3 +381,9 @@ traceability와 조정한 뒤 코어 구현과 실제 협상 검증으로 진행
 603개 상태·11,457개 전이에서 예약/허용/종료와 독립 제한시간을 유한 탐색하고,
 시나리오·변이 통제·CLI 검사 11개를 수행한다. 실제 ledger, 암호, 코어, 네트워크
 실행 증거가 아니므로 71개 프로토콜 사례와 lifecycle 37개는 NOT_RUN으로 유지한다.
+
+[Guard 서명 primitive 경계](guard-signature-boundaries.md)는 기존 Go/Rust intent·result
+API를 실제 실행한다. 공개 fixture 10개를 Node로 독립 서명 검산한 뒤 각 코어에서
+정상 Ed25519와 오류·P-256 입력의 허용/거부를 확인한다. 고정 테스트 Authority의
+제약상 전체 MCP 알고리즘·등록정보 검증을 뜻하지 않으며 71개 사례와 lifecycle
+37개의 NOT_RUN 상태는 유지한다.

@@ -16,9 +16,12 @@ def sha(raw):
     return hashlib.sha256(raw).hexdigest()
 
 
-def fixtures():
-    raw = FIXTURE.read_bytes()
-    require(sha(raw) == FIXTURE_SHA, 'fixture identity')
+CANONICAL_FIXTURE = ROOT / 'vectors/0.10.0/guard-canonical-signatures.json'
+CANONICAL_SHA = 'c6ea9c0bc93835404051a7eb99455e869e6b94f25d2057f8a5b643e13703c309'
+
+def fixtures(canonical=False):
+    raw = (CANONICAL_FIXTURE if canonical else FIXTURE).read_bytes()
+    require(sha(raw) == (CANONICAL_SHA if canonical else FIXTURE_SHA), 'fixture identity')
     return load(raw)['cases']
 
 
@@ -33,12 +36,20 @@ def validate_response(case, response):
         require(type(response['output']['valid']) is bool, 'nonboolean validity')
 
 
-def audit():
-    fixtures()
-    p = subprocess.run(['node', str(ROOT/'scripts/audit_guard_signatures.js'), str(FIXTURE)], capture_output=True, text=True, timeout=20)
+def audit(canonical=False, secp_auditor=None):
+    fixtures(canonical)
+    selected=CANONICAL_FIXTURE if canonical else FIXTURE
+    command=['node', str(ROOT/'scripts/audit_guard_signatures.js'), str(selected)]+(['--low-s'] if canonical else [])
+    p = subprocess.run(command, capture_output=True, text=True, timeout=20)
     require(p.returncode == 0, 'independent signature audit: ' + p.stderr)
     result = load(p.stdout)
     require(result == {'cases':10,'valid':8,'invalid':2}, 'signature audit counts')
+    if canonical:
+        require(secp_auditor is not None, 'secp auditor required')
+        p=subprocess.run([str(secp_auditor),str(selected)],capture_output=True,text=True,timeout=20)
+        require(p.returncode==0, 'secp audit: '+p.stderr)
+        result['secp']=load(p.stdout)
+        require(result['secp']=={'secp_cases':4,'low_s':True,'recovery':True}, 'secp audit counts')
     return result
 
 
@@ -46,9 +57,11 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     for key in ('go','rust','go-root','rust-root','output'):
         parser.add_argument('--'+key, required=True, type=Path)
+    parser.add_argument('--canonical',action='store_true')
+    parser.add_argument('--secp-auditor',type=Path)
     a = parser.parse_args();out=a.output.resolve()
     require(not out.exists() and not out.is_relative_to(ROOT), 'new output outside repository required')
-    rows=fixtures();checked=audit()
+    rows=fixtures(a.canonical);checked=audit(a.canonical,a.secp_auditor)
     for name,pin in PINS.items():
         source=getattr(a,name+'_root').resolve()
         require(subprocess.check_output(['git','rev-parse','HEAD'],cwd=source,text=True).strip()==pin,'core revision')
@@ -56,11 +69,14 @@ def main():
     out.mkdir(parents=True,exist_ok=False)
     report=dict(kind='guard-signature-boundaries',status='RUNNING',actual_core_execution=False,
                 conformance='NOT_ESTABLISHED',mcp_protocol_execution='NOT_RUN',proposal_cases={'NOT_RUN':71},
-                lifecycle={'NOT_RUN':37},fixture_sha256=FIXTURE_SHA,signature_audit=checked,
+                lifecycle={'NOT_RUN':37},fixture_sha256=CANONICAL_SHA if a.canonical else FIXTURE_SHA,signature_audit=checked,
+                suite='canonical-signatures' if a.canonical else 'historical-signature-boundaries',
+                audit_executable_sha256=sha(a.secp_auditor.read_bytes()) if a.canonical else None,
                 inspector_revision=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
                 subjects={},results=[],limitations=['Only existing intent/result primitive APIs and test Authority seams.',
                 'P-256 signatures independently valid; the Ed25519-only Authority API does not model an active P-256 registry key.',
-                'No secp256k1, outer/handshake role, MCP initialization, dispatch or production registry verification.'])
+                'No outer/handshake role, MCP initialization, dispatch or production registry verification.',
+                'Unsupported algorithm rejection through an Ed25519-only Authority seam is not active-key multi-algorithm registry verification.'])
     try:
         for name,pin in PINS.items():
             adapter=getattr(a,name).resolve(strict=True)

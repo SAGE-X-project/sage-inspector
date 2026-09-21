@@ -259,6 +259,19 @@ jobs:
           path: ${{ runner.temp }}/guard-signature-boundaries/
           if-no-files-found: error
           retention-days: 30
+      - name: Verify canonical Guard signature boundaries
+        working-directory: sage-inspector
+        run: |
+          (cd adapters/go && go test -race ./cmd/audit-guard-secp && go build -o "${RUNNER_TEMP}/audit-guard-secp" ./cmd/audit-guard-secp)
+          python3 -B scripts/check_guard_signature_boundaries.py --canonical --secp-auditor "${RUNNER_TEMP}/audit-guard-secp" --go "${RUNNER_TEMP}/sage-go-record010" --rust "${RUNNER_TEMP}/record010-rust/debug/sage-inspector-rust-adapter" --go-root ../sage --rust-root ../rs-sage-core --output "${RUNNER_TEMP}/guard-canonical-signatures"
+      - name: Preserve canonical Guard signature evidence
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: guard-canonical-signatures-${{ github.sha }}
+          path: ${{ runner.temp }}/guard-canonical-signatures/
+          if-no-files-found: error
+          retention-days: 30
       - name: Verify authenticated durable Guard reservations
         working-directory: sage-inspector
         env:

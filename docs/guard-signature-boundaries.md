@@ -40,3 +40,32 @@ identity fails; none counts as rejection. CI retains a separate signature-bounda
 artifact. Existing reports cannot be overwritten. Supplied binary hashes identify
 executables; they are not an attestation that arbitrary caller-supplied binaries came
 from the supplied source. CI's build steps establish that association for its run.
+
+## Canonical suite and historical correction
+
+The original result-role P-256 fixtures contain high-S signatures. They are
+mathematically valid ECDSA proofs but do not meet the local SAGE low-S rule. The
+original report therefore establishes rejection of those inputs, not rejection of
+fully profile-valid P-256 result proofs. Its frozen bytes and results are retained.
+Use `guard-canonical-signatures.json` for the corrected algorithm-boundary evidence.
+All four P-256 signatures in that suite satisfy the low-S requirement; original
+messages and keys are unchanged. This corrects test evidence, not a core vulnerability.
+
+The canonical suite adds four secp256k1 fixtures: intent/result, each correctly labelled
+or labelled Ed25519. Python/OpenSSL signs the Keccak-256 digest with prehashed ECDSA
+(the prehashed API does not rehash it with SHA-256). Low-S normalization is applied
+only while producing public test fixtures; incoming signatures are never normalized
+by the auditor. A Go/decred auditor independently verifies scalar bounds, ordinary
+ECDSA and recovery to the exact key for v=0/1, using Keccak without an EIP-191 prefix.
+The auditor imports no SAGE verification code. Node/OpenSSL separately verifies the
+Ed25519/P-256 fixtures and, for the canonical suite, their scalar bounds and low-S.
+
+Run the checker with `--canonical --secp-auditor /path/to/audit-guard-secp` in addition
+to the existing arguments. Build that auditor from `adapters/go/cmd/audit-guard-secp`.
+Fourteen cases per core mean 28 actual primitive processes; each accepts only the two
+Ed25519 positive controls. The report records which suite ran and the auditor hash.
+CI keeps `guard-canonical-signatures-<revision>` separately from the historical suite.
+
+Both unsupported elliptic-curve families still reach an Ed25519-only Authority seam;
+this does not establish active-key registry negotiation or complete MCP binding
+conformance. Outer/handshake roles and the 71 proposed protocol cases remain NOT_RUN.

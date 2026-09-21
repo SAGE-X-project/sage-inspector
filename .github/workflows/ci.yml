@@ -264,6 +264,8 @@ jobs:
         run: |
           (cd adapters/go && go test -race ./cmd/audit-guard-secp && go build -o "${RUNNER_TEMP}/audit-guard-secp" ./cmd/audit-guard-secp)
           python3 -B scripts/check_guard_signature_boundaries.py --canonical --secp-auditor "${RUNNER_TEMP}/audit-guard-secp" --go "${RUNNER_TEMP}/sage-go-record010" --rust "${RUNNER_TEMP}/record010-rust/debug/sage-inspector-rust-adapter" --go-root ../sage --rust-root ../rs-sage-core --output "${RUNNER_TEMP}/guard-canonical-signatures"
+          python3 -B scripts/test_guard_signature_evidence.py
+          python3 -B scripts/verify_guard_signature_evidence.py --evidence "${RUNNER_TEMP}/guard-canonical-signatures" --revision "$(git rev-parse HEAD)" --go "${RUNNER_TEMP}/sage-go-record010" --rust "${RUNNER_TEMP}/record010-rust/debug/sage-inspector-rust-adapter" --audit "${RUNNER_TEMP}/audit-guard-secp"
       - name: Preserve canonical Guard signature evidence
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1

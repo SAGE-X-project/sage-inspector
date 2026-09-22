@@ -20,7 +20,7 @@ class ProtectedTests(unittest.TestCase):
         frames = json.loads((self.root/'frames.json').read_text())
         self.requests = [bytes.fromhex(x) for x in frames['requests']]
         self.responses = [bytes.fromhex(x) for x in frames['responses']]
-        self.setup = {'session_id':json.loads(self.requests[1])['session_id']}
+        self.setup = {'session_id':json.loads(self.requests[1])['session_id'],'independent_signatures':9}
 
     def check(self):
         return flow.validate(self.root,self.requests,self.responses,self.setup)
@@ -35,7 +35,10 @@ class ProtectedTests(unittest.TestCase):
     def test_real_public_fixture_signatures_and_journals(self):
         result=setup(self.requests[:4],self.responses[:4])
         self.assertEqual(result['session_id'],self.setup['session_id'])
-        self.assertEqual(self.check()['effects'],1)
+        observation=self.check()
+        self.assertEqual(observation['effects'],1)
+        self.assertEqual(observation['frames'],len(self.requests)+len(self.responses))
+        self.assertEqual(observation['independent_signatures'],9+2*(len(self.requests)-4)+2)
 
     @patch.object(flow,'verify')
     def test_delivery_and_effect_disagreement(self,_):

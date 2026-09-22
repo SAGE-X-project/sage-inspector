@@ -107,4 +107,6 @@ def validate(directory, requests, responses, setup):
             or r['keyid'] != BOB+'#signing-1' or r['alg'] != 'ed25519' or r['version'] != '0.10.0'
             or not i['created'] <= r['created'] < r['expires'] <= i['expires']): raise ValueError('signed result binding')
     return dict(protected_exchanges=count,effects=1,terminal_records=1,
+                frames=2*len(requests),setup_signature_checks=setup['independent_signatures'],
+                independent_signatures=setup['independent_signatures']+2*count+2,
                 protected_signature_checks=2*count+2,execution_transitions=['RESERVED','EXECUTING','COMPLETED'])

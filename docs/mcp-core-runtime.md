@@ -6,8 +6,8 @@ adapter or a Go/Rust interoperability result. It deliberately uses the existing
 private core path rather than exporting session keys, resettable history or an
 alternate sender for verification.
 
-Inputs are Go `fb1a00cbda517c069a8b2c7bcad87b7e54a5cc75` and Rust
-`c8c9b0c6540a66f8d81e7a49a7631f51517c64b6`. The runner archives these exact commits
+Inputs are Go `9e878b1b7a96c7623f700b34bc4f361a26c51c5d` and Rust
+`6874fbc694d61952890b46c26d5345c11b5bb5f1`. The runner archives these exact commits
 and builds temporary copies. Dirty and untracked working files are not used or
 modified. The old [owner review](mcp-owner-core-review.md) and
 [proposal catalog](mcp-consolidated-catalog.md) remain historical records at their
@@ -44,7 +44,7 @@ An existing evidence directory is never overwritten. Classifier tests and harmle
 local process success/failure/timeout tests run in Inspector CI; core runtime execution
 also runs in the native MCP CI job with the pinned repositories and dependencies.
 
-The report's PASS means only that all twenty-eight selected core tests executed and
+The report's PASS means only that all thirty selected core tests executed and
 passed. Raw protocol frames, complete journals, callback identities and independent
 wire assertions are not collected by this adapter. Accordingly, interoperability
 remains NOT_RUN and conformance remains NOT_ESTABLISHED. The historical catalog stays
@@ -85,15 +85,17 @@ are not equivalent across languages and do not cover every deadline ordering.
 
 CI preserves these reports separately under `mcp-core-runtime` in the native MCP
 artifact. Historical catalog cases remain NOT_RUN and conformance remains
-NOT_ESTABLISHED. The case overlay currently has complete evidence for three resolution
+NOT_ESTABLISHED. The case overlay currently has complete evidence for four resolution
 cases. Independent per-case evidence and remaining ordering schedules must be added
 before promoting any other current result or normative coverage.
 
 ## Owner admission schedules
 
-Seven additional tests per core bind durable EXECUTING admission, crash recovery,
+Eight additional tests per core bind durable EXECUTING admission, crash recovery,
 close visibility during paused callbacks, owner history and shared-capacity isolation, and suppression
-of late protected output without changing the terminal journal. The crash schedule
+of late protected output without changing the terminal journal. The deadline schedule
+expires exactly at the final admission boundary and checks retained request identity,
+intent reservation, owner closure and zero effects. The crash schedule
 uses a child test process and temporary journal to leave an admitted EXECUTING row,
 then verifies stale-lock rejection, trusted lock recovery to UNKNOWN and zero
 redispatch. Each report row records the exact boundary IDs from the hashed contract.

@@ -1,0 +1,7 @@
+
+// Compiled only into the Inspector-owned temporary source copy.
+impl NonHTTPOwner010 {
+    pub(crate) fn inspector_secret010(&self) -> Option<([u8; 32], [u8; 32], String)> {
+        self.session.records.as_ref()?.inspector_secret010()
+    }
+}

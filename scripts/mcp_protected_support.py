@@ -5,8 +5,18 @@ import socket
 import struct
 from test_mcp_session010 import rpc_fixture
 from test_completion010 import canonical, sign, encode, decode, verify, ALICE, BOB
+from mcp_record_plaintext import validate_plaintext
 
 OUTPUT = {'text':'inert public fixture'}
+
+
+def plaintext_evidence(directory, requests, responses, setup):
+    present=[(directory/name).exists() for name in ('crypto-client.json','crypto-server.json')]
+    if not any(present):
+        return {}
+    if not all(present):
+        raise ValueError('incomplete session secret evidence')
+    return validate_plaintext(directory,requests,responses,setup)
 
 
 def intent():
@@ -110,10 +120,12 @@ def validate(directory, requests, responses, setup, *, effects=1, start=460000):
             or r['keyid'] != BOB+'#signing-1' or r['alg'] != 'ed25519' or r['version'] != '0.10.0'
             or any(type(v) is not int for v in (i['created'],i['expires'],r['created'],r['expires']))
             or not i['created'] <= r['created'] < r['expires'] <= i['expires']): raise ValueError('signed result binding')
+    plaintext=plaintext_evidence(directory,requests,responses,setup)
     return dict(protected_exchanges=count,effects=effects,terminal_records=1,
                 frames=2*len(requests),setup_signature_checks=setup['independent_signatures'],
                 independent_signatures=setup['independent_signatures']+2*count+2,
-                protected_signature_checks=2*count+2,execution_transitions=['RESERVED','EXECUTING','COMPLETED'])
+                protected_signature_checks=2*count+2,execution_transitions=['RESERVED','EXECUTING','COMPLETED'],
+                **plaintext)
 
 
 def validate_recovery(directory, requests, responses, setup, mode):
@@ -135,8 +147,9 @@ def validate_recovery(directory, requests, responses, setup, mode):
             raise ValueError('consumed client journal changed')
         if len([r for r in rows(directory/'client.journal','sage-guard-client|0.10.0') if r.get('kind') == 'terminal']) != 1:
             raise ValueError('missing consumed terminal')
+        plaintext=plaintext_evidence(directory,requests,responses,setup)
         result = dict(protected_exchanges=0,effects=0,terminal_records=1,frames=8,
-                      independent_signatures=setup['independent_signatures'])
+                      independent_signatures=setup['independent_signatures'],**plaintext)
     result.update(recovery=mode,server_journal_unchanged=True)
     if mode == 'client': result['client_journal_unchanged'] = True
     return result

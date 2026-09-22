@@ -39,6 +39,16 @@ impl Handler for BridgeHandler {
         }
         // Connection::establish invokes handlers only after real setup READY.
         let role = if self.initiator { "client" } else { "server" };
+        let (mut seed, mut th, sid) = connection.inspector_secret010().ok_or(g::Invalid)?;
+        bridge_write(
+            self.dir.join(format!("crypto-{role}.json")),
+            serde_json::to_vec(&json!({"fixture":"public-test-only","seed_hex":hex::encode(seed),
+                "th_hex":hex::encode(th),"session_id":sid})).unwrap(),
+        )
+        .map_err(|_| g::Invalid)?;
+        use zeroize::Zeroize;
+        seed.zeroize();
+        th.zeroize();
         if std::env::var("SAGE_BRIDGE_PROTECTED").as_deref() == Ok("1") {
             let recovery = std::env::var("SAGE_BRIDGE_RECOVERY").unwrap_or_default();
             let observation = if self.initiator {

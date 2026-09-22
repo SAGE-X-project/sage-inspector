@@ -408,3 +408,11 @@ Canonical Guard 증거 재검사기를 저장소와 CI에 추가했다. 고정 f
 판정이 아니라 새 제안과의 연결 조건이다. 다음은 **저장 지연 중 무효화까지 포함한
 admission/close 계약과 lock 순서 확정**, 이후 독립 검토·규범 조정/채택, 두 코어 owner
 구현, 네 언어 조합 실제 협상 검증 순서다. 외부 검토와 규범 채택은 완료되지 않았다.
+
+
+네이티브 MCP 보호 레코드의 독립 복호화를 추가했다. Inspector 전용 임시 코어
+스냅샷에서 공개 fixture 세션 seed와 transcript hash만 추출하며 운영 코어 API에는
+추가하지 않는다. 별도 Node 구현이 HKDF-Expand·ChaCha20-Poly1305·방향·sequence·nonce·
+canonical AAD를 검산하고, 복호화된 setup 및 `tools/call` 메시지를 원본 intent, inner
+RPC ID, 서명 결과와 terminal journal에 연결한다. 네 언어 조합과 재시작 증거를
+오프라인에서 재검증하지만 artifact 실행 출처, live registry와 전체 적합성은 증명하지 않는다.

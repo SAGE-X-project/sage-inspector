@@ -1,0 +1,97 @@
+package guard010
+
+import (
+	"context"
+	"encoding/json"
+	"net"
+	"os"
+	"path/filepath"
+	"testing"
+	"time"
+)
+
+// Only compiled into an Inspector-owned temporary test snapshot. No public API.
+func TestInspectorMCPBridge(t *testing.T) {
+	dir := os.Getenv("SAGE_BRIDGE_DIR")
+	role := os.Getenv("SAGE_BRIDGE_ROLE")
+	if dir == "" || (role != "client" && role != "server") {
+		t.Fatal("missing bridge configuration")
+	}
+	_, host := hostFixture(t)
+	alice, bob, _ := setupEndpoints(t)
+	cfg := mcpConnectionConfig{endpoint: bob, name: "inspector", version: "1", ttl: 300, timeout: 10 * time.Second}
+	var conn net.Conn
+	var err error
+	if role == "server" {
+		listener, e := net.Listen("tcp", "127.0.0.1:0")
+		if e != nil {
+			t.Fatal(e)
+		}
+		defer listener.Close()
+		if e = listener.(*net.TCPListener).SetDeadline(time.Now().Add(10 * time.Second)); e != nil {
+			t.Fatal(e)
+		}
+		if e = bridgeWrite(filepath.Join(dir, "address"), []byte(listener.Addr().String())); e != nil {
+			t.Fatal(e)
+		}
+		conn, err = listener.Accept()
+	} else {
+		addr := os.Getenv("SAGE_BRIDGE_PEER")
+		endpoint, e := net.ResolveTCPAddr("tcp", addr)
+		if e != nil || endpoint.IP.String() != "127.0.0.1" {
+			t.Fatal("loopback required")
+		}
+		conn, err = net.DialTimeout("tcp", addr, 3*time.Second)
+		cfg.endpoint = alice
+		cfg.initiator = true
+		cfg.recipient = setupBob
+		cfg.recipientKey = setupBob + "#signing-1"
+	}
+	if err != nil {
+		t.Fatal(err)
+	}
+	ready := false
+	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+	defer cancel()
+	err = host.connection(ctx, conn, cfg, func(context.Context) error { return nil }, func(_ context.Context, s *mcpSetupSession, _ mcpSetupIO) error {
+		s.owner.mu.Lock()
+		live := s.owner.phase == mcpReady
+		s.owner.mu.Unlock()
+		if !live {
+			return ErrInvalid
+		}
+		raw, _ := json.Marshal(map[string]any{"role": role, "state": "READY", "protected": "NOT_RUN"})
+		if e := bridgeWrite(filepath.Join(dir, role+".json"), raw); e != nil {
+			return e
+		}
+		ready = true
+		end := time.Now().Add(10 * time.Second)
+		for time.Now().Before(end) {
+			if _, e := os.Stat(filepath.Join(dir, "release")); e == nil {
+				return nil
+			}
+			time.Sleep(time.Millisecond)
+		}
+		return ErrInvalid
+	})
+	// Peer shutdown after the shared release may race the final liveness check.
+	// Only READY before release is evidence; post-release delivery is not claimed.
+	if !ready {
+		t.Fatal("setup did not reach READY", err)
+	}
+	if _, e := os.Stat(filepath.Join(dir, "release")); e != nil {
+		t.Fatal("controller did not release")
+	}
+	stop, cancelStop := context.WithTimeout(context.Background(), 3*time.Second)
+	defer cancelStop()
+	if e := host.stop(stop); e != nil {
+		t.Fatal(e)
+	}
+}
+
+func bridgeWrite(path string, raw []byte) error {
+	if err := os.WriteFile(path+".tmp", raw, 0600); err != nil {
+		return err
+	}
+	return os.Rename(path+".tmp", path)
+}

@@ -49,7 +49,7 @@ wire assertions are not collected by this adapter. Accordingly, interoperability
 remains NOT_RUN, conformance remains NOT_ESTABLISHED, all 71 catalog cases remain
 NOT_RUN and the 26 mandatory child obligations are not promoted.
 
-Next implement a private test-only peer bridge for each core that retains the actual
-owner and sole transport path. Then execute Go/Go, Go/Rust, Rust/Go and Rust/Rust
-sessions and independently inspect raw messages, journals and bounded effect counts.
+The [native setup bridges](mcp-native-setup.md) now retain the actual owner and sole
+transport path for Go/Go, Go/Rust, Rust/Go and Rust/Rust setup exchanges. Protected
+execution, journal inspection and bounded effect counts remain the next work.
 Only cases with complete bindings and observed assertions can change status.

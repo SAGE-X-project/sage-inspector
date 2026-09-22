@@ -102,7 +102,13 @@ class AuditTests(unittest.TestCase):
         self.assertIn('duplicate JSON key',json.loads(run.stdout)['error'])
 
     def test_saved_evidence_recomputed(self):
-        self.assertEqual(len(audit(self.root)['checks']),12)
+        result=audit(self.root)
+        self.assertEqual(len(result['checks']),12)
+        self.assertEqual(result['session_freshness'],{'status':'NOT_RUN'})
+
+    def test_freshness_claim_rejects_copied_session_fixture(self):
+        self.report['session_freshness']={'status':'PASS'};self.save()
+        with self.assertRaisesRegex(ValueError,'reused session contribution'):audit(self.root)
 
     def test_missing_or_duplicate_pair_rejected(self):
         for key in ('pairs','restart'):

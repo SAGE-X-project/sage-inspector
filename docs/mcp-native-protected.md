@@ -140,3 +140,24 @@ values cannot stand in for delivery/denial flags. Journal times and expiry field
 are compared without integer/float coercion, and signed intent/result time bounds
 must decode as integers. Local-only controls cover both direct checks and rehashed
 saved artifacts through the audit CLI; this does not change core protocol behavior.
+
+## Contributions across independent sessions
+
+New runner reports include `session_freshness`. After every selected pair has passed
+its individual checks, Inspector compares authenticated transcripts across the four
+baseline sessions, or all twelve sessions with `--restart`. Context IDs, initiation
+nonces, KEM encapsulated public keys, both ephemeral E2E public keys, ephemeral key IDs,
+transcript hashes and derived session IDs must each be distinct. Public key reuse is
+also rejected across the three ephemeral roles. Binary comparisons use decoded bytes.
+Fixed signing keys, the registered KEM key and the repeated authorized intent are not
+expected to change and are excluded from this comparison.
+
+The saved-evidence auditor recomputes this claim when present. Historical reports
+without it remain auditable but explicitly report freshness NOT_RUN. Existing fixture
+controls contain copied sessions and cannot claim freshness PASS. New local tests
+cover repeated contributions, cross-role reuse, binary aliases and incomplete matrices;
+none of the modified inputs is sent to a peer.
+
+This establishes observed uniqueness within one captured run. It is not a proof of
+random-number entropy, key secrecy, secure erasure, durable replay equivalence or
+uniqueness across different archived runs. Full conformance remains NOT_ESTABLISHED.

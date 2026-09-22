@@ -26,7 +26,7 @@ class OwnerAdmissionContractTests(unittest.TestCase):
         self.assertEqual(report['status'], 'PASS')
         self.assertEqual(report['runtime'], 'NOT_RUN')
         self.assertEqual(report['conformance'], 'NOT_ESTABLISHED')
-        self.assertEqual(report['selected_tests'], {'go': 7, 'rust': 7})
+        self.assertEqual(report['selected_tests'], {'go': 8, 'rust': 8})
         self.assertTrue(all(row['status'] == 'NOT_CHECKED' for row in report['source_identity'].values()))
 
     def test_rejects_claim_promotion_and_incomplete_coverage(self):

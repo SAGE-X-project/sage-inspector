@@ -7,8 +7,8 @@ initialize, initialized acknowledgement and discovery before its connection
 handler can publish READY. This advances beyond the selected single-core tests
 in [runtime evidence](mcp-core-runtime.md).
 
-The inputs remain Go `fb1a00cbda517c069a8b2c7bcad87b7e54a5cc75` and Rust
-`c8c9b0c6540a66f8d81e7a49a7631f51517c64b6`. Inspector archives those commits,
+The inputs remain Go `9e878b1b7a96c7623f700b34bc4f361a26c51c5d` and Rust
+`6874fbc694d61952890b46c26d5345c11b5bb5f1`. Inspector archives those commits,
 adds its bridge only to temporary test snapshots and appends one Rust test-module
 declaration. Production core source and public APIs are unchanged. Reports retain
 both original source archive hashes and added bridge hashes; these executables are

@@ -2,6 +2,7 @@
 import argparse
 import itertools
 import json
+from mcp_evidence_json import loads as strict_json
 import os
 from pathlib import Path
 import signal
@@ -48,7 +49,7 @@ def build(language, repo, output, work):
         artifacts = []
         for line in (output / 'rust-build.log').read_text().splitlines():
             if not line.startswith('{'): continue
-            item = json.loads(line)
+            item = strict_json(line)
             if (item.get('reason') == 'compiler-artifact' and item.get('executable')
                     and item.get('profile',{}).get('test')
                     and item.get('target',{}).get('name') == 'sage_crypto_core'):
@@ -89,10 +90,13 @@ def validate(requests, responses):
     if not __debug__: raise RuntimeError("independent verifier requires Python assertions")
     if len(requests) != 4 or len(responses) != 4:
         raise ValueError('expected handshake plus three setup exchanges')
+    # Check encoded handshake JSON before the independent verifier normalizes it.
+    strict_json(decode(strict_json(requests[0])['payload']))
+    strict_json(decode(strict_json(responses[0])['data']))
     transcript, th, sid = independent(requests[0],responses[0])
     ids, nonces = set(), set()
     for index,(request,response) in enumerate(zip(requests,responses)):
-        q,w = json.loads(request),json.loads(response)
+        q,w = strict_json(request),strict_json(response)
         if q['did'] != ALICE or q['recipient'] != BOB or w['did'] != BOB or w['recipient'] != ALICE:
             raise ValueError('peer identity')
         if (q.get('context_id') != transcript['ctx'] or w.get('context_id') != transcript['ctx']
@@ -166,7 +170,7 @@ def pair(left,right,programs,output,protected=False,recovery="",previous=None):
             # Protected peers finish independently after terminal delivery/EOF.
             # A finished sibling must not invalidate this peer's pending observation.
             peer = client if role == 'client' else server
-            value = json.loads(wait_file(directory/(role+'.json'),[peer],end))
+            value = strict_json(wait_file(directory/(role+'.json'),[peer],end))
             if not protected and value != dict(role=role,state='READY',protected='NOT_RUN'): raise ValueError('READY observation')
         (directory/'release').write_text('release\n')
         for process in processes: process.wait(timeout=max(.1,end-time.monotonic()))
@@ -221,7 +225,7 @@ def main():
         report['inspector_revision'] = subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
         report['inspector_dirty'] = bool(subprocess.check_output(['git','status','--porcelain'],cwd=ROOT,text=True))
         report['scripts'] = {}
-        for name in ('run_mcp_setup_interop.py','run_mcp_core_runtime.py','test_completion010.py','test_record010_adapters.py','mcp_protected_support.py','test_mcp_session010.py'):
+        for name in ('run_mcp_setup_interop.py','run_mcp_core_runtime.py','test_completion010.py','test_record010_adapters.py','mcp_protected_support.py','test_mcp_session010.py','mcp_evidence_json.py'):
             source = ROOT/'scripts'/name;(output/name).write_bytes(source.read_bytes());report['scripts'][name] = digest(source)
         with tempfile.TemporaryDirectory(prefix='sage-mcp-interop-') as tmp:
             programs = {}

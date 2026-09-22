@@ -1,6 +1,6 @@
 """Independent observations for benign protected calls through native bridges."""
 import hashlib
-import json
+from mcp_evidence_json import loads as strict_json
 import socket
 import struct
 from test_mcp_session010 import rpc_fixture
@@ -41,25 +41,25 @@ def relay(source, target, frames, errors):
 def rows(path, header):
     lines = path.read_text().splitlines()
     if not lines or lines[0] != header: raise ValueError('journal header')
-    return [json.loads(line) for line in lines[1:]]
+    return [strict_json(line) for line in lines[1:]]
 
 
 def validate(directory, requests, responses, setup, *, effects=1, start=460000):
     if not __debug__: raise RuntimeError("signature verification requires Python assertions")
     original = (directory/'intent.json').read_bytes()
-    env = json.loads(original);i = env['intent']
+    env = strict_json(original);i = env['intent']
     verify(b'sage-execution-intent|0.10.0\0'+canonical(i),decode(env['proof']),1)
-    client = json.loads((directory/'client.json').read_bytes())
-    server = json.loads((directory/'server.json').read_bytes())
+    client = strict_json((directory/'client.json').read_bytes())
+    server = strict_json((directory/'server.json').read_bytes())
     count = len(requests)-4
     if not 1 <= count <= 4 or len(responses) != len(requests): raise ValueError('protected frame count')
     expected = dict(role='client',state='READY',status='completed',first_terminal=True,
                     output_hex=canonical(OUTPUT).hex(),attempts=count,repeat_denied=True)
     if client != expected or server != dict(role='server',state='READY',effects=effects): raise ValueError('delivery or effect observation')
-    context = json.loads(requests[0])['context_id']
+    context = strict_json(requests[0])['context_id']
     nonces,ids = set(),set()
     for index,(request,response) in enumerate(zip(requests,responses)):
-        q,w = json.loads(request),json.loads(response)
+        q,w = strict_json(request),strict_json(response)
         for v in (q,w):
             if v['nonce'] in nonces or v['id'] in ids: raise ValueError('reused wire identity')
             nonces.add(v['nonce']);ids.add(v['id'])
@@ -99,7 +99,7 @@ def validate(directory, requests, responses, setup, *, effects=1, start=460000):
         raise ValueError('terminal invocation')
     terminal = [r for r in client_rows if r.get('kind') == 'terminal']
     if len(terminal) != 1 or terminal[0]['result_hex'] != completed[0]['result_hex']: raise ValueError('terminal bytes differ')
-    result = json.loads(bytes.fromhex(completed[0]['result_hex']));r=result['result']
+    result = strict_json(bytes.fromhex(completed[0]['result_hex']));r=result['result']
     verify(b'sage-tool-result|0.10.0\0'+canonical(r),decode(result['proof']),2)
     if (r['issuer'] != BOB or r['recipient'] != ALICE or r['request_id'] != i['request_id']
             or r['call_id'] != i['call_id'] or r['intent_digest'] != hashlib.sha256(original).hexdigest()
@@ -122,9 +122,9 @@ def validate_recovery(directory, requests, responses, setup, mode):
         if result['protected_exchanges'] != 1: raise ValueError('completed recovery did not reply immediately')
     else:
         if len(requests) != 4 or len(responses) != 4: raise ValueError('consumed client sent protected traffic')
-        if json.loads((directory/'client.json').read_bytes()) != dict(role='client',state='READY',reopen_denied=True):
+        if strict_json((directory/'client.json').read_bytes()) != dict(role='client',state='READY',reopen_denied=True):
             raise ValueError('client reopen observation')
-        if json.loads((directory/'server.json').read_bytes()) != dict(role='server',state='READY',effects=0):
+        if strict_json((directory/'server.json').read_bytes()) != dict(role='server',state='READY',effects=0):
             raise ValueError('reopened server effect observation')
         client_before = (directory/'client.journal.before').read_bytes()
         if (directory/'client.journal').read_bytes() != client_before:

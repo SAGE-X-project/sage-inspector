@@ -2,6 +2,7 @@
 import argparse
 import itertools
 import json
+from mcp_evidence_json import loads as strict_json
 from pathlib import Path
 import sys
 from run_mcp_core_runtime import digest, observed
@@ -15,7 +16,7 @@ def audit(root):
     if not __debug__:
         raise ValueError('signature verification requires Python assertions')
     root = Path(root).resolve(strict=True)
-    report = json.loads((root/'report.json').read_bytes())
+    report = strict_json((root/'report.json').read_bytes())
     if (report.get('kind') != 'mcp-native-protected-interop' or report.get('status') != 'PASS'
             or report.get('completed_recovery') != 'SELECTED_ASSERTIONS_PASS'):
         raise ValueError('complete restart report required')
@@ -45,7 +46,7 @@ def audit(root):
         for language,role in ((right,'server'),(left,'client')):
             if not observed(language,TESTS[language],(directory/(role+'.log')).read_text(),0):
                 raise ValueError('exact bridge execution missing')
-        frames = json.loads((directory/'frames.json').read_bytes())
+        frames = strict_json((directory/'frames.json').read_bytes())
         requests = [bytes.fromhex(raw) for raw in frames['requests']]
         responses = [bytes.fromhex(raw) for raw in frames['responses']]
         checked = setup(requests[:4],responses[:4])

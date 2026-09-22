@@ -30,6 +30,13 @@ ASSESSMENTS = {
             ('rust', 'hpke::completion010::tests::mcp_admission_tests::admitted_worker_persists_signed_result_once_and_duplicate_never_runs'),
         ),
     },
+    'mres-crash-after-admission': {
+        'status': 'PASS',
+        'requirements': (
+            ('go', 'TestMCPAdmissionCrashRecoveryDoesNotExecuteAgain'),
+            ('rust', 'hpke::completion010::tests::mcp_admission_tests::crash_recovery_marks_admission_unknown_and_never_executes_again'),
+        ),
+    },
 }
 
 
@@ -68,7 +75,7 @@ def validate_contract(value):
     require(value['catalog_manifest_sha256'] == CATALOG_MANIFEST_SHA, 'catalog binding')
     require(value['owner_admission_contract_sha256'] == sha(OWNER_CONTRACT.read_bytes()), 'owner contract binding')
     require(value['historical_catalog'] == {'NOT_RUN': 71}, 'historical catalog promotion')
-    require(value['runtime_case_counts'] == {'PASS': 2, 'PARTIAL': 0, 'NOT_RUN': 69}, 'runtime counts')
+    require(value['runtime_case_counts'] == {'PASS': 3, 'PARTIAL': 0, 'NOT_RUN': 68}, 'runtime counts')
     require(value['external_review'] == 'NOT_PERFORMED' and value['adoption'] == 'PROPOSAL_NOT_ADOPTED', 'review or adoption promotion')
     require(value['conformance'] == 'NOT_ESTABLISHED', 'conformance promotion')
     require(type(value['assessments']) is list and len(value['assessments']) == len(ASSESSMENTS), 'assessment count')
@@ -142,14 +149,14 @@ def inspect(runtime):
                           'claim': assessment['claim'], 'evidence': evidence[ident]})
         else:
             cases.append({'id': ident, 'source': row['source'], 'status': 'NOT_RUN'})
-    require(sum(row['status'] == 'PASS' for row in cases) == 2
+    require(sum(row['status'] == 'PASS' for row in cases) == 3
             and not any(row['status'] == 'PARTIAL' for row in cases), 'case result counts')
     return {
         'schema_version': 1,
         'kind': 'mcp-proposal-case-runtime-evidence',
         'status': 'EVIDENCE_CHECKED',
         'historical_catalog': {'NOT_RUN': 71},
-        'runtime_case_counts': {'PASS': 2, 'PARTIAL': 0, 'NOT_RUN': 69},
+        'runtime_case_counts': {'PASS': 3, 'PARTIAL': 0, 'NOT_RUN': 68},
         'external_review': 'NOT_PERFORMED',
         'adoption': 'PROPOSAL_NOT_ADOPTED',
         'conformance': 'NOT_ESTABLISHED',
@@ -157,7 +164,7 @@ def inspect(runtime):
         'runtime_report_sha256': sha(safe_read(runtime, 'report.json')),
         'runtime_inspector_revision': runtime_report.get('inspector_revision'),
         'cases': cases,
-        'limitation': 'Two pinned private core resolution cases; all other proposal cases and full protocol conformance remain unestablished.'
+        'limitation': 'Three pinned private core resolution cases; all other proposal cases and full protocol conformance remain unestablished.'
     }
 
 
@@ -178,7 +185,7 @@ def main():
     except (ValueError, KeyError, TypeError, OSError, UnicodeError, subprocess.SubprocessError) as error:
         print('MCP case evidence FAIL: ' + str(error), file=sys.stderr)
         return 1
-    print('MCP case evidence checked: 2 PASS, 0 PARTIAL, 69 NOT_RUN; conformance NOT_ESTABLISHED.')
+    print('MCP case evidence checked: 3 PASS, 0 PARTIAL, 68 NOT_RUN; conformance NOT_ESTABLISHED.')
     return 0
 
 

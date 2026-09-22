@@ -25,6 +25,7 @@ SELECTED_TESTS = {
     'go': {
         'TestMCPAdmissionAuthenticatedExecutionAndDuplicate', 'TestMCPAdmissionCloseDuringFence',
         'TestMCPAdmissionCloseAfterInsertionKeepsAdmission', 'TestMCPAdmissionSharedOwners',
+        'TestMCPAdmissionCrashRecoveryDoesNotExecuteAgain',
         'TestMCPOwnerBlockedSendDoesNotBlockClose',
         'TestMCPProtectedReplyCloseDoesNotReleaseBlockedOutput'},
     'rust': {
@@ -32,12 +33,13 @@ SELECTED_TESTS = {
         'hpke::completion010::tests::mcp_admission_tests::admitted_worker_persists_signed_result_once_and_duplicate_never_runs',
         'hpke::completion010::tests::mcp_admission_tests::close_during_post_fence_callback_denies_and_retains_history',
         'hpke::completion010::tests::mcp_admission_tests::capacity_is_shared_across_connections_and_retained_during_actual_run',
+        'hpke::completion010::tests::mcp_admission_tests::crash_recovery_marks_admission_unknown_and_never_executes_again',
         'hpke::completion010::tests::mcp_admission_tests::mcp_reply_tests::failed_reply_does_not_erase_execution_or_allow_second_response',
         'hpke::completion010::tests::mcp_admission_tests::mcp_reply_tests::close_after_durable_acceptance_suppresses_output_and_reopen_cannot_redeliver'},
 }
 TEST_MAPPING_HASHES = {
-    'go': '8be1daf14dd9fbd880963546a1c87e587923a4f0f775547909ae9796760b1edc',
-    'rust': '1296e952fc4fbc0588a2519254a6b2a6538257a2117ab9ce38f836b4851cf76f',
+    'go': 'c9e2f4329e79eb3e4dd244b5036eb125ee1e79c153799e91fb560c973a3e0e0a',
+    'rust': '8d258ac14b9295a78052cdfa5f562533c137d4a055b6517c74259c3ec0bf898e',
 }
 
 

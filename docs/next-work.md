@@ -419,7 +419,7 @@ RPC ID, 서명 결과와 terminal journal에 연결한다. 네 언어 조합과 
 
 
 [MCP owner admission·close 계약](mcp-owner-admission.md)은 최신 Go/Rust 코어에서
-과거 검토의 네 공백을 다시 대조한다. 고정 소스 해시와 리비전, 코어별 6개 실제
+과거 검토의 네 공백을 다시 대조한다. 고정 소스 해시와 리비전, 코어별 7개 실제
 테스트를 durable admission, close 선형화, owner 격리, output publication 경계에
 연결하고 누락·skip·중복·시간 초과를 실패 처리한다. 이는 고정 private 경로의 구현
 선행 조건 검증이며 외부 독립 검토, 규범 채택, 71개 전체 사례와 호스트 적합성은
@@ -429,6 +429,8 @@ RPC ID, 서명 결과와 terminal journal에 연결한다. 네 언어 조합과 
 [MCP 제안 사례별 실행 overlay](mcp-case-evidence.md)는 역사적 71개 `NOT_RUN`
 카탈로그를 변경하지 않고 현재 코어 증거를 별도로 판정한다. admission 이후 close는
 양쪽 코어의 정확한 테스트·로그가 충족되어 `PASS`다. reservation 이후 close도 Go의
-nonce·request-ID 이력 직접 관측을 보완하여 `PASS`로 판정했다. 나머지 69개는
-`NOT_RUN`으로 유지한다. 다음은 crash-after-admission·deadline 사례의 정확한 양쪽 코어
-관측을 보완하는 작업이며, 규범 채택과 전체 적합성은 별도다.
+nonce·request-ID 이력 직접 관측을 보완하여 `PASS`로 판정했다. durable admission 뒤
+프로세스가 종료되는 사례도 양쪽 코어에서 stale lock 거부, 신뢰된 복구의 `UNKNOWN`
+전환, 동일 intent 재실행 금지를 직접 관측해 `PASS`로 판정했다. 나머지 68개는
+`NOT_RUN`으로 유지한다. 다음은 deadline 사례의 정확한 양쪽 코어 관측을 보완하는
+작업이며, 규범 채택과 전체 적합성은 별도다.

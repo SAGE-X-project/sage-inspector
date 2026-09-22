@@ -3,13 +3,13 @@
 The earlier [core review](mcp-owner-core-review.md) identified four integration gaps
 at Go `be621819...` and Rust `ad30c6a...`. Both cores subsequently added private
 owner-aware admission and protected-reply paths. This review pins Go
-`941f1cfebee86b9ae4b0f9456833d484bc0c5d16` and Rust
-`8d91b2f85fb887f827bff752171315a57fd694ce`. It does not reinterpret the older
+`fb1a00cbda517c069a8b2c7bcad87b7e54a5cc75` and Rust
+`c8c9b0c6540a66f8d81e7a49a7631f51517c64b6`. It does not reinterpret the older
 decision at its original revisions.
 
 The machine-readable
 [contract](../verification/0.10.0/mcp-owner-admission-contract.json) binds the exact
-implementation and test files, their hashes, six selected tests per core and four
+implementation and test files, their hashes, seven selected tests per core and four
 boundaries:
 
 | Boundary | Required behavior |
@@ -44,8 +44,10 @@ These are source-level properties of the pinned private implementations. Hash an
 revision checks make source drift fail closed, while selected core tests exercise
 the actual scheduling seams with inert counters, temporary journals, controlled
 clocks and bounded local callbacks. The tests contain no external target or reusable
-attack path. The Go close-during-fence schedule directly compares the protected
-request ID retained by its owner and the durable nonce retained by the execution
+attack path. Each crash schedule exits an owned child process after durable admission,
+then proves that stale-lock rejection and trusted recovery produce UNKNOWN without
+redispatch or effects. The Go close-during-fence schedule directly compares the
+protected request ID retained by its owner and the durable nonce retained by the execution
 entry across successful, failed and uncertain persistence outcomes.
 
 ## Run and interpret
@@ -72,7 +74,7 @@ or host isolation, full 71-case coverage, or protocol conformance. Those statuse
 remain `NOT_ESTABLISHED` or `NOT_RUN` until their own evidence exists.
 
 On 2026-09-22, the source audit verified both pinned checkouts. The runtime adapter
-built both archived sources and passed 13 of 13 selected tests in each core, including
-all six owner-admission tests per core. The related Inspector controls and full Go
+built both archived sources and passed 14 of 14 selected tests in each core, including
+all seven owner-admission tests per core. The related Inspector controls and full Go
 test suite also passed. CI regenerates and preserves these reports rather than
 treating this local observation as immutable release evidence.

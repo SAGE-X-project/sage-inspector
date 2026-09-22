@@ -11,6 +11,7 @@ The current assessment is intentionally narrow:
 |---|---|---|---|
 | `mres-close-after-reservation` | `TestMCPAdmissionCloseDuringFence` | `close_during_post_fence_callback_denies_and_retains_history` | PASS |
 | `mres-close-after-admission` | close after insertion plus authenticated duplicate | admitted worker plus duplicate | PASS |
+| `mres-crash-after-admission` | `TestMCPAdmissionCrashRecoveryDoesNotExecuteAgain` | `crash_recovery_marks_admission_unknown_and_never_executes_again` | PASS |
 
 The first case observes closure after reservation and durable EXECUTING storage but
 before final owner admission. Both cores deny the effect, retain conservative durable
@@ -18,17 +19,21 @@ state and check retained request-ID history. Go also compares the exact stored n
 with the authenticated intent across successful, failed and uncertain persistence
 outcomes. The second case observes closure after committed admission. Its Go mapping
 also requires the authenticated duplicate test; both cores retain the outcome and
-prevent duplicate execution instead of claiming rollback.
+prevent duplicate execution instead of claiming rollback. The third case exits a
+child test process after durable EXECUTING admission and before the inert effect.
+Both cores reject reopening while the stale owner lock exists; after the parent
+proves exclusive ownership and clears that lock, recovery records UNKNOWN and the
+same signed intent cannot be dispatched again.
 
-All five tests use controlled clocks, temporary journals, inert effect counters and
+All seven tests use controlled clocks, temporary journals, inert effect counters and
 bounded local scheduling seams. They do not invoke an external target or implement
 an attack. Go executes under the race detector in the runtime adapter.
 
 ## Evidence derivation
 
 The [case contract](../verification/0.10.0/mcp-case-evidence-contract.json) binds the
-historical catalog manifest, owner-admission contract, two exact case IDs and their
-required tests across both cores. The checker requires a complete passing 26-test
+historical catalog manifest, owner-admission contract, three exact case IDs and their
+required tests across both cores. The checker requires a complete passing 28-test
 runtime report, both pinned core revisions, the preserved owner contract, the preserved
 runner hash, exact mapped test rows, hashed logs and one observed passing invocation
 per required test. Missing, duplicated, skipped, changed or merely relabelled logs
@@ -41,7 +46,7 @@ python3 -B scripts/check_mcp_case_evidence.py \
   --output /tmp/new-mcp-case-evidence
 ```
 
-The report contains all 71 case IDs. Two carry current `PASS` evidence and 69 remain
+The report contains all 71 case IDs. Three carry current `PASS` evidence and 68 remain
 `NOT_RUN`. The historical catalog field remains `{ "NOT_RUN": 71 }` so a consumer
 cannot confuse source-plan status with current runtime evidence. CI creates
 the overlay only after the pinned runtime runner succeeds and preserves both reports
@@ -53,6 +58,6 @@ PASS. Individual case status must be read from `runtime_case_counts` and `cases`
 `PASS` here means that the complete resolution-plan scenario ran through the pinned
 private implementations with its stated unit and bounded-runtime assertions. It does
 not establish independent external review, normative adoption, public API
-compatibility, live registry or host isolation, any of the other 69 cases, or full
-protocol conformance. Crash-after-admission, deadline and signature cases remain
-`NOT_RUN` until their exact inputs and required observations are present in both cores.
+compatibility, live registry or host isolation, any of the other 68 cases, or full
+protocol conformance. Deadline and signature cases remain `NOT_RUN` until their exact
+inputs and required observations are present in both cores.

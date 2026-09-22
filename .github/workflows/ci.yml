@@ -603,8 +603,8 @@ jobs:
           cargo fetch --manifest-path .mcp-rust/Cargo.toml
       - name: Run actual native setup bridges
         run: python3 -B scripts/run_mcp_setup_interop.py --go .mcp-go --rust .mcp-rust --output "${RUNNER_TEMP}/mcp-native-setup"
-      - name: Run protected calls and audit journals
-        run: python3 -B scripts/run_mcp_setup_interop.py --protected --go .mcp-go --rust .mcp-rust --output "${RUNNER_TEMP}/mcp-native-protected"
+      - name: Run protected calls and reopen completed journals
+        run: python3 -B scripts/run_mcp_setup_interop.py --restart --go .mcp-go --rust .mcp-rust --output "${RUNNER_TEMP}/mcp-native-protected"
       - name: Preserve native interoperability evidence
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1

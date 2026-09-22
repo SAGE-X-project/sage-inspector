@@ -44,7 +44,7 @@ def rows(path, header):
     return [json.loads(line) for line in lines[1:]]
 
 
-def validate(directory, requests, responses, setup):
+def validate(directory, requests, responses, setup, *, effects=1, start=460000):
     if not __debug__: raise RuntimeError("signature verification requires Python assertions")
     original = (directory/'intent.json').read_bytes()
     env = json.loads(original);i = env['intent']
@@ -55,7 +55,7 @@ def validate(directory, requests, responses, setup):
     if not 1 <= count <= 4 or len(responses) != len(requests): raise ValueError('protected frame count')
     expected = dict(role='client',state='READY',status='completed',first_terminal=True,
                     output_hex=canonical(OUTPUT).hex(),attempts=count,repeat_denied=True)
-    if client != expected or server != dict(role='server',state='READY',effects=1): raise ValueError('delivery or effect observation')
+    if client != expected or server != dict(role='server',state='READY',effects=effects): raise ValueError('delivery or effect observation')
     context = json.loads(requests[0])['context_id']
     nonces,ids = set(),set()
     for index,(request,response) in enumerate(zip(requests,responses)):
@@ -90,7 +90,7 @@ def validate(directory, requests, responses, setup):
     consumed = set()
     for n in range(count):
         sent,closed = client_rows[1+2*n:3+2*n]
-        if (sent['kind'] != 'send' or sent['id'] in consumed or sent['at'] != 460000+1000*n
+        if (sent['kind'] != 'send' or sent['id'] in consumed or sent['at'] != start+1000*n
                 or sent['intent_hex'] != '' or sent['result_hex'] != ''
                 or closed != dict(kind='close',id=sent['id'],at=0,intent_hex='',result_hex='')):
             raise ValueError('client invocation consumption')
@@ -106,7 +106,33 @@ def validate(directory, requests, responses, setup):
             or r['status'] != 'completed' or r['output'] != OUTPUT
             or r['keyid'] != BOB+'#signing-1' or r['alg'] != 'ed25519' or r['version'] != '0.10.0'
             or not i['created'] <= r['created'] < r['expires'] <= i['expires']): raise ValueError('signed result binding')
-    return dict(protected_exchanges=count,effects=1,terminal_records=1,
+    return dict(protected_exchanges=count,effects=effects,terminal_records=1,
                 frames=2*len(requests),setup_signature_checks=setup['independent_signatures'],
                 independent_signatures=setup['independent_signatures']+2*count+2,
                 protected_signature_checks=2*count+2,execution_transitions=['RESERVED','EXECUTING','COMPLETED'])
+
+
+def validate_recovery(directory, requests, responses, setup, mode):
+    if mode not in ('server','client'): raise ValueError('recovery mode')
+    before = (directory/'server.journal.before').read_bytes()
+    if (directory/'server.journal').read_bytes() != before:
+        raise ValueError('server journal changed after completed recovery')
+    if mode == 'server':
+        result = validate(directory, requests, responses, setup, effects=0, start=465000)
+        if result['protected_exchanges'] != 1: raise ValueError('completed recovery did not reply immediately')
+    else:
+        if len(requests) != 4 or len(responses) != 4: raise ValueError('consumed client sent protected traffic')
+        if json.loads((directory/'client.json').read_bytes()) != dict(role='client',state='READY',reopen_denied=True):
+            raise ValueError('client reopen observation')
+        if json.loads((directory/'server.json').read_bytes()) != dict(role='server',state='READY',effects=0):
+            raise ValueError('reopened server effect observation')
+        client_before = (directory/'client.journal.before').read_bytes()
+        if (directory/'client.journal').read_bytes() != client_before:
+            raise ValueError('consumed client journal changed')
+        if len([r for r in rows(directory/'client.journal','sage-guard-client|0.10.0') if r.get('kind') == 'terminal']) != 1:
+            raise ValueError('missing consumed terminal')
+        result = dict(protected_exchanges=0,effects=0,terminal_records=1,frames=8,
+                      independent_signatures=setup['independent_signatures'])
+    result.update(recovery=mode,server_journal_unchanged=True)
+    if mode == 'client': result['client_journal_unchanged'] = True
+    return result

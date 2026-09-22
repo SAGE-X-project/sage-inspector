@@ -26,7 +26,7 @@ Rust dependencies. Python optimization is unsupported because the reused indepen
 completion verifier relies on assertions; validation explicitly fails under `-O`.
 The output directory must be new and outside Inspector and both core repositories.
 CI prepares dependencies, runs the actual bridges on Linux and preserves evidence
-in `mcp-native-setup-<revision>` artifacts.
+in `mcp-native-interop-<revision>` artifacts.
 
 ## Observations
 
@@ -64,7 +64,7 @@ journals, verify every deadline/closure schedule, or establish deployment confor
 The historical catalog remains 71 NOT_RUN and its 26 mandatory child obligations
 are not promoted. Historical reviews and reports retain their original revisions.
 
-Next extend the private bridges with a common signed intent and inert bounded
-effect, then verify protected result delivery, execution journals and consumption
-across the same four combinations. Add per-case negative and scheduling evidence
+The [protected interoperability extension](mcp-native-protected.md) now adds a
+common signed intent, inert bounded effect, result delivery and selected journal
+assertions across the same four combinations. Add per-case negative and scheduling evidence
 only with complete actual bindings and independent observed assertions.

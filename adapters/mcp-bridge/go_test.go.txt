@@ -1,11 +1,14 @@
 package guard010
 
 import (
+	"bytes"
 	"context"
+	"encoding/hex"
 	"encoding/json"
 	"net"
 	"os"
 	"path/filepath"
+	"strconv"
 	"testing"
 	"time"
 )
@@ -17,8 +20,9 @@ func TestInspectorMCPBridge(t *testing.T) {
 	if dir == "" || (role != "client" && role != "server") {
 		t.Fatal("missing bridge configuration")
 	}
-	_, host := hostFixture(t)
-	alice, bob, _ := setupEndpoints(t)
+	fixture, host := hostFixture(t)
+	protected := os.Getenv("SAGE_BRIDGE_PROTECTED") == "1"
+	alice, bob, endpointClock := setupEndpoints(t)
 	cfg := mcpConnectionConfig{endpoint: bob, name: "inspector", version: "1", ttl: 300, timeout: 10 * time.Second}
 	var conn net.Conn
 	var err error
@@ -53,12 +57,85 @@ func TestInspectorMCPBridge(t *testing.T) {
 	ready := false
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
-	err = host.connection(ctx, conn, cfg, func(context.Context) error { return nil }, func(_ context.Context, s *mcpSetupSession, _ mcpSetupIO) error {
+	err = host.connection(ctx, conn, cfg, func(context.Context) error { return nil }, func(ctx context.Context, s *mcpSetupSession, stream mcpSetupIO) error {
 		s.owner.mu.Lock()
 		live := s.owner.phase == mcpReady
 		s.owner.mu.Unlock()
 		if !live {
 			return ErrInvalid
+		}
+		if protected {
+			intent, e := os.ReadFile(filepath.Join(dir, "intent.json"))
+			if e != nil {
+				return e
+			}
+			if !bytes.Equal(intent, fixture.intent) {
+				t.Error("common intent differs from core fixture")
+				return ErrInvalid
+			}
+			fixture.executor.output = []byte(`{"text":"inert public fixture"}`)
+			if role == "client" {
+				client, e := openMCPOwnedClient(ctx, s, host.clients, filepath.Join(dir, "client.journal"), true, intent, fixture.config.authority, fixture.config.resultAuthority, fixture.config.policy, replyClientClock{fixture})
+				if e != nil {
+					return e
+				}
+				defer client.client.Close()
+				var delivery *ClientDelivery
+				attempts := 0
+				for attempts < 4 {
+					if attempts > 0 {
+						if e := bridgeWrite(filepath.Join(dir, "clock"), []byte(strconv.Itoa(360000+attempts*1000))); e != nil {
+							return e
+						}
+					}
+					bridgeSyncClock(t, dir, fixture.clock, endpointClock)
+					attempts++
+					delivery, e = client.exchange(ctx, stream)
+					if e != nil {
+						return e
+					}
+					if delivery.Status() == "completed" {
+						break
+					}
+					if delivery.Status() != "pending" {
+						return ErrInvalid
+					}
+					time.Sleep(10 * time.Millisecond)
+				}
+				if delivery == nil || !delivery.FirstTerminal() || string(delivery.Output()) != `{"text":"inert public fixture"}` {
+					return ErrInvalid
+				}
+				if _, e = client.exchange(ctx, stream); e == nil {
+					return ErrInvalid
+				}
+				raw, _ := json.Marshal(map[string]any{"role": role, "state": "READY", "status": "completed", "first_terminal": true, "output_hex": fmtHex(delivery.Output()), "attempts": attempts, "repeat_denied": true})
+				if e = bridgeWrite(filepath.Join(dir, role+".json"), raw); e != nil {
+					return e
+				}
+			} else {
+				for {
+					wire, e := stream.Receive(ctx)
+					if e != nil {
+						break
+					}
+					bridgeSyncClock(t, dir, fixture.clock, endpointClock)
+					if _, e = s.admitProtected(ctx, wire, host.gate); e != nil {
+						return e
+					}
+					if e = s.replyProtected(ctx, stream); e != nil {
+						return e
+					}
+				}
+				if fixture.executor.effects.Load() != 1 {
+					return ErrInvalid
+				}
+				raw, _ := json.Marshal(map[string]any{"role": role, "state": "READY", "effects": fixture.executor.effects.Load()})
+				if e := bridgeWrite(filepath.Join(dir, role+".json"), raw); e != nil {
+					return e
+				}
+			}
+			ready = true
+			return nil
 		}
 		raw, _ := json.Marshal(map[string]any{"role": role, "state": "READY", "protected": "NOT_RUN"})
 		if e := bridgeWrite(filepath.Join(dir, role+".json"), raw); e != nil {
@@ -79,13 +156,25 @@ func TestInspectorMCPBridge(t *testing.T) {
 	if !ready {
 		t.Fatal("setup did not reach READY", err)
 	}
-	if _, e := os.Stat(filepath.Join(dir, "release")); e != nil {
+	if _, e := os.Stat(filepath.Join(dir, "release")); !protected && e != nil {
 		t.Fatal("controller did not release")
 	}
 	stop, cancelStop := context.WithTimeout(context.Background(), 3*time.Second)
 	defer cancelStop()
 	if e := host.stop(stop); e != nil {
 		t.Fatal(e)
+	}
+	if protected && role == "server" {
+		if e := fixture.gate.close(); e != nil {
+			t.Fatal(e)
+		}
+		raw, e := os.ReadFile(fixture.path)
+		if e != nil {
+			t.Fatal(e)
+		}
+		if e = bridgeWrite(filepath.Join(dir, "server.journal"), raw); e != nil {
+			t.Fatal(e)
+		}
 	}
 }
 
@@ -94,4 +183,20 @@ func bridgeWrite(path string, raw []byte) error {
 		return err
 	}
 	return os.Rename(path+".tmp", path)
+}
+
+func fmtHex(raw []byte) string { return hex.EncodeToString(raw) }
+
+func bridgeSyncClock(t *testing.T, dir string, clocks ...*setupRegistry) {
+	raw, e := os.ReadFile(filepath.Join(dir, "clock"))
+	if e != nil {
+		t.Fatal(e)
+	}
+	value, e := strconv.ParseInt(string(raw), 10, 64)
+	if e != nil {
+		t.Fatal(e)
+	}
+	for _, c := range clocks {
+		c.mono.Store(value)
+	}
 }

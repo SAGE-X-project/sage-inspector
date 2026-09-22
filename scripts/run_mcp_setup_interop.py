@@ -125,16 +125,20 @@ def wait_file(path, processes, end):
     raise TimeoutError('bridge rendezvous')
 
 
-def pair(left,right,programs,output):
+def pair(left,right,programs,output,protected=False):
     directory = output / (left+'-to-'+right)
     directory.mkdir()
+    if protected:
+        import mcp_protected_support as flow
+        (directory/"intent.json").write_bytes(flow.intent())
+        (directory/"clock").write_text("360000")
     processes, logs, sockets, threads = [], [], [], []
     requests, responses, errors = [], [], []
     def launch(language,role,peer=''):
         binary,cwd = programs[language]
         command = ([str(binary),'-test.run=^'+TESTS[language]+'$','-test.v','-test.timeout=20s']
                    if language == 'go' else [str(binary),TESTS[language],'--exact','--test-threads=1','--color=never'])
-        env = dict(os.environ,SAGE_BRIDGE_DIR=str(directory),SAGE_BRIDGE_ROLE=role,SAGE_BRIDGE_PEER=peer)
+        env = dict(os.environ,SAGE_BRIDGE_DIR=str(directory),SAGE_BRIDGE_ROLE=role,SAGE_BRIDGE_PEER=peer,SAGE_BRIDGE_PROTECTED="1" if protected else "0")
         log = (directory / (role+'.log')).open('xb');logs.append(log)
         p = subprocess.Popen(command,cwd=cwd,env=env,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
         processes.append(p)
@@ -152,10 +156,10 @@ def pair(left,right,programs,output):
         client = launch(left,'client','127.0.0.1:'+str(listener.getsockname()[1]))
         local,_ = listener.accept();local.settimeout(10);sockets.append(local)
         for source,target,frames in ((local,remote,requests),(remote,local,responses)):
-            thread = threading.Thread(target=relay,args=(source,target,frames,errors));thread.start();threads.append(thread)
+            thread = threading.Thread(target=flow.relay if protected else relay,args=(source,target,frames,errors));thread.start();threads.append(thread)
         for role in ('client','server'):
             value = json.loads(wait_file(directory/(role+'.json'),processes,end))
-            if value != dict(role=role,state='READY',protected='NOT_RUN'): raise ValueError('READY observation')
+            if not protected and value != dict(role=role,state='READY',protected='NOT_RUN'): raise ValueError('READY observation')
         (directory/'release').write_text('release\n')
         for process in processes: process.wait(timeout=max(.1,end-time.monotonic()))
         for thread in threads: thread.join(timeout=1)
@@ -163,7 +167,10 @@ def pair(left,right,programs,output):
         for language,role,process in ((right,'server',server),(left,'client',client)):
             if not observed(language,TESTS[language],(directory/(role+'.log')).read_text(),process.returncode):
                 raise ValueError(role+' did not pass its exact bridge test')
-        result.update(validate(requests,responses),status='PASS')
+        setup = validate(requests[:4],responses[:4]) if protected else validate(requests,responses)
+        result.update(setup)
+        if protected: result.update(flow.validate(directory,requests,responses,setup))
+        result['status'] = 'PASS'
     except Exception as e:
         result['error'] = str(e)
     finally:
@@ -188,25 +195,30 @@ def pair(left,right,programs,output):
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     for name in ('go','rust','output'): p.add_argument('--'+name,type=Path,required=True)
+    p.add_argument('--protected',action='store_true')
     a = p.parse_args();output = a.output.resolve()
     repos = [a.go.resolve(strict=True),a.rust.resolve(strict=True)]
     if any(output.is_relative_to(root) for root in [ROOT,*repos]): p.error('output must be new and outside repositories')
     output.mkdir(parents=True,exist_ok=False)
     report = dict(kind='mcp-native-setup-interop',status='FAIL',conformance='NOT_ESTABLISHED',catalog=dict(NOT_RUN=71),
                   protected_dispatch='NOT_RUN',journal_audit='NOT_RUN',subjects={},pairs=[])
+    if a.protected:
+        report.update(kind='mcp-native-protected-interop',protected_dispatch='INCOMPLETE',journal_audit='INCOMPLETE')
     try:
         report['inspector_revision'] = subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
         report['inspector_dirty'] = bool(subprocess.check_output(['git','status','--porcelain'],cwd=ROOT,text=True))
         report['scripts'] = {}
-        for name in ('run_mcp_setup_interop.py','run_mcp_core_runtime.py','test_completion010.py','test_record010_adapters.py'):
+        for name in ('run_mcp_setup_interop.py','run_mcp_core_runtime.py','test_completion010.py','test_record010_adapters.py','mcp_protected_support.py','test_mcp_session010.py'):
             source = ROOT/'scripts'/name;(output/name).write_bytes(source.read_bytes());report['scripts'][name] = digest(source)
         with tempfile.TemporaryDirectory(prefix='sage-mcp-interop-') as tmp:
             programs = {}
             for language,repo in zip(('go','rust'),repos):
                 programs[language], report['subjects'][language] = build(language,repo,output,Path(tmp))
             for left,right in itertools.product(programs,repeat=2):
-                report['pairs'].append(pair(left,right,programs,output))
-        if len(report['pairs']) == 4 and all(p['status']=='PASS' for p in report['pairs']): report['status']='PASS'
+                report['pairs'].append(pair(left,right,programs,output,a.protected))
+        if len(report['pairs']) == 4 and all(p['status']=='PASS' for p in report['pairs']):
+            report['status']='PASS'
+            if a.protected: report.update(protected_dispatch='PASS',journal_audit='SELECTED_ASSERTIONS_PASS')
     except Exception as e: report['error'] = str(e)
     finally: (output/'report.json').write_text(json.dumps(report,indent=2)+'\n')
     return 0 if report['status']=='PASS' else 1

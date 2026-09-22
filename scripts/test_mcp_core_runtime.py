@@ -6,10 +6,18 @@ import json
 import subprocess
 import tempfile
 import unittest
-from run_mcp_core_runtime import CASES, ROOT, observed, run, successful
+from run_mcp_core_runtime import CASES, SCHEDULES, ROOT, observed, run, successful
 
 
 class EvidenceTests(unittest.TestCase):
+    def test_schedule_selection_is_complete_and_unique(self):
+        self.assertEqual(set(SCHEDULES), {'go','rust'})
+        for language, claims in SCHEDULES.items():
+            self.assertEqual(len(claims),4)
+            self.assertEqual(len(CASES[language]),7)
+            self.assertEqual(len(set(CASES[language])),7)
+            self.assertTrue(all(name in CASES[language] and claim for name,claim in claims.items()))
+
     def test_go_requires_exact_execution(self):
         text = '=== RUN   Sample\n--- PASS: Sample (0.01s)\nPASS\n'
         self.assertTrue(observed('go', 'Sample', text, 0))
@@ -31,12 +39,13 @@ class EvidenceTests(unittest.TestCase):
                     for name in names]) for lang, names in CASES.items()}
         self.assertTrue(successful(subjects))
         self.assertFalse(successful({}))
-        for mode in ('build', 'missing', 'failed', 'duplicate', 'identity'):
+        for mode in ('build', 'missing', 'failed', 'duplicate', 'identity', 'schedule_failed'):
             value = copy.deepcopy(subjects)
             if mode == 'build': value['go']['build']['status'] = 'FAIL'
             if mode == 'missing': value['go']['cases'].pop()
             if mode == 'failed': value['rust']['cases'][0]['status'] = 'FAIL'
             if mode == 'duplicate': value['go']['cases'].append(value['go']['cases'][0])
+            if mode == 'schedule_failed': value['rust']['cases'][-1]['status'] = 'FAIL'
             if mode == 'identity': value['go']['cases'][0]['test'] = 'other'
             self.assertFalse(successful(value), mode)
 

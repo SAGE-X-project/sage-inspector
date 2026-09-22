@@ -601,6 +601,8 @@ jobs:
         run: |
           rustup toolchain install 1.88.0 --profile minimal
           cargo fetch --manifest-path .mcp-rust/Cargo.toml
+      - name: Verify core timeout and cleanup schedules
+        run: python3 -B scripts/run_mcp_core_runtime.py --go .mcp-go --rust .mcp-rust --output "${RUNNER_TEMP}/mcp-core-runtime"
       - name: Run actual native setup bridges
         run: python3 -B scripts/run_mcp_setup_interop.py --go .mcp-go --rust .mcp-rust --output "${RUNNER_TEMP}/mcp-native-setup"
       - name: Run protected calls and reopen completed journals
@@ -613,5 +615,6 @@ jobs:
           if-no-files-found: error
           retention-days: 30
           path: |
+            ${{ runner.temp }}/mcp-core-runtime/
             ${{ runner.temp }}/mcp-native-setup/
             ${{ runner.temp }}/mcp-native-protected/

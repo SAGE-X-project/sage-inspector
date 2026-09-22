@@ -26,6 +26,28 @@ CASES = {
 }
 
 
+# These are core-specific trusted schedules, not equivalent cross-core obligations.
+SCHEDULES = {
+    'go': {
+        'TestMCPStreamRuntimeCancellation': 'Blocked pipe send/receive settles on cancellation or I/O timeout',
+        'TestMCPHostQueuedCancellationAndBoundedStop': 'Cancelled queued work has no effect; stalled work remains charged until termination',
+        'TestMCPHostIdleResponseExpiryPreservesCompletion': 'Response expiry closes the owner without changing the completed result',
+        'TestMCPHostCleanupStallDoesNotBlockDeadlinesOrReleaseOwners': 'Stalled cleanup retains owner quota while another owner expires',
+    },
+    'rust': {PREFIX + name: claim for name, claim in (
+        ('bounded_frame_reader_handles_benign_fragmentation_and_incomplete_frame_timeout',
+         'Benign fragmented input completes; incomplete input times out and closes the socket'),
+        ('framed_io_checks_original_clock_deadline_even_when_wall_time_remains',
+         'Original trusted-clock deadline closes the socket despite remaining wall time'),
+        ('owner_close_interrupts_native_client_receive_while_server_handler_remains_charged',
+         'Owner close interrupts receive without client delivery; blocked server handler remains charged'),
+        ('listener_shutdown_keeps_worker_quota_until_handler_dependencies_are_destroyed',
+         'Listener shutdown retains worker quota until handler dependencies finish cleanup'),
+    )},
+}
+CASES = {language: names + tuple(SCHEDULES[language]) for language, names in CASES.items()}
+
+
 def digest(path):
     h = hashlib.sha256()
     with Path(path).open('rb') as f:
@@ -132,6 +154,9 @@ def execute(language, repo, output, work):
         directory = source / 'pkg/agent/guard010' if language == 'go' else source
         row = run(command, directory, output / f'{language}-{index}.log', 30, env)
         row['test'] = name
+        row['execution_status'] = row['status']
+        row['evidence_kind'] = 'pinned-core-assertions'
+        if name in SCHEDULES[language]: row['schedule_assertion'] = SCHEDULES[language][name]
         row['status'] = ('PASS' if row['status'] == 'PASS' and observed(
             language, name, (output / row['log']).read_text(), row['exit_code']) else 'FAIL')
         subject['cases'].append(row)

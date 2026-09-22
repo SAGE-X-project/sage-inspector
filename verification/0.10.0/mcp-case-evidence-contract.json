@@ -3,14 +3,14 @@
   "protocol_version": "0.10.0",
   "kind": "mcp-proposal-case-evidence",
   "catalog_manifest_sha256": "5727834113a41ef910d4a5c5487457b6e3ae9f89ac36e86946a6e72ae28c1f35",
-  "owner_admission_contract_sha256": "f75cc9927218ff1ddb0d64d9abd932251a2c4964b397b6205ef1759333aedb34",
+  "owner_admission_contract_sha256": "3a38be66874ccf22daed3f74a987bd117fe1279677c9b6b3e34d6616d69ff656",
   "historical_catalog": {
     "NOT_RUN": 71
   },
   "runtime_case_counts": {
-    "PASS": 2,
+    "PASS": 3,
     "PARTIAL": 0,
-    "NOT_RUN": 69
+    "NOT_RUN": 68
   },
   "external_review": "NOT_PERFORMED",
   "adoption": "PROPOSAL_NOT_ADOPTED",
@@ -47,6 +47,21 @@
         {
           "language": "rust",
           "test": "hpke::completion010::tests::mcp_admission_tests::admitted_worker_persists_signed_result_once_and_duplicate_never_runs"
+        }
+      ]
+    },
+    {
+      "id": "mres-crash-after-admission",
+      "status": "PASS",
+      "claim": "Both cores recover a durable admission interrupted by process exit as unknown and prevent the same authenticated intent from executing again.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPAdmissionCrashRecoveryDoesNotExecuteAgain"
+        },
+        {
+          "language": "rust",
+          "test": "hpke::completion010::tests::mcp_admission_tests::crash_recovery_marks_admission_unknown_and_never_executes_again"
         }
       ]
     }

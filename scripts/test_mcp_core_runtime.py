@@ -15,9 +15,9 @@ class EvidenceTests(unittest.TestCase):
         self.assertEqual(set(SCHEDULES), {'go','rust'})
         for language, claims in SCHEDULES.items():
             self.assertEqual(len(claims),4)
-            self.assertEqual(len(OWNER_CONTRACT_CASES[language]), 6)
-            self.assertEqual(len(CASES[language]),13)
-            self.assertEqual(len(set(CASES[language])),13)
+            self.assertEqual(len(OWNER_CONTRACT_CASES[language]), 7)
+            self.assertEqual(len(CASES[language]),14)
+            self.assertEqual(len(set(CASES[language])),14)
             self.assertTrue(all(name in CASES[language] and claim for name,claim in claims.items()))
             covered = set().union(*map(set, OWNER_CONTRACT_CASES[language].values()))
             self.assertEqual(covered, {'durable-admission', 'close-linearization',

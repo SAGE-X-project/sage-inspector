@@ -41,9 +41,9 @@ A zero exit code is insufficient: each log must contain exactly the requested te
 and a passing result. Missing, skipped, duplicate or failed tests prevent success.
 An existing evidence directory is never overwritten. Classifier tests and harmless
 local process success/failure/timeout tests run in Inspector CI; core runtime execution
-is a separate manual command requiring the pinned repositories and dependencies.
+also runs in the native MCP CI job with the pinned repositories and dependencies.
 
-The report's PASS means only that all six selected core assertions executed and
+The report's PASS means only that all fourteen selected core tests executed and
 passed. Raw protocol frames, complete journals, callback identities and independent
 wire assertions are not collected by this adapter. Accordingly, interoperability
 remains NOT_RUN, conformance remains NOT_ESTABLISHED, all 71 catalog cases remain
@@ -51,5 +51,36 @@ NOT_RUN and the 26 mandatory child obligations are not promoted.
 
 The [native setup bridges](mcp-native-setup.md) now retain the actual owner and sole
 transport path for Go/Go, Go/Rust, Rust/Go and Rust/Rust setup exchanges. Protected
-execution, journal inspection and bounded effect counts remain the next work.
+execution, journal inspection, bounded effect counts and completed-journal reopening
+are covered separately by the [protected bridge](mcp-native-protected.md).
 Only cases with complete bindings and observed assertions can change status.
+
+## Timeout and cleanup schedules
+
+The runner adds four existing safe tests per core to its three transport tests.
+It preserves each exact test name, claimed schedule, execution status, return code and
+hashed log. `execution_status` retains process timeouts even when the aggregate case
+status is FAIL. A zero exit code without the selected passing test is insufficient.
+These are assertions executed in pinned core tests, not independent event traces or
+newly implemented core behavior.
+
+| Core | Additional schedule | Observed core assertion |
+|---|---|---|
+| Go | Pipe send/receive cancellation and timeout | I/O settles with an error and a closed stream |
+| Go | Queued cancellation and bounded host stop | Queued work has no effect; occupied slots remain charged until the stalled worker terminates; uncertain execution remains UNKNOWN |
+| Go | Completed response expiry | Owner closes while COMPLETED state and the one effect remain intact |
+| Go | Stalled owner cleanup | Another owner still expires; replacement quota becomes available only after cleanup |
+| Rust | Benign fragmented and incomplete input | Complete input succeeds; incomplete input times out with socket closure |
+| Rust | Original trusted-clock deadline | Socket closes even if the wall-clock timeout has time remaining |
+| Rust | Owner closure during native receive | No client delivery; server stop remains incomplete until its blocked handler returns |
+| Rust | Listener dependency cleanup | Listener stops accepting while worker quota remains charged until destructor completion |
+
+Go uses actual in-process pipes, core workers and controlled clocks with race
+instrumentation. Rust uses bounded loopback sockets and trusted synchronization
+fixtures. No modified attack messages or external targets are used. The scenarios
+are not equivalent across languages and do not cover every deadline ordering.
+
+CI preserves these reports separately under `mcp-core-runtime` in the native MCP
+artifact. Historical catalog cases remain NOT_RUN and conformance remains
+NOT_ESTABLISHED. Independent per-case event evidence and remaining ordering schedules
+must be added before promoting normative coverage.

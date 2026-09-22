@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "protocol_version": "0.10.0",
+  "kind": "mcp-proposal-case-evidence",
+  "catalog_manifest_sha256": "5727834113a41ef910d4a5c5487457b6e3ae9f89ac36e86946a6e72ae28c1f35",
+  "owner_admission_contract_sha256": "1bb78595ebbbe0272ab32d659efc25d187cb0b59d863a0866af6a6443ecb2f8b",
+  "historical_catalog": {
+    "NOT_RUN": 71
+  },
+  "runtime_case_counts": {
+    "PASS": 1,
+    "PARTIAL": 1,
+    "NOT_RUN": 69
+  },
+  "external_review": "NOT_PERFORMED",
+  "adoption": "PROPOSAL_NOT_ADOPTED",
+  "conformance": "NOT_ESTABLISHED",
+  "assessments": [
+    {
+      "id": "mres-close-after-reservation",
+      "status": "PARTIAL",
+      "claim": "Both cores prevent effects after closure during the final fence; Go does not yet directly assert retained nonce and request-ID history for this schedule.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPAdmissionCloseDuringFence"
+        },
+        {
+          "language": "rust",
+          "test": "hpke::completion010::tests::mcp_admission_tests::close_during_post_fence_callback_denies_and_retains_history"
+        }
+      ]
+    },
+    {
+      "id": "mres-close-after-admission",
+      "status": "PASS",
+      "claim": "Closure after committed admission does not claim rollback, lose the durable outcome, or permit a duplicate execution.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPAdmissionCloseAfterInsertionKeepsAdmission"
+        },
+        {
+          "language": "go",
+          "test": "TestMCPAdmissionAuthenticatedExecutionAndDuplicate"
+        },
+        {
+          "language": "rust",
+          "test": "hpke::completion010::tests::mcp_admission_tests::admitted_worker_persists_signed_result_once_and_duplicate_never_runs"
+        }
+      ]
+    }
+  ]
+}

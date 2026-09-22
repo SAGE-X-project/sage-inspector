@@ -424,3 +424,11 @@ RPC ID, 서명 결과와 terminal journal에 연결한다. 네 언어 조합과 
 연결하고 누락·skip·중복·시간 초과를 실패 처리한다. 이는 고정 private 경로의 구현
 선행 조건 검증이며 외부 독립 검토, 규범 채택, 71개 전체 사례와 호스트 적합성은
 계속 별도 후속 작업이다.
+
+
+[MCP 제안 사례별 실행 overlay](mcp-case-evidence.md)는 역사적 71개 `NOT_RUN`
+카탈로그를 변경하지 않고 현재 코어 증거를 별도로 판정한다. admission 이후 close는
+양쪽 코어의 정확한 테스트·로그가 충족되어 `PASS`, reservation 이후 close는 Go의
+nonce·ID 이력 직접 관측이 부족해 `PARTIAL`로 판정했다. 나머지 69개는 `NOT_RUN`으로
+유지한다. 다음은 부족한 Go 관측과 crash-after-admission·deadline 사례의 정확한 양쪽
+코어 관측을 보완하는 작업이며, 규범 채택과 전체 적합성은 별도다.

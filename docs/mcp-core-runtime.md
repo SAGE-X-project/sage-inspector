@@ -47,8 +47,10 @@ also runs in the native MCP CI job with the pinned repositories and dependencies
 The report's PASS means only that all twenty-six selected core tests executed and
 passed. Raw protocol frames, complete journals, callback identities and independent
 wire assertions are not collected by this adapter. Accordingly, interoperability
-remains NOT_RUN, conformance remains NOT_ESTABLISHED, all 71 catalog cases remain
-NOT_RUN and the 26 mandatory child obligations are not promoted.
+remains NOT_RUN and conformance remains NOT_ESTABLISHED. The historical catalog stays
+71 NOT_RUN. A separate [case evidence overlay](mcp-case-evidence.md) may derive current
+per-case results only from exact mapped test logs; it does not alter this runtime
+report's historical catalog field or promote the 26 mandatory child obligations.
 
 The [native setup bridges](mcp-native-setup.md) now retain the actual owner and sole
 transport path for Go/Go, Go/Rust, Rust/Go and Rust/Rust setup exchanges. Protected
@@ -83,8 +85,10 @@ are not equivalent across languages and do not cover every deadline ordering.
 
 CI preserves these reports separately under `mcp-core-runtime` in the native MCP
 artifact. Historical catalog cases remain NOT_RUN and conformance remains
-NOT_ESTABLISHED. Independent per-case event evidence and remaining ordering schedules
-must be added before promoting normative coverage.
+NOT_ESTABLISHED. The case overlay currently has complete evidence for one resolution
+case and partial evidence for one. Independent per-case evidence and remaining
+ordering schedules must be added before promoting any other current result or
+normative coverage.
 
 ## Owner admission schedules
 

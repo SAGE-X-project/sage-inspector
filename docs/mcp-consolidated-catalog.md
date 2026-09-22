@@ -30,3 +30,8 @@ catalog integrity and report preservation, not cryptographic exchanges. Actual c
 bindings and protocol execution remain NOT_RUN. Next: review/adopt the consolidated
 normative contract before implementing the corresponding owner API and safe runtime
 interoperability. Missing independent external review is not satisfied by this checker.
+
+The separate [runtime evidence overlay](mcp-case-evidence.md) now derives current
+results without modifying this snapshot. It records one close/admission resolution
+case as `PASS`, one as `PARTIAL`, and leaves 69 current cases `NOT_RUN`. This catalog
+report itself remains 71 `NOT_RUN` by design.

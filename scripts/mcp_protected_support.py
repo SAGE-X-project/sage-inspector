@@ -1,6 +1,6 @@
 """Independent observations for benign protected calls through native bridges."""
 import hashlib
-from mcp_evidence_json import loads as strict_json
+from mcp_evidence_json import loads as strict_json, equal as typed_equal
 import socket
 import struct
 from test_mcp_session010 import rpc_fixture
@@ -55,7 +55,7 @@ def validate(directory, requests, responses, setup, *, effects=1, start=460000):
     if not 1 <= count <= 4 or len(responses) != len(requests): raise ValueError('protected frame count')
     expected = dict(role='client',state='READY',status='completed',first_terminal=True,
                     output_hex=canonical(OUTPUT).hex(),attempts=count,repeat_denied=True)
-    if client != expected or server != dict(role='server',state='READY',effects=effects): raise ValueError('delivery or effect observation')
+    if not typed_equal(client, expected) or not typed_equal(server, dict(role='server',state='READY',effects=effects)): raise ValueError('delivery or effect observation')
     context = strict_json(requests[0])['context_id']
     nonces,ids = set(),set()
     for index,(request,response) in enumerate(zip(requests,responses)):
@@ -83,28 +83,32 @@ def validate(directory, requests, responses, setup, *, effects=1, start=460000):
     if len(execution) != 1 or len(completed) != 1 or [row.get('state') for row in ledger] != ['RESERVED','EXECUTING','COMPLETED']: raise ValueError('execution transitions')
     for row in ledger:
         if (row['intent_hex'] != original.hex() or row['issuer'] != ALICE or row['recipient'] != BOB
-                or row['call_id'] != i['call_id'] or row['nonce'] != i['nonce'] or row['expires'] != i['expires']):
+                or row['call_id'] != i['call_id'] or row['nonce'] != i['nonce'] or not typed_equal(row['expires'], i['expires'])):
             raise ValueError('execution intent binding')
-    if len(client_rows) != 2*count+2 or client_rows[0] != dict(kind='open',id='',at=0,intent_hex=original.hex(),result_hex=''):
+    if len(client_rows) != 2*count+2 or not typed_equal(client_rows[0], dict(kind='open',id='',at=0,intent_hex=original.hex(),result_hex='')):
         raise ValueError('client journal shape')
     consumed = set()
     for n in range(count):
         sent,closed = client_rows[1+2*n:3+2*n]
-        if (sent['kind'] != 'send' or sent['id'] in consumed or sent['at'] != start+1000*n
+        if (sent['kind'] != 'send' or sent['id'] in consumed or not typed_equal(sent['at'], start+1000*n)
                 or sent['intent_hex'] != '' or sent['result_hex'] != ''
-                or closed != dict(kind='close',id=sent['id'],at=0,intent_hex='',result_hex='')):
+                or not typed_equal(closed, dict(kind='close',id=sent['id'],at=0,intent_hex='',result_hex=''))):
             raise ValueError('client invocation consumption')
         consumed.add(sent['id'])
     if client_rows[-1].get('kind') != 'terminal' or client_rows[-1]['id'] != client_rows[-2]['id']:
         raise ValueError('terminal invocation')
     terminal = [r for r in client_rows if r.get('kind') == 'terminal']
     if len(terminal) != 1 or terminal[0]['result_hex'] != completed[0]['result_hex']: raise ValueError('terminal bytes differ')
+    if not typed_equal(terminal[0], dict(kind='terminal',id=client_rows[-2]['id'],at=0,
+                                         intent_hex='',result_hex=completed[0]['result_hex'])):
+        raise ValueError('terminal journal shape')
     result = strict_json(bytes.fromhex(completed[0]['result_hex']));r=result['result']
     verify(b'sage-tool-result|0.10.0\0'+canonical(r),decode(result['proof']),2)
     if (r['issuer'] != BOB or r['recipient'] != ALICE or r['request_id'] != i['request_id']
             or r['call_id'] != i['call_id'] or r['intent_digest'] != hashlib.sha256(original).hexdigest()
-            or r['status'] != 'completed' or r['output'] != OUTPUT
+            or r['status'] != 'completed' or not typed_equal(r['output'], OUTPUT)
             or r['keyid'] != BOB+'#signing-1' or r['alg'] != 'ed25519' or r['version'] != '0.10.0'
+            or any(type(v) is not int for v in (i['created'],i['expires'],r['created'],r['expires']))
             or not i['created'] <= r['created'] < r['expires'] <= i['expires']): raise ValueError('signed result binding')
     return dict(protected_exchanges=count,effects=effects,terminal_records=1,
                 frames=2*len(requests),setup_signature_checks=setup['independent_signatures'],
@@ -122,9 +126,9 @@ def validate_recovery(directory, requests, responses, setup, mode):
         if result['protected_exchanges'] != 1: raise ValueError('completed recovery did not reply immediately')
     else:
         if len(requests) != 4 or len(responses) != 4: raise ValueError('consumed client sent protected traffic')
-        if strict_json((directory/'client.json').read_bytes()) != dict(role='client',state='READY',reopen_denied=True):
+        if not typed_equal(strict_json((directory/'client.json').read_bytes()), dict(role='client',state='READY',reopen_denied=True)):
             raise ValueError('client reopen observation')
-        if strict_json((directory/'server.json').read_bytes()) != dict(role='server',state='READY',effects=0):
+        if not typed_equal(strict_json((directory/'server.json').read_bytes()), dict(role='server',state='READY',effects=0)):
             raise ValueError('reopened server effect observation')
         client_before = (directory/'client.journal.before').read_bytes()
         if (directory/'client.journal').read_bytes() != client_before:

@@ -25,3 +25,14 @@ def loads(raw):
         raw = raw.decode('utf-8')
     return json.loads(raw, object_pairs_hook=object_pairs,
                       parse_constant=constant, parse_float=finite_float)
+
+
+def equal(actual, expected):
+    """Compare decoded evidence without Python's bool/int/float coercion."""
+    if type(actual) is not type(expected):
+        return False
+    if isinstance(expected, dict):
+        return actual.keys() == expected.keys() and all(equal(actual[k], v) for k, v in expected.items())
+    if isinstance(expected, list):
+        return len(actual) == len(expected) and all(equal(a, b) for a, b in zip(actual, expected))
+    return actual == expected

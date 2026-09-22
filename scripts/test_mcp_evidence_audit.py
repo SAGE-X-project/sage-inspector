@@ -8,7 +8,7 @@ import sys
 import tempfile
 import unittest
 from audit_mcp_evidence import PAIRS, TESTS, audit
-from mcp_evidence_json import loads as strict_json
+from mcp_evidence_json import loads as strict_json, equal as typed_equal
 from run_mcp_core_runtime import digest
 from run_mcp_setup_interop import validate as setup
 from mcp_protected_support import validate, validate_recovery
@@ -125,6 +125,20 @@ class AuditTests(unittest.TestCase):
         self.report['pairs'][0]['effects']=True;self.save()
         with self.assertRaisesRegex(ValueError,'reported observation'):audit(self.root)
 
+    def test_exit_code_types_are_not_coerced(self):
+        for codes in ([False,0],[0,False],[0.0,0],[0,0.0]):
+            self.report['pairs'][0]['exit_codes']=codes;self.save()
+            with self.assertRaisesRegex(ValueError,'execution failed'):audit(self.root)
+
+    def test_cli_rejects_rehashed_boolean_effect(self):
+        row=self.report['pairs'][0];p=self.root/row['pair']/'server.json'
+        v=json.loads(p.read_text());v['effects']=True;p.write_text(json.dumps(v))
+        row['files'][p.name]=digest(p);self.save()
+        run=subprocess.run([sys.executable,'-B',str(HERE/'audit_mcp_evidence.py'),
+                            '--evidence',str(self.root)],capture_output=True,text=True,timeout=10)
+        self.assertEqual(run.returncode,1)
+        self.assertIn('effect observation',json.loads(run.stdout)['error'])
+
     def test_rehashed_log_cannot_hide_missing_execution(self):
         row=self.report['pairs'][0];p=self.root/row['pair']/'client.log';p.write_text('PASS\n')
         row['files']['client.log']=digest(p);self.save()
@@ -160,6 +174,13 @@ class JsonTests(unittest.TestCase):
                     '{"v":NaN}', '{"v":Infinity}', '{"v":-Infinity}', '{"v":1e400}'):
             with self.subTest(raw=raw), self.assertRaises(ValueError):strict_json(raw)
         with self.assertRaises(UnicodeError):strict_json('{"v":1}'.encode('utf-16'))
+
+    def test_nested_comparison_preserves_types(self):
+        self.assertTrue(typed_equal({'a':[False,0,1.0]}, {'a':[False,0,1.0]}))
+        for a,b in [(True,1),(False,0),(0,0.0),({'a':[True]},{'a':[1]}),
+                    ({'a':1},{'a':1.0}),([1],[1,2]),({'a':1},{'b':1})]:
+            self.assertFalse(typed_equal(a,b))
+            self.assertFalse(typed_equal(b,a))
 
     def test_preserve_valid_values(self):
         value={'text':'검증','nested':[0,1.25,None,True,{'key':'value'}]}

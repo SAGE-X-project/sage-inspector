@@ -48,6 +48,32 @@ class ProtectedTests(unittest.TestCase):
         self.edit('client.json',lambda v:v.update(repeat_denied=False))
         self.edit('client.json',lambda v:v.update(attempts=0))
 
+    def test_observation_types_are_not_coerced(self):
+        for value in (True, 1.0): self.edit('server.json',lambda v:v.update(effects=value))
+        for field in ('first_terminal','repeat_denied'):
+            self.edit('client.json',lambda v:v.update({field:1}))
+        self.edit('client.json',lambda v:v.update(attempts=float(v['attempts'])))
+
+    def test_journal_integer_fields_are_not_coerced(self):
+        for name,index,field,value in [('client.journal',1,'at',False),
+                                       ('client.journal',2,'at',460000.0),
+                                       ('client.journal',3,'at',0.0),
+                                       ('client.journal',-1,'at',False),
+                                       ('server.journal',1,'expires',760.0)]:
+            p=self.root/name;raw=p.read_text();lines=raw.splitlines();row=json.loads(lines[index]);row[field]=value
+            lines[index]=json.dumps(row);p.write_text('\n'.join(lines)+'\n')
+            with self.assertRaises(ValueError):self.check()
+            p.write_text(raw)
+
+    @patch.object(flow,'verify')
+    def test_result_time_must_be_integer(self,_):
+        for name in ('server.journal','client.journal'):
+            p=self.root/name;lines=p.read_text().splitlines();row=json.loads(lines[-1])
+            envelope=json.loads(bytes.fromhex(row['result_hex']));envelope['result']['created']=float(envelope['result']['created'])
+            row['result_hex']=flow.canonical(envelope).hex();lines[-1]=json.dumps(row)
+            p.write_text('\n'.join(lines)+'\n')
+        with self.assertRaisesRegex(ValueError,'signed result binding'):self.check()
+
     @patch.object(flow,'verify')
     def test_journal_transition_and_consumption_disagreement(self,_):
         for file,mode in [('server.journal','duplicate'),('server.journal','intent'),
@@ -95,6 +121,14 @@ class RecoveryTests(unittest.TestCase):
     def test_consumed_client_reopen(self):
         self.prepare()
         self.assertEqual(self.recovered()['protected_exchanges'],0)
+
+    def test_reopen_observation_types(self):
+        self.prepare()
+        for name,key,value in [('server.json','effects',False),('server.json','effects',0.0),
+                               ('client.json','reopen_denied',1)]:
+            p=self.root/name;raw=p.read_text();row=json.loads(raw);row[key]=value;p.write_text(json.dumps(row))
+            with self.assertRaises(ValueError):self.recovered()
+            p.write_text(raw)
 
     def test_reopen_cannot_hide_extra_traffic(self):
         self.prepare()

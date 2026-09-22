@@ -1,0 +1,7 @@
+
+// Compiled only into the Inspector-owned temporary source copy.
+impl RecordSession010 {
+    pub(crate) fn inspector_secret010(&self) -> Option<([u8; 32], [u8; 32], String)> {
+        (!self.closed).then(|| (*self.seed, self.th, self.sid.clone()))
+    }
+}

@@ -89,6 +89,19 @@ func TestInspectorMCPBridge(t *testing.T) {
 		if !live {
 			return ErrInvalid
 		}
+		seed, th, sid, ok := s.session.InspectorSecret010()
+		if !ok {
+			return ErrInvalid
+		}
+		secret, e := json.Marshal(map[string]string{
+			"fixture": "public-test-only", "seed_hex": fmtHex(seed),
+			"th_hex": fmtHex(th), "session_id": sid,
+		})
+		clear(seed)
+		clear(th)
+		if e != nil || bridgeWrite(filepath.Join(dir, "crypto-"+role+".json"), secret) != nil {
+			return ErrInvalid
+		}
 		if protected {
 			intent, e := os.ReadFile(filepath.Join(dir, "intent.json"))
 			if e != nil {

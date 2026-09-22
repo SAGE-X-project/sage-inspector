@@ -1,0 +1,10 @@
+
+// Compiled only into the Inspector-owned temporary source copy.
+impl Connection {
+    pub(crate) fn inspector_secret010(&self) -> Option<([u8; 32], [u8; 32], String)> {
+        match &self.protocol {
+            Protocol::Setup(setup) => setup.owner.inspector_secret010(),
+            _ => None,
+        }
+    }
+}

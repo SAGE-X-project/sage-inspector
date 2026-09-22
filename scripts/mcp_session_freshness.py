@@ -10,6 +10,14 @@ BINARY = {'nonce':16,'enc':32,'ephC':32,'ephS':32,'session_id':16,'transcript_ha
 PAIRS = tuple(a+'-to-'+b for a,b in itertools.product(('go','rust'),repeat=2))
 
 
+def check_seeds(seeds):
+    if any(not isinstance(seed,bytes) or len(seed) != 32 for seed in seeds):
+        raise ValueError('invalid session seed evidence')
+    if len(set(seeds)) != len(seeds):
+        raise ValueError('reused session seed')
+    return len(seeds)
+
+
 def check_sessions(sessions):
     seen = {name:set() for name in FIELDS}
     public_keys = set()
@@ -44,6 +52,8 @@ def check_matrix(root, report):
             raise ValueError('freshness recovery inventory')
         entries += [(p['recovery'],p) for p in report['restart']]
     sessions=[]
+    seeds=[]
+    secret_mode=None
     for mode,row in entries:
         if row['status'] != 'PASS': raise ValueError('freshness requires successful session checks')
         directory=root/row['pair'] if mode=='baseline' else root/('reopen-'+mode)/row['pair']
@@ -54,4 +64,19 @@ def check_matrix(root, report):
         values={k:transcript[k] for k in FIELDS if k in transcript}
         values.update(transcript_hash=encode(th),session_id=encode(hashlib.sha256(b'sage-session|0.10.0'+th).digest()[:16]))
         sessions.append((mode+'/'+row['pair'],values))
-    return check_sessions(sessions)
+        secret_paths=[directory/'crypto-client.json',directory/'crypto-server.json']
+        present=[path.exists() for path in secret_paths]
+        if any(present) and not all(present): raise ValueError('incomplete session seed evidence')
+        if secret_mode is None: secret_mode=all(present)
+        if secret_mode != all(present): raise ValueError('inconsistent session seed inventory')
+        if all(present):
+            client,server=(loads(path.read_bytes()) for path in secret_paths)
+            if client != server: raise ValueError('peer session secrets differ')
+            try: seed=bytes.fromhex(client['seed_hex']);secret_th=bytes.fromhex(client['th_hex'])
+            except (KeyError,TypeError,ValueError): raise ValueError('invalid session seed evidence')
+            if client.get('fixture') != 'public-test-only' or secret_th != th or client.get('session_id') != values['session_id']:
+                raise ValueError('session seed binding')
+            seeds.append(seed)
+    result=check_sessions(sessions)
+    if secret_mode: result['distinct_session_seeds']=check_seeds(seeds)
+    return result

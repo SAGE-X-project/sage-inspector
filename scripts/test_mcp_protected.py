@@ -1,10 +1,12 @@
 """Local checker controls; modified observations never go to a network peer."""
 import json
 from pathlib import Path
+import subprocess
 import tempfile
 import unittest
 from unittest.mock import patch
 import mcp_protected_support as flow
+import mcp_record_plaintext as plaintext
 from run_mcp_setup_interop import validate as setup
 
 FIXTURE = Path(__file__).parent/'fixtures/mcp-protected.json'
@@ -20,7 +22,7 @@ class ProtectedTests(unittest.TestCase):
         frames = json.loads((self.root/'frames.json').read_text())
         self.requests = [bytes.fromhex(x) for x in frames['requests']]
         self.responses = [bytes.fromhex(x) for x in frames['responses']]
-        self.setup = {'session_id':json.loads(self.requests[1])['session_id'],'independent_signatures':9}
+        self.setup = setup(self.requests[:4],self.responses[:4])
 
     def check(self):
         return flow.validate(self.root,self.requests,self.responses,self.setup)
@@ -33,8 +35,8 @@ class ProtectedTests(unittest.TestCase):
         finally:p.write_text(original)
 
     def test_real_public_fixture_signatures_and_journals(self):
-        result=setup(self.requests[:4],self.responses[:4])
-        self.assertEqual(result['session_id'],self.setup['session_id'])
+        result=self.setup
+        self.assertEqual(result['session_id'],json.loads(self.requests[1])['session_id'])
         observation=self.check()
         self.assertEqual(observation['effects'],1)
         self.assertEqual(observation['frames'],len(self.requests)+len(self.responses))
@@ -160,7 +162,7 @@ class ServerRecoveryTests(unittest.TestCase):
         frames=json.loads((self.root/'frames.json').read_text())
         self.requests=[bytes.fromhex(x) for x in frames['requests']]
         self.responses=[bytes.fromhex(x) for x in frames['responses']]
-        self.setup={'session_id':json.loads(self.requests[1])['session_id'],'independent_signatures':9}
+        self.setup=setup(self.requests[:4],self.responses[:4])
 
     def check(self):
         return flow.validate_recovery(self.root,self.requests,self.responses,self.setup,'server')
@@ -184,6 +186,74 @@ class ServerRecoveryTests(unittest.TestCase):
         p=self.root/'client.journal';lines=p.read_text().splitlines();v=json.loads(lines[-1]);v['result_hex']='00'
         lines[-1]=json.dumps(v);p.write_text('\n'.join(lines)+'\n')
         with self.assertRaisesRegex(ValueError,'terminal bytes differ'):self.check()
+
+
+class IndependentRecordDecryptionTests(unittest.TestCase):
+    VECTOR=dict(direction=0,
+        seed_hex='a670cc6a4cf4eed950a26f2e85a185457e283ba617fd87da485625d96a2a61a6',
+        th_hex='a4dcfbf2cfe2b3ffd09acd65fbb78c675612b93c93b512a11b9b064786ee5488',
+        wire_hex='00000000000000000000000000000000000000000882116e879457582f3d127ea08eba98185f3bf0eef94b5ad246e724a9ea9cc763de56b152',
+        aad_hex='7b7d')
+
+    def run_checker(self,vector):
+        return subprocess.run(['node',str(Path(__file__).parent/'check_mcp_record_plaintext.js')],
+                              input=json.dumps([vector]),text=True,capture_output=True,timeout=10)
+
+    def test_public_record_vector(self):
+        result=self.run_checker(self.VECTOR)
+        self.assertEqual(result.returncode,0,result.stderr)
+        opened=json.loads(result.stdout)[0]
+        self.assertEqual(bytes.fromhex(opened['plaintext_hex']),b'public session record')
+
+    def test_changed_ciphertext_is_rejected_locally(self):
+        changed=dict(self.VECTOR);wire=bytearray.fromhex(changed['wire_hex']);wire[-1]^=1
+        changed['wire_hex']=wire.hex();result=self.run_checker(changed)
+        self.assertNotEqual(result.returncode,0)
+
+
+class DecryptedMessageBindingTests(unittest.TestCase):
+    def setUp(self):
+        self.tmp=tempfile.TemporaryDirectory();self.addCleanup(self.tmp.cleanup)
+        self.root=Path(self.tmp.name)
+        fixture=json.loads(FIXTURE.read_text())['files']
+        for name in ('intent.json','server.journal'):
+            (self.root/name).write_text(fixture[name])
+        intent=json.loads(fixture['intent.json'])
+        rows=[json.loads(v) for v in fixture['server.journal'].splitlines()[1:]]
+        completed=json.loads(bytes.fromhex(rows[-1]['result_hex']))
+        call='00000000-0000-4000-8000-000000000091'
+        requests=[
+            {'jsonrpc':'2.0','id':'00000000-0000-4000-8000-000000000081','method':'initialize'},
+            {'jsonrpc':'2.0','method':'notifications/initialized'},
+            {'jsonrpc':'2.0','id':'00000000-0000-4000-8000-000000000082','method':'tools/list'},
+            {'jsonrpc':'2.0','id':call,'method':'tools/call','params':{'name':'sage_secure_call','arguments':{'envelope':intent}}},
+        ]
+        wrapped={'content':[{'type':'text','text':flow.canonical(completed).decode()}],
+                 'isError':False,'structuredContent':completed}
+        responses=[
+            {'jsonrpc':'2.0','id':requests[0]['id'],'result':{'protocolVersion':'2025-06-18'}},
+            {},
+            {'jsonrpc':'2.0','id':requests[2]['id'],'result':{'tools':[]}},
+            {'jsonrpc':'2.0','id':call,'result':wrapped},
+        ]
+        self.messages=([flow.canonical(v) for v in requests],[flow.canonical(v) for v in responses])
+
+    def check(self):
+        with patch.object(plaintext,'decrypt',return_value=self.messages):
+            return plaintext.validate_plaintext(self.root,[],[],{})
+
+    def test_intent_and_terminal_journal_binding(self):
+        result=self.check()
+        self.assertEqual(result['decrypted_protected_exchanges'],1)
+        self.assertEqual(result['decrypted_result_signatures'],1)
+
+    def test_changed_decrypted_intent_is_rejected(self):
+        original=self.messages[0][-1];value=json.loads(original)
+        value['params']['arguments']['envelope']['intent']['tool']='changed'
+        self.messages[0][-1]=flow.canonical(value)
+        try:
+            with self.assertRaisesRegex(ValueError,'intent differs'):self.check()
+        finally:self.messages[0][-1]=original
 
 
 if __name__=='__main__':unittest.main()

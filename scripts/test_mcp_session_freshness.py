@@ -4,7 +4,7 @@ import hashlib
 import tempfile
 from pathlib import Path
 import unittest
-from mcp_session_freshness import FIELDS, BINARY, PAIRS, check_sessions, check_matrix
+from mcp_session_freshness import FIELDS, BINARY, PAIRS, check_sessions, check_matrix, check_seeds
 from test_completion010 import encode
 
 
@@ -47,6 +47,14 @@ class FreshnessTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,'baseline inventory'):check_matrix(Path(root),{'pairs':[]})
             report={'pairs':[{'pair':p,'status':'PASS'} for p in PAIRS],'restart':[]}
             with self.assertRaisesRegex(ValueError,'recovery inventory'):check_matrix(Path(root),report)
+
+    def test_session_seed_reuse_and_shape(self):
+        self.assertEqual(check_seeds([bytes([n])*32 for n in range(12)]),12)
+        with self.assertRaisesRegex(ValueError,'reused session seed'):
+            check_seeds([bytes(32),bytes(32)])
+        for value in (b'',bytes(31),'00'*32):
+            with self.assertRaisesRegex(ValueError,'invalid session seed evidence'):
+                check_seeds([value])
 
 
 if __name__=='__main__':unittest.main()

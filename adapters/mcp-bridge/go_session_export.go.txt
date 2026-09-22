@@ -1,0 +1,13 @@
+package session
+
+// InspectorSecret010 exists only in the Inspector-owned temporary source copy.
+func (s *RecordSession010) InspectorSecret010() ([]byte, []byte, string, bool) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	if s.closed {
+		return nil, nil, "", false
+	}
+	seed := append([]byte(nil), s.seed[:]...)
+	th := append([]byte(nil), s.th[:]...)
+	return seed, th, s.sid, true
+}

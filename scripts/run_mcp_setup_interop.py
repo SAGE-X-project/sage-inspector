@@ -29,15 +29,30 @@ def build(language, repo, output, work):
     if language == 'go':
         bridge = BRIDGES / 'go_test.go.txt'
         target = source / 'pkg/agent/guard010/inspector_bridge_test.go'
+        additions = ((BRIDGES/'go_session_export.go.txt', source/'pkg/agent/session/inspector_export.go'),
+                     (BRIDGES/'go_hpke_export.go.txt', source/'pkg/agent/hpke/inspector_export.go'))
+        for addition,destination in additions:
+            destination.write_bytes(addition.read_bytes())
     else:
         bridge = BRIDGES / 'rust.rs'
         target = source / 'src/hpke/completion010/inspector_bridge.rs'
         parent = source / 'src/hpke/completion010/mcp_transport_tests.rs'
         with parent.open('a') as f:
             f.write('\n#[path = "inspector_bridge.rs"]\nmod inspector_bridge;\n')
+        additions = ((BRIDGES/'rust_record_export.rs.txt', source/'src/session/record010.rs'),
+                     (BRIDGES/'rust_owner_export.rs.txt', source/'src/hpke/completion010/owner010.rs'),
+                     (BRIDGES/'rust_connection_export.rs.txt', source/'src/guard010/mcp_transport/connection.rs'))
+        for addition,destination in additions:
+            with destination.open('ab') as f:
+                f.write(addition.read_bytes())
     target.write_bytes(bridge.read_bytes())
     (output / bridge.name).write_bytes(bridge.read_bytes())
     evidence['bridge_sha256'] = digest(bridge)
+    evidence['test_exports'] = {}
+    for addition,_ in additions:
+        archived = output/addition.name
+        archived.write_bytes(addition.read_bytes())
+        evidence['test_exports'][addition.name] = digest(addition)
     env = os.environ.copy()
     env['CARGO_TARGET_DIR'] = str(work / 'target')
     binary = work / 'go-bridge'
@@ -226,7 +241,7 @@ def main():
         report['inspector_revision'] = subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
         report['inspector_dirty'] = bool(subprocess.check_output(['git','status','--porcelain'],cwd=ROOT,text=True))
         report['scripts'] = {}
-        for name in ('run_mcp_setup_interop.py','run_mcp_core_runtime.py','test_completion010.py','test_record010_adapters.py','mcp_protected_support.py','test_mcp_session010.py','mcp_evidence_json.py','mcp_session_freshness.py'):
+        for name in ('run_mcp_setup_interop.py','run_mcp_core_runtime.py','test_completion010.py','test_record010_adapters.py','mcp_protected_support.py','test_mcp_session010.py','mcp_evidence_json.py','mcp_session_freshness.py','mcp_record_plaintext.py','check_mcp_record_plaintext.js'):
             source = ROOT/'scripts'/name;(output/name).write_bytes(source.read_bytes());report['scripts'][name] = digest(source)
         with tempfile.TemporaryDirectory(prefix='sage-mcp-interop-') as tmp:
             programs = {}

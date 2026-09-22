@@ -1,0 +1,14 @@
+package hpke
+
+// InspectorSecret010 exists only in the Inspector-owned temporary source copy.
+func (o *NonHTTPOwner010) InspectorSecret010() ([]byte, []byte, string, bool) {
+	if o == nil || o.session == nil || o.session.endpoint == nil {
+		return nil, nil, "", false
+	}
+	o.session.endpoint.mu.Lock()
+	defer o.session.endpoint.mu.Unlock()
+	if o.session.closed || o.session.records == nil {
+		return nil, nil, "", false
+	}
+	return o.session.records.InspectorSecret010()
+}

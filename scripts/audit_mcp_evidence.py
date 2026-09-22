@@ -32,6 +32,8 @@ def audit(root):
         directory = root/('reopen-'+mode)/row['pair'] if mode else root/row['pair']
         required = {'frames.json','intent.json','client.json','server.json','client.journal',
                     'server.journal','client.log','server.log'}
+        if 'decrypted_records' in row:
+            required.update(('crypto-client.json','crypto-server.json'))
         if mode: required.add('server.journal.before')
         if mode == 'client': required.add('client.journal.before')
         files = row['files']

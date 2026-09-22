@@ -125,20 +125,25 @@ def wait_file(path, processes, end):
     raise TimeoutError('bridge rendezvous')
 
 
-def pair(left,right,programs,output,protected=False):
+def pair(left,right,programs,output,protected=False,recovery="",previous=None):
     directory = output / (left+'-to-'+right)
     directory.mkdir()
     if protected:
         import mcp_protected_support as flow
         (directory/"intent.json").write_bytes(flow.intent())
-        (directory/"clock").write_text("360000")
+        (directory/"clock").write_text("365000" if recovery else "360000")
+        if recovery:
+            for name in ('server.journal', 'client.journal') if recovery == 'client' else ('server.journal',):
+                raw = (previous/name).read_bytes()
+                (directory/name).write_bytes(raw)
+                (directory/(name+'.before')).write_bytes(raw)
     processes, logs, sockets, threads = [], [], [], []
     requests, responses, errors = [], [], []
     def launch(language,role,peer=''):
         binary,cwd = programs[language]
         command = ([str(binary),'-test.run=^'+TESTS[language]+'$','-test.v','-test.timeout=20s']
                    if language == 'go' else [str(binary),TESTS[language],'--exact','--test-threads=1','--color=never'])
-        env = dict(os.environ,SAGE_BRIDGE_DIR=str(directory),SAGE_BRIDGE_ROLE=role,SAGE_BRIDGE_PEER=peer,SAGE_BRIDGE_PROTECTED="1" if protected else "0")
+        env = dict(os.environ,SAGE_BRIDGE_DIR=str(directory),SAGE_BRIDGE_ROLE=role,SAGE_BRIDGE_PEER=peer,SAGE_BRIDGE_PROTECTED="1" if protected else "0",SAGE_BRIDGE_RECOVERY=recovery)
         log = (directory / (role+'.log')).open('xb');logs.append(log)
         p = subprocess.Popen(command,cwd=cwd,env=env,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
         processes.append(p)
@@ -172,7 +177,9 @@ def pair(left,right,programs,output,protected=False):
                 raise ValueError(role+' did not pass its exact bridge test')
         setup = validate(requests[:4],responses[:4]) if protected else validate(requests,responses)
         result.update(setup)
-        if protected: result.update(flow.validate(directory,requests,responses,setup))
+        if protected:
+            if recovery: result.update(flow.validate_recovery(directory,requests,responses,setup,recovery))
+            else: result.update(flow.validate(directory,requests,responses,setup))
         result['status'] = 'PASS'
     except Exception as e:
         result['error'] = str(e)
@@ -192,6 +199,7 @@ def pair(left,right,programs,output,protected=False):
         raw.write_text(json.dumps(dict(requests=[b.hex() for b in requests],responses=[b.hex() for b in responses]),indent=2)+'\n')
         result['files'] = {p.name:digest(p) for p in directory.iterdir() if p.is_file()}
         result['exit_codes'] = [p.returncode for p in processes]
+        result['process_ids'] = [p.pid for p in processes]
     return result
 
 
@@ -199,7 +207,8 @@ def main():
     p = argparse.ArgumentParser(description=__doc__)
     for name in ('go','rust','output'): p.add_argument('--'+name,type=Path,required=True)
     p.add_argument('--protected',action='store_true')
-    a = p.parse_args();output = a.output.resolve()
+    p.add_argument('--restart',action='store_true',help='verify completed journals in new processes (implies --protected)')
+    a = p.parse_args();a.protected = a.protected or a.restart;output = a.output.resolve()
     repos = [a.go.resolve(strict=True),a.rust.resolve(strict=True)]
     if any(output.is_relative_to(root) for root in [ROOT,*repos]): p.error('output must be new and outside repositories')
     output.mkdir(parents=True,exist_ok=False)
@@ -207,6 +216,7 @@ def main():
                   protected_dispatch='NOT_RUN',journal_audit='NOT_RUN',subjects={},pairs=[])
     if a.protected:
         report.update(kind='mcp-native-protected-interop',protected_dispatch='INCOMPLETE',journal_audit='INCOMPLETE')
+    report['completed_recovery'] = 'INCOMPLETE' if a.restart else 'NOT_RUN'
     try:
         report['inspector_revision'] = subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
         report['inspector_dirty'] = bool(subprocess.check_output(['git','status','--porcelain'],cwd=ROOT,text=True))
@@ -219,9 +229,19 @@ def main():
                 programs[language], report['subjects'][language] = build(language,repo,output,Path(tmp))
             for left,right in itertools.product(programs,repeat=2):
                 report['pairs'].append(pair(left,right,programs,output,a.protected))
+            if a.restart:
+                if any(p['status'] != 'PASS' for p in report['pairs']):
+                    raise ValueError('baseline must pass before journal recovery')
+                report['restart'] = []
+                for mode in ('server','client'):
+                    stage = output/('reopen-'+mode);stage.mkdir()
+                    for left,right in itertools.product(programs,repeat=2):
+                        previous = output/(left+'-to-'+right)
+                        report['restart'].append(pair(left,right,programs,stage,True,mode,previous))
         if len(report['pairs']) == 4 and all(p['status']=='PASS' for p in report['pairs']):
-            report['status']='PASS'
+            report['status']='PASS' if not a.restart or (len(report.get('restart',[])) == 8 and all(p['status']=='PASS' for p in report['restart'])) else 'FAIL'
             if a.protected: report.update(protected_dispatch='PASS',journal_audit='SELECTED_ASSERTIONS_PASS')
+            if a.restart and report['status'] == 'PASS': report['completed_recovery'] = 'SELECTED_ASSERTIONS_PASS'
     except Exception as e: report['error'] = str(e)
     finally: (output/'report.json').write_text(json.dumps(report,indent=2)+'\n')
     return 0 if report['status']=='PASS' else 1

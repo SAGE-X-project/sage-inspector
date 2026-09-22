@@ -40,11 +40,12 @@ impl Handler for BridgeHandler {
         // Connection::establish invokes handlers only after real setup READY.
         let role = if self.initiator { "client" } else { "server" };
         if std::env::var("SAGE_BRIDGE_PROTECTED").as_deref() == Ok("1") {
+            let recovery = std::env::var("SAGE_BRIDGE_RECOVERY").unwrap_or_default();
             let observation = if self.initiator {
                 let intent = std::fs::read(self.dir.join("intent.json")).unwrap();
                 connection.open_client(
                     &self.dir.join("client.journal"),
-                    true,
+                    recovery != "client",
                     &intent,
                     OwnedServices {
                         intent_authority: bridge_authority(ALICE),
@@ -53,6 +54,18 @@ impl Handler for BridgeHandler {
                         clock: Box::new(BridgeClientClock),
                     },
                 )?;
+                if recovery == "client" {
+                    if connection.exchange().is_ok() {
+                        return Err(g::Invalid);
+                    }
+                    bridge_write(
+                        self.dir.join("client.json"),
+                        br#"{"role":"client","state":"READY","reopen_denied":true}"#,
+                    )
+                    .unwrap();
+                    self.ready = true;
+                    return Ok(());
+                }
                 let mut terminal = None;
                 let mut attempts = 0;
                 for _ in 0..4 {
@@ -87,10 +100,11 @@ impl Handler for BridgeHandler {
                     "output_hex":hex::encode(delivery.output()),"attempts":attempts,"repeat_denied":true})
             } else {
                 while connection.serve_one(&mut BridgeSigner).is_ok() {}
-                if self.sink.effects.load(Ordering::SeqCst) != 1 {
+                let expected_effects = if recovery.is_empty() { 1 } else { 0 };
+                if self.sink.effects.load(Ordering::SeqCst) != expected_effects {
                     return Err(g::Invalid);
                 }
-                json!({"role":role,"state":"READY","effects":1})
+                json!({"role":role,"state":"READY","effects":expected_effects})
             };
             bridge_write(
                 self.dir.join(format!("{role}.json")),
@@ -125,10 +139,19 @@ fn inspector_mcp_bridge() {
     let initiator = role == "client";
     let tmp = tempfile::tempdir().unwrap();
     let sink = Arc::new(Sink::default());
+    let reopen = !initiator
+        && !std::env::var("SAGE_BRIDGE_RECOVERY")
+            .unwrap_or_default()
+            .is_empty();
+    let ledger = if reopen {
+        dir.join("server.journal")
+    } else {
+        tmp.path().join("execution")
+    };
     let gate = Arc::new(
         MCPGate::open(
-            &tmp.path().join("execution"),
-            true,
+            &ledger,
+            !reopen,
             BOB,
             bridge_authority(ALICE),
             bridge_authority(BOB),
@@ -206,11 +229,7 @@ fn inspector_mcp_bridge() {
     assert!(host.stop(Duration::from_secs(3)).unwrap());
     gate.close().unwrap();
     if protected && !initiator {
-        bridge_write(
-            dir.join("server.journal"),
-            std::fs::read(tmp.path().join("execution")).unwrap(),
-        )
-        .unwrap();
+        bridge_write(dir.join("server.journal"), std::fs::read(&ledger).unwrap()).unwrap();
     }
 }
 

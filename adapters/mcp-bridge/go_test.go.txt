@@ -22,6 +22,31 @@ func TestInspectorMCPBridge(t *testing.T) {
 	}
 	fixture, host := hostFixture(t)
 	protected := os.Getenv("SAGE_BRIDGE_PROTECTED") == "1"
+	recovery := os.Getenv("SAGE_BRIDGE_RECOVERY")
+	if recovery != "" && role == "server" {
+		ctx, cancel := context.WithTimeout(context.Background(), 3*time.Second)
+		defer cancel()
+		if e := host.stop(ctx); e != nil {
+			t.Fatal(e)
+		}
+		if e := fixture.gate.close(); e != nil {
+			t.Fatal(e)
+		}
+		fixture.path = filepath.Join(dir, "server.journal")
+		gate, e := openMCPAdmissionGate(fixture.path, false, setupBob, fixture.config, fixture.clock, fixture.gate.bounds)
+		if e != nil {
+			t.Fatal(e)
+		}
+		fixture.gate = gate
+		pool, e := newMCPClientPool(fixture.clock, 2, 20*time.Second)
+		if e != nil {
+			t.Fatal(e)
+		}
+		host, e = newMCPHost(gate, pool, 4, 1, time.Millisecond)
+		if e != nil {
+			t.Fatal(e)
+		}
+	}
 	alice, bob, endpointClock := setupEndpoints(t)
 	cfg := mcpConnectionConfig{endpoint: bob, name: "inspector", version: "1", ttl: 300, timeout: 10 * time.Second}
 	var conn net.Conn
@@ -75,11 +100,22 @@ func TestInspectorMCPBridge(t *testing.T) {
 			}
 			fixture.executor.output = []byte(`{"text":"inert public fixture"}`)
 			if role == "client" {
-				client, e := openMCPOwnedClient(ctx, s, host.clients, filepath.Join(dir, "client.journal"), true, intent, fixture.config.authority, fixture.config.resultAuthority, fixture.config.policy, replyClientClock{fixture})
+				bridgeSyncClock(t, dir, fixture.clock, endpointClock)
+				client, e := openMCPOwnedClient(ctx, s, host.clients, filepath.Join(dir, "client.journal"), recovery != "client", intent, fixture.config.authority, fixture.config.resultAuthority, fixture.config.policy, replyClientClock{fixture})
 				if e != nil {
 					return e
 				}
 				defer client.client.Close()
+				if recovery == "client" {
+					if _, e = client.exchange(ctx, stream); e == nil {
+						return ErrInvalid
+					}
+					if e = bridgeWrite(filepath.Join(dir, role+".json"), []byte(`{"role":"client","state":"READY","reopen_denied":true}`)); e != nil {
+						return e
+					}
+					ready = true
+					return nil
+				}
 				var delivery *ClientDelivery
 				attempts := 0
 				for attempts < 4 {
@@ -126,7 +162,11 @@ func TestInspectorMCPBridge(t *testing.T) {
 						return e
 					}
 				}
-				if fixture.executor.effects.Load() != 1 {
+				expectedEffects := int64(1)
+				if recovery != "" {
+					expectedEffects = 0
+				}
+				if fixture.executor.effects.Load() != expectedEffects {
 					return ErrInvalid
 				}
 				raw, _ := json.Marshal(map[string]any{"role": role, "state": "READY", "effects": fixture.executor.effects.Load()})

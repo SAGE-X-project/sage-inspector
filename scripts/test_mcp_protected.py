@@ -80,4 +80,76 @@ class ProtectedTests(unittest.TestCase):
         with self.assertRaises(AssertionError):self.check()
 
 
+class RecoveryTests(unittest.TestCase):
+    setUp = ProtectedTests.setUp
+    def prepare(self):
+        for name in ('client.journal','server.journal'):
+            (self.root/(name+'.before')).write_bytes((self.root/name).read_bytes())
+        (self.root/'client.json').write_text(json.dumps(dict(role='client',state='READY',reopen_denied=True)))
+        (self.root/'server.json').write_text(json.dumps(dict(role='server',state='READY',effects=0)))
+
+    def recovered(self, requests=None):
+        return flow.validate_recovery(self.root, self.requests[:4] if requests is None else requests,
+                                      self.responses[:4], self.setup, 'client')
+
+    def test_consumed_client_reopen(self):
+        self.prepare()
+        self.assertEqual(self.recovered()['protected_exchanges'],0)
+
+    def test_reopen_cannot_hide_extra_traffic(self):
+        self.prepare()
+        with self.assertRaisesRegex(ValueError,'protected traffic'):
+            self.recovered(self.requests)
+
+    def test_reopen_requires_unchanged_journals(self):
+        self.prepare()
+        for name in ('client.journal','server.journal'):
+            p=self.root/name;raw=p.read_bytes();p.write_bytes(raw+b'\n')
+            with self.assertRaisesRegex(ValueError,'journal changed'):
+                self.recovered()
+            p.write_bytes(raw)
+
+    def test_reopen_requires_no_effect_and_explicit_denial(self):
+        self.prepare()
+        for name,field,value in [('server.json','effects',1),('client.json','reopen_denied',False)]:
+            p=self.root/name;raw=p.read_text();v=json.loads(raw);v[field]=value;p.write_text(json.dumps(v))
+            with self.assertRaises(ValueError):self.recovered()
+            p.write_text(raw)
+
+
+class ServerRecoveryTests(unittest.TestCase):
+    def setUp(self):
+        self.tmp=tempfile.TemporaryDirectory();self.addCleanup(self.tmp.cleanup)
+        self.root=Path(self.tmp.name)
+        for name,raw in json.loads(FIXTURE.with_name('mcp-recovery.json').read_text())['files'].items():
+            (self.root/name).write_text(raw)
+        frames=json.loads((self.root/'frames.json').read_text())
+        self.requests=[bytes.fromhex(x) for x in frames['requests']]
+        self.responses=[bytes.fromhex(x) for x in frames['responses']]
+        self.setup={'session_id':json.loads(self.requests[1])['session_id'],'independent_signatures':9}
+
+    def check(self):
+        return flow.validate_recovery(self.root,self.requests,self.responses,self.setup,'server')
+
+    def test_cached_result_signatures_and_no_new_execution(self):
+        setup(self.requests[:4],self.responses[:4])
+        result=self.check()
+        self.assertEqual(result['effects'],0)
+        self.assertEqual(result['protected_exchanges'],1)
+        self.assertEqual(result['independent_signatures'],13)
+
+    def test_server_recovery_rejects_new_effect(self):
+        p=self.root/'server.json';v=json.loads(p.read_text());v['effects']=1;p.write_text(json.dumps(v))
+        with self.assertRaises(ValueError):self.check()
+
+    def test_server_recovery_rejects_rewritten_ledger(self):
+        p=self.root/'server.journal';p.write_bytes(p.read_bytes()+b'\n')
+        with self.assertRaisesRegex(ValueError,'journal changed'):self.check()
+
+    def test_server_recovery_rejects_changed_delivered_result(self):
+        p=self.root/'client.journal';lines=p.read_text().splitlines();v=json.loads(lines[-1]);v['result_hex']='00'
+        lines[-1]=json.dumps(v);p.write_text('\n'.join(lines)+'\n')
+        with self.assertRaisesRegex(ValueError,'terminal bytes differ'):self.check()
+
+
 if __name__=='__main__':unittest.main()

@@ -62,12 +62,40 @@ those altered inputs to a running peer.
 
 A passing report establishes these bounded happy-path protected exchanges and selected
 journal assertions. It does not independently decrypt inner RPC ciphertext, prove the
-entire journal implementation, test restart recovery, verify a live registry/blockchain,
+entire journal implementation, verify crash recovery at arbitrary write boundaries, verify a live registry/blockchain,
 or provide host/plugin mediation guarantees. Go's replay journals and Rust's existing
 in-memory replay fixture retain their previously documented limitations. Execution
 and client journals in this run are real core journals.
 
 The historical 71 catalog cases and 26 mandatory child obligations remain unpromoted;
-conformance remains NOT_ESTABLISHED. Next add bounded recovery/reopen observations and
-case-specific scheduling checks, preserving this distinction between actual execution,
+conformance remains NOT_ESTABLISHED. Next add case-specific scheduling checks, preserving this distinction between actual execution,
 checker regression tests and full normative coverage.
+
+## Completed journal recovery in new processes
+
+Use `--restart` instead of `--protected` to run the four baseline pairs followed by
+four server recovery pairs and four consumed-client recovery pairs. Each pair starts
+new client and server OS processes and establishes a new native session. CI runs this
+extended matrix. Core revisions and production sources remain unchanged.
+
+The controller copies the completed baseline journals into new run directories and
+preserves identical `.before` snapshots. This verifies reopening persisted completed
+state, not killing a process during a write or recovering an interrupted filesystem.
+The controlled recovery clock is Unix 465 / monotonic 365000 ms, within the intent
+and cached result validity windows.
+
+In server recovery, the real admission gate opens the existing ledger with creation
+disabled. A fresh client journal sends the same signed intent. The server must return
+the already committed result in one protected exchange, record zero new effects,
+and leave its ledger byte-for-byte unchanged. The independent checker verifies the
+result signature and exact equality with the original ledger's result. This is a
+first delivery to a new client journal, not redelivery to a consumed client.
+
+In client recovery, the owned client also opens its completed journal with creation
+disabled. Its exchange must be rejected. Capture must contain only the four setup
+exchanges, both journals must remain unchanged, and the new server must record zero
+effects. Missing observations or failed bridge processes fail verification.
+
+Local-only unit controls reject extra captured traffic, altered journals, unexpected
+effects and absent client denial. The report keeps these runtime observations separate
+from historical catalog cases and full normative conformance.

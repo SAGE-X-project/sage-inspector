@@ -3,13 +3,13 @@
 The earlier [core review](mcp-owner-core-review.md) identified four integration gaps
 at Go `be621819...` and Rust `ad30c6a...`. Both cores subsequently added private
 owner-aware admission and protected-reply paths. This review pins Go
-`9e878b1b7a96c7623f700b34bc4f361a26c51c5d` and Rust
-`6874fbc694d61952890b46c26d5345c11b5bb5f1`. It does not reinterpret the older
+`96f89c592cfb6e4ae278cd1c42c8d55bdbf59e53` and Rust
+`152e06479baf90056640bb27afdf97fe1433d2ed`. It does not reinterpret the older
 decision at its original revisions.
 
 The machine-readable
 [contract](../verification/0.10.0/mcp-owner-admission-contract.json) binds the exact
-implementation and test files, their hashes, eight selected tests per core and four
+implementation and test files, their hashes, nine selected tests per core and four
 boundaries:
 
 | Boundary | Required behavior |
@@ -48,9 +48,11 @@ attack path. Each crash schedule exits an owned child process after durable admi
 then proves that stale-lock rejection and trusted recovery produce UNKNOWN without
 redispatch or effects. The Go close-during-fence schedule directly compares the
 protected request ID retained by its owner and the durable nonce retained by the execution
-entry across successful, failed and uncertain persistence outcomes. Both deadline
-tests also retain the protected request ID and exact intent identity after final
-admission expires, close the owner and prove that no effect can run.
+entry across successful, failed and uncertain persistence outcomes. The pre-admission
+deadline tests retain the protected request ID and exact intent identity, close the
+owner and prove that no effect can run. The post-admission deadline tests fail response
+publication while preserving exact journal bytes, durable completion and one effect;
+they also reject response and execution retries.
 
 ## Run and interpret
 
@@ -75,8 +77,8 @@ It does not establish external independent review, normative adoption, live regi
 or host isolation, full 71-case coverage, or protocol conformance. Those statuses
 remain `NOT_ESTABLISHED` or `NOT_RUN` until their own evidence exists.
 
-On 2026-09-22, the source audit verified both pinned checkouts. The runtime adapter
-built both archived sources and passed 15 of 15 selected tests in each core, including
-all eight owner-admission tests per core. The related Inspector controls and full Go
+On 2026-09-23, the source audit verified both pinned checkouts. The runtime adapter
+built both archived sources and passed 16 of 16 selected tests in each core, including
+all nine owner-admission tests per core. The related Inspector controls and full Go
 test suite also passed. CI regenerates and preserves these reports rather than
 treating this local observation as immutable release evidence.

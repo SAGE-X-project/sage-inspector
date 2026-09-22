@@ -3,14 +3,14 @@
   "protocol_version": "0.10.0",
   "kind": "mcp-proposal-case-evidence",
   "catalog_manifest_sha256": "5727834113a41ef910d4a5c5487457b6e3ae9f89ac36e86946a6e72ae28c1f35",
-  "owner_admission_contract_sha256": "c2f75be88ce84c6ac3e43a1e858ad8d6541a9744e1e8b5352521eaa3e022340b",
+  "owner_admission_contract_sha256": "ff073ab9af08b9eceebebd4e6267ce7b00fdfa542a446229d5f83ff7251394cd",
   "historical_catalog": {
     "NOT_RUN": 71
   },
   "runtime_case_counts": {
-    "PASS": 4,
+    "PASS": 5,
     "PARTIAL": 0,
-    "NOT_RUN": 67
+    "NOT_RUN": 66
   },
   "external_review": "NOT_PERFORMED",
   "adoption": "PROPOSAL_NOT_ADOPTED",
@@ -77,6 +77,21 @@
         {
           "language": "rust",
           "test": "hpke::completion010::tests::mcp_admission_tests::protected_deadline_before_final_admission_retains_identity_and_reservation"
+        }
+      ]
+    },
+    {
+      "id": "mres-protected-timeout-after-admission",
+      "status": "PASS",
+      "claim": "Both cores fail protected response publication after the fixed deadline without changing the durable completed result or permitting response or execution retry.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPProtectedReplyDeadlineAfterAdmissionRetainsCompletion"
+        },
+        {
+          "language": "rust",
+          "test": "hpke::completion010::tests::mcp_admission_tests::mcp_reply_tests::protected_deadline_after_admission_fails_transport_without_rollback"
         }
       ]
     }

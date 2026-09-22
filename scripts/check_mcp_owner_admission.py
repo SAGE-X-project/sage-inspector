@@ -28,7 +28,8 @@ SELECTED_TESTS = {
         'TestMCPAdmissionCrashRecoveryDoesNotExecuteAgain',
         'TestMCPAdmissionProtectedDeadlineBeforeFinalAdmissionRetainsReservation',
         'TestMCPOwnerBlockedSendDoesNotBlockClose',
-        'TestMCPProtectedReplyCloseDoesNotReleaseBlockedOutput'},
+        'TestMCPProtectedReplyCloseDoesNotReleaseBlockedOutput',
+        'TestMCPProtectedReplyDeadlineAfterAdmissionRetainsCompletion'},
     'rust': {
         'hpke::completion010::tests::mcp_admission_tests::admission_fences_before_effects_and_gate_close_cancels_unclaimed_work',
         'hpke::completion010::tests::mcp_admission_tests::admitted_worker_persists_signed_result_once_and_duplicate_never_runs',
@@ -37,11 +38,12 @@ SELECTED_TESTS = {
         'hpke::completion010::tests::mcp_admission_tests::crash_recovery_marks_admission_unknown_and_never_executes_again',
         'hpke::completion010::tests::mcp_admission_tests::protected_deadline_before_final_admission_retains_identity_and_reservation',
         'hpke::completion010::tests::mcp_admission_tests::mcp_reply_tests::failed_reply_does_not_erase_execution_or_allow_second_response',
-        'hpke::completion010::tests::mcp_admission_tests::mcp_reply_tests::close_after_durable_acceptance_suppresses_output_and_reopen_cannot_redeliver'},
+        'hpke::completion010::tests::mcp_admission_tests::mcp_reply_tests::close_after_durable_acceptance_suppresses_output_and_reopen_cannot_redeliver',
+        'hpke::completion010::tests::mcp_admission_tests::mcp_reply_tests::protected_deadline_after_admission_fails_transport_without_rollback'},
 }
 TEST_MAPPING_HASHES = {
-    'go': '62d893aeb4666617b7b55df891fe3134312e07877b90d1ada70c50239c3c3e48',
-    'rust': 'f2cb269f7181ed109eacca4d63cf9c41bc9428f66712d1859117c63c5a25e57b',
+    'go': '1a3ce58df73f652d2e340c8f682c09ac54969d0ad3589798f9a98c71dc68a1ba',
+    'rust': 'f257a13d1bcdaa1c22a9d00bf011f62f93588e09863e2441a6143b95f7a2f756',
 }
 
 

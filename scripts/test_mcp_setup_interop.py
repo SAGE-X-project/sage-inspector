@@ -17,9 +17,11 @@ def sample():
         q = dict(did=bridge.ALICE, recipient=bridge.BOB, id=str(n), nonce='q'+str(n),
                  encoding='session', signature='AA',context_id='ctx',role='initiator',version='0.10.0',
                  kid=bridge.ALICE+'#signing-1',session_id='session')
+        if n == 0: q['payload'] = bridge.encode(b'{}')
         w = dict(did=bridge.BOB, recipient=bridge.ALICE, message_id=str(n), nonce='r'+str(n),
                  encoding='session', signature='AA',context_id='ctx',role='responder',version='0.10.0',
                  kid=bridge.BOB+'#signing-1',session_id='session',success=True, request_hash=bridge.encode(hashlib.sha256(bridge.canonical(q)).digest()))
+        if n == 0: w['data'] = bridge.encode(b'{}')
         requests.append(bridge.canonical(q)); responses.append(bridge.canonical(w))
     return requests, responses
 
@@ -46,6 +48,15 @@ class BridgeTests(unittest.TestCase):
     @patch.object(bridge, 'independent', side_effect=ValueError('signature'))
     def test_signature_failure_propagates(self, _):
         with self.assertRaises(ValueError): bridge.validate(*sample())
+
+    @patch.object(bridge, 'independent')
+    def test_ambiguous_handshake_rejected_before_signature_normalization(self, verifier):
+        for index,field in ((0,'payload'),(1,'data')):
+            q,r=sample();frames=(q,r)[index];value=json.loads(frames[0])
+            value[field]=bridge.encode(b'{"nested":{"v":1,"v":2}}')
+            frames[0]=bridge.canonical(value)
+            with self.assertRaisesRegex(ValueError,'duplicate JSON key'):bridge.validate(q,r)
+        verifier.assert_not_called()
 
     def test_fragmented_capture_preserves_exact_bytes(self):
         a,b = socket.socketpair();c,d = socket.socketpair()

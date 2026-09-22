@@ -126,3 +126,10 @@ checker, not a second independent implementation or authentication of artifact o
 Public fixture keys, editable logs and untrusted hashes cannot prove who ran a test.
 It does not validate build provenance, independently decrypt protected inner RPCs or
 promote protocol conformance. Inputs should be a stable extracted evidence directory.
+
+Evidence JSON is decoded as UTF-8 and rejects duplicate object keys at every nesting
+level, including escaped names that decode to the same key. Non-finite constants and
+numbers that overflow floating-point decoding are rejected. This applies to reports,
+frame containers, signed outer messages, decoded handshake JSON, observations, intents,
+journal rows and decoded signed results. Recomputing a file hash does not make an
+ambiguous document acceptable. Local negative controls never transmit altered frames.

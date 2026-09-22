@@ -8,6 +8,7 @@ import sys
 import tempfile
 import unittest
 from audit_mcp_evidence import PAIRS, TESTS, audit
+from mcp_evidence_json import loads as strict_json
 from run_mcp_core_runtime import digest
 from run_mcp_setup_interop import validate as setup
 from mcp_protected_support import validate, validate_recovery
@@ -69,6 +70,37 @@ class AuditTests(unittest.TestCase):
     def save(self):
         (self.root/'report.json').write_text(json.dumps(self.report))
 
+    def test_duplicate_report_fields_rejected(self):
+        p=self.root/'report.json';p.write_text('{"status":"FAIL",'+p.read_text()[1:])
+        with self.assertRaisesRegex(ValueError,'duplicate JSON key'):audit(self.root)
+
+    def test_rehashed_duplicate_observation_and_journal_rejected(self):
+        row=self.report['pairs'][0];directory=self.root/row['pair']
+        for name in ('server.json','server.journal','frames.json'):
+            p=directory/name;raw=p.read_text();original=row['files'][name]
+            if name=='server.json': changed='{"effects":99,'+raw[1:]
+            elif name=='frames.json': changed='{"requests":[],'+raw[1:]
+            else:
+                lines=raw.splitlines();lines[1]='{"state":"UNKNOWN",'+lines[1][1:]
+                changed='\n'.join(lines)+'\n'
+            p.write_text(changed);row['files'][name]=digest(p);self.save()
+            with self.assertRaisesRegex(ValueError,'duplicate JSON key'):audit(self.root)
+            p.write_text(raw);row['files'][name]=original
+
+    def test_rehashed_duplicate_signed_wire_rejected(self):
+        row=self.report['pairs'][0];p=self.root/row['pair']/'frames.json'
+        frames=json.loads(p.read_text());wire=bytes.fromhex(frames['requests'][4])
+        frames['requests'][4]=(b'{"version":"other",'+wire[1:]).hex()
+        p.write_text(json.dumps(frames));row['files'][p.name]=digest(p);self.save()
+        with self.assertRaisesRegex(ValueError,'duplicate JSON key'):audit(self.root)
+
+    def test_cli_rejects_ambiguous_report(self):
+        p=self.root/'report.json';p.write_text('{"status":"FAIL",'+p.read_text()[1:])
+        run=subprocess.run([sys.executable,'-B',str(HERE/'audit_mcp_evidence.py'),
+                            '--evidence',str(self.root)],capture_output=True,text=True,timeout=10)
+        self.assertEqual(run.returncode,1)
+        self.assertIn('duplicate JSON key',json.loads(run.stdout)['error'])
+
     def test_saved_evidence_recomputed(self):
         self.assertEqual(len(audit(self.root)['checks']),12)
 
@@ -120,6 +152,18 @@ class AuditTests(unittest.TestCase):
         run=subprocess.run(cmd,capture_output=True,text=True,timeout=30)
         self.assertEqual(run.returncode,1)
         self.assertEqual(json.loads(run.stdout)['status'],'FAIL')
+
+
+class JsonTests(unittest.TestCase):
+    def test_reject_ambiguous_and_nonstandard_json(self):
+        for raw in ('{"a":1,"a":2}', '{"a":1,"\\u0061":2}', '{"nested":{"a":1,"a":2}}',
+                    '{"v":NaN}', '{"v":Infinity}', '{"v":-Infinity}', '{"v":1e400}'):
+            with self.subTest(raw=raw), self.assertRaises(ValueError):strict_json(raw)
+        with self.assertRaises(UnicodeError):strict_json('{"v":1}'.encode('utf-16'))
+
+    def test_preserve_valid_values(self):
+        value={'text':'검증','nested':[0,1.25,None,True,{'key':'value'}]}
+        self.assertEqual(strict_json(json.dumps(value,ensure_ascii=False).encode()),value)
 
 
 if __name__=='__main__':unittest.main()

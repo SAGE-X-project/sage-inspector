@@ -16,7 +16,7 @@ from check_mcp_owner_admission import load as load_owner_contract, validate as v
 
 ROOT = Path(__file__).resolve().parents[1]
 OWNER_CONTRACT = ROOT / 'verification/0.10.0/mcp-owner-admission-contract.json'
-PINS = {'go': '872307563416f144cc863d26b594b0ce7da1f2bd',
+PINS = {'go': '941f1cfebee86b9ae4b0f9456833d484bc0c5d16',
         'rust': '8d91b2f85fb887f827bff752171315a57fd694ce'}
 PREFIX = 'hpke::completion010::tests::mcp_admission_tests::mcp_reply_tests::mcp_transport_tests::'
 CASES = {

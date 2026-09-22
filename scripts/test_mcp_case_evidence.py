@@ -64,15 +64,15 @@ class CaseEvidenceTests(unittest.TestCase):
     def save(self):
         (self.runtime / 'report.json').write_text(json.dumps(self.report, indent=2) + '\n')
 
-    def test_complete_partial_and_not_run_results_are_distinct(self):
+    def test_complete_and_not_run_results_are_distinct(self):
         result = checker.inspect(self.runtime)
         self.assertEqual(result['status'], 'EVIDENCE_CHECKED')
-        self.assertEqual(result['runtime_case_counts'], {'PASS': 1, 'PARTIAL': 1, 'NOT_RUN': 69})
+        self.assertEqual(result['runtime_case_counts'], {'PASS': 2, 'PARTIAL': 0, 'NOT_RUN': 69})
         self.assertEqual(result['historical_catalog'], {'NOT_RUN': 71})
         self.assertEqual(result['conformance'], 'NOT_ESTABLISHED')
         statuses = {row['id']: row['status'] for row in result['cases']}
         self.assertEqual(statuses['mres-close-after-admission'], 'PASS')
-        self.assertEqual(statuses['mres-close-after-reservation'], 'PARTIAL')
+        self.assertEqual(statuses['mres-close-after-reservation'], 'PASS')
         self.assertEqual(len(result['cases']), 71)
 
     def test_changed_or_rehashed_log_fails(self):
@@ -105,7 +105,7 @@ class CaseEvidenceTests(unittest.TestCase):
         for change in (
                 lambda item: item.update(conformance='PASS'),
                 lambda item: item['assessments'].pop(),
-                lambda item: item['assessments'][0].update(status='PASS'),
+                lambda item: item['assessments'][0].update(status='PARTIAL'),
                 lambda item: item['assessments'][0]['requirements'][0].update(test='other'),
                 lambda item: item.update(runtime_case_counts={'PASS': 71})):
             candidate = copy.deepcopy(value)
@@ -121,7 +121,7 @@ class CaseEvidenceTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         raw = (output / 'report.json').read_bytes()
         self.assertEqual(json.loads(raw)['runtime_case_counts'],
-                         {'PASS': 1, 'PARTIAL': 1, 'NOT_RUN': 69})
+                         {'PASS': 2, 'PARTIAL': 0, 'NOT_RUN': 69})
         self.assertEqual((output / 'contract.json').read_bytes(), checker.CONTRACT.read_bytes())
         result = subprocess.run(command, cwd=checker.ROOT, capture_output=True, text=True, timeout=15)
         self.assertNotEqual(result.returncode, 0)

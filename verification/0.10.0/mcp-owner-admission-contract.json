@@ -23,18 +23,18 @@
   ],
   "cores": {
     "go": {
-      "revision": "872307563416f144cc863d26b594b0ce7da1f2bd",
+      "revision": "941f1cfebee86b9ae4b0f9456833d484bc0c5d16",
       "files": {
         "pkg/agent/guard010/mcp_admission.go": "d8043fba81f751eb87ecf23f1c1503e113dbc393e0b88ec31a1752c356786ebc",
         "pkg/agent/guard010/mcp_owner.go": "f4d376555edfca44b799cc52b3b9a08e9ed6940a4fc227bb9e38f15dc7a1ba37",
         "pkg/agent/guard010/mcp_protected_reply.go": "781c2273d4775bf4615d2b6a6828d6210da5931a18781c4732b99d4819f89303",
-        "pkg/agent/guard010/mcp_admission_test.go": "930fbd2b4942c04610f5e6e127bd7916fe17bbe297d3aca1d22fa171ac08cec6",
+        "pkg/agent/guard010/mcp_admission_test.go": "bbdc950259b7317979f2be87e2f2df96def8027c34683062d9dc43715c1e58d8",
         "pkg/agent/guard010/mcp_owner_test.go": "5ee0e2a02856e604cfcc123b9436ae3fcdf84e03945949d359d7491018606d53",
         "pkg/agent/guard010/mcp_protected_reply_test.go": "0443011c3453e165452a84e59b56fad6b927653447c3984cef3dabe3b8d2c2bc"
       },
       "tests": {
         "TestMCPAdmissionAuthenticatedExecutionAndDuplicate": ["durable-admission", "owner-isolation"],
-        "TestMCPAdmissionCloseDuringFence": ["durable-admission", "close-linearization"],
+        "TestMCPAdmissionCloseDuringFence": ["durable-admission", "close-linearization", "owner-isolation"],
         "TestMCPAdmissionCloseAfterInsertionKeepsAdmission": ["durable-admission", "close-linearization"],
         "TestMCPAdmissionSharedOwners": ["owner-isolation"],
         "TestMCPOwnerBlockedSendDoesNotBlockClose": ["close-linearization"],

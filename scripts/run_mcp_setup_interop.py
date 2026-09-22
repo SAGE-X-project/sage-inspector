@@ -4,6 +4,7 @@ import itertools
 import json
 from mcp_evidence_json import loads as strict_json
 import os
+from mcp_session_freshness import check_matrix
 from pathlib import Path
 import signal
 import socket
@@ -225,7 +226,7 @@ def main():
         report['inspector_revision'] = subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip()
         report['inspector_dirty'] = bool(subprocess.check_output(['git','status','--porcelain'],cwd=ROOT,text=True))
         report['scripts'] = {}
-        for name in ('run_mcp_setup_interop.py','run_mcp_core_runtime.py','test_completion010.py','test_record010_adapters.py','mcp_protected_support.py','test_mcp_session010.py','mcp_evidence_json.py'):
+        for name in ('run_mcp_setup_interop.py','run_mcp_core_runtime.py','test_completion010.py','test_record010_adapters.py','mcp_protected_support.py','test_mcp_session010.py','mcp_evidence_json.py','mcp_session_freshness.py'):
             source = ROOT/'scripts'/name;(output/name).write_bytes(source.read_bytes());report['scripts'][name] = digest(source)
         with tempfile.TemporaryDirectory(prefix='sage-mcp-interop-') as tmp:
             programs = {}
@@ -243,7 +244,9 @@ def main():
                         previous = output/(left+'-to-'+right)
                         report['restart'].append(pair(left,right,programs,stage,True,mode,previous))
         if len(report['pairs']) == 4 and all(p['status']=='PASS' for p in report['pairs']):
-            report['status']='PASS' if not a.restart or (len(report.get('restart',[])) == 8 and all(p['status']=='PASS' for p in report['restart'])) else 'FAIL'
+            if not a.restart or (len(report.get('restart',[])) == 8 and all(p['status']=='PASS' for p in report['restart'])):
+                report['session_freshness'] = check_matrix(output, report)
+                report['status']='PASS'
             if a.protected: report.update(protected_dispatch='PASS',journal_audit='SELECTED_ASSERTIONS_PASS')
             if a.restart and report['status'] == 'PASS': report['completed_recovery'] = 'SELECTED_ASSERTIONS_PASS'
     except Exception as e: report['error'] = str(e)

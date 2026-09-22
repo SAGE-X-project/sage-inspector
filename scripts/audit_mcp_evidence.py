@@ -3,6 +3,7 @@ import argparse
 import itertools
 import json
 from mcp_evidence_json import loads as strict_json, equal as typed_equal
+from mcp_session_freshness import check_matrix
 from pathlib import Path
 import sys
 from run_mcp_core_runtime import digest, observed
@@ -63,7 +64,12 @@ def audit(root):
         if any(not typed_equal(row.get(key), value) for key,value in checked.items()):
             raise ValueError('reported observation differs from recomputed evidence')
         checks.append(dict(pair=row['pair'],mode=mode or 'baseline',status='PASS'))
-    return dict(kind='mcp-saved-evidence-audit',status='PASS',checks=checks,
+    freshness = dict(status='NOT_RUN')
+    if 'session_freshness' in report:
+        freshness = check_matrix(root, report)
+        if not typed_equal(report['session_freshness'],freshness):
+            raise ValueError('reported session freshness differs from evidence')
+    return dict(session_freshness=freshness,kind='mcp-saved-evidence-audit',status='PASS',checks=checks,
                 conformance='NOT_ESTABLISHED',report_sha256=digest(root/'report.json'),
                 scope='Saved frames, journals and execution logs; no artifact provenance authentication')
 

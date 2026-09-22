@@ -3,7 +3,7 @@
 The earlier [core review](mcp-owner-core-review.md) identified four integration gaps
 at Go `be621819...` and Rust `ad30c6a...`. Both cores subsequently added private
 owner-aware admission and protected-reply paths. This review pins Go
-`872307563416f144cc863d26b594b0ce7da1f2bd` and Rust
+`941f1cfebee86b9ae4b0f9456833d484bc0c5d16` and Rust
 `8d91b2f85fb887f827bff752171315a57fd694ce`. It does not reinterpret the older
 decision at its original revisions.
 
@@ -44,7 +44,9 @@ These are source-level properties of the pinned private implementations. Hash an
 revision checks make source drift fail closed, while selected core tests exercise
 the actual scheduling seams with inert counters, temporary journals, controlled
 clocks and bounded local callbacks. The tests contain no external target or reusable
-attack path.
+attack path. The Go close-during-fence schedule directly compares the protected
+request ID retained by its owner and the durable nonce retained by the execution
+entry across successful, failed and uncertain persistence outcomes.
 
 ## Run and interpret
 

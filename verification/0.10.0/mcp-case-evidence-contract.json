@@ -3,13 +3,13 @@
   "protocol_version": "0.10.0",
   "kind": "mcp-proposal-case-evidence",
   "catalog_manifest_sha256": "5727834113a41ef910d4a5c5487457b6e3ae9f89ac36e86946a6e72ae28c1f35",
-  "owner_admission_contract_sha256": "1bb78595ebbbe0272ab32d659efc25d187cb0b59d863a0866af6a6443ecb2f8b",
+  "owner_admission_contract_sha256": "f75cc9927218ff1ddb0d64d9abd932251a2c4964b397b6205ef1759333aedb34",
   "historical_catalog": {
     "NOT_RUN": 71
   },
   "runtime_case_counts": {
-    "PASS": 1,
-    "PARTIAL": 1,
+    "PASS": 2,
+    "PARTIAL": 0,
     "NOT_RUN": 69
   },
   "external_review": "NOT_PERFORMED",
@@ -18,8 +18,8 @@
   "assessments": [
     {
       "id": "mres-close-after-reservation",
-      "status": "PARTIAL",
-      "claim": "Both cores prevent effects after closure during the final fence; Go does not yet directly assert retained nonce and request-ID history for this schedule.",
+      "status": "PASS",
+      "claim": "Both cores prevent effects after closure during the final fence, retain the request identity and durable reservation, and avoid a false completed outcome.",
       "requirements": [
         {
           "language": "go",

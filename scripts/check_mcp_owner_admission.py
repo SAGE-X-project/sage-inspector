@@ -36,7 +36,7 @@ SELECTED_TESTS = {
         'hpke::completion010::tests::mcp_admission_tests::mcp_reply_tests::close_after_durable_acceptance_suppresses_output_and_reopen_cannot_redeliver'},
 }
 TEST_MAPPING_HASHES = {
-    'go': '9b1a259eb282443517db8c49a7def7998aa494d952215ba2b0d10f252c71b8dd',
+    'go': '8be1daf14dd9fbd880963546a1c87e587923a4f0f775547909ae9796760b1edc',
     'rust': '1296e952fc4fbc0588a2519254a6b2a6538257a2117ab9ce38f836b4851cf76f',
 }
 

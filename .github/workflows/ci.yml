@@ -590,7 +590,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: SAGE-X-project/sage
-          ref: 872307563416f144cc863d26b594b0ce7da1f2bd
+          ref: 941f1cfebee86b9ae4b0f9456833d484bc0c5d16
           path: .mcp-go
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:

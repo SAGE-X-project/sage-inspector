@@ -6,7 +6,7 @@ adapter or a Go/Rust interoperability result. It deliberately uses the existing
 private core path rather than exporting session keys, resettable history or an
 alternate sender for verification.
 
-Inputs are Go `872307563416f144cc863d26b594b0ce7da1f2bd` and Rust
+Inputs are Go `941f1cfebee86b9ae4b0f9456833d484bc0c5d16` and Rust
 `8d91b2f85fb887f827bff752171315a57fd694ce`. The runner archives these exact commits
 and builds temporary copies. Dirty and untracked working files are not used or
 modified. The old [owner review](mcp-owner-core-review.md) and
@@ -85,10 +85,9 @@ are not equivalent across languages and do not cover every deadline ordering.
 
 CI preserves these reports separately under `mcp-core-runtime` in the native MCP
 artifact. Historical catalog cases remain NOT_RUN and conformance remains
-NOT_ESTABLISHED. The case overlay currently has complete evidence for one resolution
-case and partial evidence for one. Independent per-case evidence and remaining
-ordering schedules must be added before promoting any other current result or
-normative coverage.
+NOT_ESTABLISHED. The case overlay currently has complete evidence for two resolution
+cases. Independent per-case evidence and remaining ordering schedules must be added
+before promoting any other current result or normative coverage.
 
 ## Owner admission schedules
 

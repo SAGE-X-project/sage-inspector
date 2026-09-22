@@ -158,7 +158,10 @@ def pair(left,right,programs,output,protected=False):
         for source,target,frames in ((local,remote,requests),(remote,local,responses)):
             thread = threading.Thread(target=flow.relay if protected else relay,args=(source,target,frames,errors));thread.start();threads.append(thread)
         for role in ('client','server'):
-            value = json.loads(wait_file(directory/(role+'.json'),processes,end))
+            # Protected peers finish independently after terminal delivery/EOF.
+            # A finished sibling must not invalidate this peer's pending observation.
+            peer = client if role == 'client' else server
+            value = json.loads(wait_file(directory/(role+'.json'),[peer],end))
             if not protected and value != dict(role=role,state='READY',protected='NOT_RUN'): raise ValueError('READY observation')
         (directory/'release').write_text('release\n')
         for process in processes: process.wait(timeout=max(.1,end-time.monotonic()))

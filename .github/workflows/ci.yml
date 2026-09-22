@@ -59,6 +59,7 @@ jobs:
           python3 scripts/test_guard_session_reports.py
           python3 scripts/test_mcp_setup.py
           python3 -B scripts/test_mcp_core_runtime.py
+          python3 -B scripts/test_mcp_setup_interop.py
       - name: Audit Guard binding readiness
         run: |
           python3 scripts/test_guard_binding.py
@@ -572,3 +573,40 @@ jobs:
           path: ${{ runner.temp }}/mcp-owner-model/
           if-no-files-found: error
           retention-days: 30
+
+  mcp-native-setup:
+    name: Native MCP setup interoperability
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      RUSTUP_TOOLCHAIN: 1.88.0
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: SAGE-X-project/sage
+          ref: 872307563416f144cc863d26b594b0ce7da1f2bd
+          path: .mcp-go
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: SAGE-X-project/rs-sage-core
+          ref: 8d91b2f85fb887f827bff752171315a57fd694ce
+          path: .mcp-rust
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        with:
+          go-version-file: .mcp-go/go.mod
+          cache-dependency-path: .mcp-go/go.sum
+      - name: Prepare Rust dependencies
+        run: |
+          rustup toolchain install 1.88.0 --profile minimal
+          cargo fetch --manifest-path .mcp-rust/Cargo.toml
+      - name: Run actual native setup bridges
+        run: python3 -B scripts/run_mcp_setup_interop.py --go .mcp-go --rust .mcp-rust --output "${RUNNER_TEMP}/mcp-native-setup"
+      - name: Preserve native setup evidence
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: mcp-native-setup-${{ github.sha }}
+          if-no-files-found: error
+          retention-days: 30
+          path: ${{ runner.temp }}/mcp-native-setup/

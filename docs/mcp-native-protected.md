@@ -133,3 +133,10 @@ numbers that overflow floating-point decoding are rejected. This applies to repo
 frame containers, signed outer messages, decoded handshake JSON, observations, intents,
 journal rows and decoded signed results. Recomputing a file hash does not make an
 ambiguous document acceptable. Local negative controls never transmit altered frames.
+
+Observation and report comparisons preserve JSON value types. Boolean values cannot
+stand in for integer effect counts, attempt counts or process exit codes; numeric
+values cannot stand in for delivery/denial flags. Journal times and expiry fields
+are compared without integer/float coercion, and signed intent/result time bounds
+must decode as integers. Local-only controls cover both direct checks and rehashed
+saved artifacts through the audit CLI; this does not change core protocol behavior.

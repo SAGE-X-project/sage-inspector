@@ -2,7 +2,7 @@
 import argparse
 import itertools
 import json
-from mcp_evidence_json import loads as strict_json
+from mcp_evidence_json import loads as strict_json, equal as typed_equal
 from pathlib import Path
 import sys
 from run_mcp_core_runtime import digest, observed
@@ -41,7 +41,7 @@ def audit(root):
             if not path.resolve().is_relative_to(root): raise ValueError('evidence outside root')
             if digest(path) != expected: raise ValueError('evidence hash mismatch: '+name)
         left,right = row['pair'].split('-to-')
-        if row.get('status') != 'PASS' or row.get('exit_codes') != [0,0]:
+        if row.get('status') != 'PASS' or not typed_equal(row.get('exit_codes'), [0,0]):
             raise ValueError('bridge execution failed')
         for language,role in ((right,'server'),(left,'client')):
             if not observed(language,TESTS[language],(directory/(role+'.log')).read_text(),0):
@@ -60,8 +60,7 @@ def audit(root):
             checked.update(validate_recovery(directory,requests,responses,checked,mode))
         else:
             checked.update(validate(directory,requests,responses,checked))
-        if any(json.dumps(row.get(key),sort_keys=True) != json.dumps(value,sort_keys=True)
-               for key,value in checked.items()):
+        if any(not typed_equal(row.get(key), value) for key,value in checked.items()):
             raise ValueError('reported observation differs from recomputed evidence')
         checks.append(dict(pair=row['pair'],mode=mode or 'baseline',status='PASS'))
     return dict(kind='mcp-saved-evidence-audit',status='PASS',checks=checks,

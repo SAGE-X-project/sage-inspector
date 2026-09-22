@@ -15,7 +15,8 @@ original revisions.
 
 For each core, the selected tests exercise an actual authenticated loopback
 handshake, setup and protected exchange; a stalled handshake retaining connection
-capacity; and capacity retained through socket or endpoint cleanup. These are
+capacity; capacity retained through socket or endpoint cleanup; and the four pinned
+[owner admission boundaries](mcp-owner-admission.md). These are
 bounded trusted fixtures with inert effects. Go executes with the race detector.
 The schedules are core-specific and do not establish equivalent behavior for every
 normative obligation.
@@ -43,7 +44,7 @@ An existing evidence directory is never overwritten. Classifier tests and harmle
 local process success/failure/timeout tests run in Inspector CI; core runtime execution
 also runs in the native MCP CI job with the pinned repositories and dependencies.
 
-The report's PASS means only that all fourteen selected core tests executed and
+The report's PASS means only that all twenty-six selected core tests executed and
 passed. Raw protocol frames, complete journals, callback identities and independent
 wire assertions are not collected by this adapter. Accordingly, interoperability
 remains NOT_RUN, conformance remains NOT_ESTABLISHED, all 71 catalog cases remain
@@ -84,3 +85,12 @@ CI preserves these reports separately under `mcp-core-runtime` in the native MCP
 artifact. Historical catalog cases remain NOT_RUN and conformance remains
 NOT_ESTABLISHED. Independent per-case event evidence and remaining ordering schedules
 must be added before promoting normative coverage.
+
+## Owner admission schedules
+
+Six additional tests per core bind durable EXECUTING admission, close visibility
+during paused callbacks, owner history and shared-capacity isolation, and suppression
+of late protected output without changing the terminal journal. Each report row
+records the exact boundary IDs from the hashed contract. The aggregate report fails
+if a mapped row omits or changes that mapping. Source identity is audited separately
+before the runtime job, and both reports are preserved in the same CI artifact.

@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "protocol_version": "0.10.0",
+  "kind": "mcp-owner-admission-contract",
+  "conformance": "NOT_ESTABLISHED",
+  "boundaries": [
+    {
+      "id": "durable-admission",
+      "contract": "Persist EXECUTING before queue admission and any effect. A failed or uncertain fence cannot dispatch, while owner closure after committed admission cannot roll the admission back."
+    },
+    {
+      "id": "close-linearization",
+      "contract": "Owner closure becomes visible without waiting for registry, storage, signer, transport or tool callbacks. Final admission and publication recheck the owner under coordination."
+    },
+    {
+      "id": "owner-isolation",
+      "contract": "Authenticated request identity history remains bound to its owner, while shared gate capacity and retirement do not transfer authority or close an unrelated owner."
+    },
+    {
+      "id": "output-publication",
+      "contract": "A durable completed result is independent from response delivery. Closure or a late send suppresses publication without erasing completion, redelivery or releasing occupied quota early."
+    }
+  ],
+  "cores": {
+    "go": {
+      "revision": "872307563416f144cc863d26b594b0ce7da1f2bd",
+      "files": {
+        "pkg/agent/guard010/mcp_admission.go": "d8043fba81f751eb87ecf23f1c1503e113dbc393e0b88ec31a1752c356786ebc",
+        "pkg/agent/guard010/mcp_owner.go": "f4d376555edfca44b799cc52b3b9a08e9ed6940a4fc227bb9e38f15dc7a1ba37",
+        "pkg/agent/guard010/mcp_protected_reply.go": "781c2273d4775bf4615d2b6a6828d6210da5931a18781c4732b99d4819f89303",
+        "pkg/agent/guard010/mcp_admission_test.go": "930fbd2b4942c04610f5e6e127bd7916fe17bbe297d3aca1d22fa171ac08cec6",
+        "pkg/agent/guard010/mcp_owner_test.go": "5ee0e2a02856e604cfcc123b9436ae3fcdf84e03945949d359d7491018606d53",
+        "pkg/agent/guard010/mcp_protected_reply_test.go": "0443011c3453e165452a84e59b56fad6b927653447c3984cef3dabe3b8d2c2bc"
+      },
+      "tests": {
+        "TestMCPAdmissionAuthenticatedExecutionAndDuplicate": ["durable-admission", "owner-isolation"],
+        "TestMCPAdmissionCloseDuringFence": ["durable-admission", "close-linearization"],
+        "TestMCPAdmissionCloseAfterInsertionKeepsAdmission": ["durable-admission", "close-linearization"],
+        "TestMCPAdmissionSharedOwners": ["owner-isolation"],
+        "TestMCPOwnerBlockedSendDoesNotBlockClose": ["close-linearization"],
+        "TestMCPProtectedReplyCloseDoesNotReleaseBlockedOutput": ["close-linearization", "output-publication"]
+      }
+    },
+    "rust": {
+      "revision": "8d91b2f85fb887f827bff752171315a57fd694ce",
+      "files": {
+        "src/guard010/mcp_setup.rs": "621ce8d8f99a689e293acfe69501882bbd7cf85bbb87101b74305bcb7877f15c",
+        "src/guard010/dispatch/mcp_admission.rs": "e2d4d6bf9834690ebb67ff7326d538910a52ddc7dc1957940d3920503662cb63",
+        "src/guard010/dispatch/mcp_admission/reply.rs": "93dff1055e76694575437dcf292bd02f7004840ff1f382d50b94fafceb4a9ae5",
+        "src/hpke/completion010/mcp_admission_tests.rs": "9fcf41df6e3dfa37206db0563fd8a2e103570b553bdf001baf5b161af3a21434",
+        "src/hpke/completion010/mcp_reply_tests.rs": "cb857927ce44f7ce829e4dfc21eae61a6c16d22e7f1d86ef07f27344852a8f4b"
+      },
+      "tests": {
+        "hpke::completion010::tests::mcp_admission_tests::admission_fences_before_effects_and_gate_close_cancels_unclaimed_work": ["durable-admission", "close-linearization"],
+        "hpke::completion010::tests::mcp_admission_tests::admitted_worker_persists_signed_result_once_and_duplicate_never_runs": ["durable-admission", "owner-isolation"],
+        "hpke::completion010::tests::mcp_admission_tests::close_during_post_fence_callback_denies_and_retains_history": ["durable-admission", "close-linearization"],
+        "hpke::completion010::tests::mcp_admission_tests::capacity_is_shared_across_connections_and_retained_during_actual_run": ["owner-isolation"],
+        "hpke::completion010::tests::mcp_admission_tests::mcp_reply_tests::failed_reply_does_not_erase_execution_or_allow_second_response": ["output-publication"],
+        "hpke::completion010::tests::mcp_admission_tests::mcp_reply_tests::close_after_durable_acceptance_suppresses_output_and_reopen_cannot_redeliver": ["close-linearization", "output-publication"]
+      }
+    }
+  }
+}

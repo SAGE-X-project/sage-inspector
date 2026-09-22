@@ -63,6 +63,7 @@ jobs:
           python3 -B scripts/test_mcp_protected.py
           python3 -B scripts/test_mcp_evidence_audit.py
           python3 -B scripts/test_mcp_session_freshness.py
+          python3 -B scripts/test_mcp_owner_admission.py
       - name: Audit Guard binding readiness
         run: |
           python3 scripts/test_guard_binding.py
@@ -603,8 +604,10 @@ jobs:
         run: |
           rustup toolchain install 1.88.0 --profile minimal
           cargo fetch --manifest-path .mcp-rust/Cargo.toml
-      - name: Verify core timeout and cleanup schedules
-        run: python3 -B scripts/run_mcp_core_runtime.py --go .mcp-go --rust .mcp-rust --output "${RUNNER_TEMP}/mcp-core-runtime"
+      - name: Verify owner admission, timeout and cleanup schedules
+        run: |
+          python3 -B scripts/check_mcp_owner_admission.py --go-root .mcp-go --rust-root .mcp-rust --output "${RUNNER_TEMP}/mcp-owner-admission"
+          python3 -B scripts/run_mcp_core_runtime.py --go .mcp-go --rust .mcp-rust --output "${RUNNER_TEMP}/mcp-core-runtime"
       - name: Run actual native setup bridges
         run: python3 -B scripts/run_mcp_setup_interop.py --go .mcp-go --rust .mcp-rust --output "${RUNNER_TEMP}/mcp-native-setup"
       - name: Run protected calls and reopen completed journals
@@ -621,5 +624,6 @@ jobs:
           path: |
             ${{ runner.temp }}/mcp-native-audit.json
             ${{ runner.temp }}/mcp-core-runtime/
+            ${{ runner.temp }}/mcp-owner-admission/
             ${{ runner.temp }}/mcp-native-setup/
             ${{ runner.temp }}/mcp-native-protected/

@@ -12,7 +12,10 @@ import tarfile
 import tempfile
 import time
 
+from check_mcp_owner_admission import load as load_owner_contract, validate as validate_owner_contract
+
 ROOT = Path(__file__).resolve().parents[1]
+OWNER_CONTRACT = ROOT / 'verification/0.10.0/mcp-owner-admission-contract.json'
 PINS = {'go': '872307563416f144cc863d26b594b0ce7da1f2bd',
         'rust': '8d91b2f85fb887f827bff752171315a57fd694ce'}
 PREFIX = 'hpke::completion010::tests::mcp_admission_tests::mcp_reply_tests::mcp_transport_tests::'
@@ -45,7 +48,22 @@ SCHEDULES = {
          'Listener shutdown retains worker quota until handler dependencies finish cleanup'),
     )},
 }
-CASES = {language: names + tuple(SCHEDULES[language]) for language, names in CASES.items()}
+
+
+def owner_contract():
+    value = validate_owner_contract(load_owner_contract(OWNER_CONTRACT.read_bytes()))
+    cores = value.get('cores')
+    if set(cores or {}) != set(PINS):
+        raise ValueError('owner admission core inventory')
+    for language, pin in PINS.items():
+        if cores[language].get('revision') != pin:
+            raise ValueError('owner admission revision mismatch: ' + language)
+    return value
+
+
+OWNER_CONTRACT_CASES = {language: core['tests'] for language, core in owner_contract()['cores'].items()}
+CASES = {language: names + tuple(SCHEDULES[language]) + tuple(OWNER_CONTRACT_CASES[language])
+         for language, names in CASES.items()}
 
 
 def digest(path):
@@ -86,8 +104,13 @@ def observed(language, name, text, code):
         return False
     if language == 'go':
         starts = re.findall(r'^=== RUN   (\S+)\s*$', text, re.M)
-        ends = re.findall(r'^--- (PASS|FAIL|SKIP): (\S+) \(', text, re.M)
-        return starts == [name] and ends == [('PASS', name)] and text.endswith('PASS\n')
+        ends = re.findall(r'^\s*--- (PASS|FAIL|SKIP): (\S+) \(', text, re.M)
+        expected = lambda value: value == name or value.startswith(name + '/')
+        return (starts and starts[0] == name and len(starts) == len(set(starts))
+                and all(expected(value) for value in starts)
+                and len(ends) == len(starts)
+                and all(status == 'PASS' and expected(value) for status, value in ends)
+                and sum(value == name for _, value in ends) == 1 and text.endswith('PASS\n'))
     records = re.findall(r'^test (\S+) \.\.\. (\S+)\s*$', text, re.M)
     return records == [(name, 'ok')] and bool(re.search(
         r'^test result: ok\. 1 passed; 0 failed; 0 ignored;', text, re.M))
@@ -157,6 +180,8 @@ def execute(language, repo, output, work):
         row['execution_status'] = row['status']
         row['evidence_kind'] = 'pinned-core-assertions'
         if name in SCHEDULES[language]: row['schedule_assertion'] = SCHEDULES[language][name]
+        if name in OWNER_CONTRACT_CASES[language]:
+            row['owner_admission_boundaries'] = OWNER_CONTRACT_CASES[language][name]
         row['status'] = ('PASS' if row['status'] == 'PASS' and observed(
             language, name, (output / row['log']).read_text(), row['exit_code']) else 'FAIL')
         subject['cases'].append(row)
@@ -168,6 +193,8 @@ def successful(subjects):
         subjects[lang]['build']['status'] == 'PASS'
         and [r['test'] for r in subjects[lang]['cases']] == list(names)
         and all(r['status'] == 'PASS' for r in subjects[lang]['cases'])
+        and all(r.get('owner_admission_boundaries') == OWNER_CONTRACT_CASES[lang][r['test']]
+                for r in subjects[lang]['cases'] if r['test'] in OWNER_CONTRACT_CASES[lang])
         for lang, names in CASES.items())
 
 
@@ -182,10 +209,12 @@ def main():
         p.error('output must be new and outside Inspector and core repositories')
     output.mkdir(parents=True, exist_ok=False)
     (output / 'runner.py').write_bytes(Path(__file__).read_bytes())
+    (output / 'owner-admission-contract.json').write_bytes(OWNER_CONTRACT.read_bytes())
     report = dict(kind='mcp-core-runtime-tests', status='FAIL',
                   conformance='NOT_ESTABLISHED', interoperability='NOT_RUN',
                   catalog=dict(NOT_RUN=71), mandatory_children='NOT_PROMOTED',
-                  scope='Private core test assertions; no independent wire or journal audit',
+                  owner_admission_contract_sha256=digest(OWNER_CONTRACT),
+                  scope='Pinned private core assertions and owner admission boundaries; no protocol conformance claim',
                   runner_sha256=digest(Path(__file__)), subjects={})
     try:
         report['inspector_revision'] = subprocess.check_output(

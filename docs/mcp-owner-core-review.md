@@ -152,3 +152,18 @@ and temporary storage. They do not execute the proposed MCP connection owner or 
 network/host isolation evidence. No implementation behavior is changed by this review.
 The 71 proposal cases and 37 historical lifecycle cases remain NOT_RUN; conformance
 remains NOT_ESTABLISHED.
+
+## Current implementation re-review
+
+The blocking assessment above applies to its pinned Go `be621819...` and Rust
+`ad30c6a...` revisions. At Go `8723075...` and Rust `8d91b2f...`, private owner-aware
+admission, setup history, close tokens and protected reply publication are present.
+The [current contract and source review](mcp-owner-admission.md) maps all four former
+gaps to hashed implementation files and selected bounded core tests. Inspector runs
+those tests from archived pinned commits and keeps their execution evidence separate
+from source identity.
+
+Passing that current contract closes the implementation prerequisites described in
+gaps 1–4 for the pinned private paths. It does not change the historical result,
+adopt the proposal as normative text, perform an external independent review, or
+establish complete protocol and host conformance.

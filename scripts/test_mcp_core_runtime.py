@@ -6,7 +6,8 @@ import json
 import subprocess
 import tempfile
 import unittest
-from run_mcp_core_runtime import CASES, SCHEDULES, ROOT, observed, run, successful
+from run_mcp_core_runtime import (CASES, OWNER_CONTRACT, OWNER_CONTRACT_CASES,
+                                  SCHEDULES, ROOT, digest, observed, run, successful)
 
 
 class EvidenceTests(unittest.TestCase):
@@ -14,15 +15,30 @@ class EvidenceTests(unittest.TestCase):
         self.assertEqual(set(SCHEDULES), {'go','rust'})
         for language, claims in SCHEDULES.items():
             self.assertEqual(len(claims),4)
-            self.assertEqual(len(CASES[language]),7)
-            self.assertEqual(len(set(CASES[language])),7)
+            self.assertEqual(len(OWNER_CONTRACT_CASES[language]), 6)
+            self.assertEqual(len(CASES[language]),13)
+            self.assertEqual(len(set(CASES[language])),13)
             self.assertTrue(all(name in CASES[language] and claim for name,claim in claims.items()))
+            covered = set().union(*map(set, OWNER_CONTRACT_CASES[language].values()))
+            self.assertEqual(covered, {'durable-admission', 'close-linearization',
+                                       'owner-isolation', 'output-publication'})
+
+    def test_owner_contract_is_bound_to_runtime_runner(self):
+        self.assertEqual(len(digest(OWNER_CONTRACT)), 64)
+        for language, cases in OWNER_CONTRACT_CASES.items():
+            self.assertTrue(all(name in CASES[language] and boundaries
+                                for name, boundaries in cases.items()))
 
     def test_go_requires_exact_execution(self):
         text = '=== RUN   Sample\n--- PASS: Sample (0.01s)\nPASS\n'
         self.assertTrue(observed('go', 'Sample', text, 0))
+        children = ('=== RUN   Sample\n=== RUN   Sample/one\n'
+                    '    --- PASS: Sample/one (0.00s)\n--- PASS: Sample (0.01s)\nPASS\n')
+        self.assertTrue(observed('go', 'Sample', children, 0))
         for bad in ('PASS\n', text.replace('Sample', 'Other'),
-                    text.replace('PASS:', 'SKIP:'), text + text):
+                    text.replace('PASS:', 'SKIP:'), text + text,
+                    children.replace('Sample/one', 'Other/one', 1),
+                    children.replace('PASS: Sample/one', 'FAIL: Sample/one')):
             self.assertFalse(observed('go', 'Sample', bad, 0))
         self.assertFalse(observed('go', 'Sample', text, 1))
 
@@ -35,8 +51,10 @@ class EvidenceTests(unittest.TestCase):
         self.assertFalse(observed('rust', 'Sample', text, -9))
 
     def test_report_requires_all_pinned_tests(self):
-        subjects = {lang: dict(build=dict(status='PASS'), cases=[dict(test=name, status='PASS')
-                    for name in names]) for lang, names in CASES.items()}
+        subjects = {lang: dict(build=dict(status='PASS'), cases=[dict(
+                    test=name, status='PASS', **({'owner_admission_boundaries': OWNER_CONTRACT_CASES[lang][name]}
+                    if name in OWNER_CONTRACT_CASES[lang] else {})) for name in names])
+                    for lang, names in CASES.items()}
         self.assertTrue(successful(subjects))
         self.assertFalse(successful({}))
         for mode in ('build', 'missing', 'failed', 'duplicate', 'identity', 'schedule_failed'):
@@ -48,6 +66,10 @@ class EvidenceTests(unittest.TestCase):
             if mode == 'schedule_failed': value['rust']['cases'][-1]['status'] = 'FAIL'
             if mode == 'identity': value['go']['cases'][0]['test'] = 'other'
             self.assertFalse(successful(value), mode)
+        value = copy.deepcopy(subjects)
+        owner = next(row for row in value['go']['cases'] if 'owner_admission_boundaries' in row)
+        owner['owner_admission_boundaries'] = ['owner-isolation']
+        self.assertFalse(successful(value))
 
     def test_cli_preserves_existing_output_and_failed_snapshot(self):
         script = ROOT / 'scripts/run_mcp_core_runtime.py'

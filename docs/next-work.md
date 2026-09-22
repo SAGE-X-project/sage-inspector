@@ -416,3 +416,11 @@ admission/close 계약과 lock 순서 확정**, 이후 독립 검토·규범 조
 canonical AAD를 검산하고, 복호화된 setup 및 `tools/call` 메시지를 원본 intent, inner
 RPC ID, 서명 결과와 terminal journal에 연결한다. 네 언어 조합과 재시작 증거를
 오프라인에서 재검증하지만 artifact 실행 출처, live registry와 전체 적합성은 증명하지 않는다.
+
+
+[MCP owner admission·close 계약](mcp-owner-admission.md)은 최신 Go/Rust 코어에서
+과거 검토의 네 공백을 다시 대조한다. 고정 소스 해시와 리비전, 코어별 6개 실제
+테스트를 durable admission, close 선형화, owner 격리, output publication 경계에
+연결하고 누락·skip·중복·시간 초과를 실패 처리한다. 이는 고정 private 경로의 구현
+선행 조건 검증이며 외부 독립 검토, 규범 채택, 71개 전체 사례와 호스트 적합성은
+계속 별도 후속 작업이다.

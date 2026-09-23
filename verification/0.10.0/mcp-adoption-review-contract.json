@@ -1,0 +1,150 @@
+{
+  "schema_version": 1,
+  "protocol_version": "0.10.0",
+  "kind": "mcp-adoption-readiness-review",
+  "method": "INTERNAL_BOUNDED_REREVIEW",
+  "source": {
+    "repository": "SAGE-X-project/sage-spec",
+    "revision": "70abcda876879697cae91f1182ce5c9148211e8d",
+    "manifest_sha256": "5727834113a41ef910d4a5c5487457b6e3ae9f89ac36e86946a6e72ae28c1f35",
+    "consolidated_sha256": "e458164c30416e6099aafe6c8d33471a28f595be5240200040b439a997ee5e6d",
+    "tool_sha256": "c3edd622a7c90baa028118f63af42a91f354fe7202070ef91a4bd349e4048204",
+    "setup_evidence_contract_sha256": "01cdaef9e0f467e6043108c7acc0595c4447368be11ff041d1d1a44cff3e2593",
+    "aggregate_evidence_contract_sha256": "efd0b6dae50a436a7977aaea3a15f43a2c5c9de017fe0472dff2e46a772809f2"
+  },
+  "review_scope": [
+    "state-machine-consistency",
+    "protected-operation-ordering",
+    "profile-selection",
+    "normative-integration",
+    "evidence-provenance",
+    "external-review-prerequisite"
+  ],
+  "internal_review": "COMPLETE_WITH_FINDINGS",
+  "external_review": "NOT_PERFORMED",
+  "adoption": "PROPOSAL_NOT_ADOPTED",
+  "conformance": "NOT_ESTABLISHED",
+  "adoption_readiness": "BLOCKED",
+  "finding_counts": {
+    "HIGH": 4,
+    "MEDIUM": 2,
+    "OPEN": 5,
+    "PENDING_EXTERNAL": 1
+  },
+  "findings": [
+    {
+      "id": "ADOPT-01",
+      "category": "state-machine-consistency",
+      "severity": "HIGH",
+      "status": "OPEN",
+      "title": "OUTPUT_PENDING callback rules conflict",
+      "anchors": [
+        "While OUTPUT_PENDING, no inbound message or callback may dispatch, publish readiness or reenter the owner.",
+        "A completion delivered synchronously is queued like an asynchronous completion."
+      ],
+      "observation": "The first rule prohibits every callback from reentering the owner while the later algorithm requires the active send completion to be serialized and published through that owner.",
+      "required_resolution": "Exclude only the active output completion from the general callback prohibition, define how it is queued and serialized, and state that unrelated callbacks retain no admission or publication authority.",
+      "required_validation": [
+        "synchronous-completion",
+        "asynchronous-completion",
+        "duplicate-completion",
+        "close-before-completion"
+      ]
+    },
+    {
+      "id": "ADOPT-02",
+      "category": "protected-operation-ordering",
+      "severity": "HIGH",
+      "status": "OPEN",
+      "title": "Protected call concurrency is unspecified",
+      "anchors": [
+        "At most one control request is outstanding.",
+        "One owner exclusively controls one role, authenticated peer/key tuple, SAGE session, connection incarnation, pending invocation, MCP phase and request-ID history."
+      ],
+      "observation": "The draft limits control requests and models a singular pending invocation, but it does not say whether READY permits one or several outstanding protected calls or how multiple responses interact with OUTPUT_PENDING and closure.",
+      "required_resolution": "Choose a protected-call concurrency limit and define reservation, response correlation, publication ordering, backpressure, deadline and close behavior for attempts at or beyond that limit.",
+      "required_validation": [
+        "protected-single-flight-or-limit",
+        "response-reordering",
+        "concurrent-close",
+        "capacity-exhaustion"
+      ]
+    },
+    {
+      "id": "ADOPT-03",
+      "category": "profile-selection",
+      "severity": "HIGH",
+      "status": "OPEN",
+      "title": "The local binding and descriptor baseline lack a stable selection identifier",
+      "anchors": [
+        "Both hosts MUST select this binding through trusted deployment configuration, before parsing traffic.",
+        "There is no unprotected probe, fallback, new cipher, transcript field or portable authorization token.",
+        "Expanding this binding requires an explicit profile/descriptor revision and verifier and interoperability evidence before advertisement."
+      ],
+      "observation": "Preconfiguration can avoid wire negotiation, but the draft does not assign a stable binding identifier or normative descriptor digest that both deployments can compare before opening a session.",
+      "required_resolution": "Define a versioned local profile identifier and pin the complete descriptor digest in the adopted profile or registry. Construction must fail before setup when configured identifiers or descriptor digests differ.",
+      "required_validation": [
+        "profile-identifier-match",
+        "profile-identifier-mismatch",
+        "descriptor-digest-mismatch",
+        "no-wire-fallback"
+      ]
+    },
+    {
+      "id": "ADOPT-04",
+      "category": "normative-integration",
+      "severity": "HIGH",
+      "status": "OPEN",
+      "title": "The proposal has not been reconciled with the normative baseline",
+      "anchors": [
+        "Before adoption: independently review this state machine and fixed acknowledgement;",
+        "update the normative profile, traceability and compatibility/change record together;"
+      ],
+      "observation": "The consolidated document is still a proposal layered over an unpublished baseline, so its MUST statements do not yet have one normative owner or compatibility status.",
+      "required_resolution": "Apply the accepted text atomically to the normative profile, traceability, compatibility record and changelog, with one reviewable revision and no competing rule source.",
+      "required_validation": [
+        "normative-owner",
+        "traceability-completeness",
+        "compatibility-record",
+        "change-record"
+      ]
+    },
+    {
+      "id": "ADOPT-05",
+      "category": "evidence-provenance",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "title": "Current execution evidence is not linked from the adoption record",
+      "anchors": [
+        "contain 40 + 18 + 13 = **71 NOT_RUN** protocol cases.",
+        "Earlier 40/58-case reports remain historical, not total coverage of this integrated draft."
+      ],
+      "observation": "The historical plans correctly remain NOT_RUN, while Inspector now derives current 71-case evidence. An adoption reader has no pinned normative link that distinguishes and locates those two states.",
+      "required_resolution": "Keep the historical plan immutable and add an adoption evidence record that pins the Inspector revision, contracts, CI artifacts and derived current results without rewriting plan status.",
+      "required_validation": [
+        "historical-plan-unchanged",
+        "current-evidence-pinned",
+        "artifact-provenance",
+        "no-conformance-promotion"
+      ]
+    },
+    {
+      "id": "ADOPT-06",
+      "category": "external-review-prerequisite",
+      "severity": "MEDIUM",
+      "status": "PENDING_EXTERNAL",
+      "title": "External independent review is still required",
+      "anchors": [
+        "External independent review remains NOT_PERFORMED."
+      ],
+      "observation": "This internal rereview can identify and freeze issues but cannot satisfy the proposal requirement for scrutiny by an independent external reviewer.",
+      "required_resolution": "After ADOPT-01 through ADOPT-05 are resolved in one candidate, obtain an external review of the state machine, fixed acknowledgement, final admission ordering, deadlines, algorithm boundary and excluded transports.",
+      "required_validation": [
+        "reviewer-independence-record",
+        "reviewed-revision",
+        "finding-disposition",
+        "adoption-decision"
+      ]
+    }
+  ]
+}

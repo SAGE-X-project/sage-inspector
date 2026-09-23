@@ -8,7 +8,7 @@ import sys
 from check_mcp_catalog import BASE as CATALOG_BASE, catalog
 from check_mcp_owner_admission import load, require, sha
 from run_mcp_core_runtime import (OWNER_CONTRACT, OWNER_CONTRACT_CASES, PINS,
-                                  SIGNATURE_CONTRACT, SIGNATURE_CONTRACT_CASES,
+                                  SETUP_CONTRACT, SIGNATURE_CONTRACT, SIGNATURE_CONTRACT_CASES,
                                   observed, successful)
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -140,15 +140,16 @@ def catalog_rows():
 def validate_contract(value):
     exact(value, ('schema_version', 'protocol_version', 'kind', 'catalog_manifest_sha256',
                   'owner_admission_contract_sha256', 'signature_boundary_contract_sha256',
-                  'historical_catalog', 'runtime_case_counts',
+                  'setup_case_contract_sha256', 'historical_catalog', 'runtime_case_counts',
                   'external_review', 'adoption', 'conformance', 'assessments'), 'contract fields')
     require(type(value['schema_version']) is int and value['schema_version'] == 1, 'schema version')
     require(value['protocol_version'] == '0.10.0' and value['kind'] == 'mcp-proposal-case-evidence', 'contract identity')
     require(value['catalog_manifest_sha256'] == CATALOG_MANIFEST_SHA, 'catalog binding')
     require(value['owner_admission_contract_sha256'] == sha(OWNER_CONTRACT.read_bytes()), 'owner contract binding')
     require(value['signature_boundary_contract_sha256'] == sha(SIGNATURE_CONTRACT.read_bytes()), 'signature contract binding')
+    require(value['setup_case_contract_sha256'] == sha(SETUP_CONTRACT.read_bytes()), 'setup contract binding')
     require(value['historical_catalog'] == {'NOT_RUN': 71}, 'historical catalog promotion')
-    require(value['runtime_case_counts'] == {'PASS': 13, 'PARTIAL': 0, 'NOT_RUN': 58}, 'runtime counts')
+    require(value['runtime_case_counts'] == {'PASS': 71, 'PARTIAL': 0, 'NOT_RUN': 0}, 'runtime counts')
     require(value['external_review'] == 'NOT_PERFORMED' and value['adoption'] == 'PROPOSAL_NOT_ADOPTED', 'review or adoption promotion')
     require(value['conformance'] == 'NOT_ESTABLISHED', 'conformance promotion')
     require(type(value['assessments']) is list and len(value['assessments']) == len(ASSESSMENTS), 'assessment count')
@@ -210,13 +211,36 @@ def validate_runtime(base):
     return report, evidence
 
 
-def inspect(runtime):
+def validate_setup(base):
+    raw = safe_read(base, 'report.json')
+    report = load(raw)
+    require(report.get('kind') == 'mcp-setup-case-evidence' and report.get('status') == 'EVIDENCE_CHECKED', 'setup evidence status')
+    require(report.get('case_counts') == {'PASS': 58, 'PARTIAL': 0, 'NOT_RUN': 0}, 'setup evidence counts')
+    require(report.get('historical_catalog') == {'NOT_RUN': 71}, 'setup historical catalog')
+    require(report.get('contract_sha256') == sha(SETUP_CONTRACT.read_bytes()), 'setup evidence contract')
+    require(safe_read(base, 'contract.json') == SETUP_CONTRACT.read_bytes(), 'preserved setup evidence contract')
+    require(report.get('external_review') == 'NOT_PERFORMED' and report.get('adoption') == 'PROPOSAL_NOT_ADOPTED', 'setup claim promotion')
+    require(report.get('conformance') == 'NOT_ESTABLISHED', 'setup conformance promotion')
+    cases = report.get('cases')
+    require(type(cases) is list and len(cases) == 58, 'setup case inventory')
+    found = {}
+    for row in cases:
+        require(type(row) is dict and row.get('status') == 'PASS' and row.get('id') not in found, 'setup case result')
+        require(type(row.get('evidence')) is list and row['evidence'], 'setup case evidence')
+        found[row['id']] = row
+    return report, found
+
+
+def inspect(runtime, setup):
     contract_raw = CONTRACT.read_bytes()
     contract = validate_contract(load(contract_raw))
     rows = catalog_rows()
     all_ids = {row['id'] for row in rows}
     require(set(ASSESSMENTS) <= all_ids and len(all_ids) == 71, 'catalog case identity')
     runtime_report, evidence = validate_runtime(runtime)
+    setup_report, setup_evidence = validate_setup(setup)
+    require(setup_report.get('runtime_report_sha256') == sha(safe_read(runtime, 'report.json')),
+            'setup runtime report binding')
     cases = []
     assessments = {row['id']: row for row in contract['assessments']}
     for row in rows:
@@ -226,44 +250,50 @@ def inspect(runtime):
             cases.append({'id': ident, 'source': row['source'], 'status': assessment['status'],
                           'claim': assessment['claim'], 'evidence': evidence[ident]})
         else:
-            cases.append({'id': ident, 'source': row['source'], 'status': 'NOT_RUN'})
-    require(sum(row['status'] == 'PASS' for row in cases) == 13
+            require(ident in setup_evidence, 'missing setup case evidence')
+            item = setup_evidence[ident]
+            cases.append({'id': ident, 'source': row['source'], 'status': 'PASS',
+                          'claim': item['claim'], 'evidence': item['evidence']})
+    require(len(setup_evidence) == 58 and sum(row['status'] == 'PASS' for row in cases) == 71
             and not any(row['status'] == 'PARTIAL' for row in cases), 'case result counts')
     return {
         'schema_version': 1,
         'kind': 'mcp-proposal-case-runtime-evidence',
         'status': 'EVIDENCE_CHECKED',
         'historical_catalog': {'NOT_RUN': 71},
-        'runtime_case_counts': {'PASS': 13, 'PARTIAL': 0, 'NOT_RUN': 58},
+        'runtime_case_counts': {'PASS': 71, 'PARTIAL': 0, 'NOT_RUN': 0},
         'external_review': 'NOT_PERFORMED',
         'adoption': 'PROPOSAL_NOT_ADOPTED',
         'conformance': 'NOT_ESTABLISHED',
         'contract_sha256': sha(contract_raw),
         'runtime_report_sha256': sha(safe_read(runtime, 'report.json')),
+        'setup_report_sha256': sha(safe_read(setup, 'report.json')),
         'runtime_inspector_revision': runtime_report.get('inspector_revision'),
         'cases': cases,
-        'limitation': 'Thirteen pinned private core resolution cases; all other proposal cases and full protocol conformance remain unestablished.'
+        'limitation': 'All 71 proposal cases have selected implementation, interoperability or policy evidence; external review, normative adoption and full protocol conformance remain unestablished.'
     }
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--runtime', type=Path, required=True)
+    parser.add_argument('--setup', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
     try:
         runtime = args.runtime.resolve(strict=True)
+        setup = args.setup.resolve(strict=True)
         output = args.output.resolve()
-        require(runtime.is_dir(), 'runtime evidence directory')
+        require(runtime.is_dir() and setup.is_dir(), 'evidence directories')
         require(not output.exists() and not output.is_relative_to(ROOT), 'use a new external output directory')
-        report = inspect(runtime)
+        report = inspect(runtime, setup)
         output.mkdir(parents=True, exist_ok=False)
         (output / 'contract.json').write_bytes(CONTRACT.read_bytes())
         (output / 'report.json').write_text(json.dumps(report, indent=2) + '\n')
     except (ValueError, KeyError, TypeError, OSError, UnicodeError, subprocess.SubprocessError) as error:
         print('MCP case evidence FAIL: ' + str(error), file=sys.stderr)
         return 1
-    print('MCP case evidence checked: 13 PASS, 0 PARTIAL, 58 NOT_RUN; conformance NOT_ESTABLISHED.')
+    print('MCP case evidence checked: 71 PASS, 0 PARTIAL, 0 NOT_RUN; conformance NOT_ESTABLISHED.')
     return 0
 
 

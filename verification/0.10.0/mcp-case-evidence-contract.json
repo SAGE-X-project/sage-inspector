@@ -3,15 +3,16 @@
   "protocol_version": "0.10.0",
   "kind": "mcp-proposal-case-evidence",
   "catalog_manifest_sha256": "5727834113a41ef910d4a5c5487457b6e3ae9f89ac36e86946a6e72ae28c1f35",
-  "owner_admission_contract_sha256": "03724e7b8e7b2c797f26d1210153b0eb5d4623332fa1aa6b701a52cf2e1484e7",
-  "signature_boundary_contract_sha256": "6d2615ff91fa28aa9f13b1d6605fe2fd98b278ccfa3a7fefcaa740bb0e79db0a",
+  "owner_admission_contract_sha256": "244417492f45c8657fc6e3b6b060e330e81f1f9939223068535ab6962a1a5527",
+  "signature_boundary_contract_sha256": "3ff946efed2d6adc640ae7af4642083cab69b6b3bb93cf4ca8d14776e774cc2b",
+  "setup_case_contract_sha256": "01cdaef9e0f467e6043108c7acc0595c4447368be11ff041d1d1a44cff3e2593",
   "historical_catalog": {
     "NOT_RUN": 71
   },
   "runtime_case_counts": {
-    "PASS": 13,
+    "PASS": 71,
     "PARTIAL": 0,
-    "NOT_RUN": 58
+    "NOT_RUN": 0
   },
   "external_review": "NOT_PERFORMED",
   "adoption": "PROPOSAL_NOT_ADOPTED",

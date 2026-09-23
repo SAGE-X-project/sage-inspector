@@ -257,7 +257,9 @@ def main():
                     stage = output/('reopen-'+mode);stage.mkdir()
                     for left,right in itertools.product(programs,repeat=2):
                         previous = output/(left+'-to-'+right)
-                        report['restart'].append(pair(left,right,programs,stage,True,mode,previous))
+                        result = pair(left,right,programs,stage,True,mode,previous)
+                        result['restart_mode'] = mode
+                        report['restart'].append(result)
         if len(report['pairs']) == 4 and all(p['status']=='PASS' for p in report['pairs']):
             if not a.restart or (len(report.get('restart',[])) == 8 and all(p['status']=='PASS' for p in report['restart'])):
                 report['session_freshness'] = check_matrix(output, report)

@@ -456,3 +456,11 @@ P-256·secp256k1·X25519를 서명 역할에서 거부하면서 X25519 KEM이 �
 close가 reservation보다 먼저 이긴 경우에는 저널 바이트 무변경, trusted check 0, effect 0을
 확인했다. 사례 overlay는 현재 `13 PASS / 0 PARTIAL / 58 NOT_RUN`이다. 역사적 71개
 `NOT_RUN` catalog, 규범 채택, 외부 독립 검토와 전체 적합성 상태는 변경하지 않았다.
+
+
+MSET 전체 사례 증거를 완성했다. 통합 비HTTP MCP 제안의 원본 40개와 addendum 18개를
+고정 계약으로 분류하고, 53개는 양쪽 코어의 정확한 테스트, 2개는 네 언어 조합의 보호
+교환 및 server/client 재시작 행렬, 3개는 채택·HTTP 제외·역사적 catalog 정책 문구에
+연결했다. 현재 overlay는 `58 PASS / 0 PARTIAL / 0 NOT_RUN`이며 기존 13개 resolution
+사례와 합쳐 `71 PASS`를 도출한다. 역사적 catalog의 `71 NOT_RUN`, 외부 검토
+`NOT_PERFORMED`, 채택 `PROPOSAL_NOT_ADOPTED`, 적합성 `NOT_ESTABLISHED`는 그대로다.

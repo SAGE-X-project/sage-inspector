@@ -7,8 +7,8 @@ initialize, initialized acknowledgement and discovery before its connection
 handler can publish READY. This advances beyond the selected single-core tests
 in [runtime evidence](mcp-core-runtime.md).
 
-The inputs are Go `49ff23eee9ac270db10fc5f150df9cbe5fc15066` and Rust
-`c3b452368e90f0ed8f379e635cfa4070e3c875a1`. Inspector archives those commits,
+The inputs are Go `2322b2aa4b13ed41b2c5232a1d7382003ebee0e1` and Rust
+`c89d1d5121b2c5ccb89b393ae0e32120de2f7726`. Inspector archives those commits,
 adds its bridge only to temporary test snapshots and appends one Rust test-module
 declaration. Production core source and public APIs are unchanged. Reports retain
 both original source archive hashes and added bridge hashes; these executables are
@@ -61,8 +61,9 @@ host-bypass program is involved.
 PASS means native authenticated setup interoperability for these four happy paths.
 It does not execute protected tool calls, independently inspect inner plaintext or
 journals, verify every deadline/closure schedule, or establish deployment conformance.
-The historical catalog remains 71 NOT_RUN and its 26 mandatory child obligations
-are not promoted. Historical reviews and reports retain their original revisions.
+The historical catalog remains 71 NOT_RUN. The separate MSET evidence overlay
+derives current case results without altering this report or promoting conformance.
+Historical reviews and reports retain their original revisions.
 
 The [protected interoperability extension](mcp-native-protected.md) now adds a
 common signed intent, inert bounded effect, result delivery and selected journal

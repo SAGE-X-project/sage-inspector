@@ -7,6 +7,7 @@ import subprocess
 import tempfile
 import unittest
 from run_mcp_core_runtime import (CASES, OWNER_CONTRACT, OWNER_CONTRACT_CASES,
+                                  SETUP_CONTRACT, SETUP_CONTRACT_CASES,
                                   SIGNATURE_CONTRACT, SIGNATURE_CONTRACT_CASES,
                                   SCHEDULES, ROOT, digest, observed, run, successful)
 
@@ -17,8 +18,10 @@ class EvidenceTests(unittest.TestCase):
         for language, claims in SCHEDULES.items():
             self.assertEqual(len(claims),4)
             self.assertEqual(len(OWNER_CONTRACT_CASES[language]), 13)
-            self.assertEqual(len(CASES[language]),24)
-            self.assertEqual(len(set(CASES[language])),24)
+            self.assertGreater(len(CASES[language]), 24)
+            self.assertEqual(len(set(CASES[language])), len(CASES[language]))
+            self.assertTrue(all(name in CASES[language] and cases
+                                for name, cases in SETUP_CONTRACT_CASES[language].items()))
             self.assertTrue(all(name in CASES[language] and claim for name,claim in claims.items()))
             covered = set().union(*map(set, OWNER_CONTRACT_CASES[language].values()))
             self.assertEqual(covered, {'durable-admission', 'close-linearization',
@@ -31,6 +34,7 @@ class EvidenceTests(unittest.TestCase):
         for language, cases in OWNER_CONTRACT_CASES.items():
             self.assertTrue(all(name in CASES[language] and boundaries
                                 for name, boundaries in cases.items()))
+        self.assertEqual(len(digest(SETUP_CONTRACT)), 64)
         self.assertEqual(len(digest(SIGNATURE_CONTRACT)), 64)
         for language, cases in SIGNATURE_CONTRACT_CASES.items():
             self.assertEqual(len(cases), 4)
@@ -63,7 +67,9 @@ class EvidenceTests(unittest.TestCase):
                     **({'owner_admission_boundaries': OWNER_CONTRACT_CASES[lang][name]}
                        if name in OWNER_CONTRACT_CASES[lang] else {}),
                     **({'signature_boundary': SIGNATURE_CONTRACT_CASES[lang][name]}
-                       if name in SIGNATURE_CONTRACT_CASES[lang] else {})) for name in names])
+                       if name in SIGNATURE_CONTRACT_CASES[lang] else {}),
+                    **({'setup_cases': SETUP_CONTRACT_CASES[lang][name]}
+                       if name in SETUP_CONTRACT_CASES[lang] else {})) for name in names])
                     for lang, names in CASES.items()}
         subjects['go']['hpke_build'] = {'status': 'PASS'}
         self.assertTrue(successful(subjects))

@@ -1,0 +1,1056 @@
+{
+  "schema_version": 1,
+  "protocol_version": "0.10.0",
+  "kind": "mcp-setup-case-contract",
+  "catalog_manifest_sha256": "5727834113a41ef910d4a5c5487457b6e3ae9f89ac36e86946a6e72ae28c1f35",
+  "historical_catalog": {
+    "NOT_RUN": 71
+  },
+  "case_counts": {
+    "PASS": 58,
+    "PARTIAL": 0,
+    "NOT_RUN": 0
+  },
+  "external_review": "NOT_PERFORMED",
+  "adoption": "PROPOSAL_NOT_ADOPTED",
+  "conformance": "NOT_ESTABLISHED",
+  "cores": {
+    "go": {
+      "revision": "2322b2aa4b13ed41b2c5232a1d7382003ebee0e1",
+      "files": {
+        "pkg/agent/guard010/json.go": "d92529d21b23adb43436d890ce7c3829a73ebfcdb8cc528108cc78de94e6e442",
+        "pkg/agent/guard010/mcp_owner.go": "f4d376555edfca44b799cc52b3b9a08e9ed6940a4fc227bb9e38f15dc7a1ba37",
+        "pkg/agent/guard010/mcp_setup.go": "0cfac5cf2180bb8cec1de7f4171db3645bcd4c93fc5b1f688ab9b58a381708e2",
+        "pkg/agent/guard010/mcp_setup_session.go": "3ab9fac40fd087e7f882bab0971a94197ae6305b2188cf3fc9252df7a57e2e97",
+        "pkg/agent/guard010/mcp_stream.go": "5cbfa5d1330fb2d2ca8af327fdb21d61f165ffb8c0325e26fe479eb3ab41f452",
+        "pkg/agent/guard010/mcp_session.go": "d2cf452012be1825c1618f1f762ca34fdbab4055312b3c741bf535048089113b",
+        "pkg/agent/guard010/mcp_owner_test.go": "0c3b77b53b487abee605d1d35464070ca0226663b8f498ce906c4078cb896c6f",
+        "pkg/agent/guard010/mcp_setup_test.go": "84b02fc6b2ab395f75a0272b17ca7faf50b8af9815cdc2015b86c339683fd4d3",
+        "pkg/agent/guard010/mcp_setup_session_test.go": "23bfa0a1c04a7a406a881038d97dbca02a2940d6e3cac0bc3e7a5be8ac60fb41",
+        "pkg/agent/guard010/mcp_stream_test.go": "8a3464d03324d55699268b546909939673e5076fe85aaa15b9ca2d515fd87ce2",
+        "pkg/agent/guard010/mcp_session_test.go": "adbde04ffddfb06d6683ccd09ac0910a8ec5c4c85a0abee92e9aa7345879da84",
+        "pkg/agent/guard010/mcp_test.go": "dce43600477ccf6fe47a7bddd6116811865228cd9fb1be6628854f462ba5d85d",
+        "pkg/agent/guard010/mcp_protected_reply_test.go": "e73f32f500fbcc25c066e31b0fae38abb4888109d396cca8aca17e97c3d9b768",
+        "pkg/agent/guard010/mcp_host_test.go": "d86dce98c5b01827d47d0b3e4799be5fd1cd2d9f42e39387978472079f9583a8",
+        "pkg/agent/guard010/mcp_admission_test.go": "1b5a26d228e059f2e1f9fc5d910e11d5ecb37c743007a64bd4f917aa78999b36",
+        "pkg/agent/guard010/guard_test.go": "bd88e99f43b8dd0bacd070976f9719974c16affd6ec573994cd5b703537a460c",
+        "pkg/agent/hpke/record010_test.go": "362b4592506a81c849d48257a42efce08bbd7d87116d27d510190f2760de1e42",
+        "pkg/agent/hpke/response010_test.go": "75934237c2604163d718570155d08c37c1e11cfc7678d00e828c2211793bdc2d"
+      },
+      "test_packages": {
+        "TestMCPAuthenticatedSetupRuntime": "guard010",
+        "TestMCPHostRejectsUnmanagedBindings": "guard010",
+        "TestMCPAuthenticatedSetupFailureSchedules": "guard010",
+        "TestMCPSessionIdentityAndExactBinding": "guard010",
+        "TestAuthenticatedRecord010LifetimeAndBounds": "hpke",
+        "TestMCPSetupInitializeValidation": "guard010",
+        "TestMCPSetupOuterAndInnerRequestIDsRemainDistinct": "guard010",
+        "TestSessionResponse010": "hpke",
+        "TestMCPSetupNotificationAndExactAcknowledgement": "guard010",
+        "TestMCPIndependentVerification": "guard010",
+        "TestMCPHostExpiresBlockedClient": "guard010",
+        "TestMCPSetupPinnedDiscovery": "guard010",
+        "TestMCPOwnerProtectedCallsRequireReady": "guard010",
+        "TestMCPOwnerFixedDeadlinesAndStaleIdentity": "guard010",
+        "TestMCPOwnerSamplesClockAfterLockAcquisition": "guard010",
+        "TestMCPOwnerOutputFailureSchedules": "guard010",
+        "TestMCPSetupCloseCleansIdleAndCompletedSessions": "guard010",
+        "TestMCPProtectedReplyCloseDoesNotReleaseBlockedOutput": "guard010",
+        "TestMCPAdmissionCrashRecoveryDoesNotExecuteAgain": "guard010",
+        "TestMCPOwnerOutputBarrierAndOwnedDeferredFrame": "guard010",
+        "TestMCPOwnerSetupAndRetainedHistory": "guard010",
+        "TestMCPOwnerHistoryLimit": "guard010",
+        "TestAuthenticatedRecord010Scenarios": "hpke",
+        "TestMCPOwnerConcurrentCloseAndPublication": "guard010",
+        "TestMCPStreamBoundedFraming": "guard010",
+        "TestStrictJSON": "guard010",
+        "TestMCPEnvelopeSizeBoundary": "guard010",
+        "TestMCPProtectedReplyFailurePreservesCompletion": "guard010",
+        "TestMCPOwnerStaleSetupCompletionAfterReady": "guard010",
+        "TestMCPHostQueuedCancellationAndBoundedStop": "guard010",
+        "TestMCPAdmissionCloseBeforeReservationHasNoEffects": "guard010",
+        "TestMCPAdmissionCloseAfterInsertionKeepsAdmission": "guard010"
+      }
+    },
+    "rust": {
+      "revision": "c89d1d5121b2c5ccb89b393ae0e32120de2f7726",
+      "files": {
+        "src/guard010/mcp_setup.rs": "b00a53c17d4bda3a0f4d76efca41e10a6066d18250a272a2f9a9dc1d322a4eac",
+        "src/guard010/mcp_session.rs": "e8a89743769367e60dcb73295ac75e4993c478602cdde63d73704a0f60491da7",
+        "src/guard010/mcp_transport/stream.rs": "bfa49e62a46ba389df1bd5fda1487081f9dfca3fe1b62a63b200de946ba00a25",
+        "src/guard010/mcp_tests.rs": "520ecf36f8807a5730b4fbe9274f1d1a112b7b2c779a887ab319294d1f0175e2",
+        "src/guard010/tests.rs": "0365d16818660ccc05026c140ff2d7f7d8b7d26ee74d086ea398e4845d067bc4",
+        "src/hpke/completion010/mcp_setup_tests.rs": "f521d7115e03ffd0da3e59dc12184319e604c29ea55f239c92188277510bb73a",
+        "src/hpke/completion010/mcp_lifecycle_tests.rs": "343192735848092e53224be55463c011e6a55af3104839c0e78993c62b20667f",
+        "src/hpke/completion010/mcp_transport_tests.rs": "6ede29fdc1fc484d1b2432f4418c00f1c15cf069426a658040b774f313010892",
+        "src/hpke/completion010/mcp_reply_tests.rs": "3e20b0d7a0488ae8fbf6a0332e8de0e9f3dfbadf73458f68e4d8ff5c1706552a",
+        "src/hpke/completion010/mcp_admission_tests.rs": "fd3fff4e1671511f5fb8f3c60f52c84eeb498b7bf11d64426e6823f2a78aab50",
+        "src/hpke/completion010/tests.rs": "c00ac77a5b9282afd54b095b44892231425530edb13f2b6068d64affc9df2040"
+      }
+    }
+  },
+  "interop": {
+    "required_pairs": [
+      "go-to-go",
+      "go-to-rust",
+      "rust-to-go",
+      "rust-to-rust"
+    ],
+    "cases": [
+      "madd-cross-language-setup",
+      "madd-restart-consumption"
+    ],
+    "restart_modes": [
+      "client",
+      "server"
+    ]
+  },
+  "policy_cases": [
+    "mset-08-historical-evidence",
+    "mset-08-http-not-defined",
+    "mset-08-proposal-scope"
+  ],
+  "assessments": [
+    {
+      "id": "mset-01-valid-channel",
+      "source": "original",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "First encrypted initialize confirms responder before MCP processing. Expected outcome: ALLOW_SETUP.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPAuthenticatedSetupRuntime"
+        },
+        {
+          "language": "rust",
+          "test": "hpke::completion010::tests::mcp_setup_tests::mcp_setup_encrypted_lifecycle_and_tcp_runtime"
+        }
+      ]
+    },
+    {
+      "id": "mset-01-wrong-owner",
+      "source": "original",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "Reuse the old readiness handle. Expected outcome: CLOSE.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPHostRejectsUnmanagedBindings"
+        },
+        {
+          "language": "rust",
+          "test": "hpke::completion010::tests::mcp_admission_tests::admission_requires_ready_owner_from_this_gate"
+        }
+      ]
+    },
+    {
+      "id": "mset-01-revoked-key",
+      "source": "original",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "Receive the next setup record. Expected outcome: CLOSE.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPAuthenticatedSetupFailureSchedules"
+        },
+        {
+          "language": "rust",
+          "test": "hpke::completion010::tests::mcp_setup_tests::mcp_setup_late_send_and_closure_cannot_publish"
+        }
+      ]
+    },
+    {
+      "id": "mset-02-exact-bytes",
+      "source": "original",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "Preserve complete UTF-8 payload and distinct outer/inner request IDs. Expected outcome: ALLOW_SETUP.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPSessionIdentityAndExactBinding"
+        },
+        {
+          "language": "rust",
+          "test": "guard010::mcp_session::tests::session_identity_and_exact_binding"
+        }
+      ]
+    },
+    {
+      "id": "mset-02-size-boundary",
+      "source": "original",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "Receive the oversized message. Expected outcome: CLOSE.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestAuthenticatedRecord010LifetimeAndBounds"
+        },
+        {
+          "language": "rust",
+          "test": "hpke::completion010::tests::authenticated_record_lifetime_and_bounds"
+        }
+      ]
+    },
+    {
+      "id": "mset-02-json-duplicates",
+      "source": "original",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "Duplicate a JSON member or provide a batch/trailing JSON. Expected outcome: CLOSE.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPSetupInitializeValidation"
+        },
+        {
+          "language": "rust",
+          "test": "guard010::mcp_setup::tests::setup_codecs_are_bounded_and_closed"
+        }
+      ]
+    },
+    {
+      "id": "mset-02-id-collision",
+      "source": "original",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "Use its outer UUID as the inner request UUID. Expected outcome: CLOSE.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPSetupOuterAndInnerRequestIDsRemainDistinct"
+        },
+        {
+          "language": "rust",
+          "test": "guard010::mcp_setup::tests::outer_and_inner_request_ids_remain_distinct"
+        }
+      ]
+    },
+    {
+      "id": "mset-03-initialize-success",
+      "source": "original",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "Select 2025-06-18 and exactly tools capability. Expected outcome: ALLOW_SETUP.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPAuthenticatedSetupRuntime"
+        },
+        {
+          "language": "rust",
+          "test": "hpke::completion010::tests::mcp_setup_tests::mcp_setup_encrypted_lifecycle_and_tcp_runtime"
+        }
+      ]
+    },
+    {
+      "id": "mset-03-unsupported-version",
+      "source": "original",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "Return another MCP version without changing the authenticated peer. Expected outcome: CLOSE.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPSetupInitializeValidation"
+        },
+        {
+          "language": "rust",
+          "test": "guard010::mcp_setup::tests::setup_codecs_are_bounded_and_closed"
+        }
+      ]
+    },
+    {
+      "id": "mset-03-capability-mismatch",
+      "source": "original",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "Request unsupported optional features or omit tools capability. Expected outcome: CLOSE.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPSetupInitializeValidation"
+        },
+        {
+          "language": "rust",
+          "test": "guard010::mcp_setup::tests::setup_codecs_are_bounded_and_closed"
+        }
+      ]
+    },
+    {
+      "id": "mset-03-wrong-request",
+      "source": "original",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "Supply response belonging to another initialization request. Expected outcome: CLOSE.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestSessionResponse010"
+        },
+        {
+          "language": "rust",
+          "test": "hpke::completion010::tests::session_response_scenarios"
+        }
+      ]
+    },
+    {
+      "id": "mset-04-notification-ack",
+      "source": "original",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "Verify correlated encrypted success with plaintext exactly {}. Expected outcome: ALLOW_SETUP.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPSetupNotificationAndExactAcknowledgement"
+        },
+        {
+          "language": "rust",
+          "test": "guard010::mcp_setup::tests::setup_codecs_are_bounded_and_closed"
+        }
+      ]
+    },
+    {
+      "id": "mset-04-ack-is-not-result",
+      "source": "original",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "Attempt to consume marker as Guard output. Expected outcome: DENY_EFFECT.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPIndependentVerification"
+        },
+        {
+          "language": "rust",
+          "test": "guard010::mcp_tests::independent_mcp_verification"
+        }
+      ]
+    },
+    {
+      "id": "mset-04-malformed-ack",
+      "source": "original",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "Supply MCP result, whitespace variant, error or wrong request hash. Expected outcome: CLOSE.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPSetupNotificationAndExactAcknowledgement"
+        },
+        {
+          "language": "rust",
+          "test": "guard010::mcp_setup::tests::setup_codecs_are_bounded_and_closed"
+        }
+      ]
+    },
+    {
+      "id": "mset-04-notification-has-id",
+      "source": "original",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "Receive initialized with a JSON-RPC request ID. Expected outcome: CLOSE.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPSetupNotificationAndExactAcknowledgement"
+        },
+        {
+          "language": "rust",
+          "test": "hpke::completion010::tests::mcp_setup_tests::mcp_setup_reused_ids_and_invalid_authenticated_inner_close"
+        }
+      ]
+    },
+    {
+      "id": "mset-04-lost-ack",
+      "source": "original",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "Deadline expires without acknowledgement; reconnect uses new setup. Expected outcome: CLOSE.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPHostExpiresBlockedClient"
+        },
+        {
+          "language": "rust",
+          "test": "hpke::completion010::tests::mcp_admission_tests::mcp_reply_tests::mcp_lifecycle_tests::setup_receive_can_be_closed_without_waiting_for_its_provider"
+        }
+      ]
+    },
+    {
+      "id": "mset-05-discovery-success",
+      "source": "original",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "Authenticate one-tool listing with pinned name/inputSchema. Expected outcome: READY.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPAuthenticatedSetupRuntime"
+        },
+        {
+          "language": "rust",
+          "test": "hpke::completion010::tests::mcp_setup_tests::mcp_setup_encrypted_lifecycle_and_tcp_runtime"
+        }
+      ]
+    },
+    {
+      "id": "mset-05-schema-replacement",
+      "source": "original",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "Receive changed schema or nextCursor instead of fixed complete listing. Expected outcome: CLOSE.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPSetupPinnedDiscovery"
+        },
+        {
+          "language": "rust",
+          "test": "guard010::mcp_setup::tests::setup_codecs_are_bounded_and_closed"
+        }
+      ]
+    },
+    {
+      "id": "mset-05-early-tool-call",
+      "source": "original",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "Attempt a protected tool call in a local unit scenario. Expected outcome: DENY_EFFECT.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPOwnerProtectedCallsRequireReady"
+        },
+        {
+          "language": "rust",
+          "test": "hpke::completion010::tests::mcp_setup_tests::mcp_setup_protected_staging_requires_ready_and_fresh_id"
+        }
+      ]
+    },
+    {
+      "id": "mset-05-capability-not-authority",
+      "source": "original",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "Attempt to create readiness without a protected local endpoint. Expected outcome: DENY_EFFECT.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPOwnerProtectedCallsRequireReady"
+        },
+        {
+          "language": "rust",
+          "test": "hpke::completion010::tests::mcp_setup_tests::mcp_setup_protected_staging_requires_ready_and_fresh_id"
+        }
+      ]
+    },
+    {
+      "id": "mset-06-before-deadline",
+      "source": "original",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "Commit final READY transition at elapsed 29999ms. Expected outcome: READY.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPOwnerFixedDeadlinesAndStaleIdentity"
+        },
+        {
+          "language": "rust",
+          "test": "hpke::completion010::tests::mcp_setup_tests::mcp_setup_late_send_and_closure_cannot_publish"
+        }
+      ]
+    },
+    {
+      "id": "mset-06-deadline-equality",
+      "source": "original",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "Commit final READY transition at elapsed 30000ms. Expected outcome: CLOSE.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPOwnerFixedDeadlinesAndStaleIdentity"
+        },
+        {
+          "language": "rust",
+          "test": "hpke::completion010::tests::mcp_setup_tests::mcp_setup_late_send_and_closure_cannot_publish"
+        }
+      ]
+    },
+    {
+      "id": "mset-06-slow-callback",
+      "source": "original",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "Trusted remaining deadline expires; no effect may proceed. Expected outcome: CLOSE.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPOwnerSamplesClockAfterLockAcquisition"
+        },
+        {
+          "language": "rust",
+          "test": "hpke::completion010::tests::mcp_setup_tests::mcp_setup_late_send_and_closure_cannot_publish"
+        }
+      ]
+    },
+    {
+      "id": "mset-06-uncertain-send",
+      "source": "original",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "Attempt resend or another reply on the old connection. Expected outcome: CLOSE.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPOwnerOutputFailureSchedules"
+        },
+        {
+          "language": "rust",
+          "test": "hpke::completion010::tests::mcp_setup_tests::mcp_setup_late_send_and_closure_cannot_publish"
+        }
+      ]
+    },
+    {
+      "id": "mset-07-fresh-reconnect",
+      "source": "original",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "Complete fresh authenticated setup without executing old call again. Expected outcome: ALLOW_SETUP.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPSetupCloseCleansIdleAndCompletedSessions"
+        },
+        {
+          "language": "rust",
+          "test": "hpke::completion010::tests::mcp_setup_tests::mcp_setup_constructor_cannot_restart_used_or_expired_owner"
+        }
+      ]
+    },
+    {
+      "id": "mset-07-stale-ready",
+      "source": "original",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "Reuse old initialization, acknowledgement, listing or readiness. Expected outcome: CLOSE.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPOwnerFixedDeadlinesAndStaleIdentity"
+        },
+        {
+          "language": "rust",
+          "test": "hpke::completion010::tests::mcp_setup_tests::mcp_setup_stale_completion_after_ready_is_inert"
+        }
+      ]
+    },
+    {
+      "id": "mset-07-terminal-preserved",
+      "source": "original",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "Request old signed call; preserve terminal and single client consumption. Expected outcome: NO_REEXECUTION.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPProtectedReplyCloseDoesNotReleaseBlockedOutput"
+        },
+        {
+          "language": "rust",
+          "test": "hpke::completion010::tests::mcp_admission_tests::mcp_reply_tests::close_after_durable_acceptance_suppresses_output_and_reopen_cannot_redeliver"
+        }
+      ]
+    },
+    {
+      "id": "mset-07-missing-ledger",
+      "source": "original",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "Recreate an empty ledger to resume an old call. Expected outcome: DENY_EFFECT.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPAdmissionCrashRecoveryDoesNotExecuteAgain"
+        },
+        {
+          "language": "rust",
+          "test": "hpke::completion010::tests::mcp_admission_tests::crash_recovery_marks_admission_unknown_and_never_executes_again"
+        }
+      ]
+    },
+    {
+      "id": "mset-08-proposal-scope",
+      "source": "original",
+      "status": "PASS",
+      "evidence_kind": "policy",
+      "claim": "Attempt to claim deployed negotiation or full conformance. Expected outcome: DENY_CLAIM.",
+      "requirements": []
+    },
+    {
+      "id": "mset-08-http-not-defined",
+      "source": "original",
+      "status": "PASS",
+      "evidence_kind": "policy",
+      "claim": "Fallback to unspecified HTTP mapping or plaintext protected call. Expected outcome: DENY_EFFECT.",
+      "requirements": []
+    },
+    {
+      "id": "mset-08-historical-evidence",
+      "source": "original",
+      "status": "PASS",
+      "evidence_kind": "policy",
+      "claim": "Promote them based only on proposal validation. Expected outcome: DENY_CLAIM.",
+      "requirements": []
+    },
+    {
+      "id": "mset-02-output-barrier",
+      "source": "original",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "A protected request arrives before the send callback succeeds. Expected outcome: DENY_EFFECT.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPOwnerOutputBarrierAndOwnedDeferredFrame"
+        },
+        {
+          "language": "rust",
+          "test": "hpke::completion010::tests::mcp_setup_tests::mcp_setup_encrypted_lifecycle_and_tcp_runtime"
+        }
+      ]
+    },
+    {
+      "id": "mset-02-send-failure-after-prepare",
+      "source": "original",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "Local send reports partial or uncertain completion while input waits. Expected outcome: CLOSE.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPOwnerOutputFailureSchedules"
+        },
+        {
+          "language": "rust",
+          "test": "hpke::completion010::tests::mcp_setup_tests::mcp_setup_late_send_and_closure_cannot_publish"
+        }
+      ]
+    },
+    {
+      "id": "mset-02-setup-id-reuse",
+      "source": "original",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "Reuse it for discovery or a later protected call. Expected outcome: CLOSE.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPOwnerSetupAndRetainedHistory"
+        },
+        {
+          "language": "rust",
+          "test": "hpke::completion010::tests::mcp_setup_tests::mcp_setup_ids_remain_reserved_for_protected_input"
+        }
+      ]
+    },
+    {
+      "id": "mset-02-history-exhaustion",
+      "source": "original",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "Allocate a new endpoint and attempt another request. Expected outcome: CLOSE.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPOwnerHistoryLimit"
+        },
+        {
+          "language": "rust",
+          "test": "guard010::mcp_setup::tests::history_capacity_is_not_reset_by_close"
+        }
+      ]
+    },
+    {
+      "id": "mset-02-inner-rejection-replay",
+      "source": "original",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "Reject malformed inner JSON; retain consumed sequence and replay IDs. Expected outcome: CLOSE.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestAuthenticatedRecord010Scenarios"
+        },
+        {
+          "language": "rust",
+          "test": "hpke::completion010::tests::authenticated_record_scenarios"
+        }
+      ]
+    },
+    {
+      "id": "mset-05-extended-descriptor",
+      "source": "original",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "Validate the complete descriptor against the fixed baseline. Expected outcome: CLOSE.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPSetupPinnedDiscovery"
+        },
+        {
+          "language": "rust",
+          "test": "guard010::mcp_setup::tests::setup_codecs_are_bounded_and_closed"
+        }
+      ]
+    },
+    {
+      "id": "mset-06-deadline-after-callback",
+      "source": "original",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "Attempt to publish READY after callback completion. Expected outcome: CLOSE.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPOwnerSamplesClockAfterLockAcquisition"
+        },
+        {
+          "language": "rust",
+          "test": "hpke::completion010::tests::mcp_setup_tests::mcp_setup_late_send_and_closure_cannot_publish"
+        }
+      ]
+    },
+    {
+      "id": "mset-06-close-completion-race",
+      "source": "original",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "A successful late send callback tries to publish its target state. Expected outcome: CLOSE.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPOwnerConcurrentCloseAndPublication"
+        },
+        {
+          "language": "rust",
+          "test": "hpke::completion010::tests::mcp_setup_tests::mcp_setup_late_send_and_closure_cannot_publish"
+        }
+      ]
+    },
+    {
+      "id": "mset-06-ready-past-setup-deadline",
+      "source": "original",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "The old setup deadline passes without a new setup operation. Expected outcome: ALLOW_OPERATION_CHECKS.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPOwnerSetupAndRetainedHistory"
+        },
+        {
+          "language": "rust",
+          "test": "hpke::completion010::tests::mcp_setup_tests::mcp_setup_ready_past_setup_deadline_uses_protected_limits"
+        }
+      ]
+    },
+    {
+      "id": "madd-plaintext-boundary",
+      "source": "addendum",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "Complete control and protected request plaintext at 16348 and 16349 UTF-8 bytes. Expected outcome: Within-limit input continues other checks; oversize fails without dispatch.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestAuthenticatedRecord010LifetimeAndBounds"
+        },
+        {
+          "language": "rust",
+          "test": "hpke::completion010::tests::authenticated_record_lifetime_and_bounds"
+        }
+      ]
+    },
+    {
+      "id": "madd-record-boundary",
+      "source": "addendum",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "Decoded records at 16384 and 16385 bytes. Expected outcome: Boundary continues authentication; excess fails before decryption.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestAuthenticatedRecord010LifetimeAndBounds"
+        },
+        {
+          "language": "rust",
+          "test": "hpke::completion010::tests::authenticated_record_lifetime_and_bounds"
+        }
+      ]
+    },
+    {
+      "id": "madd-wire-boundary",
+      "source": "addendum",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "Complete envelopes at 32768 and 32769 bytes including deferred receive. Expected outcome: Boundary continues other checks; excess is never queued or dispatched.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPStreamBoundedFraming"
+        },
+        {
+          "language": "rust",
+          "test": "guard010::mcp_transport::stream::tests::frame_length_is_bounded_before_allocation"
+        }
+      ]
+    },
+    {
+      "id": "madd-utf8-and-escapes",
+      "source": "addendum",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "Non-ASCII and escaped JSON near the plaintext bound. Expected outcome: Count exact encoded bytes including JSON syntax, not characters or argument length.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestStrictJSON"
+        },
+        {
+          "language": "rust",
+          "test": "guard010::tests::strict_json_boundaries"
+        }
+      ]
+    },
+    {
+      "id": "madd-result-representations",
+      "source": "addendum",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "Structured result plus escaped canonical text jointly exceeds bound. Expected outcome: Reject complete message even when each representation alone fits.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPEnvelopeSizeBoundary"
+        },
+        {
+          "language": "rust",
+          "test": "guard010::mcp_tests::mcp_envelope_size_boundary"
+        }
+      ]
+    },
+    {
+      "id": "madd-post-effect-oversize",
+      "source": "addendum",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "Inert effect commits; complete terminal response exceeds carriage limit. Expected outcome: Preserve durable outcome, close delivery, no replacement rejection or redispatch.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPProtectedReplyFailurePreservesCompletion"
+        },
+        {
+          "language": "rust",
+          "test": "hpke::completion010::tests::mcp_admission_tests::mcp_reply_tests::oversized_completed_result_is_preserved_without_transport_output"
+        }
+      ]
+    },
+    {
+      "id": "madd-post-reservation-size-failure",
+      "source": "addendum",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "Final wire size fails after sequence and request-ID reservation. Expected outcome: No send; close without restoring reservations.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPProtectedReplyFailurePreservesCompletion"
+        },
+        {
+          "language": "rust",
+          "test": "hpke::completion010::tests::mcp_admission_tests::mcp_reply_tests::failed_reply_does_not_erase_execution_or_allow_second_response"
+        }
+      ]
+    },
+    {
+      "id": "madd-inner-size-replay",
+      "source": "addendum",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "Outer acceptance succeeds but decrypted size fails. Expected outcome: Close before inner routing; accepted replay state stays consumed.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestAuthenticatedRecord010Scenarios"
+        },
+        {
+          "language": "rust",
+          "test": "hpke::completion010::tests::authenticated_record_scenarios"
+        }
+      ]
+    },
+    {
+      "id": "madd-mutable-buffer",
+      "source": "addendum",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "Caller modifies submitted bytes while work is pending. Expected outcome: Owner uses captured immutable bytes or rejects invalid ownership.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPOwnerOutputBarrierAndOwnedDeferredFrame"
+        },
+        {
+          "language": "rust",
+          "test": "hpke::completion010::tests::mcp_setup_tests::mcp_setup_encrypted_lifecycle_and_tcp_runtime"
+        }
+      ]
+    },
+    {
+      "id": "madd-synchronous-completion",
+      "source": "addendum",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "Transport completion fires before send returns. Expected outcome: Serialized barrier applies and no reentrant readiness publication.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPOwnerOutputBarrierAndOwnedDeferredFrame"
+        },
+        {
+          "language": "rust",
+          "test": "hpke::completion010::tests::mcp_setup_tests::mcp_setup_encrypted_lifecycle_and_tcp_runtime"
+        }
+      ]
+    },
+    {
+      "id": "madd-duplicate-completion",
+      "source": "addendum",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "Same completed operation reports success again. Expected outcome: No new phase transition, output or effect.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPOwnerStaleSetupCompletionAfterReady"
+        },
+        {
+          "language": "rust",
+          "test": "hpke::completion010::tests::mcp_setup_tests::mcp_setup_stale_completion_after_ready_is_inert"
+        }
+      ]
+    },
+    {
+      "id": "madd-old-incarnation",
+      "source": "addendum",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "Completion from closed owner reaches replacement connection. Expected outcome: No mutation of replacement owner or readiness transfer.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPOwnerFixedDeadlinesAndStaleIdentity"
+        },
+        {
+          "language": "rust",
+          "test": "hpke::completion010::tests::mcp_setup_tests::mcp_setup_stale_completion_after_ready_is_inert"
+        }
+      ]
+    },
+    {
+      "id": "madd-bounded-cancellation",
+      "source": "addendum",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "Repeated timeout/cancel with pending callbacks and deferred input. Expected outcome: Admission revoked, workers and buffers bounded and released, no effects.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPHostQueuedCancellationAndBoundedStop"
+        },
+        {
+          "language": "rust",
+          "test": "hpke::completion010::tests::mcp_admission_tests::mcp_worker_tests::independent_monitor_cancels_running_work_but_retains_quota_until_actual_return"
+        }
+      ]
+    },
+    {
+      "id": "madd-history-capacity",
+      "source": "addendum",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "Two setup IDs followed by 1022 unique protected request attempts and one more. Expected outcome: All 1024 total entries retained; next attempt closes before dispatch.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPOwnerHistoryLimit"
+        },
+        {
+          "language": "rust",
+          "test": "guard010::mcp_setup::tests::history_capacity_is_not_reset_by_close"
+        }
+      ]
+    },
+    {
+      "id": "madd-close-before-handoff",
+      "source": "addendum",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "Close linearizes before Guard admission of inert call. Expected outcome: Zero protected effects; no success report.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPAdmissionCloseBeforeReservationHasNoEffects"
+        },
+        {
+          "language": "rust",
+          "test": "hpke::completion010::tests::mcp_admission_tests::close_before_reservation_denies_with_zero_effects"
+        }
+      ]
+    },
+    {
+      "id": "madd-close-after-handoff",
+      "source": "addendum",
+      "status": "PASS",
+      "evidence_kind": "core",
+      "claim": "Close follows Guard effect admission. Expected outcome: No false rollback claim; durable outcome retained; no automatic redispatch.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPAdmissionCloseAfterInsertionKeepsAdmission"
+        },
+        {
+          "language": "rust",
+          "test": "hpke::completion010::tests::mcp_admission_tests::admitted_worker_persists_signed_result_once_and_duplicate_never_runs"
+        }
+      ]
+    },
+    {
+      "id": "madd-cross-language-setup",
+      "source": "addendum",
+      "status": "PASS",
+      "evidence_kind": "interop",
+      "claim": "Go/Go, Go/Rust, Rust/Go and Rust/Rust authenticated setup and inert protected exchange. Expected outcome: Exact discovery and correlation, successful bounded exchange with original Guard checks.",
+      "requirements": []
+    },
+    {
+      "id": "madd-restart-consumption",
+      "source": "addendum",
+      "status": "PASS",
+      "evidence_kind": "interop",
+      "claim": "Reconnect and client restart after stored terminal consumption. Expected outcome: Fresh setup; old callbacks rejected; consumed result not exposed again or redispatched.",
+      "requirements": []
+    }
+  ]
+}

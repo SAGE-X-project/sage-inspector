@@ -45,7 +45,7 @@
   ],
   "cores": {
     "go": {
-      "revision": "49ff23eee9ac270db10fc5f150df9cbe5fc15066",
+      "revision": "2322b2aa4b13ed41b2c5232a1d7382003ebee0e1",
       "files": {
         "pkg/agent/guard010/verify.go": "04b1c09f18a54c004d31bbdde1db95af757e815877344981b1b50797c189df60",
         "pkg/agent/guard010/ledger_test.go": "f40cc71f56dc2211ed5b64189322ead51ecf19f590e75a10bca9079b28b2aa8f",
@@ -61,7 +61,7 @@
       }
     },
     "rust": {
-      "revision": "c3b452368e90f0ed8f379e635cfa4070e3c875a1",
+      "revision": "c89d1d5121b2c5ccb89b393ae0e32120de2f7726",
       "files": {
         "src/guard010/mod.rs": "6b088b56cd57eaee44da522f4ae1bdb8ad84439879b64bbb38de30b2642e7550",
         "src/guard010/ledger.rs": "53bcb18977c27e2d312ed90054e0eabde31aedf5a95819f07f0112f4fddba7f5",

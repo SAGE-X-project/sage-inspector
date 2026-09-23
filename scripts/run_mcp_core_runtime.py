@@ -17,8 +17,9 @@ from check_mcp_signature_boundary import CONTRACT as SIGNATURE_CONTRACT, contrac
 
 ROOT = Path(__file__).resolve().parents[1]
 OWNER_CONTRACT = ROOT / 'verification/0.10.0/mcp-owner-admission-contract.json'
-PINS = {'go': '49ff23eee9ac270db10fc5f150df9cbe5fc15066',
-        'rust': 'c3b452368e90f0ed8f379e635cfa4070e3c875a1'}
+SETUP_CONTRACT = ROOT / 'verification/0.10.0/mcp-setup-case-contract.json'
+PINS = {'go': '2322b2aa4b13ed41b2c5232a1d7382003ebee0e1',
+        'rust': 'c89d1d5121b2c5ccb89b393ae0e32120de2f7726'}
 PREFIX = 'hpke::completion010::tests::mcp_admission_tests::mcp_reply_tests::mcp_transport_tests::'
 CASES = {
     'go': ('TestMCPHostConnectionRuntime', 'TestMCPHostConnectionRetainsBlockedHandshake',
@@ -65,8 +66,33 @@ def owner_contract():
 OWNER_CONTRACT_CASES = {language: core['tests'] for language, core in owner_contract()['cores'].items()}
 SIGNATURE_CONTRACT_CASES = {language: {test: boundary for boundary, test in core['tests'].items()}
                             for language, core in signature_contract()['cores'].items()}
-CASES = {language: names + tuple(SCHEDULES[language]) + tuple(OWNER_CONTRACT_CASES[language])
-         + tuple(SIGNATURE_CONTRACT_CASES[language])
+
+
+def setup_contract():
+    value = json.loads(SETUP_CONTRACT.read_text())
+    if value.get('kind') != 'mcp-setup-case-contract' or set(value.get('cores', {})) != set(PINS):
+        raise ValueError('setup case contract identity')
+    for language, pin in PINS.items():
+        if value['cores'][language].get('revision') != pin:
+            raise ValueError('setup case revision mismatch: ' + language)
+    return value
+
+
+SETUP_VALUE = setup_contract()
+SETUP_CONTRACT_CASES = {language: {} for language in PINS}
+for assessment in SETUP_VALUE['assessments']:
+    for requirement in assessment['requirements']:
+        SETUP_CONTRACT_CASES[requirement['language']].setdefault(requirement['test'], []).append(assessment['id'])
+GO_TEST_PACKAGES = SETUP_VALUE['cores']['go']['test_packages']
+
+
+def unique(values):
+    return tuple(dict.fromkeys(values))
+
+
+CASES = {language: unique(names + tuple(SCHEDULES[language]) + tuple(OWNER_CONTRACT_CASES[language])
+                          + tuple(SIGNATURE_CONTRACT_CASES[language])
+                          + tuple(SETUP_CONTRACT_CASES[language]))
          for language, names in CASES.items()}
 
 
@@ -146,6 +172,11 @@ def execute(language, repo, output, work):
     source = work / language
     source.mkdir()
     subject = snapshot(repo, language, output, source)
+    expected_files = SETUP_VALUE['cores'][language]['files']
+    actual_files = {name: digest(source / name) for name in expected_files}
+    if actual_files != expected_files:
+        raise ValueError('setup case source drift: ' + language)
+    subject['setup_case_files'] = actual_files
     binary = work / (language + '-mcp-tests')
     env = os.environ.copy()
     env['CARGO_TARGET_DIR'] = str(work / 'rust-target')
@@ -187,10 +218,10 @@ def execute(language, repo, output, work):
     subject['dependencies'] = {'file': dependency.name, 'sha256': digest(dependency)}
     for index, name in enumerate(CASES[language]):
         selected_binary = (go_hpke_binary if language == 'go' and
-                           name.startswith('TestCompletion010') else binary)
+                           (name.startswith('TestCompletion010') or GO_TEST_PACKAGES.get(name) == 'hpke') else binary)
         command = ([str(selected_binary), '-test.run=^' + name + '$', '-test.v', '-test.timeout=25s']
                    if language == 'go' else [str(binary), name, '--exact', '--test-threads=1', '--color=never'])
-        directory = (source / ('pkg/agent/hpke' if name.startswith('TestCompletion010')
+        directory = (source / ('pkg/agent/hpke' if selected_binary == go_hpke_binary
                                else 'pkg/agent/guard010') if language == 'go' else source)
         row = run(command, directory, output / f'{language}-{index}.log', 30, env)
         row['test'] = name
@@ -201,6 +232,8 @@ def execute(language, repo, output, work):
             row['owner_admission_boundaries'] = OWNER_CONTRACT_CASES[language][name]
         if name in SIGNATURE_CONTRACT_CASES[language]:
             row['signature_boundary'] = SIGNATURE_CONTRACT_CASES[language][name]
+        if name in SETUP_CONTRACT_CASES[language]:
+            row['setup_cases'] = SETUP_CONTRACT_CASES[language][name]
         row['status'] = ('PASS' if row['status'] == 'PASS' and observed(
             language, name, (output / row['log']).read_text(), row['exit_code']) else 'FAIL')
         subject['cases'].append(row)
@@ -217,6 +250,8 @@ def successful(subjects):
                 for r in subjects[lang]['cases'] if r['test'] in OWNER_CONTRACT_CASES[lang])
         and all(r.get('signature_boundary') == SIGNATURE_CONTRACT_CASES[lang][r['test']]
                 for r in subjects[lang]['cases'] if r['test'] in SIGNATURE_CONTRACT_CASES[lang])
+        and all(r.get('setup_cases') == SETUP_CONTRACT_CASES[lang][r['test']]
+                for r in subjects[lang]['cases'] if r['test'] in SETUP_CONTRACT_CASES[lang])
         for lang, names in CASES.items())
 
 
@@ -233,12 +268,14 @@ def main():
     (output / 'runner.py').write_bytes(Path(__file__).read_bytes())
     (output / 'owner-admission-contract.json').write_bytes(OWNER_CONTRACT.read_bytes())
     (output / 'signature-boundary-contract.json').write_bytes(SIGNATURE_CONTRACT.read_bytes())
+    (output / 'setup-case-contract.json').write_bytes(SETUP_CONTRACT.read_bytes())
     report = dict(kind='mcp-core-runtime-tests', status='FAIL',
                   conformance='NOT_ESTABLISHED', interoperability='NOT_RUN',
                   catalog=dict(NOT_RUN=71), mandatory_children='NOT_PROMOTED',
                   owner_admission_contract_sha256=digest(OWNER_CONTRACT),
                   signature_boundary_contract_sha256=digest(SIGNATURE_CONTRACT),
-                  scope='Pinned private core assertions for owner, admission, signature and setup boundaries; no protocol conformance claim',
+                  setup_case_contract_sha256=digest(SETUP_CONTRACT),
+                  scope='Pinned private core assertions for owner, admission, signature and authenticated MCP setup cases; no protocol conformance claim',
                   runner_sha256=digest(Path(__file__)), subjects={})
     try:
         report['inspector_revision'] = subprocess.check_output(

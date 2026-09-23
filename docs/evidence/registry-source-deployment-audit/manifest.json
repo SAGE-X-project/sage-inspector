@@ -1,0 +1,52 @@
+{
+  "conformance": "NOT_ESTABLISHED",
+  "go_revision": "2fb4755ba38d1c90adea5089402fcc6b8981fd71",
+  "inspector_fixture": {
+    "environment": "synthetic",
+    "path": "vectors/0.10.0/registry-source-binding.json",
+    "sha256": "115cb8cf287fe2b9080c84ff255f7c0cc87c176ce1a89e2bc76c193dbd5ef9a5"
+  },
+  "inspector_revision": "d744672092511d45323dddf609a7ffd045c59556",
+  "kind": "registry-source-deployment-audit",
+  "live_chain_verification": "NOT_RUN",
+  "missing_binding": [
+    "selected_deployment",
+    "trusted_rpc_or_resolver_identity",
+    "deployed_code_hash",
+    "reviewed_read_abi_mapping",
+    "reviewed_write_abi_mapping",
+    "upgrade_policy",
+    "operator_scopes",
+    "transaction_authorization",
+    "finality_policy",
+    "readiness_policy",
+    "trusted_observer_revision_and_binary",
+    "record_and_key_proof_source"
+  ],
+  "protocol_version": "0.10.0",
+  "readme_candidate": {
+    "chain_id": "11155111",
+    "contract": "AgentCardRegistry",
+    "network": "Sepolia",
+    "registry_address": "0xc7ecf7ad6ee71cb0d94f0eb00f46f1ddf432a808",
+    "status": "UNVERIFIED_CANDIDATE"
+  },
+  "runtime": {
+    "command": "python3 -B scripts/inspect_registry_source010.py --output NEW_DIRECTORY",
+    "exit_code": 3,
+    "report": "unconfigured-report.json",
+    "report_sha256": "c850553094063017f9ba59953b781a1054871fdb9f374ef26b7fb66b7f4f85e1",
+    "stderr": "unconfigured.stderr",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout": "unconfigured.stdout",
+    "stdout_sha256": "b95d7f996ee19fce84f12343a3f8a93c1d9d38ee94c1a4a818ddb37404af2369"
+  },
+  "schema_version": 1,
+  "spec_revision": "520e5ed9a896ff8ba8ade776484f41084957aaa2",
+  "status": "NOT_RUN",
+  "surveyed_go_files": {
+    "README.md": "cbb840997d37a7b3ebe298bd9a63fcf0a67eae2c6c368215ad5d51e547f55877",
+    "deployments/config/production.yaml": "439e6d313ef813a3636e0853e96de9583315c262aa7dd5996a5fc5fb94bc9b06",
+    "deployments/config/staging.yaml": "20ac52b1c7657b4aa0e0c46c1f504fd72dbc52367229481e5615314d1b8c9b53"
+  }
+}

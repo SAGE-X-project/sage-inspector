@@ -169,6 +169,7 @@ fn inspector_mcp_bridge() {
             sink.clone(),
             Box::new(BridgeClock),
             1,
+            1,
             30000,
             1000,
         )
@@ -303,6 +304,10 @@ impl r::Clock for BridgeEndpointClock {
 struct BridgeSource;
 impl r::Source for BridgeSource {
     fn read(&mut self, did: &str) -> Result<r::Snapshot> {
-        Source(Local(Arc::new(AtomicI64::new(BridgeClock.now()?.mono_ms)))).read(did)
+        Source(Local(
+            Arc::new(AtomicI64::new(BridgeClock.now()?.mono_ms)),
+            Arc::new(AtomicI64::new(0)),
+        ))
+        .read(did)
     }
 }

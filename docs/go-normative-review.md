@@ -1,39 +1,39 @@
 # Go normative implementation review — SAGE 0.10.0
 
-This review compares Go revision `2322b2aa4b13ed41b2c5232a1d7382003ebee0e1`
+This review compares Go revision `1f2dd87643e42b7ed3beda6956158ff23dcc7ea2`
 with the 26 mandatory child schedules adopted by `sage-spec` revision
-`520e5ed9a896ff8ba8ade776484f41084957aaa2`. It does not change the protocol,
-promote the historical catalogue, or establish conformance.
+`520e5ed9a896ff8ba8ade776484f41084957aaa2`. It does not change the protocol or
+establish full conformance.
 
-## Result
+| Classification | Count |
+|---|---:|
+| DIRECT | 26 |
+| PARTIAL | 0 |
+| MISSING | 0 |
 
-| Classification | Count | Meaning |
-|---|---:|---|
-| DIRECT | 16 | A named Go test directly observes the required ordering and effects |
-| PARTIAL | 5 | A related test exists but does not isolate every required identity or ordering |
-| MISSING | 5 | No exact Go schedule exists |
+The review closes the previously identified gaps with exact safe schedules for policy,
+component and session generation changes; observation-age boundaries; capacity and
+queue insertion failures; close during each durable-fence outcome; UNKNOWN persistence
+and recovery conversion failures; deadline order; policy retirement, component
+replacement and scheduler races; shared-owner isolation; bounded reconnect capacity;
+and the two 1024-record limits. Tests use inert effects, controlled storage and bounded
+local synchronization. No attack-capable reproduction is required.
 
-The existing parent-case overlay remains useful, but it is insufficient to close the
-adopted binding plan because the mandatory schedules are normative children of those
-parents. Similar behavior is not promoted to direct evidence.
+The machine-readable
+[contract](../verification/0.10.0/go-normative-review-contract.json) binds every child
+ID to its exact Go test. `check_go_normative_review.py` verifies the adopted spec
+inventory, pinned revisions and test definitions. `run_mcp_core_runtime.py` separately
+executes every distinct mapped test under the race detector and preserves its exact
+log and hash. DIRECT therefore means a named implementation assertion exists and is
+executed in the evidence job; it is not an independent whole-protocol conformance
+claim.
 
-## Required Go closure
+```sh
+python3 -B scripts/test_go_normative_review.py
+python3 -B scripts/check_go_normative_review.py \
+  --spec-root /path/to/sage-spec --go-root /path/to/sage \
+  --output /tmp/new-go-normative-review
+```
 
-The next Go change must close these ten items without altering the normative design:
-
-1. distinguish policy generation from generic configuration replacement;
-2. observe authority state acquired at or before operation start;
-3. force the final capacity race after preparation;
-4. inject a bounded final queue insertion failure;
-5. fail UNKNOWN persistence after a successful fence;
-6. fail recovery conversion from EXECUTING to UNKNOWN;
-7. distinguish policy retirement before claim;
-8. distinguish policy retirement after claim and retain the pinned policy instance;
-9. order scheduler cancellation and claim in both directions;
-10. reach sequence 999 and reject sequence 1000 through an authenticated MCP session.
-
-Only safe local state, inert executors and bounded processes are used. No host-bypass
-or attack-capable reproduction program is required. After the Go tests pass under the
-race detector, Inspector will reclassify each child from PARTIAL or MISSING using exact
-test names and captured results. Rust review remains the following separate step.
-
+Rust implementation review and combined Inspector evidence remain distinct records so
+a passing Go result cannot substitute for the second implementation or interoperability.

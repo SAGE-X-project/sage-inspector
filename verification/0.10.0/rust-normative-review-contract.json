@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
   "protocol_version": "0.10.0",
-  "kind": "go-normative-implementation-review",
+  "kind": "rust-normative-implementation-review",
   "spec_revision": "520e5ed9a896ff8ba8ade776484f41084957aaa2",
-  "go_revision": "1f2dd87643e42b7ed3beda6956158ff23dcc7ea2",
+  "rust_revision": "40b5a8c6d76d952131013d8a034f819fd31b7ca0",
   "review_status": "COMPLETE",
   "counts": {
     "DIRECT": 26,
@@ -15,7 +15,7 @@
       "id": "generation-policy",
       "status": "DIRECT",
       "tests": [
-        "TestMCPAdmissionPolicyGenerationBeforeCoordinator"
+        "hpke::completion010::tests::mcp_admission_tests::policy_generation_change_before_coordinator_denies_admission"
       ],
       "observation": "A policy-only generation change between preparation and final coordination denies admission, records the new generation and produces zero effects.",
       "required": "Preserve this exact schedule and its durable identity, admission and effect observations."
@@ -24,8 +24,7 @@
       "id": "generation-component",
       "status": "DIRECT",
       "tests": [
-        "TestMCPAdmissionReplacementAndClaimOrder",
-        "TestMCPAdmissionDeadlineGenerationAndScheduler"
+        "hpke::completion010::tests::mcp_admission_tests::component_generation_change_before_coordinator_denies_admission"
       ],
       "observation": "Executor replacement changes the gate generation and prevents the stale prepared invocation from using the replacement instance.",
       "required": "Preserve this exact schedule and its durable identity, admission and effect observations."
@@ -34,7 +33,7 @@
       "id": "generation-session",
       "status": "DIRECT",
       "tests": [
-        "TestMCPAdmissionSessionRevocationDuringFence"
+        "hpke::completion010::tests::mcp_admission_tests::session_generation_change_before_coordinator_denies_admission"
       ],
       "observation": "Signing and KEM session invalidation during durable fencing deny admission, close the owner and preserve zero effects.",
       "required": "Preserve this exact schedule and its durable identity, admission and effect observations."
@@ -43,7 +42,7 @@
       "id": "observation-age-4999",
       "status": "DIRECT",
       "tests": [
-        "TestMCPAdmissionFinalObservationBoundaries"
+        "hpke::completion010::tests::mcp_admission_tests::final_admission_rechecks_observation_age_and_fixed_request_deadline"
       ],
       "observation": "A 4999 millisecond final observation age is accepted with otherwise valid inputs.",
       "required": "Preserve this exact schedule and its durable identity, admission and effect observations."
@@ -52,7 +51,7 @@
       "id": "observation-age-5000",
       "status": "DIRECT",
       "tests": [
-        "TestMCPAdmissionFinalObservationBoundaries"
+        "hpke::completion010::tests::mcp_admission_tests::final_admission_rechecks_observation_age_and_fixed_request_deadline"
       ],
       "observation": "A 5000 millisecond final observation age is accepted with otherwise valid inputs.",
       "required": "Preserve this exact schedule and its durable identity, admission and effect observations."
@@ -61,7 +60,7 @@
       "id": "observation-age-5001",
       "status": "DIRECT",
       "tests": [
-        "TestMCPAdmissionFinalObservationBoundaries"
+        "hpke::completion010::tests::mcp_admission_tests::final_admission_rechecks_observation_age_and_fixed_request_deadline"
       ],
       "observation": "A 5001 millisecond final observation age is denied and the durable outcome becomes conservative.",
       "required": "Preserve this exact schedule and its durable identity, admission and effect observations."
@@ -70,7 +69,7 @@
       "id": "observation-before-start",
       "status": "DIRECT",
       "tests": [
-        "TestMCPAdmissionRejectsObservationAtOperationStart"
+        "hpke::completion010::tests::mcp_admission_tests::observation_acquired_before_operation_start_is_rejected"
       ],
       "observation": "An authority observation acquired at operation start or earlier is rejected with no queue admission, cached acceptance or effect.",
       "required": "Preserve this exact schedule and its durable identity, admission and effect observations."
@@ -79,7 +78,7 @@
       "id": "queue-capacity-race",
       "status": "DIRECT",
       "tests": [
-        "TestMCPAdmissionQueueCapacityRaceFailsAtomicInsertion"
+        "hpke::completion010::tests::mcp_admission_tests::queue_capacity_race_fails_atomic_insertion"
       ],
       "observation": "The last queue slot is consumed after preparation and before final insertion; the denied invocation remains invisible and produces zero effects.",
       "required": "Preserve this exact schedule and its durable identity, admission and effect observations."
@@ -88,7 +87,7 @@
       "id": "queue-insert-failure",
       "status": "DIRECT",
       "tests": [
-        "TestMCPAdmissionQueueInsertionFailureIsAtomic"
+        "hpke::completion010::tests::mcp_admission_tests::queue_insertion_failure_has_no_visibility_or_effect"
       ],
       "observation": "An independent bounded insertion failure occurs after all validation and capacity checks, leaving no visible entry, claim or effect.",
       "required": "Preserve this exact schedule and its durable identity, admission and effect observations."
@@ -97,7 +96,7 @@
       "id": "shared-owner-close",
       "status": "DIRECT",
       "tests": [
-        "TestMCPAdmissionSharedOwners"
+        "hpke::completion010::tests::mcp_admission_tests::closing_one_shared_owner_does_not_close_another"
       ],
       "observation": "Closing one owner leaves a second owner on the shared healthy gate able to admit and execute once.",
       "required": "Preserve this exact schedule and its durable identity, admission and effect observations."
@@ -106,7 +105,7 @@
       "id": "fence-close-success",
       "status": "DIRECT",
       "tests": [
-        "TestMCPAdmissionCloseDuringFence"
+        "hpke::completion010::tests::mcp_admission_tests::close_during_fence_preserves_actual_storage_outcome"
       ],
       "observation": "Close during a successful fence write retains the durable identity, produces UNKNOWN and permits no effect.",
       "required": "Preserve this exact schedule and its durable identity, admission and effect observations."
@@ -115,7 +114,7 @@
       "id": "fence-close-failure",
       "status": "DIRECT",
       "tests": [
-        "TestMCPAdmissionCloseDuringFence"
+        "hpke::completion010::tests::mcp_admission_tests::close_during_fence_preserves_actual_storage_outcome"
       ],
       "observation": "Close during a failed fence write retains RESERVED, retires the affected gate and permits no effect.",
       "required": "Preserve this exact schedule and its durable identity, admission and effect observations."
@@ -124,7 +123,7 @@
       "id": "fence-close-uncertain",
       "status": "DIRECT",
       "tests": [
-        "TestMCPAdmissionCloseDuringFence"
+        "hpke::completion010::tests::mcp_admission_tests::close_during_fence_preserves_actual_storage_outcome"
       ],
       "observation": "Close during an uncertain fence result retains EXECUTING, retires the affected gate and permits no effect.",
       "required": "Preserve this exact schedule and its durable identity, admission and effect observations."
@@ -133,7 +132,7 @@
       "id": "unknown-write-failure",
       "status": "DIRECT",
       "tests": [
-        "TestMCPAdmissionUnknownWriteFailureRetiresScope"
+        "hpke::completion010::tests::mcp_admission_tests::failed_unknown_persistence_retires_scope_and_keeps_writer_lock"
       ],
       "observation": "Failure to persist UNKNOWN retires the affected scope, retains exclusive writer ownership and permits no effect.",
       "required": "Preserve this exact schedule and its durable identity, admission and effect observations."
@@ -142,7 +141,7 @@
       "id": "recovery-conversion-failure",
       "status": "DIRECT",
       "tests": [
-        "TestStorageFailures"
+        "execution010::tests::recovery_conversion_failure_keeps_exclusive_ownership"
       ],
       "observation": "Failure to convert unresolved EXECUTING state to UNKNOWN retains the writer lock and prevents a ready writer or reconstructed work.",
       "required": "Preserve this exact schedule and its durable identity, admission and effect observations."
@@ -151,7 +150,7 @@
       "id": "queue-expiry-before",
       "status": "DIRECT",
       "tests": [
-        "TestMCPAdmissionProtectedDeadlineBeforeFinalAdmissionRetainsReservation"
+        "hpke::completion010::tests::mcp_admission_tests::protected_deadline_before_final_admission_retains_identity_and_reservation"
       ],
       "observation": "Deadline expiry before final insertion closes the owner, retains request and intent reservations and produces zero effects.",
       "required": "Preserve this exact schedule and its durable identity, admission and effect observations."
@@ -160,7 +159,7 @@
       "id": "queue-expiry-after",
       "status": "DIRECT",
       "tests": [
-        "TestMCPAdmissionRequestExpiryClosesOwner"
+        "hpke::completion010::tests::mcp_admission_tests::completion_expiry_closes_owner_without_losing_signed_outcome"
       ],
       "observation": "An insertion that wins before expiry remains historical and its later effect may complete without redispatch.",
       "required": "Preserve this exact schedule and its durable identity, admission and effect observations."
@@ -169,7 +168,7 @@
       "id": "policy-retirement-invalidate-first",
       "status": "DIRECT",
       "tests": [
-        "TestMCPAdmissionPolicyRetirementAndClaimOrder"
+        "hpke::completion010::tests::mcp_admission_tests::policy_retirement_and_claim_are_serialized"
       ],
       "observation": "Policy retirement before claim cancels the unclaimed old-generation entry while retaining durable identity and producing zero effects.",
       "required": "Preserve this exact schedule and its durable identity, admission and effect observations."
@@ -178,7 +177,7 @@
       "id": "policy-retirement-claim-first",
       "status": "DIRECT",
       "tests": [
-        "TestMCPAdmissionPolicyRetirementAndClaimOrder"
+        "hpke::completion010::tests::mcp_admission_tests::policy_retirement_and_claim_are_serialized"
       ],
       "observation": "A claim that wins before policy retirement finishes only through the pinned old policy and executor instance without substitution or retry.",
       "required": "Preserve this exact schedule and its durable identity, admission and effect observations."
@@ -187,7 +186,7 @@
       "id": "baseline-replacement-invalidate-first",
       "status": "DIRECT",
       "tests": [
-        "TestMCPAdmissionReplacementAndClaimOrder"
+        "hpke::completion010::tests::mcp_admission_tests::component_replacement_and_claim_are_serialized"
       ],
       "observation": "Replacing the executor before claim cancels the old unclaimed entry with no effect.",
       "required": "Preserve this exact schedule and its durable identity, admission and effect observations."
@@ -196,7 +195,7 @@
       "id": "baseline-replacement-claim-first",
       "status": "DIRECT",
       "tests": [
-        "TestMCPAdmissionReplacementAndClaimOrder"
+        "hpke::completion010::tests::mcp_admission_tests::component_replacement_and_claim_are_serialized"
       ],
       "observation": "Replacing the executor after claim lets only the pinned old instance finish and never substitutes the replacement.",
       "required": "Preserve this exact schedule and its durable identity, admission and effect observations."
@@ -205,7 +204,7 @@
       "id": "scheduler-cancel-race",
       "status": "DIRECT",
       "tests": [
-        "TestMCPAdmissionSchedulerCancellationRace"
+        "hpke::completion010::tests::mcp_admission_tests::scheduler_cancel_and_claim_race_is_serialized"
       ],
       "observation": "Cancel-first and claim-first schedules serialize to safe cancellation or one claimant, with no redispatch or false rollback.",
       "required": "Preserve this exact schedule and its durable identity, admission and effect observations."
@@ -214,8 +213,7 @@
       "id": "scheduler-stall",
       "status": "DIRECT",
       "tests": [
-        "TestMCPAdmissionCapacityRetainedUntilWorkerTerminates",
-        "TestMCPHostQueuedCancellationAndBoundedStop"
+        "hpke::completion010::tests::mcp_admission_tests::capacity_is_shared_across_connections_and_retained_during_actual_run"
       ],
       "observation": "A stalled worker and cancelled queued work retain bounded slots until actual termination and deny false cleanup.",
       "required": "Preserve this exact schedule and its durable identity, admission and effect observations."
@@ -224,7 +222,7 @@
       "id": "reconnect-pool-bound",
       "status": "DIRECT",
       "tests": [
-        "TestMCPHostCleanupStallDoesNotBlockDeadlinesOrReleaseOwners"
+        "hpke::completion010::tests::mcp_admission_tests::mcp_reply_tests::mcp_transport_tests::failed_handshake_keeps_connection_slot_until_endpoint_cleanup_finishes"
       ],
       "observation": "A reconnect cannot allocate another owner while prior cleanup remains blocked, and capacity returns only after termination.",
       "required": "Preserve this exact schedule and its durable identity, admission and effect observations."
@@ -233,7 +231,7 @@
       "id": "owner-history-1024",
       "status": "DIRECT",
       "tests": [
-        "TestMCPOwnerHistoryLimit"
+        "guard010::mcp_setup::tests::history_capacity_is_not_reset_by_close"
       ],
       "observation": "The isolated owner retains exactly 1024 setup and protected request identifiers and denies the next identifier.",
       "required": "Preserve this exact schedule and its durable identity, admission and effect observations."
@@ -242,7 +240,7 @@
       "id": "session-record-limit-first",
       "status": "DIRECT",
       "tests": [
-        "TestMCPAuthenticatedSetupReachesRecordLimitBeforeOwnerHistory"
+        "hpke::completion010::tests::mcp_admission_tests::authenticated_setup_reaches_record_limit_before_owner_history"
       ],
       "observation": "A real authenticated MCP setup reaches sequence 999 and rejects sequence 1000 before owner history capacity can be exhausted.",
       "required": "Preserve this exact schedule and its durable identity, admission and effect observations."

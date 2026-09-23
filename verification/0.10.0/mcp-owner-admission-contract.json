@@ -35,12 +35,12 @@
   ],
   "cores": {
     "go": {
-      "revision": "2322b2aa4b13ed41b2c5232a1d7382003ebee0e1",
+      "revision": "1f2dd87643e42b7ed3beda6956158ff23dcc7ea2",
       "files": {
-        "pkg/agent/guard010/mcp_admission.go": "d8043fba81f751eb87ecf23f1c1503e113dbc393e0b88ec31a1752c356786ebc",
+        "pkg/agent/guard010/mcp_admission.go": "e6885d43f56dc5968a1858028f54654bb9b42324bba0652eac0d03e169cab8a0",
         "pkg/agent/guard010/mcp_owner.go": "f4d376555edfca44b799cc52b3b9a08e9ed6940a4fc227bb9e38f15dc7a1ba37",
         "pkg/agent/guard010/mcp_protected_reply.go": "781c2273d4775bf4615d2b6a6828d6210da5931a18781c4732b99d4819f89303",
-        "pkg/agent/guard010/mcp_admission_test.go": "1b5a26d228e059f2e1f9fc5d910e11d5ecb37c743007a64bd4f917aa78999b36",
+        "pkg/agent/guard010/mcp_admission_test.go": "e0df02da21f38d48fa68fc8274b17862a2f32c9bc0110a1e70d6b447f53d313a",
         "pkg/agent/guard010/mcp_owner_test.go": "0c3b77b53b487abee605d1d35464070ca0226663b8f498ce906c4078cb896c6f",
         "pkg/agent/guard010/mcp_protected_reply_test.go": "e73f32f500fbcc25c066e31b0fae38abb4888109d396cca8aca17e97c3d9b768"
       },
@@ -97,12 +97,12 @@
       }
     },
     "rust": {
-      "revision": "c89d1d5121b2c5ccb89b393ae0e32120de2f7726",
+      "revision": "40b5a8c6d76d952131013d8a034f819fd31b7ca0",
       "files": {
         "src/guard010/mcp_setup.rs": "b00a53c17d4bda3a0f4d76efca41e10a6066d18250a272a2f9a9dc1d322a4eac",
-        "src/guard010/dispatch/mcp_admission.rs": "e2d4d6bf9834690ebb67ff7326d538910a52ddc7dc1957940d3920503662cb63",
-        "src/guard010/dispatch/mcp_admission/reply.rs": "93dff1055e76694575437dcf292bd02f7004840ff1f382d50b94fafceb4a9ae5",
-        "src/hpke/completion010/mcp_admission_tests.rs": "fd3fff4e1671511f5fb8f3c60f52c84eeb498b7bf11d64426e6823f2a78aab50",
+        "src/guard010/dispatch/mcp_admission.rs": "51bfff67672f0d3173ef61ab53c10f9850977dc92b6f86debe5a028412b69e97",
+        "src/guard010/dispatch/mcp_admission/reply.rs": "5211d83847972918f3a0c6cf170212e05162071378841562fb114d48a5af72af",
+        "src/hpke/completion010/mcp_admission_tests.rs": "c76a93a313d0e4dd9d28d657d369aa37ba4e11a458cde30f8ca0f7472a1ba85d",
         "src/hpke/completion010/mcp_reply_tests.rs": "3e20b0d7a0488ae8fbf6a0332e8de0e9f3dfbadf73458f68e4d8ff5c1706552a",
         "src/hpke/completion010/mcp_setup_tests.rs": "f521d7115e03ffd0da3e59dc12184319e604c29ea55f239c92188277510bb73a"
       },

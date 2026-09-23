@@ -1,4 +1,4 @@
-"""Validate the Go review against adopted mandatory MCP child schedules."""
+"""Validate the Rust review against adopted mandatory MCP child schedules."""
 import argparse
 import hashlib
 import json
@@ -9,7 +9,7 @@ import sys
 
 
 ROOT = Path(__file__).resolve().parents[1]
-CONTRACT = ROOT / 'verification/0.10.0/go-normative-review-contract.json'
+CONTRACT = ROOT / 'verification/0.10.0/rust-normative-review-contract.json'
 BASELINE = ROOT / 'verification/0.10.0/normative-baseline-lock.json'
 STATUSES = {'DIRECT', 'PARTIAL', 'MISSING'}
 
@@ -40,27 +40,27 @@ def sha(raw):
     return hashlib.sha256(raw).hexdigest()
 
 
-def test_inventory(go_root):
+def test_inventory(rust_root):
     found = {}
-    for path in (go_root / 'pkg/agent').rglob('*_test.go'):
+    for path in rust_root.rglob('*.rs'):
         text = path.read_text()
-        for name in re.findall(r'^func (Test[A-Za-z0-9_]+)\(t \*testing\.T\)', text, re.M):
-            found.setdefault(name, []).append(str(path.relative_to(go_root)))
+        for name in re.findall(r'^\s*fn ([a-z][a-z0-9_]+)\s*\(\s*\)', text, re.M):
+            found.setdefault(name, []).append(str(path.relative_to(rust_root)))
     return found
 
 
 def validate_contract(value):
     require(set(value) == {'schema_version','protocol_version','kind','spec_revision',
-                           'go_revision','review_status','counts','children','conformance'},
+                           'rust_revision','review_status','counts','children','conformance'},
             'contract fields')
     require(value['schema_version'] == 1 and value['protocol_version'] == '0.10.0',
             'contract version')
-    require(value['kind'] == 'go-normative-implementation-review', 'contract kind')
+    require(value['kind'] == 'rust-normative-implementation-review', 'contract kind')
     require(value['review_status'] == 'COMPLETE', 'review status regression')
     require(value['conformance'] == 'NOT_ESTABLISHED', 'conformance promotion')
     baseline = load(BASELINE.read_text())
     require(value['spec_revision'] == baseline['spec']['revision'], 'spec revision')
-    require(value['go_revision'] == baseline['cores']['go']['revision'], 'Go revision')
+    require(value['rust_revision'] == baseline['cores']['rust']['revision'], 'Rust revision')
     rows = value['children']
     require(type(rows) is list and len(rows) == 26, 'child count')
     require(len({row.get('id') for row in rows}) == 26, 'child identity uniqueness')
@@ -95,31 +95,32 @@ def validate_spec(value, spec_root, revision_reader=git_head):
     return trace
 
 
-def validate_go(value, go_root, revision_reader=git_head):
-    require(revision_reader(go_root) == value['go_revision'], 'checked Go revision')
-    inventory = test_inventory(go_root)
+def validate_rust(value, rust_root, revision_reader=git_head):
+    require(revision_reader(rust_root) == value['rust_revision'], 'checked Rust revision')
+    inventory = test_inventory(rust_root)
     for row in value['children']:
         for name in row['tests']:
-            require(name in inventory, 'missing Go test definition: ' + name)
+            require(name.rsplit('::', 1)[-1] in inventory,
+                    'missing Rust test definition: ' + name)
     return inventory
 
 
-def inspect(spec_root, go_root):
+def inspect(spec_root, rust_root):
     raw = CONTRACT.read_bytes()
     value = validate_contract(load(raw.decode()))
     validate_spec(value, spec_root)
-    inventory = validate_go(value, go_root)
+    inventory = validate_rust(value, rust_root)
     return {
         'schema_version': 1,
         'protocol_version': '0.10.0',
-        'kind': 'go-normative-implementation-review-report',
+        'kind': 'rust-normative-implementation-review-report',
         'status': value['review_status'],
         'spec_revision': value['spec_revision'],
-        'go_revision': value['go_revision'],
+        'rust_revision': value['rust_revision'],
         'counts': value['counts'],
-        'mapped_go_tests': len({name for row in value['children'] for name in row['tests']}),
-        'discovered_go_tests': len(inventory),
-        'next_step': 'verify the completed Rust implementation review',
+        'mapped_rust_tests': len({name for row in value['children'] for name in row['tests']}),
+        'discovered_rust_tests': len(inventory),
+        'next_step': 'bind both completed core reviews to Inspector execution evidence',
         'conformance': 'NOT_ESTABLISHED',
         'contract_sha256': sha(raw)
     }
@@ -128,22 +129,22 @@ def inspect(spec_root, go_root):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--spec-root', type=Path, required=True)
-    parser.add_argument('--go-root', type=Path, required=True)
+    parser.add_argument('--rust-root', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
     try:
         output = args.output.resolve()
         require(not output.exists() and not output.is_relative_to(ROOT),
                 'new external output required')
-        report = inspect(args.spec_root.resolve(), args.go_root.resolve())
+        report = inspect(args.spec_root.resolve(), args.rust_root.resolve())
         output.mkdir(parents=True, exist_ok=False)
         (output / 'contract.json').write_bytes(CONTRACT.read_bytes())
         (output / 'report.json').write_text(json.dumps(report, indent=2) + '\n')
     except (ValueError, KeyError, TypeError, OSError, UnicodeError,
             subprocess.SubprocessError, json.JSONDecodeError) as error:
-        print('Go normative review FAIL: ' + str(error), file=sys.stderr)
+        print('Rust normative review FAIL: ' + str(error), file=sys.stderr)
         return 1
-    print('Go normative review checked: 26 DIRECT, 0 PARTIAL, 0 MISSING; '
+    print('Rust normative review checked: 26 DIRECT, 0 PARTIAL, 0 MISSING; '
           'conformance NOT_ESTABLISHED.')
     return 0
 

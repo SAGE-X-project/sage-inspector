@@ -1,13 +1,13 @@
-"""Controls for the Go normative implementation review."""
+"""Controls for the Rust normative implementation review."""
 import copy
 from pathlib import Path
 import tempfile
 import unittest
 
-import check_go_normative_review as checker
+import check_rust_normative_review as checker
 
 
-class GoNormativeReviewTests(unittest.TestCase):
+class RustNormativeReviewTests(unittest.TestCase):
     def value(self):
         return checker.load(checker.CONTRACT.read_text())
 
@@ -48,15 +48,15 @@ class GoNormativeReviewTests(unittest.TestCase):
                 checker.validate_spec(value, root,
                                       revision_reader=lambda unused: value['spec_revision'])
 
-    def test_missing_go_test_definition_is_rejected(self):
+    def test_missing_rust_test_definition_is_rejected(self):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
-            path = root / 'pkg/agent/sample_test.go'
+            path = root / 'src/sample.rs'
             path.parent.mkdir(parents=True)
-            path.write_text('package sample\n')
-            with self.assertRaisesRegex(ValueError, 'missing Go test definition'):
-                checker.validate_go(self.value(), root,
-                                    revision_reader=lambda unused: self.value()['go_revision'])
+            path.write_text('fn unrelated() {}\n')
+            with self.assertRaisesRegex(ValueError, 'missing Rust test definition'):
+                checker.validate_rust(self.value(), root,
+                                    revision_reader=lambda unused: self.value()['rust_revision'])
 
 
 if __name__ == '__main__':

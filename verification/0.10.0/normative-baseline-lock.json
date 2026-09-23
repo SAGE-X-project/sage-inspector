@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "protocol_version": "0.10.0",
+  "kind": "normative-baseline-lock",
+  "spec": {
+    "repository": "SAGE-X-project/sage-spec",
+    "revision": "520e5ed9a896ff8ba8ade776484f41084957aaa2",
+    "adoption_record": "verification/mcp-adoption.json",
+    "adoption_record_sha256": "cb18638a96f7099f26b960d7d1dd1d2f679516a39ded0e32b773d3963e26b1bc",
+    "status": "ADOPTED_NORMATIVE_DESIGN",
+    "artifacts": {
+      "profiles/non-http-mcp-security.md": "af38e20cb2fee9ca66f975a3a1c1a21478833178c558df0383b6ad584827e1cc",
+      "profiles/non-http-mcp-tool.json": "c3edd622a7c90baa028118f63af42a91f354fe7202070ef91a4bd349e4048204",
+      "verification/traceability.json": "d612fa74803c7bd74a0899958d961a29582e27aa017fba0514c50c9082330964"
+    }
+  },
+  "cores": {
+    "go": {
+      "repository": "SAGE-X-project/sage",
+      "revision": "2322b2aa4b13ed41b2c5232a1d7382003ebee0e1"
+    },
+    "rust": {
+      "repository": "SAGE-X-project/rs-sage-core",
+      "revision": "c89d1d5121b2c5ccb89b393ae0e32120de2f7726"
+    }
+  },
+  "inspector": {
+    "alignment_base_revision": "27795685ca5d908a20455057f52c088086a6b119",
+    "historical_spec_revision": "f4a4e7fbf71a665785984eef7609b2e8fabe833d",
+    "historical_catalog": {
+      "NOT_RUN": 71
+    },
+    "runtime_overlay": {
+      "PASS": 71,
+      "PARTIAL": 0,
+      "NOT_RUN": 0
+    },
+    "runtime_classification": "EXECUTED_PENDING_NORMATIVE_MAPPING",
+    "adoption_review_classification": "HISTORICAL_POST_ADOPTION_REVIEW"
+  },
+  "case_model": {
+    "baseline_parent_cases": 386,
+    "binding_parent_cases": 71,
+    "total_parent_cases": 457,
+    "mandatory_binding_children": 26,
+    "separate_historical_lifecycle_cases": 37
+  },
+  "execution_order": [
+    "normative-provenance",
+    "go-implementation-review",
+    "rust-implementation-review",
+    "inspector-binding-evidence",
+    "ins-11-core-lifecycle",
+    "registry-source",
+    "agent-host",
+    "integrated-verdict",
+    "post-plan-errata-and-refactor"
+  ],
+  "conformance": "NOT_ESTABLISHED"
+}
+

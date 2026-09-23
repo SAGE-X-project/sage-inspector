@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "protocol_version": "0.10.0",
+  "kind": "registry-source-evidence",
+  "status": "NOT_RUN",
+  "conformance": "NOT_ESTABLISHED",
+  "actual_core_execution": false,
+  "live_chain_verification": "NOT_RUN",
+  "measurements": [],
+  "files": {},
+  "scope": "Operator-declared evidence consistency only; no consensus, full record proof, ABI semantics or source trust certification.",
+  "reason": "No deployment binding supplied."
+}

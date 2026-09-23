@@ -39,8 +39,11 @@
 종료·수신, 만료/admission, 늦은 완료, replay/quarantine 복구 및
 reservation/close 경계를 확인했다. 두 단계의 결과는 `EVIDENCE_CHECKED`이며
 전체 프로토콜 적합성은 `NOT_ESTABLISHED`이다. 과거 구형 세션 race `FAIL`과
-역사적 lifecycle 37건 `NOT_RUN`은 유지한다. 다음 순서는 6단계 실제 Registry
-Source와 체인 관측이다.
+역사적 lifecycle 37건 `NOT_RUN`은 유지한다. 6단계의
+[Registry Source 배포 감사](registry-source-deployment-audit.md)는 공개 주소
+후보와 설정을 조사했으나 신뢰된 0.10.0 배포 바인딩이 없어 실제 체인 관측을
+`NOT_RUN`으로 기록했다. 이 판정을 보존한 다음 순서는 7단계 실제 Agent 호스트
+집행 검증이다.
 
 ### 1. 규범 기준선과 증거 provenance 정렬
 

@@ -8,6 +8,7 @@ import sys
 from check_mcp_catalog import BASE as CATALOG_BASE, catalog
 from check_mcp_owner_admission import load, require, sha
 from run_mcp_core_runtime import (OWNER_CONTRACT, OWNER_CONTRACT_CASES, PINS,
+                                  SIGNATURE_CONTRACT, SIGNATURE_CONTRACT_CASES,
                                   observed, successful)
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -58,6 +59,13 @@ ASSESSMENTS = {
             ('rust', 'hpke::completion010::tests::mcp_admission_tests::ready_session_expiry_denies_new_admission_and_closes_owner'),
         ),
     },
+    'mres-signature-intent': {
+        'status': 'PASS',
+        'requirements': (
+            ('go', 'TestBridgeIntentSignatureAlgorithmBoundary'),
+            ('rust', 'guard010::ledger::tests::intent_signature_algorithm_boundary_accepts_only_ed25519'),
+        ),
+    },
 }
 
 
@@ -89,14 +97,16 @@ def catalog_rows():
 
 def validate_contract(value):
     exact(value, ('schema_version', 'protocol_version', 'kind', 'catalog_manifest_sha256',
-                  'owner_admission_contract_sha256', 'historical_catalog', 'runtime_case_counts',
+                  'owner_admission_contract_sha256', 'signature_boundary_contract_sha256',
+                  'historical_catalog', 'runtime_case_counts',
                   'external_review', 'adoption', 'conformance', 'assessments'), 'contract fields')
     require(type(value['schema_version']) is int and value['schema_version'] == 1, 'schema version')
     require(value['protocol_version'] == '0.10.0' and value['kind'] == 'mcp-proposal-case-evidence', 'contract identity')
     require(value['catalog_manifest_sha256'] == CATALOG_MANIFEST_SHA, 'catalog binding')
     require(value['owner_admission_contract_sha256'] == sha(OWNER_CONTRACT.read_bytes()), 'owner contract binding')
+    require(value['signature_boundary_contract_sha256'] == sha(SIGNATURE_CONTRACT.read_bytes()), 'signature contract binding')
     require(value['historical_catalog'] == {'NOT_RUN': 71}, 'historical catalog promotion')
-    require(value['runtime_case_counts'] == {'PASS': 6, 'PARTIAL': 0, 'NOT_RUN': 65}, 'runtime counts')
+    require(value['runtime_case_counts'] == {'PASS': 7, 'PARTIAL': 0, 'NOT_RUN': 64}, 'runtime counts')
     require(value['external_review'] == 'NOT_PERFORMED' and value['adoption'] == 'PROPOSAL_NOT_ADOPTED', 'review or adoption promotion')
     require(value['conformance'] == 'NOT_ESTABLISHED', 'conformance promotion')
     require(type(value['assessments']) is list and len(value['assessments']) == len(ASSESSMENTS), 'assessment count')
@@ -113,7 +123,7 @@ def validate_contract(value):
             exact(requirement, ('language', 'test'), 'requirement fields')
             language, test = requirement['language'], requirement['test']
             require(language in PINS, 'requirement language')
-            require(test in OWNER_CONTRACT_CASES[language], 'test outside owner contract')
+            require(test in OWNER_CONTRACT_CASES[language] or test in SIGNATURE_CONTRACT_CASES[language], 'test outside evidence contracts')
             actual.append((language, test))
         require(tuple(actual) == ASSESSMENTS[ident]['requirements'], 'changed case mapping')
         found.add(ident)
@@ -127,7 +137,9 @@ def validate_runtime(base):
     require(report.get('conformance') == 'NOT_ESTABLISHED' and report.get('interoperability') == 'NOT_RUN', 'runtime claim promotion')
     require(report.get('catalog') == {'NOT_RUN': 71} and report.get('mandatory_children') == 'NOT_PROMOTED', 'historical catalog changed')
     require(report.get('owner_admission_contract_sha256') == sha(OWNER_CONTRACT.read_bytes()), 'runtime owner contract')
+    require(report.get('signature_boundary_contract_sha256') == sha(SIGNATURE_CONTRACT.read_bytes()), 'runtime signature contract')
     require(safe_read(base, 'owner-admission-contract.json') == OWNER_CONTRACT.read_bytes(), 'preserved owner contract')
+    require(safe_read(base, 'signature-boundary-contract.json') == SIGNATURE_CONTRACT.read_bytes(), 'preserved signature contract')
     runner = safe_read(base, 'runner.py')
     require(sha(runner) == report.get('runner_sha256'), 'runtime runner hash')
     subjects = report.get('subjects')
@@ -143,11 +155,14 @@ def validate_runtime(base):
             row = matches[0]
             require(row.get('status') == 'PASS' and row.get('execution_status') == 'PASS'
                     and row.get('exit_code') == 0 and row.get('evidence_kind') == 'pinned-core-assertions', 'required test failed')
-            require(row.get('owner_admission_boundaries') == OWNER_CONTRACT_CASES[language][test], 'boundary mapping drift')
+            if test in OWNER_CONTRACT_CASES[language]:
+                require(row.get('owner_admission_boundaries') == OWNER_CONTRACT_CASES[language][test], 'owner boundary mapping drift')
+            else:
+                require(row.get('signature_boundary') == 'intent-algorithm', 'signature boundary mapping drift')
             log = safe_read(base, row.get('log', ''))
             require(sha(log) == row.get('log_sha256'), 'required log hash')
             require(observed(language, test, log.decode('utf-8'), row['exit_code']), 'required test not observed')
-            rows.append({'language': language, 'revision': pin, 'test': test,
+            rows.append({'language': language, 'revision': PINS[language], 'test': test,
                          'log': row['log'], 'log_sha256': row['log_sha256']})
         evidence[ident] = rows
     return report, evidence
@@ -170,14 +185,14 @@ def inspect(runtime):
                           'claim': assessment['claim'], 'evidence': evidence[ident]})
         else:
             cases.append({'id': ident, 'source': row['source'], 'status': 'NOT_RUN'})
-    require(sum(row['status'] == 'PASS' for row in cases) == 6
+    require(sum(row['status'] == 'PASS' for row in cases) == 7
             and not any(row['status'] == 'PARTIAL' for row in cases), 'case result counts')
     return {
         'schema_version': 1,
         'kind': 'mcp-proposal-case-runtime-evidence',
         'status': 'EVIDENCE_CHECKED',
         'historical_catalog': {'NOT_RUN': 71},
-        'runtime_case_counts': {'PASS': 6, 'PARTIAL': 0, 'NOT_RUN': 65},
+        'runtime_case_counts': {'PASS': 7, 'PARTIAL': 0, 'NOT_RUN': 64},
         'external_review': 'NOT_PERFORMED',
         'adoption': 'PROPOSAL_NOT_ADOPTED',
         'conformance': 'NOT_ESTABLISHED',
@@ -185,7 +200,7 @@ def inspect(runtime):
         'runtime_report_sha256': sha(safe_read(runtime, 'report.json')),
         'runtime_inspector_revision': runtime_report.get('inspector_revision'),
         'cases': cases,
-        'limitation': 'Six pinned private core resolution cases; all other proposal cases and full protocol conformance remain unestablished.'
+        'limitation': 'Seven pinned private core resolution cases; all other proposal cases and full protocol conformance remain unestablished.'
     }
 
 
@@ -206,7 +221,7 @@ def main():
     except (ValueError, KeyError, TypeError, OSError, UnicodeError, subprocess.SubprocessError) as error:
         print('MCP case evidence FAIL: ' + str(error), file=sys.stderr)
         return 1
-    print('MCP case evidence checked: 6 PASS, 0 PARTIAL, 65 NOT_RUN; conformance NOT_ESTABLISHED.')
+    print('MCP case evidence checked: 7 PASS, 0 PARTIAL, 64 NOT_RUN; conformance NOT_ESTABLISHED.')
     return 0
 
 

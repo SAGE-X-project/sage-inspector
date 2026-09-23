@@ -7,6 +7,7 @@ import subprocess
 import tempfile
 import unittest
 from run_mcp_core_runtime import (CASES, OWNER_CONTRACT, OWNER_CONTRACT_CASES,
+                                  SIGNATURE_CONTRACT, SIGNATURE_CONTRACT_CASES,
                                   SCHEDULES, ROOT, digest, observed, run, successful)
 
 
@@ -16,8 +17,8 @@ class EvidenceTests(unittest.TestCase):
         for language, claims in SCHEDULES.items():
             self.assertEqual(len(claims),4)
             self.assertEqual(len(OWNER_CONTRACT_CASES[language]), 10)
-            self.assertEqual(len(CASES[language]),17)
-            self.assertEqual(len(set(CASES[language])),17)
+            self.assertEqual(len(CASES[language]),18)
+            self.assertEqual(len(set(CASES[language])),18)
             self.assertTrue(all(name in CASES[language] and claim for name,claim in claims.items()))
             covered = set().union(*map(set, OWNER_CONTRACT_CASES[language].values()))
             self.assertEqual(covered, {'durable-admission', 'close-linearization',
@@ -28,6 +29,10 @@ class EvidenceTests(unittest.TestCase):
         for language, cases in OWNER_CONTRACT_CASES.items():
             self.assertTrue(all(name in CASES[language] and boundaries
                                 for name, boundaries in cases.items()))
+        self.assertEqual(len(digest(SIGNATURE_CONTRACT)), 64)
+        for language, cases in SIGNATURE_CONTRACT_CASES.items():
+            self.assertEqual(len(cases), 1)
+            self.assertTrue(all(name in CASES[language] for name in cases))
 
     def test_go_requires_exact_execution(self):
         text = '=== RUN   Sample\n--- PASS: Sample (0.01s)\nPASS\n'
@@ -52,8 +57,11 @@ class EvidenceTests(unittest.TestCase):
 
     def test_report_requires_all_pinned_tests(self):
         subjects = {lang: dict(build=dict(status='PASS'), cases=[dict(
-                    test=name, status='PASS', **({'owner_admission_boundaries': OWNER_CONTRACT_CASES[lang][name]}
-                    if name in OWNER_CONTRACT_CASES[lang] else {})) for name in names])
+                    test=name, status='PASS',
+                    **({'owner_admission_boundaries': OWNER_CONTRACT_CASES[lang][name]}
+                       if name in OWNER_CONTRACT_CASES[lang] else {}),
+                    **({'signature_boundary': 'intent-algorithm'}
+                       if name in SIGNATURE_CONTRACT_CASES[lang] else {})) for name in names])
                     for lang, names in CASES.items()}
         self.assertTrue(successful(subjects))
         self.assertFalse(successful({}))

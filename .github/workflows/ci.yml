@@ -590,12 +590,12 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: SAGE-X-project/sage
-          ref: da6e0c36ae2b088476d2f063ed08fd2511dd60dc
+          ref: e750b2ab2f901b250af4805a9b8c6266752bdfc2
           path: .mcp-go
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: SAGE-X-project/rs-sage-core
-          ref: c33324d5fbebb01f396f85be80be4cdffaddf85d
+          ref: 24626154967dc3bc85ad1a69da34011e3a1f5dc5
           path: .mcp-rust
       - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
         with:
@@ -605,9 +605,10 @@ jobs:
         run: |
           rustup toolchain install 1.88.0 --profile minimal
           cargo fetch --manifest-path .mcp-rust/Cargo.toml
-      - name: Verify owner admission, timeout and cleanup schedules
+      - name: Verify owner admission, signature, timeout and cleanup schedules
         run: |
           python3 -B scripts/check_mcp_owner_admission.py --go-root .mcp-go --rust-root .mcp-rust --output "${RUNNER_TEMP}/mcp-owner-admission"
+          python3 -B scripts/check_mcp_signature_boundary.py --go-root .mcp-go --rust-root .mcp-rust --output "${RUNNER_TEMP}/mcp-signature-boundary"
           python3 -B scripts/run_mcp_core_runtime.py --go .mcp-go --rust .mcp-rust --output "${RUNNER_TEMP}/mcp-core-runtime"
           python3 -B scripts/check_mcp_case_evidence.py --runtime "${RUNNER_TEMP}/mcp-core-runtime" --output "${RUNNER_TEMP}/mcp-case-evidence"
       - name: Run actual native setup bridges
@@ -627,6 +628,7 @@ jobs:
             ${{ runner.temp }}/mcp-native-audit.json
             ${{ runner.temp }}/mcp-core-runtime/
             ${{ runner.temp }}/mcp-owner-admission/
+            ${{ runner.temp }}/mcp-signature-boundary/
             ${{ runner.temp }}/mcp-case-evidence/
             ${{ runner.temp }}/mcp-native-setup/
             ${{ runner.temp }}/mcp-native-protected/

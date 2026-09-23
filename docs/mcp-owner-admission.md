@@ -3,13 +3,13 @@
 The earlier [core review](mcp-owner-core-review.md) identified four integration gaps
 at Go `be621819...` and Rust `ad30c6a...`. Both cores subsequently added private
 owner-aware admission and protected-reply paths. This review pins Go
-`da6e0c36ae2b088476d2f063ed08fd2511dd60dc` and Rust
-`c33324d5fbebb01f396f85be80be4cdffaddf85d`. It does not reinterpret the older
+`e750b2ab2f901b250af4805a9b8c6266752bdfc2` and Rust
+`24626154967dc3bc85ad1a69da34011e3a1f5dc5`. It does not reinterpret the older
 decision at its original revisions.
 
 The machine-readable
 [contract](../verification/0.10.0/mcp-owner-admission-contract.json) binds the exact
-implementation and test files, their hashes, nine selected tests per core and four
+implementation and test files, their hashes, ten selected tests per core and four
 boundaries:
 
 | Boundary | Required behavior |
@@ -81,7 +81,7 @@ or host isolation, full 71-case coverage, or protocol conformance. Those statuse
 remain `NOT_ESTABLISHED` or `NOT_RUN` until their own evidence exists.
 
 On 2026-09-23, the source audit verified both pinned checkouts. The runtime adapter
-built both archived sources and passed 17 of 17 selected tests in each core, including
+built both archived sources and passed 18 of 18 selected tests in each core, including
 all ten owner-admission tests per core. The related Inspector controls and full Go
 test suite also passed. CI regenerates and preserves these reports rather than
 treating this local observation as immutable release evidence.

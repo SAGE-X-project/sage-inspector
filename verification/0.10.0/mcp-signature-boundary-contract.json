@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "protocol_version": "0.10.0",
+  "kind": "mcp-signature-boundary-contract",
+  "conformance": "NOT_ESTABLISHED",
+  "boundary": {
+    "id": "intent-algorithm",
+    "accepted": "ed25519",
+    "rejected": ["ecdsa-p256-sha256", "secp256k1"],
+    "contract": "A valid role-bound Ed25519 intent proof continues authority, policy and durable reservation validation. Valid P-256 and secp256k1 proofs are rejected before trusted-service calls or storage mutation."
+  },
+  "cores": {
+    "go": {
+      "revision": "e750b2ab2f901b250af4805a9b8c6266752bdfc2",
+      "files": {
+        "pkg/agent/guard010/verify.go": "04b1c09f18a54c004d31bbdde1db95af757e815877344981b1b50797c189df60",
+        "pkg/agent/guard010/ledger_test.go": "75b01ebbbfa78a31c9a0ad0e52486bdc5b7eb05e894b37b4a25a85870e532d8d"
+      },
+      "test": "TestBridgeIntentSignatureAlgorithmBoundary"
+    },
+    "rust": {
+      "revision": "24626154967dc3bc85ad1a69da34011e3a1f5dc5",
+      "files": {
+        "src/guard010/mod.rs": "6b088b56cd57eaee44da522f4ae1bdb8ad84439879b64bbb38de30b2642e7550",
+        "src/guard010/ledger.rs": "2c1f3cab08097de1894a815fbe3ad2b69d6ef036e5c354fce9cdc23512dcf6a9"
+      },
+      "test": "guard010::ledger::tests::intent_signature_algorithm_boundary_accepts_only_ed25519"
+    }
+  }
+}

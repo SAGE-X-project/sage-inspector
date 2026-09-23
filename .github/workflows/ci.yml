@@ -154,6 +154,8 @@ jobs:
           python3 -B scripts/check_core_lifecycle_evidence.py
           python3 -B scripts/test_registry_source_deployment_audit.py
           python3 -B scripts/check_registry_source_deployment_audit.py
+          python3 -B scripts/test_agent_host_deployment_audit.py
+          python3 -B scripts/check_agent_host_deployment_audit.py
           python3 scripts/test_concurrent_inspection.py
           python3 scripts/test_replay_inspection.py
           python3 scripts/test_deployment_inspection.py

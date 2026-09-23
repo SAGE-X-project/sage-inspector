@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "kind": "agent-host-deployment-audit",
+  "protocol_version": "0.10.0",
+  "spec_revision": "520e5ed9a896ff8ba8ade776484f41084957aaa2",
+  "inspector_revision": "c5c464d9a20ff70241f6f0a455b25a2400b010a5",
+  "status": "NOT_RUN",
+  "conformance": "NOT_ESTABLISHED",
+  "host_binding": null,
+  "sources": {
+    "go": {
+      "revision": "2fb4755ba38d1c90adea5089402fcc6b8981fd71",
+      "files": {
+        "pkg/agent/guard010/mcp_host.go": "3107a4ca72cdc85bed8876cd90f7c7ce5caf863175c8424847ca0c35a5c00217",
+        "pkg/agent/guard010/README.md": "6a72d3921b4a784f55d78cf7d7717b9b861509822097d4d63be8d112b44e3c29"
+      }
+    },
+    "rust": {
+      "revision": "40b5a8c6d76d952131013d8a034f819fd31b7ca0",
+      "files": {
+        "src/guard010/README.md": "1bcd00e28cafe4c2e55887e1d9636ab89fd139bdf499bab97d2d10eee2f7f6e4"
+      }
+    },
+    "inspector": {
+      "revision": "c5c464d9a20ff70241f6f0a455b25a2400b010a5",
+      "files": {
+        "scripts/inspect_host.py": "b49acc9c07ec01763514bf6ca5743c5d7fadb7f92fc4eb42b9c1c81f6d00ad90",
+        "vectors/0.10.0/host-manifest.json": "f4e6bfd02f475700305a040bc0190f29f704cdde8550f6bc836a3f83ee933ede"
+      }
+    }
+  },
+  "missing_binding": [
+    "selected_host_executable",
+    "selected_host_configuration",
+    "host_adapter_executable",
+    "trusted_external_witness_executable",
+    "witness_isolation_boundary",
+    "protected_effect_inventory",
+    "trusted_signing_key_boundary",
+    "immutable_component_and_dispatch_binding",
+    "recovery_and_operator_policy"
+  ],
+  "runtime": {
+    "command": "python3 -B scripts/inspect_host.py --output-dir docs/evidence/agent-host-deployment-audit/unconfigured",
+    "exit_code": 3,
+    "report": "unconfigured/summary.json",
+    "report_sha256": "10a6071aa06312321be7e707e53032c543f5b17541197e2d37acc1f44314c1d8",
+    "stdout": "unconfigured.stdout",
+    "stdout_sha256": "d510647d58871534e457d18ad40eef6c19548c3172f746cca660ce649cda27ea",
+    "stderr": "unconfigured.stderr",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "internal_core_control": {
+    "kind": "GO_INTERNAL_HOST_TEST_ONLY",
+    "command": "go test ./pkg/agent/guard010 -run '^TestMCPHostRuntimeExchange$' -count=1",
+    "exit_code": 0,
+    "stdout": "go-internal-host.stdout",
+    "stdout_sha256": "e9ff882ea42699810fbe47f903671bc06a89e0db9803987031ff64cd8c81c9ed",
+    "stderr": "go-internal-host.stderr",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

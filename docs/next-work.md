@@ -446,3 +446,13 @@ Ed25519 signing key 부재 순서다. 규범 채택과 전체 적합성은 별�
 Ed25519 결과만 authority 및 outstanding intent 검증을 계속하며, 암호학적으로 유효한
 P-256·secp256k1 결과는 trusted lookup과 인증된 output 생성 전에 거부된다. 사례 overlay는
 `8 PASS / 0 PARTIAL / 63 NOT_RUN`이며, 다음 항목은 outer·handshake carriage 경계다.
+
+이번 순서의 다섯 항목도 두 코어의 고정 테스트와 Inspector 계약에 연결했다.
+outer·handshake carriage는 initiator/responder의 정확한 활성 Ed25519 역할만 허용하고,
+P-256·secp256k1·X25519를 서명 역할에서 거부하면서 X25519 KEM이 독립적으로 유지됨을
+관측했다. 요청된 Ed25519 signing key가 없을 때 다른 활성 Ed25519나 KEM으로 대체하지
+않는 것도 확인했다. READY 이후에는 30초 setup deadline을 폐기하고 독립 protected/session
+한계를 적용하며, READY 뒤 stale setup completion은 상태·이력·출력을 바꾸지 않는다.
+close가 reservation보다 먼저 이긴 경우에는 저널 바이트 무변경, trusted check 0, effect 0을
+확인했다. 사례 overlay는 현재 `13 PASS / 0 PARTIAL / 58 NOT_RUN`이다. 역사적 71개
+`NOT_RUN` catalog, 규범 채택, 외부 독립 검토와 전체 적합성 상태는 변경하지 않았다.

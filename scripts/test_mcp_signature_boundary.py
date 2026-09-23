@@ -1,4 +1,4 @@
-"""Controls for the MCP intent and result signature algorithm contract."""
+"""Controls for MCP proof, carriage and signing-key boundaries."""
 import copy
 import tempfile
 from pathlib import Path
@@ -11,10 +11,10 @@ class SignatureBoundaryTests(unittest.TestCase):
     def test_contract_and_unchecked_audit(self):
         value = checker.contract()
         boundaries = {row['id']: row for row in value['boundaries']}
-        self.assertEqual(set(boundaries), {'intent-algorithm', 'result-algorithm'})
+        self.assertEqual(set(boundaries), {'intent-algorithm', 'result-algorithm', 'carriage-algorithm', 'signing-key-availability'})
         for boundary in boundaries.values():
             self.assertEqual(boundary['accepted'], 'ed25519')
-            self.assertEqual(boundary['rejected'], ['ecdsa-p256-sha256', 'secp256k1'])
+            self.assertEqual(boundary['rejected'], checker.REJECTED[boundary['id']])
         report = checker.audit()
         self.assertEqual(report['status'], 'PASS')
         self.assertEqual(report['runtime'], 'NOT_RUN')

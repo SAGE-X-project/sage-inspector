@@ -1,4 +1,4 @@
-"""Audit the pinned MCP intent and result signature algorithm boundaries."""
+"""Audit pinned MCP proof, carriage and signing-key boundaries."""
 import argparse
 import json
 from pathlib import Path
@@ -10,19 +10,32 @@ from check_mcp_owner_admission import load, require, sha, read
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACT = ROOT / 'verification/0.10.0/mcp-signature-boundary-contract.json'
 LANGUAGES = {'go', 'rust'}
-BOUNDARIES = {'intent-algorithm', 'result-algorithm'}
+BOUNDARIES = {'intent-algorithm', 'result-algorithm', 'carriage-algorithm', 'signing-key-availability'}
+REJECTED = {
+    'intent-algorithm': ['ecdsa-p256-sha256', 'secp256k1'],
+    'result-algorithm': ['ecdsa-p256-sha256', 'secp256k1'],
+    'carriage-algorithm': ['ecdsa-p256-sha256', 'secp256k1', 'x25519'],
+    'signing-key-availability': ['ecdsa-p256-sha256', 'secp256k1', 'x25519'],
+}
 FILES = {
-    'go': {'pkg/agent/guard010/verify.go', 'pkg/agent/guard010/ledger_test.go'},
-    'rust': {'src/guard010/mod.rs', 'src/guard010/ledger.rs'},
+    'go': {'pkg/agent/guard010/verify.go', 'pkg/agent/guard010/ledger_test.go',
+           'pkg/agent/registry010/gate.go', 'pkg/agent/hpke/completion010.go',
+           'pkg/agent/hpke/completion010_test.go'},
+    'rust': {'src/guard010/mod.rs', 'src/guard010/ledger.rs', 'src/registry010/mod.rs',
+             'src/hpke/completion010/record010.rs', 'src/hpke/completion010/tests.rs'},
 }
 TESTS = {
     'go': {
         'intent-algorithm': 'TestBridgeIntentSignatureAlgorithmBoundary',
         'result-algorithm': 'TestBridgeResultSignatureAlgorithmBoundary',
+        'carriage-algorithm': 'TestCompletion010SignatureCarriageRequiresRoleBoundEd25519',
+        'signing-key-availability': 'TestCompletion010MissingSigningKeyHasNoFallback',
     },
     'rust': {
         'intent-algorithm': 'guard010::ledger::tests::intent_signature_algorithm_boundary_accepts_only_ed25519',
         'result-algorithm': 'guard010::ledger::tests::result_signature_algorithm_boundary_accepts_only_ed25519',
+        'carriage-algorithm': 'hpke::completion010::tests::signature_carriage_requires_role_bound_ed25519',
+        'signing-key-availability': 'hpke::completion010::tests::missing_signing_key_has_no_fallback',
     },
 }
 
@@ -36,13 +49,13 @@ def validate(value):
     require(type(value['schema_version']) is int and value['schema_version'] == 1, 'schema version')
     require(value['protocol_version'] == '0.10.0' and value['kind'] == 'mcp-signature-boundary-contract', 'contract identity')
     require(value['conformance'] == 'NOT_ESTABLISHED', 'conformance promotion')
-    require(type(value['boundaries']) is list and len(value['boundaries']) == 2, 'boundary count')
+    require(type(value['boundaries']) is list and len(value['boundaries']) == len(BOUNDARIES), 'boundary count')
     found = set()
     for boundary in value['boundaries']:
         exact(boundary, ('id', 'accepted', 'rejected', 'contract'), 'boundary fields')
         ident = boundary['id']
         require(ident in BOUNDARIES and ident not in found and boundary['accepted'] == 'ed25519', 'boundary identity')
-        require(boundary['rejected'] == ['ecdsa-p256-sha256', 'secp256k1'], 'algorithm set')
+        require(boundary['rejected'] == REJECTED[ident], 'algorithm set')
         require(type(boundary['contract']) is str and 80 <= len(boundary['contract']) <= 400, 'boundary text')
         found.add(ident)
     require(found == BOUNDARIES, 'boundary inventory')
@@ -82,7 +95,7 @@ def audit(roots=None):
         'boundaries': {item['id']: {'accepted': [item['accepted']], 'rejected': item['rejected']} for item in value['boundaries']},
         'selected_tests': {language: value['cores'][language]['tests'] for language in sorted(LANGUAGES)},
         'source_identity': {language: identities.get(language, {'status': 'NOT_CHECKED'}) for language in sorted(LANGUAGES)},
-        'scope': 'Pinned intent and result proof algorithm boundaries only; carriage, provisioning and protocol conformance require separate evidence.',
+        'scope': 'Pinned intent, result, carriage and exact signing-key boundaries only; protocol conformance remains unestablished.',
     }
 
 
@@ -102,7 +115,7 @@ def main():
         (output / 'report.json').write_text(json.dumps(report, indent=2) + '\n')
     except (ValueError, OSError, KeyError, TypeError, subprocess.SubprocessError) as error:
         parser.exit(2, 'signature boundary audit error: ' + str(error) + '\n')
-    print('MCP intent and result signature boundary audit PASS; runtime NOT_RUN; conformance NOT_ESTABLISHED.')
+    print('MCP signature and signing-key boundary audit PASS; runtime NOT_RUN; conformance NOT_ESTABLISHED.')
 
 
 if __name__ == '__main__':

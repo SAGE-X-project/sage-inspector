@@ -73,6 +73,41 @@ ASSESSMENTS = {
             ('rust', 'guard010::ledger::tests::result_signature_algorithm_boundary_accepts_only_ed25519'),
         ),
     },
+    'mres-signature-carriage': {
+        'status': 'PASS',
+        'requirements': (
+            ('go', 'TestCompletion010SignatureCarriageRequiresRoleBoundEd25519'),
+            ('rust', 'hpke::completion010::tests::signature_carriage_requires_role_bound_ed25519'),
+        ),
+    },
+    'mres-missing-signing-key': {
+        'status': 'PASS',
+        'requirements': (
+            ('go', 'TestCompletion010MissingSigningKeyHasNoFallback'),
+            ('rust', 'hpke::completion010::tests::missing_signing_key_has_no_fallback'),
+        ),
+    },
+    'mres-ready-past-setup': {
+        'status': 'PASS',
+        'requirements': (
+            ('go', 'TestMCPOwnerSetupAndRetainedHistory'),
+            ('rust', 'hpke::completion010::tests::mcp_setup_tests::mcp_setup_ready_past_setup_deadline_uses_protected_limits'),
+        ),
+    },
+    'mres-stale-setup-completion': {
+        'status': 'PASS',
+        'requirements': (
+            ('go', 'TestMCPOwnerStaleSetupCompletionAfterReady'),
+            ('rust', 'hpke::completion010::tests::mcp_setup_tests::mcp_setup_stale_completion_after_ready_is_inert'),
+        ),
+    },
+    'mres-close-before-reservation': {
+        'status': 'PASS',
+        'requirements': (
+            ('go', 'TestMCPAdmissionCloseBeforeReservationHasNoEffects'),
+            ('rust', 'hpke::completion010::tests::mcp_admission_tests::close_before_reservation_denies_with_zero_effects'),
+        ),
+    },
 }
 
 
@@ -113,7 +148,7 @@ def validate_contract(value):
     require(value['owner_admission_contract_sha256'] == sha(OWNER_CONTRACT.read_bytes()), 'owner contract binding')
     require(value['signature_boundary_contract_sha256'] == sha(SIGNATURE_CONTRACT.read_bytes()), 'signature contract binding')
     require(value['historical_catalog'] == {'NOT_RUN': 71}, 'historical catalog promotion')
-    require(value['runtime_case_counts'] == {'PASS': 8, 'PARTIAL': 0, 'NOT_RUN': 63}, 'runtime counts')
+    require(value['runtime_case_counts'] == {'PASS': 13, 'PARTIAL': 0, 'NOT_RUN': 58}, 'runtime counts')
     require(value['external_review'] == 'NOT_PERFORMED' and value['adoption'] == 'PROPOSAL_NOT_ADOPTED', 'review or adoption promotion')
     require(value['conformance'] == 'NOT_ESTABLISHED', 'conformance promotion')
     require(type(value['assessments']) is list and len(value['assessments']) == len(ASSESSMENTS), 'assessment count')
@@ -192,14 +227,14 @@ def inspect(runtime):
                           'claim': assessment['claim'], 'evidence': evidence[ident]})
         else:
             cases.append({'id': ident, 'source': row['source'], 'status': 'NOT_RUN'})
-    require(sum(row['status'] == 'PASS' for row in cases) == 8
+    require(sum(row['status'] == 'PASS' for row in cases) == 13
             and not any(row['status'] == 'PARTIAL' for row in cases), 'case result counts')
     return {
         'schema_version': 1,
         'kind': 'mcp-proposal-case-runtime-evidence',
         'status': 'EVIDENCE_CHECKED',
         'historical_catalog': {'NOT_RUN': 71},
-        'runtime_case_counts': {'PASS': 8, 'PARTIAL': 0, 'NOT_RUN': 63},
+        'runtime_case_counts': {'PASS': 13, 'PARTIAL': 0, 'NOT_RUN': 58},
         'external_review': 'NOT_PERFORMED',
         'adoption': 'PROPOSAL_NOT_ADOPTED',
         'conformance': 'NOT_ESTABLISHED',
@@ -207,7 +242,7 @@ def inspect(runtime):
         'runtime_report_sha256': sha(safe_read(runtime, 'report.json')),
         'runtime_inspector_revision': runtime_report.get('inspector_revision'),
         'cases': cases,
-        'limitation': 'Eight pinned private core resolution cases; all other proposal cases and full protocol conformance remain unestablished.'
+        'limitation': 'Thirteen pinned private core resolution cases; all other proposal cases and full protocol conformance remain unestablished.'
     }
 
 
@@ -228,7 +263,7 @@ def main():
     except (ValueError, KeyError, TypeError, OSError, UnicodeError, subprocess.SubprocessError) as error:
         print('MCP case evidence FAIL: ' + str(error), file=sys.stderr)
         return 1
-    print('MCP case evidence checked: 8 PASS, 0 PARTIAL, 63 NOT_RUN; conformance NOT_ESTABLISHED.')
+    print('MCP case evidence checked: 13 PASS, 0 PARTIAL, 58 NOT_RUN; conformance NOT_ESTABLISHED.')
     return 0
 
 

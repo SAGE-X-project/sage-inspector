@@ -16,13 +16,15 @@ class EvidenceTests(unittest.TestCase):
         self.assertEqual(set(SCHEDULES), {'go','rust'})
         for language, claims in SCHEDULES.items():
             self.assertEqual(len(claims),4)
-            self.assertEqual(len(OWNER_CONTRACT_CASES[language]), 10)
-            self.assertEqual(len(CASES[language]),19)
-            self.assertEqual(len(set(CASES[language])),19)
+            self.assertEqual(len(OWNER_CONTRACT_CASES[language]), 13)
+            self.assertEqual(len(CASES[language]),24)
+            self.assertEqual(len(set(CASES[language])),24)
             self.assertTrue(all(name in CASES[language] and claim for name,claim in claims.items()))
             covered = set().union(*map(set, OWNER_CONTRACT_CASES[language].values()))
             self.assertEqual(covered, {'durable-admission', 'close-linearization',
-                                       'owner-isolation', 'output-publication'})
+                                       'owner-isolation', 'output-publication',
+                                       'ready-past-setup', 'stale-setup-completion',
+                                       'close-before-reservation'})
 
     def test_owner_contract_is_bound_to_runtime_runner(self):
         self.assertEqual(len(digest(OWNER_CONTRACT)), 64)
@@ -31,7 +33,7 @@ class EvidenceTests(unittest.TestCase):
                                 for name, boundaries in cases.items()))
         self.assertEqual(len(digest(SIGNATURE_CONTRACT)), 64)
         for language, cases in SIGNATURE_CONTRACT_CASES.items():
-            self.assertEqual(len(cases), 2)
+            self.assertEqual(len(cases), 4)
             self.assertTrue(all(name in CASES[language] for name in cases))
 
     def test_go_requires_exact_execution(self):
@@ -63,6 +65,7 @@ class EvidenceTests(unittest.TestCase):
                     **({'signature_boundary': SIGNATURE_CONTRACT_CASES[lang][name]}
                        if name in SIGNATURE_CONTRACT_CASES[lang] else {})) for name in names])
                     for lang, names in CASES.items()}
+        subjects['go']['hpke_build'] = {'status': 'PASS'}
         self.assertTrue(successful(subjects))
         self.assertFalse(successful({}))
         for mode in ('build', 'missing', 'failed', 'duplicate', 'identity', 'schedule_failed'):

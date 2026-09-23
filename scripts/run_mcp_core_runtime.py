@@ -17,8 +17,8 @@ from check_mcp_signature_boundary import CONTRACT as SIGNATURE_CONTRACT, contrac
 
 ROOT = Path(__file__).resolve().parents[1]
 OWNER_CONTRACT = ROOT / 'verification/0.10.0/mcp-owner-admission-contract.json'
-PINS = {'go': '34c534d15cbc7b3c6a788dd50de82abcfebc33ce',
-        'rust': '277bdcdeeb7c16c2fb50a8bcc733468ca8f38eb9'}
+PINS = {'go': '49ff23eee9ac270db10fc5f150df9cbe5fc15066',
+        'rust': 'c3b452368e90f0ed8f379e635cfa4070e3c875a1'}
 PREFIX = 'hpke::completion010::tests::mcp_admission_tests::mcp_reply_tests::mcp_transport_tests::'
 CASES = {
     'go': ('TestMCPHostConnectionRuntime', 'TestMCPHostConnectionRetainsBlockedHandshake',
@@ -157,6 +157,16 @@ def execute(language, repo, output, work):
     subject.update(build=build, cases=[])
     if build['status'] != 'PASS':
         return subject
+    go_hpke_binary = None
+    if language == 'go':
+        go_hpke_binary = work / 'go-hpke-tests'
+        hpke_build = run(['go', 'test', '-mod=readonly', '-race', '-c', '-o',
+                          str(go_hpke_binary), './pkg/agent/hpke'], source,
+                         output / 'go-hpke-build.log', 600, env)
+        subject['hpke_build'] = hpke_build
+        if hpke_build['status'] != 'PASS':
+            return subject
+        subject['hpke_executable_sha256'] = digest(go_hpke_binary)
     if language == 'rust':
         artifacts = []
         for line in (output / build['log']).read_text().splitlines():
@@ -176,9 +186,12 @@ def execute(language, repo, output, work):
     dependency.write_bytes(lock.read_bytes())
     subject['dependencies'] = {'file': dependency.name, 'sha256': digest(dependency)}
     for index, name in enumerate(CASES[language]):
-        command = ([str(binary), '-test.run=^' + name + '$', '-test.v', '-test.timeout=25s']
+        selected_binary = (go_hpke_binary if language == 'go' and
+                           name.startswith('TestCompletion010') else binary)
+        command = ([str(selected_binary), '-test.run=^' + name + '$', '-test.v', '-test.timeout=25s']
                    if language == 'go' else [str(binary), name, '--exact', '--test-threads=1', '--color=never'])
-        directory = source / 'pkg/agent/guard010' if language == 'go' else source
+        directory = (source / ('pkg/agent/hpke' if name.startswith('TestCompletion010')
+                               else 'pkg/agent/guard010') if language == 'go' else source)
         row = run(command, directory, output / f'{language}-{index}.log', 30, env)
         row['test'] = name
         row['execution_status'] = row['status']
@@ -197,6 +210,7 @@ def execute(language, repo, output, work):
 def successful(subjects):
     return set(subjects) == set(CASES) and all(
         subjects[lang]['build']['status'] == 'PASS'
+        and (lang != 'go' or subjects[lang].get('hpke_build', {}).get('status') == 'PASS')
         and [r['test'] for r in subjects[lang]['cases']] == list(names)
         and all(r['status'] == 'PASS' for r in subjects[lang]['cases'])
         and all(r.get('owner_admission_boundaries') == OWNER_CONTRACT_CASES[lang][r['test']]
@@ -224,7 +238,7 @@ def main():
                   catalog=dict(NOT_RUN=71), mandatory_children='NOT_PROMOTED',
                   owner_admission_contract_sha256=digest(OWNER_CONTRACT),
                   signature_boundary_contract_sha256=digest(SIGNATURE_CONTRACT),
-                  scope='Pinned private core assertions and owner admission boundaries; no protocol conformance claim',
+                  scope='Pinned private core assertions for owner, admission, signature and setup boundaries; no protocol conformance claim',
                   runner_sha256=digest(Path(__file__)), subjects={})
     try:
         report['inspector_revision'] = subprocess.check_output(

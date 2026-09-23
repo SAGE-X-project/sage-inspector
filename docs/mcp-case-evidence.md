@@ -17,6 +17,11 @@ The current assessment is intentionally narrow:
 | `mres-ready-session-expiry` | `TestMCPAdmissionReadySessionExpiryDeniesNewAdmission` | `ready_session_expiry_denies_new_admission_and_closes_owner` | PASS |
 | `mres-signature-intent` | `TestBridgeIntentSignatureAlgorithmBoundary` | `intent_signature_algorithm_boundary_accepts_only_ed25519` | PASS |
 | `mres-signature-result` | `TestBridgeResultSignatureAlgorithmBoundary` | `result_signature_algorithm_boundary_accepts_only_ed25519` | PASS |
+| `mres-signature-carriage` | `TestCompletion010SignatureCarriageRequiresRoleBoundEd25519` | `signature_carriage_requires_role_bound_ed25519` | PASS |
+| `mres-missing-signing-key` | `TestCompletion010MissingSigningKeyHasNoFallback` | `missing_signing_key_has_no_fallback` | PASS |
+| `mres-ready-past-setup` | `TestMCPOwnerSetupAndRetainedHistory` | `mcp_setup_ready_past_setup_deadline_uses_protected_limits` | PASS |
+| `mres-stale-setup-completion` | `TestMCPOwnerStaleSetupCompletionAfterReady` | `mcp_setup_stale_completion_after_ready_is_inert` | PASS |
+| `mres-close-before-reservation` | `TestMCPAdmissionCloseBeforeReservationHasNoEffects` | `close_before_reservation_denies_with_zero_effects` | PASS |
 
 The first case observes closure after reservation and durable EXECUTING storage but
 before final owner admission. Both cores deny the effect, retain conservative durable
@@ -44,17 +49,26 @@ Only Ed25519 reaches authority, policy and reservation processing; the unsupport
 algorithms stop before trusted-service calls or journal mutation. The eighth case
 performs the same independent cryptographic controls for correlated result proofs.
 Only Ed25519 reaches authority and outstanding-intent lookup; unsupported results
-produce no authenticated result or output.
+produce no authenticated result or output. The ninth case checks the outer and inner
+handshake signing roles for both participants: P-256, secp256k1 and X25519 cannot
+replace Ed25519, while the X25519 KEM identifier and key remain unchanged. The tenth
+case removes the requested signing key while leaving an alternate active Ed25519 key
+and the KEM available; both cores deny without fallback. The eleventh case crosses the
+30-second setup limit only after READY and accepts a fresh protected request under its
+own finite limits. The twelfth case replays a completed setup publication and observes
+unchanged READY state, history and pending output. The thirteenth closes the owner
+before protected reservation and observes unchanged durable bytes with zero checks,
+queue entries and effects.
 
-All seventeen mapped tests use controlled clocks, temporary journals, inert effect counters and
+All twenty-seven mapped tests use controlled clocks, temporary journals, inert effect counters and
 bounded local scheduling seams. They do not invoke an external target or implement
 an attack. Go executes under the race detector in the runtime adapter.
 
 ## Evidence derivation
 
 The [case contract](../verification/0.10.0/mcp-case-evidence-contract.json) binds the
-historical catalog manifest, owner-admission and signature contracts, eight exact case IDs and their
-required tests across both cores. The checker requires a complete passing 38-test
+historical catalog manifest, owner-admission and signature contracts, thirteen exact case IDs and their
+required tests across both cores. The checker requires a complete passing 48-test
 runtime report, both pinned core revisions, the preserved owner contract, the preserved
 runner hash, exact mapped test rows, hashed logs and one observed passing invocation
 per required test. Missing, duplicated, skipped, changed or merely relabelled logs
@@ -67,7 +81,7 @@ python3 -B scripts/check_mcp_case_evidence.py \
   --output /tmp/new-mcp-case-evidence
 ```
 
-The report contains all 71 case IDs. Eight carry current `PASS` evidence and 63 remain
+The report contains all 71 case IDs. Thirteen carry current `PASS` evidence and 58 remain
 `NOT_RUN`. The historical catalog field remains `{ "NOT_RUN": 71 }` so a consumer
 cannot confuse source-plan status with current runtime evidence. CI creates
 the overlay only after the pinned runtime runner succeeds and preserves both reports
@@ -79,6 +93,5 @@ PASS. Individual case status must be read from `runtime_case_counts` and `cases`
 `PASS` here means that the complete resolution-plan scenario ran through the pinned
 private implementations with its stated unit and bounded-runtime assertions. It does
 not establish independent external review, normative adoption, public API
-compatibility, live registry or host isolation, any of the other 63 cases, or full
-protocol conformance. Remaining carriage, provisioning and ordering cases stay `NOT_RUN` until
-their exact inputs and required observations are present in both cores.
+compatibility, live registry or host isolation, any of the other 58 cases, or full
+protocol conformance. Remaining cases stay `NOT_RUN` until their exact inputs and required observations are present in both cores.

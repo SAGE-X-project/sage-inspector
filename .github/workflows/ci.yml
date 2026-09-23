@@ -590,12 +590,12 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: SAGE-X-project/sage
-          ref: 96f89c592cfb6e4ae278cd1c42c8d55bdbf59e53
+          ref: da6e0c36ae2b088476d2f063ed08fd2511dd60dc
           path: .mcp-go
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: SAGE-X-project/rs-sage-core
-          ref: 152e06479baf90056640bb27afdf97fe1433d2ed
+          ref: c33324d5fbebb01f396f85be80be4cdffaddf85d
           path: .mcp-rust
       - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
         with:

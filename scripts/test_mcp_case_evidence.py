@@ -67,7 +67,7 @@ class CaseEvidenceTests(unittest.TestCase):
     def test_complete_and_not_run_results_are_distinct(self):
         result = checker.inspect(self.runtime)
         self.assertEqual(result['status'], 'EVIDENCE_CHECKED')
-        self.assertEqual(result['runtime_case_counts'], {'PASS': 5, 'PARTIAL': 0, 'NOT_RUN': 66})
+        self.assertEqual(result['runtime_case_counts'], {'PASS': 6, 'PARTIAL': 0, 'NOT_RUN': 65})
         self.assertEqual(result['historical_catalog'], {'NOT_RUN': 71})
         self.assertEqual(result['conformance'], 'NOT_ESTABLISHED')
         statuses = {row['id']: row['status'] for row in result['cases']}
@@ -76,6 +76,7 @@ class CaseEvidenceTests(unittest.TestCase):
         self.assertEqual(statuses['mres-crash-after-admission'], 'PASS')
         self.assertEqual(statuses['mres-protected-timeout-before-admission'], 'PASS')
         self.assertEqual(statuses['mres-protected-timeout-after-admission'], 'PASS')
+        self.assertEqual(statuses['mres-ready-session-expiry'], 'PASS')
         self.assertEqual(len(result['cases']), 71)
 
     def test_changed_or_rehashed_log_fails(self):
@@ -124,7 +125,7 @@ class CaseEvidenceTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         raw = (output / 'report.json').read_bytes()
         self.assertEqual(json.loads(raw)['runtime_case_counts'],
-                         {'PASS': 5, 'PARTIAL': 0, 'NOT_RUN': 66})
+                         {'PASS': 6, 'PARTIAL': 0, 'NOT_RUN': 65})
         self.assertEqual((output / 'contract.json').read_bytes(), checker.CONTRACT.read_bytes())
         result = subprocess.run(command, cwd=checker.ROOT, capture_output=True, text=True, timeout=15)
         self.assertNotEqual(result.returncode, 0)

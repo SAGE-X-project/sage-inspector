@@ -3,8 +3,8 @@
 The earlier [core review](mcp-owner-core-review.md) identified four integration gaps
 at Go `be621819...` and Rust `ad30c6a...`. Both cores subsequently added private
 owner-aware admission and protected-reply paths. This review pins Go
-`96f89c592cfb6e4ae278cd1c42c8d55bdbf59e53` and Rust
-`152e06479baf90056640bb27afdf97fe1433d2ed`. It does not reinterpret the older
+`da6e0c36ae2b088476d2f063ed08fd2511dd60dc` and Rust
+`c33324d5fbebb01f396f85be80be4cdffaddf85d`. It does not reinterpret the older
 decision at its original revisions.
 
 The machine-readable
@@ -52,7 +52,10 @@ entry across successful, failed and uncertain persistence outcomes. The pre-admi
 deadline tests retain the protected request ID and exact intent identity, close the
 owner and prove that no effect can run. The post-admission deadline tests fail response
 publication while preserving exact journal bytes, durable completion and one effect;
-they also reject response and execution retries.
+they also reject response and execution retries. The READY-session expiry tests create
+a protected request immediately before the idle lifetime boundary, then prove that
+session expiry wins while the request's transport lifetime is still valid: admission
+is denied, the owner closes, session use is erased and the effect count remains zero.
 
 ## Run and interpret
 
@@ -78,7 +81,7 @@ or host isolation, full 71-case coverage, or protocol conformance. Those statuse
 remain `NOT_ESTABLISHED` or `NOT_RUN` until their own evidence exists.
 
 On 2026-09-23, the source audit verified both pinned checkouts. The runtime adapter
-built both archived sources and passed 16 of 16 selected tests in each core, including
-all nine owner-admission tests per core. The related Inspector controls and full Go
+built both archived sources and passed 17 of 17 selected tests in each core, including
+all ten owner-admission tests per core. The related Inspector controls and full Go
 test suite also passed. CI regenerates and preserves these reports rather than
 treating this local observation as immutable release evidence.

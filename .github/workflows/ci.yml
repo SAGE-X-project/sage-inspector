@@ -150,6 +150,8 @@ jobs:
       - name: Validate frozen evidence and coverage
         run: |
           python3 scripts/test_close_inspection.py
+          python3 -B scripts/test_core_lifecycle_evidence.py
+          python3 -B scripts/check_core_lifecycle_evidence.py
           python3 scripts/test_concurrent_inspection.py
           python3 scripts/test_replay_inspection.py
           python3 scripts/test_deployment_inspection.py

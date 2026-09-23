@@ -1,5 +1,10 @@
 # 수신과 세션 종료의 경합 검사
 
+현행 SAGE 0.10.0 MCP 경로는 구형 `SecureSession`이 아니라 `RecordSession010`을
+사용한다. 최신 코어의 종료·수신 순서 결과는 [INS-11 코어 수명주기 증거](core-lifecycle-evidence.md)에
+별도로 기록했다. 아래 구형 API의 과거 FAIL과 Rust 직접 병행 close UNSUPPORTED는
+변경하지 않는다.
+
 현재는 [유닛 중심 검증과 안전한 런타임 테스트](unit-test-verification.md)를 적용한다. 아래 실측은 과거 증거이며, 공격 재현 기능이 될 수 있는 경합·호스트 우회 프로그램은 현재 작업에서 실행하지 않는다.
 
 Inspector 0.10.0의 실제 코어 연결을 위한 **기존 API 동시 호출 안전성 진단**이다.

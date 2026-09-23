@@ -139,6 +139,8 @@ INS-11 동시 경합 실측: [동시 코어 교환 검사](concurrent-inspection
 
 INS-11 종료 경합 진단: [수신·종료 경합 검사](close-race-inspection.md). Go 순차 대조군 두 방향은 PASS이며, 병행 종료에서는 실제 race detector가 데이터 경합과 종료 코드 66을 기록했다. Rust는 배타 참조를 요구하는 close API 때문에 직접 병행 종료 바인딩이 UNSUPPORTED다. 실패 원문을 통합 증거에 보존하며 코어 수정과 전체 적합성 승인은 수행하지 않았다.
 
+현재 0.10.0 코어 수명주기 재검증: [INS-11 코어 증거](core-lifecycle-evidence.md). 구형 `SecureSession`의 과거 FAIL과 현행 `RecordSession010`의 종료·수신 PASS를 분리했다. 만료/admission, 늦은 완료, replay/quarantine 복구, reservation/close의 안전한 코어 테스트 및 로컬 프로세스 실행 결과를 고정했다. 역사적 lifecycle 37건 NOT_RUN과 전체 INS-11 NOT_ESTABLISHED는 유지한다. 고정 순서의 다음 작업은 실제 Registry Source와 체인 관측이다.
+
 재시작·복구 검증: [단위·런타임 테스트](recovery-verification.md). 기존 시나리오 6개의 기대값과 보고서 판정을 단위 테스트하고, 실제 CLI에 고정 응답 프로세스를 연결하여 6개 런타임 경로를 확인한다. 코어의 저장·복구 구현이 실행된 것으로 집계하지 않는다.
 
 종료·수신 순서 검증: [순서 기반 종료 테스트](session-close-order.md). 단위 테스트 5개와 CLI 런타임 18개 경로를 추가했다. 실제 동시 경합이나 코어의 종료 구현을 검증한 것으로 집계하지 않는다. 다음은 transcript·HPKE·HTTP/WS 연결의 판정 테스트다.

@@ -1,0 +1,35 @@
+{
+  "conformance": "NOT_ESTABLISHED",
+  "historical": {
+    "legacy_go_close_race": "FAIL",
+    "lifecycle_catalog": {
+      "NOT_RUN": 37
+    },
+    "rust_direct_concurrent_close": "UNSUPPORTED"
+  },
+  "kind": "ins11-core-lifecycle",
+  "replay": {
+    "report": "replay/report.json",
+    "report_sha256": "0f49b17beca824219d5cfdf85725103b55dab4c3f99b765ea269b8d2242e854c"
+  },
+  "spec_revision": "520e5ed9a896ff8ba8ade776484f41084957aaa2",
+  "status": "EVIDENCE_CHECKED",
+  "subjects": {
+    "go": {
+      "log": "go-core.log.gz",
+      "log_sha256": "63b21123db5f04a9906b7c5bee9a816de63cda83564267133488628fcd1a5a62",
+      "revision": "2fb4755ba38d1c90adea5089402fcc6b8981fd71",
+      "status": "PASS",
+      "test_exit_code": 0,
+      "uncompressed_sha256": "44cbc0b7de09cec416cf74955a7ab5608d1c65ed4cb60503ca3b627cb2ebcc45"
+    },
+    "rust": {
+      "log": "rust-core.log.gz",
+      "log_sha256": "874562b57dea1d600b266bc619c919ffebe0aae07097fbb72a9f4d194e1c0d59",
+      "revision": "40b5a8c6d76d952131013d8a034f819fd31b7ca0",
+      "status": "PASS",
+      "test_exit_code": 0,
+      "uncompressed_sha256": "125b1cb61a43336ce16473417a3c52b9a9d8ecbc8290f44f0071d9ac775075e8"
+    }
+  }
+}

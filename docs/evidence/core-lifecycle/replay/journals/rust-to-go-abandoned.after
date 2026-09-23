@@ -1,0 +1,3 @@
+sage-replay-denials|0.10.0
+{"at":460,"sender":"alice","recipient":"bob","id":"id","nonce":"nonce","context":"","expires":760}
+{"at":460,"sender":"alice","recipient":"bob","id":"new","nonce":"new","context":"","expires":760}

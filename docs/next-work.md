@@ -464,3 +464,12 @@ MSET 전체 사례 증거를 완성했다. 통합 비HTTP MCP 제안의 원본 4
 연결했다. 현재 overlay는 `58 PASS / 0 PARTIAL / 0 NOT_RUN`이며 기존 13개 resolution
 사례와 합쳐 `71 PASS`를 도출한다. 역사적 catalog의 `71 NOT_RUN`, 외부 검토
 `NOT_PERFORMED`, 채택 `PROPOSAL_NOT_ADOPTED`, 적합성 `NOT_ESTABLISHED`는 그대로다.
+
+
+[MCP 제안 채택 준비도 재검토](mcp-adoption-readiness-review.md)는 고정된 통합 제안과
+현재 증거 계약을 다시 대조했다. `OUTPUT_PENDING` callback 규칙 충돌, 보호 호출 동시성
+정책 부재, local profile·descriptor 선택 식별자 부재를 세 가지 규범 공백으로 확인했다.
+규범 baseline·traceability·호환성 기록의 원자적 편입, 현재 실행 증거 provenance 연결,
+외부 독립 검토까지 합쳐 `4 HIGH / 2 MEDIUM` 항목을 고정했다. 내부 검토 결과이므로
+외부 검토를 완료로 표시하지 않으며 채택 준비도는 `BLOCKED`다. 다음은 ADOPT-01부터
+ADOPT-05까지 하나의 후보 규범 revision에서 해결한 뒤 ADOPT-06 외부 검토를 받는 작업이다.

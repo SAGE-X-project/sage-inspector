@@ -66,6 +66,7 @@ jobs:
           python3 -B scripts/test_mcp_owner_admission.py
           python3 -B scripts/test_mcp_setup_cases.py
           python3 -B scripts/test_mcp_case_evidence.py
+          python3 -B scripts/test_mcp_adoption_review.py
       - name: Audit Guard binding readiness
         run: |
           python3 scripts/test_guard_binding.py
@@ -558,6 +559,24 @@ jobs:
         with:
           name: mcp-proposal-catalog-${{ github.sha }}
           path: ${{ runner.temp }}/mcp-proposal-catalog/
+          if-no-files-found: error
+          retention-days: 30
+
+  mcp-adoption-review:
+    name: MCP adoption readiness review
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Verify bounded review findings and status
+        run: |
+          python3 -B scripts/test_mcp_adoption_review.py
+          python3 -B scripts/check_mcp_adoption_review.py --output "${RUNNER_TEMP}/mcp-adoption-review"
+      - name: Preserve adoption-readiness review
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: mcp-adoption-review-${{ github.sha }}
+          path: ${{ runner.temp }}/mcp-adoption-review/
           if-no-files-found: error
           retention-days: 30
 

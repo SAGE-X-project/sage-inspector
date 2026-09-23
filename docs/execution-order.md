@@ -34,9 +34,13 @@
 
 2026-09-24 실행 증거 기준으로 1~3단계의 revision 대조와 구현 검토가 완료되었고,
 4단계의 [Inspector MCP 결합 증거](mcp-binding-evidence.md)는 부모 71건, 양쪽
-코어의 필수 하위 스케줄 각 26건, 보호 교환 4조합과 재시작 8건을 확인했다. 이
-결과는 `EVIDENCE_CHECKED`이며 전체 프로토콜 적합성은 `NOT_ESTABLISHED`이다.
-다음 순서는 5단계 INS-11 코어 수명주기 잔여 검증이다.
+코어의 필수 하위 스케줄 각 26건, 보호 교환 4조합과 재시작 8건을 확인했다.
+5단계 [INS-11 코어 수명주기 증거](core-lifecycle-evidence.md)는 현행 레코드의
+종료·수신, 만료/admission, 늦은 완료, replay/quarantine 복구 및
+reservation/close 경계를 확인했다. 두 단계의 결과는 `EVIDENCE_CHECKED`이며
+전체 프로토콜 적합성은 `NOT_ESTABLISHED`이다. 과거 구형 세션 race `FAIL`과
+역사적 lifecycle 37건 `NOT_RUN`은 유지한다. 다음 순서는 6단계 실제 Registry
+Source와 체인 관측이다.
 
 ### 1. 규범 기준선과 증거 provenance 정렬
 

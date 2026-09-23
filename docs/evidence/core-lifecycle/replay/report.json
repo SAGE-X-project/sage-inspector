@@ -1,0 +1,331 @@
+{
+  "kind": "replay-journal010",
+  "status": "PASS",
+  "conformance": "NOT_ESTABLISHED",
+  "development": true,
+  "scope": "Trusted local durable denial store; synthetic trusted time, no session restoration or full conformance",
+  "fixture_sha256": "d401c7acdaca3d7dec6b11af18ba52240468c82a30a8c146c782227d4b8c4544",
+  "subjects": {
+    "go": {
+      "revision": "2fb4755ba38d1c90adea5089402fcc6b8981fd71",
+      "executable_sha256": "65229d3d42bf9c69834ae6f0fbc19a419b96df2ca3162c1273a0f0c4f2b57d26",
+      "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "rust": {
+      "revision": "40b5a8c6d76d952131013d8a034f819fd31b7ca0",
+      "executable_sha256": "8dce4e76a51ac0ca1e2884910a1d772782cd911da323e0a7cd6b4a2a8c192295",
+      "tracked_diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "scenarios": [
+    {
+      "id": "go-quarantine",
+      "status": "PASS",
+      "journal_sha256": "760c2e77303240d16a7b67b31077ddc2991f3f1092d402092ecb611acefd4b5f",
+      "journal": "journals/go-quarantine"
+    },
+    {
+      "id": "go-utc-jump",
+      "status": "PASS",
+      "journal_sha256": "443cf0be5fd3ce3bbeb7261a5e68d2b26b6ff15e6d682cd16163d6d143e97718",
+      "journal": "journals/go-utc-jump"
+    },
+    {
+      "id": "go-mono-jump",
+      "status": "PASS",
+      "journal_sha256": "3274b41c4ab0ceb2d7a9a51360f57c61e0fc5e7470d4d1897aa845a2970587cc",
+      "journal": "journals/go-mono-jump"
+    },
+    {
+      "id": "go-recovery",
+      "status": "PASS",
+      "journal_sha256": "86024868e9a1d1960d3d4a9fad9beadba894f94a77f7e957ed75c14d19e64476",
+      "journal": "journals/go-recovery"
+    },
+    {
+      "id": "go-retention",
+      "status": "PASS",
+      "journal_sha256": "6271a124921c9bed700f1e69a87803d1af291ab867aa45593aaa9b266ce9b954",
+      "journal": "journals/go-retention"
+    },
+    {
+      "id": "go-context",
+      "status": "PASS",
+      "journal_sha256": "2444e3edcc2ff2bf063e9060f69202231e6c1bec35759a753fa00e8efce3ca15",
+      "journal": "journals/go-context"
+    },
+    {
+      "id": "go-failed-final-gate",
+      "status": "PASS",
+      "journal_sha256": "d93f8ee935d5ff1a4a91736b1b7890162fc1b54f36981251db346fd967f8fbf2",
+      "journal": "journals/go-failed-final-gate"
+    },
+    {
+      "id": "go-utc-rollback",
+      "status": "PASS",
+      "journal_sha256": "760c2e77303240d16a7b67b31077ddc2991f3f1092d402092ecb611acefd4b5f",
+      "journal": "journals/go-utc-rollback"
+    },
+    {
+      "id": "go-mono-rollback",
+      "status": "PASS",
+      "journal_sha256": "760c2e77303240d16a7b67b31077ddc2991f3f1092d402092ecb611acefd4b5f",
+      "journal": "journals/go-mono-rollback"
+    },
+    {
+      "id": "go-empty-reopen",
+      "status": "PASS",
+      "journal_sha256": "3274b41c4ab0ceb2d7a9a51360f57c61e0fc5e7470d4d1897aa845a2970587cc",
+      "journal": "journals/go-empty-reopen"
+    },
+    {
+      "id": "go-missing",
+      "status": "PASS",
+      "journal_sha256": null,
+      "journal": null
+    },
+    {
+      "id": "go-expired-input",
+      "status": "PASS",
+      "journal_sha256": "760c2e77303240d16a7b67b31077ddc2991f3f1092d402092ecb611acefd4b5f",
+      "journal": "journals/go-expired-input"
+    },
+    {
+      "id": "rust-quarantine",
+      "status": "PASS",
+      "journal_sha256": "760c2e77303240d16a7b67b31077ddc2991f3f1092d402092ecb611acefd4b5f",
+      "journal": "journals/rust-quarantine"
+    },
+    {
+      "id": "rust-utc-jump",
+      "status": "PASS",
+      "journal_sha256": "443cf0be5fd3ce3bbeb7261a5e68d2b26b6ff15e6d682cd16163d6d143e97718",
+      "journal": "journals/rust-utc-jump"
+    },
+    {
+      "id": "rust-mono-jump",
+      "status": "PASS",
+      "journal_sha256": "3274b41c4ab0ceb2d7a9a51360f57c61e0fc5e7470d4d1897aa845a2970587cc",
+      "journal": "journals/rust-mono-jump"
+    },
+    {
+      "id": "rust-recovery",
+      "status": "PASS",
+      "journal_sha256": "86024868e9a1d1960d3d4a9fad9beadba894f94a77f7e957ed75c14d19e64476",
+      "journal": "journals/rust-recovery"
+    },
+    {
+      "id": "rust-retention",
+      "status": "PASS",
+      "journal_sha256": "6271a124921c9bed700f1e69a87803d1af291ab867aa45593aaa9b266ce9b954",
+      "journal": "journals/rust-retention"
+    },
+    {
+      "id": "rust-context",
+      "status": "PASS",
+      "journal_sha256": "2444e3edcc2ff2bf063e9060f69202231e6c1bec35759a753fa00e8efce3ca15",
+      "journal": "journals/rust-context"
+    },
+    {
+      "id": "rust-failed-final-gate",
+      "status": "PASS",
+      "journal_sha256": "d93f8ee935d5ff1a4a91736b1b7890162fc1b54f36981251db346fd967f8fbf2",
+      "journal": "journals/rust-failed-final-gate"
+    },
+    {
+      "id": "rust-utc-rollback",
+      "status": "PASS",
+      "journal_sha256": "760c2e77303240d16a7b67b31077ddc2991f3f1092d402092ecb611acefd4b5f",
+      "journal": "journals/rust-utc-rollback"
+    },
+    {
+      "id": "rust-mono-rollback",
+      "status": "PASS",
+      "journal_sha256": "760c2e77303240d16a7b67b31077ddc2991f3f1092d402092ecb611acefd4b5f",
+      "journal": "journals/rust-mono-rollback"
+    },
+    {
+      "id": "rust-empty-reopen",
+      "status": "PASS",
+      "journal_sha256": "3274b41c4ab0ceb2d7a9a51360f57c61e0fc5e7470d4d1897aa845a2970587cc",
+      "journal": "journals/rust-empty-reopen"
+    },
+    {
+      "id": "rust-missing",
+      "status": "PASS",
+      "journal_sha256": null,
+      "journal": null
+    },
+    {
+      "id": "rust-expired-input",
+      "status": "PASS",
+      "journal_sha256": "760c2e77303240d16a7b67b31077ddc2991f3f1092d402092ecb611acefd4b5f",
+      "journal": "journals/rust-expired-input"
+    }
+  ],
+  "restarts": [
+    {
+      "id": "go-to-go-clean",
+      "status": "PASS",
+      "before_sha256": "760c2e77303240d16a7b67b31077ddc2991f3f1092d402092ecb611acefd4b5f",
+      "after_sha256": "bec8b928ff66e18cd592fc43f74df4bd798f4e18d3a2d5e2385f5818aeba1c0b",
+      "before": "journals/go-to-go-clean.before",
+      "after": "journals/go-to-go-clean.after"
+    },
+    {
+      "id": "go-to-go-abandoned",
+      "status": "PASS",
+      "before_sha256": "760c2e77303240d16a7b67b31077ddc2991f3f1092d402092ecb611acefd4b5f",
+      "after_sha256": "bec8b928ff66e18cd592fc43f74df4bd798f4e18d3a2d5e2385f5818aeba1c0b",
+      "before": "journals/go-to-go-abandoned.before",
+      "after": "journals/go-to-go-abandoned.after"
+    },
+    {
+      "id": "go-to-go-failed-gate",
+      "status": "PASS",
+      "before_sha256": "760c2e77303240d16a7b67b31077ddc2991f3f1092d402092ecb611acefd4b5f",
+      "after_sha256": "bec8b928ff66e18cd592fc43f74df4bd798f4e18d3a2d5e2385f5818aeba1c0b",
+      "before": "journals/go-to-go-failed-gate.before",
+      "after": "journals/go-to-go-failed-gate.after"
+    },
+    {
+      "id": "go-to-go-missing",
+      "status": "PASS",
+      "before_sha256": "760c2e77303240d16a7b67b31077ddc2991f3f1092d402092ecb611acefd4b5f",
+      "after_sha256": "853f3f2200afa5806d9c67e441159e4236129eb4169923266cb72b41859085d1",
+      "before": "journals/go-to-go-missing.before",
+      "after": "journals/go-to-go-missing.after"
+    },
+    {
+      "id": "go-to-go-partial",
+      "status": "PASS",
+      "before_sha256": "760c2e77303240d16a7b67b31077ddc2991f3f1092d402092ecb611acefd4b5f",
+      "after_sha256": "15801fa775c6a0908b2aef9c3a1e5de09eec50ec1dafc32b67b450ca74fe0173",
+      "before": "journals/go-to-go-partial.before",
+      "after": "journals/go-to-go-partial.after"
+    },
+    {
+      "id": "go-to-rust-clean",
+      "status": "PASS",
+      "before_sha256": "760c2e77303240d16a7b67b31077ddc2991f3f1092d402092ecb611acefd4b5f",
+      "after_sha256": "bec8b928ff66e18cd592fc43f74df4bd798f4e18d3a2d5e2385f5818aeba1c0b",
+      "before": "journals/go-to-rust-clean.before",
+      "after": "journals/go-to-rust-clean.after"
+    },
+    {
+      "id": "go-to-rust-abandoned",
+      "status": "PASS",
+      "before_sha256": "760c2e77303240d16a7b67b31077ddc2991f3f1092d402092ecb611acefd4b5f",
+      "after_sha256": "bec8b928ff66e18cd592fc43f74df4bd798f4e18d3a2d5e2385f5818aeba1c0b",
+      "before": "journals/go-to-rust-abandoned.before",
+      "after": "journals/go-to-rust-abandoned.after"
+    },
+    {
+      "id": "go-to-rust-failed-gate",
+      "status": "PASS",
+      "before_sha256": "760c2e77303240d16a7b67b31077ddc2991f3f1092d402092ecb611acefd4b5f",
+      "after_sha256": "bec8b928ff66e18cd592fc43f74df4bd798f4e18d3a2d5e2385f5818aeba1c0b",
+      "before": "journals/go-to-rust-failed-gate.before",
+      "after": "journals/go-to-rust-failed-gate.after"
+    },
+    {
+      "id": "go-to-rust-missing",
+      "status": "PASS",
+      "before_sha256": "760c2e77303240d16a7b67b31077ddc2991f3f1092d402092ecb611acefd4b5f",
+      "after_sha256": "853f3f2200afa5806d9c67e441159e4236129eb4169923266cb72b41859085d1",
+      "before": "journals/go-to-rust-missing.before",
+      "after": "journals/go-to-rust-missing.after"
+    },
+    {
+      "id": "go-to-rust-partial",
+      "status": "PASS",
+      "before_sha256": "760c2e77303240d16a7b67b31077ddc2991f3f1092d402092ecb611acefd4b5f",
+      "after_sha256": "15801fa775c6a0908b2aef9c3a1e5de09eec50ec1dafc32b67b450ca74fe0173",
+      "before": "journals/go-to-rust-partial.before",
+      "after": "journals/go-to-rust-partial.after"
+    },
+    {
+      "id": "rust-to-go-clean",
+      "status": "PASS",
+      "before_sha256": "760c2e77303240d16a7b67b31077ddc2991f3f1092d402092ecb611acefd4b5f",
+      "after_sha256": "bec8b928ff66e18cd592fc43f74df4bd798f4e18d3a2d5e2385f5818aeba1c0b",
+      "before": "journals/rust-to-go-clean.before",
+      "after": "journals/rust-to-go-clean.after"
+    },
+    {
+      "id": "rust-to-go-abandoned",
+      "status": "PASS",
+      "before_sha256": "760c2e77303240d16a7b67b31077ddc2991f3f1092d402092ecb611acefd4b5f",
+      "after_sha256": "bec8b928ff66e18cd592fc43f74df4bd798f4e18d3a2d5e2385f5818aeba1c0b",
+      "before": "journals/rust-to-go-abandoned.before",
+      "after": "journals/rust-to-go-abandoned.after"
+    },
+    {
+      "id": "rust-to-go-failed-gate",
+      "status": "PASS",
+      "before_sha256": "760c2e77303240d16a7b67b31077ddc2991f3f1092d402092ecb611acefd4b5f",
+      "after_sha256": "bec8b928ff66e18cd592fc43f74df4bd798f4e18d3a2d5e2385f5818aeba1c0b",
+      "before": "journals/rust-to-go-failed-gate.before",
+      "after": "journals/rust-to-go-failed-gate.after"
+    },
+    {
+      "id": "rust-to-go-missing",
+      "status": "PASS",
+      "before_sha256": "760c2e77303240d16a7b67b31077ddc2991f3f1092d402092ecb611acefd4b5f",
+      "after_sha256": "853f3f2200afa5806d9c67e441159e4236129eb4169923266cb72b41859085d1",
+      "before": "journals/rust-to-go-missing.before",
+      "after": "journals/rust-to-go-missing.after"
+    },
+    {
+      "id": "rust-to-go-partial",
+      "status": "PASS",
+      "before_sha256": "760c2e77303240d16a7b67b31077ddc2991f3f1092d402092ecb611acefd4b5f",
+      "after_sha256": "15801fa775c6a0908b2aef9c3a1e5de09eec50ec1dafc32b67b450ca74fe0173",
+      "before": "journals/rust-to-go-partial.before",
+      "after": "journals/rust-to-go-partial.after"
+    },
+    {
+      "id": "rust-to-rust-clean",
+      "status": "PASS",
+      "before_sha256": "760c2e77303240d16a7b67b31077ddc2991f3f1092d402092ecb611acefd4b5f",
+      "after_sha256": "bec8b928ff66e18cd592fc43f74df4bd798f4e18d3a2d5e2385f5818aeba1c0b",
+      "before": "journals/rust-to-rust-clean.before",
+      "after": "journals/rust-to-rust-clean.after"
+    },
+    {
+      "id": "rust-to-rust-abandoned",
+      "status": "PASS",
+      "before_sha256": "760c2e77303240d16a7b67b31077ddc2991f3f1092d402092ecb611acefd4b5f",
+      "after_sha256": "bec8b928ff66e18cd592fc43f74df4bd798f4e18d3a2d5e2385f5818aeba1c0b",
+      "before": "journals/rust-to-rust-abandoned.before",
+      "after": "journals/rust-to-rust-abandoned.after"
+    },
+    {
+      "id": "rust-to-rust-failed-gate",
+      "status": "PASS",
+      "before_sha256": "760c2e77303240d16a7b67b31077ddc2991f3f1092d402092ecb611acefd4b5f",
+      "after_sha256": "bec8b928ff66e18cd592fc43f74df4bd798f4e18d3a2d5e2385f5818aeba1c0b",
+      "before": "journals/rust-to-rust-failed-gate.before",
+      "after": "journals/rust-to-rust-failed-gate.after"
+    },
+    {
+      "id": "rust-to-rust-missing",
+      "status": "PASS",
+      "before_sha256": "760c2e77303240d16a7b67b31077ddc2991f3f1092d402092ecb611acefd4b5f",
+      "after_sha256": "853f3f2200afa5806d9c67e441159e4236129eb4169923266cb72b41859085d1",
+      "before": "journals/rust-to-rust-missing.before",
+      "after": "journals/rust-to-rust-missing.after"
+    },
+    {
+      "id": "rust-to-rust-partial",
+      "status": "PASS",
+      "before_sha256": "760c2e77303240d16a7b67b31077ddc2991f3f1092d402092ecb611acefd4b5f",
+      "after_sha256": "15801fa775c6a0908b2aef9c3a1e5de09eec50ec1dafc32b67b450ca74fe0173",
+      "before": "journals/rust-to-rust-partial.before",
+      "after": "journals/rust-to-rust-partial.after"
+    }
+  ],
+  "raw": "raw.jsonl",
+  "inspector_revision": "2e24a7c65a1a3bdf4f87739b05641893b7c570b8",
+  "raw_sha256": "3e6503914708cb7e25ccac8299c93cec7894a38777d57de402709edebccb4b1d"
+}

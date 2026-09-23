@@ -3,15 +3,15 @@
   "protocol_version": "0.10.0",
   "kind": "mcp-proposal-case-evidence",
   "catalog_manifest_sha256": "5727834113a41ef910d4a5c5487457b6e3ae9f89ac36e86946a6e72ae28c1f35",
-  "owner_admission_contract_sha256": "0d6002a6dc64ac6711484b1d68cb0c4415bf1dc0b7d2b7332a6fc59fb87c89a1",
-  "signature_boundary_contract_sha256": "bcd2a57bc561ab65ec30038b4d355cfba8aa9c51ef8f2a6e0461d2e9ba592a23",
+  "owner_admission_contract_sha256": "f5b7b628953de43d3d455f8740b5358397d345d5c4a692cac0a9dc5ef8271912",
+  "signature_boundary_contract_sha256": "2e41bb28366eaf04edde94fe798fb0e1f1a8ab4f8dced7a7ca7fd94cf647eae3",
   "historical_catalog": {
     "NOT_RUN": 71
   },
   "runtime_case_counts": {
-    "PASS": 7,
+    "PASS": 8,
     "PARTIAL": 0,
-    "NOT_RUN": 64
+    "NOT_RUN": 63
   },
   "external_review": "NOT_PERFORMED",
   "adoption": "PROPOSAL_NOT_ADOPTED",
@@ -123,6 +123,21 @@
         {
           "language": "rust",
           "test": "guard010::ledger::tests::intent_signature_algorithm_boundary_accepts_only_ed25519"
+        }
+      ]
+    },
+    {
+      "id": "mres-signature-result",
+      "status": "PASS",
+      "claim": "Both cores continue correlated result validation only for Ed25519, while valid P-256 and secp256k1 proofs stop before authority access, outstanding-intent lookup or authenticated output release.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestBridgeResultSignatureAlgorithmBoundary"
+        },
+        {
+          "language": "rust",
+          "test": "guard010::ledger::tests::result_signature_algorithm_boundary_accepts_only_ed25519"
         }
       ]
     }

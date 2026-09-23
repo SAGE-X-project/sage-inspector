@@ -440,3 +440,9 @@ authority·policy·reservation까지 진행하고, 유효한 P-256·secp256k1 pr
 무효과로 거부되는 것을 고정했다. 따라서 7개가 `PASS`, 나머지 64개가 `NOT_RUN`이다.
 다음은 **result proof 알고리즘 경계**, 이후 outer/handshake carriage와 적합한
 Ed25519 signing key 부재 순서다. 규범 채택과 전체 적합성은 별도다.
+
+
+결과 서명 알고리즘 경계도 두 코어의 실제 테스트와 Inspector 계약에 연결했다.
+Ed25519 결과만 authority 및 outstanding intent 검증을 계속하며, 암호학적으로 유효한
+P-256·secp256k1 결과는 trusted lookup과 인증된 output 생성 전에 거부된다. 사례 overlay는
+`8 PASS / 0 PARTIAL / 63 NOT_RUN`이며, 다음 항목은 outer·handshake carriage 경계다.

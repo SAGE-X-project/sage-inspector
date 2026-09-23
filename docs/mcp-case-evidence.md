@@ -16,6 +16,7 @@ The current assessment is intentionally narrow:
 | `mres-protected-timeout-after-admission` | `TestMCPProtectedReplyDeadlineAfterAdmissionRetainsCompletion` | `protected_deadline_after_admission_fails_transport_without_rollback` | PASS |
 | `mres-ready-session-expiry` | `TestMCPAdmissionReadySessionExpiryDeniesNewAdmission` | `ready_session_expiry_denies_new_admission_and_closes_owner` | PASS |
 | `mres-signature-intent` | `TestBridgeIntentSignatureAlgorithmBoundary` | `intent_signature_algorithm_boundary_accepts_only_ed25519` | PASS |
+| `mres-signature-result` | `TestBridgeResultSignatureAlgorithmBoundary` | `result_signature_algorithm_boundary_accepts_only_ed25519` | PASS |
 
 The first case observes closure after reservation and durable EXECUTING storage but
 before final owner admission. Both cores deny the effect, retain conservative durable
@@ -38,19 +39,22 @@ retries. The sixth case creates a protected request immediately before the READY
 session's idle boundary. Both cores verify that the request still has transport
 lifetime remaining, then reject admission when the session expires, close the owner,
 erase further session use and keep the effect count at zero. The seventh case creates
-and independently verifies role-bound proofs under Ed25519, P-256 and secp256k1.
+and independently verifies role-bound intent proofs under Ed25519, P-256 and secp256k1.
 Only Ed25519 reaches authority, policy and reservation processing; the unsupported
-algorithms stop before trusted-service calls or journal mutation.
+algorithms stop before trusted-service calls or journal mutation. The eighth case
+performs the same independent cryptographic controls for correlated result proofs.
+Only Ed25519 reaches authority and outstanding-intent lookup; unsupported results
+produce no authenticated result or output.
 
-All fifteen mapped tests use controlled clocks, temporary journals, inert effect counters and
+All seventeen mapped tests use controlled clocks, temporary journals, inert effect counters and
 bounded local scheduling seams. They do not invoke an external target or implement
 an attack. Go executes under the race detector in the runtime adapter.
 
 ## Evidence derivation
 
 The [case contract](../verification/0.10.0/mcp-case-evidence-contract.json) binds the
-historical catalog manifest, owner-admission and signature contracts, seven exact case IDs and their
-required tests across both cores. The checker requires a complete passing 36-test
+historical catalog manifest, owner-admission and signature contracts, eight exact case IDs and their
+required tests across both cores. The checker requires a complete passing 38-test
 runtime report, both pinned core revisions, the preserved owner contract, the preserved
 runner hash, exact mapped test rows, hashed logs and one observed passing invocation
 per required test. Missing, duplicated, skipped, changed or merely relabelled logs
@@ -63,7 +67,7 @@ python3 -B scripts/check_mcp_case_evidence.py \
   --output /tmp/new-mcp-case-evidence
 ```
 
-The report contains all 71 case IDs. Seven carry current `PASS` evidence and 64 remain
+The report contains all 71 case IDs. Eight carry current `PASS` evidence and 63 remain
 `NOT_RUN`. The historical catalog field remains `{ "NOT_RUN": 71 }` so a consumer
 cannot confuse source-plan status with current runtime evidence. CI creates
 the overlay only after the pinned runtime runner succeeds and preserves both reports
@@ -75,6 +79,6 @@ PASS. Individual case status must be read from `runtime_case_counts` and `cases`
 `PASS` here means that the complete resolution-plan scenario ran through the pinned
 private implementations with its stated unit and bounded-runtime assertions. It does
 not establish independent external review, normative adoption, public API
-compatibility, live registry or host isolation, any of the other 64 cases, or full
-protocol conformance. Remaining result, carriage, provisioning and ordering cases stay `NOT_RUN` until
+compatibility, live registry or host isolation, any of the other 63 cases, or full
+protocol conformance. Remaining carriage, provisioning and ordering cases stay `NOT_RUN` until
 their exact inputs and required observations are present in both cores.

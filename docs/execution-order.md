@@ -42,8 +42,9 @@ reservation/close 경계를 확인했다. 두 단계의 결과는 `EVIDENCE_CHEC
 역사적 lifecycle 37건 `NOT_RUN`은 유지한다. 6단계의
 [Registry Source 배포 감사](registry-source-deployment-audit.md)는 공개 주소
 후보와 설정을 조사했으나 신뢰된 0.10.0 배포 바인딩이 없어 실제 체인 관측을
-`NOT_RUN`으로 기록했다. 이 판정을 보존한 다음 순서는 7단계 실제 Agent 호스트
-집행 검증이다.
+`NOT_RUN`으로 기록했다. 7단계 [Agent 호스트 배포 감사](agent-host-deployment-audit.md)는
+고정 호스트 실행 파일·설정·외부 관측기의 바인딩이 없어 8개 호스트 시나리오를
+`NOT_RUN`으로 보존했다. 다음 순서는 8단계 INS-11 통합 판정이다.
 
 ### 1. 규범 기준선과 증거 provenance 정렬
 

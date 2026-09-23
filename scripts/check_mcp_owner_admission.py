@@ -27,6 +27,7 @@ SELECTED_TESTS = {
         'TestMCPAdmissionCloseAfterInsertionKeepsAdmission', 'TestMCPAdmissionSharedOwners',
         'TestMCPAdmissionCrashRecoveryDoesNotExecuteAgain',
         'TestMCPAdmissionProtectedDeadlineBeforeFinalAdmissionRetainsReservation',
+        'TestMCPAdmissionReadySessionExpiryDeniesNewAdmission',
         'TestMCPOwnerBlockedSendDoesNotBlockClose',
         'TestMCPProtectedReplyCloseDoesNotReleaseBlockedOutput',
         'TestMCPProtectedReplyDeadlineAfterAdmissionRetainsCompletion'},
@@ -37,13 +38,14 @@ SELECTED_TESTS = {
         'hpke::completion010::tests::mcp_admission_tests::capacity_is_shared_across_connections_and_retained_during_actual_run',
         'hpke::completion010::tests::mcp_admission_tests::crash_recovery_marks_admission_unknown_and_never_executes_again',
         'hpke::completion010::tests::mcp_admission_tests::protected_deadline_before_final_admission_retains_identity_and_reservation',
+        'hpke::completion010::tests::mcp_admission_tests::ready_session_expiry_denies_new_admission_and_closes_owner',
         'hpke::completion010::tests::mcp_admission_tests::mcp_reply_tests::failed_reply_does_not_erase_execution_or_allow_second_response',
         'hpke::completion010::tests::mcp_admission_tests::mcp_reply_tests::close_after_durable_acceptance_suppresses_output_and_reopen_cannot_redeliver',
         'hpke::completion010::tests::mcp_admission_tests::mcp_reply_tests::protected_deadline_after_admission_fails_transport_without_rollback'},
 }
 TEST_MAPPING_HASHES = {
-    'go': '1a3ce58df73f652d2e340c8f682c09ac54969d0ad3589798f9a98c71dc68a1ba',
-    'rust': 'f257a13d1bcdaa1c22a9d00bf011f62f93588e09863e2441a6143b95f7a2f756',
+    'go': '18e952fff2c38fcea67c3b95bd5d538b023ef5b02c487a34cf211acaa2aa5c2f',
+    'rust': 'f7191b64006aaa53afb3f7e947c3476dc199057967361d33dc71a4e1c26095b2',
 }
 
 

@@ -3,14 +3,14 @@
   "protocol_version": "0.10.0",
   "kind": "mcp-proposal-case-evidence",
   "catalog_manifest_sha256": "5727834113a41ef910d4a5c5487457b6e3ae9f89ac36e86946a6e72ae28c1f35",
-  "owner_admission_contract_sha256": "ff073ab9af08b9eceebebd4e6267ce7b00fdfa542a446229d5f83ff7251394cd",
+  "owner_admission_contract_sha256": "196eeff1533cae673811678c8212ff08287e859f42b8f1dff093e752d114d810",
   "historical_catalog": {
     "NOT_RUN": 71
   },
   "runtime_case_counts": {
-    "PASS": 5,
+    "PASS": 6,
     "PARTIAL": 0,
-    "NOT_RUN": 66
+    "NOT_RUN": 65
   },
   "external_review": "NOT_PERFORMED",
   "adoption": "PROPOSAL_NOT_ADOPTED",
@@ -92,6 +92,21 @@
         {
           "language": "rust",
           "test": "hpke::completion010::tests::mcp_admission_tests::mcp_reply_tests::protected_deadline_after_admission_fails_transport_without_rollback"
+        }
+      ]
+    },
+    {
+      "id": "mres-ready-session-expiry",
+      "status": "PASS",
+      "claim": "Both cores reject a newly protected request when the READY session reaches its idle limit first, close the owner, erase session usability, and produce zero effects while the message lifetime remains valid.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPAdmissionReadySessionExpiryDeniesNewAdmission"
+        },
+        {
+          "language": "rust",
+          "test": "hpke::completion010::tests::mcp_admission_tests::ready_session_expiry_denies_new_admission_and_closes_owner"
         }
       ]
     }

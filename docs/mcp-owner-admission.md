@@ -3,8 +3,8 @@
 The earlier [core review](mcp-owner-core-review.md) identified four integration gaps
 at Go `be621819...` and Rust `ad30c6a...`. Both cores subsequently added private
 owner-aware admission and protected-reply paths. This review pins Go
-`e750b2ab2f901b250af4805a9b8c6266752bdfc2` and Rust
-`24626154967dc3bc85ad1a69da34011e3a1f5dc5`. It does not reinterpret the older
+`34c534d15cbc7b3c6a788dd50de82abcfebc33ce` and Rust
+`277bdcdeeb7c16c2fb50a8bcc733468ca8f38eb9`. It does not reinterpret the older
 decision at its original revisions.
 
 The machine-readable

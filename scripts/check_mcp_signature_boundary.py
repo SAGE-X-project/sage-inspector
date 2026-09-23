@@ -1,4 +1,4 @@
-"""Audit the pinned MCP intent-signature algorithm boundary."""
+"""Audit the pinned MCP intent and result signature algorithm boundaries."""
 import argparse
 import json
 from pathlib import Path
@@ -10,13 +10,20 @@ from check_mcp_owner_admission import load, require, sha, read
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACT = ROOT / 'verification/0.10.0/mcp-signature-boundary-contract.json'
 LANGUAGES = {'go', 'rust'}
+BOUNDARIES = {'intent-algorithm', 'result-algorithm'}
 FILES = {
     'go': {'pkg/agent/guard010/verify.go', 'pkg/agent/guard010/ledger_test.go'},
     'rust': {'src/guard010/mod.rs', 'src/guard010/ledger.rs'},
 }
 TESTS = {
-    'go': 'TestBridgeIntentSignatureAlgorithmBoundary',
-    'rust': 'guard010::ledger::tests::intent_signature_algorithm_boundary_accepts_only_ed25519',
+    'go': {
+        'intent-algorithm': 'TestBridgeIntentSignatureAlgorithmBoundary',
+        'result-algorithm': 'TestBridgeResultSignatureAlgorithmBoundary',
+    },
+    'rust': {
+        'intent-algorithm': 'guard010::ledger::tests::intent_signature_algorithm_boundary_accepts_only_ed25519',
+        'result-algorithm': 'guard010::ledger::tests::result_signature_algorithm_boundary_accepts_only_ed25519',
+    },
 }
 
 
@@ -25,22 +32,27 @@ def exact(value, fields, message):
 
 
 def validate(value):
-    exact(value, ('schema_version', 'protocol_version', 'kind', 'conformance', 'boundary', 'cores'), 'contract fields')
+    exact(value, ('schema_version', 'protocol_version', 'kind', 'conformance', 'boundaries', 'cores'), 'contract fields')
     require(type(value['schema_version']) is int and value['schema_version'] == 1, 'schema version')
     require(value['protocol_version'] == '0.10.0' and value['kind'] == 'mcp-signature-boundary-contract', 'contract identity')
     require(value['conformance'] == 'NOT_ESTABLISHED', 'conformance promotion')
-    boundary = value['boundary']
-    exact(boundary, ('id', 'accepted', 'rejected', 'contract'), 'boundary fields')
-    require(boundary['id'] == 'intent-algorithm' and boundary['accepted'] == 'ed25519', 'boundary identity')
-    require(boundary['rejected'] == ['ecdsa-p256-sha256', 'secp256k1'], 'algorithm set')
-    require(type(boundary['contract']) is str and 80 <= len(boundary['contract']) <= 400, 'boundary text')
+    require(type(value['boundaries']) is list and len(value['boundaries']) == 2, 'boundary count')
+    found = set()
+    for boundary in value['boundaries']:
+        exact(boundary, ('id', 'accepted', 'rejected', 'contract'), 'boundary fields')
+        ident = boundary['id']
+        require(ident in BOUNDARIES and ident not in found and boundary['accepted'] == 'ed25519', 'boundary identity')
+        require(boundary['rejected'] == ['ecdsa-p256-sha256', 'secp256k1'], 'algorithm set')
+        require(type(boundary['contract']) is str and 80 <= len(boundary['contract']) <= 400, 'boundary text')
+        found.add(ident)
+    require(found == BOUNDARIES, 'boundary inventory')
     require(set(value['cores']) == LANGUAGES, 'core inventory')
     for language, core in value['cores'].items():
-        exact(core, ('revision', 'files', 'test'), 'core fields')
+        exact(core, ('revision', 'files', 'tests'), 'core fields')
         require(re.fullmatch('[0-9a-f]{40}', core['revision']) is not None, 'core revision')
         require(type(core['files']) is dict and set(core['files']) == FILES[language], 'source inventory')
         require(all(re.fullmatch('[0-9a-f]{64}', digest or '') for digest in core['files'].values()), 'source digest')
-        require(core['test'] == TESTS[language], 'test identity')
+        require(core['tests'] == TESTS[language], 'test identity')
     return value
 
 
@@ -67,10 +79,10 @@ def audit(roots=None):
         'conformance': 'NOT_ESTABLISHED',
         'runtime': 'NOT_RUN',
         'contract_sha256': sha(raw),
-        'algorithms': {'accepted': ['ed25519'], 'rejected': ['ecdsa-p256-sha256', 'secp256k1']},
-        'selected_tests': {language: value['cores'][language]['test'] for language in sorted(LANGUAGES)},
+        'boundaries': {item['id']: {'accepted': [item['accepted']], 'rejected': item['rejected']} for item in value['boundaries']},
+        'selected_tests': {language: value['cores'][language]['tests'] for language in sorted(LANGUAGES)},
         'source_identity': {language: identities.get(language, {'status': 'NOT_CHECKED'}) for language in sorted(LANGUAGES)},
-        'scope': 'Pinned intent-proof algorithm boundary only; result, carriage, provisioning and protocol conformance require separate evidence.',
+        'scope': 'Pinned intent and result proof algorithm boundaries only; carriage, provisioning and protocol conformance require separate evidence.',
     }
 
 
@@ -90,7 +102,7 @@ def main():
         (output / 'report.json').write_text(json.dumps(report, indent=2) + '\n')
     except (ValueError, OSError, KeyError, TypeError, subprocess.SubprocessError) as error:
         parser.exit(2, 'signature boundary audit error: ' + str(error) + '\n')
-    print('MCP intent signature boundary audit PASS; runtime NOT_RUN; conformance NOT_ESTABLISHED.')
+    print('MCP intent and result signature boundary audit PASS; runtime NOT_RUN; conformance NOT_ESTABLISHED.')
 
 
 if __name__ == '__main__':

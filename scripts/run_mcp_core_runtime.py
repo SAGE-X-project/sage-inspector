@@ -17,8 +17,8 @@ from check_mcp_signature_boundary import CONTRACT as SIGNATURE_CONTRACT, contrac
 
 ROOT = Path(__file__).resolve().parents[1]
 OWNER_CONTRACT = ROOT / 'verification/0.10.0/mcp-owner-admission-contract.json'
-PINS = {'go': 'e750b2ab2f901b250af4805a9b8c6266752bdfc2',
-        'rust': '24626154967dc3bc85ad1a69da34011e3a1f5dc5'}
+PINS = {'go': '34c534d15cbc7b3c6a788dd50de82abcfebc33ce',
+        'rust': '277bdcdeeb7c16c2fb50a8bcc733468ca8f38eb9'}
 PREFIX = 'hpke::completion010::tests::mcp_admission_tests::mcp_reply_tests::mcp_transport_tests::'
 CASES = {
     'go': ('TestMCPHostConnectionRuntime', 'TestMCPHostConnectionRetainsBlockedHandshake',
@@ -63,9 +63,10 @@ def owner_contract():
 
 
 OWNER_CONTRACT_CASES = {language: core['tests'] for language, core in owner_contract()['cores'].items()}
-SIGNATURE_CONTRACT_CASES = {language: (core['test'],) for language, core in signature_contract()['cores'].items()}
+SIGNATURE_CONTRACT_CASES = {language: {test: boundary for boundary, test in core['tests'].items()}
+                            for language, core in signature_contract()['cores'].items()}
 CASES = {language: names + tuple(SCHEDULES[language]) + tuple(OWNER_CONTRACT_CASES[language])
-         + SIGNATURE_CONTRACT_CASES[language]
+         + tuple(SIGNATURE_CONTRACT_CASES[language])
          for language, names in CASES.items()}
 
 
@@ -186,7 +187,7 @@ def execute(language, repo, output, work):
         if name in OWNER_CONTRACT_CASES[language]:
             row['owner_admission_boundaries'] = OWNER_CONTRACT_CASES[language][name]
         if name in SIGNATURE_CONTRACT_CASES[language]:
-            row['signature_boundary'] = 'intent-algorithm'
+            row['signature_boundary'] = SIGNATURE_CONTRACT_CASES[language][name]
         row['status'] = ('PASS' if row['status'] == 'PASS' and observed(
             language, name, (output / row['log']).read_text(), row['exit_code']) else 'FAIL')
         subject['cases'].append(row)
@@ -200,7 +201,7 @@ def successful(subjects):
         and all(r['status'] == 'PASS' for r in subjects[lang]['cases'])
         and all(r.get('owner_admission_boundaries') == OWNER_CONTRACT_CASES[lang][r['test']]
                 for r in subjects[lang]['cases'] if r['test'] in OWNER_CONTRACT_CASES[lang])
-        and all(r.get('signature_boundary') == 'intent-algorithm'
+        and all(r.get('signature_boundary') == SIGNATURE_CONTRACT_CASES[lang][r['test']]
                 for r in subjects[lang]['cases'] if r['test'] in SIGNATURE_CONTRACT_CASES[lang])
         for lang, names in CASES.items())
 

@@ -66,6 +66,13 @@ ASSESSMENTS = {
             ('rust', 'guard010::ledger::tests::intent_signature_algorithm_boundary_accepts_only_ed25519'),
         ),
     },
+    'mres-signature-result': {
+        'status': 'PASS',
+        'requirements': (
+            ('go', 'TestBridgeResultSignatureAlgorithmBoundary'),
+            ('rust', 'guard010::ledger::tests::result_signature_algorithm_boundary_accepts_only_ed25519'),
+        ),
+    },
 }
 
 
@@ -106,7 +113,7 @@ def validate_contract(value):
     require(value['owner_admission_contract_sha256'] == sha(OWNER_CONTRACT.read_bytes()), 'owner contract binding')
     require(value['signature_boundary_contract_sha256'] == sha(SIGNATURE_CONTRACT.read_bytes()), 'signature contract binding')
     require(value['historical_catalog'] == {'NOT_RUN': 71}, 'historical catalog promotion')
-    require(value['runtime_case_counts'] == {'PASS': 7, 'PARTIAL': 0, 'NOT_RUN': 64}, 'runtime counts')
+    require(value['runtime_case_counts'] == {'PASS': 8, 'PARTIAL': 0, 'NOT_RUN': 63}, 'runtime counts')
     require(value['external_review'] == 'NOT_PERFORMED' and value['adoption'] == 'PROPOSAL_NOT_ADOPTED', 'review or adoption promotion')
     require(value['conformance'] == 'NOT_ESTABLISHED', 'conformance promotion')
     require(type(value['assessments']) is list and len(value['assessments']) == len(ASSESSMENTS), 'assessment count')
@@ -158,7 +165,7 @@ def validate_runtime(base):
             if test in OWNER_CONTRACT_CASES[language]:
                 require(row.get('owner_admission_boundaries') == OWNER_CONTRACT_CASES[language][test], 'owner boundary mapping drift')
             else:
-                require(row.get('signature_boundary') == 'intent-algorithm', 'signature boundary mapping drift')
+                require(row.get('signature_boundary') == SIGNATURE_CONTRACT_CASES[language][test], 'signature boundary mapping drift')
             log = safe_read(base, row.get('log', ''))
             require(sha(log) == row.get('log_sha256'), 'required log hash')
             require(observed(language, test, log.decode('utf-8'), row['exit_code']), 'required test not observed')
@@ -185,14 +192,14 @@ def inspect(runtime):
                           'claim': assessment['claim'], 'evidence': evidence[ident]})
         else:
             cases.append({'id': ident, 'source': row['source'], 'status': 'NOT_RUN'})
-    require(sum(row['status'] == 'PASS' for row in cases) == 7
+    require(sum(row['status'] == 'PASS' for row in cases) == 8
             and not any(row['status'] == 'PARTIAL' for row in cases), 'case result counts')
     return {
         'schema_version': 1,
         'kind': 'mcp-proposal-case-runtime-evidence',
         'status': 'EVIDENCE_CHECKED',
         'historical_catalog': {'NOT_RUN': 71},
-        'runtime_case_counts': {'PASS': 7, 'PARTIAL': 0, 'NOT_RUN': 64},
+        'runtime_case_counts': {'PASS': 8, 'PARTIAL': 0, 'NOT_RUN': 63},
         'external_review': 'NOT_PERFORMED',
         'adoption': 'PROPOSAL_NOT_ADOPTED',
         'conformance': 'NOT_ESTABLISHED',
@@ -200,7 +207,7 @@ def inspect(runtime):
         'runtime_report_sha256': sha(safe_read(runtime, 'report.json')),
         'runtime_inspector_revision': runtime_report.get('inspector_revision'),
         'cases': cases,
-        'limitation': 'Seven pinned private core resolution cases; all other proposal cases and full protocol conformance remain unestablished.'
+        'limitation': 'Eight pinned private core resolution cases; all other proposal cases and full protocol conformance remain unestablished.'
     }
 
 
@@ -221,7 +228,7 @@ def main():
     except (ValueError, KeyError, TypeError, OSError, UnicodeError, subprocess.SubprocessError) as error:
         print('MCP case evidence FAIL: ' + str(error), file=sys.stderr)
         return 1
-    print('MCP case evidence checked: 7 PASS, 0 PARTIAL, 64 NOT_RUN; conformance NOT_ESTABLISHED.')
+    print('MCP case evidence checked: 8 PASS, 0 PARTIAL, 63 NOT_RUN; conformance NOT_ESTABLISHED.')
     return 0
 
 

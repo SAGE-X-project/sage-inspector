@@ -2,8 +2,9 @@
 
 This suite calls the existing Go and Rust intent/result verification APIs through
 thin primitive adapters. It is separate from the unadopted MCP setup profile and its
-71 NOT_RUN cases. No handshake, owner implementation, dispatch, network or tool effect
-runs here; historical lifecycle 37 NOT_RUN and conformance NOT_ESTABLISHED remain.
+historical 71-case catalog. No handshake, owner implementation, dispatch, network or
+tool effect runs here; historical lifecycle 37 NOT_RUN and conformance NOT_ESTABLISHED
+remain. Current per-case results are tracked separately in the runtime evidence overlay.
 
 Ten public fixtures cover two roles (intent and completed result), each with a normal
 Ed25519 proof, corrupted Ed25519 proof, inactive Ed25519 key, valid P-256 proof, and a
@@ -68,7 +69,9 @@ CI keeps `guard-canonical-signatures-<revision>` separately from the historical 
 
 Both unsupported elliptic-curve families still reach an Ed25519-only Authority seam;
 this does not establish active-key registry negotiation or complete MCP binding
-conformance. Outer/handshake roles and the 71 proposed protocol cases remain NOT_RUN.
+conformance. Separate pinned core tests now establish the intent and correlated-result
+algorithm boundaries for the case overlay. Outer and handshake roles remain NOT_RUN,
+while the historical 71-case source catalog is unchanged.
 
 
 ## Rechecking canonical evidence
@@ -90,5 +93,6 @@ not recorded as actual core execution.
 
 This is a consistency check, not cryptographic attestation of who produced a report,
 when a process ran, or which source built a binary. Report hashes alone cannot prove
-those facts. Full MCP cases remain 71 NOT_RUN, historical lifecycle cases remain
-37 NOT_RUN, and conformance remains NOT_ESTABLISHED.
+those facts. The historical MCP catalog remains 71 NOT_RUN, current case results are reported
+by the separate overlay, historical lifecycle cases remain 37 NOT_RUN, and conformance
+remains NOT_ESTABLISHED.

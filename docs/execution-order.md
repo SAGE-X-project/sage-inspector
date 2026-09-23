@@ -9,8 +9,8 @@
 | 대상 | 고정 revision | 의미 |
 |---|---|---|
 | `sage-spec` | `520e5ed9a896ff8ba8ade776484f41084957aaa2` | 채택된 SAGE 0.10.0 규범 설계 |
-| Go `sage` | `2322b2aa4b13ed41b2c5232a1d7382003ebee0e1` | 현재 MCP 구현 검사 대상 |
-| Rust `rs-sage-core` | `c89d1d5121b2c5ccb89b393ae0e32120de2f7726` | 현재 MCP 구현 검사 대상 |
+| Go `sage` | `1f2dd87643e42b7ed3beda6956158ff23dcc7ea2` | 현재 MCP 구현 검사 대상 |
+| Rust `rs-sage-core` | `40b5a8c6d76d952131013d8a034f819fd31b7ca0` | 현재 MCP 구현 검사 대상 |
 | `sage-inspector` | `27795685ca5d908a20455057f52c088086a6b119` | 기준선 정렬을 시작한 Inspector revision |
 | 역사적 명세 snapshot | `f4a4e7fbf71a665785984eef7609b2e8fabe833d` | 기존 386개 사례와 증거를 보존하는 입력 |
 
@@ -31,6 +31,12 @@
 그 발견은 현재 계획 종료 후 errata 검토에서 다시 판정한다.
 
 ## 변경할 수 없는 실행 순서
+
+2026-09-24 실행 증거 기준으로 1~3단계의 revision 대조와 구현 검토가 완료되었고,
+4단계의 [Inspector MCP 결합 증거](mcp-binding-evidence.md)는 부모 71건, 양쪽
+코어의 필수 하위 스케줄 각 26건, 보호 교환 4조합과 재시작 8건을 확인했다. 이
+결과는 `EVIDENCE_CHECKED`이며 전체 프로토콜 적합성은 `NOT_ESTABLISHED`이다.
+다음 순서는 5단계 INS-11 코어 수명주기 잔여 검증이다.
 
 ### 1. 규범 기준선과 증거 provenance 정렬
 
@@ -104,4 +110,3 @@ direct-call 차단, subprocess/file/network 효과 중재, signing-key 격리, �
 - 사람과 에이전트가 작성한 커밋과 PR은 영어 Conventional Commit을 사용하며
   emoji와 co-author attribution을 넣지 않는다.
 - PR은 squash merge하고 작업 브랜치를 삭제한 뒤 로컬 `main`을 원격과 동기화한다.
-

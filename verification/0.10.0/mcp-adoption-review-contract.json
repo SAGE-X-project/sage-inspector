@@ -9,8 +9,8 @@
     "manifest_sha256": "5727834113a41ef910d4a5c5487457b6e3ae9f89ac36e86946a6e72ae28c1f35",
     "consolidated_sha256": "e458164c30416e6099aafe6c8d33471a28f595be5240200040b439a997ee5e6d",
     "tool_sha256": "c3edd622a7c90baa028118f63af42a91f354fe7202070ef91a4bd349e4048204",
-    "setup_evidence_contract_sha256": "01cdaef9e0f467e6043108c7acc0595c4447368be11ff041d1d1a44cff3e2593",
-    "aggregate_evidence_contract_sha256": "efd0b6dae50a436a7977aaea3a15f43a2c5c9de017fe0472dff2e46a772809f2"
+    "setup_evidence_contract_sha256": "8ffd0ca7b6528e9d1413057edd3641c73dbd744699553548c088efed49e2be42",
+    "aggregate_evidence_contract_sha256": "892bc9fa692d1f74579aa34e35c97929ddd45c5c44befc7b7e926ddd5c78ddfb"
   },
   "review_scope": [
     "state-machine-consistency",

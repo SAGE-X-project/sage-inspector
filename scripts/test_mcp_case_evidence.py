@@ -9,6 +9,7 @@ import unittest
 
 import check_mcp_case_evidence as checker
 from run_mcp_core_runtime import (CASES, OWNER_CONTRACT, OWNER_CONTRACT_CASES, PINS,
+                                  NORMATIVE_CONTRACTS, NORMATIVE_CONTRACT_CASES,
                                   SETUP_CONTRACT, SETUP_CONTRACT_CASES, SETUP_VALUE,
                                   SIGNATURE_CONTRACT, SIGNATURE_CONTRACT_CASES)
 
@@ -43,6 +44,8 @@ class CaseEvidenceTests(unittest.TestCase):
         (self.runtime / 'owner-admission-contract.json').write_bytes(OWNER_CONTRACT.read_bytes())
         (self.runtime / 'signature-boundary-contract.json').write_bytes(SIGNATURE_CONTRACT.read_bytes())
         (self.runtime / 'setup-case-contract.json').write_bytes(SETUP_CONTRACT.read_bytes())
+        for language, contract in NORMATIVE_CONTRACTS.items():
+            (self.runtime / (language + '-normative-review-contract.json')).write_bytes(contract.read_bytes())
         runner = b'pinned synthetic runtime runner\n'
         (self.runtime / 'runner.py').write_bytes(runner)
         subjects = {}
@@ -56,6 +59,8 @@ class CaseEvidenceTests(unittest.TestCase):
                     row['signature_boundary'] = SIGNATURE_CONTRACT_CASES[language][name]
                 if name in SETUP_CONTRACT_CASES[language]:
                     row['setup_cases'] = SETUP_CONTRACT_CASES[language][name]
+                if name in NORMATIVE_CONTRACT_CASES[language]:
+                    row['mandatory_children'] = NORMATIVE_CONTRACT_CASES[language][name]
                 required = {test for assessment in checker.ASSESSMENTS.values()
                             for _, test in assessment['requirements']}
                 if name in required:
@@ -69,13 +74,16 @@ class CaseEvidenceTests(unittest.TestCase):
             subjects[language] = {'revision': PINS[language], 'build': {'status': 'PASS'},
                                   'cases': rows}
         subjects['go']['hpke_build'] = {'status': 'PASS'}
+        subjects['go']['execution_build'] = {'status': 'PASS'}
         self.report = {
             'kind': 'mcp-core-runtime-tests', 'status': 'PASS',
             'conformance': 'NOT_ESTABLISHED', 'interoperability': 'NOT_RUN',
-            'catalog': {'NOT_RUN': 71}, 'mandatory_children': 'NOT_PROMOTED',
+            'catalog': {'NOT_RUN': 71}, 'mandatory_children': 'PINNED_CORE_ASSERTIONS',
             'owner_admission_contract_sha256': checker.sha(OWNER_CONTRACT.read_bytes()),
             'signature_boundary_contract_sha256': checker.sha(SIGNATURE_CONTRACT.read_bytes()),
             'setup_case_contract_sha256': checker.sha(SETUP_CONTRACT.read_bytes()),
+            'normative_contract_sha256': {language: checker.sha(path.read_bytes())
+                                          for language, path in NORMATIVE_CONTRACTS.items()},
             'runner_sha256': checker.sha(runner), 'inspector_revision': '1' * 40,
             'subjects': subjects,
         }

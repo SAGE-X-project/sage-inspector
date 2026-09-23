@@ -3,9 +3,9 @@
   "protocol_version": "0.10.0",
   "kind": "mcp-proposal-case-evidence",
   "catalog_manifest_sha256": "5727834113a41ef910d4a5c5487457b6e3ae9f89ac36e86946a6e72ae28c1f35",
-  "owner_admission_contract_sha256": "244417492f45c8657fc6e3b6b060e330e81f1f9939223068535ab6962a1a5527",
-  "signature_boundary_contract_sha256": "3ff946efed2d6adc640ae7af4642083cab69b6b3bb93cf4ca8d14776e774cc2b",
-  "setup_case_contract_sha256": "01cdaef9e0f467e6043108c7acc0595c4447368be11ff041d1d1a44cff3e2593",
+  "owner_admission_contract_sha256": "eb4131b631669a0fc9bf871506c56c488f5a9193c5d353885007f890ab412fb3",
+  "signature_boundary_contract_sha256": "199b61b4434b61f10c92e320d5fdbdea6f0161bf5463779ba853a2e8d42a5499",
+  "setup_case_contract_sha256": "8ffd0ca7b6528e9d1413057edd3641c73dbd744699553548c088efed49e2be42",
   "historical_catalog": {
     "NOT_RUN": 71
   },

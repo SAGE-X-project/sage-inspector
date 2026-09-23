@@ -3,8 +3,8 @@
 The earlier [core review](mcp-owner-core-review.md) identified four integration gaps
 at Go `be621819...` and Rust `ad30c6a...`. Both cores subsequently added private
 owner-aware admission and protected-reply paths. This review pins Go
-`2322b2aa4b13ed41b2c5232a1d7382003ebee0e1` and Rust
-`c89d1d5121b2c5ccb89b393ae0e32120de2f7726`. It does not reinterpret the older
+`1f2dd87643e42b7ed3beda6956158ff23dcc7ea2` and Rust
+`40b5a8c6d76d952131013d8a034f819fd31b7ca0`. It does not reinterpret the older
 decision at its original revisions.
 
 The machine-readable
@@ -88,3 +88,8 @@ built both archived sources and passed all 49 selected Go tests and 45 selected 
 tests, including all thirteen owner-admission tests per core. The related Inspector controls and full Go
 test suite also passed. CI regenerates and preserves these reports rather than
 treating this local observation as immutable release evidence.
+
+The 2026-09-24 evidence run at the newer pinned revisions passed 64 Go and 61 Rust
+selected tests, including the 26 mandatory child schedules in each core. The
+[combined binding report](mcp-binding-evidence.md) links this runtime result to the
+current parent-case overlay and protected interoperability observations.

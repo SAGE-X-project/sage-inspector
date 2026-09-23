@@ -13,7 +13,7 @@ Evidence is divided by what each case asserts:
 | Native interoperability | 2 | Go/Go, Go/Rust, Rust/Go and Rust/Rust protected exchanges plus server and client journal reopening for every pair |
 | Policy assertion | 3 | Explicit proposal status, excluded HTTP behavior and unchanged historical catalog state in the hashed consolidated proposal |
 
-The core runner executes 49 selected Go tests and 45 selected Rust tests. Within
+The core runner executes 64 selected Go tests and 61 selected Rust tests. Within
 that inventory, 32 Go tests and 28 Rust tests jointly provide 53 case links per
 language. A test may support several cases only when the contract lists each link;
 the checker rejects missing, duplicate, skipped, changed or merely relabelled rows.

@@ -18,8 +18,12 @@ from check_mcp_signature_boundary import CONTRACT as SIGNATURE_CONTRACT, contrac
 ROOT = Path(__file__).resolve().parents[1]
 OWNER_CONTRACT = ROOT / 'verification/0.10.0/mcp-owner-admission-contract.json'
 SETUP_CONTRACT = ROOT / 'verification/0.10.0/mcp-setup-case-contract.json'
-PINS = {'go': '2322b2aa4b13ed41b2c5232a1d7382003ebee0e1',
-        'rust': 'c89d1d5121b2c5ccb89b393ae0e32120de2f7726'}
+NORMATIVE_CONTRACTS = {
+    'go': ROOT / 'verification/0.10.0/go-normative-review-contract.json',
+    'rust': ROOT / 'verification/0.10.0/rust-normative-review-contract.json',
+}
+PINS = {'go': '1f2dd87643e42b7ed3beda6956158ff23dcc7ea2',
+        'rust': '40b5a8c6d76d952131013d8a034f819fd31b7ca0'}
 PREFIX = 'hpke::completion010::tests::mcp_admission_tests::mcp_reply_tests::mcp_transport_tests::'
 CASES = {
     'go': ('TestMCPHostConnectionRuntime', 'TestMCPHostConnectionRetainsBlockedHandshake',
@@ -86,13 +90,42 @@ for assessment in SETUP_VALUE['assessments']:
 GO_TEST_PACKAGES = SETUP_VALUE['cores']['go']['test_packages']
 
 
+def normative_contract(language):
+    value = json.loads(NORMATIVE_CONTRACTS[language].read_text())
+    revision = value.get(language + '_revision')
+    if (value.get('kind') != language + '-normative-implementation-review'
+            or value.get('review_status') != 'COMPLETE'
+            or value.get('counts') != {'DIRECT': 26, 'PARTIAL': 0, 'MISSING': 0}
+            or revision != PINS[language]
+            or len(value.get('children', [])) != 26):
+        raise ValueError('normative review contract mismatch: ' + language)
+    result = {}
+    children = set()
+    for child in value['children']:
+        if child.get('status') != 'DIRECT' or not child.get('tests') or child.get('id') in children:
+            raise ValueError('normative child mapping: ' + language)
+        children.add(child['id'])
+        for test in child['tests']:
+            result.setdefault(test, []).append(child['id'])
+    if len(children) != 26:
+        raise ValueError('normative child inventory: ' + language)
+    return value, result
+
+
+NORMATIVE_VALUES = {}
+NORMATIVE_CONTRACT_CASES = {}
+for _language in PINS:
+    NORMATIVE_VALUES[_language], NORMATIVE_CONTRACT_CASES[_language] = normative_contract(_language)
+
+
 def unique(values):
     return tuple(dict.fromkeys(values))
 
 
 CASES = {language: unique(names + tuple(SCHEDULES[language]) + tuple(OWNER_CONTRACT_CASES[language])
                           + tuple(SIGNATURE_CONTRACT_CASES[language])
-                          + tuple(SETUP_CONTRACT_CASES[language]))
+                          + tuple(SETUP_CONTRACT_CASES[language])
+                          + tuple(NORMATIVE_CONTRACT_CASES[language]))
          for language, names in CASES.items()}
 
 
@@ -180,6 +213,7 @@ def execute(language, repo, output, work):
     binary = work / (language + '-mcp-tests')
     env = os.environ.copy()
     env['CARGO_TARGET_DIR'] = str(work / 'rust-target')
+    env['GOCACHE'] = str(work / 'go-build-cache')
     if language == 'go':
         command = ['go', 'test', '-mod=readonly', '-race', '-c', '-o', str(binary), './pkg/agent/guard010']
     else:
@@ -189,6 +223,7 @@ def execute(language, repo, output, work):
     if build['status'] != 'PASS':
         return subject
     go_hpke_binary = None
+    go_execution_binary = None
     if language == 'go':
         go_hpke_binary = work / 'go-hpke-tests'
         hpke_build = run(['go', 'test', '-mod=readonly', '-race', '-c', '-o',
@@ -198,6 +233,14 @@ def execute(language, repo, output, work):
         if hpke_build['status'] != 'PASS':
             return subject
         subject['hpke_executable_sha256'] = digest(go_hpke_binary)
+        go_execution_binary = work / 'go-execution-tests'
+        execution_build = run(['go', 'test', '-mod=readonly', '-race', '-c', '-o',
+                               str(go_execution_binary), './pkg/agent/execution010'], source,
+                              output / 'go-execution-build.log', 600, env)
+        subject['execution_build'] = execution_build
+        if execution_build['status'] != 'PASS':
+            return subject
+        subject['execution_executable_sha256'] = digest(go_execution_binary)
     if language == 'rust':
         artifacts = []
         for line in (output / build['log']).read_text().splitlines():
@@ -217,12 +260,15 @@ def execute(language, repo, output, work):
     dependency.write_bytes(lock.read_bytes())
     subject['dependencies'] = {'file': dependency.name, 'sha256': digest(dependency)}
     for index, name in enumerate(CASES[language]):
-        selected_binary = (go_hpke_binary if language == 'go' and
-                           (name.startswith('TestCompletion010') or GO_TEST_PACKAGES.get(name) == 'hpke') else binary)
+        selected_binary = binary
+        package = 'guard010'
+        if language == 'go' and (name.startswith('TestCompletion010') or GO_TEST_PACKAGES.get(name) == 'hpke'):
+            selected_binary, package = go_hpke_binary, 'hpke'
+        elif language == 'go' and name == 'TestStorageFailures':
+            selected_binary, package = go_execution_binary, 'execution010'
         command = ([str(selected_binary), '-test.run=^' + name + '$', '-test.v', '-test.timeout=25s']
                    if language == 'go' else [str(binary), name, '--exact', '--test-threads=1', '--color=never'])
-        directory = (source / ('pkg/agent/hpke' if selected_binary == go_hpke_binary
-                               else 'pkg/agent/guard010') if language == 'go' else source)
+        directory = source / ('pkg/agent/' + package) if language == 'go' else source
         row = run(command, directory, output / f'{language}-{index}.log', 30, env)
         row['test'] = name
         row['execution_status'] = row['status']
@@ -234,6 +280,8 @@ def execute(language, repo, output, work):
             row['signature_boundary'] = SIGNATURE_CONTRACT_CASES[language][name]
         if name in SETUP_CONTRACT_CASES[language]:
             row['setup_cases'] = SETUP_CONTRACT_CASES[language][name]
+        if name in NORMATIVE_CONTRACT_CASES[language]:
+            row['mandatory_children'] = NORMATIVE_CONTRACT_CASES[language][name]
         row['status'] = ('PASS' if row['status'] == 'PASS' and observed(
             language, name, (output / row['log']).read_text(), row['exit_code']) else 'FAIL')
         subject['cases'].append(row)
@@ -244,6 +292,7 @@ def successful(subjects):
     return set(subjects) == set(CASES) and all(
         subjects[lang]['build']['status'] == 'PASS'
         and (lang != 'go' or subjects[lang].get('hpke_build', {}).get('status') == 'PASS')
+        and (lang != 'go' or subjects[lang].get('execution_build', {}).get('status') == 'PASS')
         and [r['test'] for r in subjects[lang]['cases']] == list(names)
         and all(r['status'] == 'PASS' for r in subjects[lang]['cases'])
         and all(r.get('owner_admission_boundaries') == OWNER_CONTRACT_CASES[lang][r['test']]
@@ -252,6 +301,8 @@ def successful(subjects):
                 for r in subjects[lang]['cases'] if r['test'] in SIGNATURE_CONTRACT_CASES[lang])
         and all(r.get('setup_cases') == SETUP_CONTRACT_CASES[lang][r['test']]
                 for r in subjects[lang]['cases'] if r['test'] in SETUP_CONTRACT_CASES[lang])
+        and all(r.get('mandatory_children') == NORMATIVE_CONTRACT_CASES[lang][r['test']]
+                for r in subjects[lang]['cases'] if r['test'] in NORMATIVE_CONTRACT_CASES[lang])
         for lang, names in CASES.items())
 
 
@@ -269,13 +320,17 @@ def main():
     (output / 'owner-admission-contract.json').write_bytes(OWNER_CONTRACT.read_bytes())
     (output / 'signature-boundary-contract.json').write_bytes(SIGNATURE_CONTRACT.read_bytes())
     (output / 'setup-case-contract.json').write_bytes(SETUP_CONTRACT.read_bytes())
+    for language, contract_path in NORMATIVE_CONTRACTS.items():
+        (output / (language + '-normative-review-contract.json')).write_bytes(contract_path.read_bytes())
     report = dict(kind='mcp-core-runtime-tests', status='FAIL',
                   conformance='NOT_ESTABLISHED', interoperability='NOT_RUN',
-                  catalog=dict(NOT_RUN=71), mandatory_children='NOT_PROMOTED',
+                  catalog=dict(NOT_RUN=71), mandatory_children='PINNED_CORE_ASSERTIONS',
                   owner_admission_contract_sha256=digest(OWNER_CONTRACT),
                   signature_boundary_contract_sha256=digest(SIGNATURE_CONTRACT),
                   setup_case_contract_sha256=digest(SETUP_CONTRACT),
-                  scope='Pinned private core assertions for owner, admission, signature and authenticated MCP setup cases; no protocol conformance claim',
+                  normative_contract_sha256={language: digest(path)
+                                             for language, path in NORMATIVE_CONTRACTS.items()},
+                  scope='Pinned private core assertions for owner, admission, signature, authenticated MCP setup and 26 mandatory child schedules; no protocol conformance claim',
                   runner_sha256=digest(Path(__file__)), subjects={})
     try:
         report['inspector_revision'] = subprocess.check_output(

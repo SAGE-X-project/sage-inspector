@@ -6,8 +6,8 @@ adapter or a Go/Rust interoperability result. It deliberately uses the existing
 private core path rather than exporting session keys, resettable history or an
 alternate sender for verification.
 
-Inputs are Go `2322b2aa4b13ed41b2c5232a1d7382003ebee0e1` and Rust
-`c89d1d5121b2c5ccb89b393ae0e32120de2f7726`. The runner archives these exact commits
+Inputs are Go `1f2dd87643e42b7ed3beda6956158ff23dcc7ea2` and Rust
+`40b5a8c6d76d952131013d8a034f819fd31b7ca0`. The runner archives these exact commits
 and builds temporary copies. Dirty and untracked working files are not used or
 modified. The old [owner review](mcp-owner-core-review.md) and
 [proposal catalog](mcp-consolidated-catalog.md) remain historical records at their
@@ -44,13 +44,17 @@ An existing evidence directory is never overwritten. Classifier tests and harmle
 local process success/failure/timeout tests run in Inspector CI; core runtime execution
 also runs in the native MCP CI job with the pinned repositories and dependencies.
 
-The report's PASS means only that all 49 selected Go tests and 45 selected Rust tests executed and
+The report's PASS means only that all 64 selected Go tests and 61 selected Rust tests executed and
 passed. Raw protocol frames, complete journals, callback identities and independent
 wire assertions are not collected by this adapter. Accordingly, interoperability
 remains NOT_RUN and conformance remains NOT_ESTABLISHED. The historical catalog stays
 71 NOT_RUN. A separate [case evidence overlay](mcp-case-evidence.md) may derive current
 per-case results only from exact mapped test logs; it does not alter this runtime
-report's historical catalog field or promote the 26 mandatory child obligations.
+report's historical catalog field. The runner executes and hashes every distinct test
+mapped by the 26-child Go and Rust review contracts; its `PINNED_CORE_ASSERTIONS`
+marker records that narrow evidence without claiming full conformance. The combined
+[binding evidence](mcp-binding-evidence.md) validates those children together with
+parent cases and protected interoperability.
 
 The [native setup bridges](mcp-native-setup.md) now retain the actual owner and sole
 transport path for Go/Go, Go/Rust, Rust/Go and Rust/Rust setup exchanges. Protected

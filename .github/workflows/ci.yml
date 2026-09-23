@@ -66,9 +66,11 @@ jobs:
           python3 -B scripts/test_mcp_owner_admission.py
           python3 -B scripts/test_mcp_setup_cases.py
           python3 -B scripts/test_mcp_case_evidence.py
+          python3 -B scripts/test_mcp_binding_evidence.py
           python3 -B scripts/test_mcp_adoption_review.py
           python3 -B scripts/test_normative_baseline.py
           python3 -B scripts/test_go_normative_review.py
+          python3 -B scripts/test_rust_normative_review.py
       - name: Audit Guard binding readiness
         run: |
           python3 scripts/test_guard_binding.py
@@ -612,12 +614,12 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: SAGE-X-project/sage
-          ref: 2322b2aa4b13ed41b2c5232a1d7382003ebee0e1
+          ref: 1f2dd87643e42b7ed3beda6956158ff23dcc7ea2
           path: .mcp-go
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: SAGE-X-project/rs-sage-core
-          ref: c89d1d5121b2c5ccb89b393ae0e32120de2f7726
+          ref: 40b5a8c6d76d952131013d8a034f819fd31b7ca0
           path: .mcp-rust
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -636,6 +638,7 @@ jobs:
         run: |
           python3 -B scripts/check_normative_baseline.py --spec-root .sage-spec-normative --go-root .mcp-go --rust-root .mcp-rust --output "${RUNNER_TEMP}/normative-baseline"
           python3 -B scripts/check_go_normative_review.py --spec-root .sage-spec-normative --go-root .mcp-go --output "${RUNNER_TEMP}/go-normative-review"
+          python3 -B scripts/check_rust_normative_review.py --spec-root .sage-spec-normative --rust-root .mcp-rust --output "${RUNNER_TEMP}/rust-normative-review"
           python3 -B scripts/check_mcp_owner_admission.py --go-root .mcp-go --rust-root .mcp-rust --output "${RUNNER_TEMP}/mcp-owner-admission"
           python3 -B scripts/check_mcp_signature_boundary.py --go-root .mcp-go --rust-root .mcp-rust --output "${RUNNER_TEMP}/mcp-signature-boundary"
           python3 -B scripts/run_mcp_core_runtime.py --go .mcp-go --rust .mcp-rust --output "${RUNNER_TEMP}/mcp-core-runtime"
@@ -647,6 +650,7 @@ jobs:
         run: |
           python3 -B scripts/check_mcp_setup_cases.py --runtime "${RUNNER_TEMP}/mcp-core-runtime" --interop "${RUNNER_TEMP}/mcp-native-protected" --output "${RUNNER_TEMP}/mcp-setup-cases"
           python3 -B scripts/check_mcp_case_evidence.py --runtime "${RUNNER_TEMP}/mcp-core-runtime" --setup "${RUNNER_TEMP}/mcp-setup-cases" --output "${RUNNER_TEMP}/mcp-case-evidence"
+          python3 -B scripts/check_mcp_binding_evidence.py --runtime "${RUNNER_TEMP}/mcp-core-runtime" --parents "${RUNNER_TEMP}/mcp-case-evidence" --interop "${RUNNER_TEMP}/mcp-native-protected" --output "${RUNNER_TEMP}/mcp-binding-evidence"
       - name: Recheck saved MCP evidence
         run: python3 -B scripts/audit_mcp_evidence.py --evidence "${RUNNER_TEMP}/mcp-native-protected" > "${RUNNER_TEMP}/mcp-native-audit.json"
       - name: Preserve native interoperability evidence
@@ -660,10 +664,12 @@ jobs:
             ${{ runner.temp }}/mcp-native-audit.json
             ${{ runner.temp }}/normative-baseline/
             ${{ runner.temp }}/go-normative-review/
+            ${{ runner.temp }}/rust-normative-review/
             ${{ runner.temp }}/mcp-core-runtime/
             ${{ runner.temp }}/mcp-owner-admission/
             ${{ runner.temp }}/mcp-signature-boundary/
             ${{ runner.temp }}/mcp-case-evidence/
+            ${{ runner.temp }}/mcp-binding-evidence/
             ${{ runner.temp }}/mcp-setup-cases/
             ${{ runner.temp }}/mcp-native-setup/
             ${{ runner.temp }}/mcp-native-protected/

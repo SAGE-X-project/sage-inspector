@@ -8,6 +8,7 @@ import sys
 from check_mcp_catalog import BASE as CATALOG_BASE, catalog
 from check_mcp_owner_admission import load, require, sha
 from run_mcp_core_runtime import (OWNER_CONTRACT, OWNER_CONTRACT_CASES, PINS,
+                                  NORMATIVE_CONTRACTS,
                                   SETUP_CONTRACT, SIGNATURE_CONTRACT, SIGNATURE_CONTRACT_CASES,
                                   observed, successful)
 
@@ -178,11 +179,18 @@ def validate_runtime(base):
     report = load(raw)
     require(report.get('kind') == 'mcp-core-runtime-tests' and report.get('status') == 'PASS', 'runtime status')
     require(report.get('conformance') == 'NOT_ESTABLISHED' and report.get('interoperability') == 'NOT_RUN', 'runtime claim promotion')
-    require(report.get('catalog') == {'NOT_RUN': 71} and report.get('mandatory_children') == 'NOT_PROMOTED', 'historical catalog changed')
+    require(report.get('catalog') == {'NOT_RUN': 71}
+            and report.get('mandatory_children') == 'PINNED_CORE_ASSERTIONS',
+            'historical catalog or mandatory child evidence changed')
     require(report.get('owner_admission_contract_sha256') == sha(OWNER_CONTRACT.read_bytes()), 'runtime owner contract')
     require(report.get('signature_boundary_contract_sha256') == sha(SIGNATURE_CONTRACT.read_bytes()), 'runtime signature contract')
     require(safe_read(base, 'owner-admission-contract.json') == OWNER_CONTRACT.read_bytes(), 'preserved owner contract')
     require(safe_read(base, 'signature-boundary-contract.json') == SIGNATURE_CONTRACT.read_bytes(), 'preserved signature contract')
+    for language, contract in NORMATIVE_CONTRACTS.items():
+        require(safe_read(base, language + '-normative-review-contract.json') == contract.read_bytes(),
+                'preserved normative contract: ' + language)
+        require(report.get('normative_contract_sha256', {}).get(language) == sha(contract.read_bytes()),
+                'runtime normative contract: ' + language)
     runner = safe_read(base, 'runner.py')
     require(sha(runner) == report.get('runner_sha256'), 'runtime runner hash')
     subjects = report.get('subjects')

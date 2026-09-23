@@ -16,7 +16,7 @@
   "conformance": "NOT_ESTABLISHED",
   "cores": {
     "go": {
-      "revision": "2322b2aa4b13ed41b2c5232a1d7382003ebee0e1",
+      "revision": "1f2dd87643e42b7ed3beda6956158ff23dcc7ea2",
       "files": {
         "pkg/agent/guard010/json.go": "d92529d21b23adb43436d890ce7c3829a73ebfcdb8cc528108cc78de94e6e442",
         "pkg/agent/guard010/mcp_owner.go": "f4d376555edfca44b799cc52b3b9a08e9ed6940a4fc227bb9e38f15dc7a1ba37",
@@ -26,13 +26,13 @@
         "pkg/agent/guard010/mcp_session.go": "d2cf452012be1825c1618f1f762ca34fdbab4055312b3c741bf535048089113b",
         "pkg/agent/guard010/mcp_owner_test.go": "0c3b77b53b487abee605d1d35464070ca0226663b8f498ce906c4078cb896c6f",
         "pkg/agent/guard010/mcp_setup_test.go": "84b02fc6b2ab395f75a0272b17ca7faf50b8af9815cdc2015b86c339683fd4d3",
-        "pkg/agent/guard010/mcp_setup_session_test.go": "23bfa0a1c04a7a406a881038d97dbca02a2940d6e3cac0bc3e7a5be8ac60fb41",
+        "pkg/agent/guard010/mcp_setup_session_test.go": "18c368e89fccd27b17a48d5911f1e20000c94535ef3801acb3d870e3a02f93fb",
         "pkg/agent/guard010/mcp_stream_test.go": "8a3464d03324d55699268b546909939673e5076fe85aaa15b9ca2d515fd87ce2",
         "pkg/agent/guard010/mcp_session_test.go": "adbde04ffddfb06d6683ccd09ac0910a8ec5c4c85a0abee92e9aa7345879da84",
         "pkg/agent/guard010/mcp_test.go": "dce43600477ccf6fe47a7bddd6116811865228cd9fb1be6628854f462ba5d85d",
         "pkg/agent/guard010/mcp_protected_reply_test.go": "e73f32f500fbcc25c066e31b0fae38abb4888109d396cca8aca17e97c3d9b768",
         "pkg/agent/guard010/mcp_host_test.go": "d86dce98c5b01827d47d0b3e4799be5fd1cd2d9f42e39387978472079f9583a8",
-        "pkg/agent/guard010/mcp_admission_test.go": "1b5a26d228e059f2e1f9fc5d910e11d5ecb37c743007a64bd4f917aa78999b36",
+        "pkg/agent/guard010/mcp_admission_test.go": "e0df02da21f38d48fa68fc8274b17862a2f32c9bc0110a1e70d6b447f53d313a",
         "pkg/agent/guard010/guard_test.go": "bd88e99f43b8dd0bacd070976f9719974c16affd6ec573994cd5b703537a460c",
         "pkg/agent/hpke/record010_test.go": "362b4592506a81c849d48257a42efce08bbd7d87116d27d510190f2760de1e42",
         "pkg/agent/hpke/response010_test.go": "75934237c2604163d718570155d08c37c1e11cfc7678d00e828c2211793bdc2d"
@@ -73,7 +73,7 @@
       }
     },
     "rust": {
-      "revision": "c89d1d5121b2c5ccb89b393ae0e32120de2f7726",
+      "revision": "40b5a8c6d76d952131013d8a034f819fd31b7ca0",
       "files": {
         "src/guard010/mcp_setup.rs": "b00a53c17d4bda3a0f4d76efca41e10a6066d18250a272a2f9a9dc1d322a4eac",
         "src/guard010/mcp_session.rs": "e8a89743769367e60dcb73295ac75e4993c478602cdde63d73704a0f60491da7",
@@ -81,11 +81,11 @@
         "src/guard010/mcp_tests.rs": "520ecf36f8807a5730b4fbe9274f1d1a112b7b2c779a887ab319294d1f0175e2",
         "src/guard010/tests.rs": "0365d16818660ccc05026c140ff2d7f7d8b7d26ee74d086ea398e4845d067bc4",
         "src/hpke/completion010/mcp_setup_tests.rs": "f521d7115e03ffd0da3e59dc12184319e604c29ea55f239c92188277510bb73a",
-        "src/hpke/completion010/mcp_lifecycle_tests.rs": "343192735848092e53224be55463c011e6a55af3104839c0e78993c62b20667f",
+        "src/hpke/completion010/mcp_lifecycle_tests.rs": "f2a6fee7c8489421689a230b3cb0776e522875d064403d0ed23c422bc9d1a8a9",
         "src/hpke/completion010/mcp_transport_tests.rs": "6ede29fdc1fc484d1b2432f4418c00f1c15cf069426a658040b774f313010892",
         "src/hpke/completion010/mcp_reply_tests.rs": "3e20b0d7a0488ae8fbf6a0332e8de0e9f3dfbadf73458f68e4d8ff5c1706552a",
-        "src/hpke/completion010/mcp_admission_tests.rs": "fd3fff4e1671511f5fb8f3c60f52c84eeb498b7bf11d64426e6823f2a78aab50",
-        "src/hpke/completion010/tests.rs": "c00ac77a5b9282afd54b095b44892231425530edb13f2b6068d64affc9df2040"
+        "src/hpke/completion010/mcp_admission_tests.rs": "c76a93a313d0e4dd9d28d657d369aa37ba4e11a458cde30f8ca0f7472a1ba85d",
+        "src/hpke/completion010/tests.rs": "e644cf8af81dac019c68a41c53c66e303a15b01be242d0888b7e60efb7792a26"
       }
     }
   },

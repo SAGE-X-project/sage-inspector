@@ -13,11 +13,12 @@ import tempfile
 import time
 
 from check_mcp_owner_admission import load as load_owner_contract, validate as validate_owner_contract
+from check_mcp_signature_boundary import CONTRACT as SIGNATURE_CONTRACT, contract as signature_contract
 
 ROOT = Path(__file__).resolve().parents[1]
 OWNER_CONTRACT = ROOT / 'verification/0.10.0/mcp-owner-admission-contract.json'
-PINS = {'go': 'da6e0c36ae2b088476d2f063ed08fd2511dd60dc',
-        'rust': 'c33324d5fbebb01f396f85be80be4cdffaddf85d'}
+PINS = {'go': 'e750b2ab2f901b250af4805a9b8c6266752bdfc2',
+        'rust': '24626154967dc3bc85ad1a69da34011e3a1f5dc5'}
 PREFIX = 'hpke::completion010::tests::mcp_admission_tests::mcp_reply_tests::mcp_transport_tests::'
 CASES = {
     'go': ('TestMCPHostConnectionRuntime', 'TestMCPHostConnectionRetainsBlockedHandshake',
@@ -62,7 +63,9 @@ def owner_contract():
 
 
 OWNER_CONTRACT_CASES = {language: core['tests'] for language, core in owner_contract()['cores'].items()}
+SIGNATURE_CONTRACT_CASES = {language: (core['test'],) for language, core in signature_contract()['cores'].items()}
 CASES = {language: names + tuple(SCHEDULES[language]) + tuple(OWNER_CONTRACT_CASES[language])
+         + SIGNATURE_CONTRACT_CASES[language]
          for language, names in CASES.items()}
 
 
@@ -182,6 +185,8 @@ def execute(language, repo, output, work):
         if name in SCHEDULES[language]: row['schedule_assertion'] = SCHEDULES[language][name]
         if name in OWNER_CONTRACT_CASES[language]:
             row['owner_admission_boundaries'] = OWNER_CONTRACT_CASES[language][name]
+        if name in SIGNATURE_CONTRACT_CASES[language]:
+            row['signature_boundary'] = 'intent-algorithm'
         row['status'] = ('PASS' if row['status'] == 'PASS' and observed(
             language, name, (output / row['log']).read_text(), row['exit_code']) else 'FAIL')
         subject['cases'].append(row)
@@ -195,6 +200,8 @@ def successful(subjects):
         and all(r['status'] == 'PASS' for r in subjects[lang]['cases'])
         and all(r.get('owner_admission_boundaries') == OWNER_CONTRACT_CASES[lang][r['test']]
                 for r in subjects[lang]['cases'] if r['test'] in OWNER_CONTRACT_CASES[lang])
+        and all(r.get('signature_boundary') == 'intent-algorithm'
+                for r in subjects[lang]['cases'] if r['test'] in SIGNATURE_CONTRACT_CASES[lang])
         for lang, names in CASES.items())
 
 
@@ -210,10 +217,12 @@ def main():
     output.mkdir(parents=True, exist_ok=False)
     (output / 'runner.py').write_bytes(Path(__file__).read_bytes())
     (output / 'owner-admission-contract.json').write_bytes(OWNER_CONTRACT.read_bytes())
+    (output / 'signature-boundary-contract.json').write_bytes(SIGNATURE_CONTRACT.read_bytes())
     report = dict(kind='mcp-core-runtime-tests', status='FAIL',
                   conformance='NOT_ESTABLISHED', interoperability='NOT_RUN',
                   catalog=dict(NOT_RUN=71), mandatory_children='NOT_PROMOTED',
                   owner_admission_contract_sha256=digest(OWNER_CONTRACT),
+                  signature_boundary_contract_sha256=digest(SIGNATURE_CONTRACT),
                   scope='Pinned private core assertions and owner admission boundaries; no protocol conformance claim',
                   runner_sha256=digest(Path(__file__)), subjects={})
     try:

@@ -32,6 +32,7 @@ normative contract before implementing the corresponding owner API and safe runt
 interoperability. Missing independent external review is not satisfied by this checker.
 
 The separate [runtime evidence overlay](mcp-case-evidence.md) now derives current
-results without modifying this snapshot. It records two close/admission cases and
-one crash-recovery case as `PASS`, leaving 68 current cases `NOT_RUN`. This catalog
+results without modifying this snapshot. It records seven bounded runtime cases as
+`PASS`, including intent-signature algorithm enforcement, leaving 64 current cases
+`NOT_RUN`. This catalog
 report itself remains 71 `NOT_RUN` by design.

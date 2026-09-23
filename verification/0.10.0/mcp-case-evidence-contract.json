@@ -3,14 +3,15 @@
   "protocol_version": "0.10.0",
   "kind": "mcp-proposal-case-evidence",
   "catalog_manifest_sha256": "5727834113a41ef910d4a5c5487457b6e3ae9f89ac36e86946a6e72ae28c1f35",
-  "owner_admission_contract_sha256": "196eeff1533cae673811678c8212ff08287e859f42b8f1dff093e752d114d810",
+  "owner_admission_contract_sha256": "0d6002a6dc64ac6711484b1d68cb0c4415bf1dc0b7d2b7332a6fc59fb87c89a1",
+  "signature_boundary_contract_sha256": "bcd2a57bc561ab65ec30038b4d355cfba8aa9c51ef8f2a6e0461d2e9ba592a23",
   "historical_catalog": {
     "NOT_RUN": 71
   },
   "runtime_case_counts": {
-    "PASS": 6,
+    "PASS": 7,
     "PARTIAL": 0,
-    "NOT_RUN": 65
+    "NOT_RUN": 64
   },
   "external_review": "NOT_PERFORMED",
   "adoption": "PROPOSAL_NOT_ADOPTED",
@@ -107,6 +108,21 @@
         {
           "language": "rust",
           "test": "hpke::completion010::tests::mcp_admission_tests::ready_session_expiry_denies_new_admission_and_closes_owner"
+        }
+      ]
+    },
+    {
+      "id": "mres-signature-intent",
+      "status": "PASS",
+      "claim": "Both cores continue full intent authority, policy and reservation validation only for Ed25519, while valid P-256 and secp256k1 proofs stop before trusted services or durable mutation.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestBridgeIntentSignatureAlgorithmBoundary"
+        },
+        {
+          "language": "rust",
+          "test": "guard010::ledger::tests::intent_signature_algorithm_boundary_accepts_only_ed25519"
         }
       ]
     }

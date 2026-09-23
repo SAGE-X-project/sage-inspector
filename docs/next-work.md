@@ -434,5 +434,9 @@ nonce·request-ID 이력 직접 관측을 보완하여 `PASS`로 판정했다. d
 전환, 동일 intent 재실행 금지를 직접 관측해 `PASS`로 판정했다. 보호 deadline의
 최종 admission 전 만료는 zero effect와 예약 유지로, admission 후 응답 발행 중
 만료는 전송 실패·완료 저널 유지·재응답/재실행 금지로 양쪽 코어에서 직접 관측했다.
-따라서 5개가 `PASS`, 나머지 66개가 `NOT_RUN`이다. 다음은 READY 세션 만료 사례의
-정확한 양쪽 코어 관측이며, 규범 채택과 전체 적합성은 별도다.
+READY 세션 만료도 보호 메시지 수명이 남은 상태에서 admission 거부, owner 종료,
+효과 0을 양쪽 코어에서 관측했다. 이어서 role-bound intent proof의 Ed25519 경로가
+authority·policy·reservation까지 진행하고, 유효한 P-256·secp256k1 proof는 그 전에
+무효과로 거부되는 것을 고정했다. 따라서 7개가 `PASS`, 나머지 64개가 `NOT_RUN`이다.
+다음은 **result proof 알고리즘 경계**, 이후 outer/handshake carriage와 적합한
+Ed25519 signing key 부재 순서다. 규범 채택과 전체 적합성은 별도다.

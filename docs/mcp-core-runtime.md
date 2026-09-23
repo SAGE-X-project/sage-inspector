@@ -6,8 +6,8 @@ adapter or a Go/Rust interoperability result. It deliberately uses the existing
 private core path rather than exporting session keys, resettable history or an
 alternate sender for verification.
 
-Inputs are Go `da6e0c36ae2b088476d2f063ed08fd2511dd60dc` and Rust
-`c33324d5fbebb01f396f85be80be4cdffaddf85d`. The runner archives these exact commits
+Inputs are Go `e750b2ab2f901b250af4805a9b8c6266752bdfc2` and Rust
+`24626154967dc3bc85ad1a69da34011e3a1f5dc5`. The runner archives these exact commits
 and builds temporary copies. Dirty and untracked working files are not used or
 modified. The old [owner review](mcp-owner-core-review.md) and
 [proposal catalog](mcp-consolidated-catalog.md) remain historical records at their
@@ -44,7 +44,7 @@ An existing evidence directory is never overwritten. Classifier tests and harmle
 local process success/failure/timeout tests run in Inspector CI; core runtime execution
 also runs in the native MCP CI job with the pinned repositories and dependencies.
 
-The report's PASS means only that all thirty-four selected core tests executed and
+The report's PASS means only that all thirty-six selected core tests executed and
 passed. Raw protocol frames, complete journals, callback identities and independent
 wire assertions are not collected by this adapter. Accordingly, interoperability
 remains NOT_RUN and conformance remains NOT_ESTABLISHED. The historical catalog stays
@@ -85,7 +85,7 @@ are not equivalent across languages and do not cover every deadline ordering.
 
 CI preserves these reports separately under `mcp-core-runtime` in the native MCP
 artifact. Historical catalog cases remain NOT_RUN and conformance remains
-NOT_ESTABLISHED. The case overlay currently has complete evidence for six resolution
+NOT_ESTABLISHED. The case overlay currently has complete evidence for seven resolution
 cases. Independent per-case evidence and remaining ordering schedules must be added
 before promoting any other current result or normative coverage.
 
@@ -105,3 +105,13 @@ lifetime, crosses the session idle boundary and verifies denied admission, owner
 erased session usability and zero effects. Each report row records the exact boundary IDs from the hashed contract.
 The aggregate report fails if a mapped row omits or changes that mapping. Source identity is audited separately
 before the runtime job, and both reports are preserved in the same CI artifact.
+
+## Intent-signature algorithm boundary
+
+One additional test per core constructs and independently verifies role-bound
+Ed25519, P-256 and secp256k1 intent signatures. Ed25519 continues through current
+authority lookup, policy binding and durable reservation. The two unsupported
+algorithms stop before any trusted-service call or journal mutation. The hashed
+[signature contract](../verification/0.10.0/mcp-signature-boundary-contract.json)
+pins the implementation files and exact tests. It does not cover result proofs,
+outer or handshake carriage, key provisioning or full protocol conformance.

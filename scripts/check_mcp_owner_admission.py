@@ -8,7 +8,8 @@ import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
 CONTRACT = ROOT / 'verification/0.10.0/mcp-owner-admission-contract.json'
-BOUNDARIES = {'durable-admission', 'close-linearization', 'owner-isolation', 'output-publication'}
+BOUNDARIES = {'durable-admission', 'close-linearization', 'owner-isolation', 'output-publication',
+              'ready-past-setup', 'stale-setup-completion', 'close-before-reservation'}
 LANGUAGES = {'go', 'rust'}
 SOURCE_FILES = {
     'go': {
@@ -19,7 +20,8 @@ SOURCE_FILES = {
         'src/guard010/mcp_setup.rs', 'src/guard010/dispatch/mcp_admission.rs',
         'src/guard010/dispatch/mcp_admission/reply.rs',
         'src/hpke/completion010/mcp_admission_tests.rs',
-        'src/hpke/completion010/mcp_reply_tests.rs'},
+        'src/hpke/completion010/mcp_reply_tests.rs',
+        'src/hpke/completion010/mcp_setup_tests.rs'},
 }
 SELECTED_TESTS = {
     'go': {
@@ -30,7 +32,10 @@ SELECTED_TESTS = {
         'TestMCPAdmissionReadySessionExpiryDeniesNewAdmission',
         'TestMCPOwnerBlockedSendDoesNotBlockClose',
         'TestMCPProtectedReplyCloseDoesNotReleaseBlockedOutput',
-        'TestMCPProtectedReplyDeadlineAfterAdmissionRetainsCompletion'},
+        'TestMCPProtectedReplyDeadlineAfterAdmissionRetainsCompletion',
+        'TestMCPOwnerSetupAndRetainedHistory',
+        'TestMCPOwnerStaleSetupCompletionAfterReady',
+        'TestMCPAdmissionCloseBeforeReservationHasNoEffects'},
     'rust': {
         'hpke::completion010::tests::mcp_admission_tests::admission_fences_before_effects_and_gate_close_cancels_unclaimed_work',
         'hpke::completion010::tests::mcp_admission_tests::admitted_worker_persists_signed_result_once_and_duplicate_never_runs',
@@ -41,11 +46,14 @@ SELECTED_TESTS = {
         'hpke::completion010::tests::mcp_admission_tests::ready_session_expiry_denies_new_admission_and_closes_owner',
         'hpke::completion010::tests::mcp_admission_tests::mcp_reply_tests::failed_reply_does_not_erase_execution_or_allow_second_response',
         'hpke::completion010::tests::mcp_admission_tests::mcp_reply_tests::close_after_durable_acceptance_suppresses_output_and_reopen_cannot_redeliver',
-        'hpke::completion010::tests::mcp_admission_tests::mcp_reply_tests::protected_deadline_after_admission_fails_transport_without_rollback'},
+        'hpke::completion010::tests::mcp_admission_tests::mcp_reply_tests::protected_deadline_after_admission_fails_transport_without_rollback',
+        'hpke::completion010::tests::mcp_setup_tests::mcp_setup_ready_past_setup_deadline_uses_protected_limits',
+        'hpke::completion010::tests::mcp_setup_tests::mcp_setup_stale_completion_after_ready_is_inert',
+        'hpke::completion010::tests::mcp_admission_tests::close_before_reservation_denies_with_zero_effects'},
 }
 TEST_MAPPING_HASHES = {
-    'go': '18e952fff2c38fcea67c3b95bd5d538b023ef5b02c487a34cf211acaa2aa5c2f',
-    'rust': 'f7191b64006aaa53afb3f7e947c3476dc199057967361d33dc71a4e1c26095b2',
+    'go': '8dc2a89d59a2e0ab0585e3ddbbceec70569188d6b5db409e0c9fca544ba6b0d4',
+    'rust': '1509ba0e4fa03111e33b655c928cfd0c774b9ae6cd7432a093534c432a597914',
 }
 
 

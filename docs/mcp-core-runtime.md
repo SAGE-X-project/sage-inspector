@@ -6,8 +6,8 @@ adapter or a Go/Rust interoperability result. It deliberately uses the existing
 private core path rather than exporting session keys, resettable history or an
 alternate sender for verification.
 
-Inputs are Go `34c534d15cbc7b3c6a788dd50de82abcfebc33ce` and Rust
-`277bdcdeeb7c16c2fb50a8bcc733468ca8f38eb9`. The runner archives these exact commits
+Inputs are Go `49ff23eee9ac270db10fc5f150df9cbe5fc15066` and Rust
+`c3b452368e90f0ed8f379e635cfa4070e3c875a1`. The runner archives these exact commits
 and builds temporary copies. Dirty and untracked working files are not used or
 modified. The old [owner review](mcp-owner-core-review.md) and
 [proposal catalog](mcp-consolidated-catalog.md) remain historical records at their
@@ -15,7 +15,7 @@ original revisions.
 
 For each core, the selected tests exercise an actual authenticated loopback
 handshake, setup and protected exchange; a stalled handshake retaining connection
-capacity; capacity retained through socket or endpoint cleanup; and the four pinned
+capacity; capacity retained through socket or endpoint cleanup; and the seven pinned
 [owner admission boundaries](mcp-owner-admission.md). These are
 bounded trusted fixtures with inert effects. Go executes with the race detector.
 The schedules are core-specific and do not establish equivalent behavior for every
@@ -44,7 +44,7 @@ An existing evidence directory is never overwritten. Classifier tests and harmle
 local process success/failure/timeout tests run in Inspector CI; core runtime execution
 also runs in the native MCP CI job with the pinned repositories and dependencies.
 
-The report's PASS means only that all thirty-eight selected core tests executed and
+The report's PASS means only that all forty-eight selected core tests executed and
 passed. Raw protocol frames, complete journals, callback identities and independent
 wire assertions are not collected by this adapter. Accordingly, interoperability
 remains NOT_RUN and conformance remains NOT_ESTABLISHED. The historical catalog stays
@@ -85,13 +85,13 @@ are not equivalent across languages and do not cover every deadline ordering.
 
 CI preserves these reports separately under `mcp-core-runtime` in the native MCP
 artifact. Historical catalog cases remain NOT_RUN and conformance remains
-NOT_ESTABLISHED. The case overlay currently has complete evidence for eight resolution
+NOT_ESTABLISHED. The case overlay currently has complete evidence for thirteen resolution
 cases. Independent per-case evidence and remaining ordering schedules must be added
 before promoting any other current result or normative coverage.
 
 ## Owner admission schedules
 
-Ten additional tests per core bind durable EXECUTING admission, crash recovery,
+Thirteen additional tests per core bind durable EXECUTING admission, crash recovery,
 close visibility during paused callbacks, owner history and shared-capacity isolation, and suppression
 of late protected output without changing the terminal journal. One deadline schedule
 expires exactly at the final admission boundary and checks retained request identity,
@@ -106,14 +106,12 @@ erased session usability and zero effects. Each report row records the exact bou
 The aggregate report fails if a mapped row omits or changes that mapping. Source identity is audited separately
 before the runtime job, and both reports are preserved in the same CI artifact.
 
-## Intent and result signature algorithm boundaries
+## Signature algorithm and key-role boundaries
 
-Two additional tests per core construct and independently verify role-bound Ed25519,
-P-256 and secp256k1 signatures. For intents, Ed25519 continues through authority,
+Four additional tests per core verify intent, result, outer carriage, handshake and exact signing-key selection boundaries for Ed25519, P-256, secp256k1 and X25519 roles. For intents, Ed25519 continues through authority,
 policy and durable reservation validation while unsupported algorithms stop before
 trusted calls or journal mutation. For correlated results, Ed25519 continues through
 authority and outstanding-intent lookup while unsupported algorithms stop before
 those lookups or authenticated output release. The hashed
 [signature contract](../verification/0.10.0/mcp-signature-boundary-contract.json)
-pins the implementation files and exact tests. It does not cover outer or handshake
-carriage, key provisioning or full protocol conformance.
+pins the implementation files and exact tests. The carriage tests keep X25519 confined to the HPKE KEM and reject alternate active signing keys when the requested role-bound Ed25519 key is absent. Full protocol conformance remains unestablished.

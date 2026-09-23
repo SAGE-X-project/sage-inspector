@@ -3,13 +3,13 @@
 The earlier [core review](mcp-owner-core-review.md) identified four integration gaps
 at Go `be621819...` and Rust `ad30c6a...`. Both cores subsequently added private
 owner-aware admission and protected-reply paths. This review pins Go
-`34c534d15cbc7b3c6a788dd50de82abcfebc33ce` and Rust
-`277bdcdeeb7c16c2fb50a8bcc733468ca8f38eb9`. It does not reinterpret the older
+`49ff23eee9ac270db10fc5f150df9cbe5fc15066` and Rust
+`c3b452368e90f0ed8f379e635cfa4070e3c875a1`. It does not reinterpret the older
 decision at its original revisions.
 
 The machine-readable
 [contract](../verification/0.10.0/mcp-owner-admission-contract.json) binds the exact
-implementation and test files, their hashes, ten selected tests per core and four
+implementation and test files, their hashes, thirteen selected tests per core and seven
 boundaries:
 
 | Boundary | Required behavior |
@@ -18,6 +18,9 @@ boundaries:
 | Close linearization | Closure records revocation without waiting for registry, storage, signer, transport or tool callbacks. Final admission and publication recheck the same owner. |
 | Owner isolation | Setup and protected IDs remain in one owner history. Shared capacity does not transfer authority or close an unrelated owner. |
 | Output publication | Durable completion survives failed or suppressed delivery. A late callback cannot publish, retry, reopen the owner or release occupied quota before termination. |
+| READY past setup | READY retires the setup deadline; later protected requests use their own finite request and session limits. |
+| Stale setup completion | A repeated setup publication after READY is inert and cannot change readiness, history or operation class. |
+| Close before reservation | Closure before protected reservation denies without ledger mutation, trusted-service checks, queue entry or effect. |
 
 ## Source and lock review
 
@@ -75,13 +78,13 @@ source identity is not execution. The runtime adapter archives the pinned commit
 builds temporary copies, executes every selected test separately and rejects a
 missing, skipped, duplicate, failed or timed-out test. Go runs with the race detector.
 
-A runtime PASS closes the four implementation gaps for these pinned private paths.
+A runtime PASS closes the seven pinned implementation boundaries for these pinned private paths.
 It does not establish external independent review, normative adoption, live registry
 or host isolation, full 71-case coverage, or protocol conformance. Those statuses
 remain `NOT_ESTABLISHED` or `NOT_RUN` until their own evidence exists.
 
 On 2026-09-23, the source audit verified both pinned checkouts. The runtime adapter
-built both archived sources and passed 18 of 18 selected tests in each core, including
-all ten owner-admission tests per core. The related Inspector controls and full Go
+built both archived sources and passed 24 of 24 selected tests in each core, including
+all thirteen owner-admission tests per core. The related Inspector controls and full Go
 test suite also passed. CI regenerates and preserves these reports rather than
 treating this local observation as immutable release evidence.

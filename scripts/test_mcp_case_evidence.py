@@ -52,6 +52,7 @@ class CaseEvidenceTests(unittest.TestCase):
                 rows.append(row)
             subjects[language] = {'revision': PINS[language], 'build': {'status': 'PASS'},
                                   'cases': rows}
+        subjects['go']['hpke_build'] = {'status': 'PASS'}
         self.report = {
             'kind': 'mcp-core-runtime-tests', 'status': 'PASS',
             'conformance': 'NOT_ESTABLISHED', 'interoperability': 'NOT_RUN',
@@ -72,7 +73,7 @@ class CaseEvidenceTests(unittest.TestCase):
     def test_complete_and_not_run_results_are_distinct(self):
         result = checker.inspect(self.runtime)
         self.assertEqual(result['status'], 'EVIDENCE_CHECKED')
-        self.assertEqual(result['runtime_case_counts'], {'PASS': 8, 'PARTIAL': 0, 'NOT_RUN': 63})
+        self.assertEqual(result['runtime_case_counts'], {'PASS': 13, 'PARTIAL': 0, 'NOT_RUN': 58})
         self.assertEqual(result['historical_catalog'], {'NOT_RUN': 71})
         self.assertEqual(result['conformance'], 'NOT_ESTABLISHED')
         statuses = {row['id']: row['status'] for row in result['cases']}
@@ -84,6 +85,11 @@ class CaseEvidenceTests(unittest.TestCase):
         self.assertEqual(statuses['mres-ready-session-expiry'], 'PASS')
         self.assertEqual(statuses['mres-signature-intent'], 'PASS')
         self.assertEqual(statuses['mres-signature-result'], 'PASS')
+        self.assertEqual(statuses['mres-signature-carriage'], 'PASS')
+        self.assertEqual(statuses['mres-missing-signing-key'], 'PASS')
+        self.assertEqual(statuses['mres-ready-past-setup'], 'PASS')
+        self.assertEqual(statuses['mres-stale-setup-completion'], 'PASS')
+        self.assertEqual(statuses['mres-close-before-reservation'], 'PASS')
         self.assertEqual(len(result['cases']), 71)
         for case in result['cases']:
             for row in case.get('evidence', []):
@@ -135,7 +141,7 @@ class CaseEvidenceTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         raw = (output / 'report.json').read_bytes()
         self.assertEqual(json.loads(raw)['runtime_case_counts'],
-                         {'PASS': 8, 'PARTIAL': 0, 'NOT_RUN': 63})
+                         {'PASS': 13, 'PARTIAL': 0, 'NOT_RUN': 58})
         self.assertEqual((output / 'contract.json').read_bytes(), checker.CONTRACT.read_bytes())
         result = subprocess.run(command, cwd=checker.ROOT, capture_output=True, text=True, timeout=15)
         self.assertNotEqual(result.returncode, 0)

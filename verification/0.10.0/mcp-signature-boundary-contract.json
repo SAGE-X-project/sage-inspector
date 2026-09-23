@@ -21,29 +21,59 @@
         "secp256k1"
       ],
       "contract": "A valid correlated Ed25519 result proof continues authority and outstanding-intent validation. Valid P-256 and secp256k1 result proofs are rejected before trusted-service calls, intent lookup or authenticated output release."
+    },
+    {
+      "id": "carriage-algorithm",
+      "accepted": "ed25519",
+      "rejected": [
+        "ecdsa-p256-sha256",
+        "secp256k1",
+        "x25519"
+      ],
+      "contract": "Outer and handshake signatures continue only with exact active Ed25519 keys bound to the initiator and responder roles. P-256, secp256k1 and X25519 cannot occupy either signing role, while the responder X25519 KEM selection remains independent."
+    },
+    {
+      "id": "signing-key-availability",
+      "accepted": "ed25519",
+      "rejected": [
+        "ecdsa-p256-sha256",
+        "secp256k1",
+        "x25519"
+      ],
+      "contract": "If either participant lacks the exact requested active Ed25519 signing key, binding is unsupported. Another active signing key, another algorithm and the X25519 KEM cannot be substituted or tried as fallback."
     }
   ],
   "cores": {
     "go": {
-      "revision": "34c534d15cbc7b3c6a788dd50de82abcfebc33ce",
+      "revision": "49ff23eee9ac270db10fc5f150df9cbe5fc15066",
       "files": {
         "pkg/agent/guard010/verify.go": "04b1c09f18a54c004d31bbdde1db95af757e815877344981b1b50797c189df60",
-        "pkg/agent/guard010/ledger_test.go": "f40cc71f56dc2211ed5b64189322ead51ecf19f590e75a10bca9079b28b2aa8f"
+        "pkg/agent/guard010/ledger_test.go": "f40cc71f56dc2211ed5b64189322ead51ecf19f590e75a10bca9079b28b2aa8f",
+        "pkg/agent/registry010/gate.go": "31e5e7f7a57fb0b9e37d9d6b57532c2ff33b80c859302aa51d5b25ea531817c5",
+        "pkg/agent/hpke/completion010.go": "d3fc6ab151418e2a273a5fa4a732854871a56635aa6abccf3a00fd3112e5a7b4",
+        "pkg/agent/hpke/completion010_test.go": "3f54debdc979d19494fb1d23828afe4e896dd4cc177627677e017e31f69c7eaa"
       },
       "tests": {
         "intent-algorithm": "TestBridgeIntentSignatureAlgorithmBoundary",
-        "result-algorithm": "TestBridgeResultSignatureAlgorithmBoundary"
+        "result-algorithm": "TestBridgeResultSignatureAlgorithmBoundary",
+        "carriage-algorithm": "TestCompletion010SignatureCarriageRequiresRoleBoundEd25519",
+        "signing-key-availability": "TestCompletion010MissingSigningKeyHasNoFallback"
       }
     },
     "rust": {
-      "revision": "277bdcdeeb7c16c2fb50a8bcc733468ca8f38eb9",
+      "revision": "c3b452368e90f0ed8f379e635cfa4070e3c875a1",
       "files": {
         "src/guard010/mod.rs": "6b088b56cd57eaee44da522f4ae1bdb8ad84439879b64bbb38de30b2642e7550",
-        "src/guard010/ledger.rs": "53bcb18977c27e2d312ed90054e0eabde31aedf5a95819f07f0112f4fddba7f5"
+        "src/guard010/ledger.rs": "53bcb18977c27e2d312ed90054e0eabde31aedf5a95819f07f0112f4fddba7f5",
+        "src/registry010/mod.rs": "eebe96a5e67c8cf713dbb5edd972af8ac9c42f744d37726e6af8d2438febb959",
+        "src/hpke/completion010/record010.rs": "964734d7e6b6eb982f8fa037a905a58d7703dfbb01d1725f00ba0d826ef81092",
+        "src/hpke/completion010/tests.rs": "c00ac77a5b9282afd54b095b44892231425530edb13f2b6068d64affc9df2040"
       },
       "tests": {
         "intent-algorithm": "guard010::ledger::tests::intent_signature_algorithm_boundary_accepts_only_ed25519",
-        "result-algorithm": "guard010::ledger::tests::result_signature_algorithm_boundary_accepts_only_ed25519"
+        "result-algorithm": "guard010::ledger::tests::result_signature_algorithm_boundary_accepts_only_ed25519",
+        "carriage-algorithm": "hpke::completion010::tests::signature_carriage_requires_role_bound_ed25519",
+        "signing-key-availability": "hpke::completion010::tests::missing_signing_key_has_no_fallback"
       }
     }
   }

@@ -3,15 +3,15 @@
   "protocol_version": "0.10.0",
   "kind": "mcp-proposal-case-evidence",
   "catalog_manifest_sha256": "5727834113a41ef910d4a5c5487457b6e3ae9f89ac36e86946a6e72ae28c1f35",
-  "owner_admission_contract_sha256": "f5b7b628953de43d3d455f8740b5358397d345d5c4a692cac0a9dc5ef8271912",
-  "signature_boundary_contract_sha256": "2e41bb28366eaf04edde94fe798fb0e1f1a8ab4f8dced7a7ca7fd94cf647eae3",
+  "owner_admission_contract_sha256": "03724e7b8e7b2c797f26d1210153b0eb5d4623332fa1aa6b701a52cf2e1484e7",
+  "signature_boundary_contract_sha256": "6d2615ff91fa28aa9f13b1d6605fe2fd98b278ccfa3a7fefcaa740bb0e79db0a",
   "historical_catalog": {
     "NOT_RUN": 71
   },
   "runtime_case_counts": {
-    "PASS": 8,
+    "PASS": 13,
     "PARTIAL": 0,
-    "NOT_RUN": 63
+    "NOT_RUN": 58
   },
   "external_review": "NOT_PERFORMED",
   "adoption": "PROPOSAL_NOT_ADOPTED",
@@ -138,6 +138,81 @@
         {
           "language": "rust",
           "test": "guard010::ledger::tests::result_signature_algorithm_boundary_accepts_only_ed25519"
+        }
+      ]
+    },
+    {
+      "id": "mres-signature-carriage",
+      "status": "PASS",
+      "claim": "Both cores allow outer and handshake carriage only with exact role-bound active Ed25519 keys, reject P-256, secp256k1 and X25519 in signing roles, and preserve the distinct X25519 KEM role.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestCompletion010SignatureCarriageRequiresRoleBoundEd25519"
+        },
+        {
+          "language": "rust",
+          "test": "hpke::completion010::tests::signature_carriage_requires_role_bound_ed25519"
+        }
+      ]
+    },
+    {
+      "id": "mres-missing-signing-key",
+      "status": "PASS",
+      "claim": "Both cores reject binding when the requested active Ed25519 signing key is absent, even when another active Ed25519 key and the required X25519 KEM remain available.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestCompletion010MissingSigningKeyHasNoFallback"
+        },
+        {
+          "language": "rust",
+          "test": "hpke::completion010::tests::missing_signing_key_has_no_fallback"
+        }
+      ]
+    },
+    {
+      "id": "mres-ready-past-setup",
+      "status": "PASS",
+      "claim": "Both cores retain READY beyond the retired 30-second setup deadline and admit a fresh protected request under its independent protected and session limits.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPOwnerSetupAndRetainedHistory"
+        },
+        {
+          "language": "rust",
+          "test": "hpke::completion010::tests::mcp_setup_tests::mcp_setup_ready_past_setup_deadline_uses_protected_limits"
+        }
+      ]
+    },
+    {
+      "id": "mres-stale-setup-completion",
+      "status": "PASS",
+      "claim": "Both cores reject a stale setup completion after READY without changing readiness, request history or pending output state.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPOwnerStaleSetupCompletionAfterReady"
+        },
+        {
+          "language": "rust",
+          "test": "hpke::completion010::tests::mcp_setup_tests::mcp_setup_stale_completion_after_ready_is_inert"
+        }
+      ]
+    },
+    {
+      "id": "mres-close-before-reservation",
+      "status": "PASS",
+      "claim": "Both cores deny a protected request when closure wins before reservation, with unchanged durable state and zero policy, executor or tool effects.",
+      "requirements": [
+        {
+          "language": "go",
+          "test": "TestMCPAdmissionCloseBeforeReservationHasNoEffects"
+        },
+        {
+          "language": "rust",
+          "test": "hpke::completion010::tests::mcp_admission_tests::close_before_reservation_denies_with_zero_effects"
         }
       ]
     }

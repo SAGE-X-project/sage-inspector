@@ -4,6 +4,10 @@
 > 따른다. 채택 명세와 실행 증거의 provenance를 먼저 정렬한 뒤 기존 INS-11 계획을
 > 완료하며, ADOPT errata와 구조 리팩터링은 그 이후에 진행한다.
 
+Go 구현 대조 진행 상태: [채택 명세 필수 하위 스케줄 검토](go-normative-review.md)는
+26개를 16 DIRECT, 5 PARTIAL, 5 MISSING으로 분류했다. PARTIAL/MISSING을 실제 Go
+테스트로 닫기 전에는 Rust 구현 대조나 Inspector binding 증거 완결로 넘어가지 않는다.
+
 작성일: 2026-09-14. 상태: 계획 수립 완료, INS-01·INS-02·INS-03·INS-04·INS-05·INS-06·INS-07·INS-08·INS-09·INS-10의 Inspector 구현 완료. INS-11은 실제 레코드 교환 실행 및 호스트 시험 도구 준비 완료, 전체 프로토콜·호스트 연결 대기. 코어 적합성은 별도 판정한다.
 구현 위치: `/Users/0xtopaz/work/github/sage-x-project/sage-inspector`.
 규범 원본: `../sage-spec`; 실제 코어 변경은 별도 작업으로 관리한다.

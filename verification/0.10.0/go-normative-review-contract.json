@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "protocol_version": "0.10.0",
+  "kind": "go-normative-implementation-review",
+  "spec_revision": "520e5ed9a896ff8ba8ade776484f41084957aaa2",
+  "go_revision": "2322b2aa4b13ed41b2c5232a1d7382003ebee0e1",
+  "review_status": "INCOMPLETE",
+  "counts": {
+    "DIRECT": 16,
+    "PARTIAL": 5,
+    "MISSING": 5
+  },
+  "children": [
+    {"id":"generation-policy","status":"PARTIAL","tests":["TestMCPAdmissionDeadlineGenerationAndScheduler"],"observation":"A generic generation replacement denies final admission, but policy generation is not independently identified and recorded.","required":"Add a policy-only generation change schedule with old and current generations and zero effects."},
+    {"id":"generation-component","status":"DIRECT","tests":["TestMCPAdmissionReplacementAndClaimOrder","TestMCPAdmissionDeadlineGenerationAndScheduler"],"observation":"Executor replacement changes the gate generation and prevents the stale prepared invocation from using the replacement instance.","required":"Preserve the direct component-generation observation."},
+    {"id":"generation-session","status":"DIRECT","tests":["TestMCPAdmissionSessionRevocationDuringFence"],"observation":"Signing and KEM session invalidation during durable fencing deny admission, close the owner and preserve zero effects.","required":"Preserve both signing and KEM invalidation schedules."},
+    {"id":"observation-age-4999","status":"DIRECT","tests":["TestMCPAdmissionFinalObservationBoundaries"],"observation":"A 4999 millisecond final observation age is accepted with otherwise valid inputs.","required":"Preserve the exact boundary observation."},
+    {"id":"observation-age-5000","status":"DIRECT","tests":["TestMCPAdmissionFinalObservationBoundaries"],"observation":"A 5000 millisecond final observation age is accepted with otherwise valid inputs.","required":"Preserve the exact equality observation."},
+    {"id":"observation-age-5001","status":"DIRECT","tests":["TestMCPAdmissionFinalObservationBoundaries"],"observation":"A 5001 millisecond final observation age is denied and the durable outcome becomes conservative.","required":"Preserve the first stale observation."},
+    {"id":"observation-before-start","status":"PARTIAL","tests":["TestMCPAdmissionFinalClockCannotPrecedeOwner"],"observation":"A final clock rollback is denied, but the test does not isolate an authority observation acquired at or before operation start.","required":"Inject a registry observation at and before the operation start and verify zero admission and effects."},
+    {"id":"queue-capacity-race","status":"PARTIAL","tests":["TestMCPAdmissionSharedOwners"],"observation":"Shared capacity denial is observed after a slot is occupied, but capacity is not changed between preparation and final insertion.","required":"Pause after preparation, consume the last capacity slot, resume and verify conservative denial."},
+    {"id":"queue-insert-failure","status":"MISSING","tests":[],"observation":"No bounded final insertion failure is injected independently of validation, closure or capacity checks.","required":"Add a safe local insertion-failure seam and verify no visibility, claim or effect."},
+    {"id":"shared-owner-close","status":"DIRECT","tests":["TestMCPAdmissionSharedOwners"],"observation":"Closing one owner leaves a second owner on the shared healthy gate able to admit and execute once.","required":"Preserve the owner-isolation observation."},
+    {"id":"fence-close-success","status":"DIRECT","tests":["TestMCPAdmissionCloseDuringFence"],"observation":"Close during a successful fence write retains the durable identity, produces UNKNOWN and permits no effect.","required":"Preserve the success subtest and retained bytes."},
+    {"id":"fence-close-failure","status":"DIRECT","tests":["TestMCPAdmissionCloseDuringFence"],"observation":"Close during a failed fence write retains RESERVED, retires the affected gate and permits no effect.","required":"Preserve the failure subtest and storage isolation."},
+    {"id":"fence-close-uncertain","status":"DIRECT","tests":["TestMCPAdmissionCloseDuringFence"],"observation":"Close during an uncertain fence result retains EXECUTING, retires the affected gate and permits no effect.","required":"Preserve the uncertain subtest without fabricating a row."},
+    {"id":"unknown-write-failure","status":"MISSING","tests":[],"observation":"No test fails the UNKNOWN persistence that follows a successful fence and denied final admission.","required":"Fail the second state write and verify unavailable scope, retained ownership and zero effects."},
+    {"id":"recovery-conversion-failure","status":"MISSING","tests":[],"observation":"Crash recovery verifies successful EXECUTING to UNKNOWN conversion but does not fail that conversion.","required":"Inject a safe local recovery append failure and verify no ready writer, queue reconstruction or effect."},
+    {"id":"queue-expiry-before","status":"DIRECT","tests":["TestMCPAdmissionProtectedDeadlineBeforeFinalAdmissionRetainsReservation"],"observation":"Deadline expiry before final insertion closes the owner, retains request and intent reservations and produces zero effects.","required":"Preserve the equality-or-later denial observation."},
+    {"id":"queue-expiry-after","status":"DIRECT","tests":["TestMCPAdmissionRequestExpiryClosesOwner"],"observation":"An insertion that wins before expiry remains historical and its later effect may complete without redispatch.","required":"Preserve admission, effect and result as separate observations."},
+    {"id":"policy-retirement-invalidate-first","status":"PARTIAL","tests":["TestMCPAdmissionReplacementAndClaimOrder"],"observation":"Generic configuration replacement cancels unclaimed work, but policy retirement is not independently identified.","required":"Add a policy-retirement schedule that records generation and zero effects before claim."},
+    {"id":"policy-retirement-claim-first","status":"PARTIAL","tests":["TestMCPAdmissionReplacementAndClaimOrder"],"observation":"Generic replacement preserves the claimed old executor, but policy retirement and its pinned policy are not independently recorded.","required":"Add a claim-first policy-retirement schedule with the pinned old policy instance."},
+    {"id":"baseline-replacement-invalidate-first","status":"DIRECT","tests":["TestMCPAdmissionReplacementAndClaimOrder"],"observation":"Replacing the executor before claim cancels the old unclaimed entry with no effect.","required":"Preserve the replacement-before-claim observation."},
+    {"id":"baseline-replacement-claim-first","status":"DIRECT","tests":["TestMCPAdmissionReplacementAndClaimOrder"],"observation":"Replacing the executor after claim lets only the pinned old instance finish and never substitutes the replacement.","required":"Preserve the claim-before-replacement observation."},
+    {"id":"scheduler-cancel-race","status":"MISSING","tests":[],"observation":"Late claim denial exists, but cancellation and claim are not deterministically ordered in both directions.","required":"Exercise cancel-first and claim-first schedules and verify one claimant or safe cancellation without redispatch."},
+    {"id":"scheduler-stall","status":"DIRECT","tests":["TestMCPAdmissionCapacityRetainedUntilWorkerTerminates","TestMCPHostQueuedCancellationAndBoundedStop"],"observation":"A stalled worker and cancelled queued work retain bounded slots until actual termination and deny false cleanup.","required":"Preserve occupied capacity and dependency ownership observations."},
+    {"id":"reconnect-pool-bound","status":"DIRECT","tests":["TestMCPHostCleanupStallDoesNotBlockDeadlinesOrReleaseOwners"],"observation":"A reconnect cannot allocate another owner while prior cleanup remains blocked, and capacity returns only after termination.","required":"Preserve the host-wide owner bound across reconnect."},
+    {"id":"owner-history-1024","status":"DIRECT","tests":["TestMCPOwnerHistoryLimit"],"observation":"The isolated owner retains exactly 1024 setup and protected request identifiers and denies the next identifier.","required":"Keep this classified as owner-unit evidence rather than authenticated session runtime."},
+    {"id":"session-record-limit-first","status":"MISSING","tests":[],"observation":"Record size and lifetime bounds are tested, but no authenticated MCP session reaches sequence 999 and rejects sequence 1000.","required":"Run a bounded authenticated setup through the real record ceiling and show that it closes before owner history exhaustion."}
+  ],
+  "conformance": "NOT_ESTABLISHED"
+}
+

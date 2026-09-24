@@ -156,6 +156,8 @@ jobs:
           python3 -B scripts/check_registry_source_deployment_audit.py
           python3 -B scripts/test_agent_host_deployment_audit.py
           python3 -B scripts/check_agent_host_deployment_audit.py
+          python3 -B scripts/test_mcp_client_provenance.py
+          python3 -B scripts/check_mcp_client_provenance.py
           python3 -B scripts/test_ins11_integrated_verdict.py
           python3 -B scripts/check_ins11_integrated_verdict.py
           python3 scripts/test_concurrent_inspection.py

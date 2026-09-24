@@ -1,0 +1,6 @@
+
+running 1 test
+test hpke::completion010::tests::mcp_admission_tests::parent_admission_is_bound_to_the_active_admitted_worker ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 570 filtered out; finished in 0.34s
+

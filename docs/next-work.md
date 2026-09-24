@@ -4,6 +4,10 @@
 > 따른다. 채택 명세와 실행 증거의 provenance를 먼저 정렬한 뒤 기존 INS-11 계획을
 > 완료하며, ADOPT errata와 구조 리팩터링은 그 이후에 진행한다.
 
+후속 코어 revision의 [MCP Client provenance 증거](mcp-client-provenance.md)는
+root 원본 캡처·hop 부모 허가를 코어 내부 테스트로 별도 확인했다. 실제 Agent
+호스트 연결은 여전히 `NOT_RUN`이며 기존 INS-11 판정은 바뀌지 않는다.
+
 2026-09-24 고정 계획의 [INS-11 통합 판정](ins11-integrated-verdict.md): 1~8단계의
 순차 검토를 종료했다. INS-11은 `INCOMPLETE`, 전체 적합성은
 `NOT_ESTABLISHED`다. 실제 Registry Source와 Agent 호스트는 `NOT_RUN`이다.

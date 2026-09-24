@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "protocol_version": "0.10.0",
+  "kind": "mcp-binding-evidence",
+  "status": "EVIDENCE_CHECKED",
+  "spec_revision": "520e5ed9a896ff8ba8ade776484f41084957aaa2",
+  "normative_baseline_sha256": "d0e62d5e35b6aba8dbfbd044d72973ad2eae423478341af9858db6ec27195939",
+  "historical_catalog": {
+    "NOT_RUN": 71
+  },
+  "current_parent_cases": {
+    "PASS": 71,
+    "PARTIAL": 0,
+    "NOT_RUN": 0
+  },
+  "mandatory_children": {
+    "go": {
+      "revision": "1f2dd87643e42b7ed3beda6956158ff23dcc7ea2",
+      "status": "PASS",
+      "mandatory_children": 26
+    },
+    "rust": {
+      "revision": "40b5a8c6d76d952131013d8a034f819fd31b7ca0",
+      "status": "PASS",
+      "mandatory_children": 26
+    }
+  },
+  "protected_pairs": {
+    "PASS": 4
+  },
+  "restart_observations": {
+    "PASS": 8
+  },
+  "runtime_report_sha256": "3ad94b367a348d0662a7eb405854a2a82ca1ed237ea1448af01b6e7bb3848dad",
+  "parent_report_sha256": "a5dc1ebed4053ac5431dd0b887ec479c97aa7512a65139f5f35bb77f743c1f2a",
+  "interop_report_sha256": "0480b442a8de92ea51d83a53e4750305212ead027a9f09db48a8542d499e2da4",
+  "conformance": "NOT_ESTABLISHED",
+  "limitation": "Selected pinned implementation and interoperability evidence is complete; full protocol conformance and external review remain unestablished."
+}

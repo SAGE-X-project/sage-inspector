@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "protocol_version": "0.10.0",
+  "kind": "normative-baseline-report",
+  "status": "BASELINE_LOCKED",
+  "spec_revision": "520e5ed9a896ff8ba8ade776484f41084957aaa2",
+  "spec_status": "ADOPTED_NORMATIVE_DESIGN",
+  "go_revision": "1f2dd87643e42b7ed3beda6956158ff23dcc7ea2",
+  "rust_revision": "40b5a8c6d76d952131013d8a034f819fd31b7ca0",
+  "historical_catalog": {
+    "NOT_RUN": 71
+  },
+  "runtime_overlay": {
+    "PASS": 71,
+    "PARTIAL": 0,
+    "NOT_RUN": 0
+  },
+  "runtime_classification": "EXECUTED_PENDING_NORMATIVE_MAPPING",
+  "next_step": "go-implementation-review",
+  "conformance": "NOT_ESTABLISHED",
+  "contract_sha256": "d0e62d5e35b6aba8dbfbd044d72973ad2eae423478341af9858db6ec27195939"
+}

@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "protocol_version": "0.10.0",
+  "kind": "ins11-integrated-verdict",
+  "spec_revision": "520e5ed9a896ff8ba8ade776484f41084957aaa2",
+  "source_ci": {
+    "run_id": 35933387031,
+    "head_sha": "690a8e0f85897e0615abb1cd0c7980442100c50e",
+    "artifact_id": 10781767710,
+    "artifact_name": "mcp-native-interop-690a8e0f85897e0615abb1cd0c7980442100c50e",
+    "artifact_digest": "sha256:701eef92d20f4fddb8fece47e9763d9501f5bd4a44b85f27446b3e7583e8e61d",
+    "conclusion": "success"
+  },
+  "inputs": {
+    "baseline": {
+      "path": "docs/evidence/ins11-integrated-verdict/ci-reports/normative-baseline.json",
+      "sha256": "a445094789ca36bea9ecf82c5119d21a2b74dfda3c68900713d617a0e530aa40"
+    },
+    "go_review": {
+      "path": "docs/evidence/ins11-integrated-verdict/ci-reports/go-review.json",
+      "sha256": "d87779d23da10e5a69b48e33855ac01cb18e865b6abdd6fe22ce8f64f64c833b"
+    },
+    "rust_review": {
+      "path": "docs/evidence/ins11-integrated-verdict/ci-reports/rust-review.json",
+      "sha256": "589c200b2e1bd88fc1809237b2b04158f6bf98944d14b7516ec7baebfda51892"
+    },
+    "mcp_binding": {
+      "path": "docs/evidence/ins11-integrated-verdict/ci-reports/mcp-binding.json",
+      "sha256": "0f3667fea879cd317fa86491e622d43daba373a1c0a5120e16bb29e584e57dd0"
+    },
+    "normative_lock": {
+      "path": "verification/0.10.0/normative-baseline-lock.json",
+      "sha256": "d0e62d5e35b6aba8dbfbd044d72973ad2eae423478341af9858db6ec27195939"
+    },
+    "legacy_catalog": {
+      "path": "docs/evidence/integrated.json",
+      "sha256": "a193152b16a70384beed81dcffe1dcaaee0eb85b70d086c6716085c726b182dc"
+    },
+    "core_lifecycle": {
+      "path": "docs/evidence/core-lifecycle/manifest.json",
+      "sha256": "0dbfae6d544b9689a128cba05333366d1467147a732363cf4da7571455c7bb40"
+    },
+    "registry_source": {
+      "path": "docs/evidence/registry-source-deployment-audit/manifest.json",
+      "sha256": "72ad7d2f8517d47c99d91fbdfb414ce990bb2fad1e2f557bcdc170c7976fb9d0"
+    },
+    "agent_host": {
+      "path": "docs/evidence/agent-host-deployment-audit/manifest.json",
+      "sha256": "c38bd8f9209e1e8737d1709ebcb8309a765d378400c482847472dfa4491e09e4"
+    },
+    "legacy_close": {
+      "path": "docs/evidence/deployment/close-race/report.json",
+      "sha256": "d3f3ad9a502062a804bd825f26dbe9e109f3653bcbeaadc3edbf5d488410cc99"
+    },
+    "legacy_exchange": {
+      "path": "docs/evidence/deployment/exchange.json",
+      "sha256": "71cd971c780e9e17c2d8e7ecb5e16c286455f56cf037983952353494a55fafd7"
+    }
+  },
+  "scopes": {
+    "normative_baseline": "BASELINE_LOCKED",
+    "go_implementation_review": {
+      "revision": "1f2dd87643e42b7ed3beda6956158ff23dcc7ea2",
+      "direct_children": 26
+    },
+    "rust_implementation_review": {
+      "revision": "40b5a8c6d76d952131013d8a034f819fd31b7ca0",
+      "direct_children": 26
+    },
+    "mcp_binding": {
+      "status": "EVIDENCE_CHECKED",
+      "parent_pass": 71,
+      "mandatory_children_per_core": 26,
+      "protected_pairs_pass": 4,
+      "restart_pass": 8,
+      "go_revision": "1f2dd87643e42b7ed3beda6956158ff23dcc7ea2",
+      "rust_revision": "40b5a8c6d76d952131013d8a034f819fd31b7ca0"
+    },
+    "core_lifecycle": {
+      "status": "EVIDENCE_CHECKED",
+      "go_revision": "2fb4755ba38d1c90adea5089402fcc6b8981fd71",
+      "rust_revision": "40b5a8c6d76d952131013d8a034f819fd31b7ca0"
+    },
+    "registry_source": "NOT_RUN",
+    "agent_host": {
+      "status": "NOT_RUN",
+      "scenarios_not_run": 8
+    }
+  },
+  "unresolved": {
+    "legacy_planned_cases_not_run_per_core": 386,
+    "legacy_primitive_counts": {
+      "go": {
+        "PASS": 145,
+        "FAIL": 69,
+        "UNSUPPORTED": 311,
+        "NOT_RUN": 0
+      },
+      "rust": {
+        "PASS": 159,
+        "FAIL": 63,
+        "UNSUPPORTED": 303,
+        "NOT_RUN": 0
+      }
+    },
+    "historical_lifecycle_not_run": 37,
+    "legacy_go_close_race": "FAIL",
+    "rust_direct_concurrent_close": "UNSUPPORTED",
+    "legacy_record_exchange_unsupported": 4,
+    "live_registry": "NOT_RUN",
+    "deployed_host": "NOT_RUN",
+    "mcp_go_revision_differs_from_lifecycle": true
+  },
+  "ordered_review": "COMPLETE_WITH_UNVERIFIED_DEPLOYMENTS",
+  "ins11": "INCOMPLETE",
+  "conformance": "NOT_ESTABLISHED",
+  "conformance_claim": "NOT_READY"
+}

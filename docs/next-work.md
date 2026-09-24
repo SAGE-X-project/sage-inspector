@@ -4,7 +4,13 @@
 > 따른다. 채택 명세와 실행 증거의 provenance를 먼저 정렬한 뒤 기존 INS-11 계획을
 > 완료하며, ADOPT errata와 구조 리팩터링은 그 이후에 진행한다.
 
-Go 구현 대조 진행 상태: [채택 명세 필수 하위 스케줄 검토](go-normative-review.md)는
+2026-09-24 고정 계획의 [INS-11 통합 판정](ins11-integrated-verdict.md): 1~8단계의
+순차 검토를 종료했다. INS-11은 `INCOMPLETE`, 전체 적합성은
+`NOT_ESTABLISHED`다. 실제 Registry Source와 Agent 호스트는 `NOT_RUN`이다.
+다음 순서는 채택 규범에 대한 ADOPT-01..06 errata 재검토이며, 그 전에는 보존한
+설계 브랜치를 현재 규범으로 승격하거나 구현 방향을 변경하지 않는다.
+
+이전 Go 구현 대조 진행 상태(현재는 종료): [채택 명세 필수 하위 스케줄 검토](go-normative-review.md)는
 26개를 16 DIRECT, 5 PARTIAL, 5 MISSING으로 분류했다. PARTIAL/MISSING을 실제 Go
 테스트로 닫기 전에는 Rust 구현 대조나 Inspector binding 증거 완결로 넘어가지 않는다.
 

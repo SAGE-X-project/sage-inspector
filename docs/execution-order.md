@@ -44,7 +44,10 @@ reservation/close 경계를 확인했다. 두 단계의 결과는 `EVIDENCE_CHEC
 후보와 설정을 조사했으나 신뢰된 0.10.0 배포 바인딩이 없어 실제 체인 관측을
 `NOT_RUN`으로 기록했다. 7단계 [Agent 호스트 배포 감사](agent-host-deployment-audit.md)는
 고정 호스트 실행 파일·설정·외부 관측기의 바인딩이 없어 8개 호스트 시나리오를
-`NOT_RUN`으로 보존했다. 다음 순서는 8단계 INS-11 통합 판정이다.
+`NOT_RUN`으로 보존했다. 8단계 [INS-11 통합 판정](ins11-integrated-verdict.md)은
+순서에 따른 검토를 마쳤지만 실제 배포 검증 누락과 과거 실패·미지원을 유지하여
+INS-11 `INCOMPLETE`, 전체 적합성 `NOT_ESTABLISHED`로 결정했다. 다음 순서는
+아래의 계획 종료 후 errata 검토다.
 
 ### 1. 규범 기준선과 증거 provenance 정렬
 

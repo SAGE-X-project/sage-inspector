@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "protocol_version": "0.10.0",
+  "kind": "rust-normative-implementation-review-report",
+  "status": "COMPLETE",
+  "spec_revision": "520e5ed9a896ff8ba8ade776484f41084957aaa2",
+  "rust_revision": "40b5a8c6d76d952131013d8a034f819fd31b7ca0",
+  "counts": {
+    "DIRECT": 26,
+    "PARTIAL": 0,
+    "MISSING": 0
+  },
+  "mapped_rust_tests": 20,
+  "discovered_rust_tests": 666,
+  "next_step": "bind both completed core reviews to Inspector execution evidence",
+  "conformance": "NOT_ESTABLISHED",
+  "contract_sha256": "89d48a66ddde1c69e4b0da8ea1a6887de73567dd1a1ad841f1ca6e3467f43bc4"
+}

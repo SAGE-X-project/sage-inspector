@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "protocol_version": "0.10.0",
+  "kind": "go-normative-implementation-review-report",
+  "status": "COMPLETE",
+  "spec_revision": "520e5ed9a896ff8ba8ade776484f41084957aaa2",
+  "go_revision": "1f2dd87643e42b7ed3beda6956158ff23dcc7ea2",
+  "counts": {
+    "DIRECT": 26,
+    "PARTIAL": 0,
+    "MISSING": 0
+  },
+  "mapped_go_tests": 21,
+  "discovered_go_tests": 547,
+  "next_step": "verify the completed Rust implementation review",
+  "conformance": "NOT_ESTABLISHED",
+  "contract_sha256": "a7f2295ae78f1f635b51e87b27c0b183f65c87c7cb0be2a3f5873b73817b3153"
+}

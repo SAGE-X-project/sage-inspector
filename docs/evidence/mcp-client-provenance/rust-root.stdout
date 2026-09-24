@@ -1,0 +1,6 @@
+
+running 1 test
+test hpke::completion010::tests::mcp_admission_tests::mcp_reply_tests::owned_root_binds_captured_input_before_journal_and_runtime ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 570 filtered out; finished in 0.25s
+

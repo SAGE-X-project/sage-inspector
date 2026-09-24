@@ -1,0 +1,3 @@
+warning: sage_crypto_core@0.3.0: C headers are in include/sage_crypto.h
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.28s
+     Running unittests src/lib.rs (/var/folders/gj/28wqvwpj0h52t5djm108xz800000gn/T/sage-mcp-provenance-ismda5hy/rust/debug/deps/sage_crypto_core-044054c4486571dd)

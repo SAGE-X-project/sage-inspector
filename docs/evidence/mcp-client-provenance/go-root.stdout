@@ -1,0 +1,12 @@
+=== RUN   TestMCPOwnedRootRequiresCapturedOriginalBeforeJournal
+=== RUN   TestMCPOwnedRootRequiresCapturedOriginalBeforeJournal/missing
+=== RUN   TestMCPOwnedRootRequiresCapturedOriginalBeforeJournal/wrong_request
+=== RUN   TestMCPOwnedRootRequiresCapturedOriginalBeforeJournal/changed_original
+=== RUN   TestMCPOwnedRootRequiresCapturedOriginalBeforeJournal/allowed
+--- PASS: TestMCPOwnedRootRequiresCapturedOriginalBeforeJournal (0.37s)
+    --- PASS: TestMCPOwnedRootRequiresCapturedOriginalBeforeJournal/missing (0.09s)
+    --- PASS: TestMCPOwnedRootRequiresCapturedOriginalBeforeJournal/wrong_request (0.08s)
+    --- PASS: TestMCPOwnedRootRequiresCapturedOriginalBeforeJournal/changed_original (0.07s)
+    --- PASS: TestMCPOwnedRootRequiresCapturedOriginalBeforeJournal/allowed (0.13s)
+PASS
+ok  	github.com/sage-x-project/sage/pkg/agent/guard010	0.723s

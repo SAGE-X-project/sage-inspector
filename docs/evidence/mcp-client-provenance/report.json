@@ -1,0 +1,138 @@
+{
+  "cases": {
+    "go-admission": {
+      "command": [
+        "go",
+        "test",
+        "-count=1",
+        "-v",
+        "./pkg/agent/guard010",
+        "-run",
+        "^TestMCPParentAdmissionExistsOnlyDuringAdmittedWorker$"
+      ],
+      "exit_code": 0,
+      "source": "go",
+      "stderr": "go-admission.stderr",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout": "go-admission.stdout",
+      "stdout_sha256": "d12753e187594ec46c0ae5f76bbd6a9d935f49dd9172d1eb7f57746694944024",
+      "test": "TestMCPParentAdmissionExistsOnlyDuringAdmittedWorker"
+    },
+    "go-hop": {
+      "command": [
+        "go",
+        "test",
+        "-count=1",
+        "-v",
+        "./pkg/agent/guard010",
+        "-run",
+        "^TestMCPOwnedHopUsesParentGateBeforeRuntimeSend$"
+      ],
+      "exit_code": 0,
+      "source": "go",
+      "stderr": "go-hop.stderr",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout": "go-hop.stdout",
+      "stdout_sha256": "84ea10523ce27bf42cba2e1080173e88f9378ab3e31656aa99d5e517fb1986a1",
+      "test": "TestMCPOwnedHopUsesParentGateBeforeRuntimeSend"
+    },
+    "go-root": {
+      "command": [
+        "go",
+        "test",
+        "-count=1",
+        "-v",
+        "./pkg/agent/guard010",
+        "-run",
+        "^TestMCPOwnedRootRequiresCapturedOriginalBeforeJournal$"
+      ],
+      "exit_code": 0,
+      "source": "go",
+      "stderr": "go-root.stderr",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout": "go-root.stdout",
+      "stdout_sha256": "716a519b7676b9f2dc6aa103259cbf201c9b7c51e2201857b8afe7c0983e408a",
+      "test": "TestMCPOwnedRootRequiresCapturedOriginalBeforeJournal"
+    },
+    "rust-admission": {
+      "command": [
+        "cargo",
+        "test",
+        "--offline",
+        "--lib",
+        "parent_admission_is_bound_to_the_active_admitted_worker",
+        "--",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "source": "rust",
+      "stderr": "rust-admission.stderr",
+      "stderr_sha256": "498529a8bf1da3b32879daa21bc3c6ac5f1ea50002daedd33dee05d32aceb07f",
+      "stdout": "rust-admission.stdout",
+      "stdout_sha256": "3e79486c50ba97574b7563995bab1ce9cdeb403ed44b6dc8a18fe1cb111a3f6a",
+      "test": "parent_admission_is_bound_to_the_active_admitted_worker"
+    },
+    "rust-hop": {
+      "command": [
+        "cargo",
+        "test",
+        "--offline",
+        "--lib",
+        "owned_hop_rechecks_parent_before_mcp_transport",
+        "--",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "source": "rust",
+      "stderr": "rust-hop.stderr",
+      "stderr_sha256": "500ae5d9057ba9d2bec8a96bd63a5553e5741e90e67578b6766c361e5b9eabe3",
+      "stdout": "rust-hop.stdout",
+      "stdout_sha256": "f77983c8479fd35cdc6978cb2b0df1528bd1bba8902936044acf2f15e715ebf5",
+      "test": "owned_hop_rechecks_parent_before_mcp_transport"
+    },
+    "rust-root": {
+      "command": [
+        "cargo",
+        "test",
+        "--offline",
+        "--lib",
+        "owned_root_binds_captured_input_before_journal_and_runtime",
+        "--",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "source": "rust",
+      "stderr": "rust-root.stderr",
+      "stderr_sha256": "0b72ddb59550c0f8b6a51d62ce7fe49be96db3a89f40f3f799549e3bbf79ca03",
+      "stdout": "rust-root.stdout",
+      "stdout_sha256": "f2791d9645081a64d6b093b79c86512b98c750781927253cb180aafc237c714a",
+      "test": "owned_root_binds_captured_input_before_journal_and_runtime"
+    }
+  },
+  "conformance": "NOT_ESTABLISHED",
+  "deployed_host": "NOT_RUN",
+  "kind": "mcp-client-core-provenance",
+  "protocol_version": "0.10.0",
+  "schema_version": 1,
+  "sources": {
+    "go": {
+      "files": {
+        "pkg/agent/guard010/mcp_owned_client.go": "2177925c39297bad322ddfbd0f6543df1cbc116f69bf7ff2e41fe7007e9ec35c",
+        "pkg/agent/guard010/mcp_owned_client_test.go": "72ddb3a5ead882f5426a45ca0d0004fde030de56d11ef4f155332d4c1e01a920",
+        "pkg/agent/guard010/mcp_parent_admission_test.go": "b799bf817ad4a92a0eb733b07ba1f5398a567a79352b463be8494bea893c7666",
+        "pkg/agent/guard010/mcp_root_capture.go": "6057f7e0dc8612a4aa4a13b556944378b22218ab57ea2100afd3d74fedb7b6db"
+      },
+      "revision": "62242937995d152e3c2a6d4bbb8a08229680684a"
+    },
+    "rust": {
+      "files": {
+        "src/guard010/mcp_owned.rs": "7323460c0cb5d73ff5dbea20e523ab4708a2e23db6d0655081c29a44ffe71e85",
+        "src/guard010/mcp_transport/connection.rs": "e24966b9f13e3253881e6a150235288d3a6e655a74c2f07b8be3766220cb7cc8",
+        "src/hpke/completion010/mcp_admission_tests.rs": "e2fe9f46c08795b73ca7b8e665cf54b422a3c5d8e30967b71165c59e28277e6a",
+        "src/hpke/completion010/mcp_reply_tests.rs": "42cad7c21626843dd6148672e4857dd57d36a3c8abde1bfc0a296eb32128af35"
+      },
+      "revision": "e5d6b43b064e02ae467b4dd835272c3fc4ea29d1"
+    }
+  },
+  "status": "CORE_BOUNDARY_OBSERVED"
+}

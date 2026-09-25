@@ -252,7 +252,11 @@ jobs:
         run: |
           go build -o "${RUNNER_TEMP}/sage-conformance-record010" ./cmd/sage-conformance
           (cd adapters/go && go build -o "${RUNNER_TEMP}/sage-go-record010" .)
-          cargo build --locked --manifest-path adapters/rust/Cargo.toml --target-dir "${RUNNER_TEMP}/record010-rust"
+          cargo build --locked --manifest-path adapters/rust/Cargo.toml --target-dir "${RUNNER_TEMP}/record010-rust" \
+            --bin sage-inspector-rust-adapter --bin completion010 --bin execution010 \
+            --bin guard_client010 --bin guard_dispatch010 --bin guard_ledger010 \
+            --bin guard_registry010 --bin guard_results010 --bin hpke010 \
+            --bin record010_state --bin registry010 --bin replay010
           python3 scripts/test_record010_adapters.py --go "${RUNNER_TEMP}/sage-go-record010" --rust "${RUNNER_TEMP}/record010-rust/debug/sage-inspector-rust-adapter" --runner "${RUNNER_TEMP}/sage-conformance-record010" --output "${RUNNER_TEMP}/record010-results"
       - name: Verify actual Guard primitive bindings
         working-directory: sage-inspector
@@ -683,3 +687,51 @@ jobs:
             ${{ runner.temp }}/mcp-setup-cases/
             ${{ runner.temp }}/mcp-native-setup/
             ${{ runner.temp }}/mcp-native-protected/
+
+  registry-proof010:
+    name: Registry proof byte bindings
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          path: sage-inspector
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: SAGE-X-project/sage-spec
+          ref: 5ec68684df4e449a3963724444bfba64a70b825f
+          path: sage-spec
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: SAGE-X-project/sage
+          ref: 49379baadc6baec9ca8b4bb7d15bf43d65144bd7
+          path: sage
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: SAGE-X-project/rs-sage-core
+          ref: ef63d76b88fe4d6ddbc7ae0fcfdbce7beab4d396
+          path: rs-sage-core
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
+        with:
+          go-version-file: sage-inspector/adapters/go/go.mod
+          cache-dependency-path: sage-inspector/adapters/go/go.sum
+      - name: Install Rust
+        run: rustup toolchain install 1.88.0 --profile minimal
+      - name: Execute pinned registry proof byte bindings
+        working-directory: sage-inspector
+        env:
+          RUSTUP_TOOLCHAIN: 1.88.0
+        run: |
+          python3 -B scripts/test_registry_proof010_reports.py
+          (cd adapters/go && go test -race ./cmd/registry-proof010 && go build -o "${RUNNER_TEMP}/registry-proof-go" ./cmd/registry-proof010)
+          cargo test --locked --manifest-path adapters/rust/Cargo.toml --target-dir "${RUNNER_TEMP}/registry-proof-rust" --bin registry_proof010
+          cargo build --locked --manifest-path adapters/rust/Cargo.toml --target-dir "${RUNNER_TEMP}/registry-proof-rust" --bin registry_proof010
+          python3 -B scripts/test_registry_proof010.py --spec-root ../sage-spec --go-root ../sage --rust-root ../rs-sage-core --go "${RUNNER_TEMP}/registry-proof-go" --rust "${RUNNER_TEMP}/registry-proof-rust/debug/registry_proof010" --output "${RUNNER_TEMP}/registry-proof010"
+      - name: Preserve registry proof byte evidence
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: registry-proof010-${{ github.sha }}
+          if-no-files-found: warn
+          retention-days: 30
+          path: ${{ runner.temp }}/registry-proof010/

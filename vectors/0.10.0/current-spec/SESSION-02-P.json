@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "SESSION-02-P",
+  "track": "runtime",
+  "input": {
+    "operation": "sage.session.record.boundary.probe",
+    "input": {
+      "cases": [
+        {
+          "id": "c2s-open-255",
+          "seed_hex": "a670cc6a4cf4eed950a26f2e85a185457e283ba617fd87da485625d96a2a61a6",
+          "th_hex": "a4dcfbf2cfe2b3ffd09acd65fbb78c675612b93c93b512a11b9b064786ee5488",
+          "direction": "c2s",
+          "record_hex": "00000000000000ff0000000000000000000000ffd9739fb7261e4cf045864ab84fc91f87c6e65429650ec3473b27630cf0dee5416c92e8c38a",
+          "caller_aad_hex": "7b7d"
+        },
+        {
+          "id": "c2s-open-256",
+          "seed_hex": "a670cc6a4cf4eed950a26f2e85a185457e283ba617fd87da485625d96a2a61a6",
+          "th_hex": "a4dcfbf2cfe2b3ffd09acd65fbb78c675612b93c93b512a11b9b064786ee5488",
+          "direction": "c2s",
+          "record_hex": "0000000000000100000000000000000000000100194a2be59494843f9388c1a9e6a316e465daa80d9e372995d566b007cd2a49599fb4c0a629",
+          "caller_aad_hex": "7b7d"
+        },
+        {
+          "id": "c2s-open-999",
+          "seed_hex": "a670cc6a4cf4eed950a26f2e85a185457e283ba617fd87da485625d96a2a61a6",
+          "th_hex": "a4dcfbf2cfe2b3ffd09acd65fbb78c675612b93c93b512a11b9b064786ee5488",
+          "direction": "c2s",
+          "record_hex": "00000000000003e70000000000000000000003e7a3889f4bcf0cb85ce69d3341691ac8aeb418b9544fe9498b9594d37d87fa5db2b351e1129f",
+          "caller_aad_hex": "7b7d"
+        },
+        {
+          "id": "s2c-open-255",
+          "seed_hex": "a670cc6a4cf4eed950a26f2e85a185457e283ba617fd87da485625d96a2a61a6",
+          "th_hex": "a4dcfbf2cfe2b3ffd09acd65fbb78c675612b93c93b512a11b9b064786ee5488",
+          "direction": "s2c",
+          "record_hex": "00000000000000ff0000000000000000000000ff583b5eb10f945f24e205fbe6235b1fdf7881510d19871496b1efbb6f353fa785a4dcfa3948",
+          "caller_aad_hex": "7b7d"
+        },
+        {
+          "id": "s2c-open-256",
+          "seed_hex": "a670cc6a4cf4eed950a26f2e85a185457e283ba617fd87da485625d96a2a61a6",
+          "th_hex": "a4dcfbf2cfe2b3ffd09acd65fbb78c675612b93c93b512a11b9b064786ee5488",
+          "direction": "s2c",
+          "record_hex": "0000000000000100000000000000000000000100dec25a9b8ae33bf96900b89c28b64527b80d19ed4ea069645a8e23592cbf160e9360e55d0e",
+          "caller_aad_hex": "7b7d"
+        },
+        {
+          "id": "s2c-open-999",
+          "seed_hex": "a670cc6a4cf4eed950a26f2e85a185457e283ba617fd87da485625d96a2a61a6",
+          "th_hex": "a4dcfbf2cfe2b3ffd09acd65fbb78c675612b93c93b512a11b9b064786ee5488",
+          "direction": "s2c",
+          "record_hex": "00000000000003e70000000000000000000003e7fa3be29ced2c077c6cdfae83506e05966cb48db659e459ee4b8fcb873cec1b57ab78a9fe74",
+          "caller_aad_hex": "7b7d"
+        }
+      ]
+    }
+  },
+  "expected": {
+    "verdict": "ACCEPT",
+    "output": {
+      "opened": {
+        "c2s-open-255": "7075626c69632073657373696f6e207265636f7264",
+        "c2s-open-256": "7075626c69632073657373696f6e207265636f7264",
+        "c2s-open-999": "7075626c69632073657373696f6e207265636f7264",
+        "s2c-open-255": "7075626c69632073657373696f6e207265636f7264",
+        "s2c-open-256": "7075626c69632073657373696f6e207265636f7264",
+        "s2c-open-999": "7075626c69632073657373696f6e207265636f7264"
+      }
+    },
+    "effects": {}
+  }
+}

@@ -138,6 +138,11 @@ SESSION-01 cases and four related CST-04 tuple cases. The current core
 record export exposes the transcript-derived public session ID in both
 directions; participant, role, and bound-key decisions still require a
 stateful receiver boundary.
+The [session key and lifetime fixtures](current-spec-session02-evidence.md)
+add five SESSION-02 cases and one related CST-05 case. Both cores can be
+observed opening independently computed records across generation boundaries
+and rejecting sequence 1000; lifetime and policy decisions require stateful
+instrumentation.
 
 The 95 cases added after the historical snapshot comprise 71 MCP cases and
 24 later corrections. The older 71-case MCP runtime overlay is useful bounded

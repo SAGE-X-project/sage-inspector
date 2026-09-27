@@ -150,6 +150,46 @@ def observe(raw, adapter):
             actual = {'verdict': 'REJECT', 'output': {}, 'effects': {}}
         validate_outcome(actual)
         return {'schema_version': 1, 'id': ident, 'track': 'runtime', 'actual': actual}
+    if inp['operation'] == 'sage.session.record.boundary.probe':
+        cases = inp['input'].get('cases')
+        require(set(inp['input']) == {'cases'} and type(cases) is list and
+                len(cases) == 6, 'session record boundary cases')
+        opened = {}
+        seen = set()
+        unsupported = False
+        rejected = False
+        for case in cases:
+            require(type(case) is dict and set(case) == {'id', 'seed_hex',
+                    'th_hex', 'direction', 'record_hex', 'caller_aad_hex'} and
+                    type(case['id']) is str and
+                    re.fullmatch('[a-z0-9-]+', case['id']) is not None and
+                    case['id'] not in seen,
+                    'session record boundary case identity')
+            seen.add(case['id'])
+            response = invoke_core(adapter, ident + '-' + case['id'],
+                                   'sage.session.record010.open',
+                                   {key: value for key, value in case.items()
+                                    if key != 'id'})
+            if response['verdict'] == 'UNSUPPORTED':
+                unsupported = True
+            elif response['verdict'] == 'REJECT':
+                rejected = True
+            else:
+                require(set(response['output']) == {'plaintext_hex'} and
+                        type(response['output']['plaintext_hex']) is str,
+                        'session record boundary plaintext')
+                opened[case['id']] = response['output']['plaintext_hex']
+        if unsupported:
+            actual = {'verdict': 'UNSUPPORTED',
+                      'reason': 'Core adapter does not expose session record opening.'}
+        elif rejected:
+            actual = {'verdict': 'REJECT', 'output': {'opened': opened},
+                      'effects': {}}
+        else:
+            actual = {'verdict': 'ACCEPT', 'output': {'opened': opened},
+                      'effects': {}}
+        validate_outcome(actual)
+        return {'schema_version': 1, 'id': ident, 'track': 'runtime', 'actual': actual}
     response = invoke_core(adapter, ident, inp['operation'], inp['input'])
     if response['verdict'] == 'UNSUPPORTED':
         actual = {'verdict': 'UNSUPPORTED',

@@ -113,6 +113,34 @@
       "fixture": "vectors/0.10.0/current-spec/JCS-03-N03.json",
       "fixture_sha256": "23f0c26b51a5f2ca86106c8f4992f4369576e582e57f130566dba35864e43aab",
       "coverage": "partial"
+    },
+    {
+      "id": "JCS-04-P",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/JCS-04-P.json",
+      "fixture_sha256": "71ac13707a0e4515d67371dd9e849429c21fd1d1218ff3ced64f4ee598a4a737",
+      "coverage": "partial"
+    },
+    {
+      "id": "JCS-04-N01",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/JCS-04-N01.json",
+      "fixture_sha256": "1a7b740f257484a6830aba0a9ddeca0dd94c37446051bc70e1c40572a7fd6e6d",
+      "coverage": "partial"
+    },
+    {
+      "id": "JCS-04-N02",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/JCS-04-N02.json",
+      "fixture_sha256": "4a855bfd7f94d032f404fb4b748a9754e4996e056cdcd94b2c19950ef5158339",
+      "coverage": "partial"
+    },
+    {
+      "id": "JCS-04-N03",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/JCS-04-N03.json",
+      "fixture_sha256": "6ca164426cb8e177e8d0fc368055d41d1764871939be18bbfb3cc43d63a4568c",
+      "coverage": "partial"
     }
   ]
 }

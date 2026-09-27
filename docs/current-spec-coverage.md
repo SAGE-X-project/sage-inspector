@@ -42,7 +42,7 @@ python3 -B scripts/current_spec_gap.py --output /tmp/current-spec-gap.json
 ```
 
 `scripts/current_spec_evidence.py` is the case-level evidence admission and
-status engine. Its 71 current bindings cover selected JCS, HTTP, and HPKE cases
+status engine. Its 76 current bindings cover selected JCS, HTTP, and HPKE cases
 only partially; the remaining cases still need bindings. A binding must name a current
 case or mandatory child, one required verification track, a repository-owned
 fixture hash, and whether that fixture covers the complete case or only part
@@ -125,6 +125,10 @@ The [HPKE completion fixtures](current-spec-hpke04-evidence.md) add five
 HPKE-04 cases. They bind the signed completion domain to a current Ed25519
 verification result and preserve ACK, pending-request, and handle denials for
 the complete completion boundary.
+The [HPKE provisional-state fixtures](current-spec-hpke05-evidence.md) add
+five HPKE-05 cases. The first initiator record is executed against current
+record cryptography; confirmation, deadline, retransmission, and restart
+decisions still require a stateful handshake boundary.
 
 The 95 cases added after the historical snapshot comprise 71 MCP cases and
 24 later corrections. The older 71-case MCP runtime overlay is useful bounded

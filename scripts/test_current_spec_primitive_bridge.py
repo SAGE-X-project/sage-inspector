@@ -68,6 +68,24 @@ class PrimitiveBridgeTests(unittest.TestCase):
             'control_verdict': 'ACCEPT', 'control_output': {'valid': True},
             'candidate_output': {}}, 'effects': {}})
 
+    def test_jcs_order_pair_preserves_both_canonical_outputs(self):
+        self.core.write_text(
+            '#!/usr/bin/env python3\nimport json,sys\n'
+            'request=json.load(sys.stdin)\n'
+            "print(json.dumps({'schema_version':1,'case_id':request['case_id'],"
+            "'verdict':'ACCEPT','output':{'canonical_hex':"
+            "request['input']['document_hex']}}))\n")
+        self.core.chmod(0o755)
+        self.request['id'] = 'JCS-03-N01'
+        self.request['input'] = {'operation': 'jcs.order_pair',
+                                 'input': {'left': {'document_hex': '31'},
+                                           'right': {'document_hex': '32'}}}
+        actual = bridge.observe(json.dumps(self.request).encode(), self.core)['actual']
+        self.assertEqual(actual, {'verdict': 'ACCEPT', 'output': {
+            'left_verdict': 'ACCEPT', 'left_output': {'canonical_hex': '31'},
+            'right_verdict': 'ACCEPT', 'right_output': {'canonical_hex': '32'}},
+            'effects': {}})
+
 
 if __name__ == '__main__':
     unittest.main()

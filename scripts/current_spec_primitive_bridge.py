@@ -48,6 +48,30 @@ def observe(raw, adapter):
             re.fullmatch('[A-Za-z0-9_.-]+', inp['operation']) is not None and
             type(inp['input']) is dict, 'primitive input')
     require(adapter.is_file() and not adapter.is_symlink(), 'core adapter path')
+    if inp['operation'] == 'jcs.order_pair':
+        pair = inp['input']
+        require(set(pair) == {'left', 'right'} and
+                all(type(pair[name]) is dict and
+                    set(pair[name]) == {'document_hex'} and
+                    type(pair[name]['document_hex']) is str for name in pair),
+                'JCS order pair input')
+        left = invoke_core(adapter, ident + '-left',
+                           'jcs.canonicalize', pair['left'])
+        right = invoke_core(adapter, ident + '-right',
+                            'jcs.canonicalize', pair['right'])
+        if 'UNSUPPORTED' in (left['verdict'], right['verdict']):
+            actual = {'verdict': 'UNSUPPORTED',
+                      'reason': 'Core adapter does not expose JCS canonicalization.'}
+        else:
+            actual = {'verdict': 'ACCEPT' if
+                      left['verdict'] == right['verdict'] == 'ACCEPT' else 'REJECT',
+                      'output': {'left_verdict': left['verdict'],
+                                 'left_output': left['output'],
+                                 'right_verdict': right['verdict'],
+                                 'right_output': right['output']},
+                      'effects': {}}
+        validate_outcome(actual)
+        return {'schema_version': 1, 'id': ident, 'track': 'runtime', 'actual': actual}
     if inp['operation'] == 'guard.integer_pair':
         pair = inp['input']
         require(set(pair) == {'control', 'candidate'} and

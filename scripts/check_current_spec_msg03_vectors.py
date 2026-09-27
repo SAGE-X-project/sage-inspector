@@ -6,6 +6,7 @@ import json
 
 from current_spec_catalog import ROOT, load, require
 from check_current_spec_msg01_vectors import verify_signature
+from check_current_spec_msg02_vectors import base_and_signature
 
 
 IDS = ('MSG-03-P', 'MSG-03-N01', 'MSG-03-N02', 'MSG-03-N03', 'MSG-03-N04')
@@ -90,9 +91,18 @@ def check(root=ROOT):
             'MSG-03 positive primitive scope')
     base, req_h, req_body, resp_h, resp_body = response_base(
         requests['MSG-03-P'], responses['MSG-03-P'])
+    request_control = load((root / 'vectors/0.10.0/current-spec/MSG-02-P.json')
+                           .read_bytes())
+    require(requests['MSG-03-P'] == bytes.fromhex(
+                request_control['input']['input']['request_hex']),
+            'MSG-03 retained request differs from verified MSG-02 control')
+    request_base, request_signature, _ = base_and_signature(requests['MSG-03-P'])
+    verify_signature(bytes.fromhex(
+        request_control['input']['input']['public_key_hex']),
+        request_signature, request_base)
     req_doc, resp_doc = json.loads(req_body), json.loads(resp_body)
     require(req_h['x-sage-did'] == req_doc['did'] == CLIENT and
-            req_doc['recipient'] == SERVER and
+            req_doc['version'] == '0.10.0' and
             resp_h['x-sage-did'] == resp_doc['did'] == SERVER and
             resp_doc['recipient'] == CLIENT and resp_doc['success'] is True and
             resp_h['x-sage-version'] == resp_doc['version'] == '0.10.0' and

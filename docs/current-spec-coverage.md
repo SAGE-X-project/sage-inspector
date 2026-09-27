@@ -95,15 +95,17 @@ match, and the unavailable full-profile verification boundary.
 The [HTTP component observations](current-spec-msg02-evidence.md) add six
 MSG-02 cases, distinguishing digest and missing-header primitive checks from
 receiver-endpoint and version-policy checks unavailable in current adapters.
+The [request-bound response observations](current-spec-msg03-evidence.md)
+add five MSG-03 cases. Their signed control reuses the independently verified
+MSG-02 request and records which response checks remain unavailable.
 
 The 95 cases added after the historical snapshot comprise 71 MCP cases and
 24 later corrections. The older 71-case MCP runtime overlay is useful bounded
 evidence, but it was captured against an earlier spec revision; this inventory
 does not automatically promote it. The eight later Registry cases have only
 one partial exact-byte PoP observation and seven unrun cases. The remaining
-16 later cases include eleven partially bound MSG-01 and MSG-02 runtime
-scenarios; the remaining five still lack case-specific Inspector execution
-evidence.
+All 16 later cases now have partial runtime bindings for MSG-01 through
+MSG-03. None has complete receiving, state, and effect evidence.
 
 Complete support requires a version-matched evidence binding and an
 independent verdict for every case and mandatory subscenario, including

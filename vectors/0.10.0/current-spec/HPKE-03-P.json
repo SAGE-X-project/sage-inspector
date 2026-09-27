@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "HPKE-03-P",
+  "track": "runtime",
+  "input": {
+    "operation": "sage.hpke.combine",
+    "input": {
+      "exporter_hex": "a8de62cfb50aae8058d494a86b9420a9a04fbb5f19c4b25bda7c4cf251aa882c",
+      "ss_e2e_hex": "7cc2b7b281a0742951106c397572ff7ba1fc702a9fc46c9d8a0d984f52ed166f",
+      "th_hex": "a4dcfbf2cfe2b3ffd09acd65fbb78c675612b93c93b512a11b9b064786ee5488"
+    }
+  },
+  "expected": {
+    "verdict": "ACCEPT",
+    "output": {
+      "seed_hex": "a670cc6a4cf4eed950a26f2e85a185457e283ba617fd87da485625d96a2a61a6"
+    },
+    "effects": {}
+  }
+}

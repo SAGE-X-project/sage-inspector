@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "HPKE-03-N01",
+  "track": "runtime",
+  "input": {
+    "operation": "x25519.exchange",
+    "input": {
+      "private_key_hex": "2c26c5885569ac453186c9f3d5244ed67c506c6fb5769411ee6cb974291e49d0",
+      "public_key_hex": "0000000000000000000000000000000000000000000000000000000000000000"
+    }
+  },
+  "expected": {
+    "verdict": "REJECT",
+    "output": {},
+    "effects": {}
+  }
+}

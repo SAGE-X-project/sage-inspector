@@ -120,6 +120,36 @@ def observe(raw, adapter):
                       'effects': {}}
         validate_outcome(actual)
         return {'schema_version': 1, 'id': ident, 'track': 'runtime', 'actual': actual}
+    if inp['operation'] == 'sage.session.sid.project':
+        fields = inp['input']
+        require(set(fields) == {'seed_hex', 'th_hex'} and
+                all(type(fields[name]) is str and len(fields[name]) == 64 and
+                    re.fullmatch('[0-9a-f]{64}', fields[name]) is not None
+                    for name in fields), 'session ID seed and transcript hash')
+        results = {}
+        for direction in ('c2s', 's2c'):
+            core_input = dict(fields, direction=direction,
+                              caller_aad_hex='', plaintext={'byte': 0, 'length': 0})
+            results[direction] = invoke_core(adapter, ident + '-' + direction,
+                                            'sage.session.record010.export', core_input)
+        if any(row['verdict'] == 'UNSUPPORTED' for row in results.values()):
+            actual = {'verdict': 'UNSUPPORTED',
+                      'reason': 'Core adapter does not expose session record export.'}
+        elif all(row['verdict'] == 'ACCEPT' for row in results.values()):
+            require(all(set(row['output']) == {'session_id', 'record_hex',
+                    'record_sha256', 'record_bytes'} and
+                    type(row['output']['session_id']) is str and
+                    re.fullmatch('[A-Za-z0-9_-]{22}',
+                                 row['output']['session_id']) is not None
+                    for row in results.values()), 'session ID export fields')
+            actual = {'verdict': 'ACCEPT',
+                      'output': {'c2s_sid': results['c2s']['output']['session_id'],
+                                 's2c_sid': results['s2c']['output']['session_id']},
+                      'effects': {}}
+        else:
+            actual = {'verdict': 'REJECT', 'output': {}, 'effects': {}}
+        validate_outcome(actual)
+        return {'schema_version': 1, 'id': ident, 'track': 'runtime', 'actual': actual}
     response = invoke_core(adapter, ident, inp['operation'], inp['input'])
     if response['verdict'] == 'UNSUPPORTED':
         actual = {'verdict': 'UNSUPPORTED',

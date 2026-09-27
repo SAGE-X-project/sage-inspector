@@ -20,7 +20,7 @@ class CurrentSpecGapTests(unittest.TestCase):
         self.assertEqual(report['mandatory_subscenario_count'], 26)
         self.assertEqual(report['historical_primitive_candidates'], 8)
         self.assertEqual(report['current_complete_bindings'], 0)
-        self.assertEqual(report['current_partial_bindings'], 76)
+        self.assertEqual(report['current_partial_bindings'], 81)
         self.assertEqual({row['current_case_status'] for row in report['cases']}, {'NOT_RUN'})
         self.assertFalse(any(row['current_complete_binding'] for row in report['cases']))
         self.assertEqual(len({row['id'] for row in report['cases']}), 481)

@@ -129,6 +129,10 @@ The [HPKE provisional-state fixtures](current-spec-hpke05-evidence.md) add
 five HPKE-05 cases. The first initiator record is executed against current
 record cryptography; confirmation, deadline, retransmission, and restart
 decisions still require a stateful handshake boundary.
+The [HPKE admission fixtures](current-spec-hpke06-evidence.md) add five
+HPKE-06 cases for the exact payload limit, malformed fixed field, unsigned
+cookie, and secret-free diagnostic boundary. Current primitive adapters do
+not expose full handshake admission or its effect and log instrumentation.
 
 The 95 cases added after the historical snapshot comprise 71 MCP cases and
 24 later corrections. The older 71-case MCP runtime overlay is useful bounded

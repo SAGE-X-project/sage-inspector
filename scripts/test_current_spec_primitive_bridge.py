@@ -86,6 +86,23 @@ class PrimitiveBridgeTests(unittest.TestCase):
             'right_verdict': 'ACCEPT', 'right_output': {'canonical_hex': '32'}},
             'effects': {}})
 
+    def test_http_msg01_combines_base_and_received_content_digest(self):
+        self.core.write_text(
+            '#!/usr/bin/env python3\nimport json,sys\n'
+            'request=json.load(sys.stdin)\n'
+            "base=request['operation']=='rfc9421.base'\n"
+            "print(json.dumps({'schema_version':1,'case_id':request['case_id'],"
+            "'verdict':'ACCEPT','output':{'base_hex':'3132'} if base else {'valid':True}}))\n")
+        self.core.chmod(0o755)
+        self.request['id'] = 'MSG-01-P'
+        self.request['input'] = {'operation': 'http.msg01.primitives',
+                                 'input': {'request_hex': '31', 'response_hex': '',
+                                           'public_key_hex': '32', 'body_repeat': 1}}
+        actual = bridge.observe(json.dumps(self.request).encode(), self.core)['actual']
+        self.assertEqual(actual, {'verdict': 'ACCEPT',
+                                  'output': {'base_hex': '3132', 'digest_valid': True},
+                                  'effects': {}})
+
 
 if __name__ == '__main__':
     unittest.main()

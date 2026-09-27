@@ -48,6 +48,34 @@ def observe(raw, adapter):
             re.fullmatch('[A-Za-z0-9_.-]+', inp['operation']) is not None and
             type(inp['input']) is dict, 'primitive input')
     require(adapter.is_file() and not adapter.is_symlink(), 'core adapter path')
+    if inp['operation'] == 'http.msg01.primitives':
+        fields = inp['input']
+        require(set(fields) == {'request_hex', 'response_hex', 'public_key_hex',
+                                'body_repeat'} and
+                all(type(fields[name]) is str for name in
+                    ('request_hex', 'response_hex', 'public_key_hex')) and
+                type(fields['body_repeat']) is int and fields['body_repeat'] == 1,
+                'HTTP MSG-01 primitive input')
+        base = invoke_core(adapter, ident + '-base', 'rfc9421.base', fields)
+        digest = invoke_core(adapter, ident + '-digest', 'sage.content-digest', fields)
+        if 'UNSUPPORTED' in (base['verdict'], digest['verdict']):
+            actual = {'verdict': 'UNSUPPORTED',
+                      'reason': 'Core adapter does not expose the HTTP base and digest primitives.'}
+        elif base['verdict'] == digest['verdict'] == 'ACCEPT':
+            require(set(base['output']) == {'base_hex'} and
+                    type(base['output']['base_hex']) is str and
+                    digest['output'] == {'valid': True},
+                    'HTTP primitive response fields')
+            actual = {'verdict': 'ACCEPT',
+                      'output': {'base_hex': base['output']['base_hex'],
+                                 'digest_valid': True}, 'effects': {}}
+        else:
+            actual = {'verdict': 'REJECT',
+                      'output': {'base_verdict': base['verdict'],
+                                 'digest_verdict': digest['verdict']},
+                      'effects': {}}
+        validate_outcome(actual)
+        return {'schema_version': 1, 'id': ident, 'track': 'runtime', 'actual': actual}
     if inp['operation'] == 'jcs.order_pair':
         pair = inp['input']
         require(set(pair) == {'left', 'right'} and

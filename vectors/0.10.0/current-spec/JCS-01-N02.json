@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "JCS-01-N02",
+  "track": "runtime",
+  "input": {
+    "operation": "jcs.canonicalize",
+    "input": {
+      "document_hex": "efbbbf7b7d"
+    }
+  },
+  "expected": {
+    "verdict": "REJECT",
+    "output": {},
+    "effects": {}
+  }
+}

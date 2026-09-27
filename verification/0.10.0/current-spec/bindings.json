@@ -3,6 +3,13 @@
   "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
   "bindings": [
     {
+      "id": "JCS-01-P",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/JCS-01-P.json",
+      "fixture_sha256": "52b5e503e60ae91ba17ca301e99c8cc82c676f64d4bfe86ac24bdc9083384ede",
+      "coverage": "partial"
+    },
+    {
       "id": "JCS-01-N01",
       "track": "runtime",
       "fixture": "vectors/0.10.0/current-spec/JCS-01-N01.json",

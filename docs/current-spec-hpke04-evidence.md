@@ -24,5 +24,18 @@ exposes the complete `sage.hpke.complete.verify` boundary, so its three
 denial cases remain `UNSUPPORTED`. All fixtures use deterministic local test
 values and do not send network traffic.
 
-The preserved Go/Rust observations are checked by
+The [preserved 71-case Go/Rust run](evidence/current-spec/hpke04/) pins
+`sage-spec` revision `5bcf511e604579afa63f434013447f44b6858828`, Go
+`49379baadc6baec9ca8b4bb7d15bf43d65144bd7`, Rust
+`ef63d76b88fe4d6ddbc7ae0fcfdbce7beab4d396`, and Inspector runner
+`aaf68cac65f07a385e301d057edf8a9de7ba49a8`. Recheck fixture relations,
+runner hashes, all observations, and assessments with
 `python3 -B scripts/check_current_spec_hpke04_evidence.py`.
+
+Both cores accept the valid inner signature and reject the invalid signature,
+so HPKE-04-P and HPKE-04-N04 are `PARTIAL` in each. The changed handle,
+wrong ACK, and different pending request remain `UNSUPPORTED`, with no
+session or protected-dispatch effect observation. Across all 481 cases, Go
+has 11 `FAIL`, 39 `UNSUPPORTED`, 21 `PARTIAL`, and 410 `NOT_RUN`; Rust has
+five `FAIL`, 38 `UNSUPPORTED`, 28 `PARTIAL`, and 410 `NOT_RUN`. Overall
+conformance is `NOT_ESTABLISHED`.

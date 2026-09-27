@@ -25,3 +25,19 @@ checked fixture data, not an observed core response. Neither core adapter
 exposes a full `sage.http.verify` receiving and result-consumption operation,
 so the three negative cases cannot yet show rejection or effect counts. No
 network traffic or attack-capable reproduction is used.
+
+The [preserved 52-case Go/Rust run](evidence/current-spec/msg06/) pins
+`sage-spec` revision `5bcf511e604579afa63f434013447f44b6858828`, Go
+`49379baadc6baec9ca8b4bb7d15bf43d65144bd7`, Rust
+`ef63d76b88fe4d6ddbc7ae0fcfdbce7beab4d396`, and Inspector runner
+`8851a0fa86ae3bed4fbc3803d7a0c5fd7c052001`. Recheck fixtures, runner
+hashes, observations, and assessments with
+`python3 -B scripts/check_current_spec_msg06_evidence.py`.
+
+Rust matches the signed failure response base and digest, leaving MSG-06-P
+`PARTIAL`. Go's base omits the signed `tag` parameter, making it `FAIL` at the
+primitive layer. MSG-06-N01 through N03 are `UNSUPPORTED` in both cores; no
+response routing, result-consumption, or protected-effect observation was
+made. Across all 481 cases, Go has nine `FAIL`, 26 `UNSUPPORTED`, 17
+`PARTIAL`, and 429 `NOT_RUN`; Rust has two `FAIL`, 26 `UNSUPPORTED`, 24
+`PARTIAL`, and 429 `NOT_RUN`. Overall conformance remains `NOT_ESTABLISHED`.

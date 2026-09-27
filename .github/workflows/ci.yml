@@ -122,6 +122,33 @@ jobs:
       - name: Run the vectors
         run: go run ./cmd/sage-inspector vectors -dir .sage-spec/vectors
 
+  current-spec:
+    name: Current spec inventory
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          path: sage-inspector
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: SAGE-X-project/sage-spec
+          ref: 5bcf511e604579afa63f434013447f44b6858828
+          path: sage-spec
+      - name: Check every current requirement and case mapping
+        run: |
+          cd sage-inspector
+          python3 -B scripts/test_current_spec_catalog.py
+          python3 -B scripts/current_spec_catalog.py --spec-root ../sage-spec --report "${RUNNER_TEMP}/current-spec-inventory.json"
+      - name: Preserve the incomplete inventory
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: current-spec-inventory-${{ github.sha }}
+          if-no-files-found: ignore
+          retention-days: 30
+          path: ${{ runner.temp }}/current-spec-inventory.json
+
   lint:
     name: Lint
     runs-on: ubuntu-latest

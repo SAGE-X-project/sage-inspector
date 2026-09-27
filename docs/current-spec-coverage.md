@@ -134,7 +134,7 @@ HPKE-06 cases for the exact payload limit, malformed fixed field, unsigned
 cookie, and secret-free diagnostic boundary. Current primitive adapters do
 not expose full handshake admission or its effect and log instrumentation.
 The [session identity fixtures](current-spec-session01-evidence.md) add four
-SESSION-01 cases and four mandatory tuple subscenarios. The current core
+SESSION-01 cases and four related CST-04 tuple cases. The current core
 record export exposes the transcript-derived public session ID in both
 directions; participant, role, and bound-key decisions still require a
 stateful receiver boundary.

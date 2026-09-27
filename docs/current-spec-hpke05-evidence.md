@@ -25,5 +25,17 @@ stateful boundary. The four denial cases must remain `UNSUPPORTED` until a
 version-matched subject adapter and effect instrumentation are available.
 The independent session audit checks fixture expectations, not core behavior.
 
-The preserved Go/Rust observations are checked by
+The [preserved 76-case Go/Rust run](evidence/current-spec/hpke05/) pins
+`sage-spec` revision `5bcf511e604579afa63f434013447f44b6858828`, Go
+`49379baadc6baec9ca8b4bb7d15bf43d65144bd7`, Rust
+`ef63d76b88fe4d6ddbc7ae0fcfdbce7beab4d396`, and Inspector runner
+`f6aabd7eaaa3bf148503f5d3c99a4d124024ff01`. Recheck fixture relations,
+runner hashes, all observations, and assessments with
 `python3 -B scripts/check_current_spec_hpke05_evidence.py`.
+
+Both cores decrypt the first record, so HPKE-05-P is `PARTIAL` in each.
+HPKE-05-N01 through N04 are `UNSUPPORTED`, with no state transition or
+protected-dispatch effect observation. Across all 481 cases, Go has 11
+`FAIL`, 43 `UNSUPPORTED`, 22 `PARTIAL`, and 405 `NOT_RUN`; Rust has five
+`FAIL`, 42 `UNSUPPORTED`, 29 `PARTIAL`, and 405 `NOT_RUN`. Overall
+conformance is `NOT_ESTABLISHED`.

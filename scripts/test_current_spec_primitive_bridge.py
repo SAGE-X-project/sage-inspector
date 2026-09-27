@@ -50,6 +50,24 @@ class PrimitiveBridgeTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'core adapter response identity'):
             bridge.observe(json.dumps(self.request).encode(), self.core)
 
+    def test_guard_integer_pair_requires_valid_control_and_rejected_candidate(self):
+        self.core.write_text(
+            '#!/usr/bin/env python3\nimport json,sys\n'
+            'request=json.load(sys.stdin)\n'
+            "control=request['case_id'].endswith('-control')\n"
+            "print(json.dumps({'schema_version':1,'case_id':request['case_id'],"
+            "'verdict':'ACCEPT' if control else 'REJECT',"
+            "'output':{'valid':True} if control else {}}))\n")
+        self.core.chmod(0o755)
+        self.request['id'] = 'JCS-02-N01'
+        self.request['input'] = {'operation': 'guard.integer_pair',
+                                 'input': {'control': {'envelope_hex': 'aa'},
+                                           'candidate': {'envelope_hex': 'bb'}}}
+        actual = bridge.observe(json.dumps(self.request).encode(), self.core)['actual']
+        self.assertEqual(actual, {'verdict': 'REJECT', 'output': {
+            'control_verdict': 'ACCEPT', 'control_output': {'valid': True},
+            'candidate_output': {}}, 'effects': {}})
+
 
 if __name__ == '__main__':
     unittest.main()

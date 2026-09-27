@@ -12,6 +12,25 @@ from current_spec_catalog import catalog, load, require
 from current_spec_evidence import validate_outcome
 
 
+def invoke_core(adapter, ident, operation, inp):
+    core_request = {'schema_version': 1, 'protocol_version': '0.10.0',
+                    'profile': 'primitive-foundation', 'case_id': ident,
+                    'operation': operation, 'input': inp}
+    proc = subprocess.run([str(adapter)], input=json.dumps(core_request,
+                           separators=(',', ':')).encode(), capture_output=True,
+                          timeout=10, check=False)
+    require(proc.returncode == 0 and len(proc.stdout) <= 1024 * 1024 and
+            len(proc.stderr) <= 1024 * 1024, 'core adapter failed or exceeded bound')
+    response = load(proc.stdout)
+    require(type(response) is dict and set(response) == {'schema_version',
+            'case_id', 'verdict', 'output'} and response['schema_version'] == 1
+            and response['case_id'] == ident and
+            response['verdict'] in ('ACCEPT', 'REJECT', 'UNSUPPORTED') and
+            type(response['output']) is dict,
+            'core adapter response identity')
+    return response
+
+
 def observe(raw, adapter):
     request = load(raw)
     spec_revision = catalog()[0]['spec_revision']
@@ -29,19 +48,27 @@ def observe(raw, adapter):
             re.fullmatch('[A-Za-z0-9_.-]+', inp['operation']) is not None and
             type(inp['input']) is dict, 'primitive input')
     require(adapter.is_file() and not adapter.is_symlink(), 'core adapter path')
-    core_request = {'schema_version': 1, 'protocol_version': '0.10.0',
-                    'profile': 'primitive-foundation', 'case_id': ident,
-                    'operation': inp['operation'], 'input': inp['input']}
-    proc = subprocess.run([str(adapter)], input=json.dumps(core_request,
-                           separators=(',', ':')).encode(), capture_output=True,
-                          timeout=10, check=False)
-    require(proc.returncode == 0 and len(proc.stdout) <= 1024 * 1024 and
-            len(proc.stderr) <= 1024 * 1024, 'core adapter failed or exceeded bound')
-    response = load(proc.stdout)
-    require(type(response) is dict and set(response) == {'schema_version',
-            'case_id', 'verdict', 'output'} and response['schema_version'] == 1
-            and response['case_id'] == ident and type(response['output']) is dict,
-            'core adapter response identity')
+    if inp['operation'] == 'guard.integer_pair':
+        pair = inp['input']
+        require(set(pair) == {'control', 'candidate'} and
+                all(type(pair[name]) is dict for name in pair),
+                'guard integer pair input')
+        control = invoke_core(adapter, ident + '-control',
+                              'sage.guard.intent.verify', pair['control'])
+        candidate = invoke_core(adapter, ident + '-candidate',
+                                'sage.guard.intent.verify', pair['candidate'])
+        if 'UNSUPPORTED' in (control['verdict'], candidate['verdict']):
+            actual = {'verdict': 'UNSUPPORTED',
+                      'reason': 'Core adapter does not expose Guard intent verification.'}
+        else:
+            actual = {'verdict': candidate['verdict'],
+                      'output': {'control_verdict': control['verdict'],
+                                 'control_output': control['output'],
+                                 'candidate_output': candidate['output']},
+                      'effects': {}}
+        validate_outcome(actual)
+        return {'schema_version': 1, 'id': ident, 'track': 'runtime', 'actual': actual}
+    response = invoke_core(adapter, ident, inp['operation'], inp['input'])
     if response['verdict'] == 'UNSUPPORTED':
         actual = {'verdict': 'UNSUPPORTED',
                   'reason': 'Core primitive adapter does not expose this operation.'}

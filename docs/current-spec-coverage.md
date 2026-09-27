@@ -75,6 +75,8 @@ without a reviewed runtime fixture fails explicitly. The primitive bridge
 translates the first JCS case to the existing Go/Rust core adapter request,
 preserving raw duplicate-key bytes and returning only the core verdict. Its
 empty effect map means effects were not observed; this is partial case evidence.
+The first [Go/Rust JCS observation](current-spec-jcs-evidence.md) records one
+Go mismatch and one Rust partial match without promoting overall conformance.
 
 The 95 cases added after the historical snapshot comprise 71 MCP cases and
 24 later corrections. The older 71-case MCP runtime overlay is useful bounded

@@ -143,6 +143,10 @@ add five SESSION-02 cases and one related CST-05 case. Both cores can be
 observed opening independently computed records across generation boundaries
 and rejecting sequence 1000; lifetime and policy decisions require stateful
 instrumentation.
+The [record-format fixtures](current-spec-session03-evidence.md) add six
+SESSION-03 cases and two related CST-03 AAD cases. The current cores directly
+open or reject bounded records, while complete transport projection and
+protected dispatch still require a receiver boundary.
 
 The 95 cases added after the historical snapshot comprise 71 MCP cases and
 24 later corrections. The older 71-case MCP runtime overlay is useful bounded

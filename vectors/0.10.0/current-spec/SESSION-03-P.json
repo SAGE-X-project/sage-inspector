@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "SESSION-03-P",
+  "track": "runtime",
+  "input": {
+    "operation": "sage.session.record010.open",
+    "input": {
+      "seed_hex": "a670cc6a4cf4eed950a26f2e85a185457e283ba617fd87da485625d96a2a61a6",
+      "th_hex": "a4dcfbf2cfe2b3ffd09acd65fbb78c675612b93c93b512a11b9b064786ee5488",
+      "direction": "c2s",
+      "record_hex": "00000000000000000000000000000000000000000882116e879457582f3d127ea08eba98185f3bf0eef94b5ad246e724a9ea9cc763de56b152",
+      "caller_aad_hex": "7b7d"
+    }
+  },
+  "expected": {
+    "verdict": "ACCEPT",
+    "output": {
+      "plaintext_hex": "7075626c69632073657373696f6e207265636f7264"
+    },
+    "effects": {}
+  }
+}

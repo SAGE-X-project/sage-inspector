@@ -190,6 +190,46 @@ def observe(raw, adapter):
                       'effects': {}}
         validate_outcome(actual)
         return {'schema_version': 1, 'id': ident, 'track': 'runtime', 'actual': actual}
+    if inp['operation'] == 'sage.session.record.bounds.pair':
+        pair = inp['input']
+        require(set(pair) == {'short', 'oversized'} and
+                all(type(pair[name]) is dict for name in pair),
+                'record bounds pair input')
+        short = invoke_core(adapter, ident + '-short',
+                            'sage.session.record010.open', pair['short'])
+        oversized = invoke_core(adapter, ident + '-oversized',
+                                'sage.session.record010.seal', pair['oversized'])
+        if 'UNSUPPORTED' in (short['verdict'], oversized['verdict']):
+            actual = {'verdict': 'UNSUPPORTED',
+                      'reason': 'Core adapter does not expose record bounds operations.'}
+        else:
+            actual = {'verdict': 'ACCEPT',
+                      'output': {'short_verdict': short['verdict'],
+                                 'oversized_verdict': oversized['verdict']},
+                      'effects': {}}
+        validate_outcome(actual)
+        return {'schema_version': 1, 'id': ident, 'track': 'runtime', 'actual': actual}
+    if inp['operation'] == 'sage.session.record.aad.pair':
+        pair = inp['input']
+        require(set(pair) == {'open', 'seal'} and
+                all(type(pair[name]) is dict for name in pair),
+                'record AAD pair input')
+        opened = invoke_core(adapter, ident + '-open',
+                             'sage.session.record010.open', pair['open'])
+        sealed = invoke_core(adapter, ident + '-seal',
+                             'sage.session.record010.seal', pair['seal'])
+        if 'UNSUPPORTED' in (opened['verdict'], sealed['verdict']):
+            actual = {'verdict': 'UNSUPPORTED',
+                      'reason': 'Core adapter does not expose record AAD operations.'}
+        else:
+            actual = {'verdict': 'ACCEPT',
+                      'output': {'open_verdict': opened['verdict'],
+                                 'open_output': opened['output'],
+                                 'seal_verdict': sealed['verdict'],
+                                 'seal_output': sealed['output']},
+                      'effects': {}}
+        validate_outcome(actual)
+        return {'schema_version': 1, 'id': ident, 'track': 'runtime', 'actual': actual}
     response = invoke_core(adapter, ident, inp['operation'], inp['input'])
     if response['verdict'] == 'UNSUPPORTED':
         actual = {'verdict': 'UNSUPPORTED',

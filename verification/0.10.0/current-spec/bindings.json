@@ -666,6 +666,62 @@
       "fixture": "vectors/0.10.0/current-spec/CST-05-07.json",
       "fixture_sha256": "94db11bbb7a0a8801aa95f1dc0d198e2422225b3ee682f73dfc9838ac161973f",
       "coverage": "partial"
+    },
+    {
+      "id": "SESSION-03-P",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/SESSION-03-P.json",
+      "fixture_sha256": "18956acbb0ff3ceffe6e3f6c2d9e0bbfd30cb0988f78f1dd97d00a0f05c7ff65",
+      "coverage": "partial"
+    },
+    {
+      "id": "SESSION-03-N01",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/SESSION-03-N01.json",
+      "fixture_sha256": "ba892981a14933669b1832dbb832c92fe97b38a19e6cbe103b0f261e0253ae68",
+      "coverage": "partial"
+    },
+    {
+      "id": "SESSION-03-N02",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/SESSION-03-N02.json",
+      "fixture_sha256": "e6282a257c7c40c267bb531144f1248d812e6d433eb21b626803f228f8acfc24",
+      "coverage": "partial"
+    },
+    {
+      "id": "SESSION-03-N03",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/SESSION-03-N03.json",
+      "fixture_sha256": "121feff9038c70033f9cec6febe613fdaadde773f72d7d97b47fb690d62efbea",
+      "coverage": "partial"
+    },
+    {
+      "id": "SESSION-03-N04",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/SESSION-03-N04.json",
+      "fixture_sha256": "b7691396f8d33a9259cd5239821db1ec9e058353dabae6b5cfa4d0f08cf740bf",
+      "coverage": "partial"
+    },
+    {
+      "id": "SESSION-03-N05",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/SESSION-03-N05.json",
+      "fixture_sha256": "128c27f5d9b256b4d344f90c7812d126910deb363bfced9290fb7367c3ba6fbf",
+      "coverage": "partial"
+    },
+    {
+      "id": "CST-03-01",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/CST-03-01.json",
+      "fixture_sha256": "69d6adeff4fab5db66a10f3eec9fcdb36d831c2bb76efc30ad1fab963d39fd21",
+      "coverage": "partial"
+    },
+    {
+      "id": "CST-03-02",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/CST-03-02.json",
+      "fixture_sha256": "0f41ba8ff5836baec86bf1d879cb8c0056d694f020eba623c87e112714f2f967",
+      "coverage": "partial"
     }
   ]
 }

@@ -98,6 +98,10 @@ receiver-endpoint and version-policy checks unavailable in current adapters.
 The [request-bound response observations](current-spec-msg03-evidence.md)
 add five MSG-03 cases. Their signed control reuses the independently verified
 MSG-02 request and records which response checks remain unavailable.
+The [HTTP receiving-boundary observations](current-spec-msg04-evidence.md)
+add six MSG-04 cases with exact duplicate, framing, byte-limit, and resolver
+conditions. Current adapters cannot establish rejection or zero protected
+effects for those full-boundary cases.
 
 The 95 cases added after the historical snapshot comprise 71 MCP cases and
 24 later corrections. The older 71-case MCP runtime overlay is useful bounded

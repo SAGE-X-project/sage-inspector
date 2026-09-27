@@ -21,3 +21,17 @@ tuple, or prevents protected effects after a rejected record. Those portions
 need an instrumented receiver and remain outside the present primitive
 adapter evidence. The independent Node audit validates fixture calculations,
 not core behavior.
+
+The [preserved 103-case Go/Rust run](evidence/current-spec/session03/) pins
+`sage-spec` revision `5bcf511e604579afa63f434013447f44b6858828`, Go
+`49379baadc6baec9ca8b4bb7d15bf43d65144bd7`, Rust
+`ef63d76b88fe4d6ddbc7ae0fcfdbce7beab4d396`, and Inspector runner
+`6e1fa7c5f71d073e55249c629c4e25b0b2d04678`. Recheck fixture
+relations, runner hashes, observations, and assessments with
+`python3 -B scripts/check_current_spec_session03_evidence.py`.
+
+All eight record and AAD cases match the core observations in both languages
+but remain `PARTIAL`. Across all 481 cases, Go has 11 `FAIL`, 59
+`UNSUPPORTED`, 33 `PARTIAL`, and 378 `NOT_RUN`; Rust has five `FAIL`, 58
+`UNSUPPORTED`, 40 `PARTIAL`, and 378 `NOT_RUN`. Overall conformance is
+`NOT_ESTABLISHED`.

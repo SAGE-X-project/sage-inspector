@@ -42,7 +42,7 @@ python3 -B scripts/current_spec_gap.py --output /tmp/current-spec-gap.json
 ```
 
 `scripts/current_spec_evidence.py` is the case-level evidence admission and
-status engine. Its first six bindings are partial JCS parser fixtures;
+status engine. Its first seven bindings are partial JCS parser fixtures;
 the remaining cases still need bindings. A binding must name a current
 case or mandatory child, one required verification track, a repository-owned
 fixture hash, and whether that fixture covers the complete case or only part
@@ -72,7 +72,7 @@ answer, bounds the process, and writes hashed observations for the evidence
 engine. Document and deployment reviews use their own observation capture;
 they cannot be replaced by a primitive adapter. An attempt to run a case
 without a reviewed runtime fixture fails explicitly. The primitive bridge
-translates the six JCS parser cases to the existing Go/Rust core adapter request,
+translates the seven JCS parser cases to the existing Go/Rust core adapter request,
 preserving raw JSON bytes and returning only the core verdict. Its
 empty effect map means effects were not observed; this is partial case evidence.
 The first [Go/Rust JCS observation](current-spec-jcs-evidence.md) records one

@@ -10,7 +10,8 @@ rewritten or counted as observations of this revision.
 every requirement-to-rule and rule-to-case relationship, the 386 historical
 case classifications, 95 additional case classifications, all mandatory
 subscenario parents, and hashes of every normative source file cited by the
-rules. `MOWN-06` is a cross-case mandatory-child mapping rather than a rule
+rules, the MCP tool descriptor, and the standards-clause audit. `MOWN-06` is
+a cross-case mandatory-child mapping rather than a rule
 with its own parent cases. CI checks these identities against the pinned
 `sage-spec` checkout. New or removed cases, changed source files, and
 reclassified historical cases require an explicit catalog update.

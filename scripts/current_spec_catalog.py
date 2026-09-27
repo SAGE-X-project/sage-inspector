@@ -58,7 +58,9 @@ def index(items, name):
 
 
 def source_files(trace):
-    files = {'verification/traceability.json'}
+    files = {'verification/traceability.json',
+             'profiles/non-http-mcp-tool.json',
+             'verification/standards-clause-audit.md'}
     files.update(rule['source'] for rule in trace['rules'])
     for path in files:
         require(type(path) is str and path and not Path(path).is_absolute()

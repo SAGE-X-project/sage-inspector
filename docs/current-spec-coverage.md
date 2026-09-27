@@ -42,7 +42,7 @@ python3 -B scripts/current_spec_gap.py --output /tmp/current-spec-gap.json
 ```
 
 `scripts/current_spec_evidence.py` is the case-level evidence admission and
-status engine. Its first seven bindings are partial JCS parser fixtures;
+status engine. Its first twelve bindings are partial JCS parser and integer fixtures;
 the remaining cases still need bindings. A binding must name a current
 case or mandatory child, one required verification track, a repository-owned
 fixture hash, and whether that fixture covers the complete case or only part
@@ -75,10 +75,14 @@ without a reviewed runtime fixture fails explicitly. The primitive bridge
 translates the seven JCS parser cases to the existing Go/Rust core adapter request,
 preserving raw JSON bytes and returning only the core verdict. Its
 empty effect map means effects were not observed; this is partial case evidence.
+For JCS-02, the bridge submits both signed Guard intents and records the
+control and candidate verdicts from the receiving schema path.
 The first [Go/Rust JCS observation](current-spec-jcs-evidence.md) records one
 Go mismatch and one Rust partial match. The expanded
 [JCS parser observations](current-spec-jcs-parser-evidence.md) record all six
-parser scenarios without promoting overall conformance.
+parser scenarios. The [signed integer observations](current-spec-jcs-integer-evidence.md)
+record five JCS-02 scenarios using valid signed controls without promoting
+overall conformance.
 
 The 95 cases added after the historical snapshot comprise 71 MCP cases and
 24 later corrections. The older 71-case MCP runtime overlay is useful bounded

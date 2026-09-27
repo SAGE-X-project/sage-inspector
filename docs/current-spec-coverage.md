@@ -32,6 +32,50 @@ not answer whether a Go or Rust core, MCP host, Registry Source, or deployed
 system passed that case. In particular, related primitive vectors and rule
 IDs are not complete parent-case evidence.
 
+The gap report distinguishes the 386 baseline cases, 71 earlier MCP cases,
+eight Registry clarification cases, and 16 later correction cases. Only eight
+baseline cases have related primitive prerequisites; these do not establish
+complete case coverage. Generate it with:
+
+```sh
+python3 -B scripts/current_spec_gap.py --output /tmp/current-spec-gap.json
+```
+
+`scripts/current_spec_evidence.py` is the case-level evidence admission and
+status engine. Its first binding is a partial JCS duplicate-key parser fixture;
+the remaining cases still need bindings. A binding must name a current
+case or mandatory child, one required verification track, a repository-owned
+fixture hash, and whether that fixture covers the complete case or only part
+of it. An external observation must pin the spec revision, exact fixture and
+input hashes, subject repository/revision/executable hash, runner revision,
+environment, and typed verdict/output/effect counters. The engine compares
+the independently stored expectation with the observation; it does not accept
+a self-reported `PASS`. Missing bindings and observations remain `NOT_RUN`,
+reported lack of subject support is `UNSUPPORTED`, an observed mismatch is
+`FAIL`, and a matched partial fixture is `PARTIAL`. Every required track and
+mandatory child must pass before a parent case can pass. Even then overall
+conformance remains `NOT_ESTABLISHED` until the separate integration gates
+are satisfied.
+
+```sh
+python3 -B scripts/test_current_spec_evidence.py
+python3 -B scripts/current_spec_evidence.py \
+  --evidence /path/to/revision-bound-observations \
+  --output /tmp/current-spec-evidence.json
+```
+
+The unit tests use synthetic, inert observations to check status derivation.
+They are not evidence that a SAGE implementation passed a normative case.
+`scripts/run_current_spec_cases.py` can execute bound runtime fixtures against
+one explicit local adapter. It sends the case input but never the expected
+answer, bounds the process, and writes hashed observations for the evidence
+engine. Document and deployment reviews use their own observation capture;
+they cannot be replaced by a primitive adapter. An attempt to run a case
+without a reviewed runtime fixture fails explicitly. The primitive bridge
+translates the first JCS case to the existing Go/Rust core adapter request,
+preserving raw duplicate-key bytes and returning only the core verdict. Its
+empty effect map means effects were not observed; this is partial case evidence.
+
 The 95 cases added after the historical snapshot comprise 71 MCP cases and
 24 later corrections. The older 71-case MCP runtime overlay is useful bounded
 evidence, but it was captured against an earlier spec revision; this inventory

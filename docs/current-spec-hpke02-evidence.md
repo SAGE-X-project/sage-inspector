@@ -25,10 +25,16 @@ four denials must remain `UNSUPPORTED`. A complete HPKE-02 result requires
 an authenticated initiation entry point and session/dispatch observation.
 
 The [preserved Go/Rust run](evidence/current-spec/hpke02/) pins the spec,
-both core revisions, and Inspector runner. Recheck fixture relations,
+both core revisions, and Inspector runner. The revisions are `sage-spec`
+`5bcf511e604579afa63f434013447f44b6858828`, Go
+`49379baadc6baec9ca8b4bb7d15bf43d65144bd7`, Rust
+`ef63d76b88fe4d6ddbc7ae0fcfdbce7beab4d396`, and Inspector
+`5117ef63476e542f203bcff14befa53ea22f1edc`. Recheck fixture relations,
 runner hashes, all observations, and assessments with
 `python3 -B scripts/check_current_spec_hpke02_evidence.py`.
 
 The exporter output matches in both cores, so HPKE-02-P is `PARTIAL` in each.
 HPKE-02-N01 through N04 are `UNSUPPORTED`. Overall conformance remains
-`NOT_ESTABLISHED`.
+`NOT_ESTABLISHED`. Across all 481 cases, Go has nine `FAIL`, 33
+`UNSUPPORTED`, 19 `PARTIAL`, and 420 `NOT_RUN`; Rust has two `FAIL`, 33
+`UNSUPPORTED`, 26 `PARTIAL`, and 420 `NOT_RUN`.

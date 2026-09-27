@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "HPKE-01-P",
+  "track": "runtime",
+  "input": {
+    "operation": "rfc9180.export",
+    "input": {
+      "private_key_hex": "8057991eef8f1f1af18f4a9491d16a1ce333f695d4db8e38da75975c4478e0fb",
+      "enc_hex": "1afa08d3dec047a643885163f1180476fa7ddb54c6a8029ea33f95796bf2ac4a",
+      "info_hex": "4f6465206f6e2061204772656369616e2055726e",
+      "export_context_hex": ""
+    }
+  },
+  "expected": {
+    "verdict": "ACCEPT",
+    "output": {
+      "exporter_hex": "4bbd6243b8bb54cec311fac9df81841b6fd61f56538a775e7c80a9f40160606e"
+    },
+    "effects": {}
+  }
+}

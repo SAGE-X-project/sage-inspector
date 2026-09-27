@@ -365,6 +365,34 @@
       "fixture": "vectors/0.10.0/current-spec/MSG-06-N03.json",
       "fixture_sha256": "2d936057f2bf4bb58a297a8c39a23d42cdf4c49c78881eb63df97c1fd5d523b0",
       "coverage": "partial"
+    },
+    {
+      "id": "HPKE-01-P",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/HPKE-01-P.json",
+      "fixture_sha256": "f8fd9a1b9f04f479f8b6f20fe9a893dc0de08e4e05001d246d43b31e6c823d31",
+      "coverage": "partial"
+    },
+    {
+      "id": "HPKE-01-N01",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/HPKE-01-N01.json",
+      "fixture_sha256": "97a4e964d6b6f6e0605af2868af1163a7dba04c34bdca1ae0a729a7ce210e35a",
+      "coverage": "partial"
+    },
+    {
+      "id": "HPKE-01-N02",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/HPKE-01-N02.json",
+      "fixture_sha256": "f4b8a8357744661cf4ce247cf5b8c15874b6a13d57f3ff79746f1d57420a39d7",
+      "coverage": "partial"
+    },
+    {
+      "id": "HPKE-01-N03",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/HPKE-01-N03.json",
+      "fixture_sha256": "5c89bf0db6f11172e65b0f639e3bd8ea0a0b686c0c1e90c8d98fabc9468afbfd",
+      "coverage": "partial"
     }
   ]
 }

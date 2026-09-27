@@ -42,7 +42,7 @@ python3 -B scripts/current_spec_gap.py --output /tmp/current-spec-gap.json
 ```
 
 `scripts/current_spec_evidence.py` is the case-level evidence admission and
-status engine. Its 52 current bindings cover selected JCS and HTTP cases
+status engine. Its 56 current bindings cover selected JCS, HTTP, and HPKE cases
 only partially; the remaining cases still need bindings. A binding must name a current
 case or mandatory child, one required verification track, a repository-owned
 fixture hash, and whether that fixture covers the complete case or only part
@@ -110,6 +110,10 @@ The [HTTP failure-handling fixtures](current-spec-msg06-evidence.md) add four
 MSG-06 cases. A signed application-failure response can be checked with
 current RFC 9421 primitives; generic 401 routing and the protected
 result-consumption boundary remain outside the current core adapters.
+The [HPKE suite and key-role fixtures](current-spec-hpke01-evidence.md) add
+four HPKE-01 cases. A published Base exporter answer is executable in both
+cores; suite rejection and active signing/KEM key admission require the
+complete handshake boundary.
 
 The 95 cases added after the historical snapshot comprise 71 MCP cases and
 24 later corrections. The older 71-case MCP runtime overlay is useful bounded

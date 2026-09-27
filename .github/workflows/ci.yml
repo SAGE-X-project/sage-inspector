@@ -144,6 +144,7 @@ jobs:
           python3 -B scripts/test_current_spec_runtime.py
           python3 -B scripts/test_current_spec_primitive_bridge.py
           python3 -B scripts/test_current_spec_jcs_evidence.py
+          python3 -B scripts/test_current_spec_jcs_parser_evidence.py
           python3 -B scripts/current_spec_catalog.py --spec-root ../sage-spec --report "${RUNNER_TEMP}/current-spec-inventory.json"
           python3 -B scripts/current_spec_gap.py --output "${RUNNER_TEMP}/current-spec-gap.json"
           python3 -B scripts/current_spec_evidence.py --output "${RUNNER_TEMP}/current-spec-evidence.json"

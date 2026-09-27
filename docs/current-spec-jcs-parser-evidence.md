@@ -7,6 +7,12 @@ Inspector fixes six independent rejection expectations in its repository-owned
 fixtures. The runner sent only their raw input bytes to the pinned Go and Rust
 core adapters; the adapters did not receive the expected verdict.
 
+The separate `JCS-01-P` positive fixture sends `{"b":2,"a":1}` and expects
+`{"a":1,"b":2}`. Both cores returned those exact canonical bytes. The
+[preserved positive observations](evidence/current-spec/jcs-positive/) are
+rechecked by `scripts/check_current_spec_jcs_positive_evidence.py`; both remain
+`PARTIAL` because this fixture also covers only the primitive parser.
+
 | Case | Input | Go `sage` | Rust `rs-sage-core` |
 | --- | --- | --- | --- |
 | JCS-01-N01 | Duplicate key | FAIL: accepted last value | PARTIAL: rejected |

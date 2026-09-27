@@ -89,13 +89,17 @@ record four JCS-03 byte relations against both cores, also as partial cases.
 The [proof-exclusion observations](current-spec-jcs-exclusion-evidence.md)
 record four JCS-04 Agent Card cases as `UNSUPPORTED` because neither current
 core adapter exposes the 0.10.0 card verifier.
+The [HTTP signature observations](current-spec-msg01-evidence.md) add five
+MSG-01 cases. They preserve a Go signature-base mismatch, a Rust partial
+match, and the unavailable full-profile verification boundary.
 
 The 95 cases added after the historical snapshot comprise 71 MCP cases and
 24 later corrections. The older 71-case MCP runtime overlay is useful bounded
 evidence, but it was captured against an earlier spec revision; this inventory
 does not automatically promote it. The eight later Registry cases have only
 one partial exact-byte PoP observation and seven unrun cases. The remaining
-16 later cases do not yet have case-specific Inspector execution evidence.
+16 later cases include five partially bound MSG-01 runtime scenarios; the
+remaining eleven still lack case-specific Inspector execution evidence.
 
 Complete support requires a version-matched evidence binding and an
 independent verdict for every case and mandatory subscenario, including

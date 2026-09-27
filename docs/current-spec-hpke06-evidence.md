@@ -23,3 +23,16 @@ envelope boundary, or effect and diagnostic-log instrumentation. Consequently
 these fixtures cannot establish full HPKE-06 conformance through those
 adapters. A future version-matched subject adapter must expose the receiving
 boundary and bounded effects before a complete verdict can be assigned.
+
+The [preserved 81-case Go/Rust run](evidence/current-spec/hpke06/) pins
+`sage-spec` revision `5bcf511e604579afa63f434013447f44b6858828`, Go
+`49379baadc6baec9ca8b4bb7d15bf43d65144bd7`, Rust
+`ef63d76b88fe4d6ddbc7ae0fcfdbce7beab4d396`, and Inspector runner
+`a53ab6dd373816920ec7296e6086dfd3b5b218d4`. Recheck fixture
+relations, runner hashes, observations, and assessments with
+`python3 -B scripts/check_current_spec_hpke06_evidence.py`.
+
+All five HPKE-06 cases are `UNSUPPORTED` in both cores. Across all 481
+cases, Go has 11 `FAIL`, 48 `UNSUPPORTED`, 22 `PARTIAL`, and 400 `NOT_RUN`;
+Rust has five `FAIL`, 47 `UNSUPPORTED`, 29 `PARTIAL`, and 400 `NOT_RUN`.
+Overall conformance is `NOT_ESTABLISHED`.

@@ -42,8 +42,8 @@ python3 -B scripts/current_spec_gap.py --output /tmp/current-spec-gap.json
 ```
 
 `scripts/current_spec_evidence.py` is the case-level evidence admission and
-status engine. Its first sixteen bindings are partial JCS parser, integer, and
-canonical-byte fixtures;
+status engine. Its first twenty bindings are partial JCS parser, integer,
+canonical-byte, and proof-exclusion fixtures;
 the remaining cases still need bindings. A binding must name a current
 case or mandatory child, one required verification track, a repository-owned
 fixture hash, and whether that fixture covers the complete case or only part
@@ -86,6 +86,9 @@ record five JCS-02 scenarios using valid signed controls without promoting
 overall conformance.
 The [canonical-byte observations](current-spec-jcs-canonical-evidence.md)
 record four JCS-03 byte relations against both cores, also as partial cases.
+The [proof-exclusion observations](current-spec-jcs-exclusion-evidence.md)
+record four JCS-04 Agent Card cases as `UNSUPPORTED` because neither current
+core adapter exposes the 0.10.0 card verifier.
 
 The 95 cases added after the historical snapshot comprise 71 MCP cases and
 24 later corrections. The older 71-case MCP runtime overlay is useful bounded

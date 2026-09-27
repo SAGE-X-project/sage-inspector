@@ -92,14 +92,18 @@ core adapter exposes the 0.10.0 card verifier.
 The [HTTP signature observations](current-spec-msg01-evidence.md) add five
 MSG-01 cases. They preserve a Go signature-base mismatch, a Rust partial
 match, and the unavailable full-profile verification boundary.
+The [HTTP component observations](current-spec-msg02-evidence.md) add six
+MSG-02 cases, distinguishing digest and missing-header primitive checks from
+receiver-endpoint and version-policy checks unavailable in current adapters.
 
 The 95 cases added after the historical snapshot comprise 71 MCP cases and
 24 later corrections. The older 71-case MCP runtime overlay is useful bounded
 evidence, but it was captured against an earlier spec revision; this inventory
 does not automatically promote it. The eight later Registry cases have only
 one partial exact-byte PoP observation and seven unrun cases. The remaining
-16 later cases include five partially bound MSG-01 runtime scenarios; the
-remaining eleven still lack case-specific Inspector execution evidence.
+16 later cases include eleven partially bound MSG-01 and MSG-02 runtime
+scenarios; the remaining five still lack case-specific Inspector execution
+evidence.
 
 Complete support requires a version-matched evidence binding and an
 independent verdict for every case and mandatory subscenario, including

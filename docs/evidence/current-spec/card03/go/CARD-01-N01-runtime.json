@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "CARD-01-N01",
+  "track": "runtime",
+  "fixture_sha256": "e1d6d49f4f3b5ce29ba70f323cad79780b122d5992c835899f250e6194bddb15",
+  "input_sha256": "de0ae9e9b04e9e15bb45443aa72d0e9603b0aff03675c788fa1f14f75678559b",
+  "subject": {
+    "repository": "SAGE-X-project/sage",
+    "revision": "49379baadc6baec9ca8b4bb7d15bf43d65144bd7",
+    "executable_sha256": "86820fb3c36df17194398ce4247fe6dd3fac0efc12a9af1d84a6f87a308cfc88"
+  },
+  "actual": {
+    "verdict": "UNSUPPORTED",
+    "reason": "Core primitive adapter does not expose this operation."
+  },
+  "environment": "bounded-local-adapter"
+}

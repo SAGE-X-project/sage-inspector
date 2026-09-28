@@ -1758,6 +1758,62 @@
       "fixture": "vectors/0.10.0/current-spec/RESOLVE-05-N04.json",
       "fixture_sha256": "9059583e7628fe5122b91485587028cbf7ba9ec4697d06c63af30fff55b88d5d",
       "coverage": "partial"
+    },
+    {
+      "id": "TABLE-01-P",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/TABLE-01-P-runtime.json",
+      "fixture_sha256": "3c510b94686b0aa4328076bdf78ca1eaede1ac16c7829c1c8b0358604586232d",
+      "coverage": "partial"
+    },
+    {
+      "id": "TABLE-01-P",
+      "track": "document_review",
+      "fixture": "vectors/0.10.0/current-spec/TABLE-01-P-document_review.json",
+      "fixture_sha256": "4b309134a9a455ad2e9c399c524407c96987370f14d0a37f2a0294c648a6fe10",
+      "coverage": "partial"
+    },
+    {
+      "id": "TABLE-01-N01",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/TABLE-01-N01-runtime.json",
+      "fixture_sha256": "2ee78c043ab01916c07bc5aa921105ca639e1a1864694686c42b975c9f81a782",
+      "coverage": "partial"
+    },
+    {
+      "id": "TABLE-01-N01",
+      "track": "document_review",
+      "fixture": "vectors/0.10.0/current-spec/TABLE-01-N01-document_review.json",
+      "fixture_sha256": "eaabb04389b64d0cdcac089f93be7ddaaf2f45592d60d2da258df28a42234c2a",
+      "coverage": "partial"
+    },
+    {
+      "id": "TABLE-01-N02",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/TABLE-01-N02-runtime.json",
+      "fixture_sha256": "06e67b0658c61c9f3541b2b6c9c7a9a637b9cc84d87f8088fb87fc43d1232604",
+      "coverage": "partial"
+    },
+    {
+      "id": "TABLE-01-N02",
+      "track": "document_review",
+      "fixture": "vectors/0.10.0/current-spec/TABLE-01-N02-document_review.json",
+      "fixture_sha256": "f588c3fd7f9956dbdd48785bfafa0e1eb0e47abf76c238e061571aae2befb55e",
+      "coverage": "partial"
+    },
+    {
+      "id": "TABLE-01-N03",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/TABLE-01-N03-runtime.json",
+      "fixture_sha256": "699d42c37e7621cf2b38e1541249e86fe77c525dc825a894377e241957460c08",
+      "coverage": "partial"
+    },
+    {
+      "id": "TABLE-01-N03",
+      "track": "document_review",
+      "fixture": "vectors/0.10.0/current-spec/TABLE-01-N03-document_review.json",
+      "fixture_sha256": "40acb0e6f653f1cc4a62878001883e8712a9a1cbcaea7f57c9047779ea01998e",
+      "coverage": "partial"
     }
   ]
 }

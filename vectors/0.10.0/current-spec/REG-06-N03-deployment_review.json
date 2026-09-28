@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "REG-06-N03",
+  "track": "deployment_review",
+  "input": {
+    "review_subject": "pinned eip155 deployment",
+    "required": [
+      "chain_id",
+      "registry_address",
+      "deployed_code_hash",
+      "upgrade_policy",
+      "abi_mapping",
+      "operator_scopes",
+      "transaction_authorization",
+      "finalized_node",
+      "measured_cost_latency"
+    ],
+    "trusted_configuration": {
+      "chain_id": "1",
+      "registry_address": "0xabababababababababababababababababababab",
+      "deployed_code_hash": "a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1",
+      "upgrade_policy": {
+        "kind": "immutable",
+        "authorized_upgrades": false
+      },
+      "abi_mapping": {
+        "sections": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+        ],
+        "authenticated_reads": true,
+        "authenticated_writes": true
+      },
+      "operator_scopes": {
+        "register": "controller",
+        "mutate": "controller-or-delegate"
+      },
+      "transaction_authorization": {
+        "controller_account": "0xcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+        "chain_id": "1"
+      },
+      "finalized_node": {
+        "identity": "pinned-node",
+        "ready": true,
+        "finality_policy": "confirmed-finalized"
+      },
+      "measured_cost_latency": {
+        "claim_gas": 100000,
+        "finalized_read_ms": 1200
+      }
+    },
+    "candidate": {
+      "chain_id": "1",
+      "registry_address": "0xabababababababababababababababababababab",
+      "deployed_code_hash": "a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1a1",
+      "upgrade_policy": {
+        "kind": "immutable",
+        "authorized_upgrades": false
+      },
+      "abi_mapping": {
+        "sections": [
+          "1",
+          "2",
+          "3",
+          "5"
+        ],
+        "authenticated_reads": true,
+        "authenticated_writes": true
+      },
+      "operator_scopes": {
+        "register": "controller",
+        "mutate": "controller-or-delegate"
+      },
+      "transaction_authorization": {
+        "controller_account": "0xcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+        "chain_id": "1"
+      },
+      "finalized_node": {
+        "identity": "pinned-node",
+        "ready": true,
+        "finality_policy": "confirmed-finalized"
+      },
+      "measured_cost_latency": {
+        "claim_gas": 100000,
+        "finalized_read_ms": 1200
+      }
+    },
+    "observation": {
+      "record_block_hash": "1111111111111111111111111111111111111111111111111111111111111111",
+      "keys_block_hash": "1111111111111111111111111111111111111111111111111111111111111111",
+      "finalized": true,
+      "source": "pinned-node"
+    }
+  },
+  "expected": {
+    "verdict": "REJECT",
+    "output": {},
+    "effects": {}
+  }
+}

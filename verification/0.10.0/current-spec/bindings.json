@@ -1471,6 +1471,76 @@
       "fixture": "vectors/0.10.0/current-spec/REG-05-N05.json",
       "fixture_sha256": "902727e4c1862f34db00e15201f5b1fcb4eb4abc0cc9b1c12d0972709169b892",
       "coverage": "partial"
+    },
+    {
+      "id": "REG-06-P",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/REG-06-P-runtime.json",
+      "fixture_sha256": "c88b4b80613ebeaf4718aa3443ed96d5a7af7903e52cbfe4954aec1d3950bff3",
+      "coverage": "partial"
+    },
+    {
+      "id": "REG-06-P",
+      "track": "deployment_review",
+      "fixture": "vectors/0.10.0/current-spec/REG-06-P-deployment_review.json",
+      "fixture_sha256": "4313c369896208fbc84cb4c5b0e0fed84239f12cf0b498f2669006b3fc76478a",
+      "coverage": "partial"
+    },
+    {
+      "id": "REG-06-N01",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/REG-06-N01-runtime.json",
+      "fixture_sha256": "05f31e21113c764ed94d50d23c35de839d77bc8698bb886ce9881e2785723f64",
+      "coverage": "partial"
+    },
+    {
+      "id": "REG-06-N01",
+      "track": "deployment_review",
+      "fixture": "vectors/0.10.0/current-spec/REG-06-N01-deployment_review.json",
+      "fixture_sha256": "6a533a10047756d590d520dd63ca4471242c316757f230577bf62a23ab8f42a7",
+      "coverage": "partial"
+    },
+    {
+      "id": "REG-06-N02",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/REG-06-N02-runtime.json",
+      "fixture_sha256": "8233523dff89bdc8f04556f8db5e15b43a2596315c494795a0f75e430f78c5d2",
+      "coverage": "partial"
+    },
+    {
+      "id": "REG-06-N02",
+      "track": "deployment_review",
+      "fixture": "vectors/0.10.0/current-spec/REG-06-N02-deployment_review.json",
+      "fixture_sha256": "968bea7ec0bd83300868e25076292c71eb8d74ae10d967a5db4ee2601834c69d",
+      "coverage": "partial"
+    },
+    {
+      "id": "REG-06-N03",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/REG-06-N03-runtime.json",
+      "fixture_sha256": "d1b2a9f4d07a74068d7236a2ec4d1e582303fc7ceaf42eef6a5eb70195477daf",
+      "coverage": "partial"
+    },
+    {
+      "id": "REG-06-N03",
+      "track": "deployment_review",
+      "fixture": "vectors/0.10.0/current-spec/REG-06-N03-deployment_review.json",
+      "fixture_sha256": "c388667f74316f53b9f3e9dde26c40ab04011d83a8199391b5dc280addebcf04",
+      "coverage": "partial"
+    },
+    {
+      "id": "REG-06-N04",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/REG-06-N04-runtime.json",
+      "fixture_sha256": "c84a480efd22f25bbf5dea818c986dfc5ab959038842ab42ee4ca928823500e8",
+      "coverage": "partial"
+    },
+    {
+      "id": "REG-06-N04",
+      "track": "deployment_review",
+      "fixture": "vectors/0.10.0/current-spec/REG-06-N04-deployment_review.json",
+      "fixture_sha256": "bde5c32427a6961584e575f7970fe5ac22e67fc9b055b859db43767790853927",
+      "coverage": "partial"
     }
   ]
 }

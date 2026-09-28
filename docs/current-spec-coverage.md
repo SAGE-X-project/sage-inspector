@@ -42,8 +42,8 @@ python3 -B scripts/current_spec_gap.py --output /tmp/current-spec-gap.json
 ```
 
 `scripts/current_spec_evidence.py` is the case-level evidence admission and
-status engine. Its 118 current bindings cover selected JCS, HTTP, HPKE, and
-session cases only partially; the remaining cases still need bindings. A binding must name a current
+status engine. Its 124 current bindings cover selected JCS, HTTP, HPKE,
+session, and DID cases only partially; the remaining cases still need bindings. A binding must name a current
 case or mandatory child, one required verification track, a repository-owned
 fixture hash, and whether that fixture covers the complete case or only part
 of it. An external observation must pin the spec revision, exact fixture and
@@ -160,6 +160,10 @@ The [session closure fixtures](current-spec-session06-evidence.md) add six
 SESSION-06 cases. A separate retained-core run observes rejection and empty
 output after explicit record-session close. Fresh handshake, registry,
 expiry, restart, and transport fallback boundaries remain unverified.
+The [DID syntax fixtures](current-spec-id01-evidence.md) add six ID-01 cases.
+Both cores reject the current canonical web DID and accept a forbidden kind
+alias. Valid-control pairs prevent other blanket rejections from counting as
+matches; key URL fragment validation remains unavailable.
 
 The 95 cases added after the historical snapshot comprise 71 MCP cases and
 24 later corrections. The older 71-case MCP runtime overlay is useful bounded

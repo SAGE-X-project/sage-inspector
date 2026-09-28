@@ -1,0 +1,253 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "source_sha256": "63b83051cbe684c36af2eb3689550d9746f66da0b3d21b2ed1b3d3d37de2ee0d",
+  "scope": "public fixed records and proofs; no mutation, registry write, or network access",
+  "cases": [
+    {
+      "id": "REG-04-P",
+      "operation": "sage.registry.record.verify",
+      "input": {
+        "record_hex": "7b22636f6e74726f6c6c6572223a22746573742d636f6e74726f6c6c6572222c226964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c226b657973223a5b7b22616c67223a22783235353139222c226b6579223a225a675445655369774b69385161776d4d7a7445784b4c316250784a516d6a3664796e616d45495854476a6f222c226e616d65223a226b656d2d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a2275584e384e4a37315a76632d496c6748415a62527876455457455469557a487745746463526d75373469524b4b32483338357a6e41704f77494e48414e734f68332d5769374b564b576b3373627633564c54735f4267227d2c227374617465223a226163636570746564227d2c7b22616c67223a2265643235353139222c226b6579223a2241304f6c696b6c6e784173376f414a58306448686d766162696a7064326763753676683368476264313049222c226e616d65223a227369676e696e672d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a226159454b6a7a7748364a6c2d645f6d4b324e313561536f71645a77732d324f325f714538565455555563443133464d5a3157667a63744f71715a67364541726e6238775675473947795653304d5f6f51743749364341227d2c227374617465223a227265766f6b6564227d2c7b22616c67223a2265643235353139222c226b6579223a22684531786561577959477a4e4659596a444246506b6d61494f466f71626257695f68392d47684357784a67222c226e616d65223a227369676e696e672d32222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d32222c2276616c7565223a226b77335f4b4138486f6936356e6c4d6c5170333265566461587453343073577846316e5a4a6e427a6f6d525974376166465f674165574f5a4e614e386d54394c65726d5a2d663045344c334e366f392d4442416a4477227d2c227374617465223a226163636570746564227d5d2c227365727669636573223a5b7b226e616d65223a22617069222c2274797065223a224167656e74222c22757269223a2268747470733a2f2f6167656e74732e6578616d706c652e636f6d2f617069227d5d2c227374617465223a22616374697665222c2276657273696f6e223a2231227d",
+        "expected_did": "did:sage:web:agents.example.com:alice",
+        "now": 1700000000,
+        "mode": "read"
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        },
+        "effects": {}
+      },
+      "purpose": "historical signer verifies retained KEM endorsement on read"
+    },
+    {
+      "id": "REG-04-N01",
+      "operation": "sage.registry.pop.domain.verify",
+      "input": {
+        "did": "did:sage:web:agents.example.com:alice",
+        "name": "signing-1",
+        "alg": "ed25519",
+        "public_key_hex": "0343a58a4967c40b3ba00257d1d1e19af69b8a3a5dda072eeaf8778466ddd742",
+        "signature_hex": "69810a8f3c07e8997e77f98ad8dd79692a2a759c2cfb63b6fea13c55351451c0f5dc5319d567f372d3aaa9983a100ae76fcc15b86f46c954b433fa10b7b23a08",
+        "registry_id": "web:other.example"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {},
+        "effects": {}
+      },
+      "purpose": "same PoP cannot move to a different registry identifier"
+    },
+    {
+      "id": "REG-04-N02",
+      "operation": "sage.registry.lifecycle.apply",
+      "input": {
+        "previous_record": {
+          "id": "did:sage:web:agents.example.com:alice",
+          "controller": "test-controller",
+          "keys": [
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "active",
+          "version": "1"
+        },
+        "candidate_record": {
+          "id": "did:sage:web:agents.example.com:alice",
+          "controller": "other-controller",
+          "keys": [
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "active",
+          "version": "2"
+        },
+        "actor": "test-controller",
+        "expected_version": "1",
+        "operation": "change-controller"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {},
+        "effects": {}
+      },
+      "purpose": "valid PoP cannot transfer the record controller"
+    },
+    {
+      "id": "REG-04-N03",
+      "operation": "sage.registry.record.verify",
+      "input": {
+        "expected_did": "did:sage:web:agents.example.com:alice",
+        "now": 1700000000,
+        "mode": "read",
+        "record_hex": "7b22636f6e74726f6c6c6572223a22746573742d636f6e74726f6c6c6572222c226964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c226b657973223a5b7b22616c67223a22783235353139222c226b6579223a225a675445655369774b69385161776d4d7a7445784b4c316250784a516d6a3664796e616d45495854476a6f222c226e616d65223a226b656d2d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365236b656d2d31222c2276616c7565223a2275584e384e4a37315a76632d496c6748415a62527876455457455469557a487745746463526d75373469524b4b32483338357a6e41704f77494e48414e734f68332d5769374b564b576b3373627633564c54735f4267227d2c227374617465223a226163636570746564227d2c7b22616c67223a2265643235353139222c226b6579223a2241304f6c696b6c6e784173376f414a58306448686d766162696a7064326763753676683368476264313049222c226e616d65223a227369676e696e672d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a226159454b6a7a7748364a6c2d645f6d4b324e313561536f71645a77732d324f325f714538565455555563443133464d5a3157667a63744f71715a67364541726e6238775675473947795653304d5f6f51743749364341227d2c227374617465223a226163636570746564227d5d2c227365727669636573223a5b7b226e616d65223a22617069222c2274797065223a224167656e74222c22757269223a2268747470733a2f2f6167656e74732e6578616d706c652e636f6d2f617069227d5d2c227374617465223a22616374697665222c2276657273696f6e223a2231227d"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {},
+        "effects": {}
+      },
+      "purpose": "X25519 KEM cannot claim to sign its own proof"
+    },
+    {
+      "id": "REG-04-N04",
+      "operation": "sage.registry.record.verify",
+      "input": {
+        "expected_did": "did:sage:web:agents.example.com:alice",
+        "now": 1700000000,
+        "mode": "read",
+        "record_hex": "7b22636f6e74726f6c6c6572223a22746573742d636f6e74726f6c6c6572222c226964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c226b657973223a5b7b22616c67223a22783235353139222c226b6579223a226c7471534d3573486a51326b444f2d5578754f414b3239586c6c62557041582d7432566f3550384f4e77222c226e616d65223a226b656d2d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a224e43795473305a4931497452436b4344576251716e503050516872597147384347586a67557a536a6e63562d434659454c715449476c3974564c48724161307754704d4c7a53796f6277784c6449514661534a554377227d2c227374617465223a226163636570746564227d2c7b22616c67223a2265643235353139222c226b6579223a2241304f6c696b6c6e784173376f414a58306448686d766162696a7064326763753676683368476264313049222c226e616d65223a227369676e696e672d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a226159454b6a7a7748364a6c2d645f6d4b324e313561536f71645a77732d324f325f714538565455555563443133464d5a3157667a63744f71715a67364541726e6238775675473947795653304d5f6f51743749364341227d2c227374617465223a226163636570746564227d5d2c227365727669636573223a5b7b226e616d65223a22617069222c2274797065223a224167656e74222c22757269223a2268747470733a2f2f6167656e74732e6578616d706c652e636f6d2f617069227d5d2c227374617465223a22616374697665222c2276657273696f6e223a2231227d"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {},
+        "effects": {}
+      },
+      "purpose": "31-byte X25519 public key rejected despite valid endorsement"
+    }
+  ],
+  "supplemental": [
+    {
+      "name": "historical-message",
+      "input": {
+        "record": {
+          "id": "did:sage:web:agents.example.com:alice",
+          "controller": "test-controller",
+          "keys": [
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+              },
+              "state": "revoked"
+            },
+            {
+              "name": "signing-2",
+              "alg": "ed25519",
+              "key": "hE1xeaWyYGzNFYYjDBFPkmaIOFoqbbWi_h9-GhCWxJg",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-2",
+                "value": "kw3_KA8Hoi65nlMlQp32eVdaXtS40sWxF1nZJnBzomRYt7afF_gAeWOZNaN8mT9LermZ-f0E4L3N6o9-DBAjDw"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "active",
+          "version": "1"
+        },
+        "keyid": "did:sage:web:agents.example.com:alice#signing-1",
+        "sender": "did:sage:web:agents.example.com:alice",
+        "expected_peer": "did:sage:web:agents.example.com:alice",
+        "alg": "ed25519",
+        "now": 1700000000
+      },
+      "expected": "REJECT",
+      "purpose": "revoked historical signer cannot authenticate new messages"
+    },
+    {
+      "name": "historical-new-endorsement",
+      "input": {
+        "record_hex": "7b22636f6e74726f6c6c6572223a22746573742d636f6e74726f6c6c6572222c226964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c226b657973223a5b7b22616c67223a22783235353139222c226b6579223a225a675445655369774b69385161776d4d7a7445784b4c316250784a516d6a3664796e616d45495854476a6f222c226e616d65223a226b656d2d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a2275584e384e4a37315a76632d496c6748415a62527876455457455469557a487745746463526d75373469524b4b32483338357a6e41704f77494e48414e734f68332d5769374b564b576b3373627633564c54735f4267227d2c227374617465223a226163636570746564227d2c7b22616c67223a2265643235353139222c226b6579223a2241304f6c696b6c6e784173376f414a58306448686d766162696a7064326763753676683368476264313049222c226e616d65223a227369676e696e672d31222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31222c2276616c7565223a226159454b6a7a7748364a6c2d645f6d4b324e313561536f71645a77732d324f325f714538565455555563443133464d5a3157667a63744f71715a67364541726e6238775675473947795653304d5f6f51743749364341227d2c227374617465223a227265766f6b6564227d2c7b22616c67223a2265643235353139222c226b6579223a22684531786561577959477a4e4659596a444246506b6d61494f466f71626257695f68392d47684357784a67222c226e616d65223a227369676e696e672d32222c2270726f6f66223a7b227369676e6572223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d32222c2276616c7565223a226b77335f4b4138486f6936356e6c4d6c5170333265566461587453343073577846316e5a4a6e427a6f6d525974376166465f674165574f5a4e614e386d54394c65726d5a2d663045344c334e366f392d4442416a4477227d2c227374617465223a226163636570746564227d5d2c227365727669636573223a5b7b226e616d65223a22617069222c2274797065223a224167656e74222c22757269223a2268747470733a2f2f6167656e74732e6578616d706c652e636f6d2f617069227d5d2c227374617465223a22616374697665222c2276657273696f6e223a2231227d",
+        "expected_did": "did:sage:web:agents.example.com:alice",
+        "now": 1700000000,
+        "mode": "add-kem"
+      },
+      "expected": "REJECT",
+      "purpose": "revoked signer cannot endorse newly added KEM"
+    },
+    {
+      "name": "valid-pop",
+      "input": {
+        "algorithm": "ed25519",
+        "public_key_hex": "0343a58a4967c40b3ba00257d1d1e19af69b8a3a5dda072eeaf8778466ddd742",
+        "message_hex": "736167652d706f702d302e31302e3000167765623a6167656e74732e6578616d706c652e636f6d0005616c69636500097369676e696e672d3100076564323535313900200343a58a4967c40b3ba00257d1d1e19af69b8a3a5dda072eeaf8778466ddd742",
+        "signature_hex": "69810a8f3c07e8997e77f98ad8dd79692a2a759c2cfb63b6fea13c55351451c0f5dc5319d567f372d3aaa9983a100ae76fcc15b86f46c954b433fa10b7b23a08"
+      },
+      "expected": "ACCEPT",
+      "purpose": "unchanged domain challenge signature"
+    },
+    {
+      "name": "wrong-registry-signature",
+      "input": {
+        "algorithm": "ed25519",
+        "public_key_hex": "0343a58a4967c40b3ba00257d1d1e19af69b8a3a5dda072eeaf8778466ddd742",
+        "message_hex": "736167652d706f702d302e31302e3000117765623a6f746865722e6578616d706c650005616c69636500097369676e696e672d3100076564323535313900200343a58a4967c40b3ba00257d1d1e19af69b8a3a5dda072eeaf8778466ddd742",
+        "signature_hex": "69810a8f3c07e8997e77f98ad8dd79692a2a759c2cfb63b6fea13c55351451c0f5dc5319d567f372d3aaa9983a100ae76fcc15b86f46c954b433fa10b7b23a08"
+      },
+      "expected": "REJECT",
+      "purpose": "same signature over changed registry challenge"
+    }
+  ]
+}

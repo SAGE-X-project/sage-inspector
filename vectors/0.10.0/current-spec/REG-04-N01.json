@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "REG-04-N01",
+  "track": "runtime",
+  "input": {
+    "operation": "sage.registry.pop.domain.verify",
+    "input": {
+      "did": "did:sage:web:agents.example.com:alice",
+      "name": "signing-1",
+      "alg": "ed25519",
+      "public_key_hex": "0343a58a4967c40b3ba00257d1d1e19af69b8a3a5dda072eeaf8778466ddd742",
+      "signature_hex": "69810a8f3c07e8997e77f98ad8dd79692a2a759c2cfb63b6fea13c55351451c0f5dc5319d567f372d3aaa9983a100ae76fcc15b86f46c954b433fa10b7b23a08",
+      "registry_id": "web:other.example"
+    }
+  },
+  "expected": {
+    "verdict": "REJECT",
+    "output": {},
+    "effects": {}
+  }
+}

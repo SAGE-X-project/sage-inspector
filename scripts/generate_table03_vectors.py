@@ -67,7 +67,7 @@ def main():
     bindings = json.loads(path.read_text())
     ids = {row[0] for row in rows}
     bindings['bindings'] = [row for row in bindings['bindings'] if row['id'] not in ids]
-    for ident in ids:
+    for ident in sorted(ids):
         relative = 'vectors/0.10.0/current-spec/' + ident + '.json'
         bindings['bindings'].append({
             'id': ident, 'track': 'runtime', 'fixture': relative,

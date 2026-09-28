@@ -42,7 +42,7 @@ python3 -B scripts/current_spec_gap.py --output /tmp/current-spec-gap.json
 ```
 
 `scripts/current_spec_evidence.py` is the case-level evidence admission and
-status engine. Its 176 current bindings cover selected JCS, HTTP, HPKE,
+status engine. Its 180 current bindings cover selected JCS, HTTP, HPKE,
 session, and DID cases only partially; the remaining cases still need bindings. A binding must name a current
 case or mandatory child, one required verification track, a repository-owned
 fixture hash, and whether that fixture covers the complete case or only part
@@ -204,6 +204,10 @@ The [receive and replay scenarios](current-spec-transport04-evidence.md) add
 five TRANSPORT-04 cases. Declarative unit checks cover the reservation
 expectations, and both cores reject an isolated failed-tag record. The
 combined receive transaction remains `UNSUPPORTED`.
+The [HTTP dual-signature scenarios](current-spec-transport05-evidence.md) add
+four TRANSPORT-05 cases and nine static variants. Both cores verify the 16
+present signatures as primitives, but neither exposes the integrated HTTP
+receiver, so joint acceptance and effects remain `UNSUPPORTED`.
 
 The 95 cases added after the historical snapshot comprise 71 MCP cases and
 24 later corrections. The older 71-case MCP runtime overlay is useful bounded

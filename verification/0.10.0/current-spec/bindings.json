@@ -1044,6 +1044,41 @@
       "fixture": "vectors/0.10.0/current-spec/CARD-02-N04.json",
       "fixture_sha256": "46eda55bdaa35aa4f92d38fb414b2dd2de2f1029f16a55adcc2c927b49c9bbce",
       "coverage": "partial"
+    },
+    {
+      "id": "CARD-03-P",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/CARD-03-P.json",
+      "fixture_sha256": "79f074978e597364c1715ef40d35b79f102ed249c7f557e7bcd448943eb77759",
+      "coverage": "partial"
+    },
+    {
+      "id": "CARD-03-N01",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/CARD-03-N01.json",
+      "fixture_sha256": "c030e253078d2888c163a089df1f74508d9d7e6295666b19bb76a02d977731c8",
+      "coverage": "partial"
+    },
+    {
+      "id": "CARD-03-N02",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/CARD-03-N02.json",
+      "fixture_sha256": "17b1f5504fb93b426b2d2af04c1c5cbf869d95765108f47ae64e97febf1e3a6f",
+      "coverage": "partial"
+    },
+    {
+      "id": "CARD-03-N03",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/CARD-03-N03.json",
+      "fixture_sha256": "c8f5a2c8fe06f72954c85b0a0412adbf065ef89e2c980c758af34df84eba2547",
+      "coverage": "partial"
+    },
+    {
+      "id": "CARD-03-N04",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/CARD-03-N04.json",
+      "fixture_sha256": "dda56f5ee63e55fbc112e5b87ef5b928b4bb2d408627c100f3a43f39936e6d6e",
+      "coverage": "partial"
     }
   ]
 }

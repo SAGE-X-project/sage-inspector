@@ -177,6 +177,17 @@ def check(root, evidence):
                         'unsupported replay boundary: ' + ident)
                 continue
             digest, queries = requests(root, ident)
+            require(len(row['responses']) == len(queries) and
+                    all(type(response) is dict and set(response) == {
+                        'schema_version', 'case_id', 'step_id', 'verdict',
+                        'output', 'effects'} and
+                        response['schema_version'] == 2 and
+                        response['case_id'] == ident and
+                        response['step_id'] == query['step_id'] and
+                        response['verdict'] in ('ACCEPT', 'REJECT', 'UNSUPPORTED') and
+                        type(response['output']) is dict
+                        for response, query in zip(row['responses'], queries)),
+                    'stateful response identity: ' + language + '/' + ident)
             require(row['scenario_sha256'] == digest and
                     same(row['requests'], queries) and
                     same(project(root, ident, row['responses']),

@@ -1,0 +1,784 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "runner_revision": "6b27f9861921dcca2cb5a5e2e47796f962a2a57a",
+  "runner_sha256": "7a9d1e6d7654d575e3ffb82b446af2f1e6d6c8ca3230580e16ad08bbf591ac96",
+  "subjects": {
+    "go": {
+      "repository": "SAGE-X-project/sage",
+      "revision": "49379baadc6baec9ca8b4bb7d15bf43d65144bd7",
+      "executable_sha256": "c2af9df4ce117fe813554ef7f4ef8e4f583cbe21e5ecc81550543414726a3e0c"
+    },
+    "rust": {
+      "repository": "SAGE-X-project/rs-sage-core",
+      "revision": "ef63d76b88fe4d6ddbc7ae0fcfdbce7beab4d396",
+      "executable_sha256": "f35d8c5412cbee6e9c4dcb2bc2b5122fea437e747186026eab3f1098a91b3e4d"
+    }
+  },
+  "cases": {
+    "go": {
+      "SESSION-05-P": {
+        "scenario_sha256": "f9897fed5916774ffd976ee4a4d5c67bc29741035ff1a473ed77000735446be9",
+        "requests": [
+          {
+            "schema_version": 2,
+            "protocol_version": "0.10.0",
+            "profile": "stateful-scenario",
+            "case_id": "SESSION-05-P",
+            "step_id": "create",
+            "operation": "record010.create",
+            "input": {
+              "seed_hex": "a670cc6a4cf4eed950a26f2e85a185457e283ba617fd87da485625d96a2a61a6",
+              "th_hex": "a4dcfbf2cfe2b3ffd09acd65fbb78c675612b93c93b512a11b9b064786ee5488",
+              "initiator": false
+            }
+          },
+          {
+            "schema_version": 2,
+            "protocol_version": "0.10.0",
+            "profile": "stateful-scenario",
+            "case_id": "SESSION-05-P",
+            "step_id": "open-1",
+            "operation": "record010.open",
+            "input": {
+              "record_hex": "00000000000003e70000000000000000000003e7a3889f4bcf0cb85ce69d3341691ac8aeb418b9544fe9498b9594d37d87fa5db2b351e1129f",
+              "caller_aad_hex": "7b7d"
+            }
+          },
+          {
+            "schema_version": 2,
+            "protocol_version": "0.10.0",
+            "profile": "stateful-scenario",
+            "case_id": "SESSION-05-P",
+            "step_id": "open-3",
+            "operation": "record010.open",
+            "input": {
+              "record_hex": "00000000000000000000000000000000000000000882116e879457582f3d127ea08eba98185f3bf0eef94b5ad246e724a9ea9cc763de56b152",
+              "caller_aad_hex": "7b7d"
+            }
+          },
+          {
+            "schema_version": 2,
+            "protocol_version": "0.10.0",
+            "profile": "stateful-scenario",
+            "case_id": "SESSION-05-P",
+            "step_id": "open-5",
+            "operation": "record010.open",
+            "input": {
+              "record_hex": "0000000000000100000000000000000000000100194a2be59494843f9388c1a9e6a316e465daa80d9e372995d566b007cd2a49599fb4c0a629",
+              "caller_aad_hex": "7b7d"
+            }
+          },
+          {
+            "schema_version": 2,
+            "protocol_version": "0.10.0",
+            "profile": "stateful-scenario",
+            "case_id": "SESSION-05-P",
+            "step_id": "open-7",
+            "operation": "record010.open",
+            "input": {
+              "record_hex": "00000000000000000000000000000000000000000882116e879457582f3d127ea08eba98185f3bf0eef94b5ad246e724a9ea9cc763de56b152",
+              "caller_aad_hex": "7b7d"
+            }
+          }
+        ],
+        "responses": [
+          {
+            "case_id": "SESSION-05-P",
+            "effects": {
+              "core_close_calls": 0,
+              "core_open_success": 0,
+              "core_seal_success": 0
+            },
+            "output": {
+              "session_id": "7_DwdcM8kMwneSBrBd-9Yg"
+            },
+            "schema_version": 2,
+            "step_id": "create",
+            "verdict": "ACCEPT"
+          },
+          {
+            "case_id": "SESSION-05-P",
+            "effects": {
+              "core_close_calls": 0,
+              "core_open_success": 1,
+              "core_seal_success": 0
+            },
+            "output": {
+              "plaintext_hex": "7075626c69632073657373696f6e207265636f7264"
+            },
+            "schema_version": 2,
+            "step_id": "open-1",
+            "verdict": "ACCEPT"
+          },
+          {
+            "case_id": "SESSION-05-P",
+            "effects": {
+              "core_close_calls": 0,
+              "core_open_success": 2,
+              "core_seal_success": 0
+            },
+            "output": {
+              "plaintext_hex": "7075626c69632073657373696f6e207265636f7264"
+            },
+            "schema_version": 2,
+            "step_id": "open-3",
+            "verdict": "ACCEPT"
+          },
+          {
+            "case_id": "SESSION-05-P",
+            "effects": {
+              "core_close_calls": 0,
+              "core_open_success": 3,
+              "core_seal_success": 0
+            },
+            "output": {
+              "plaintext_hex": "7075626c69632073657373696f6e207265636f7264"
+            },
+            "schema_version": 2,
+            "step_id": "open-5",
+            "verdict": "ACCEPT"
+          },
+          {
+            "case_id": "SESSION-05-P",
+            "effects": {
+              "core_close_calls": 0,
+              "core_open_success": 3,
+              "core_seal_success": 0
+            },
+            "output": {},
+            "schema_version": 2,
+            "step_id": "open-7",
+            "verdict": "REJECT"
+          }
+        ],
+        "status": "PARTIAL",
+        "verdicts": [
+          "ACCEPT",
+          "ACCEPT",
+          "ACCEPT",
+          "REJECT"
+        ],
+        "actual": {
+          "verdict": "ACCEPT",
+          "output": {
+            "accepted_sequences": [
+              999,
+              0,
+              256
+            ]
+          },
+          "effects": {}
+        }
+      },
+      "SESSION-05-N01": {
+        "status": "UNSUPPORTED",
+        "reason": "No concurrent core receive operation."
+      },
+      "SESSION-05-N02": {
+        "scenario_sha256": "2286457e3a3e11ed7913607df4be5e9768b99f78664b1003a13c153cb3ec445a",
+        "requests": [
+          {
+            "schema_version": 2,
+            "protocol_version": "0.10.0",
+            "profile": "stateful-scenario",
+            "case_id": "SESSION-05-N02",
+            "step_id": "create",
+            "operation": "record010.create",
+            "input": {
+              "seed_hex": "a670cc6a4cf4eed950a26f2e85a185457e283ba617fd87da485625d96a2a61a6",
+              "th_hex": "a4dcfbf2cfe2b3ffd09acd65fbb78c675612b93c93b512a11b9b064786ee5488",
+              "initiator": false
+            }
+          },
+          {
+            "schema_version": 2,
+            "protocol_version": "0.10.0",
+            "profile": "stateful-scenario",
+            "case_id": "SESSION-05-N02",
+            "step_id": "open-1",
+            "operation": "record010.open",
+            "input": {
+              "record_hex": "00000000000003e70000000000000000000003e7a3889f4bcf0cb85ce69d3341691ac8aeb418b9544fe9498b9594d37d87fa5db2b351e1129e",
+              "caller_aad_hex": "7b7d"
+            }
+          },
+          {
+            "schema_version": 2,
+            "protocol_version": "0.10.0",
+            "profile": "stateful-scenario",
+            "case_id": "SESSION-05-N02",
+            "step_id": "open-3",
+            "operation": "record010.open",
+            "input": {
+              "record_hex": "00000000000003e70000000000000000000003e7a3889f4bcf0cb85ce69d3341691ac8aeb418b9544fe9498b9594d37d87fa5db2b351e1129f",
+              "caller_aad_hex": "7b7d"
+            }
+          }
+        ],
+        "responses": [
+          {
+            "case_id": "SESSION-05-N02",
+            "effects": {
+              "core_close_calls": 0,
+              "core_open_success": 0,
+              "core_seal_success": 0
+            },
+            "output": {
+              "session_id": "7_DwdcM8kMwneSBrBd-9Yg"
+            },
+            "schema_version": 2,
+            "step_id": "create",
+            "verdict": "ACCEPT"
+          },
+          {
+            "case_id": "SESSION-05-N02",
+            "effects": {
+              "core_close_calls": 0,
+              "core_open_success": 0,
+              "core_seal_success": 0
+            },
+            "output": {},
+            "schema_version": 2,
+            "step_id": "open-1",
+            "verdict": "REJECT"
+          },
+          {
+            "case_id": "SESSION-05-N02",
+            "effects": {
+              "core_close_calls": 0,
+              "core_open_success": 1,
+              "core_seal_success": 0
+            },
+            "output": {
+              "plaintext_hex": "7075626c69632073657373696f6e207265636f7264"
+            },
+            "schema_version": 2,
+            "step_id": "open-3",
+            "verdict": "ACCEPT"
+          }
+        ],
+        "status": "PARTIAL",
+        "verdicts": [
+          "REJECT",
+          "ACCEPT"
+        ],
+        "actual": {
+          "verdict": "ACCEPT",
+          "output": {
+            "bad_tag": "REJECT",
+            "valid_same_sequence": "ACCEPT"
+          },
+          "effects": {}
+        }
+      },
+      "SESSION-05-N03": {
+        "scenario_sha256": "f9897fed5916774ffd976ee4a4d5c67bc29741035ff1a473ed77000735446be9",
+        "requests": [
+          {
+            "schema_version": 2,
+            "protocol_version": "0.10.0",
+            "profile": "stateful-scenario",
+            "case_id": "SESSION-05-N03",
+            "step_id": "create",
+            "operation": "record010.create",
+            "input": {
+              "seed_hex": "a670cc6a4cf4eed950a26f2e85a185457e283ba617fd87da485625d96a2a61a6",
+              "th_hex": "a4dcfbf2cfe2b3ffd09acd65fbb78c675612b93c93b512a11b9b064786ee5488",
+              "initiator": false
+            }
+          },
+          {
+            "schema_version": 2,
+            "protocol_version": "0.10.0",
+            "profile": "stateful-scenario",
+            "case_id": "SESSION-05-N03",
+            "step_id": "open-1",
+            "operation": "record010.open",
+            "input": {
+              "record_hex": "00000000000003e70000000000000000000003e7a3889f4bcf0cb85ce69d3341691ac8aeb418b9544fe9498b9594d37d87fa5db2b351e1129f",
+              "caller_aad_hex": "7b7d"
+            }
+          },
+          {
+            "schema_version": 2,
+            "protocol_version": "0.10.0",
+            "profile": "stateful-scenario",
+            "case_id": "SESSION-05-N03",
+            "step_id": "open-3",
+            "operation": "record010.open",
+            "input": {
+              "record_hex": "00000000000000000000000000000000000000000882116e879457582f3d127ea08eba98185f3bf0eef94b5ad246e724a9ea9cc763de56b152",
+              "caller_aad_hex": "7b7d"
+            }
+          },
+          {
+            "schema_version": 2,
+            "protocol_version": "0.10.0",
+            "profile": "stateful-scenario",
+            "case_id": "SESSION-05-N03",
+            "step_id": "open-7",
+            "operation": "record010.open",
+            "input": {
+              "record_hex": "00000000000000000000000000000000000000000882116e879457582f3d127ea08eba98185f3bf0eef94b5ad246e724a9ea9cc763de56b152",
+              "caller_aad_hex": "7b7d"
+            }
+          }
+        ],
+        "responses": [
+          {
+            "case_id": "SESSION-05-N03",
+            "effects": {
+              "core_close_calls": 0,
+              "core_open_success": 0,
+              "core_seal_success": 0
+            },
+            "output": {
+              "session_id": "7_DwdcM8kMwneSBrBd-9Yg"
+            },
+            "schema_version": 2,
+            "step_id": "create",
+            "verdict": "ACCEPT"
+          },
+          {
+            "case_id": "SESSION-05-N03",
+            "effects": {
+              "core_close_calls": 0,
+              "core_open_success": 1,
+              "core_seal_success": 0
+            },
+            "output": {
+              "plaintext_hex": "7075626c69632073657373696f6e207265636f7264"
+            },
+            "schema_version": 2,
+            "step_id": "open-1",
+            "verdict": "ACCEPT"
+          },
+          {
+            "case_id": "SESSION-05-N03",
+            "effects": {
+              "core_close_calls": 0,
+              "core_open_success": 2,
+              "core_seal_success": 0
+            },
+            "output": {
+              "plaintext_hex": "7075626c69632073657373696f6e207265636f7264"
+            },
+            "schema_version": 2,
+            "step_id": "open-3",
+            "verdict": "ACCEPT"
+          },
+          {
+            "case_id": "SESSION-05-N03",
+            "effects": {
+              "core_close_calls": 0,
+              "core_open_success": 2,
+              "core_seal_success": 0
+            },
+            "output": {},
+            "schema_version": 2,
+            "step_id": "open-7",
+            "verdict": "REJECT"
+          }
+        ],
+        "status": "PARTIAL",
+        "verdicts": [
+          "ACCEPT",
+          "ACCEPT",
+          "REJECT"
+        ],
+        "actual": {
+          "verdict": "REJECT",
+          "output": {},
+          "effects": {}
+        }
+      },
+      "SESSION-05-N04": {
+        "status": "UNSUPPORTED",
+        "reason": "The 1000-record cap prevents a valid 1024-slot window overflow."
+      }
+    },
+    "rust": {
+      "SESSION-05-P": {
+        "scenario_sha256": "f9897fed5916774ffd976ee4a4d5c67bc29741035ff1a473ed77000735446be9",
+        "requests": [
+          {
+            "schema_version": 2,
+            "protocol_version": "0.10.0",
+            "profile": "stateful-scenario",
+            "case_id": "SESSION-05-P",
+            "step_id": "create",
+            "operation": "record010.create",
+            "input": {
+              "seed_hex": "a670cc6a4cf4eed950a26f2e85a185457e283ba617fd87da485625d96a2a61a6",
+              "th_hex": "a4dcfbf2cfe2b3ffd09acd65fbb78c675612b93c93b512a11b9b064786ee5488",
+              "initiator": false
+            }
+          },
+          {
+            "schema_version": 2,
+            "protocol_version": "0.10.0",
+            "profile": "stateful-scenario",
+            "case_id": "SESSION-05-P",
+            "step_id": "open-1",
+            "operation": "record010.open",
+            "input": {
+              "record_hex": "00000000000003e70000000000000000000003e7a3889f4bcf0cb85ce69d3341691ac8aeb418b9544fe9498b9594d37d87fa5db2b351e1129f",
+              "caller_aad_hex": "7b7d"
+            }
+          },
+          {
+            "schema_version": 2,
+            "protocol_version": "0.10.0",
+            "profile": "stateful-scenario",
+            "case_id": "SESSION-05-P",
+            "step_id": "open-3",
+            "operation": "record010.open",
+            "input": {
+              "record_hex": "00000000000000000000000000000000000000000882116e879457582f3d127ea08eba98185f3bf0eef94b5ad246e724a9ea9cc763de56b152",
+              "caller_aad_hex": "7b7d"
+            }
+          },
+          {
+            "schema_version": 2,
+            "protocol_version": "0.10.0",
+            "profile": "stateful-scenario",
+            "case_id": "SESSION-05-P",
+            "step_id": "open-5",
+            "operation": "record010.open",
+            "input": {
+              "record_hex": "0000000000000100000000000000000000000100194a2be59494843f9388c1a9e6a316e465daa80d9e372995d566b007cd2a49599fb4c0a629",
+              "caller_aad_hex": "7b7d"
+            }
+          },
+          {
+            "schema_version": 2,
+            "protocol_version": "0.10.0",
+            "profile": "stateful-scenario",
+            "case_id": "SESSION-05-P",
+            "step_id": "open-7",
+            "operation": "record010.open",
+            "input": {
+              "record_hex": "00000000000000000000000000000000000000000882116e879457582f3d127ea08eba98185f3bf0eef94b5ad246e724a9ea9cc763de56b152",
+              "caller_aad_hex": "7b7d"
+            }
+          }
+        ],
+        "responses": [
+          {
+            "case_id": "SESSION-05-P",
+            "effects": {
+              "core_close_calls": 0,
+              "core_open_success": 0,
+              "core_seal_success": 0
+            },
+            "output": {
+              "session_id": "7_DwdcM8kMwneSBrBd-9Yg"
+            },
+            "schema_version": 2,
+            "step_id": "create",
+            "verdict": "ACCEPT"
+          },
+          {
+            "case_id": "SESSION-05-P",
+            "effects": {
+              "core_close_calls": 0,
+              "core_open_success": 1,
+              "core_seal_success": 0
+            },
+            "output": {
+              "plaintext_hex": "7075626c69632073657373696f6e207265636f7264"
+            },
+            "schema_version": 2,
+            "step_id": "open-1",
+            "verdict": "ACCEPT"
+          },
+          {
+            "case_id": "SESSION-05-P",
+            "effects": {
+              "core_close_calls": 0,
+              "core_open_success": 2,
+              "core_seal_success": 0
+            },
+            "output": {
+              "plaintext_hex": "7075626c69632073657373696f6e207265636f7264"
+            },
+            "schema_version": 2,
+            "step_id": "open-3",
+            "verdict": "ACCEPT"
+          },
+          {
+            "case_id": "SESSION-05-P",
+            "effects": {
+              "core_close_calls": 0,
+              "core_open_success": 3,
+              "core_seal_success": 0
+            },
+            "output": {
+              "plaintext_hex": "7075626c69632073657373696f6e207265636f7264"
+            },
+            "schema_version": 2,
+            "step_id": "open-5",
+            "verdict": "ACCEPT"
+          },
+          {
+            "case_id": "SESSION-05-P",
+            "effects": {
+              "core_close_calls": 0,
+              "core_open_success": 3,
+              "core_seal_success": 0
+            },
+            "output": {},
+            "schema_version": 2,
+            "step_id": "open-7",
+            "verdict": "REJECT"
+          }
+        ],
+        "status": "PARTIAL",
+        "verdicts": [
+          "ACCEPT",
+          "ACCEPT",
+          "ACCEPT",
+          "REJECT"
+        ],
+        "actual": {
+          "verdict": "ACCEPT",
+          "output": {
+            "accepted_sequences": [
+              999,
+              0,
+              256
+            ]
+          },
+          "effects": {}
+        }
+      },
+      "SESSION-05-N01": {
+        "status": "UNSUPPORTED",
+        "reason": "No concurrent core receive operation."
+      },
+      "SESSION-05-N02": {
+        "scenario_sha256": "2286457e3a3e11ed7913607df4be5e9768b99f78664b1003a13c153cb3ec445a",
+        "requests": [
+          {
+            "schema_version": 2,
+            "protocol_version": "0.10.0",
+            "profile": "stateful-scenario",
+            "case_id": "SESSION-05-N02",
+            "step_id": "create",
+            "operation": "record010.create",
+            "input": {
+              "seed_hex": "a670cc6a4cf4eed950a26f2e85a185457e283ba617fd87da485625d96a2a61a6",
+              "th_hex": "a4dcfbf2cfe2b3ffd09acd65fbb78c675612b93c93b512a11b9b064786ee5488",
+              "initiator": false
+            }
+          },
+          {
+            "schema_version": 2,
+            "protocol_version": "0.10.0",
+            "profile": "stateful-scenario",
+            "case_id": "SESSION-05-N02",
+            "step_id": "open-1",
+            "operation": "record010.open",
+            "input": {
+              "record_hex": "00000000000003e70000000000000000000003e7a3889f4bcf0cb85ce69d3341691ac8aeb418b9544fe9498b9594d37d87fa5db2b351e1129e",
+              "caller_aad_hex": "7b7d"
+            }
+          },
+          {
+            "schema_version": 2,
+            "protocol_version": "0.10.0",
+            "profile": "stateful-scenario",
+            "case_id": "SESSION-05-N02",
+            "step_id": "open-3",
+            "operation": "record010.open",
+            "input": {
+              "record_hex": "00000000000003e70000000000000000000003e7a3889f4bcf0cb85ce69d3341691ac8aeb418b9544fe9498b9594d37d87fa5db2b351e1129f",
+              "caller_aad_hex": "7b7d"
+            }
+          }
+        ],
+        "responses": [
+          {
+            "case_id": "SESSION-05-N02",
+            "effects": {
+              "core_close_calls": 0,
+              "core_open_success": 0,
+              "core_seal_success": 0
+            },
+            "output": {
+              "session_id": "7_DwdcM8kMwneSBrBd-9Yg"
+            },
+            "schema_version": 2,
+            "step_id": "create",
+            "verdict": "ACCEPT"
+          },
+          {
+            "case_id": "SESSION-05-N02",
+            "effects": {
+              "core_close_calls": 0,
+              "core_open_success": 0,
+              "core_seal_success": 0
+            },
+            "output": {},
+            "schema_version": 2,
+            "step_id": "open-1",
+            "verdict": "REJECT"
+          },
+          {
+            "case_id": "SESSION-05-N02",
+            "effects": {
+              "core_close_calls": 0,
+              "core_open_success": 1,
+              "core_seal_success": 0
+            },
+            "output": {
+              "plaintext_hex": "7075626c69632073657373696f6e207265636f7264"
+            },
+            "schema_version": 2,
+            "step_id": "open-3",
+            "verdict": "ACCEPT"
+          }
+        ],
+        "status": "PARTIAL",
+        "verdicts": [
+          "REJECT",
+          "ACCEPT"
+        ],
+        "actual": {
+          "verdict": "ACCEPT",
+          "output": {
+            "bad_tag": "REJECT",
+            "valid_same_sequence": "ACCEPT"
+          },
+          "effects": {}
+        }
+      },
+      "SESSION-05-N03": {
+        "scenario_sha256": "f9897fed5916774ffd976ee4a4d5c67bc29741035ff1a473ed77000735446be9",
+        "requests": [
+          {
+            "schema_version": 2,
+            "protocol_version": "0.10.0",
+            "profile": "stateful-scenario",
+            "case_id": "SESSION-05-N03",
+            "step_id": "create",
+            "operation": "record010.create",
+            "input": {
+              "seed_hex": "a670cc6a4cf4eed950a26f2e85a185457e283ba617fd87da485625d96a2a61a6",
+              "th_hex": "a4dcfbf2cfe2b3ffd09acd65fbb78c675612b93c93b512a11b9b064786ee5488",
+              "initiator": false
+            }
+          },
+          {
+            "schema_version": 2,
+            "protocol_version": "0.10.0",
+            "profile": "stateful-scenario",
+            "case_id": "SESSION-05-N03",
+            "step_id": "open-1",
+            "operation": "record010.open",
+            "input": {
+              "record_hex": "00000000000003e70000000000000000000003e7a3889f4bcf0cb85ce69d3341691ac8aeb418b9544fe9498b9594d37d87fa5db2b351e1129f",
+              "caller_aad_hex": "7b7d"
+            }
+          },
+          {
+            "schema_version": 2,
+            "protocol_version": "0.10.0",
+            "profile": "stateful-scenario",
+            "case_id": "SESSION-05-N03",
+            "step_id": "open-3",
+            "operation": "record010.open",
+            "input": {
+              "record_hex": "00000000000000000000000000000000000000000882116e879457582f3d127ea08eba98185f3bf0eef94b5ad246e724a9ea9cc763de56b152",
+              "caller_aad_hex": "7b7d"
+            }
+          },
+          {
+            "schema_version": 2,
+            "protocol_version": "0.10.0",
+            "profile": "stateful-scenario",
+            "case_id": "SESSION-05-N03",
+            "step_id": "open-7",
+            "operation": "record010.open",
+            "input": {
+              "record_hex": "00000000000000000000000000000000000000000882116e879457582f3d127ea08eba98185f3bf0eef94b5ad246e724a9ea9cc763de56b152",
+              "caller_aad_hex": "7b7d"
+            }
+          }
+        ],
+        "responses": [
+          {
+            "case_id": "SESSION-05-N03",
+            "effects": {
+              "core_close_calls": 0,
+              "core_open_success": 0,
+              "core_seal_success": 0
+            },
+            "output": {
+              "session_id": "7_DwdcM8kMwneSBrBd-9Yg"
+            },
+            "schema_version": 2,
+            "step_id": "create",
+            "verdict": "ACCEPT"
+          },
+          {
+            "case_id": "SESSION-05-N03",
+            "effects": {
+              "core_close_calls": 0,
+              "core_open_success": 1,
+              "core_seal_success": 0
+            },
+            "output": {
+              "plaintext_hex": "7075626c69632073657373696f6e207265636f7264"
+            },
+            "schema_version": 2,
+            "step_id": "open-1",
+            "verdict": "ACCEPT"
+          },
+          {
+            "case_id": "SESSION-05-N03",
+            "effects": {
+              "core_close_calls": 0,
+              "core_open_success": 2,
+              "core_seal_success": 0
+            },
+            "output": {
+              "plaintext_hex": "7075626c69632073657373696f6e207265636f7264"
+            },
+            "schema_version": 2,
+            "step_id": "open-3",
+            "verdict": "ACCEPT"
+          },
+          {
+            "case_id": "SESSION-05-N03",
+            "effects": {
+              "core_close_calls": 0,
+              "core_open_success": 2,
+              "core_seal_success": 0
+            },
+            "output": {},
+            "schema_version": 2,
+            "step_id": "open-7",
+            "verdict": "REJECT"
+          }
+        ],
+        "status": "PARTIAL",
+        "verdicts": [
+          "ACCEPT",
+          "ACCEPT",
+          "REJECT"
+        ],
+        "actual": {
+          "verdict": "REJECT",
+          "output": {},
+          "effects": {}
+        }
+      },
+      "SESSION-05-N04": {
+        "status": "UNSUPPORTED",
+        "reason": "The 1000-record cap prevents a valid 1024-slot window overflow."
+      }
+    }
+  }
+}

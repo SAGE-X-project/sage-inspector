@@ -1,0 +1,434 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "source_sha256": "63b83051cbe684c36af2eb3689550d9746f66da0b3d21b2ed1b3d3d37de2ee0d",
+  "scope": "public fixed records and local comparisons; no registry mutation or network access",
+  "cases": [
+    {
+      "id": "REG-02-P",
+      "operation": "sage.registry.kem.select",
+      "input": {
+        "record": {
+          "id": "did:sage:web:agents.example.com:alice",
+          "controller": "test-controller",
+          "keys": [
+            {
+              "name": "kem-0",
+              "alg": "x25519",
+              "key": "sa74I0s96oXAFTIjJGO-NkpzGW98xSqHYtDY6Wtpj20",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "qiOPVtjpIDaHxfng1KNk-EPOBxeJjBFSkf5C0pLOb0SCbfKjFtWXFPfycIqVLFCJ2iQ0UcAF8dw0BDGbTFpIBQ"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "active",
+          "version": "1"
+        },
+        "now": 1700000000
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "keyid": "did:sage:web:agents.example.com:alice#kem-0"
+        },
+        "effects": {}
+      },
+      "purpose": "first accepted and unexpired X25519 key in ASCII name order"
+    },
+    {
+      "id": "REG-02-N01",
+      "operation": "sage.registry.kem.select",
+      "input": {
+        "record": {
+          "id": "did:sage:web:agents.example.com:alice",
+          "controller": "test-controller",
+          "keys": [
+            {
+              "name": "kem-0",
+              "alg": "x25519",
+              "key": "sa74I0s96oXAFTIjJGO-NkpzGW98xSqHYtDY6Wtpj20",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "AiOPVtjpIDaHxfng1KNk-EPOBxeJjBFSkf5C0pLOb0SCbfKjFtWXFPfycIqVLFCJ2iQ0UcAF8dw0BDGbTFpIBQ"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "active",
+          "version": "1"
+        },
+        "now": 1700000000
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {},
+        "effects": {}
+      },
+      "purpose": "selected key has invalid proof despite valid later KEM"
+    },
+    {
+      "id": "REG-02-N02",
+      "operation": "sage.registry.authenticate",
+      "input": {
+        "record": {
+          "id": "did:sage:web:agents.example.com:alice",
+          "controller": "test-controller",
+          "keys": [
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+              },
+              "state": "revoked"
+            },
+            {
+              "name": "signing-2",
+              "alg": "ed25519",
+              "key": "hE1xeaWyYGzNFYYjDBFPkmaIOFoqbbWi_h9-GhCWxJg",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-2",
+                "value": "kw3_KA8Hoi65nlMlQp32eVdaXtS40sWxF1nZJnBzomRYt7afF_gAeWOZNaN8mT9LermZ-f0E4L3N6o9-DBAjDw"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "active",
+          "version": "1"
+        },
+        "keyid": "did:sage:web:agents.example.com:alice#signing-1",
+        "sender": "did:sage:web:agents.example.com:alice",
+        "expected_peer": "did:sage:web:agents.example.com:alice",
+        "alg": "ed25519",
+        "now": 1700000000
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {},
+        "effects": {}
+      },
+      "purpose": "revoked named Ed25519 key cannot authenticate"
+    },
+    {
+      "id": "REG-02-N03",
+      "operation": "sage.registry.key.transition.verify",
+      "input": {
+        "previous_record": {
+          "id": "did:sage:web:agents.example.com:alice",
+          "controller": "test-controller",
+          "keys": [
+            {
+              "name": "kem-0",
+              "alg": "x25519",
+              "key": "sa74I0s96oXAFTIjJGO-NkpzGW98xSqHYtDY6Wtpj20",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "qiOPVtjpIDaHxfng1KNk-EPOBxeJjBFSkf5C0pLOb0SCbfKjFtWXFPfycIqVLFCJ2iQ0UcAF8dw0BDGbTFpIBQ"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "active",
+          "version": "1"
+        },
+        "candidate_record": {
+          "id": "did:sage:web:agents.example.com:alice",
+          "controller": "test-controller",
+          "keys": [
+            {
+              "name": "kem-0",
+              "alg": "x25519",
+              "key": "4w5IxG1OJI6VA2kRI28LAbEtrCE8u6eCqJPn4VaA2U0",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "JaiDGJzuwJ8oGBO420hG7ReuFVjs1spkOGeyBx8jybwi2RB9Hm5eFHT7mJRrxozBfF5Wk-NG2ShwqjGaSCWgCA"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "active",
+          "version": "2"
+        },
+        "keyid": "did:sage:web:agents.example.com:alice#kem-0",
+        "now": 1700000000
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {},
+        "effects": {}
+      },
+      "purpose": "new valid proof cannot replace existing named key material"
+    }
+  ],
+  "supplemental": [
+    {
+      "name": "no-kem",
+      "input": {
+        "record": {
+          "id": "did:sage:web:agents.example.com:alice",
+          "controller": "test-controller",
+          "keys": [
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "active",
+          "version": "1"
+        },
+        "now": 1700000000
+      },
+      "expected": "REJECT",
+      "purpose": "signing key is never selected as KEM"
+    },
+    {
+      "name": "revoked-first",
+      "input": {
+        "record": {
+          "id": "did:sage:web:agents.example.com:alice",
+          "controller": "test-controller",
+          "keys": [
+            {
+              "name": "kem-0",
+              "alg": "x25519",
+              "key": "sa74I0s96oXAFTIjJGO-NkpzGW98xSqHYtDY6Wtpj20",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "qiOPVtjpIDaHxfng1KNk-EPOBxeJjBFSkf5C0pLOb0SCbfKjFtWXFPfycIqVLFCJ2iQ0UcAF8dw0BDGbTFpIBQ"
+              },
+              "state": "revoked"
+            },
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "active",
+          "version": "1"
+        },
+        "now": 1700000000
+      },
+      "expected": "ACCEPT",
+      "purpose": "later accepted KEM is eligible"
+    },
+    {
+      "name": "expired-first",
+      "input": {
+        "record": {
+          "id": "did:sage:web:agents.example.com:alice",
+          "controller": "test-controller",
+          "keys": [
+            {
+              "name": "kem-0",
+              "alg": "x25519",
+              "key": "sa74I0s96oXAFTIjJGO-NkpzGW98xSqHYtDY6Wtpj20",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "qiOPVtjpIDaHxfng1KNk-EPOBxeJjBFSkf5C0pLOb0SCbfKjFtWXFPfycIqVLFCJ2iQ0UcAF8dw0BDGbTFpIBQ"
+              },
+              "state": "accepted",
+              "expires": 1700000000
+            },
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "active",
+          "version": "1"
+        },
+        "now": 1700000000
+      },
+      "expected": "ACCEPT",
+      "purpose": "later unexpired KEM is eligible"
+    }
+  ]
+}

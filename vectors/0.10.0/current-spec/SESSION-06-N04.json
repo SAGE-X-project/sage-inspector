@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "SESSION-06-N04",
+  "track": "runtime",
+  "input": {
+    "operation": "sage.session.restored_counter.verify",
+    "input": {
+      "scenario_id": "session-restart",
+      "scenario_sha256": "864f140e273583ae022e8ab90d8e9c4f5b282251aa51d16a7cac6b4ecce61a7a"
+    }
+  },
+  "expected": {
+    "verdict": "REJECT",
+    "output": {},
+    "effects": {}
+  }
+}

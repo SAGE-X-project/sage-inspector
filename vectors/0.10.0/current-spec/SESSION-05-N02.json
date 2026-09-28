@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "SESSION-05-N02",
+  "track": "runtime",
+  "input": {
+    "operation": "sage.session.invalid.tag.no_advance.verify",
+    "input": {
+      "scenario_id": "session-invalid-does-not-reserve",
+      "scenario_sha256": "2286457e3a3e11ed7913607df4be5e9768b99f78664b1003a13c153cb3ec445a"
+    }
+  },
+  "expected": {
+    "verdict": "ACCEPT",
+    "output": {
+      "bad_tag": "REJECT",
+      "valid_same_sequence": "ACCEPT"
+    },
+    "effects": {}
+  }
+}

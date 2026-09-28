@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "SESSION-05-N01",
+  "track": "runtime",
+  "input": {
+    "operation": "sage.session.concurrent.duplicate.verify",
+    "input": {
+      "scenario_id": "session-concurrent-duplicate",
+      "scenario_sha256": "e6abfcd9578e9d53713d62af0e271ea18918712e038f0442dd8dc010c8d81ba1"
+    }
+  },
+  "expected": {
+    "verdict": "ACCEPT",
+    "output": {
+      "accepted": 1,
+      "rejected": 15
+    },
+    "effects": {}
+  }
+}

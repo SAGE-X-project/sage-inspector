@@ -1583,6 +1583,34 @@
       "fixture": "vectors/0.10.0/current-spec/REG-08-N03.json",
       "fixture_sha256": "910c089ca1a5a08ead78c532df9c3576f2334039958c9b4b7b01a51ec1b7e168",
       "coverage": "partial"
+    },
+    {
+      "id": "RESOLVE-01-P",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/RESOLVE-01-P.json",
+      "fixture_sha256": "07827750f685f7cf8a93ada0acd5cc8fcaa8acf3108a4c93b858e8a9c4dafd42",
+      "coverage": "partial"
+    },
+    {
+      "id": "RESOLVE-01-N01",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/RESOLVE-01-N01.json",
+      "fixture_sha256": "f718a07e6174f3709dca2ff8ee24cfa4ee2d9f4ab559a93825c1aae4986ddb55",
+      "coverage": "partial"
+    },
+    {
+      "id": "RESOLVE-01-N02",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/RESOLVE-01-N02.json",
+      "fixture_sha256": "fc51bb6787706883b15085c9bcc35bd6c7d2589f5f1f584243e98d70104b2d1a",
+      "coverage": "partial"
+    },
+    {
+      "id": "RESOLVE-01-N03",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/RESOLVE-01-N03.json",
+      "fixture_sha256": "d735fa3c58b192d64f2e243708c846196022b9e44ac9c9c6d5300fe334af2dfc",
+      "coverage": "partial"
     }
   ]
 }

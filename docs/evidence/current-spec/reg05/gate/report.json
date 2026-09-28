@@ -1,0 +1,616 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "scenario_sha256": "b377e4b4a5a73d212646edebe9f85023e797e28a0309f376a5da5112d4aa7c00",
+  "runner_sha256": "b5ecf1d83216732c4b09fc7d58a1bca3591bb7c5abf51331b2e7d829ff8c524f",
+  "runner_revision": "d3f2268098688e00628d79e8b6c4e6f6e7ec4326",
+  "scope": "synthetic trusted source, injected clock, and local journal; no deployed finality proof",
+  "subjects": {
+    "go": {
+      "repository": "SAGE-X-project/sage",
+      "revision": "49379baadc6baec9ca8b4bb7d15bf43d65144bd7",
+      "executable_sha256": "f655775a1ea7879219d115cd2d346d70dce9977929456f4450b32586dd9f8c80"
+    },
+    "rust": {
+      "repository": "SAGE-X-project/rs-sage-core",
+      "revision": "ef63d76b88fe4d6ddbc7ae0fcfdbce7beab4d396",
+      "executable_sha256": "9e51172c562a2942b1b4376aa193fa8b84408b3a8c77860b56f56f8733cb31cb"
+    }
+  },
+  "observations": {
+    "go": {
+      "REG-05-P": {
+        "source_scenario": "registry-freshness",
+        "focus_step": 0,
+        "input_sha256": "7ff8965ee3514acaa5ca63899e2d0847946bc05a93e4ee187b3d844cc72c7364",
+        "actual_steps": [
+          {
+            "id": "0",
+            "output": {
+              "kem_keyid": "",
+              "signing_keyid": "did:sage:eip155:1:0xabababababababababababababababababababab:alice#signing-1"
+            },
+            "verdict": "ACCEPT"
+          },
+          {
+            "id": "1",
+            "output": {
+              "highest_finalized_version": "2",
+              "tombstone": false
+            },
+            "verdict": "ACCEPT"
+          },
+          {
+            "id": "2",
+            "output": {},
+            "verdict": "REJECT"
+          },
+          {
+            "id": "3",
+            "output": {
+              "highest_finalized_version": "2",
+              "tombstone": false
+            },
+            "verdict": "ACCEPT"
+          }
+        ],
+        "focus_actual": {
+          "id": "0",
+          "output": {
+            "kem_keyid": "",
+            "signing_keyid": "did:sage:eip155:1:0xabababababababababababababababababababab:alice#signing-1"
+          },
+          "verdict": "ACCEPT"
+        }
+      },
+      "REG-05-N01": {
+        "source_scenario": "registry-reject-keys_block_hash",
+        "focus_step": 0,
+        "input_sha256": "c7fd2fd2a620c99e11c940b40d9eb4c5257f30fc7558dc674ce610f66b62e5c1",
+        "actual_steps": [
+          {
+            "id": "0",
+            "output": {},
+            "verdict": "REJECT"
+          },
+          {
+            "id": "1",
+            "output": {
+              "highest_finalized_version": "0",
+              "tombstone": false
+            },
+            "verdict": "ACCEPT"
+          }
+        ],
+        "focus_actual": {
+          "id": "0",
+          "output": {},
+          "verdict": "REJECT"
+        }
+      },
+      "REG-05-N02": {
+        "source_scenario": "registry-unfinalized-reorg",
+        "focus_step": 0,
+        "input_sha256": "8c24216c4170a4c8dee1c5ef6822412a63fae58268b9016a8fbd3e65d911751a",
+        "actual_steps": [
+          {
+            "id": "0",
+            "output": {},
+            "verdict": "REJECT"
+          },
+          {
+            "id": "1",
+            "output": {
+              "highest_finalized_version": "0",
+              "tombstone": false
+            },
+            "verdict": "ACCEPT"
+          },
+          {
+            "id": "2",
+            "output": {
+              "kem_keyid": "",
+              "signing_keyid": "did:sage:eip155:1:0xabababababababababababababababababababab:alice#signing-1"
+            },
+            "verdict": "ACCEPT"
+          },
+          {
+            "id": "3",
+            "output": {
+              "highest_finalized_version": "2",
+              "tombstone": false
+            },
+            "verdict": "ACCEPT"
+          }
+        ],
+        "focus_actual": {
+          "id": "0",
+          "output": {},
+          "verdict": "REJECT"
+        }
+      },
+      "REG-05-N03": {
+        "source_scenario": "registry-reject-ready",
+        "focus_step": 0,
+        "input_sha256": "655e2d26864e49f9e5e581db05411d73adab925d7a098eaa96fe31c3187bea95",
+        "actual_steps": [
+          {
+            "id": "0",
+            "output": {},
+            "verdict": "REJECT"
+          },
+          {
+            "id": "1",
+            "output": {
+              "highest_finalized_version": "0",
+              "tombstone": false
+            },
+            "verdict": "ACCEPT"
+          }
+        ],
+        "focus_actual": {
+          "id": "0",
+          "output": {},
+          "verdict": "REJECT"
+        }
+      },
+      "REG-05-N04": {
+        "source_scenario": "revoked-signing",
+        "focus_step": 1,
+        "input_sha256": "e2e1f1e7ab3ef408543b2776e0c469360bcadbf6d2b9afd8244dc4449ee8062d",
+        "actual_steps": [
+          {
+            "id": "0",
+            "output": {
+              "kem_keyid": "did:sage:eip155:1:0xabababababababababababababababababababab:alice#kem-1",
+              "signing_keyid": "did:sage:eip155:1:0xabababababababababababababababababababab:alice#signing-1"
+            },
+            "verdict": "ACCEPT"
+          },
+          {
+            "id": "1",
+            "output": {},
+            "verdict": "REJECT"
+          },
+          {
+            "id": "2",
+            "output": {
+              "highest_finalized_version": "3",
+              "tombstone": false
+            },
+            "verdict": "ACCEPT"
+          }
+        ],
+        "focus_actual": {
+          "id": "1",
+          "output": {},
+          "verdict": "REJECT"
+        }
+      },
+      "REG-05-N05": {
+        "source_scenario": "registry-freshness",
+        "focus_step": 2,
+        "input_sha256": "7ff8965ee3514acaa5ca63899e2d0847946bc05a93e4ee187b3d844cc72c7364",
+        "actual_steps": [
+          {
+            "id": "0",
+            "output": {
+              "kem_keyid": "",
+              "signing_keyid": "did:sage:eip155:1:0xabababababababababababababababababababab:alice#signing-1"
+            },
+            "verdict": "ACCEPT"
+          },
+          {
+            "id": "1",
+            "output": {
+              "highest_finalized_version": "2",
+              "tombstone": false
+            },
+            "verdict": "ACCEPT"
+          },
+          {
+            "id": "2",
+            "output": {},
+            "verdict": "REJECT"
+          },
+          {
+            "id": "3",
+            "output": {
+              "highest_finalized_version": "2",
+              "tombstone": false
+            },
+            "verdict": "ACCEPT"
+          }
+        ],
+        "focus_actual": {
+          "id": "2",
+          "output": {},
+          "verdict": "REJECT"
+        }
+      },
+      "untrusted-source": {
+        "source_scenario": "registry-reject-source",
+        "focus_step": 0,
+        "input_sha256": "b098d5302b7f336ae9fd126f738b9054d65b5a1a48ca3f90497069485ad6c8a6",
+        "actual_steps": [
+          {
+            "id": "0",
+            "output": {},
+            "verdict": "REJECT"
+          },
+          {
+            "id": "1",
+            "output": {
+              "highest_finalized_version": "0",
+              "tombstone": false
+            },
+            "verdict": "ACCEPT"
+          }
+        ],
+        "focus_actual": {
+          "id": "0",
+          "output": {},
+          "verdict": "REJECT"
+        }
+      },
+      "untrusted-clock": {
+        "source_scenario": "registry-reject-clock_trusted",
+        "focus_step": 0,
+        "input_sha256": "cf192a5c58d1cae92f2a9ed33e539c44c5bf8b39dc48ab892101ee900630bce7",
+        "actual_steps": [
+          {
+            "id": "0",
+            "output": {},
+            "verdict": "REJECT"
+          },
+          {
+            "id": "1",
+            "output": {
+              "highest_finalized_version": "0",
+              "tombstone": false
+            },
+            "verdict": "ACCEPT"
+          }
+        ],
+        "focus_actual": {
+          "id": "0",
+          "output": {},
+          "verdict": "REJECT"
+        }
+      },
+      "refreshed-after-delay": {
+        "source_scenario": "storage-delay-and-refresh",
+        "focus_step": 2,
+        "input_sha256": "df8751f18940fefb813b9b7afa377fdd24d5cde4f85eef277a0ad2f2cb3a06d9",
+        "actual_steps": [
+          {
+            "id": "0",
+            "output": {},
+            "verdict": "REJECT"
+          },
+          {
+            "id": "1",
+            "output": {
+              "highest_finalized_version": "2",
+              "tombstone": false
+            },
+            "verdict": "ACCEPT"
+          },
+          {
+            "id": "2",
+            "output": {
+              "kem_keyid": "",
+              "signing_keyid": "did:sage:eip155:1:0xabababababababababababababababababababab:alice#signing-1"
+            },
+            "verdict": "ACCEPT"
+          }
+        ],
+        "focus_actual": {
+          "id": "2",
+          "output": {
+            "kem_keyid": "",
+            "signing_keyid": "did:sage:eip155:1:0xabababababababababababababababababababab:alice#signing-1"
+          },
+          "verdict": "ACCEPT"
+        }
+      }
+    },
+    "rust": {
+      "REG-05-P": {
+        "source_scenario": "registry-freshness",
+        "focus_step": 0,
+        "input_sha256": "7ff8965ee3514acaa5ca63899e2d0847946bc05a93e4ee187b3d844cc72c7364",
+        "actual_steps": [
+          {
+            "id": "0",
+            "output": {
+              "kem_keyid": "",
+              "signing_keyid": "did:sage:eip155:1:0xabababababababababababababababababababab:alice#signing-1"
+            },
+            "verdict": "ACCEPT"
+          },
+          {
+            "id": "1",
+            "output": {
+              "highest_finalized_version": "2",
+              "tombstone": false
+            },
+            "verdict": "ACCEPT"
+          },
+          {
+            "id": "2",
+            "output": {},
+            "verdict": "REJECT"
+          },
+          {
+            "id": "3",
+            "output": {
+              "highest_finalized_version": "2",
+              "tombstone": false
+            },
+            "verdict": "ACCEPT"
+          }
+        ],
+        "focus_actual": {
+          "id": "0",
+          "output": {
+            "kem_keyid": "",
+            "signing_keyid": "did:sage:eip155:1:0xabababababababababababababababababababab:alice#signing-1"
+          },
+          "verdict": "ACCEPT"
+        }
+      },
+      "REG-05-N01": {
+        "source_scenario": "registry-reject-keys_block_hash",
+        "focus_step": 0,
+        "input_sha256": "c7fd2fd2a620c99e11c940b40d9eb4c5257f30fc7558dc674ce610f66b62e5c1",
+        "actual_steps": [
+          {
+            "id": "0",
+            "output": {},
+            "verdict": "REJECT"
+          },
+          {
+            "id": "1",
+            "output": {
+              "highest_finalized_version": "0",
+              "tombstone": false
+            },
+            "verdict": "ACCEPT"
+          }
+        ],
+        "focus_actual": {
+          "id": "0",
+          "output": {},
+          "verdict": "REJECT"
+        }
+      },
+      "REG-05-N02": {
+        "source_scenario": "registry-unfinalized-reorg",
+        "focus_step": 0,
+        "input_sha256": "8c24216c4170a4c8dee1c5ef6822412a63fae58268b9016a8fbd3e65d911751a",
+        "actual_steps": [
+          {
+            "id": "0",
+            "output": {},
+            "verdict": "REJECT"
+          },
+          {
+            "id": "1",
+            "output": {
+              "highest_finalized_version": "0",
+              "tombstone": false
+            },
+            "verdict": "ACCEPT"
+          },
+          {
+            "id": "2",
+            "output": {
+              "kem_keyid": "",
+              "signing_keyid": "did:sage:eip155:1:0xabababababababababababababababababababab:alice#signing-1"
+            },
+            "verdict": "ACCEPT"
+          },
+          {
+            "id": "3",
+            "output": {
+              "highest_finalized_version": "2",
+              "tombstone": false
+            },
+            "verdict": "ACCEPT"
+          }
+        ],
+        "focus_actual": {
+          "id": "0",
+          "output": {},
+          "verdict": "REJECT"
+        }
+      },
+      "REG-05-N03": {
+        "source_scenario": "registry-reject-ready",
+        "focus_step": 0,
+        "input_sha256": "655e2d26864e49f9e5e581db05411d73adab925d7a098eaa96fe31c3187bea95",
+        "actual_steps": [
+          {
+            "id": "0",
+            "output": {},
+            "verdict": "REJECT"
+          },
+          {
+            "id": "1",
+            "output": {
+              "highest_finalized_version": "0",
+              "tombstone": false
+            },
+            "verdict": "ACCEPT"
+          }
+        ],
+        "focus_actual": {
+          "id": "0",
+          "output": {},
+          "verdict": "REJECT"
+        }
+      },
+      "REG-05-N04": {
+        "source_scenario": "revoked-signing",
+        "focus_step": 1,
+        "input_sha256": "e2e1f1e7ab3ef408543b2776e0c469360bcadbf6d2b9afd8244dc4449ee8062d",
+        "actual_steps": [
+          {
+            "id": "0",
+            "output": {
+              "kem_keyid": "did:sage:eip155:1:0xabababababababababababababababababababab:alice#kem-1",
+              "signing_keyid": "did:sage:eip155:1:0xabababababababababababababababababababab:alice#signing-1"
+            },
+            "verdict": "ACCEPT"
+          },
+          {
+            "id": "1",
+            "output": {},
+            "verdict": "REJECT"
+          },
+          {
+            "id": "2",
+            "output": {
+              "highest_finalized_version": "3",
+              "tombstone": false
+            },
+            "verdict": "ACCEPT"
+          }
+        ],
+        "focus_actual": {
+          "id": "1",
+          "output": {},
+          "verdict": "REJECT"
+        }
+      },
+      "REG-05-N05": {
+        "source_scenario": "registry-freshness",
+        "focus_step": 2,
+        "input_sha256": "7ff8965ee3514acaa5ca63899e2d0847946bc05a93e4ee187b3d844cc72c7364",
+        "actual_steps": [
+          {
+            "id": "0",
+            "output": {
+              "kem_keyid": "",
+              "signing_keyid": "did:sage:eip155:1:0xabababababababababababababababababababab:alice#signing-1"
+            },
+            "verdict": "ACCEPT"
+          },
+          {
+            "id": "1",
+            "output": {
+              "highest_finalized_version": "2",
+              "tombstone": false
+            },
+            "verdict": "ACCEPT"
+          },
+          {
+            "id": "2",
+            "output": {},
+            "verdict": "REJECT"
+          },
+          {
+            "id": "3",
+            "output": {
+              "highest_finalized_version": "2",
+              "tombstone": false
+            },
+            "verdict": "ACCEPT"
+          }
+        ],
+        "focus_actual": {
+          "id": "2",
+          "output": {},
+          "verdict": "REJECT"
+        }
+      },
+      "untrusted-source": {
+        "source_scenario": "registry-reject-source",
+        "focus_step": 0,
+        "input_sha256": "b098d5302b7f336ae9fd126f738b9054d65b5a1a48ca3f90497069485ad6c8a6",
+        "actual_steps": [
+          {
+            "id": "0",
+            "output": {},
+            "verdict": "REJECT"
+          },
+          {
+            "id": "1",
+            "output": {
+              "highest_finalized_version": "0",
+              "tombstone": false
+            },
+            "verdict": "ACCEPT"
+          }
+        ],
+        "focus_actual": {
+          "id": "0",
+          "output": {},
+          "verdict": "REJECT"
+        }
+      },
+      "untrusted-clock": {
+        "source_scenario": "registry-reject-clock_trusted",
+        "focus_step": 0,
+        "input_sha256": "cf192a5c58d1cae92f2a9ed33e539c44c5bf8b39dc48ab892101ee900630bce7",
+        "actual_steps": [
+          {
+            "id": "0",
+            "output": {},
+            "verdict": "REJECT"
+          },
+          {
+            "id": "1",
+            "output": {
+              "highest_finalized_version": "0",
+              "tombstone": false
+            },
+            "verdict": "ACCEPT"
+          }
+        ],
+        "focus_actual": {
+          "id": "0",
+          "output": {},
+          "verdict": "REJECT"
+        }
+      },
+      "refreshed-after-delay": {
+        "source_scenario": "storage-delay-and-refresh",
+        "focus_step": 2,
+        "input_sha256": "df8751f18940fefb813b9b7afa377fdd24d5cde4f85eef277a0ad2f2cb3a06d9",
+        "actual_steps": [
+          {
+            "id": "0",
+            "output": {},
+            "verdict": "REJECT"
+          },
+          {
+            "id": "1",
+            "output": {
+              "highest_finalized_version": "2",
+              "tombstone": false
+            },
+            "verdict": "ACCEPT"
+          },
+          {
+            "id": "2",
+            "output": {
+              "kem_keyid": "",
+              "signing_keyid": "did:sage:eip155:1:0xabababababababababababababababababababab:alice#signing-1"
+            },
+            "verdict": "ACCEPT"
+          }
+        ],
+        "focus_actual": {
+          "id": "2",
+          "output": {
+            "kem_keyid": "",
+            "signing_keyid": "did:sage:eip155:1:0xabababababababababababababababababababab:alice#signing-1"
+          },
+          "verdict": "ACCEPT"
+        }
+      }
+    }
+  }
+}

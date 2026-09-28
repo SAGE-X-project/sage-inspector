@@ -42,7 +42,7 @@ python3 -B scripts/current_spec_gap.py --output /tmp/current-spec-gap.json
 ```
 
 `scripts/current_spec_evidence.py` is the case-level evidence admission and
-status engine. Its 194 current bindings cover selected JCS, HTTP, HPKE,
+status engine. Its 199 current bindings cover selected JCS, HTTP, HPKE,
 session, DID, Agent Card, transport, and Registry cases only partially; the remaining cases still need bindings. A binding must name a current
 case or mandatory child, one required verification track, a repository-owned
 fixture hash, and whether that fixture covers the complete case or only part
@@ -223,6 +223,11 @@ four REG-02 cases and three controls for ASCII KEM selection, proof and key
 state, signature/KEM role separation, and immutable named key material. Both
 cores match five isolated proof-signature expectations, but complete Registry
 selection, authentication, and transition decisions remain `UNSUPPORTED`.
+The [registry lifecycle scenarios](current-spec-reg03-evidence.md) add five
+REG-03 cases and two controls for authenticated compare-and-swap, rejected
+attempts with no mutation, terminal deactivation, and the version ceiling.
+Both cores lack the complete mutation API. Their bounded local registry gates
+also report mutation as `UNSUPPORTED` without changing their journals.
 
 The 95 cases added after the historical snapshot comprise 71 MCP cases and
 24 later corrections. The older 71-case MCP runtime overlay is useful bounded

@@ -1,0 +1,156 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "scenario_sha256": "8fbb72a786e9c74aab0d051b49886adc64e36ab9bba8ceab206ef9db531aa3c2",
+  "runner_sha256": "99d4ef63f409c2eb7f5ce2eeba8f2924312f094e5fdd62dd188592d45fed8068",
+  "bridge_sha256": "d02ab9b1ee263cd187fec0a1157edddf7bc16f4aef314f11d1f2f0163dd83c74",
+  "runner_revision": "f1623637b0e9776846268ccbbd6ad5b47ff3f4f8",
+  "subjects": {
+    "go": {
+      "repository": "SAGE-X-project/sage",
+      "revision": "49379baadc6baec9ca8b4bb7d15bf43d65144bd7",
+      "executable_sha256": "86820fb3c36df17194398ce4247fe6dd3fac0efc12a9af1d84a6f87a308cfc88"
+    },
+    "rust": {
+      "repository": "SAGE-X-project/rs-sage-core",
+      "revision": "ef63d76b88fe4d6ddbc7ae0fcfdbce7beab4d396",
+      "executable_sha256": "0b7206b639fb2ae7b6e75bcb0c6d34b12be2c51b7707bf22929651b0ad650e6f"
+    }
+  },
+  "inputs": {
+    "valid-pop": {
+      "algorithm": "ed25519",
+      "public_key_hex": "0343a58a4967c40b3ba00257d1d1e19af69b8a3a5dda072eeaf8778466ddd742",
+      "message_hex": "736167652d706f702d302e31302e3000167765623a6167656e74732e6578616d706c652e636f6d0005616c69636500097369676e696e672d3100076564323535313900200343a58a4967c40b3ba00257d1d1e19af69b8a3a5dda072eeaf8778466ddd742",
+      "signature_hex": "69810a8f3c07e8997e77f98ad8dd79692a2a759c2cfb63b6fea13c55351451c0f5dc5319d567f372d3aaa9983a100ae76fcc15b86f46c954b433fa10b7b23a08"
+    },
+    "wrong-registry": {
+      "algorithm": "ed25519",
+      "public_key_hex": "0343a58a4967c40b3ba00257d1d1e19af69b8a3a5dda072eeaf8778466ddd742",
+      "message_hex": "736167652d706f702d302e31302e3000117765623a6f746865722e6578616d706c650005616c69636500097369676e696e672d3100076564323535313900200343a58a4967c40b3ba00257d1d1e19af69b8a3a5dda072eeaf8778466ddd742",
+      "signature_hex": "69810a8f3c07e8997e77f98ad8dd79692a2a759c2cfb63b6fea13c55351451c0f5dc5319d567f372d3aaa9983a100ae76fcc15b86f46c954b433fa10b7b23a08"
+    },
+    "historical-kem": {
+      "algorithm": "ed25519",
+      "public_key_hex": "0343a58a4967c40b3ba00257d1d1e19af69b8a3a5dda072eeaf8778466ddd742",
+      "message_hex": "736167652d706f702d302e31302e3000167765623a6167656e74732e6578616d706c652e636f6d0005616c69636500056b656d2d31000678323535313900206604c47928b02a2f106b098cced13128bd5b3f12509a3e9dca76a61085d31a3a",
+      "signature_hex": "b9737c349ef566f73e2258070196d1c6f1135844e25331f012d75c466bbbe2244a2b61f7f39ce70293b020d1c036c3a1dfe5a2eca54a5a4dec6efdd52d3b3f06"
+    },
+    "changed-controller": {
+      "algorithm": "ed25519",
+      "public_key_hex": "0343a58a4967c40b3ba00257d1d1e19af69b8a3a5dda072eeaf8778466ddd742",
+      "message_hex": "736167652d706f702d302e31302e3000167765623a6167656e74732e6578616d706c652e636f6d0005616c69636500097369676e696e672d3100076564323535313900200343a58a4967c40b3ba00257d1d1e19af69b8a3a5dda072eeaf8778466ddd742",
+      "signature_hex": "69810a8f3c07e8997e77f98ad8dd79692a2a759c2cfb63b6fea13c55351451c0f5dc5319d567f372d3aaa9983a100ae76fcc15b86f46c954b433fa10b7b23a08"
+    },
+    "kem-self-claim": {
+      "algorithm": "ed25519",
+      "public_key_hex": "0343a58a4967c40b3ba00257d1d1e19af69b8a3a5dda072eeaf8778466ddd742",
+      "message_hex": "736167652d706f702d302e31302e3000167765623a6167656e74732e6578616d706c652e636f6d0005616c69636500056b656d2d31000678323535313900206604c47928b02a2f106b098cced13128bd5b3f12509a3e9dca76a61085d31a3a",
+      "signature_hex": "b9737c349ef566f73e2258070196d1c6f1135844e25331f012d75c466bbbe2244a2b61f7f39ce70293b020d1c036c3a1dfe5a2eca54a5a4dec6efdd52d3b3f06"
+    },
+    "short-kem": {
+      "algorithm": "ed25519",
+      "public_key_hex": "0343a58a4967c40b3ba00257d1d1e19af69b8a3a5dda072eeaf8778466ddd742",
+      "message_hex": "736167652d706f702d302e31302e3000167765623a6167656e74732e6578616d706c652e636f6d0005616c69636500056b656d2d310006783235353139001f96da92339b078d0da40cef94c6e3802b6f579656d4a405feb76568e4ff0e37",
+      "signature_hex": "342c93b34648d48b510a408359b42a9cfd0f421ad8a86f021978e05334a39dc57e0856042ea4c81a5f6d54b1eb01ad304e930bcd2ca86f0c4b7484056922540b"
+    }
+  },
+  "observations": {
+    "go": {
+      "valid-pop": {
+        "case_id": "REG-04-valid-pop",
+        "output": {
+          "valid": true
+        },
+        "schema_version": 1,
+        "verdict": "ACCEPT"
+      },
+      "wrong-registry": {
+        "case_id": "REG-04-wrong-registry",
+        "output": {},
+        "schema_version": 1,
+        "verdict": "REJECT"
+      },
+      "historical-kem": {
+        "case_id": "REG-04-historical-kem",
+        "output": {
+          "valid": true
+        },
+        "schema_version": 1,
+        "verdict": "ACCEPT"
+      },
+      "changed-controller": {
+        "case_id": "REG-04-changed-controller",
+        "output": {
+          "valid": true
+        },
+        "schema_version": 1,
+        "verdict": "ACCEPT"
+      },
+      "kem-self-claim": {
+        "case_id": "REG-04-kem-self-claim",
+        "output": {
+          "valid": true
+        },
+        "schema_version": 1,
+        "verdict": "ACCEPT"
+      },
+      "short-kem": {
+        "case_id": "REG-04-short-kem",
+        "output": {
+          "valid": true
+        },
+        "schema_version": 1,
+        "verdict": "ACCEPT"
+      }
+    },
+    "rust": {
+      "valid-pop": {
+        "case_id": "REG-04-valid-pop",
+        "output": {
+          "valid": true
+        },
+        "schema_version": 1,
+        "verdict": "ACCEPT"
+      },
+      "wrong-registry": {
+        "case_id": "REG-04-wrong-registry",
+        "output": {},
+        "schema_version": 1,
+        "verdict": "REJECT"
+      },
+      "historical-kem": {
+        "case_id": "REG-04-historical-kem",
+        "output": {
+          "valid": true
+        },
+        "schema_version": 1,
+        "verdict": "ACCEPT"
+      },
+      "changed-controller": {
+        "case_id": "REG-04-changed-controller",
+        "output": {
+          "valid": true
+        },
+        "schema_version": 1,
+        "verdict": "ACCEPT"
+      },
+      "kem-self-claim": {
+        "case_id": "REG-04-kem-self-claim",
+        "output": {
+          "valid": true
+        },
+        "schema_version": 1,
+        "verdict": "ACCEPT"
+      },
+      "short-kem": {
+        "case_id": "REG-04-short-kem",
+        "output": {
+          "valid": true
+        },
+        "schema_version": 1,
+        "verdict": "ACCEPT"
+      }
+    }
+  }
+}

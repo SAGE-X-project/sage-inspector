@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "SESSION-04-P",
+  "track": "runtime",
+  "input": {
+    "operation": "sage.session.concurrent.send",
+    "input": {
+      "scenario_id": "session-concurrent-send",
+      "scenario_sha256": "538088b74b22882a3b99c673933a8e1f8e8216ca1d236a72742153c7cce293d7",
+      "parallel_count": 16,
+      "barrier": "before-atomic-commit"
+    }
+  },
+  "expected": {
+    "verdict": "ACCEPT",
+    "output": {
+      "sequences": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "next_sequence": 16
+    },
+    "effects": {
+      "allocated": 16,
+      "emitted": 16
+    }
+  }
+}

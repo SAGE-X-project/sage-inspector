@@ -1,0 +1,348 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "runner_revision": "52be3d64f0fd18c7c5a325e4c7f2b4ce3e17854c",
+  "runner_sha256": "320f9d0e573521cae82a4fd7591fb977498734f6acd720dc95209349579f00c9",
+  "subjects": {
+    "go": {
+      "repository": "SAGE-X-project/sage",
+      "revision": "49379baadc6baec9ca8b4bb7d15bf43d65144bd7",
+      "executable_sha256": "c2af9df4ce117fe813554ef7f4ef8e4f583cbe21e5ecc81550543414726a3e0c"
+    },
+    "rust": {
+      "repository": "SAGE-X-project/rs-sage-core",
+      "revision": "ef63d76b88fe4d6ddbc7ae0fcfdbce7beab4d396",
+      "executable_sha256": "f35d8c5412cbee6e9c4dcb2bc2b5122fea437e747186026eab3f1098a91b3e4d"
+    }
+  },
+  "cases": {
+    "go": {
+      "SESSION-06-P": {
+        "status": "UNSUPPORTED",
+        "reason": "Record core does not expose this protocol boundary."
+      },
+      "SESSION-06-N01": {
+        "status": "UNSUPPORTED",
+        "reason": "Record core does not expose this protocol boundary."
+      },
+      "SESSION-06-N02": {
+        "status": "UNSUPPORTED",
+        "reason": "Record core does not expose this protocol boundary."
+      },
+      "SESSION-06-N03": {
+        "status": "UNSUPPORTED",
+        "reason": "Record core does not expose this protocol boundary."
+      },
+      "SESSION-06-N04": {
+        "status": "UNSUPPORTED",
+        "reason": "Record core does not expose this protocol boundary."
+      },
+      "SESSION-06-N05": {
+        "scenario_sha256": "945a321577c9cda525f07c117c169612b0f5fb9be96ee99dc858efbf8b51f745",
+        "requests": [
+          {
+            "schema_version": 2,
+            "protocol_version": "0.10.0",
+            "profile": "stateful-scenario",
+            "case_id": "SESSION-06-N05",
+            "step_id": "create",
+            "operation": "record010.create",
+            "input": {
+              "seed_hex": "a670cc6a4cf4eed950a26f2e85a185457e283ba617fd87da485625d96a2a61a6",
+              "th_hex": "a4dcfbf2cfe2b3ffd09acd65fbb78c675612b93c93b512a11b9b064786ee5488",
+              "initiator": false
+            }
+          },
+          {
+            "schema_version": 2,
+            "protocol_version": "0.10.0",
+            "profile": "stateful-scenario",
+            "case_id": "SESSION-06-N05",
+            "step_id": "open-before-close",
+            "operation": "record010.open",
+            "input": {
+              "record_hex": "00000000000000000000000000000000000000000882116e879457582f3d127ea08eba98185f3bf0eef94b5ad246e724a9ea9cc763de56b152",
+              "caller_aad_hex": "7b7d"
+            }
+          },
+          {
+            "schema_version": 2,
+            "protocol_version": "0.10.0",
+            "profile": "stateful-scenario",
+            "case_id": "SESSION-06-N05",
+            "step_id": "close",
+            "operation": "record010.close",
+            "input": {}
+          },
+          {
+            "schema_version": 2,
+            "protocol_version": "0.10.0",
+            "profile": "stateful-scenario",
+            "case_id": "SESSION-06-N05",
+            "step_id": "open-after-close",
+            "operation": "record010.open",
+            "input": {
+              "record_hex": "00000000000000010000000000000000000000018d3edc90c6817896ea98bb2711f02b883afc4d0ba38e9210505117b81bfa75931e2816ef1d",
+              "caller_aad_hex": "7b7d"
+            }
+          },
+          {
+            "schema_version": 2,
+            "protocol_version": "0.10.0",
+            "profile": "stateful-scenario",
+            "case_id": "SESSION-06-N05",
+            "step_id": "seal-after-close",
+            "operation": "record010.seal",
+            "input": {
+              "plaintext_hex": "00",
+              "caller_aad_hex": ""
+            }
+          }
+        ],
+        "responses": [
+          {
+            "case_id": "SESSION-06-N05",
+            "effects": {
+              "core_close_calls": 0,
+              "core_open_success": 0,
+              "core_seal_success": 0
+            },
+            "output": {
+              "session_id": "7_DwdcM8kMwneSBrBd-9Yg"
+            },
+            "schema_version": 2,
+            "step_id": "create",
+            "verdict": "ACCEPT"
+          },
+          {
+            "case_id": "SESSION-06-N05",
+            "effects": {
+              "core_close_calls": 0,
+              "core_open_success": 1,
+              "core_seal_success": 0
+            },
+            "output": {
+              "plaintext_hex": "7075626c69632073657373696f6e207265636f7264"
+            },
+            "schema_version": 2,
+            "step_id": "open-before-close",
+            "verdict": "ACCEPT"
+          },
+          {
+            "case_id": "SESSION-06-N05",
+            "effects": {
+              "core_close_calls": 1,
+              "core_open_success": 1,
+              "core_seal_success": 0
+            },
+            "output": {},
+            "schema_version": 2,
+            "step_id": "close",
+            "verdict": "ACCEPT"
+          },
+          {
+            "case_id": "SESSION-06-N05",
+            "effects": {
+              "core_close_calls": 1,
+              "core_open_success": 1,
+              "core_seal_success": 0
+            },
+            "output": {},
+            "schema_version": 2,
+            "step_id": "open-after-close",
+            "verdict": "REJECT"
+          },
+          {
+            "case_id": "SESSION-06-N05",
+            "effects": {
+              "core_close_calls": 1,
+              "core_open_success": 1,
+              "core_seal_success": 0
+            },
+            "output": {},
+            "schema_version": 2,
+            "step_id": "seal-after-close",
+            "verdict": "REJECT"
+          }
+        ],
+        "status": "PARTIAL",
+        "verdicts": [
+          "ACCEPT",
+          "ACCEPT",
+          "ACCEPT",
+          "REJECT",
+          "REJECT"
+        ],
+        "actual": {
+          "verdict": "REJECT",
+          "output": {},
+          "effects": {}
+        }
+      }
+    },
+    "rust": {
+      "SESSION-06-P": {
+        "status": "UNSUPPORTED",
+        "reason": "Record core does not expose this protocol boundary."
+      },
+      "SESSION-06-N01": {
+        "status": "UNSUPPORTED",
+        "reason": "Record core does not expose this protocol boundary."
+      },
+      "SESSION-06-N02": {
+        "status": "UNSUPPORTED",
+        "reason": "Record core does not expose this protocol boundary."
+      },
+      "SESSION-06-N03": {
+        "status": "UNSUPPORTED",
+        "reason": "Record core does not expose this protocol boundary."
+      },
+      "SESSION-06-N04": {
+        "status": "UNSUPPORTED",
+        "reason": "Record core does not expose this protocol boundary."
+      },
+      "SESSION-06-N05": {
+        "scenario_sha256": "945a321577c9cda525f07c117c169612b0f5fb9be96ee99dc858efbf8b51f745",
+        "requests": [
+          {
+            "schema_version": 2,
+            "protocol_version": "0.10.0",
+            "profile": "stateful-scenario",
+            "case_id": "SESSION-06-N05",
+            "step_id": "create",
+            "operation": "record010.create",
+            "input": {
+              "seed_hex": "a670cc6a4cf4eed950a26f2e85a185457e283ba617fd87da485625d96a2a61a6",
+              "th_hex": "a4dcfbf2cfe2b3ffd09acd65fbb78c675612b93c93b512a11b9b064786ee5488",
+              "initiator": false
+            }
+          },
+          {
+            "schema_version": 2,
+            "protocol_version": "0.10.0",
+            "profile": "stateful-scenario",
+            "case_id": "SESSION-06-N05",
+            "step_id": "open-before-close",
+            "operation": "record010.open",
+            "input": {
+              "record_hex": "00000000000000000000000000000000000000000882116e879457582f3d127ea08eba98185f3bf0eef94b5ad246e724a9ea9cc763de56b152",
+              "caller_aad_hex": "7b7d"
+            }
+          },
+          {
+            "schema_version": 2,
+            "protocol_version": "0.10.0",
+            "profile": "stateful-scenario",
+            "case_id": "SESSION-06-N05",
+            "step_id": "close",
+            "operation": "record010.close",
+            "input": {}
+          },
+          {
+            "schema_version": 2,
+            "protocol_version": "0.10.0",
+            "profile": "stateful-scenario",
+            "case_id": "SESSION-06-N05",
+            "step_id": "open-after-close",
+            "operation": "record010.open",
+            "input": {
+              "record_hex": "00000000000000010000000000000000000000018d3edc90c6817896ea98bb2711f02b883afc4d0ba38e9210505117b81bfa75931e2816ef1d",
+              "caller_aad_hex": "7b7d"
+            }
+          },
+          {
+            "schema_version": 2,
+            "protocol_version": "0.10.0",
+            "profile": "stateful-scenario",
+            "case_id": "SESSION-06-N05",
+            "step_id": "seal-after-close",
+            "operation": "record010.seal",
+            "input": {
+              "plaintext_hex": "00",
+              "caller_aad_hex": ""
+            }
+          }
+        ],
+        "responses": [
+          {
+            "case_id": "SESSION-06-N05",
+            "effects": {
+              "core_close_calls": 0,
+              "core_open_success": 0,
+              "core_seal_success": 0
+            },
+            "output": {
+              "session_id": "7_DwdcM8kMwneSBrBd-9Yg"
+            },
+            "schema_version": 2,
+            "step_id": "create",
+            "verdict": "ACCEPT"
+          },
+          {
+            "case_id": "SESSION-06-N05",
+            "effects": {
+              "core_close_calls": 0,
+              "core_open_success": 1,
+              "core_seal_success": 0
+            },
+            "output": {
+              "plaintext_hex": "7075626c69632073657373696f6e207265636f7264"
+            },
+            "schema_version": 2,
+            "step_id": "open-before-close",
+            "verdict": "ACCEPT"
+          },
+          {
+            "case_id": "SESSION-06-N05",
+            "effects": {
+              "core_close_calls": 1,
+              "core_open_success": 1,
+              "core_seal_success": 0
+            },
+            "output": {},
+            "schema_version": 2,
+            "step_id": "close",
+            "verdict": "ACCEPT"
+          },
+          {
+            "case_id": "SESSION-06-N05",
+            "effects": {
+              "core_close_calls": 1,
+              "core_open_success": 1,
+              "core_seal_success": 0
+            },
+            "output": {},
+            "schema_version": 2,
+            "step_id": "open-after-close",
+            "verdict": "REJECT"
+          },
+          {
+            "case_id": "SESSION-06-N05",
+            "effects": {
+              "core_close_calls": 1,
+              "core_open_success": 1,
+              "core_seal_success": 0
+            },
+            "output": {},
+            "schema_version": 2,
+            "step_id": "seal-after-close",
+            "verdict": "REJECT"
+          }
+        ],
+        "status": "PARTIAL",
+        "verdicts": [
+          "ACCEPT",
+          "ACCEPT",
+          "ACCEPT",
+          "REJECT",
+          "REJECT"
+        ],
+        "actual": {
+          "verdict": "REJECT",
+          "output": {},
+          "effects": {}
+        }
+      }
+    }
+  }
+}

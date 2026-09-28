@@ -1149,6 +1149,55 @@
       "fixture": "vectors/0.10.0/current-spec/TRANSPORT-02-N04.json",
       "fixture_sha256": "14073b452e60fd17dbc7f0ddc59b98c71a6a477babd99f345c912a90aa9e33df",
       "coverage": "partial"
+    },
+    {
+      "id": "TRANSPORT-03-P",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/TRANSPORT-03-P.json",
+      "fixture_sha256": "4243f6b75bd5bc4edff185004cc8abb58022d2b15ee51bdaa1ce0d5d857e609a",
+      "coverage": "partial"
+    },
+    {
+      "id": "TRANSPORT-03-N01",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/TRANSPORT-03-N01.json",
+      "fixture_sha256": "4f8ad6f31d01bb39ac5f05077e0be1c0aeafbf6177c01bb9932cfab0b0860251",
+      "coverage": "partial"
+    },
+    {
+      "id": "TRANSPORT-03-N02",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/TRANSPORT-03-N02.json",
+      "fixture_sha256": "da4146985796d42806a83171f93d09fa18f8f05e82e6dfba9d8a651d7fb2ed0f",
+      "coverage": "partial"
+    },
+    {
+      "id": "TRANSPORT-03-N03",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/TRANSPORT-03-N03.json",
+      "fixture_sha256": "9577aa3b4eea0b7a803225c59f61ce2a04f695d51931e1d6d6fed4e4aa0ec2c4",
+      "coverage": "partial"
+    },
+    {
+      "id": "TRANSPORT-03-N04",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/TRANSPORT-03-N04.json",
+      "fixture_sha256": "6309a1dbcb8ddad737e23e22134d0105dfc82f5740afd2063e6ba323487bd526",
+      "coverage": "partial"
+    },
+    {
+      "id": "TRANSPORT-03-N05",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/TRANSPORT-03-N05.json",
+      "fixture_sha256": "ea90199f4c71158f25f3e3dd2fdb8da93848bdcf0a5890c68c36d42715dc2fae",
+      "coverage": "partial"
+    },
+    {
+      "id": "TRANSPORT-03-N06",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/TRANSPORT-03-N06.json",
+      "fixture_sha256": "cd898d83930f81c725c8271c80dfefa7fa8a1e0157e64612aa6acc7001e8c35b",
+      "coverage": "partial"
     }
   ]
 }

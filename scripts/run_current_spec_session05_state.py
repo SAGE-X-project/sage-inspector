@@ -53,11 +53,21 @@ def requests(root, ident):
 
 def project(root, ident, responses):
     _, indexes, expected_verdicts = PATHS[ident]
+    _, queries = requests(root, ident)
+    create = load((root / 'vectors/0.10.0/session-scenarios' /
+                   (PATHS[ident][0] + '.json')).read_bytes())['steps'][0]['input']
+    records = load((root / 'vectors/0.10.0/session-records.json').read_bytes())['cases']
+    known_plaintext = {row['input']['record_hex']:
+        row['expected']['output']['plaintext_hex'] for row in records
+        if row['operation'] == 'sage.session.record.open' and
+        row['expected']['verdict'] == 'ACCEPT'}
     require(len(responses) == len(indexes) + 1 and
-            responses[0]['verdict'] == 'ACCEPT', 'record create result')
+            responses[0]['verdict'] == 'ACCEPT' and
+            responses[0]['output'] == {'session_id': create['sid']},
+            'record create result')
     observed = tuple(row['verdict'] for row in responses[1:])
     accepted = 0
-    for row in responses:
+    for number, row in enumerate(responses):
         require(type(row['effects']) is dict and
                 set(row['effects']) == {'core_open_success', 'core_seal_success',
                                        'core_close_calls'} and
@@ -66,14 +76,30 @@ def project(root, ident, responses):
                 'record-only effect counters')
         if row is not responses[0] and row['verdict'] == 'ACCEPT':
             accepted += 1
+            record_hex = queries[number]['input']['record_hex']
+            require(row['output'] == {
+                'plaintext_hex': known_plaintext[record_hex]},
+                'independent record plaintext')
+        elif number > 0:
+            require(row['output'] == {}, 'rejected record releases output')
         require(row['effects']['core_open_success'] == accepted,
                 'record acceptance counter')
     if observed != expected_verdicts:
         return {'status': 'FAIL', 'verdicts': list(observed)}
-    fixture = load((root / 'vectors/0.10.0/current-spec' /
-                    (ident + '.json')).read_bytes())
+    if ident == 'SESSION-05-P':
+        actual = {'verdict': 'ACCEPT', 'output': {
+            'accepted_sequences': [int.from_bytes(bytes.fromhex(
+                queries[i]['input']['record_hex'][:16]), 'big')
+                for i, row in enumerate(responses) if i and row['verdict'] == 'ACCEPT']},
+            'effects': {}}
+    elif ident == 'SESSION-05-N02':
+        actual = {'verdict': 'ACCEPT', 'output': {
+            'bad_tag': observed[0], 'valid_same_sequence': observed[1]},
+            'effects': {}}
+    else:
+        actual = {'verdict': observed[-1], 'output': {}, 'effects': {}}
     return {'status': 'PARTIAL', 'verdicts': list(observed),
-            'actual': fixture['expected']}
+            'actual': actual}
 
 
 def capture(root, executables, output):
@@ -157,6 +183,10 @@ def check(root, evidence):
                          {key: row[key] for key in ('status', 'verdicts', 'actual')}),
                     'stateful replay observation: ' + language + '/' + ident)
             require(row['status'] == 'PARTIAL', 'stateful replay mismatch: ' + ident)
+            fixture = load((root / 'vectors/0.10.0/current-spec' /
+                            (ident + '.json')).read_bytes())
+            require(same(row['actual'], fixture['expected']),
+                    'stateful replay expectation: ' + language + '/' + ident)
     return {language: {ident: row['status'] for ident, row in cases.items()}
             for language, cases in report['cases'].items()}
 

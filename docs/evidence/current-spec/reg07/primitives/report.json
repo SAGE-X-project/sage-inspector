@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "scenario_sha256": "0b3d2f9575b2ea315b5e49053aa31ab00b82d4c98dcece41919d02fc96736db8",
+  "runner_sha256": "26a09d9d9dd476dbe179be5d8346f9e7df51f018b1f27c6f1e2dad3e40d0c58b",
+  "runner_revision": "a5de8984ec52dc3986f59624d0592f5a0c012198",
+  "scope": "legacy DID syntax primitive only; no Registry resolver or profile admission",
+  "subjects": {
+    "go": {
+      "repository": "SAGE-X-project/sage",
+      "revision": "49379baadc6baec9ca8b4bb7d15bf43d65144bd7",
+      "executable_sha256": "86820fb3c36df17194398ce4247fe6dd3fac0efc12a9af1d84a6f87a308cfc88"
+    },
+    "rust": {
+      "repository": "SAGE-X-project/rs-sage-core",
+      "revision": "ef63d76b88fe4d6ddbc7ae0fcfdbce7beab4d396",
+      "executable_sha256": "0b7206b639fb2ae7b6e75bcb0c6d34b12be2c51b7707bf22929651b0ad650e6f"
+    }
+  },
+  "observations": {
+    "go": {
+      "reserved": {
+        "input_sha256": "72779fad4f41cc753d95d1906501a3c0236ecfea82c8fd268a417ac951757d1b",
+        "actual": {
+          "case_id": "REG-07-reserved",
+          "output": {
+            "valid": true
+          },
+          "schema_version": 1,
+          "verdict": "ACCEPT"
+        }
+      },
+      "web": {
+        "input_sha256": "2d4dacde3004301ed65f1e31b4d28e0e42fd1aafb7b32a814fbc86242dfae799",
+        "actual": {
+          "case_id": "REG-07-web",
+          "output": {},
+          "schema_version": 1,
+          "verdict": "REJECT"
+        }
+      },
+      "eip155": {
+        "input_sha256": "f93ae96bcba743e8a5699d6f00b9ca79d0e670e248354c8d3ce45365fcdd4851",
+        "actual": {
+          "case_id": "REG-07-eip155",
+          "output": {},
+          "schema_version": 1,
+          "verdict": "REJECT"
+        }
+      }
+    },
+    "rust": {
+      "reserved": {
+        "input_sha256": "72779fad4f41cc753d95d1906501a3c0236ecfea82c8fd268a417ac951757d1b",
+        "actual": {
+          "case_id": "REG-07-reserved",
+          "output": {
+            "valid": true
+          },
+          "schema_version": 1,
+          "verdict": "ACCEPT"
+        }
+      },
+      "web": {
+        "input_sha256": "2d4dacde3004301ed65f1e31b4d28e0e42fd1aafb7b32a814fbc86242dfae799",
+        "actual": {
+          "case_id": "REG-07-web",
+          "output": {},
+          "schema_version": 1,
+          "verdict": "REJECT"
+        }
+      },
+      "eip155": {
+        "input_sha256": "f93ae96bcba743e8a5699d6f00b9ca79d0e670e248354c8d3ce45365fcdd4851",
+        "actual": {
+          "case_id": "REG-07-eip155",
+          "output": {},
+          "schema_version": 1,
+          "verdict": "REJECT"
+        }
+      }
+    }
+  }
+}

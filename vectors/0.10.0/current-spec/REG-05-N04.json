@@ -1,0 +1,152 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "REG-05-N04",
+  "track": "runtime",
+  "input": {
+    "operation": "sage.registry.observation.sequence",
+    "input": {
+      "scenario": {
+        "id": "revoked-signing",
+        "steps": [
+          {
+            "request": {
+              "action": "select",
+              "did": "did:sage:eip155:1:0xabababababababababababababababababababab:alice",
+              "snapshot": {
+                "source": "fixture-authority",
+                "registry": "eip155:1:0xabababababababababababababababababababab",
+                "network": "1",
+                "did": "did:sage:eip155:1:0xabababababababababababababababababababab:alice",
+                "version": "2",
+                "state": "active",
+                "ready": true,
+                "validated": true,
+                "finalized": true,
+                "conflicting": false,
+                "acquired_ms": 10000,
+                "block_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "keys_block_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "keys": [
+                  {
+                    "name": "kem-1",
+                    "alg": "x25519",
+                    "material": "6604c47928b02a2f106b098cced13128bd5b3f12509a3e9dca76a61085d31a3a",
+                    "state": "accepted"
+                  },
+                  {
+                    "name": "signing-1",
+                    "alg": "ed25519",
+                    "material": "0343a58a4967c40b3ba00257d1d1e19af69b8a3a5dda072eeaf8778466ddd742",
+                    "state": "accepted"
+                  }
+                ],
+                "digest": "d0effea045b26b11a69f780d40e9a3eb66604dc60965c90b187b0081799fa81e"
+              },
+              "times": [
+                {
+                  "mono_ms": 10000,
+                  "unix": 100
+                },
+                {
+                  "mono_ms": 10000,
+                  "unix": 100
+                },
+                {
+                  "mono_ms": 10000,
+                  "unix": 100
+                }
+              ],
+              "clock_ok": true,
+              "source_ok": true,
+              "signing_url": "did:sage:eip155:1:0xabababababababababababababababababababab:alice#signing-1",
+              "require_kem": true
+            },
+            "expected": {
+              "verdict": "ACCEPT",
+              "output": {
+                "signing_keyid": "did:sage:eip155:1:0xabababababababababababababababababababab:alice#signing-1",
+                "kem_keyid": "did:sage:eip155:1:0xabababababababababababababababababababab:alice#kem-1"
+              }
+            }
+          },
+          {
+            "request": {
+              "action": "check",
+              "did": "did:sage:eip155:1:0xabababababababababababababababababababab:alice",
+              "snapshot": {
+                "source": "fixture-authority",
+                "registry": "eip155:1:0xabababababababababababababababababababab",
+                "network": "1",
+                "did": "did:sage:eip155:1:0xabababababababababababababababababababab:alice",
+                "version": "3",
+                "state": "active",
+                "ready": true,
+                "validated": true,
+                "finalized": true,
+                "conflicting": false,
+                "acquired_ms": 10000,
+                "block_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "keys_block_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "keys": [
+                  {
+                    "name": "kem-1",
+                    "alg": "x25519",
+                    "material": "6604c47928b02a2f106b098cced13128bd5b3f12509a3e9dca76a61085d31a3a",
+                    "state": "accepted"
+                  },
+                  {
+                    "name": "signing-1",
+                    "alg": "ed25519",
+                    "material": "0343a58a4967c40b3ba00257d1d1e19af69b8a3a5dda072eeaf8778466ddd742",
+                    "state": "revoked"
+                  }
+                ],
+                "digest": "8be81e0dcec7026ede6ecf57e7bfc06c59bae7ac33775bb0629340b488b8a604"
+              },
+              "times": [
+                {
+                  "mono_ms": 10000,
+                  "unix": 100
+                },
+                {
+                  "mono_ms": 10000,
+                  "unix": 100
+                },
+                {
+                  "mono_ms": 10000,
+                  "unix": 100
+                }
+              ],
+              "clock_ok": true,
+              "source_ok": true
+            },
+            "expected": {
+              "verdict": "REJECT",
+              "output": {}
+            }
+          },
+          {
+            "request": {
+              "action": "inspect",
+              "did": "did:sage:eip155:1:0xabababababababababababababababababababab:alice"
+            },
+            "expected": {
+              "verdict": "ACCEPT",
+              "output": {
+                "highest_finalized_version": "3",
+                "tombstone": false
+              }
+            }
+          }
+        ]
+      },
+      "focus_step": 1
+    }
+  },
+  "expected": {
+    "verdict": "REJECT",
+    "output": {},
+    "effects": {}
+  }
+}

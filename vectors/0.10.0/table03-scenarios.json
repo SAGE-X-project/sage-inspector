@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "registries_sha256": "eb673391143bd4ed9283ee8a6a578aeb44e0018a78f6d994ebfeb70160757bf4",
+  "registry_sha256": "2f7e5468bf87e7a402c7853584fca8e345b5055a0625f7068a71e80e6321eb02",
+  "resolution_sha256": "12466dfeec90465c3fe014700972549d76917c7db87c207ce28d63867fbbe55c",
+  "scope": "synthetic record-to-JWK encoding; no proof, point validation, fresh registry observation, or DID interoperability claim",
+  "cases": [
+    {
+      "id": "TABLE-03-P",
+      "purpose": "matching uncompressed secp256k1 record and JWK",
+      "input": {
+        "record": {
+          "alg": "sage-secp256k1-keccak256",
+          "key": "BHm-Zn753LusVaBilc6HCwcCm_zbLc4o2VnygVsW-BeYSDradyajxGVdpPv8DhEIqP0XtEimhVQZnEfQj_sQ1Lg"
+        },
+        "document": {
+          "publicKeyJwk": {
+            "kty": "EC",
+            "crv": "secp256k1",
+            "x": "eb5mfvncu6xVoGKVzocLBwKb_NstzijZWfKBWxb4F5g",
+            "y": "SDradyajxGVdpPv8DhEIqP0XtEimhVQZnEfQj_sQ1Lg"
+          }
+        },
+        "usage": "signing"
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "key_type": "secp256k1"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "TABLE-03-N01",
+      "purpose": "compressed secp256k1 record encoding",
+      "input": {
+        "record": {
+          "alg": "sage-secp256k1-keccak256",
+          "key": "Anm-Zn753LusVaBilc6HCwcCm_zbLc4o2VnygVsW-BeY"
+        },
+        "document": {
+          "publicKeyJwk": {
+            "kty": "EC",
+            "crv": "secp256k1",
+            "x": "eb5mfvncu6xVoGKVzocLBwKb_NstzijZWfKBWxb4F5g",
+            "y": "SDradyajxGVdpPv8DhEIqP0XtEimhVQZnEfQj_sQ1Lg"
+          }
+        },
+        "usage": "signing"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {},
+        "effects": {}
+      }
+    },
+    {
+      "id": "TABLE-03-N02",
+      "purpose": "short JWK coordinate",
+      "input": {
+        "record": {
+          "alg": "sage-secp256k1-keccak256",
+          "key": "BHm-Zn753LusVaBilc6HCwcCm_zbLc4o2VnygVsW-BeYSDradyajxGVdpPv8DhEIqP0XtEimhVQZnEfQj_sQ1Lg"
+        },
+        "document": {
+          "publicKeyJwk": {
+            "kty": "EC",
+            "crv": "secp256k1",
+            "x": "eb5mfvncu6xVoGKVzocLBwKb_NstzijZWfKBWxb4Fw",
+            "y": "SDradyajxGVdpPv8DhEIqP0XtEimhVQZnEfQj_sQ1Lg"
+          }
+        },
+        "usage": "signing"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {},
+        "effects": {}
+      }
+    },
+    {
+      "id": "mllm-kem-type-valid",
+      "purpose": "exact x25519 KEM role and 32-byte key",
+      "input": {
+        "record": {
+          "alg": "x25519",
+          "key": "CQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "document": {
+          "publicKeyJwk": {
+            "kty": "OKP",
+            "crv": "X25519",
+            "x": "CQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        "usage": "key-agreement"
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "key_type": "X25519"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mllm-kem-key-length",
+      "purpose": "31-byte x25519 record key",
+      "input": {
+        "record": {
+          "alg": "x25519",
+          "key": "CQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        },
+        "document": {
+          "publicKeyJwk": {
+            "kty": "OKP",
+            "crv": "X25519",
+            "x": "CQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+          }
+        },
+        "usage": "key-agreement"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {},
+        "effects": {}
+      }
+    }
+  ]
+}

@@ -42,7 +42,7 @@ python3 -B scripts/current_spec_gap.py --output /tmp/current-spec-gap.json
 ```
 
 `scripts/current_spec_evidence.py` is the case-level evidence admission and
-status engine. Its 259 current bindings cover selected JCS, HTTP, HPKE,
+status engine. Its 262 current bindings cover selected JCS, HTTP, HPKE,
 session, DID, Agent Card, transport, and Registry cases only partially; the remaining cases still need bindings. A binding must name a current
 case or mandatory child, one required verification track, a repository-owned
 fixture hash, and whether that fixture covers the complete case or only part
@@ -283,6 +283,11 @@ add four TABLE-01 runtime and four document-review bindings for stable
 registered meanings, obsolete-value reuse, silent incompatible changes, and
 private wire values. Both core adapters lack the complete admission operation;
 actual registration review remains `NOT_RUN` without an accepted proposal.
+The [signature algorithm identifier scenarios](current-spec-table02-evidence.md)
+add three TABLE-02 runtime bindings for the exact SAGE-local secp256k1 name,
+the obsolete `es256k` name, and an inferred JOSE `ES256K` alias. Synthetic
+dispatch controls check key roles, digests, and support policy. Both core
+adapters lack the complete algorithm-selection operation.
 
 The 95 cases added after the historical snapshot comprise 71 MCP cases and
 24 later corrections. The older 71-case MCP runtime overlay is useful bounded

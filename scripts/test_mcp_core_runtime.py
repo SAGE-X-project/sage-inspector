@@ -10,10 +10,18 @@ from run_mcp_core_runtime import (CASES, NORMATIVE_CONTRACTS, NORMATIVE_CONTRACT
                                   OWNER_CONTRACT, OWNER_CONTRACT_CASES,
                                   SETUP_CONTRACT, SETUP_CONTRACT_CASES,
                                   SIGNATURE_CONTRACT, SIGNATURE_CONTRACT_CASES,
-                                  SCHEDULES, ROOT, digest, observed, run, successful)
+                                  SCHEDULES, ROOT, SLOW_DURABLE_RECORD_TEST,
+                                  case_deadline_seconds, digest, observed, run,
+                                  successful)
 
 
 class EvidenceTests(unittest.TestCase):
+    def test_durable_record_stress_has_a_targeted_deadline(self):
+        self.assertIn(SLOW_DURABLE_RECORD_TEST, CASES['go'])
+        self.assertEqual(case_deadline_seconds('go', SLOW_DURABLE_RECORD_TEST), 120)
+        self.assertEqual(case_deadline_seconds('rust', SLOW_DURABLE_RECORD_TEST), 25)
+        self.assertEqual(case_deadline_seconds('go', 'TestMCPHostConnectionRuntime'), 25)
+
     def test_schedule_selection_is_complete_and_unique(self):
         self.assertEqual(set(SCHEDULES), {'go','rust'})
         for language, claims in SCHEDULES.items():

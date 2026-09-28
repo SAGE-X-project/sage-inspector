@@ -1541,6 +1541,20 @@
       "fixture": "vectors/0.10.0/current-spec/REG-06-N04-deployment_review.json",
       "fixture_sha256": "bde5c32427a6961584e575f7970fe5ac22e67fc9b055b859db43767790853927",
       "coverage": "partial"
+    },
+    {
+      "id": "REG-07-P",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/REG-07-P.json",
+      "fixture_sha256": "1e9e94db911ee137af768d585afaf7f6ad17e7a1b8b379a734ace78dcde3a319",
+      "coverage": "partial"
+    },
+    {
+      "id": "REG-07-N01",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/REG-07-N01.json",
+      "fixture_sha256": "ac719264d0cbc55e2a70bb7c5cdb700f157b9048dc9d27b8642e86249c5ca489",
+      "coverage": "partial"
     }
   ]
 }

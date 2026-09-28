@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "source_sha256": "f9278284b32672c06aeba255c2978e1bb608421d94819f7d14e57f56992e7f49",
-  "runner_sha256": "025578b5d758ac3a281f2abab92706dfb0fd5e1784561e74f55f46ac501eefac",
-  "runner_revision": "6954cd5cca7267ab9bb9c528fa6ce5085502f827",
+  "runner_sha256": "ec5c97ff605eea4d819d519ab3b7cea1ee0b191f5eecd4aad86d6984aecef74c",
+  "runner_revision": "b0ae4d27039e0b935ec98beae12831985c007f4e",
   "subjects": {
     "go": {
       "repository": "SAGE-X-project/sage",

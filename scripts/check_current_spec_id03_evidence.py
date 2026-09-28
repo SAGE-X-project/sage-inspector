@@ -10,6 +10,7 @@ from check_current_spec_id03_vectors import check as check_vectors, IDS
 
 BASE = ROOT / 'docs/evidence/current-spec/id03'
 RUNNER_REVISION = '6954cd5cca7267ab9bb9c528fa6ce5085502f827'
+STATE_RUNNER_REVISION = 'b0ae4d27039e0b935ec98beae12831985c007f4e'
 REVISIONS = {
     'go': ('SAGE-X-project/sage', '49379baadc6baec9ca8b4bb7d15bf43d65144bd7',
            'f655775a1ea7879219d115cd2d346d70dce9977929456f4450b32586dd9f8c80',
@@ -63,7 +64,7 @@ def check(base=BASE, root=ROOT):
     source = load(source_path.read_bytes())
     source_cases = {row['id']: row for row in source['cases']}
     require(state['schema_version'] == 1 and
-            state['runner_revision'] == RUNNER_REVISION and
+            state['runner_revision'] == STATE_RUNNER_REVISION and
             state['source_sha256'] == sha(source_path.read_bytes()) and
             state['runner_sha256'] ==
                 sha((base / 'runner/run_current_spec_id03_state.py').read_bytes()) and

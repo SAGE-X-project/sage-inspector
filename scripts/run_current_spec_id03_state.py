@@ -21,7 +21,7 @@ REVISIONS = {
 }
 
 
-def run(programs, output, root=ROOT):
+def run(programs, repositories, output, root=ROOT):
     require(not output.exists() and
             not output.resolve().is_relative_to(root.resolve()),
             'fresh output directory outside repository required')
@@ -34,8 +34,8 @@ def run(programs, output, root=ROOT):
         require(language in REVISIONS and program.is_file() and
                 not program.is_symlink(), 'local core gate executable')
         repository, revision = REVISIONS[language]
-        repo = Path('/Users/0xtopaz/work/github/sage-x-project') / (
-            'sage' if language == 'go' else 'rs-sage-core')
+        repo = repositories[language]
+        require(repo.is_dir() and not repo.is_symlink(), 'core source checkout')
         actual_revision = subprocess.check_output(
             ['git', 'rev-parse', 'HEAD'], cwd=repo, text=True, timeout=10).strip()
         require(actual_revision == revision and
@@ -87,9 +87,13 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--go', type=Path, required=True)
     parser.add_argument('--rust', type=Path, required=True)
+    parser.add_argument('--go-repo', type=Path, required=True)
+    parser.add_argument('--rust-repo', type=Path, required=True)
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
     report = run({'go': args.go.resolve(), 'rust': args.rust.resolve()},
+                 {'go': args.go_repo.resolve(),
+                  'rust': args.rust_repo.resolve()},
                  args.output.resolve())
     print('Observed', len(report['scenarios']),
           'bounded named-key state scenarios; full signature binding unverified.')

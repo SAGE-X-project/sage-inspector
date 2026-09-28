@@ -1,4 +1,4 @@
-"""Reassess archived DID key dereference observations."""
+"""Reassess archived registry value governance observations."""
 
 from check_current_spec_table01_vectors import check as check_vectors, IDS, SPEC
 from current_spec_catalog import ROOT, load, require, sha

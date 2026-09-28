@@ -1,0 +1,174 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "registries_sha256": "eb673391143bd4ed9283ee8a6a578aeb44e0018a78f6d994ebfeb70160757bf4",
+  "crypto_sha256": "fe9fd00066b259b99a63e5adab7db739757e3ad2597ccc71e2019fa34319faec",
+  "scope": "synthetic algorithm dispatch; no signature generation, verification, or deployed optional-suite claim",
+  "cases": [
+    {
+      "id": "TABLE-02-P",
+      "purpose": "exact SAGE secp256k1 suite mapping",
+      "input": {
+        "registered_suites": [
+          {
+            "alg": "ed25519",
+            "key_type": "Ed25519",
+            "digest": "none",
+            "signature_bytes": 64,
+            "encoding": "R-S",
+            "status": "mandatory"
+          },
+          {
+            "alg": "sage-secp256k1-keccak256",
+            "key_type": "secp256k1",
+            "digest": "Keccak-256",
+            "signature_bytes": 65,
+            "encoding": "r-s-v-low-s",
+            "status": "optional"
+          },
+          {
+            "alg": "ecdsa-p256-sha256",
+            "key_type": "P-256",
+            "digest": "SHA-256",
+            "signature_bytes": 64,
+            "encoding": "r-s-low-s",
+            "status": "optional"
+          }
+        ],
+        "implementation_support": {
+          "ed25519": true,
+          "sage-secp256k1-keccak256": true,
+          "ecdsa-p256-sha256": false
+        },
+        "request": {
+          "alg": "sage-secp256k1-keccak256",
+          "key_type": "secp256k1",
+          "digest": "Keccak-256",
+          "signature_bytes": 65,
+          "encoding": "r-s-v-low-s",
+          "jose_alias": null,
+          "usage": "message-signature",
+          "wire_scope": "external"
+        }
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "selected_suite": {
+            "alg": "sage-secp256k1-keccak256",
+            "key_type": "secp256k1",
+            "digest": "Keccak-256",
+            "signature_bytes": 65,
+            "encoding": "r-s-v-low-s",
+            "status": "optional"
+          }
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "TABLE-02-N01",
+      "purpose": "obsolete es256k identifier",
+      "input": {
+        "registered_suites": [
+          {
+            "alg": "ed25519",
+            "key_type": "Ed25519",
+            "digest": "none",
+            "signature_bytes": 64,
+            "encoding": "R-S",
+            "status": "mandatory"
+          },
+          {
+            "alg": "sage-secp256k1-keccak256",
+            "key_type": "secp256k1",
+            "digest": "Keccak-256",
+            "signature_bytes": 65,
+            "encoding": "r-s-v-low-s",
+            "status": "optional"
+          },
+          {
+            "alg": "ecdsa-p256-sha256",
+            "key_type": "P-256",
+            "digest": "SHA-256",
+            "signature_bytes": 64,
+            "encoding": "r-s-low-s",
+            "status": "optional"
+          }
+        ],
+        "implementation_support": {
+          "ed25519": true,
+          "sage-secp256k1-keccak256": true,
+          "ecdsa-p256-sha256": false
+        },
+        "request": {
+          "alg": "es256k",
+          "key_type": "secp256k1",
+          "digest": "Keccak-256",
+          "signature_bytes": 65,
+          "encoding": "r-s-v-low-s",
+          "jose_alias": null,
+          "usage": "message-signature",
+          "wire_scope": "external"
+        }
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {},
+        "effects": {}
+      }
+    },
+    {
+      "id": "TABLE-02-N02",
+      "purpose": "private Keccak suite aliased to JOSE ES256K",
+      "input": {
+        "registered_suites": [
+          {
+            "alg": "ed25519",
+            "key_type": "Ed25519",
+            "digest": "none",
+            "signature_bytes": 64,
+            "encoding": "R-S",
+            "status": "mandatory"
+          },
+          {
+            "alg": "sage-secp256k1-keccak256",
+            "key_type": "secp256k1",
+            "digest": "Keccak-256",
+            "signature_bytes": 65,
+            "encoding": "r-s-v-low-s",
+            "status": "optional"
+          },
+          {
+            "alg": "ecdsa-p256-sha256",
+            "key_type": "P-256",
+            "digest": "SHA-256",
+            "signature_bytes": 64,
+            "encoding": "r-s-low-s",
+            "status": "optional"
+          }
+        ],
+        "implementation_support": {
+          "ed25519": true,
+          "sage-secp256k1-keccak256": true,
+          "ecdsa-p256-sha256": false
+        },
+        "request": {
+          "alg": "sage-secp256k1-keccak256",
+          "key_type": "secp256k1",
+          "digest": "Keccak-256",
+          "signature_bytes": 65,
+          "encoding": "r-s-v-low-s",
+          "jose_alias": "ES256K",
+          "usage": "message-signature",
+          "wire_scope": "external"
+        }
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {},
+        "effects": {}
+      }
+    }
+  ]
+}

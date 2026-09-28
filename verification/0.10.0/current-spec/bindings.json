@@ -1814,6 +1814,27 @@
       "fixture": "vectors/0.10.0/current-spec/TABLE-01-N03-document_review.json",
       "fixture_sha256": "40acb0e6f653f1cc4a62878001883e8712a9a1cbcaea7f57c9047779ea01998e",
       "coverage": "partial"
+    },
+    {
+      "id": "TABLE-02-P",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/TABLE-02-P.json",
+      "fixture_sha256": "e2ecece2f648d75df954d9be6f468b9b9603efd0c72f7b5fc3b12a8842f4dc54",
+      "coverage": "partial"
+    },
+    {
+      "id": "TABLE-02-N01",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/TABLE-02-N01.json",
+      "fixture_sha256": "912587fbf8acaf0cf84d078c52b61931d6ee5568f7fc3925a3cd2c5b577713e9",
+      "coverage": "partial"
+    },
+    {
+      "id": "TABLE-02-N02",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/TABLE-02-N02.json",
+      "fixture_sha256": "81a5ce237a0daa633fc9a8eb233ec5f7e4a12d24b08a686aaefb5b57aebecab8",
+      "coverage": "partial"
     }
   ]
 }

@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "REG-03-P",
+  "track": "runtime",
+  "input": {
+    "operation": "sage.registry.lifecycle.apply",
+    "input": {
+      "record": {
+        "id": "did:sage:eip155:1:0xabababababababababababababababababababab:alice",
+        "controller": "0xcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+        "keys": [
+          {
+            "name": "kem-1",
+            "alg": "x25519",
+            "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+            "proof": {
+              "signer": "did:sage:eip155:1:0xabababababababababababababababababababab:alice#signing-1",
+              "value": "TGcFfjhsgeNpnBP9fxLd3K9LuSEcdrs2tPFIgyrRUIbwey9KW5G8joPp2dhXfK3K7Rx42NLX0Hfxozepq0imCw"
+            },
+            "state": "accepted"
+          },
+          {
+            "name": "signing-1",
+            "alg": "ed25519",
+            "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+            "proof": {
+              "signer": "did:sage:eip155:1:0xabababababababababababababababababababab:alice#signing-1",
+              "value": "rXfRw8Oh4zjvP2ZObHOI4T0Kv315exp4QWgw0R8EqDxuG7ZiOjEfI2Y3Eq2Ww48UOg5lUVBHKqRVJZftxPyaDQ"
+            },
+            "state": "accepted"
+          }
+        ],
+        "services": [
+          {
+            "name": "api",
+            "type": "Agent",
+            "uri": "https://agents.example.com/api"
+          }
+        ],
+        "state": "created",
+        "version": "1"
+      },
+      "operation": "lifecycle-transition",
+      "actor": "0xcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+      "expected_version": "1",
+      "new_state": "active"
+    }
+  },
+  "expected": {
+    "verdict": "ACCEPT",
+    "output": {
+      "version": "2",
+      "state": "active"
+    },
+    "effects": {
+      "mutations": 1
+    }
+  }
+}

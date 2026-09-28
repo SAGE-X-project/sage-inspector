@@ -120,6 +120,28 @@ def observe(raw, adapter):
                       'effects': {}}
         validate_outcome(actual)
         return {'schema_version': 1, 'id': ident, 'track': 'runtime', 'actual': actual}
+    if inp['operation'] == 'sage.did.boundary.pair':
+        pair = inp['input']
+        require(set(pair) == {'control', 'candidate'} and
+                all(type(pair[name]) is dict and
+                    set(pair[name]) == {'did'} and
+                    type(pair[name]['did']) is str and
+                    len(pair[name]['did'].encode()) <= 1024
+                    for name in pair), 'DID boundary pair input')
+        control = invoke_core(adapter, ident + '-control',
+                              'sage.did.validate', pair['control'])
+        candidate = invoke_core(adapter, ident + '-candidate',
+                                'sage.did.validate', pair['candidate'])
+        if 'UNSUPPORTED' in (control['verdict'], candidate['verdict']):
+            actual = {'verdict': 'UNSUPPORTED',
+                      'reason': 'Core adapter does not expose DID validation.'}
+        else:
+            actual = {'verdict': 'ACCEPT',
+                      'output': {'control_verdict': control['verdict'],
+                                 'candidate_verdict': candidate['verdict']},
+                      'effects': {}}
+        validate_outcome(actual)
+        return {'schema_version': 1, 'id': ident, 'track': 'runtime', 'actual': actual}
     if inp['operation'] == 'sage.session.sid.project':
         fields = inp['input']
         require(set(fields) == {'seed_hex', 'th_hex'} and

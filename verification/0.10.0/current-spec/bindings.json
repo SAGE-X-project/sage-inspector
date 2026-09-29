@@ -2339,6 +2339,13 @@
       "fixture": "vectors/0.10.0/current-spec/CST-02-05.json",
       "fixture_sha256": "2d4d53b9be0e34f1d5a090efba0f56f7662da06518eeb68df476d02a5b0e0257",
       "coverage": "partial"
+    },
+    {
+      "id": "EXEC-05-N02",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/EXEC-05-N02.json",
+      "fixture_sha256": "8fdc6000a64e279bf08a3700b92109f2b5dcac3f380662808cee1086d61b1076",
+      "coverage": "partial"
     }
   ]
 }

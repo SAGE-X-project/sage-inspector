@@ -42,7 +42,7 @@ python3 -B scripts/current_spec_gap.py --output /tmp/current-spec-gap.json
 ```
 
 `scripts/current_spec_evidence.py` is the case-level evidence admission and
-status engine. Its 334 current bindings cover selected JCS, HTTP, HPKE,
+status engine. Its 335 current bindings cover selected JCS, HTTP, HPKE,
 session, DID, Agent Card, transport, and Registry cases only partially; the remaining cases still need bindings. A binding must name a current
 case or mandatory child, one required verification track, a repository-owned
 fixture hash, and whether that fixture covers the complete case or only part
@@ -407,6 +407,12 @@ independent local policy denial, and that an incoming self-approved digest
 cannot replace the pinned local mapping. Both cores reject the bounded signed
 intents. Host ownership of the policy store and all downstream effect paths
 still require separate review.
+
+The [local key-rotation replay observation](current-spec-key-rotation-evidence.md)
+records one inert dispatch before the signing key becomes inactive, then
+refuses an exact replay from the reopened ledger. The ledger reports `UNKNOWN`
+and the second attempt creates no additional handoff. Distributed rotation
+authority and external effects remain outside this local boundary.
 
 The 95 cases added after the historical snapshot comprise 71 MCP cases and
 24 later corrections. The older 71-case MCP runtime overlay is useful bounded

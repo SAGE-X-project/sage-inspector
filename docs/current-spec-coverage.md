@@ -70,10 +70,18 @@ The nine PROC-01..03 document-review fixtures use the pinned `PROCESS.md` and
 bounded negative controls for source ownership, historical evidence, and
 repository scope. Their preserved observations are `PARTIAL`: they exercise
 Inspector's review decision, not all repository changes or product behaviour.
+The process reviewer now rejects orphaned requirements and cases in the pinned
+traceability graph. All nine cases also run through its bounded local CLI;
+the fixture configurations alone do not prove a real change record or complete
+repository history.
 The three EVIDENCE-01 parents have fixtures on all three required tracks.
 These reject unmeasured latency and two wrappers around the same executable;
 their synthetic reviewer observations are `PARTIAL`, never measured performance
 or independent interoperability evidence for a deployed implementation.
+Evidence review now also requires the report's exact pinned specification
+revision and links each execution revision to a listed implementation. The
+nine track fixtures run through the local CLI; their synthetic reports remain
+insufficient to establish independent implementation provenance.
 MSET-01..08 (43 parents and 46 tracks), MOWN-01..05 (37 parents and 26
 mandatory MOWN-06 children), and the remaining 51 parents (60 missing tracks)
 have pinned host observation contracts. Those contracts anchor the exact

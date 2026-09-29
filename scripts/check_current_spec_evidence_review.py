@@ -25,7 +25,8 @@ def check(root=ROOT, base=BASE):
                 track in mapped[ident]['verification_tracks'] and
                 bindings[(ident, track)][0]['coverage'] == 'partial' and
                 bindings[(ident, track)][1]['expected'] == expected and
-                evaluate(ident, track, inp['report']) == expected,
+                evaluate(ident, track, inp['report'],
+                         manifest['spec_revision']) == expected,
                 'evidence partial fixture')
     observed = load((base / 'manifest.json').read_bytes())
     require(len(observed['observations']) == 9 and

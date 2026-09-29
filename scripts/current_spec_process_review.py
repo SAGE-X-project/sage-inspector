@@ -16,7 +16,9 @@ def mapped_rules(trace):
     rules = {row['id']: row for row in trace['rules']}
     if len(requirements) != len(trace['requirements']) or \
             len(cases) != len(trace['cases']) or \
-            len(rules) != len(trace['rules']):
+            len(rules) != len(trace['rules']) or \
+            not all(row['rule_ids'] for row in requirements.values()) or \
+            not all(row['rule_id'] in rules for row in cases.values()):
         return False
     for rid, rule in rules.items():
         if not rule['requirements'] or any(q not in requirements for q in rule['requirements']):

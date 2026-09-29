@@ -12,9 +12,11 @@ from unittest.mock import patch
 from check_current_spec_pending_contracts import check
 from current_spec_pending_bridge import observe
 from current_spec_catalog import catalog
-from current_spec_pending_contracts import MSET03_SCENARIOS, MSET06_SCENARIOS
+from current_spec_pending_contracts import MSET03_SCENARIOS, MSET04_SCENARIOS
+from current_spec_pending_contracts import MSET06_SCENARIOS
 from current_spec_pending_contracts import SETUP_MODEL_SCENARIOS, assertions_for
 from current_spec_pending_contracts import mset03_classification, mset03_sample
+from current_spec_pending_contracts import mset04_classification, mset04_sample
 from current_spec_pending_contracts import sample_observation
 
 
@@ -189,6 +191,74 @@ class PendingContractTests(unittest.TestCase):
         changed = dict(evidence, inner_request_id='not-a-uuid')
         with self.assertRaises(ValueError):
             mset03_classification(changed)
+
+    def test_notification_ack_cases_use_exact_marker_and_correlation(self):
+        root = Path(__file__).resolve().parents[1]
+        source = catalog()[1]
+        cases = {row['id']: row for row in source['cases']}
+        rules = {row['id']: row for row in source['rules']}
+        for ident in MSET04_SCENARIOS:
+            with self.subTest(ident=ident):
+                fixture = json.loads((root / 'vectors/0.10.0/current-spec' /
+                                      f'{ident}-runtime.json').read_text())
+                request = {key: fixture[key] for key in
+                           ('schema_version', 'spec_revision', 'id', 'track', 'input')}
+                case = cases[ident]
+                trace = sample_observation(case, rules[case['rule_id']], 'runtime')
+                self.assertNotIn('notification_ack_checked', trace['assertions'])
+                self.assertEqual(observe(json.dumps(request).encode(), trace)
+                                 ['actual'], fixture['expected'])
+                replacement = ('mset-04-malformed-ack'
+                               if ident == 'mset-04-notification-ack' else
+                               'mset-04-notification-ack')
+                trace['ack_evidence'] = mset04_sample(replacement)
+                self.assertEqual(observe(json.dumps(request).encode(), trace)
+                                 ['actual']['verdict'], 'REJECT')
+
+    def test_notification_ack_rejects_unexpected_output_and_json(self):
+        evidence = mset04_sample('mset-04-notification-ack')
+        self.assertEqual(mset04_classification(evidence), 'valid')
+        changed = dict(evidence, guard_output_ids=['output-1'])
+        self.assertEqual(mset04_classification(changed),
+                         'unexpected_guard_output')
+        changed = dict(evidence, notification_json=
+                       '{"jsonrpc":"2.0","jsonrpc":"2.0"}')
+        self.assertEqual(mset04_classification(changed),
+                         'malformed_notification')
+        changed = dict(evidence, ack_request_hash='b' * 64)
+        self.assertEqual(mset04_classification(changed), 'malformed_ack')
+
+    def test_notification_ack_bridge_runs_local_adapter(self):
+        root = Path(__file__).resolve().parents[1]
+        source = catalog()[1]
+        cases = {row['id']: row for row in source['cases']}
+        rules = {row['id']: row for row in source['rules']}
+        with tempfile.TemporaryDirectory() as temporary:
+            adapter = Path(temporary) / 'ack-observer'
+            environment = dict(os.environ, SAGE_CASE_ADAPTER=str(adapter))
+            for ident in MSET04_SCENARIOS:
+                with self.subTest(ident=ident):
+                    fixture = json.loads((root / 'vectors/0.10.0/current-spec' /
+                                          f'{ident}-runtime.json').read_text())
+                    request = {key: fixture[key] for key in
+                               ('schema_version', 'spec_revision', 'id', 'track', 'input')}
+                    case = cases[ident]
+                    trace = sample_observation(case, rules[case['rule_id']],
+                                               'runtime')
+                    adapter.write_text('#!/usr/bin/env python3\n'
+                                       'import json,sys\n'
+                                       'json.load(sys.stdin)\n'
+                                       f'print({json.dumps(json.dumps({"trace": trace}))})\n')
+                    adapter.chmod(0o700)
+                    result = subprocess.run(
+                        [sys.executable, '-B',
+                         str(root / 'scripts/current_spec_pending_bridge.py')],
+                        input=json.dumps(request).encode(), capture_output=True,
+                        env=environment, timeout=10, check=False)
+                    self.assertEqual(result.returncode, 0,
+                                     result.stderr.decode())
+                    self.assertEqual(json.loads(result.stdout)['actual'],
+                                     fixture['expected'])
 
 
 if __name__ == '__main__':

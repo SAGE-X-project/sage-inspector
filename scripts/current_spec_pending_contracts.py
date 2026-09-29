@@ -68,6 +68,97 @@ MSET03_SCENARIOS = {
     'mset-03-capability-mismatch': 'capability_mismatch',
     'mset-03-wrong-request': 'wrong_request',
 }
+MSET04_SCENARIOS = {
+    'mset-04-notification-ack': 'valid',
+    'mset-04-ack-is-not-result': 'marker_not_guard_result',
+    'mset-04-malformed-ack': 'malformed_ack',
+    'mset-04-notification-has-id': 'notification_has_id',
+    'mset-04-lost-ack': 'lost_ack',
+}
+
+
+def bounded_ids(value):
+    return type(value) is list and len(value) <= 64 and \
+        all(type(item) is str and 1 <= len(item) <= 128 for item in value) and \
+        len(value) == len(set(value))
+
+
+def sha256_hex(value):
+    return type(value) is str and len(value) == 64 and \
+        all(char in '0123456789abcdef' for char in value)
+
+
+def mset04_classification(evidence):
+    require(type(evidence) is dict and
+            set(evidence) == {'notification_json', 'request_hash',
+                              'ack_request_hash', 'ack_plaintext',
+                              'outer_success', 'outer_error',
+                              'guard_consume_attempt_ids', 'guard_output_ids',
+                              'deadline_elapsed_ms'} and
+            type(evidence['notification_json']) is str and
+            len(evidence['notification_json'].encode()) <= 4096 and
+            sha256_hex(evidence['request_hash']) and
+            (evidence['ack_request_hash'] is None or
+             sha256_hex(evidence['ack_request_hash'])) and
+            (evidence['ack_plaintext'] is None or
+             type(evidence['ack_plaintext']) is str and
+             len(evidence['ack_plaintext'].encode()) <= 4096) and
+            type(evidence['outer_success']) is bool and
+            (evidence['outer_error'] is None or
+             type(evidence['outer_error']) is str and
+             len(evidence['outer_error']) <= 128) and
+            bounded_ids(evidence['guard_consume_attempt_ids']) and
+            bounded_ids(evidence['guard_output_ids']) and
+            type(evidence['deadline_elapsed_ms']) is int and
+            0 <= evidence['deadline_elapsed_ms'] < 2**64,
+            'bounded initialized notification and acknowledgement')
+    try:
+        notification = json.loads(evidence['notification_json'],
+                                  object_pairs_hook=unique_json_object)
+    except (ValueError, TypeError):
+        return 'malformed_notification'
+    if type(notification) is not dict:
+        return 'malformed_notification'
+    if 'id' in notification:
+        return 'notification_has_id'
+    if notification != {'jsonrpc': '2.0',
+                        'method': 'notifications/initialized'}:
+        return 'malformed_notification'
+    if evidence['ack_plaintext'] is None and \
+            evidence['deadline_elapsed_ms'] >= 30000:
+        return 'lost_ack'
+    if evidence['ack_plaintext'] != '{}' or \
+            evidence['ack_request_hash'] != evidence['request_hash'] or \
+            not evidence['outer_success'] or evidence['outer_error'] is not None:
+        return 'malformed_ack'
+    if evidence['guard_consume_attempt_ids'] and \
+            not evidence['guard_output_ids']:
+        return 'marker_not_guard_result'
+    if evidence['guard_output_ids']:
+        return 'unexpected_guard_output'
+    return 'valid'
+
+
+def mset04_sample(ident):
+    evidence = {'notification_json':
+                '{"jsonrpc":"2.0","method":"notifications/initialized"}',
+                'request_hash': 'a' * 64, 'ack_request_hash': 'a' * 64,
+                'ack_plaintext': '{}', 'outer_success': True,
+                'outer_error': None, 'guard_consume_attempt_ids': [],
+                'guard_output_ids': [], 'deadline_elapsed_ms': 1000}
+    if ident == 'mset-04-ack-is-not-result':
+        evidence['guard_consume_attempt_ids'] = ['consume-1']
+    elif ident == 'mset-04-malformed-ack':
+        evidence['ack_plaintext'] = '{ }'
+    elif ident == 'mset-04-notification-has-id':
+        evidence['notification_json'] = (
+            '{"jsonrpc":"2.0","method":"notifications/initialized","id":1}')
+    elif ident == 'mset-04-lost-ack':
+        evidence['ack_plaintext'] = None
+        evidence['ack_request_hash'] = None
+        evidence['outer_success'] = False
+        evidence['deadline_elapsed_ms'] = 30000
+    return evidence
 
 
 def canonical_uuid4(value):
@@ -201,7 +292,9 @@ def sample_observation(case, rule, track):
                   if not (ident in MSET06_SCENARIOS and
                           name == 'monotonic_deadline_checked') and
                   not (ident in MSET03_SCENARIOS and
-                       name == 'initialize_correlation_checked')}
+                       name == 'initialize_correlation_checked') and
+                  not (ident in MSET04_SCENARIOS and
+                       name == 'notification_ack_checked')}
     result = {'case_id': ident, 'track': track,
               'observed_outcome': case['expected'], 'assertions': assertions,
               'observer_effects': 0, 'subject_effects': 0}
@@ -209,6 +302,8 @@ def sample_observation(case, rule, track):
         result['model_events'] = list(SETUP_MODEL_SCENARIOS[ident][0])
     if ident in MSET03_SCENARIOS:
         result['mcp_response'] = mset03_sample(ident)
+    if ident in MSET04_SCENARIOS:
+        result['ack_evidence'] = mset04_sample(ident)
     return result
 
 
@@ -221,6 +316,8 @@ def inspect(case, rule, track, phase, observed):
         fields.add('model_events')
     if case['id'] in MSET03_SCENARIOS:
         fields.add('mcp_response')
+    if case['id'] in MSET04_SCENARIOS:
+        fields.add('ack_evidence')
     require(type(observed) is dict and
             set(observed) == fields and
             observed['case_id'] == case['id'] and observed['track'] == track and
@@ -234,7 +331,9 @@ def inspect(case, rule, track, phase, observed):
                      if not (case['id'] in MSET06_SCENARIOS and
                              name == 'monotonic_deadline_checked') and
                      not (case['id'] in MSET03_SCENARIOS and
-                          name == 'initialize_correlation_checked'))
+                          name == 'initialize_correlation_checked') and
+                     not (case['id'] in MSET04_SCENARIOS and
+                          name == 'notification_ack_checked'))
     assertions_valid = (set(observed['assertions']) == set(required) and
                         all(observed['assertions'][key] is True for key in required))
     effects_agree = observed['observer_effects'] == observed['subject_effects']
@@ -246,9 +345,12 @@ def inspect(case, rule, track, phase, observed):
     mcp_response_ok = (case['id'] not in MSET03_SCENARIOS or
                        mset03_classification(observed['mcp_response']) ==
                        MSET03_SCENARIOS[case['id']])
+    ack_ok = (case['id'] not in MSET04_SCENARIOS or
+              mset04_classification(observed['ack_evidence']) ==
+              MSET04_SCENARIOS[case['id']])
     matched = (observed['observed_outcome'] == expected_outcome(case) and
                assertions_valid and effects_agree and setup_effects and
-               model_ok and mcp_response_ok)
+               model_ok and mcp_response_ok and ack_ok)
     return {'verdict': 'ACCEPT' if matched else 'REJECT',
             'output': {'matched': matched,
                        'reason': 'case_contract' if matched else

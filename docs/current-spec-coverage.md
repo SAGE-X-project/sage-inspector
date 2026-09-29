@@ -120,6 +120,10 @@ The four MSET-03 initialize cases parse a bounded response and classify the
 fixed MCP version, exact tools capability, outer success and both correlated
 request IDs. Duplicate JSON members are rejected. The response still needs a
 versioned host adapter to establish that it came from the authenticated peer.
+The five MSET-04 notification cases now parse the exact no-ID notification,
+check the two-byte acknowledgement marker and request-hash correlation, and
+distinguish a lost acknowledgement from a Guard result. These checks still
+depend on a host observer for authenticated record provenance.
 `scripts/run_current_spec_cases.py` can execute bound fixtures for one selected
 verification track against one explicit local adapter. It sends the case input but never the expected
 answer, bounds the process, and writes hashed observations for the evidence

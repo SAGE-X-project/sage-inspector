@@ -1,0 +1,155 @@
+{
+  "schema_version": 1,
+  "protocol_version": "0.10.0",
+  "profile": "primitive-foundation",
+  "id": "sage-did-prefix-0.10.0",
+  "sources": [
+    {
+      "id": "did-prefix-spec",
+      "kind": "spec-derived",
+      "uri": "sage-spec/spec/06-did-sage.md",
+      "reference": "44df132fee5925182018ce089dc82435cb353f8a ID-01 and msca-did-prefix-case/msca-did-url-prefix-case; synthetic local identifiers only."
+    }
+  ],
+  "cases": [
+    {
+      "id": "did-prefix-control",
+      "operation": "sage.did.validate",
+      "rule_ids": [
+        "ID-01"
+      ],
+      "source_ids": [
+        "did-prefix-spec"
+      ],
+      "derivation": "Pinned msca-did-prefix-case with an unchanged canonical web control. Rejecting a changed prefix alone is not complete case evidence.",
+      "input": {
+        "did": "did:sage:web:agents.example.com:alice",
+        "supported_kinds": [
+          "eip155",
+          "web"
+        ]
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      }
+    },
+    {
+      "id": "did-prefix-scheme",
+      "operation": "sage.did.validate",
+      "rule_ids": [
+        "ID-01"
+      ],
+      "source_ids": [
+        "did-prefix-spec"
+      ],
+      "derivation": "Pinned msca-did-prefix-case with an unchanged canonical web control. Rejecting a changed prefix alone is not complete case evidence.",
+      "input": {
+        "did": "DID:sage:web:agents.example.com:alice",
+        "supported_kinds": [
+          "eip155",
+          "web"
+        ]
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "did-prefix-method",
+      "operation": "sage.did.validate",
+      "rule_ids": [
+        "ID-01"
+      ],
+      "source_ids": [
+        "did-prefix-spec"
+      ],
+      "derivation": "Pinned msca-did-prefix-case with an unchanged canonical web control. Rejecting a changed prefix alone is not complete case evidence.",
+      "input": {
+        "did": "did:SAGE:web:agents.example.com:alice",
+        "supported_kinds": [
+          "eip155",
+          "web"
+        ]
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "did-url-prefix-control",
+      "operation": "sage.did-url.validate",
+      "rule_ids": [
+        "ID-01"
+      ],
+      "source_ids": [
+        "did-prefix-spec"
+      ],
+      "derivation": "Pinned msca-did-url-prefix-case with an unchanged canonical web control. Rejecting a changed prefix alone is not complete case evidence.",
+      "input": {
+        "did_url": "did:sage:web:agents.example.com:alice#signing-1",
+        "expected_peer": "did:sage:web:agents.example.com:alice",
+        "supported_kinds": [
+          "eip155",
+          "web"
+        ]
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      }
+    },
+    {
+      "id": "did-url-prefix-scheme",
+      "operation": "sage.did-url.validate",
+      "rule_ids": [
+        "ID-01"
+      ],
+      "source_ids": [
+        "did-prefix-spec"
+      ],
+      "derivation": "Pinned msca-did-url-prefix-case with an unchanged canonical web control. Rejecting a changed prefix alone is not complete case evidence.",
+      "input": {
+        "did_url": "DID:sage:web:agents.example.com:alice#signing-1",
+        "expected_peer": "did:sage:web:agents.example.com:alice",
+        "supported_kinds": [
+          "eip155",
+          "web"
+        ]
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "did-url-prefix-method",
+      "operation": "sage.did-url.validate",
+      "rule_ids": [
+        "ID-01"
+      ],
+      "source_ids": [
+        "did-prefix-spec"
+      ],
+      "derivation": "Pinned msca-did-url-prefix-case with an unchanged canonical web control. Rejecting a changed prefix alone is not complete case evidence.",
+      "input": {
+        "did_url": "did:SAGE:web:agents.example.com:alice#signing-1",
+        "expected_peer": "did:sage:web:agents.example.com:alice",
+        "supported_kinds": [
+          "eip155",
+          "web"
+        ]
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    }
+  ]
+}

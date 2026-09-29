@@ -44,6 +44,9 @@ jobs:
         run: |
           node scripts/check_registry_vectors.js
           python3 scripts/test_registry_inspection.py
+          python3 -B scripts/test_did_prefix_suite.py
+          python3 -B scripts/test_did_prefix_reports.py
+          python3 -B scripts/check_did_prefix_reports.py
       - name: Audit independent Execution Guard fixtures
         run: |
           node scripts/check_guard_vectors.js
@@ -168,6 +171,7 @@ jobs:
           python3 -B scripts/test_latest_spec_evidence.py
           python3 -B scripts/latest_spec_case_bindings.py --spec-root ../sage-spec
           python3 -B scripts/latest_spec_evidence.py --output "${RUNNER_TEMP}/latest-spec-evidence.json"
+          python3 -B scripts/generate_did_prefix_suite.py --spec-root ../sage-spec
       - name: Preserve the latest inventory
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1

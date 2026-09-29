@@ -2290,6 +2290,20 @@
       "fixture": "vectors/0.10.0/current-spec/CST-02-04.json",
       "fixture_sha256": "71f9bc1d21fbd068b45e543aa9dd20748e644b51a9a9bc6cf62b938944a27297",
       "coverage": "partial"
+    },
+    {
+      "id": "CST-01-05",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/CST-01-05.json",
+      "fixture_sha256": "ef63894363627f3bf1ab0abbcf11482daf0b2bd5d852806dc9460ee758507b9d",
+      "coverage": "partial"
+    },
+    {
+      "id": "CST-01-07",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/CST-01-07.json",
+      "fixture_sha256": "dab88c74373727b6105e51e86cd9c464f0b1367c1553fd69c25dbe6bb98291f7",
+      "coverage": "partial"
     }
   ]
 }

@@ -16,9 +16,9 @@ SUBJECTS = {
              '4e635b162eddf489feb267a6928efae362a2dd9179677e269ca46efe97f2c6b2'),
 }
 SOURCES = {
-    'adapter-source/go/main.go':
+    'adapter-source/go/main.go.txt':
         'b3540e7301a98bdb2941fa393111060897ac9b7a775cf7f2ed99097580e24991',
-    'adapter-source/go/fixtures.go':
+    'adapter-source/go/fixtures.go.txt':
         '8f96b84a6171272193e8d2f08e56e8f27982a0d4e73aea0d1c52b9013171a673',
     'adapter-source/rust/guard_client010.rs':
         'a9395eaad3e2789b812359c04b3617c859aa98176d8afffd617de67590d514b9',

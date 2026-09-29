@@ -129,6 +129,15 @@ pinned tool object and configured digest, and reject extra metadata, cursors,
 wrong response IDs or absent local endpoint installation. The early-call case
 is covered by the setup state model. Complete route inventory remains a host
 integration requirement.
+The three MSET-01 channel cases bind the observed handshake and first record
+to the same session, owner, peer and key tuple, and require an active registry
+key event. A real host observer must supply independent handshake and registry
+records before these contracts can support a conformance result.
+Four MSET-02 carriage cases decode the actual reported plaintext bytes, compare
+sent and received bytes, enforce plaintext/record/wire bounds, reject duplicate
+JSON members and detect outer/inner request-ID collisions. The remaining
+carriage cases use the setup state model or still require a host-specific
+observation of cryptographic sequence and replay state.
 `scripts/run_current_spec_cases.py` can execute bound fixtures for one selected
 verification track against one explicit local adapter. It sends the case input but never the expected
 answer, bounds the process, and writes hashed observations for the evidence

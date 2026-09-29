@@ -12,9 +12,13 @@ from unittest.mock import patch
 from check_current_spec_pending_contracts import check
 from current_spec_pending_bridge import observe
 from current_spec_catalog import catalog
-from current_spec_pending_contracts import MSET03_SCENARIOS, MSET04_SCENARIOS
+from current_spec_pending_contracts import MSET01_SCENARIOS, MSET02_SCENARIOS
+from current_spec_pending_contracts import MSET03_SCENARIOS
+from current_spec_pending_contracts import MSET04_SCENARIOS
 from current_spec_pending_contracts import MSET05_SCENARIOS, MSET06_SCENARIOS
-from current_spec_pending_contracts import SETUP_MODEL_SCENARIOS, assertions_for
+from current_spec_pending_contracts import SETUP_MODEL_SCENARIOS
+from current_spec_pending_contracts import mset01_classification, mset01_sample
+from current_spec_pending_contracts import mset02_classification, mset02_sample
 from current_spec_pending_contracts import mset03_classification, mset03_sample
 from current_spec_pending_contracts import mset04_classification, mset04_sample
 from current_spec_pending_contracts import mset05_classification, mset05_sample
@@ -42,17 +46,15 @@ class PendingContractTests(unittest.TestCase):
         self.assertEqual(result['actual']['verdict'], 'UNSUPPORTED')
         case = next(row for row in catalog()[1]['cases']
                     if row['id'] == fixture['id'])
-        good = {'case_id': fixture['id'], 'track': 'runtime',
-                'observed_outcome': case['expected'],
-                'assertions': {key: True for key in assertions_for(case['rule_id'])},
-                'observer_effects': 0, 'subject_effects': 0}
+        rule = next(row for row in catalog()[1]['rules']
+                    if row['id'] == case['rule_id'])
+        good = sample_observation(case, rule, 'runtime')
         self.assertEqual(observe(json.dumps(request).encode(), good)['actual'],
                          fixture['expected'])
         changed = dict(good, observed_outcome='wrong outcome')
         self.assertEqual(observe(json.dumps(request).encode(), changed)
                          ['actual']['verdict'], 'REJECT')
-        changed = dict(good, assertions={key: False for key in
-                                         assertions_for(case['rule_id'])})
+        changed = dict(good, channel_evidence=mset01_sample('mset-01-wrong-owner'))
         self.assertEqual(observe(json.dumps(request).encode(), changed)
                          ['actual']['verdict'], 'REJECT')
 
@@ -306,6 +308,124 @@ class PendingContractTests(unittest.TestCase):
             adapter = Path(temporary) / 'discovery-observer'
             environment = dict(os.environ, SAGE_CASE_ADAPTER=str(adapter))
             for ident in MSET05_SCENARIOS:
+                with self.subTest(ident=ident):
+                    fixture = json.loads((root / 'vectors/0.10.0/current-spec' /
+                                          f'{ident}-runtime.json').read_text())
+                    request = {key: fixture[key] for key in
+                               ('schema_version', 'spec_revision', 'id', 'track', 'input')}
+                    case = cases[ident]
+                    trace = sample_observation(case, rules[case['rule_id']],
+                                               'runtime')
+                    adapter.write_text('#!/usr/bin/env python3\n'
+                                       'import json,sys\n'
+                                       'json.load(sys.stdin)\n'
+                                       f'print({json.dumps(json.dumps({"trace": trace}))})\n')
+                    adapter.chmod(0o700)
+                    result = subprocess.run(
+                        [sys.executable, '-B',
+                         str(root / 'scripts/current_spec_pending_bridge.py')],
+                        input=json.dumps(request).encode(), capture_output=True,
+                        env=environment, timeout=10, check=False)
+                    self.assertEqual(result.returncode, 0,
+                                     result.stderr.decode())
+                    self.assertEqual(json.loads(result.stdout)['actual'],
+                                     fixture['expected'])
+
+    def test_channel_owner_cases_bind_session_and_active_key(self):
+        root = Path(__file__).resolve().parents[1]
+        source = catalog()[1]
+        cases = {row['id']: row for row in source['cases']}
+        rules = {row['id']: row for row in source['rules']}
+        for ident in MSET01_SCENARIOS:
+            with self.subTest(ident=ident):
+                fixture = json.loads((root / 'vectors/0.10.0/current-spec' /
+                                      f'{ident}-runtime.json').read_text())
+                request = {key: fixture[key] for key in
+                           ('schema_version', 'spec_revision', 'id', 'track', 'input')}
+                case = cases[ident]
+                trace = sample_observation(case, rules[case['rule_id']], 'runtime')
+                self.assertEqual(trace['assertions'], {})
+                self.assertEqual(observe(json.dumps(request).encode(), trace)
+                                 ['actual'], fixture['expected'])
+                replacement = ('mset-01-revoked-key'
+                               if ident == 'mset-01-valid-channel' else
+                               'mset-01-valid-channel')
+                trace['channel_evidence'] = mset01_sample(replacement)
+                self.assertEqual(observe(json.dumps(request).encode(), trace)
+                                 ['actual']['verdict'], 'REJECT')
+        evidence = mset01_sample('mset-01-valid-channel')
+        changed = dict(evidence, authenticated_handshake_ids=[])
+        self.assertEqual(mset01_classification(changed),
+                         'unauthenticated_channel')
+
+    def test_channel_owner_bridge_runs_local_adapter(self):
+        root = Path(__file__).resolve().parents[1]
+        source = catalog()[1]
+        cases = {row['id']: row for row in source['cases']}
+        rules = {row['id']: row for row in source['rules']}
+        with tempfile.TemporaryDirectory() as temporary:
+            adapter = Path(temporary) / 'channel-observer'
+            environment = dict(os.environ, SAGE_CASE_ADAPTER=str(adapter))
+            for ident in MSET01_SCENARIOS:
+                with self.subTest(ident=ident):
+                    fixture = json.loads((root / 'vectors/0.10.0/current-spec' /
+                                          f'{ident}-runtime.json').read_text())
+                    request = {key: fixture[key] for key in
+                               ('schema_version', 'spec_revision', 'id', 'track', 'input')}
+                    case = cases[ident]
+                    trace = sample_observation(case, rules[case['rule_id']],
+                                               'runtime')
+                    adapter.write_text('#!/usr/bin/env python3\n'
+                                       'import json,sys\n'
+                                       'json.load(sys.stdin)\n'
+                                       f'print({json.dumps(json.dumps({"trace": trace}))})\n')
+                    adapter.chmod(0o700)
+                    result = subprocess.run(
+                        [sys.executable, '-B',
+                         str(root / 'scripts/current_spec_pending_bridge.py')],
+                        input=json.dumps(request).encode(), capture_output=True,
+                        env=environment, timeout=10, check=False)
+                    self.assertEqual(result.returncode, 0,
+                                     result.stderr.decode())
+                    self.assertEqual(json.loads(result.stdout)['actual'],
+                                     fixture['expected'])
+
+    def test_carriage_cases_check_exact_bytes_and_limits(self):
+        root = Path(__file__).resolve().parents[1]
+        source = catalog()[1]
+        cases = {row['id']: row for row in source['cases']}
+        rules = {row['id']: row for row in source['rules']}
+        for ident in MSET02_SCENARIOS:
+            with self.subTest(ident=ident):
+                fixture = json.loads((root / 'vectors/0.10.0/current-spec' /
+                                      f'{ident}-runtime.json').read_text())
+                request = {key: fixture[key] for key in
+                           ('schema_version', 'spec_revision', 'id', 'track', 'input')}
+                case = cases[ident]
+                trace = sample_observation(case, rules[case['rule_id']], 'runtime')
+                self.assertEqual(observe(json.dumps(request).encode(), trace)
+                                 ['actual'], fixture['expected'])
+                replacement = ('mset-02-size-boundary'
+                               if ident == 'mset-02-exact-bytes' else
+                               'mset-02-exact-bytes')
+                trace['carriage_evidence'] = mset02_sample(replacement)
+                self.assertEqual(observe(json.dumps(request).encode(), trace)
+                                 ['actual']['verdict'], 'REJECT')
+        evidence = mset02_sample('mset-02-exact-bytes')
+        changed = dict(evidence, received_plaintext_b64=
+                       mset02_sample('mset-02-json-duplicates')
+                       ['received_plaintext_b64'])
+        self.assertEqual(mset02_classification(changed), 'invalid_json')
+
+    def test_carriage_bridge_runs_local_adapter(self):
+        root = Path(__file__).resolve().parents[1]
+        source = catalog()[1]
+        cases = {row['id']: row for row in source['cases']}
+        rules = {row['id']: row for row in source['rules']}
+        with tempfile.TemporaryDirectory() as temporary:
+            adapter = Path(temporary) / 'carriage-observer'
+            environment = dict(os.environ, SAGE_CASE_ADAPTER=str(adapter))
+            for ident in MSET02_SCENARIOS:
                 with self.subTest(ident=ident):
                     fixture = json.loads((root / 'vectors/0.10.0/current-spec' /
                                           f'{ident}-runtime.json').read_text())

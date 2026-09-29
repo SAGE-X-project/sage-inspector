@@ -5,6 +5,8 @@ independent effect counts. They are partial inspection interfaces, never protoco
 execution or implementation conformance evidence by themselves.
 """
 
+import base64
+import binascii
 import json
 import hashlib
 import uuid
@@ -82,6 +84,130 @@ MSET05_SCENARIOS = {
     'mset-05-capability-not-authority': 'missing_endpoint',
     'mset-05-extended-descriptor': 'extended_descriptor',
 }
+MSET01_SCENARIOS = {
+    'mset-01-valid-channel': 'valid',
+    'mset-01-wrong-owner': 'wrong_owner',
+    'mset-01-revoked-key': 'revoked_key',
+}
+MSET02_SCENARIOS = {
+    'mset-02-exact-bytes': 'valid',
+    'mset-02-size-boundary': 'oversized',
+    'mset-02-json-duplicates': 'invalid_json',
+    'mset-02-id-collision': 'id_collision',
+}
+
+
+def mset02_classification(evidence):
+    require(type(evidence) is dict and
+            set(evidence) == {'outer_request_id', 'sent_plaintext_b64',
+                              'received_plaintext_b64', 'record_bytes',
+                              'wire_bytes'} and
+            canonical_uuid4(evidence['outer_request_id']) and
+            all(type(evidence[key]) is str and len(evidence[key]) <= 32 * 1024
+                for key in ('sent_plaintext_b64', 'received_plaintext_b64')) and
+            all(type(evidence[key]) is int and
+                0 <= evidence[key] <= 128 * 1024
+                for key in ('record_bytes', 'wire_bytes')),
+            'bounded MCP carriage observations')
+    try:
+        sent = base64.b64decode(evidence['sent_plaintext_b64'], validate=True)
+        received = base64.b64decode(evidence['received_plaintext_b64'],
+                                    validate=True)
+    except (ValueError, binascii.Error):
+        return 'invalid_encoding'
+    require(evidence['record_bytes'] >= len(received) and
+            evidence['wire_bytes'] >= evidence['record_bytes'],
+            'record and wire size relationship')
+    if len(sent) > 16348 or len(received) > 16348 or \
+            evidence['record_bytes'] > 16384 or \
+            evidence['wire_bytes'] > 32768:
+        return 'oversized'
+    try:
+        message = json.loads(received.decode('utf-8'),
+                             object_pairs_hook=unique_json_object)
+    except (UnicodeError, ValueError, TypeError):
+        return 'invalid_json'
+    if type(message) is not dict or \
+            not {'jsonrpc', 'id', 'method'} <= set(message) or \
+            message['jsonrpc'] != '2.0' or \
+            not canonical_uuid4(message['id']) or \
+            type(message['method']) is not str:
+        return 'invalid_json'
+    if evidence['outer_request_id'] == message['id']:
+        return 'id_collision'
+    if sent != received:
+        return 'bytes_changed'
+    return 'valid'
+
+
+def mset02_sample(ident):
+    inner = '123e4567-e89b-42d3-a456-426614174001'
+    outer = '123e4567-e89b-42d3-a456-426614174000'
+    message = {'jsonrpc': '2.0', 'id': inner, 'method': 'initialize',
+               'params': {'protocolVersion': '2025-06-18',
+                          'capabilities': {},
+                          'clientInfo': {'name': 'local-fixture', 'version': '1'}}}
+    raw = json.dumps(message, separators=(',', ':')).encode()
+    if ident == 'mset-02-size-boundary':
+        raw = b'x' * 16349
+    elif ident == 'mset-02-json-duplicates':
+        raw = b'{"jsonrpc":"2.0","jsonrpc":"2.0"}'
+    elif ident == 'mset-02-id-collision':
+        outer = inner
+    encoded = base64.b64encode(raw).decode()
+    record_bytes = len(raw) + 32
+    return {'outer_request_id': outer, 'sent_plaintext_b64': encoded,
+            'received_plaintext_b64': encoded, 'record_bytes': record_bytes,
+            'wire_bytes': record_bytes + 64}
+
+
+def mset01_classification(evidence):
+    require(type(evidence) is dict and
+            set(evidence) == {'session_id', 'owner_session_id',
+                              'readiness_session_id', 'peer_id',
+                              'owner_peer_id', 'key_tuple_sha256',
+                              'owner_key_tuple_sha256', 'key_id',
+                              'authenticated_handshake_ids',
+                              'validated_record_ids',
+                              'active_registry_key_ids'} and
+            all(type(evidence[key]) is str and 1 <= len(evidence[key]) <= 128
+                for key in ('session_id', 'owner_session_id',
+                            'readiness_session_id', 'peer_id',
+                            'owner_peer_id', 'key_id')) and
+            sha256_hex(evidence['key_tuple_sha256']) and
+            sha256_hex(evidence['owner_key_tuple_sha256']) and
+            all(bounded_ids(evidence[key]) for key in
+                ('authenticated_handshake_ids', 'validated_record_ids',
+                 'active_registry_key_ids')),
+            'bounded channel ownership and registry observations')
+    if evidence['session_id'] != evidence['owner_session_id'] or \
+            evidence['session_id'] != evidence['readiness_session_id'] or \
+            evidence['peer_id'] != evidence['owner_peer_id'] or \
+            evidence['key_tuple_sha256'] != evidence['owner_key_tuple_sha256']:
+        return 'wrong_owner'
+    if evidence['key_id'] not in evidence['active_registry_key_ids']:
+        return 'revoked_key'
+    if evidence['session_id'] not in evidence['authenticated_handshake_ids'] or \
+            evidence['session_id'] not in evidence['validated_record_ids']:
+        return 'unauthenticated_channel'
+    return 'valid'
+
+
+def mset01_sample(ident):
+    evidence = {'session_id': 'session-1', 'owner_session_id': 'session-1',
+                'readiness_session_id': 'session-1',
+                'peer_id': 'did:sage:peer-1', 'owner_peer_id': 'did:sage:peer-1',
+                'key_tuple_sha256': 'a' * 64,
+                'owner_key_tuple_sha256': 'a' * 64,
+                'key_id': 'key-1',
+                'authenticated_handshake_ids': ['session-1'],
+                'validated_record_ids': ['session-1'],
+                'active_registry_key_ids': ['key-1']}
+    if ident == 'mset-01-wrong-owner':
+        evidence['readiness_session_id'] = 'session-2'
+    elif ident == 'mset-01-revoked-key':
+        evidence['active_registry_key_ids'] = []
+    return evidence
 PINNED_TOOL_SHA256 = 'c3edd622a7c90baa028118f63af42a91f354fe7202070ef91a4bd349e4048204'
 
 
@@ -372,6 +498,9 @@ def expected_result(ident=None):
 def sample_observation(case, rule, track):
     ident = case['id']
     assertions = {name: True for name in assertions_for(rule['id'])
+                  if not (ident in MSET01_SCENARIOS and
+                          name in ('authenticated_channel',
+                                   'session_owner_bound'))
                   if not (ident in MSET06_SCENARIOS and
                           name == 'monotonic_deadline_checked') and
                   not (ident in MSET03_SCENARIOS and
@@ -391,6 +520,10 @@ def sample_observation(case, rule, track):
         result['ack_evidence'] = mset04_sample(ident)
     if ident in MSET05_SCENARIOS:
         result['discovery_evidence'] = mset05_sample(ident)
+    if ident in MSET01_SCENARIOS:
+        result['channel_evidence'] = mset01_sample(ident)
+    if ident in MSET02_SCENARIOS:
+        result['carriage_evidence'] = mset02_sample(ident)
     return result
 
 
@@ -407,6 +540,10 @@ def inspect(case, rule, track, phase, observed):
         fields.add('ack_evidence')
     if case['id'] in MSET05_SCENARIOS:
         fields.add('discovery_evidence')
+    if case['id'] in MSET01_SCENARIOS:
+        fields.add('channel_evidence')
+    if case['id'] in MSET02_SCENARIOS:
+        fields.add('carriage_evidence')
     require(type(observed) is dict and
             set(observed) == fields and
             observed['case_id'] == case['id'] and observed['track'] == track and
@@ -417,6 +554,9 @@ def inspect(case, rule, track, phase, observed):
             observed['observer_effects'] >= 0 and observed['subject_effects'] >= 0,
             'host observation shape and identity')
     required = tuple(name for name in assertions_for(rule['id'])
+                     if not (case['id'] in MSET01_SCENARIOS and
+                             name in ('authenticated_channel',
+                                      'session_owner_bound'))
                      if not (case['id'] in MSET06_SCENARIOS and
                              name == 'monotonic_deadline_checked') and
                      not (case['id'] in MSET03_SCENARIOS and
@@ -442,9 +582,16 @@ def inspect(case, rule, track, phase, observed):
     discovery_ok = (case['id'] not in MSET05_SCENARIOS or
                     mset05_classification(observed['discovery_evidence']) ==
                     MSET05_SCENARIOS[case['id']])
+    channel_ok = (case['id'] not in MSET01_SCENARIOS or
+                  mset01_classification(observed['channel_evidence']) ==
+                  MSET01_SCENARIOS[case['id']])
+    carriage_ok = (case['id'] not in MSET02_SCENARIOS or
+                   mset02_classification(observed['carriage_evidence']) ==
+                   MSET02_SCENARIOS[case['id']])
     matched = (observed['observed_outcome'] == expected_outcome(case) and
                assertions_valid and effects_agree and setup_effects and
-               model_ok and mcp_response_ok and ack_ok and discovery_ok)
+               model_ok and mcp_response_ok and ack_ok and discovery_ok and
+               channel_ok and carriage_ok)
     return {'verdict': 'ACCEPT' if matched else 'REJECT',
             'output': {'matched': matched,
                        'reason': 'case_contract' if matched else

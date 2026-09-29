@@ -1,0 +1,170 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "CST-01-08",
+  "track": "runtime",
+  "fixture_sha256": "0e81be068baae6f78f652fc0f68a5447716da646d6a4f4b50ada46135a938ae5",
+  "input_sha256": "8f2e35eef420f3b74f59ba3d90bbdeedde817bfab11b730390e29b994b601bf9",
+  "subject": {
+    "repository": "SAGE-X-project/rs-sage-core",
+    "revision": "ef63d76b88fe4d6ddbc7ae0fcfdbce7beab4d396",
+    "executable_sha256": "4e635b162eddf489feb267a6928efae362a2dd9179677e269ca46efe97f2c6b2"
+  },
+  "actual": {
+    "verdict": "ACCEPT",
+    "output": {
+      "scenarios": {
+        "poll-boundary": {
+          "steps": [
+            {
+              "ok": true,
+              "status": "",
+              "first": false,
+              "ignored": false,
+              "handoffs": 0
+            },
+            {
+              "ok": true,
+              "status": "",
+              "first": false,
+              "ignored": false,
+              "handoffs": 1
+            },
+            {
+              "ok": true,
+              "status": "",
+              "first": false,
+              "ignored": false,
+              "handoffs": 1
+            },
+            {
+              "ok": false,
+              "status": "",
+              "first": false,
+              "ignored": false,
+              "handoffs": 1
+            },
+            {
+              "ok": true,
+              "status": "",
+              "first": false,
+              "ignored": false,
+              "handoffs": 1
+            },
+            {
+              "ok": true,
+              "status": "",
+              "first": false,
+              "ignored": false,
+              "handoffs": 2
+            },
+            {
+              "ok": true,
+              "status": "pending",
+              "first": false,
+              "ignored": false,
+              "handoffs": 2
+            },
+            {
+              "ok": true,
+              "status": "completed",
+              "first": true,
+              "ignored": false,
+              "handoffs": 2
+            },
+            {
+              "ok": false,
+              "status": "",
+              "first": false,
+              "ignored": false,
+              "handoffs": 2
+            },
+            {
+              "ok": false,
+              "status": "",
+              "first": false,
+              "ignored": false,
+              "handoffs": 2
+            },
+            {
+              "ok": true,
+              "status": "",
+              "first": false,
+              "ignored": false,
+              "handoffs": 2
+            }
+          ],
+          "journal_kinds": [
+            "open",
+            "send",
+            "send",
+            "close",
+            "close",
+            "terminal"
+          ],
+          "terminal_results": 1,
+          "intent_unchanged": true,
+          "signed_results_valid": true
+        },
+        "expired-result": {
+          "steps": [
+            {
+              "ok": true,
+              "status": "",
+              "first": false,
+              "ignored": false,
+              "handoffs": 0
+            },
+            {
+              "ok": true,
+              "status": "",
+              "first": false,
+              "ignored": false,
+              "handoffs": 1
+            },
+            {
+              "ok": true,
+              "status": "",
+              "first": false,
+              "ignored": false,
+              "handoffs": 1
+            },
+            {
+              "ok": false,
+              "status": "",
+              "first": false,
+              "ignored": false,
+              "handoffs": 1
+            },
+            {
+              "ok": false,
+              "status": "",
+              "first": false,
+              "ignored": false,
+              "handoffs": 1
+            },
+            {
+              "ok": true,
+              "status": "",
+              "first": false,
+              "ignored": false,
+              "handoffs": 1
+            }
+          ],
+          "journal_kinds": [
+            "open",
+            "send",
+            "close"
+          ],
+          "terminal_results": 0,
+          "intent_unchanged": true,
+          "signed_results_valid": true
+        }
+      }
+    },
+    "effects": {
+      "handoff": 2
+    }
+  },
+  "environment": "bounded-local-adapter"
+}

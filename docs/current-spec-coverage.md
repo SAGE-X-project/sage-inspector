@@ -369,6 +369,12 @@ terminal snapshots, a rejection that races with an already committed
 dispatch, and an expired terminal retrieval. They observe executor storage
 and signature validity, not final Client output consumption.
 
+The [Client result-consumption observations](current-spec-exec-client-evidence.md)
+add four EXEC-07/CST-01 partial runtime cases for duplicate and delayed
+results, conflicting terminal replies, polling frequency, and expiry. Both
+cores match the bounded local Client and durable-journal fixtures. Model
+decision and deployed transport boundaries remain unobserved.
+
 The 95 cases added after the historical snapshot comprise 71 MCP cases and
 24 later corrections. The older 71-case MCP runtime overlay is useful bounded
 evidence, but it was captured against an earlier spec revision; this inventory

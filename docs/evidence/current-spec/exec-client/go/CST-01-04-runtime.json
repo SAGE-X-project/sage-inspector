@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "CST-01-04",
+  "track": "runtime",
+  "fixture_sha256": "a0361dbe48f20670fe9e3706f0a429fda7cdf8596b424f0daedafa3e5265f355",
+  "input_sha256": "76d73a90e11ad3ae038aa772450e0b069cfe79c73c4d9ca1d194381c271da84c",
+  "subject": {
+    "repository": "SAGE-X-project/sage",
+    "revision": "49379baadc6baec9ca8b4bb7d15bf43d65144bd7",
+    "executable_sha256": "db4469f152b78bb603ed50083d151a1003f14dc665bae9dcca08edb6a1b1780d"
+  },
+  "actual": {
+    "verdict": "ACCEPT",
+    "output": {
+      "scenarios": {
+        "conflicting-terminal": {
+          "steps": [
+            {
+              "ok": true,
+              "status": "",
+              "first": false,
+              "ignored": false,
+              "handoffs": 0
+            },
+            {
+              "ok": true,
+              "status": "",
+              "first": false,
+              "ignored": false,
+              "handoffs": 1
+            },
+            {
+              "ok": true,
+              "status": "",
+              "first": false,
+              "ignored": false,
+              "handoffs": 1
+            },
+            {
+              "ok": true,
+              "status": "",
+              "first": false,
+              "ignored": false,
+              "handoffs": 2
+            },
+            {
+              "ok": true,
+              "status": "completed",
+              "first": true,
+              "ignored": false,
+              "handoffs": 2
+            },
+            {
+              "ok": false,
+              "status": "",
+              "first": false,
+              "ignored": false,
+              "handoffs": 2
+            },
+            {
+              "ok": false,
+              "status": "",
+              "first": false,
+              "ignored": false,
+              "handoffs": 2
+            },
+            {
+              "ok": true,
+              "status": "",
+              "first": false,
+              "ignored": false,
+              "handoffs": 2
+            }
+          ],
+          "journal_kinds": [
+            "open",
+            "send",
+            "send",
+            "close",
+            "terminal",
+            "close"
+          ],
+          "terminal_results": 1,
+          "intent_unchanged": true,
+          "signed_results_valid": true
+        }
+      }
+    },
+    "effects": {
+      "handoff": 2
+    }
+  },
+  "environment": "bounded-local-adapter"
+}

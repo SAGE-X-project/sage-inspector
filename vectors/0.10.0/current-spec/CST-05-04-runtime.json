@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "CST-05-04",
+  "track": "runtime",
+  "input": {
+    "operation": "sage.spec.host_case",
+    "phase": 6,
+    "id": "CST-05-04",
+    "track": "runtime",
+    "rule_id": "HPKE-05",
+    "source": "spec/04-hpke.md",
+    "source_line": 89,
+    "trigger": "Concurrent first records",
+    "preconditions": "Deliver two identical first records concurrently, then repeat with two distinct valid sequences."
+  },
+  "expected": {
+    "verdict": "ACCEPT",
+    "output": {
+      "matched": true,
+      "reason": "case_contract"
+    },
+    "effects": {}
+  }
+}

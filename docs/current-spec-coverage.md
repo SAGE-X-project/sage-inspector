@@ -42,9 +42,8 @@ python3 -B scripts/current_spec_gap.py --output /tmp/current-spec-gap.json
 ```
 
 `scripts/current_spec_evidence.py` is the case-level evidence admission and
-status engine. Its 385 current bindings cover selected JCS, HTTP, HPKE,
-session, DID, Agent Card, transport, Registry, execution, and process cases
-only partially; the remaining cases still need bindings. A binding must name a current
+status engine. Its 554 current partial bindings cover every required track of
+all 481 parent cases and 26 mandatory child scenarios. A binding must name a current
 case or mandatory child, one required verification track, a repository-owned
 fixture hash, and whether that fixture covers the complete case or only part
 of it. An external observation must pin the spec revision, exact fixture and
@@ -75,6 +74,32 @@ The three EVIDENCE-01 parents have fixtures on all three required tracks.
 These reject unmeasured latency and two wrappers around the same executable;
 their synthetic reviewer observations are `PARTIAL`, never measured performance
 or independent interoperability evidence for a deployed implementation.
+MSET-01..08 (43 parents and 46 tracks), MOWN-01..05 (37 parents and 26
+mandatory MOWN-06 children), and the remaining 51 parents (60 missing tracks)
+have pinned host observation contracts. Those contracts anchor the exact
+source case, rule, source file, trigger, and required track, then compare an
+explicit host adapter's outcome and independent effect counters with the
+source expectation. With no host adapter they return `UNSUPPORTED`; no subject
+observation is inferred from the contract or a synthetic unit test. Their
+coverage is `partial` because a reported checkpoint and outcome do not prove
+the complete normative behaviour. The all-bindings gate verifies no case-track
+is missing, while all 481 parent conformance statuses remain `NOT_RUN` without
+implementation observations.
+
+| Ordered phase | Parent cases | Inspection result |
+| --- | ---: | --- |
+| EXEC/CST/multihop | 67 | Required tracks bound; host-dependent behaviour awaits a versioned host |
+| PROC-01..03 | 9 | Document-review controls observed, `PARTIAL` |
+| EVIDENCE-01 | 3 | Runtime, document and deployment reporting controls observed, `PARTIAL` |
+| MSET-01..08 | 43 | 46 required tracks bound to partial host contracts |
+| MOWN-01..05 / MOWN-06 | 37 | 37 parent tracks and 26 mandatory child tracks bound |
+| Earlier skipped cases | 51 | 60 missing tracks bound; REG-08 media-type decision remains undefined |
+
+The final binding gate checks all 554 required case tracks. Binding completeness
+is an inventory result; most new host contracts have no implementation
+observation. The bounded local MSET/MOWN state-machine controls exercise selected
+deadline, output, readiness, closure and reservation conditions without network
+attack traffic; they do not substitute for Go/Rust or deployed host evidence.
 `scripts/run_current_spec_cases.py` can execute bound fixtures for one selected
 verification track against one explicit local adapter. It sends the case input but never the expected
 answer, bounds the process, and writes hashed observations for the evidence

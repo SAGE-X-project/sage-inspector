@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "mset-07-fresh-reconnect",
+  "track": "runtime",
+  "input": {
+    "operation": "sage.spec.host_case",
+    "phase": 4,
+    "id": "mset-07-fresh-reconnect",
+    "track": "runtime",
+    "rule_id": "MSET-07",
+    "source": "profiles/non-http-mcp-security.md",
+    "source_line": 255,
+    "trigger": "Complete fresh authenticated setup without executing old call again; additionally: Use a fresh owner with old durable identities; no recovery of old admission work or readiness.",
+    "preconditions": "Explicitly selected SAGE 0.10.0 non-HTTP MCP 2025-06-18 binding; trusted isolated fixture; run all attached mandatory child assertions in their declared scope."
+  },
+  "expected": {
+    "verdict": "ACCEPT",
+    "output": {
+      "matched": true,
+      "reason": "case_contract"
+    },
+    "effects": {}
+  }
+}

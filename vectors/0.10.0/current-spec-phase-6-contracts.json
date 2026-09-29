@@ -1,0 +1,1462 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "phase": 6,
+  "parent_case_ids": [
+    "OVERVIEW-01-P",
+    "OVERVIEW-01-N01",
+    "OVERVIEW-02-P",
+    "OVERVIEW-02-N01",
+    "OVERVIEW-03-P",
+    "OVERVIEW-03-N01",
+    "OVERVIEW-03-N02",
+    "OVERVIEW-03-N03",
+    "OVERVIEW-04-P",
+    "OVERVIEW-04-N01",
+    "CRYPTO-01-P",
+    "CRYPTO-01-N01",
+    "CRYPTO-01-N02",
+    "CRYPTO-01-N03",
+    "CRYPTO-01-N04",
+    "CRYPTO-02-P",
+    "CRYPTO-02-N01",
+    "CRYPTO-02-N02",
+    "CRYPTO-02-N03",
+    "CRYPTO-02-N04",
+    "CRYPTO-02-N05",
+    "CRYPTO-03-P",
+    "CRYPTO-03-N01",
+    "CRYPTO-03-N02",
+    "CRYPTO-03-N03",
+    "CRYPTO-03-N04",
+    "CRYPTO-04-P",
+    "CRYPTO-04-N01",
+    "CRYPTO-04-N02",
+    "CRYPTO-04-N03",
+    "CRYPTO-05-P",
+    "CRYPTO-05-N01",
+    "CRYPTO-05-N02",
+    "CRYPTO-05-N03",
+    "REG-08-N04",
+    "CST-05-01",
+    "CST-05-02",
+    "CST-05-03",
+    "CST-05-04",
+    "CST-05-05",
+    "CST-05-06",
+    "mrevision-did-consumer",
+    "mrevision-extra-jwk-authority",
+    "mllm-kem-alg-valid",
+    "mllm-kem-alg-case",
+    "mllm-kem-selection",
+    "mllm-pop-exact-bytes",
+    "mllm-pop-duplicate-field",
+    "mllm-kem-signature-reject",
+    "mstand-problem-fields",
+    "mstand-problem-type-publication"
+  ],
+  "source_sha256": {
+    "PROCESS.md": "2ebc54e5fd908bed118bc4b6005f8a81f6cc482d9407a4bef8a96977ddce55f3",
+    "charter.md": "f11192af6397ac95f80287a3ff32ef662a3e94532a57646fab09b6776d938e01",
+    "profiles/agent-mcp-security.md": "0538acbdcfc143d93fb7d99a2a2c09c068fc354388c4e37c7489204305b1913f",
+    "profiles/non-http-mcp-security.md": "9c7851d095208c975792565266e481c120ef754ae8eb9529c62b53bf12a1d4fa",
+    "profiles/non-http-mcp-tool.json": "c3edd622a7c90baa028118f63af42a91f354fe7202070ef91a4bd349e4048204",
+    "spec/00-overview.md": "82493ba53f38cc783a2e76ffab3a70dc069b6ac3e534c7422840369fc90d9978",
+    "spec/01-crypto.md": "fe9fd00066b259b99a63e5adab7db739757e3ad2597ccc71e2019fa34319faec",
+    "spec/02-jcs.md": "4d4b202c8ddb5eb00c47a8e8056813a589834526e2174c023fb005a484eb3d94",
+    "spec/03-rfc9421.md": "ca6b85e12a0b0e1a4f28b4eb2a9b677d29e2fd2abe9691d1ee30bfa14ee858c9",
+    "spec/04-hpke.md": "1420818451ce8363a16e391647dbaca8ec2f06efa56b6507027a4e17f399fdd6",
+    "spec/05-session.md": "8a45b8bdd3b6bfc399a94c420b2161b8f16db5c6b29ed2e85584a6282b17cce5",
+    "spec/06-did-sage.md": "5791cc368111216a6539f7c423811abeb9821f9741e0c5d6ce177d5100b0b059",
+    "spec/07-a2a.md": "5ded622fdaf67342d5c6b4327da0f5787bfe9df2dc58b233cdfb500ffc96b042",
+    "spec/08-transport.md": "87bb1adc1aae4883e13f8ba52a7c86153c71efb621ffc50458f7e2aa57db3eeb",
+    "spec/09-registry.md": "2f7e5468bf87e7a402c7853584fca8e345b5055a0625f7068a71e80e6321eb02",
+    "spec/10-resolution.md": "12466dfeec90465c3fe014700972549d76917c7db87c207ce28d63867fbbe55c",
+    "spec/11-registries.md": "eb673391143bd4ed9283ee8a6a578aeb44e0018a78f6d994ebfeb70160757bf4",
+    "verification/standards-clause-audit.md": "007426363bb387f80cf1b611f55cb4bbe652d2232d849979a0753515d77145c6",
+    "verification/traceability.json": "a83a28338a9e3f15cd7846ce251db2f915d9ffffaf7162bc749b7f38d784aae7"
+  },
+  "scope": "partial host observation contracts; no implementation run or full conformance claim",
+  "cases": [
+    {
+      "id": "OVERVIEW-01-P",
+      "track": "document_review",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "OVERVIEW-01-P",
+        "track": "document_review",
+        "rule_id": "OVERVIEW-01",
+        "source": "spec/00-overview.md",
+        "source_line": 41,
+        "trigger": "Grammar and semantic bounds applied together",
+        "preconditions": "Use protocol0.10.0 and an isolated fixture with active registered peers, trusted UTC, known policy and zero initial dispatch counter. For review cases provide configuration/source evidence instead of network traffic."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "OVERVIEW-01-N01",
+      "track": "document_review",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "OVERVIEW-01-N01",
+        "track": "document_review",
+        "rule_id": "OVERVIEW-01",
+        "source": "spec/00-overview.md",
+        "source_line": 41,
+        "trigger": "grammar used to override rejection rule",
+        "preconditions": "Start from the valid group fixture; change only this condition. For state cases inject the specified race/crash/clock or policy state."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "OVERVIEW-02-P",
+      "track": "document_review",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "OVERVIEW-02-P",
+        "track": "document_review",
+        "rule_id": "OVERVIEW-02",
+        "source": "spec/00-overview.md",
+        "source_line": 78,
+        "trigger": "Version-specific dependency conformance claim",
+        "preconditions": "Use protocol0.10.0 and an isolated fixture with active registered peers, trusted UTC, known policy and zero initial dispatch counter. For review cases provide configuration/source evidence instead of network traffic."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "OVERVIEW-02-N01",
+      "track": "document_review",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "OVERVIEW-02-N01",
+        "track": "document_review",
+        "rule_id": "OVERVIEW-02",
+        "source": "spec/00-overview.md",
+        "source_line": 78,
+        "trigger": "historical vectors advertised new conformance",
+        "preconditions": "Start from the valid group fixture; change only this condition. For state cases inject the specified race/crash/clock or policy state."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "OVERVIEW-03-P",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "OVERVIEW-03-P",
+        "track": "runtime",
+        "rule_id": "OVERVIEW-03",
+        "source": "spec/00-overview.md",
+        "source_line": 96,
+        "trigger": "Exact0.10.0 version throughout message/profile",
+        "preconditions": "Use protocol0.10.0 and an isolated fixture with active registered peers, trusted UTC, known policy and zero initial dispatch counter. For review cases provide configuration/source evidence instead of network traffic."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "OVERVIEW-03-P",
+      "track": "document_review",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "OVERVIEW-03-P",
+        "track": "document_review",
+        "rule_id": "OVERVIEW-03",
+        "source": "spec/00-overview.md",
+        "source_line": 96,
+        "trigger": "Exact0.10.0 version throughout message/profile",
+        "preconditions": "Use protocol0.10.0 and an isolated fixture with active registered peers, trusted UTC, known policy and zero initial dispatch counter. For review cases provide configuration/source evidence instead of network traffic."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "OVERVIEW-03-N01",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "OVERVIEW-03-N01",
+        "track": "runtime",
+        "rule_id": "OVERVIEW-03",
+        "source": "spec/00-overview.md",
+        "source_line": 96,
+        "trigger": "missing version",
+        "preconditions": "Start from the valid group fixture; change only this condition. For state cases inject the specified race/crash/clock or policy state."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "OVERVIEW-03-N01",
+      "track": "document_review",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "OVERVIEW-03-N01",
+        "track": "document_review",
+        "rule_id": "OVERVIEW-03",
+        "source": "spec/00-overview.md",
+        "source_line": 96,
+        "trigger": "missing version",
+        "preconditions": "Start from the valid group fixture; change only this condition. For state cases inject the specified race/crash/clock or policy state."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "OVERVIEW-03-N02",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "OVERVIEW-03-N02",
+        "track": "runtime",
+        "rule_id": "OVERVIEW-03",
+        "source": "spec/00-overview.md",
+        "source_line": 96,
+        "trigger": "mismatch across layers",
+        "preconditions": "Start from the valid group fixture; change only this condition. For state cases inject the specified race/crash/clock or policy state."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "OVERVIEW-03-N02",
+      "track": "document_review",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "OVERVIEW-03-N02",
+        "track": "document_review",
+        "rule_id": "OVERVIEW-03",
+        "source": "spec/00-overview.md",
+        "source_line": 96,
+        "trigger": "mismatch across layers",
+        "preconditions": "Start from the valid group fixture; change only this condition. For state cases inject the specified race/crash/clock or policy state."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "OVERVIEW-03-N03",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "OVERVIEW-03-N03",
+        "track": "runtime",
+        "rule_id": "OVERVIEW-03",
+        "source": "spec/00-overview.md",
+        "source_line": 96,
+        "trigger": "automatic minor fallback",
+        "preconditions": "Start from the valid group fixture; change only this condition. For state cases inject the specified race/crash/clock or policy state."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "OVERVIEW-03-N03",
+      "track": "document_review",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "OVERVIEW-03-N03",
+        "track": "document_review",
+        "rule_id": "OVERVIEW-03",
+        "source": "spec/00-overview.md",
+        "source_line": 96,
+        "trigger": "automatic minor fallback",
+        "preconditions": "Start from the valid group fixture; change only this condition. For state cases inject the specified race/crash/clock or policy state."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "OVERVIEW-04-P",
+      "track": "document_review",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "OVERVIEW-04-P",
+        "track": "document_review",
+        "rule_id": "OVERVIEW-04",
+        "source": "spec/00-overview.md",
+        "source_line": 116,
+        "trigger": "Text owns every protocol decision",
+        "preconditions": "Use protocol0.10.0 and an isolated fixture with active registered peers, trusted UTC, known policy and zero initial dispatch counter. For review cases provide configuration/source evidence instead of network traffic."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "OVERVIEW-04-N01",
+      "track": "document_review",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "OVERVIEW-04-N01",
+        "track": "document_review",
+        "rule_id": "OVERVIEW-04",
+        "source": "spec/00-overview.md",
+        "source_line": 116,
+        "trigger": "Go implementation used to fill silent normative gap",
+        "preconditions": "Start from the valid group fixture; change only this condition. For state cases inject the specified race/crash/clock or policy state."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "CRYPTO-01-P",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "CRYPTO-01-P",
+        "track": "runtime",
+        "rule_id": "CRYPTO-01",
+        "source": "spec/01-crypto.md",
+        "source_line": 10,
+        "trigger": "Supported exact Ed25519 suite and valid public key",
+        "preconditions": "Use protocol0.10.0 and an isolated fixture with active registered peers, trusted UTC, known policy and zero initial dispatch counter. For review cases provide configuration/source evidence instead of network traffic."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "CRYPTO-01-N01",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "CRYPTO-01-N01",
+        "track": "runtime",
+        "rule_id": "CRYPTO-01",
+        "source": "spec/01-crypto.md",
+        "source_line": 10,
+        "trigger": "RSA name",
+        "preconditions": "Start from the valid group fixture; change only this condition. For state cases inject the specified race/crash/clock or policy state."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "CRYPTO-01-N02",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "CRYPTO-01-N02",
+        "track": "runtime",
+        "rule_id": "CRYPTO-01",
+        "source": "spec/01-crypto.md",
+        "source_line": 10,
+        "trigger": "unknown suite",
+        "preconditions": "Start from the valid group fixture; change only this condition. For state cases inject the specified race/crash/clock or policy state."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "CRYPTO-01-N03",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "CRYPTO-01-N03",
+        "track": "runtime",
+        "rule_id": "CRYPTO-01",
+        "source": "spec/01-crypto.md",
+        "source_line": 10,
+        "trigger": "curve/algorithm mismatch",
+        "preconditions": "Start from the valid group fixture; change only this condition. For state cases inject the specified race/crash/clock or policy state."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "CRYPTO-01-N04",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "CRYPTO-01-N04",
+        "track": "runtime",
+        "rule_id": "CRYPTO-01",
+        "source": "spec/01-crypto.md",
+        "source_line": 10,
+        "trigger": "legacy es256k",
+        "preconditions": "Start from the valid group fixture; change only this condition. For state cases inject the specified race/crash/clock or policy state."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "CRYPTO-02-P",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "CRYPTO-02-P",
+        "track": "runtime",
+        "rule_id": "CRYPTO-02",
+        "source": "spec/01-crypto.md",
+        "source_line": 32,
+        "trigger": "Independent valid signature for each supported suite",
+        "preconditions": "Use protocol0.10.0 and an isolated fixture with active registered peers, trusted UTC, known policy and zero initial dispatch counter. For review cases provide configuration/source evidence instead of network traffic."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "CRYPTO-02-N01",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "CRYPTO-02-N01",
+        "track": "runtime",
+        "rule_id": "CRYPTO-02",
+        "source": "spec/01-crypto.md",
+        "source_line": 32,
+        "trigger": "truncated signature",
+        "preconditions": "Start from the valid group fixture; change only this condition. For state cases inject the specified race/crash/clock or policy state."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "CRYPTO-02-N02",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "CRYPTO-02-N02",
+        "track": "runtime",
+        "rule_id": "CRYPTO-02",
+        "source": "spec/01-crypto.md",
+        "source_line": 32,
+        "trigger": "DER instead of raw",
+        "preconditions": "Start from the valid group fixture; change only this condition. For state cases inject the specified race/crash/clock or policy state."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "CRYPTO-02-N03",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "CRYPTO-02-N03",
+        "track": "runtime",
+        "rule_id": "CRYPTO-02",
+        "source": "spec/01-crypto.md",
+        "source_line": 32,
+        "trigger": "invalid curve point",
+        "preconditions": "Start from the valid group fixture; change only this condition. For state cases inject the specified race/crash/clock or policy state."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "CRYPTO-02-N04",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "CRYPTO-02-N04",
+        "track": "runtime",
+        "rule_id": "CRYPTO-02",
+        "source": "spec/01-crypto.md",
+        "source_line": 32,
+        "trigger": "noncanonical scalar",
+        "preconditions": "Start from the valid group fixture; change only this condition. For state cases inject the specified race/crash/clock or policy state."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "CRYPTO-02-N05",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "CRYPTO-02-N05",
+        "track": "runtime",
+        "rule_id": "CRYPTO-02",
+        "source": "spec/01-crypto.md",
+        "source_line": 32,
+        "trigger": "mixed-torsion Ed25519 point",
+        "preconditions": "Start from the valid group fixture; change only this condition. For state cases inject the specified race/crash/clock or policy state."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "CRYPTO-03-P",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "CRYPTO-03-P",
+        "track": "runtime",
+        "rule_id": "CRYPTO-03",
+        "source": "spec/01-crypto.md",
+        "source_line": 44,
+        "trigger": "Low-S ECDSA signature with in-range r and s",
+        "preconditions": "Use protocol0.10.0 and an isolated fixture with active registered peers, trusted UTC, known policy and zero initial dispatch counter. For review cases provide configuration/source evidence instead of network traffic."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "CRYPTO-03-N01",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "CRYPTO-03-N01",
+        "track": "runtime",
+        "rule_id": "CRYPTO-03",
+        "source": "spec/01-crypto.md",
+        "source_line": 44,
+        "trigger": "high-S",
+        "preconditions": "Start from the valid group fixture; change only this condition. For state cases inject the specified race/crash/clock or policy state."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "CRYPTO-03-N02",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "CRYPTO-03-N02",
+        "track": "runtime",
+        "rule_id": "CRYPTO-03",
+        "source": "spec/01-crypto.md",
+        "source_line": 44,
+        "trigger": "r=0",
+        "preconditions": "Start from the valid group fixture; change only this condition. For state cases inject the specified race/crash/clock or policy state."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "CRYPTO-03-N03",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "CRYPTO-03-N03",
+        "track": "runtime",
+        "rule_id": "CRYPTO-03",
+        "source": "spec/01-crypto.md",
+        "source_line": 44,
+        "trigger": "s=0",
+        "preconditions": "Start from the valid group fixture; change only this condition. For state cases inject the specified race/crash/clock or policy state."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "CRYPTO-03-N04",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "CRYPTO-03-N04",
+        "track": "runtime",
+        "rule_id": "CRYPTO-03",
+        "source": "spec/01-crypto.md",
+        "source_line": 44,
+        "trigger": "out-of-range recovery byte",
+        "preconditions": "Start from the valid group fixture; change only this condition. For state cases inject the specified race/crash/clock or policy state."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "CRYPTO-04-P",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "CRYPTO-04-P",
+        "track": "runtime",
+        "rule_id": "CRYPTO-04",
+        "source": "spec/01-crypto.md",
+        "source_line": 52,
+        "trigger": "Exact active DID key URL and correct domain",
+        "preconditions": "Use protocol0.10.0 and an isolated fixture with active registered peers, trusted UTC, known policy and zero initial dispatch counter. For review cases provide configuration/source evidence instead of network traffic."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "CRYPTO-04-N01",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "CRYPTO-04-N01",
+        "track": "runtime",
+        "rule_id": "CRYPTO-04",
+        "source": "spec/01-crypto.md",
+        "source_line": 52,
+        "trigger": "bare DID",
+        "preconditions": "Start from the valid group fixture; change only this condition. For state cases inject the specified race/crash/clock or policy state."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "CRYPTO-04-N02",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "CRYPTO-04-N02",
+        "track": "runtime",
+        "rule_id": "CRYPTO-04",
+        "source": "spec/01-crypto.md",
+        "source_line": 52,
+        "trigger": "wrong fragment",
+        "preconditions": "Start from the valid group fixture; change only this condition. For state cases inject the specified race/crash/clock or policy state."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "CRYPTO-04-N03",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "CRYPTO-04-N03",
+        "track": "runtime",
+        "rule_id": "CRYPTO-04",
+        "source": "spec/01-crypto.md",
+        "source_line": 52,
+        "trigger": "signature copied between domains",
+        "preconditions": "Start from the valid group fixture; change only this condition. For state cases inject the specified race/crash/clock or policy state."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "CRYPTO-05-P",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "CRYPTO-05-P",
+        "track": "runtime",
+        "rule_id": "CRYPTO-05",
+        "source": "spec/01-crypto.md",
+        "source_line": 59,
+        "trigger": "Isolated signing service and independent ephemeral secrets",
+        "preconditions": "Use protocol0.10.0 and an isolated fixture with active registered peers, trusted UTC, known policy and zero initial dispatch counter. For review cases provide configuration/source evidence instead of network traffic."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "CRYPTO-05-P",
+      "track": "deployment_review",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "CRYPTO-05-P",
+        "track": "deployment_review",
+        "rule_id": "CRYPTO-05",
+        "source": "spec/01-crypto.md",
+        "source_line": 59,
+        "trigger": "Isolated signing service and independent ephemeral secrets",
+        "preconditions": "Use protocol0.10.0 and an isolated fixture with active registered peers, trusted UTC, known policy and zero initial dispatch counter. For review cases provide configuration/source evidence instead of network traffic."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "CRYPTO-05-N01",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "CRYPTO-05-N01",
+        "track": "runtime",
+        "rule_id": "CRYPTO-05",
+        "source": "spec/01-crypto.md",
+        "source_line": 59,
+        "trigger": "untrusted key access",
+        "preconditions": "Start from the valid group fixture; change only this condition. For state cases inject the specified race/crash/clock or policy state."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "CRYPTO-05-N01",
+      "track": "deployment_review",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "CRYPTO-05-N01",
+        "track": "deployment_review",
+        "rule_id": "CRYPTO-05",
+        "source": "spec/01-crypto.md",
+        "source_line": 59,
+        "trigger": "untrusted key access",
+        "preconditions": "Start from the valid group fixture; change only this condition. For state cases inject the specified race/crash/clock or policy state."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "CRYPTO-05-N02",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "CRYPTO-05-N02",
+        "track": "runtime",
+        "rule_id": "CRYPTO-05",
+        "source": "spec/01-crypto.md",
+        "source_line": 59,
+        "trigger": "repeated ephemeral key",
+        "preconditions": "Start from the valid group fixture; change only this condition. For state cases inject the specified race/crash/clock or policy state."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "CRYPTO-05-N02",
+      "track": "deployment_review",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "CRYPTO-05-N02",
+        "track": "deployment_review",
+        "rule_id": "CRYPTO-05",
+        "source": "spec/01-crypto.md",
+        "source_line": 59,
+        "trigger": "repeated ephemeral key",
+        "preconditions": "Start from the valid group fixture; change only this condition. For state cases inject the specified race/crash/clock or policy state."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "CRYPTO-05-N03",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "CRYPTO-05-N03",
+        "track": "runtime",
+        "rule_id": "CRYPTO-05",
+        "source": "spec/01-crypto.md",
+        "source_line": 59,
+        "trigger": "retained erased-secret claim",
+        "preconditions": "Start from the valid group fixture; change only this condition. For state cases inject the specified race/crash/clock or policy state."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "CRYPTO-05-N03",
+      "track": "deployment_review",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "CRYPTO-05-N03",
+        "track": "deployment_review",
+        "rule_id": "CRYPTO-05",
+        "source": "spec/01-crypto.md",
+        "source_line": 59,
+        "trigger": "retained erased-secret claim",
+        "preconditions": "Start from the valid group fixture; change only this condition. For state cases inject the specified race/crash/clock or policy state."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "REG-08-N04",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "REG-08-N04",
+        "track": "runtime",
+        "rule_id": "REG-08",
+        "source": "spec/09-registry.md",
+        "source_line": 184,
+        "trigger": "unsupported media type",
+        "preconditions": "Start from the valid group fixture; change only this condition. For state cases inject the specified race/crash/clock or policy state."
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {
+          "matched": false,
+          "reason": "spec_underspecified"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "CST-05-01",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "CST-05-01",
+        "track": "runtime",
+        "rule_id": "HPKE-05",
+        "source": "spec/04-hpke.md",
+        "source_line": 89,
+        "trigger": "First record before deadline",
+        "preconditions": "Responder is RESPONSE_SENT; a fully authenticated fresh initiator record arrives before all pending deadlines."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "CST-05-02",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "CST-05-02",
+        "track": "runtime",
+        "rule_id": "HPKE-05",
+        "source": "spec/04-hpke.md",
+        "source_line": 89,
+        "trigger": "Exact pending deadline",
+        "preconditions": "Repeat at equality with initiation expiry, completion expiry or300 monotonic seconds after transition."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "CST-05-03",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "CST-05-03",
+        "track": "runtime",
+        "rule_id": "HPKE-05",
+        "source": "spec/04-hpke.md",
+        "source_line": 89,
+        "trigger": "Forged first record",
+        "preconditions": "Supply a bad signature or tag before the deadline with otherwise ready bound keys."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "CST-05-04",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "CST-05-04",
+        "track": "runtime",
+        "rule_id": "HPKE-05",
+        "source": "spec/04-hpke.md",
+        "source_line": 89,
+        "trigger": "Concurrent first records",
+        "preconditions": "Deliver two identical first records concurrently, then repeat with two distinct valid sequences."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "CST-05-05",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "CST-05-05",
+        "track": "runtime",
+        "rule_id": "HPKE-05",
+        "source": "spec/04-hpke.md",
+        "source_line": 89,
+        "trigger": "Policy-denied authenticated first record",
+        "preconditions": "First cryptographically valid record carries an intent denied by the protected policy."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "CST-05-06",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "CST-05-06",
+        "track": "runtime",
+        "rule_id": "HPKE-05",
+        "source": "spec/04-hpke.md",
+        "source_line": 89,
+        "trigger": "First record after sequence loss",
+        "preconditions": "First observed authenticated record uses seq3 because earlier emissions were lost."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mrevision-did-consumer",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "mrevision-did-consumer",
+        "track": "runtime",
+        "rule_id": "RESOLVE-01",
+        "source": "spec/10-resolution.md",
+        "source_line": 6,
+        "trigger": "Produced application/did+json document using JsonWebKey2020",
+        "preconditions": "A valid active SAGE registry record is projected; use an independently implemented generic DID consumer and compare parsed public fields with the record"
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mrevision-extra-jwk-authority",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "mrevision-extra-jwk-authority",
+        "track": "runtime",
+        "rule_id": "RESOLVE-01",
+        "source": "spec/10-resolution.md",
+        "source_line": 6,
+        "trigger": "Authoritative SAGE projection input with an extra, contradictory or private JWK member",
+        "preconditions": "Input otherwise names a valid active registry record; receiver applies the strict SAGE projection grammar"
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mllm-kem-alg-valid",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "mllm-kem-alg-valid",
+        "track": "runtime",
+        "rule_id": "REG-01",
+        "source": "spec/09-registry.md",
+        "source_line": 9,
+        "trigger": "A registry entry uses exact alg x25519 with a 32-byte X25519 public key and signing-key endorsement",
+        "preconditions": "Use synthetic keys and a pinned 0.10.0 record fixture. Compare exact bytes, role, and accept/reject outcome without sending traffic to live peers."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mllm-kem-alg-case",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "mllm-kem-alg-case",
+        "track": "runtime",
+        "rule_id": "REG-01",
+        "source": "spec/09-registry.md",
+        "source_line": 9,
+        "trigger": "An otherwise valid KEM entry uses alg X25519 or an unregistered alias",
+        "preconditions": "Use synthetic keys and a pinned 0.10.0 record fixture. Compare exact bytes, role, and accept/reject outcome without sending traffic to live peers."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mllm-kem-selection",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "mllm-kem-selection",
+        "track": "runtime",
+        "rule_id": "REG-02",
+        "source": "spec/09-registry.md",
+        "source_line": 45,
+        "trigger": "An active record has multiple accepted unexpired x25519 entries with distinct ASCII names",
+        "preconditions": "Use synthetic keys and a pinned 0.10.0 record fixture. Compare exact bytes, role, and accept/reject outcome without sending traffic to live peers."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mllm-pop-exact-bytes",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "mllm-pop-exact-bytes",
+        "track": "runtime",
+        "rule_id": "REG-04",
+        "source": "spec/09-registry.md",
+        "source_line": 86,
+        "trigger": "REG-04 signing-key and KEM-endorsement challenges use length-only len16 followed once by each field",
+        "preconditions": "Use synthetic keys and a pinned 0.10.0 record fixture. Compare exact bytes, role, and accept/reject outcome without sending traffic to live peers."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mllm-pop-duplicate-field",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "mllm-pop-duplicate-field",
+        "track": "runtime",
+        "rule_id": "REG-04",
+        "source": "spec/09-registry.md",
+        "source_line": 86,
+        "trigger": "The PoP challenge repeats each field after a len16 encoder that already included the field",
+        "preconditions": "Use synthetic keys and a pinned 0.10.0 record fixture. Compare exact bytes, role, and accept/reject outcome without sending traffic to live peers."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mllm-kem-signature-reject",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "mllm-kem-signature-reject",
+        "track": "runtime",
+        "rule_id": "TABLE-02",
+        "source": "spec/11-registries.md",
+        "source_line": 28,
+        "trigger": "A message signature declares alg x25519 or names a KEM-role entry",
+        "preconditions": "Use synthetic keys and a pinned 0.10.0 record fixture. Compare exact bytes, role, and accept/reject outcome without sending traffic to live peers."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mstand-problem-fields",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "mstand-problem-fields",
+        "track": "runtime",
+        "rule_id": "RESOLVE-05",
+        "source": "spec/10-resolution.md",
+        "source_line": 94,
+        "trigger": "For each public resolution error, compare the exact RFC 9457 type URI, title and numeric status with the actual HTTP status; include a deliberately mismatched status and an unknown code as negative cases.",
+        "preconditions": "Use an isolated 0.10.0 resolution binding with fixed public errors and no live registry mutation or authentication decision."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mstand-problem-type-publication",
+      "track": "document_review",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "mstand-problem-type-publication",
+        "track": "document_review",
+        "rule_id": "RESOLVE-05",
+        "source": "spec/10-resolution.md",
+        "source_line": 94,
+        "trigger": "For each emitted problem type URI, review stable ownership, published human-readable documentation and an independent problem-details consumer.",
+        "preconditions": "Use a pinned deployment URL and deployed documentation revision; a local Markdown page alone is not proof of published URI resolution."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mstand-problem-type-publication",
+      "track": "deployment_review",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 6,
+        "id": "mstand-problem-type-publication",
+        "track": "deployment_review",
+        "rule_id": "RESOLVE-05",
+        "source": "spec/10-resolution.md",
+        "source_line": 94,
+        "trigger": "For each emitted problem type URI, review stable ownership, published human-readable documentation and an independent problem-details consumer.",
+        "preconditions": "Use a pinned deployment URL and deployed documentation revision; a local Markdown page alone is not proof of published URI resolution."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    }
+  ]
+}

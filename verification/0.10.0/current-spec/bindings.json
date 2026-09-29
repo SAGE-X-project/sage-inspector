@@ -2696,6 +2696,1189 @@
       "fixture": "vectors/0.10.0/current-spec/EVIDENCE-01-N02-deployment_review.json",
       "fixture_sha256": "0925df974df85c07f928940b104cc2f3c4045526092ff3572bdaec0d925cb0ec",
       "coverage": "partial"
+    },
+    {
+      "id": "mset-01-valid-channel",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mset-01-valid-channel-runtime.json",
+      "fixture_sha256": "47235436dcbe28b6b59a034692c64280d631bd26a9fd853c41c8b6ff5129a2cc",
+      "coverage": "partial"
+    },
+    {
+      "id": "mset-01-wrong-owner",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mset-01-wrong-owner-runtime.json",
+      "fixture_sha256": "df46cbb953dac3f63d1a1e60ceabd872c20f7855bd2559e65eda72fabc893c8b",
+      "coverage": "partial"
+    },
+    {
+      "id": "mset-01-revoked-key",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mset-01-revoked-key-runtime.json",
+      "fixture_sha256": "a684d90cecb6ca3ed7debc7375b398bb89269a7262b47471c8ac8ee66503d861",
+      "coverage": "partial"
+    },
+    {
+      "id": "mset-02-exact-bytes",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mset-02-exact-bytes-runtime.json",
+      "fixture_sha256": "2ed018d49e94601e46ba68417beb5b964272f2ce512f7e6ad7841169fb39ac88",
+      "coverage": "partial"
+    },
+    {
+      "id": "mset-02-size-boundary",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mset-02-size-boundary-runtime.json",
+      "fixture_sha256": "59abc03c2afebc665681cb67b5d1fd767717e554eb96bd5dfeda166638386063",
+      "coverage": "partial"
+    },
+    {
+      "id": "mset-02-json-duplicates",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mset-02-json-duplicates-runtime.json",
+      "fixture_sha256": "4eef6bb7266e0c67f67cb6b10897aeba8ec7f9e636a155293cb4cd7e4345e24c",
+      "coverage": "partial"
+    },
+    {
+      "id": "mset-02-id-collision",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mset-02-id-collision-runtime.json",
+      "fixture_sha256": "678a687125f02bbb1bc7d46c66a5462207c5cfb8f38501e2924b7cabbfa50d2b",
+      "coverage": "partial"
+    },
+    {
+      "id": "mset-03-initialize-success",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mset-03-initialize-success-runtime.json",
+      "fixture_sha256": "841871a30fa0b56db16487f9ddecdb30c4700365feba3d61d6cabf16c81a3fe4",
+      "coverage": "partial"
+    },
+    {
+      "id": "mset-03-unsupported-version",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mset-03-unsupported-version-runtime.json",
+      "fixture_sha256": "8498cce41f9acb6d0f86855a9403be64c4faaab547294f912644b027e310a78c",
+      "coverage": "partial"
+    },
+    {
+      "id": "mset-03-capability-mismatch",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mset-03-capability-mismatch-runtime.json",
+      "fixture_sha256": "5c21f5678f65c76e236c4e2ddbff66a69b74268f3ed697bcaaab772164c5bbd2",
+      "coverage": "partial"
+    },
+    {
+      "id": "mset-03-wrong-request",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mset-03-wrong-request-runtime.json",
+      "fixture_sha256": "66739ba65e4b96d56b3a7f04e60f4de58dcceaf53bf83368203ce0a6ef7aa53d",
+      "coverage": "partial"
+    },
+    {
+      "id": "mset-04-notification-ack",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mset-04-notification-ack-runtime.json",
+      "fixture_sha256": "7d5bccf62bd481dbdf761c19ec8c61278140be5a3bc24eddce17ad256c3ee13c",
+      "coverage": "partial"
+    },
+    {
+      "id": "mset-04-ack-is-not-result",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mset-04-ack-is-not-result-runtime.json",
+      "fixture_sha256": "56bc0669efc054decdc8ea27665f65f27b2e4bf25bc05b4ae2b50dc90951847a",
+      "coverage": "partial"
+    },
+    {
+      "id": "mset-04-malformed-ack",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mset-04-malformed-ack-runtime.json",
+      "fixture_sha256": "1b05c6fd14bbf65e257f761131f4b4349cf5b8a18cd2073c6d12903a28327ca7",
+      "coverage": "partial"
+    },
+    {
+      "id": "mset-04-notification-has-id",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mset-04-notification-has-id-runtime.json",
+      "fixture_sha256": "a18913aa7733811e60887460eb1035a2ee4894d1ec1d7b029ca9e73a44739b79",
+      "coverage": "partial"
+    },
+    {
+      "id": "mset-04-lost-ack",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mset-04-lost-ack-runtime.json",
+      "fixture_sha256": "6f4b3a4ee0cc73dbfe073d114c342592124366624c52bcfd0681684d47f57232",
+      "coverage": "partial"
+    },
+    {
+      "id": "mset-05-discovery-success",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mset-05-discovery-success-runtime.json",
+      "fixture_sha256": "054df9dbff742ed8ee6ca27c4aada7b1bbf22dacc3007d1157700972a9447373",
+      "coverage": "partial"
+    },
+    {
+      "id": "mset-05-schema-replacement",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mset-05-schema-replacement-runtime.json",
+      "fixture_sha256": "d639414c0178f3ec8cca5b1661ad1a0bca6b07e2f19f733608fef06b149c5cb3",
+      "coverage": "partial"
+    },
+    {
+      "id": "mset-05-early-tool-call",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mset-05-early-tool-call-runtime.json",
+      "fixture_sha256": "4abf824cfc77af678d8d5747b91561a405350f08cc9ad53e55579e017ad73d0a",
+      "coverage": "partial"
+    },
+    {
+      "id": "mset-05-capability-not-authority",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mset-05-capability-not-authority-runtime.json",
+      "fixture_sha256": "8cd8c7315d6b2df46f3bfab62e36a562a62d80540c4cb857c302b691bfda9099",
+      "coverage": "partial"
+    },
+    {
+      "id": "mset-06-before-deadline",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mset-06-before-deadline-runtime.json",
+      "fixture_sha256": "4a07ab585d0923810f80a3649498f5a0c5d8118abce54c624851016caa5b38dc",
+      "coverage": "partial"
+    },
+    {
+      "id": "mset-06-deadline-equality",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mset-06-deadline-equality-runtime.json",
+      "fixture_sha256": "2b92eebc95a3b1f59cf6c1b8ab2307cf9e3a961a2e35743b7d802bd1785cda40",
+      "coverage": "partial"
+    },
+    {
+      "id": "mset-06-slow-callback",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mset-06-slow-callback-runtime.json",
+      "fixture_sha256": "c7c20101debb1ebf1b39dc9e4669506b4120e37b72056862516fc10ee30aa03d",
+      "coverage": "partial"
+    },
+    {
+      "id": "mset-06-uncertain-send",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mset-06-uncertain-send-runtime.json",
+      "fixture_sha256": "1f9e835c6908275d34372a021c882346d3d170e1992b1210c5226330c4ed80a6",
+      "coverage": "partial"
+    },
+    {
+      "id": "mset-07-fresh-reconnect",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mset-07-fresh-reconnect-runtime.json",
+      "fixture_sha256": "16b7aaceb5b34700c4a5db5c453a3d6c15dad026fde0c3115feec5fb0797a045",
+      "coverage": "partial"
+    },
+    {
+      "id": "mset-07-stale-ready",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mset-07-stale-ready-runtime.json",
+      "fixture_sha256": "beaff02f16a9aac6afee476b840dce4769e36bdbd281496ac5d02312de6e3024",
+      "coverage": "partial"
+    },
+    {
+      "id": "mset-07-terminal-preserved",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mset-07-terminal-preserved-runtime.json",
+      "fixture_sha256": "125a91c314a5a49824a3167e55e87dea4a652d4ab9609437ef8fc342e87e6446",
+      "coverage": "partial"
+    },
+    {
+      "id": "mset-07-missing-ledger",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mset-07-missing-ledger-runtime.json",
+      "fixture_sha256": "7870fa6f6f46da24877c4462986cf779b1238ed2f9760337a34f92777a407b52",
+      "coverage": "partial"
+    },
+    {
+      "id": "mset-08-proposal-scope",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mset-08-proposal-scope-runtime.json",
+      "fixture_sha256": "7ae20cc70f623224f21f1693071ad13f312bab92eadc1900f2260021e0acff0a",
+      "coverage": "partial"
+    },
+    {
+      "id": "mset-08-proposal-scope",
+      "track": "document_review",
+      "fixture": "vectors/0.10.0/current-spec/mset-08-proposal-scope-document_review.json",
+      "fixture_sha256": "54a730d922c59e18319699217162ee66197f62b8ba273fa786ad1f0585578a46",
+      "coverage": "partial"
+    },
+    {
+      "id": "mset-08-http-not-defined",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mset-08-http-not-defined-runtime.json",
+      "fixture_sha256": "13608e2e4f36cd8a66aea6eff71a4b7af37dc7cdcdcd48ab3877d2dd0be479ea",
+      "coverage": "partial"
+    },
+    {
+      "id": "mset-08-http-not-defined",
+      "track": "document_review",
+      "fixture": "vectors/0.10.0/current-spec/mset-08-http-not-defined-document_review.json",
+      "fixture_sha256": "44aee95e271fd0ed5e0b6e391e2035637c9c305a8c54502e6665b24b527b4e37",
+      "coverage": "partial"
+    },
+    {
+      "id": "mset-08-historical-evidence",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mset-08-historical-evidence-runtime.json",
+      "fixture_sha256": "d51da8619216f0299a375dd5d93c55c096649fa57f44f6da0ded99d1b25c6a5a",
+      "coverage": "partial"
+    },
+    {
+      "id": "mset-08-historical-evidence",
+      "track": "document_review",
+      "fixture": "vectors/0.10.0/current-spec/mset-08-historical-evidence-document_review.json",
+      "fixture_sha256": "7564a643690a45a1aa62f736106c43c4a7f4efdbe19cb378537ee9a2b443dd08",
+      "coverage": "partial"
+    },
+    {
+      "id": "mset-02-output-barrier",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mset-02-output-barrier-runtime.json",
+      "fixture_sha256": "00338194f6a0a4fc27e926c7f9d8a06442982e52568983a3f1c55576627867b7",
+      "coverage": "partial"
+    },
+    {
+      "id": "mset-02-send-failure-after-prepare",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mset-02-send-failure-after-prepare-runtime.json",
+      "fixture_sha256": "864edb702bea633e92bd6e51a3cb1f1ceeab0acdbc3e55224444cb18f2ccbaf1",
+      "coverage": "partial"
+    },
+    {
+      "id": "mset-02-setup-id-reuse",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mset-02-setup-id-reuse-runtime.json",
+      "fixture_sha256": "27f11be340db9441238f19060b4c4ef51743d75be6096e6a467dc4bf0c75cf0b",
+      "coverage": "partial"
+    },
+    {
+      "id": "mset-02-history-exhaustion",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mset-02-history-exhaustion-runtime.json",
+      "fixture_sha256": "7df1ae9e910e21be9c5a82e35a665e2419a23c796a733203eb4251606bcf6723",
+      "coverage": "partial"
+    },
+    {
+      "id": "mset-02-inner-rejection-replay",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mset-02-inner-rejection-replay-runtime.json",
+      "fixture_sha256": "6cf932067b0e556eb910efdf6c43d9464b763c54c47052aa55ccaa378052c8b8",
+      "coverage": "partial"
+    },
+    {
+      "id": "mset-05-extended-descriptor",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mset-05-extended-descriptor-runtime.json",
+      "fixture_sha256": "d7ac33283cb16fb4f43bc23d577a99cca63481473a6f7c4de5fd3934454dd4d8",
+      "coverage": "partial"
+    },
+    {
+      "id": "mset-06-deadline-after-callback",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mset-06-deadline-after-callback-runtime.json",
+      "fixture_sha256": "ac1f4664ee62f11d5c0ebf006a181679f87fcb95d631a5159a67036b18bf09ed",
+      "coverage": "partial"
+    },
+    {
+      "id": "mset-06-close-completion-race",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mset-06-close-completion-race-runtime.json",
+      "fixture_sha256": "fc9bfdc1ccb9ba4766d010566d64b49a9a02df23bd16b6a40d55c30b7bcdda1a",
+      "coverage": "partial"
+    },
+    {
+      "id": "mset-06-ready-past-setup-deadline",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mset-06-ready-past-setup-deadline-runtime.json",
+      "fixture_sha256": "475c8c74be4605f83443d2e71be8330ea960e0fcc46aec09727ec993d70441a7",
+      "coverage": "partial"
+    },
+    {
+      "id": "merrata-config-valid",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/merrata-config-valid-runtime.json",
+      "fixture_sha256": "7ff41f8f70ac91ea4530ae0c4212d7a6478d0db8339c493d8baa70a6e54dad6f",
+      "coverage": "partial"
+    },
+    {
+      "id": "merrata-config-reject",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/merrata-config-reject-runtime.json",
+      "fixture_sha256": "45ce909092b2fe5bdac9da7f68a8f4e05bdc25bcdf9a61e59598450ac3ab11f6",
+      "coverage": "partial"
+    },
+    {
+      "id": "merrata-config-change",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/merrata-config-change-runtime.json",
+      "fixture_sha256": "3857f823c804e4a8d8958bb86eafe57f1a06fb252606c103b141ac4e0a654b92",
+      "coverage": "partial"
+    },
+    {
+      "id": "madd-plaintext-boundary",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/madd-plaintext-boundary-runtime.json",
+      "fixture_sha256": "b847f42050f8dbd4687ae77d249bd4188da5e6f1d96f3fc0890b13b13e42115e",
+      "coverage": "partial"
+    },
+    {
+      "id": "madd-record-boundary",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/madd-record-boundary-runtime.json",
+      "fixture_sha256": "7a3a4d44be41eed2947ce4297dd5f423d7d561e2690d9dba2b77b85caf91514b",
+      "coverage": "partial"
+    },
+    {
+      "id": "madd-wire-boundary",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/madd-wire-boundary-runtime.json",
+      "fixture_sha256": "68ad8eb3550df9ad762733cf4bc281c261b05a7925235c6308961ed81ca940d3",
+      "coverage": "partial"
+    },
+    {
+      "id": "madd-utf8-and-escapes",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/madd-utf8-and-escapes-runtime.json",
+      "fixture_sha256": "e6f708992ea9fa51d3eae7a59be5d6c2f6e3a1f5d6f9ffbb57dc0c4c92cbb3bf",
+      "coverage": "partial"
+    },
+    {
+      "id": "madd-result-representations",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/madd-result-representations-runtime.json",
+      "fixture_sha256": "8137dafdbcc4f791b618d84cd5d48b0d5908d517e9eaa84b5ad2a4d21c3dd1b4",
+      "coverage": "partial"
+    },
+    {
+      "id": "madd-post-effect-oversize",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/madd-post-effect-oversize-runtime.json",
+      "fixture_sha256": "468dc922e44871c31e357af47ca15fe1cb768f2bdf7756d66616faf9dd2f06a9",
+      "coverage": "partial"
+    },
+    {
+      "id": "madd-post-reservation-size-failure",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/madd-post-reservation-size-failure-runtime.json",
+      "fixture_sha256": "f53cb3094000c733df205d002d01b026fd539bba3a28d872404bacacfcc15f6c",
+      "coverage": "partial"
+    },
+    {
+      "id": "madd-inner-size-replay",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/madd-inner-size-replay-runtime.json",
+      "fixture_sha256": "01f47c9e9b67ef58a4264689649d8511707915e6d12619af0c1d247d7ba73111",
+      "coverage": "partial"
+    },
+    {
+      "id": "madd-mutable-buffer",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/madd-mutable-buffer-runtime.json",
+      "fixture_sha256": "72972bd935963d0353a354af60bfce7173ecbb9a0c6e7d8dce08bdc56cfba823",
+      "coverage": "partial"
+    },
+    {
+      "id": "madd-synchronous-completion",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/madd-synchronous-completion-runtime.json",
+      "fixture_sha256": "bb8637123e503f9d54e785c48d7c429ab4b94daf4a84f7999e30f240ba7fc677",
+      "coverage": "partial"
+    },
+    {
+      "id": "madd-duplicate-completion",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/madd-duplicate-completion-runtime.json",
+      "fixture_sha256": "f7bc61f5dae986ca88fba521a5588cadb6be5297898a40d342bd13891411fdcb",
+      "coverage": "partial"
+    },
+    {
+      "id": "madd-old-incarnation",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/madd-old-incarnation-runtime.json",
+      "fixture_sha256": "6250197a6034d887ab1988c9778722c61c3a89bca684a9ecf642c4ff74a6eae4",
+      "coverage": "partial"
+    },
+    {
+      "id": "madd-bounded-cancellation",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/madd-bounded-cancellation-runtime.json",
+      "fixture_sha256": "bab57087298d16f143c7df653d885964686da4a189efebc927511537586658cc",
+      "coverage": "partial"
+    },
+    {
+      "id": "madd-history-capacity",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/madd-history-capacity-runtime.json",
+      "fixture_sha256": "f52c4f057bb993aa65480cc31ea94ba5e34db22732a40ee3212e7feadf4ef257",
+      "coverage": "partial"
+    },
+    {
+      "id": "madd-close-before-handoff",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/madd-close-before-handoff-runtime.json",
+      "fixture_sha256": "32038cd3e9923ba35e25acabbcd34a3a10a0e6b4c3f505161bcef3a0a451c5a5",
+      "coverage": "partial"
+    },
+    {
+      "id": "madd-close-after-handoff",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/madd-close-after-handoff-runtime.json",
+      "fixture_sha256": "9d8fb449c58696fcda1446a6c85a641dce8b970355d45dfb337bac569fd9a0ad",
+      "coverage": "partial"
+    },
+    {
+      "id": "madd-cross-language-setup",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/madd-cross-language-setup-runtime.json",
+      "fixture_sha256": "d631528b90846404711b0df4a5e034e49ca6a232f20833ea033af3449d6afbd3",
+      "coverage": "partial"
+    },
+    {
+      "id": "madd-restart-consumption",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/madd-restart-consumption-runtime.json",
+      "fixture_sha256": "bd0008a91f4af467c56827e771e9641d1b4fa00e09644fa5e3756eaa2d4e16b4",
+      "coverage": "partial"
+    },
+    {
+      "id": "mres-close-before-reservation",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mres-close-before-reservation-runtime.json",
+      "fixture_sha256": "b22c001eaddc05ce997d9fa80eb5359e0eca62fa99d5aea0ad000d008791e5da",
+      "coverage": "partial"
+    },
+    {
+      "id": "mres-close-after-reservation",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mres-close-after-reservation-runtime.json",
+      "fixture_sha256": "877b672afaa94dbf9970929a2c35d24cef0915ee6b175a494f05847ed00b040c",
+      "coverage": "partial"
+    },
+    {
+      "id": "mres-close-after-admission",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mres-close-after-admission-runtime.json",
+      "fixture_sha256": "68ff8ceef73ef9bc19bf17618f80cb9a691b34c95ef17cf9b3dad7784fbee2ee",
+      "coverage": "partial"
+    },
+    {
+      "id": "mres-crash-after-admission",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mres-crash-after-admission-runtime.json",
+      "fixture_sha256": "6e122d1a474354953516139f6279cc6b029571bcb88ee4b4ed134dfb3a2b1cfe",
+      "coverage": "partial"
+    },
+    {
+      "id": "mres-ready-past-setup",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mres-ready-past-setup-runtime.json",
+      "fixture_sha256": "2eee7bf550f45cd52bb6b6795fa156f28e62ef97df1babb71116512f65d1a1db",
+      "coverage": "partial"
+    },
+    {
+      "id": "mres-stale-setup-completion",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mres-stale-setup-completion-runtime.json",
+      "fixture_sha256": "7c42044d174d0c9628ef66d3ecccbb3187d03b226ca5f5f942b6bb0c001b6daf",
+      "coverage": "partial"
+    },
+    {
+      "id": "mres-protected-timeout-before-admission",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mres-protected-timeout-before-admission-runtime.json",
+      "fixture_sha256": "131c2ad28a3211176c4979beb0bd83845413fe35eb336d8e3e9395ab0f00d3b3",
+      "coverage": "partial"
+    },
+    {
+      "id": "mres-protected-timeout-after-admission",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mres-protected-timeout-after-admission-runtime.json",
+      "fixture_sha256": "38490f8abd12ea19f707fbc570d568848157de5665b8480d1d71d5251f1ad726",
+      "coverage": "partial"
+    },
+    {
+      "id": "mres-ready-session-expiry",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mres-ready-session-expiry-runtime.json",
+      "fixture_sha256": "1d41fcdddf0ce917bd3da00b5bacc504eac596db5798baabd0960177aae4655b",
+      "coverage": "partial"
+    },
+    {
+      "id": "mres-signature-intent",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mres-signature-intent-runtime.json",
+      "fixture_sha256": "623f05c1ef2b1c66de9ebae18d4d8ad303f06ca01a0ccc3db9ba2b3be0d17e46",
+      "coverage": "partial"
+    },
+    {
+      "id": "mres-signature-result",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mres-signature-result-runtime.json",
+      "fixture_sha256": "60df156e4082f753160e8b4215a5d82fae4c69e4f04a4b12e6039128cdad81c6",
+      "coverage": "partial"
+    },
+    {
+      "id": "mres-signature-carriage",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mres-signature-carriage-runtime.json",
+      "fixture_sha256": "37ff120a96414af5aa3aa51aa81d041f0fcf762fb54fbcfc12377028c9a03d1c",
+      "coverage": "partial"
+    },
+    {
+      "id": "mres-missing-signing-key",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mres-missing-signing-key-runtime.json",
+      "fixture_sha256": "70d4e77924903c5a7b7b4965c8f3761bb1545d7f0430406f30192f740e10c279",
+      "coverage": "partial"
+    },
+    {
+      "id": "merrata-local-single-flight",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/merrata-local-single-flight-runtime.json",
+      "fixture_sha256": "7fe4e67350911839cd70408728c6a5a4da260f862291714c97dbb5d620f6ebed",
+      "coverage": "partial"
+    },
+    {
+      "id": "merrata-server-overlap",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/merrata-server-overlap-runtime.json",
+      "fixture_sha256": "5198f4c5397b6a3a1ac899f32d7a656d22b2dd12c880810dd62a0cdf2f9b5464",
+      "coverage": "partial"
+    },
+    {
+      "id": "merrata-deferred-frame",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/merrata-deferred-frame-runtime.json",
+      "fixture_sha256": "b1e9afa3f6e19c1da8e97e9b0472698356e2ff56426cc81beda59b29375c7019",
+      "coverage": "partial"
+    },
+    {
+      "id": "merrata-pending-followup",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/merrata-pending-followup-runtime.json",
+      "fixture_sha256": "29c7d2a17cdcff3ca6ba1027ffc954ffe95949bb3f8aa842fe31a86098e69292",
+      "coverage": "partial"
+    },
+    {
+      "id": "merrata-deadline-close",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/merrata-deadline-close-runtime.json",
+      "fixture_sha256": "4faf41907f29bb877d67b7cf07f20cf381a8c2dceaeccf9ec3b216091c4df0a2",
+      "coverage": "partial"
+    },
+    {
+      "id": "merrata-shared-owners",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/merrata-shared-owners-runtime.json",
+      "fixture_sha256": "77750b8d2a7f6183cfefe8c87cf66241b576590ed2060391f663b5b8ea0afb94",
+      "coverage": "partial"
+    },
+    {
+      "id": "generation-policy",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/generation-policy-runtime.json",
+      "fixture_sha256": "6a7c4ab2076fd75de8e472d3a75f1238f05e3f32f5f9452a551be365ad84ede8",
+      "coverage": "partial"
+    },
+    {
+      "id": "generation-component",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/generation-component-runtime.json",
+      "fixture_sha256": "b6d9adb4378721a538917cb20edbfd65234f1e0d7e7268d9100e19c1cf89882b",
+      "coverage": "partial"
+    },
+    {
+      "id": "generation-session",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/generation-session-runtime.json",
+      "fixture_sha256": "a00939e900ac7da9f7232db4b1854ea92eaab66052f7fa75a3f44f8f853779bc",
+      "coverage": "partial"
+    },
+    {
+      "id": "observation-age-4999",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/observation-age-4999-runtime.json",
+      "fixture_sha256": "6906b33d3ac619a4dd5f5aeac40c5842894f09cb84d172f948afcb5af9ab8693",
+      "coverage": "partial"
+    },
+    {
+      "id": "observation-age-5000",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/observation-age-5000-runtime.json",
+      "fixture_sha256": "19bace65a2d0f0ed7e97954fc28035bea365252e329235cdfc73e1eedea7d9fc",
+      "coverage": "partial"
+    },
+    {
+      "id": "observation-age-5001",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/observation-age-5001-runtime.json",
+      "fixture_sha256": "89533da2ee5ef9cd9f04576b5021c8fe5b7111dee430d15eb766652157918015",
+      "coverage": "partial"
+    },
+    {
+      "id": "observation-before-start",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/observation-before-start-runtime.json",
+      "fixture_sha256": "e5fa751761816f9a76992a1d6a00bdc94d87fc6512bd53372e04095d6fc68b18",
+      "coverage": "partial"
+    },
+    {
+      "id": "queue-capacity-race",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/queue-capacity-race-runtime.json",
+      "fixture_sha256": "098153cd1a8d81e3b40ce61437976332b016961f430135b8191b61b3f9db2a00",
+      "coverage": "partial"
+    },
+    {
+      "id": "queue-insert-failure",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/queue-insert-failure-runtime.json",
+      "fixture_sha256": "475e8a0247338cc5e4aa1f7adebd0329702377d325fd39961daf475b03a2b1e7",
+      "coverage": "partial"
+    },
+    {
+      "id": "shared-owner-close",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/shared-owner-close-runtime.json",
+      "fixture_sha256": "60ff0467ecab161944e025fb4e39cf84fcc6e1a7ecd7777eafbe618bbf6fe796",
+      "coverage": "partial"
+    },
+    {
+      "id": "fence-close-success",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/fence-close-success-runtime.json",
+      "fixture_sha256": "5f1714661d1cec91f545bb07d2972061b438f7a3e8871da6b2731b88682bd004",
+      "coverage": "partial"
+    },
+    {
+      "id": "fence-close-failure",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/fence-close-failure-runtime.json",
+      "fixture_sha256": "b90304355d2abd76b23f5026ba4a15055ed615494b956f910d0293dfe2a089a2",
+      "coverage": "partial"
+    },
+    {
+      "id": "fence-close-uncertain",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/fence-close-uncertain-runtime.json",
+      "fixture_sha256": "2f199618f2ebff56ba1e0f90f47a3d876782860ae609d301f275e2cbaca60fed",
+      "coverage": "partial"
+    },
+    {
+      "id": "unknown-write-failure",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/unknown-write-failure-runtime.json",
+      "fixture_sha256": "8ff847cbee5d16e608b8cf258740ebb3340f8d457310d5e62479cc97b944fac4",
+      "coverage": "partial"
+    },
+    {
+      "id": "recovery-conversion-failure",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/recovery-conversion-failure-runtime.json",
+      "fixture_sha256": "1b770518191f18c8a393323373b2066ef4b5ca7d741e99c52ce5df395eb9a4e9",
+      "coverage": "partial"
+    },
+    {
+      "id": "queue-expiry-before",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/queue-expiry-before-runtime.json",
+      "fixture_sha256": "b603360d456234058ca068349a8040aebcaab1339dba9ab7b89a06fe755f8c71",
+      "coverage": "partial"
+    },
+    {
+      "id": "queue-expiry-after",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/queue-expiry-after-runtime.json",
+      "fixture_sha256": "d875a41e151084d6484b25b7541a26fa00e0a247228865c3ad24ff8b4dfa31f6",
+      "coverage": "partial"
+    },
+    {
+      "id": "policy-retirement-invalidate-first",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/policy-retirement-invalidate-first-runtime.json",
+      "fixture_sha256": "30984b675ae3eae84faf8af1fee34ea4edf50ac2be2bb22b650718fb1071e650",
+      "coverage": "partial"
+    },
+    {
+      "id": "policy-retirement-claim-first",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/policy-retirement-claim-first-runtime.json",
+      "fixture_sha256": "95dae435aaa96d65e24251c01fb0e47e1e4b2d84ed6bd31d105348d5722961ce",
+      "coverage": "partial"
+    },
+    {
+      "id": "baseline-replacement-invalidate-first",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/baseline-replacement-invalidate-first-runtime.json",
+      "fixture_sha256": "5946ebbda884af296ab0d8374ddeaa6e4fdc78b549b9a19d63a93541b89313a5",
+      "coverage": "partial"
+    },
+    {
+      "id": "baseline-replacement-claim-first",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/baseline-replacement-claim-first-runtime.json",
+      "fixture_sha256": "ada0bf9bade2cdf1b2a03e65af249589723343d0464666c8ef3c8e628209d683",
+      "coverage": "partial"
+    },
+    {
+      "id": "scheduler-cancel-race",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/scheduler-cancel-race-runtime.json",
+      "fixture_sha256": "d8bf98d6010142149b5a6f89564992ea0789475985bfc0f0fdeddb4ecf8283da",
+      "coverage": "partial"
+    },
+    {
+      "id": "scheduler-stall",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/scheduler-stall-runtime.json",
+      "fixture_sha256": "d986d5ad74c0ba88c4d782283a8f2d253499e3f06cd7d7e304dc50023cb508d7",
+      "coverage": "partial"
+    },
+    {
+      "id": "reconnect-pool-bound",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/reconnect-pool-bound-runtime.json",
+      "fixture_sha256": "92960ac1f5f373d4b4cec68985b80aa4e80383689471cc29f09829e3554c2c0f",
+      "coverage": "partial"
+    },
+    {
+      "id": "owner-history-1024",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/owner-history-1024-runtime.json",
+      "fixture_sha256": "0e4292c41e83c0a1f3fb7335562eaa4f4c77cbf7509c407895145010fe288af5",
+      "coverage": "partial"
+    },
+    {
+      "id": "session-record-limit-first",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/session-record-limit-first-runtime.json",
+      "fixture_sha256": "e5784b289235ded9241b064887c2a203196436af973ed54aede7d88434e9ba2d",
+      "coverage": "partial"
+    },
+    {
+      "id": "OVERVIEW-01-P",
+      "track": "document_review",
+      "fixture": "vectors/0.10.0/current-spec/OVERVIEW-01-P-document_review.json",
+      "fixture_sha256": "c8646c9049f539f8e8be534de6a511e9c7b712a4be805182cb5ceb2377fc4db3",
+      "coverage": "partial"
+    },
+    {
+      "id": "OVERVIEW-01-N01",
+      "track": "document_review",
+      "fixture": "vectors/0.10.0/current-spec/OVERVIEW-01-N01-document_review.json",
+      "fixture_sha256": "4c4b1157c0b532c4b0db7d1cf61a723ee91a05e0b47df29673d40ecf193fc6c0",
+      "coverage": "partial"
+    },
+    {
+      "id": "OVERVIEW-02-P",
+      "track": "document_review",
+      "fixture": "vectors/0.10.0/current-spec/OVERVIEW-02-P-document_review.json",
+      "fixture_sha256": "2fc7d19cb0c6f757e74b9e8aeb76d248e36c378eb7c0aed208b81a51a1c51562",
+      "coverage": "partial"
+    },
+    {
+      "id": "OVERVIEW-02-N01",
+      "track": "document_review",
+      "fixture": "vectors/0.10.0/current-spec/OVERVIEW-02-N01-document_review.json",
+      "fixture_sha256": "028a2d4657025dc16d2003d7a7d721d4c589a0938c543c7f9158cf4449ffefc4",
+      "coverage": "partial"
+    },
+    {
+      "id": "OVERVIEW-03-P",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/OVERVIEW-03-P-runtime.json",
+      "fixture_sha256": "b7d4860d860b6c2112930fee139e6b05fcafe78d5f1bcf5fc55538508e13a514",
+      "coverage": "partial"
+    },
+    {
+      "id": "OVERVIEW-03-P",
+      "track": "document_review",
+      "fixture": "vectors/0.10.0/current-spec/OVERVIEW-03-P-document_review.json",
+      "fixture_sha256": "89fe1524ce45dc0b2afeee66c00f3db43cefa739bf0f3bec00b81743a9dd1a61",
+      "coverage": "partial"
+    },
+    {
+      "id": "OVERVIEW-03-N01",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/OVERVIEW-03-N01-runtime.json",
+      "fixture_sha256": "f0fc4eb9f4b3dc32e9cbb88d51fab723b5c6a80e186ef2984ba25050eb0538cb",
+      "coverage": "partial"
+    },
+    {
+      "id": "OVERVIEW-03-N01",
+      "track": "document_review",
+      "fixture": "vectors/0.10.0/current-spec/OVERVIEW-03-N01-document_review.json",
+      "fixture_sha256": "649ffbb2cc23ed50e5f2c6fb767e882e1e59f1234d2136a021aeee0d23f04102",
+      "coverage": "partial"
+    },
+    {
+      "id": "OVERVIEW-03-N02",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/OVERVIEW-03-N02-runtime.json",
+      "fixture_sha256": "36807d989a7743c1be52db1fa87b330dc2163ec42fa811d00c4dd091c7919277",
+      "coverage": "partial"
+    },
+    {
+      "id": "OVERVIEW-03-N02",
+      "track": "document_review",
+      "fixture": "vectors/0.10.0/current-spec/OVERVIEW-03-N02-document_review.json",
+      "fixture_sha256": "db0bf9196498acfdc00f671e9c560b5e7abf5b23d910c9b047bb366820b5b65e",
+      "coverage": "partial"
+    },
+    {
+      "id": "OVERVIEW-03-N03",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/OVERVIEW-03-N03-runtime.json",
+      "fixture_sha256": "f55ccdd666efd1d86e352a172a9a0ec350143675946779bdcfa34dc7cdbbb663",
+      "coverage": "partial"
+    },
+    {
+      "id": "OVERVIEW-03-N03",
+      "track": "document_review",
+      "fixture": "vectors/0.10.0/current-spec/OVERVIEW-03-N03-document_review.json",
+      "fixture_sha256": "e4199151dd8466fa16c7b9442678900165761b8ed8b93f6e6d7ea649f123aa81",
+      "coverage": "partial"
+    },
+    {
+      "id": "OVERVIEW-04-P",
+      "track": "document_review",
+      "fixture": "vectors/0.10.0/current-spec/OVERVIEW-04-P-document_review.json",
+      "fixture_sha256": "259e236716d1c69251e7ac413cce194555f305370a98ed749c7b056b46167d9d",
+      "coverage": "partial"
+    },
+    {
+      "id": "OVERVIEW-04-N01",
+      "track": "document_review",
+      "fixture": "vectors/0.10.0/current-spec/OVERVIEW-04-N01-document_review.json",
+      "fixture_sha256": "e61890c4edfb59fb82c2a859f3bbc4eaaed0ad4b6dc5a42bacd62bf023e6fbc3",
+      "coverage": "partial"
+    },
+    {
+      "id": "CRYPTO-01-P",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/CRYPTO-01-P-runtime.json",
+      "fixture_sha256": "f8a36cb76daa28bd7701864ea6ca9f7254629d019e35136e71434c34b04fb19c",
+      "coverage": "partial"
+    },
+    {
+      "id": "CRYPTO-01-N01",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/CRYPTO-01-N01-runtime.json",
+      "fixture_sha256": "a3887b2fe1af5964fd947cd7f5c82ca54dc64f6d04314fbe40e39eb256235739",
+      "coverage": "partial"
+    },
+    {
+      "id": "CRYPTO-01-N02",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/CRYPTO-01-N02-runtime.json",
+      "fixture_sha256": "7a1f0586043a291eebcb0d178451bfec22a79a63fb17161cccd7b7c03fd1e6d6",
+      "coverage": "partial"
+    },
+    {
+      "id": "CRYPTO-01-N03",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/CRYPTO-01-N03-runtime.json",
+      "fixture_sha256": "36b2cce121bb059b2b7c91eb6484cea536a587a6ac2c0d5a671dadf5f7f9bd1c",
+      "coverage": "partial"
+    },
+    {
+      "id": "CRYPTO-01-N04",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/CRYPTO-01-N04-runtime.json",
+      "fixture_sha256": "1ecd504a0738849918af7cbe3951a96aa4e7746f0fcd563f843a760fdef44daa",
+      "coverage": "partial"
+    },
+    {
+      "id": "CRYPTO-02-P",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/CRYPTO-02-P-runtime.json",
+      "fixture_sha256": "a281a7d03a6a53052fba47ac3d5fed8d7c4bf31aee90bca50baf9c5288554760",
+      "coverage": "partial"
+    },
+    {
+      "id": "CRYPTO-02-N01",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/CRYPTO-02-N01-runtime.json",
+      "fixture_sha256": "e3fb267d9e02dd7acc97fb9e723098b4f4727542b61ea1d82f9e62c95adbaaa1",
+      "coverage": "partial"
+    },
+    {
+      "id": "CRYPTO-02-N02",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/CRYPTO-02-N02-runtime.json",
+      "fixture_sha256": "b4793716cf4f87070a51420d38d4322a699d4b95a5ca55e528dff409a860532b",
+      "coverage": "partial"
+    },
+    {
+      "id": "CRYPTO-02-N03",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/CRYPTO-02-N03-runtime.json",
+      "fixture_sha256": "32dd176db25129745d8f39e5abe103aa68bebb646121a42864a80c27596d7daa",
+      "coverage": "partial"
+    },
+    {
+      "id": "CRYPTO-02-N04",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/CRYPTO-02-N04-runtime.json",
+      "fixture_sha256": "e536da48536619138b7e63cec62f3fdaa065293a50a563c685db5e17e05c996e",
+      "coverage": "partial"
+    },
+    {
+      "id": "CRYPTO-02-N05",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/CRYPTO-02-N05-runtime.json",
+      "fixture_sha256": "abcb6fbf8084368cb861cf2f6604f5962a7f6e8176b439fee11e7b61e875e2e8",
+      "coverage": "partial"
+    },
+    {
+      "id": "CRYPTO-03-P",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/CRYPTO-03-P-runtime.json",
+      "fixture_sha256": "55f6d2d97986e42e3a26ce346c9e7b7ceba8d5e75890e28c7e6e73c86761a084",
+      "coverage": "partial"
+    },
+    {
+      "id": "CRYPTO-03-N01",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/CRYPTO-03-N01-runtime.json",
+      "fixture_sha256": "09b8db1a8c1706ae33416a7252d7ed055aa394b41acc44259d32905fc5460030",
+      "coverage": "partial"
+    },
+    {
+      "id": "CRYPTO-03-N02",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/CRYPTO-03-N02-runtime.json",
+      "fixture_sha256": "4d3deeb95e4b93767da22230ca8f0dcd9d0be84f43269d4c6e2194a497efa513",
+      "coverage": "partial"
+    },
+    {
+      "id": "CRYPTO-03-N03",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/CRYPTO-03-N03-runtime.json",
+      "fixture_sha256": "ac07af75cd01dc17a67733550b7d0c55ff5826285b36eca0a1d700cb93bfd703",
+      "coverage": "partial"
+    },
+    {
+      "id": "CRYPTO-03-N04",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/CRYPTO-03-N04-runtime.json",
+      "fixture_sha256": "21fc6bc82be18bb8821023522b0585f86cd77329db998a87a78637277b17d95e",
+      "coverage": "partial"
+    },
+    {
+      "id": "CRYPTO-04-P",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/CRYPTO-04-P-runtime.json",
+      "fixture_sha256": "c97ccc1f570b0a7829a69fefae167afeffd23e897d2f5777a30fa5771c93b19f",
+      "coverage": "partial"
+    },
+    {
+      "id": "CRYPTO-04-N01",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/CRYPTO-04-N01-runtime.json",
+      "fixture_sha256": "60c6dad1d0a70646383c49380ecd2b7a22aef30e183108901771a783fdd54127",
+      "coverage": "partial"
+    },
+    {
+      "id": "CRYPTO-04-N02",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/CRYPTO-04-N02-runtime.json",
+      "fixture_sha256": "c79dce0a286e67c5bd86053fb5c7f92375394b24b4922aadbbc27184e14d0876",
+      "coverage": "partial"
+    },
+    {
+      "id": "CRYPTO-04-N03",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/CRYPTO-04-N03-runtime.json",
+      "fixture_sha256": "f58a9bafeb1b2273c3eca82118855969dbef45f41a75d25638a2d37a86838dfa",
+      "coverage": "partial"
+    },
+    {
+      "id": "CRYPTO-05-P",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/CRYPTO-05-P-runtime.json",
+      "fixture_sha256": "2358f932fcea1568ffb884940996b60b68a7baa3c162006a629a9b7ffa5bc7a8",
+      "coverage": "partial"
+    },
+    {
+      "id": "CRYPTO-05-P",
+      "track": "deployment_review",
+      "fixture": "vectors/0.10.0/current-spec/CRYPTO-05-P-deployment_review.json",
+      "fixture_sha256": "55cf0fb2086f64be54d5b9f00682b19a421eed725a4320f26a73df16f1752ba4",
+      "coverage": "partial"
+    },
+    {
+      "id": "CRYPTO-05-N01",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/CRYPTO-05-N01-runtime.json",
+      "fixture_sha256": "467e8b5e1196505cd2e1ec2931cae77adab8fcd67fc9f6fa45956dbdd96490f2",
+      "coverage": "partial"
+    },
+    {
+      "id": "CRYPTO-05-N01",
+      "track": "deployment_review",
+      "fixture": "vectors/0.10.0/current-spec/CRYPTO-05-N01-deployment_review.json",
+      "fixture_sha256": "bf843d86a9289dc031ca86dba48a4c4bdca596b4abfacbde31ac1805cb97b9f7",
+      "coverage": "partial"
+    },
+    {
+      "id": "CRYPTO-05-N02",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/CRYPTO-05-N02-runtime.json",
+      "fixture_sha256": "1cddc93cbfbcd5d6bf6d9b03349b462ee33280a0e3e440206837b3d6e5411317",
+      "coverage": "partial"
+    },
+    {
+      "id": "CRYPTO-05-N02",
+      "track": "deployment_review",
+      "fixture": "vectors/0.10.0/current-spec/CRYPTO-05-N02-deployment_review.json",
+      "fixture_sha256": "b5228a5c9a18a15b4088c1e094fe0d3c4cdf54db777aeaff54c351ba573508fa",
+      "coverage": "partial"
+    },
+    {
+      "id": "CRYPTO-05-N03",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/CRYPTO-05-N03-runtime.json",
+      "fixture_sha256": "b3d4bb1135ba3f937fa610ae2847f94796af0dbc82b12c1661705d98b1b641ce",
+      "coverage": "partial"
+    },
+    {
+      "id": "CRYPTO-05-N03",
+      "track": "deployment_review",
+      "fixture": "vectors/0.10.0/current-spec/CRYPTO-05-N03-deployment_review.json",
+      "fixture_sha256": "64ca1b01a7f379d45f8d89d5fef965c29160653b65f081a47f4321614ffde349",
+      "coverage": "partial"
+    },
+    {
+      "id": "REG-08-N04",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/REG-08-N04-runtime.json",
+      "fixture_sha256": "2a4cd36bfe8c63033fcaf3b923c02082ff8a0a8b41690ee9fd2dcc6f15b16c7a",
+      "coverage": "partial"
+    },
+    {
+      "id": "CST-05-01",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/CST-05-01-runtime.json",
+      "fixture_sha256": "aa584f7fcbef1d88554db88919ea2f497bc3048c3c0c8509ab34f28ec0aa97ce",
+      "coverage": "partial"
+    },
+    {
+      "id": "CST-05-02",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/CST-05-02-runtime.json",
+      "fixture_sha256": "029c3b26a288bef7d8a995488fa633d7a1e4d93b711dae9a7d499f1a37597980",
+      "coverage": "partial"
+    },
+    {
+      "id": "CST-05-03",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/CST-05-03-runtime.json",
+      "fixture_sha256": "3dbbffbfc6ec42dd30b0371af023221862fbe0bfd9a99d5e41c203748d638740",
+      "coverage": "partial"
+    },
+    {
+      "id": "CST-05-04",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/CST-05-04-runtime.json",
+      "fixture_sha256": "e90cee2ec2e3c57128d21770687a68592294ca286e8f9f60114c3ce04c9264c9",
+      "coverage": "partial"
+    },
+    {
+      "id": "CST-05-05",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/CST-05-05-runtime.json",
+      "fixture_sha256": "7fe3fd544acd1cb817db6ac2e56ba7e27cd05f0736c1d37c8233f0fd411fdc87",
+      "coverage": "partial"
+    },
+    {
+      "id": "CST-05-06",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/CST-05-06-runtime.json",
+      "fixture_sha256": "c76758b5abaf4ae2f0d5b9e59d8db834e6cb158be81a141c6aba606ae497c02f",
+      "coverage": "partial"
+    },
+    {
+      "id": "mrevision-did-consumer",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mrevision-did-consumer-runtime.json",
+      "fixture_sha256": "1756794de6915516075c369ae8c732126edca021e3954ffb8f48b18114a41a72",
+      "coverage": "partial"
+    },
+    {
+      "id": "mrevision-extra-jwk-authority",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mrevision-extra-jwk-authority-runtime.json",
+      "fixture_sha256": "07e6c48d7cf49c68306c2060280f4a3e4001849ea4d0db00eb71f9a7b19c46f8",
+      "coverage": "partial"
+    },
+    {
+      "id": "mllm-kem-alg-valid",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mllm-kem-alg-valid-runtime.json",
+      "fixture_sha256": "331a7af68e88bc192452d01847a0dd706dcc005dea9b586a0b377615dc5102f5",
+      "coverage": "partial"
+    },
+    {
+      "id": "mllm-kem-alg-case",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mllm-kem-alg-case-runtime.json",
+      "fixture_sha256": "2db264d867281dc0f6b5bf8a6efd578ee1381865ba1ec6b5dfc46ee19bd77eed",
+      "coverage": "partial"
+    },
+    {
+      "id": "mllm-kem-selection",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mllm-kem-selection-runtime.json",
+      "fixture_sha256": "aa9cf74e9beba2b1623fa2fd66f4364b276102943af8e9de2cb39751572ee3d3",
+      "coverage": "partial"
+    },
+    {
+      "id": "mllm-pop-exact-bytes",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mllm-pop-exact-bytes-runtime.json",
+      "fixture_sha256": "53835ec4776c4dc759fab34936e676a013e90d2d9cb0182552603eb5ec572ab4",
+      "coverage": "partial"
+    },
+    {
+      "id": "mllm-pop-duplicate-field",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mllm-pop-duplicate-field-runtime.json",
+      "fixture_sha256": "32c633e89403ed8663774e2f5ed2e78cdc6b92e167ce97fe3bd341713d5f61e3",
+      "coverage": "partial"
+    },
+    {
+      "id": "mllm-kem-signature-reject",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mllm-kem-signature-reject-runtime.json",
+      "fixture_sha256": "581c8d2ce68475384783dfd82a0500c84bd4dc371f1fe7eabc2171fd8edf085e",
+      "coverage": "partial"
+    },
+    {
+      "id": "mstand-problem-fields",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/mstand-problem-fields-runtime.json",
+      "fixture_sha256": "b6069f0b95dd07b28174d532b0d22518595d08e98f38506eb52660c46f60815e",
+      "coverage": "partial"
+    },
+    {
+      "id": "mstand-problem-type-publication",
+      "track": "document_review",
+      "fixture": "vectors/0.10.0/current-spec/mstand-problem-type-publication-document_review.json",
+      "fixture_sha256": "73c3f80b9df4e8303363c4f82ec09a88f6cfaae7d9b298de37b2d29d86f48bf3",
+      "coverage": "partial"
+    },
+    {
+      "id": "mstand-problem-type-publication",
+      "track": "deployment_review",
+      "fixture": "vectors/0.10.0/current-spec/mstand-problem-type-publication-deployment_review.json",
+      "fixture_sha256": "802faf33c7a5dad96e2205b44584dba1abaf0758cee0d216d71307fa0fb13a98",
+      "coverage": "partial"
     }
   ]
 }

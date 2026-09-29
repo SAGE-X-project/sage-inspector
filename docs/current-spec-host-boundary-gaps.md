@@ -39,8 +39,8 @@ scenario may use an inert local sink; do not create an external attack tool.
 An absent host adapter or absent route inventory remains `NOT_RUN` or
 `UNSUPPORTED`, not `PASS`.
 
-The fixed remaining order is: finish these EXEC cases and their required
-tracks; then `PROC-01..03`; then `EVIDENCE-01`; then `MSET-01..08`; then
-`MOWN-01..05` and the 26 mandatory `MOWN-06` children; then the 51 earlier
-skipped cases. Moving to later groups before the Execution Guard inspection
-contract is complete would conceal the ten host boundaries above.
+The fixed inspection-contract order has been followed: EXEC/CST/hop,
+`PROC-01..03`, `EVIDENCE-01`, `MSET-01..08`, `MOWN-01..05` and the 26 mandatory
+`MOWN-06` children, then the 51 earlier skipped parents. Every required track
+now has a pinned partial contract. The ten host boundaries above still need
+versioned subject observations before any implementation verdict is possible.

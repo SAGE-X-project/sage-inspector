@@ -120,10 +120,11 @@ def check(root=ROOT):
     require(unresolved['id'] == 'REG-08-N04'
             and unresolved['condition'] == 'Content-Type: text/plain'
             and unresolved['decision'] == 'UNSPECIFIED'
-            and not any(row['id'] == 'REG-08-N04'
-                        for row in bindings['bindings'])
+            and any(row['id'] == 'REG-08-N04' and row['track'] == 'runtime'
+                    and row['coverage'] == 'partial'
+                    for row in bindings['bindings'])
             and not (root / 'vectors/0.10.0/current-spec/REG-08-N04.json').exists(),
-            'no invented media-type verdict or binding')
+            'no invented media-type verdict')
     return len(IDS), len(controls), unresolved['id']
 
 

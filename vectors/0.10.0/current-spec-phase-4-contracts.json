@@ -1,0 +1,1132 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "phase": 4,
+  "parent_case_ids": [
+    "mset-01-valid-channel",
+    "mset-01-wrong-owner",
+    "mset-01-revoked-key",
+    "mset-02-exact-bytes",
+    "mset-02-size-boundary",
+    "mset-02-json-duplicates",
+    "mset-02-id-collision",
+    "mset-03-initialize-success",
+    "mset-03-unsupported-version",
+    "mset-03-capability-mismatch",
+    "mset-03-wrong-request",
+    "mset-04-notification-ack",
+    "mset-04-ack-is-not-result",
+    "mset-04-malformed-ack",
+    "mset-04-notification-has-id",
+    "mset-04-lost-ack",
+    "mset-05-discovery-success",
+    "mset-05-schema-replacement",
+    "mset-05-early-tool-call",
+    "mset-05-capability-not-authority",
+    "mset-06-before-deadline",
+    "mset-06-deadline-equality",
+    "mset-06-slow-callback",
+    "mset-06-uncertain-send",
+    "mset-07-fresh-reconnect",
+    "mset-07-stale-ready",
+    "mset-07-terminal-preserved",
+    "mset-07-missing-ledger",
+    "mset-08-proposal-scope",
+    "mset-08-http-not-defined",
+    "mset-08-historical-evidence",
+    "mset-02-output-barrier",
+    "mset-02-send-failure-after-prepare",
+    "mset-02-setup-id-reuse",
+    "mset-02-history-exhaustion",
+    "mset-02-inner-rejection-replay",
+    "mset-05-extended-descriptor",
+    "mset-06-deadline-after-callback",
+    "mset-06-close-completion-race",
+    "mset-06-ready-past-setup-deadline",
+    "merrata-config-valid",
+    "merrata-config-reject",
+    "merrata-config-change"
+  ],
+  "source_sha256": {
+    "PROCESS.md": "2ebc54e5fd908bed118bc4b6005f8a81f6cc482d9407a4bef8a96977ddce55f3",
+    "charter.md": "f11192af6397ac95f80287a3ff32ef662a3e94532a57646fab09b6776d938e01",
+    "profiles/agent-mcp-security.md": "0538acbdcfc143d93fb7d99a2a2c09c068fc354388c4e37c7489204305b1913f",
+    "profiles/non-http-mcp-security.md": "9c7851d095208c975792565266e481c120ef754ae8eb9529c62b53bf12a1d4fa",
+    "profiles/non-http-mcp-tool.json": "c3edd622a7c90baa028118f63af42a91f354fe7202070ef91a4bd349e4048204",
+    "spec/00-overview.md": "82493ba53f38cc783a2e76ffab3a70dc069b6ac3e534c7422840369fc90d9978",
+    "spec/01-crypto.md": "fe9fd00066b259b99a63e5adab7db739757e3ad2597ccc71e2019fa34319faec",
+    "spec/02-jcs.md": "4d4b202c8ddb5eb00c47a8e8056813a589834526e2174c023fb005a484eb3d94",
+    "spec/03-rfc9421.md": "ca6b85e12a0b0e1a4f28b4eb2a9b677d29e2fd2abe9691d1ee30bfa14ee858c9",
+    "spec/04-hpke.md": "1420818451ce8363a16e391647dbaca8ec2f06efa56b6507027a4e17f399fdd6",
+    "spec/05-session.md": "8a45b8bdd3b6bfc399a94c420b2161b8f16db5c6b29ed2e85584a6282b17cce5",
+    "spec/06-did-sage.md": "5791cc368111216a6539f7c423811abeb9821f9741e0c5d6ce177d5100b0b059",
+    "spec/07-a2a.md": "5ded622fdaf67342d5c6b4327da0f5787bfe9df2dc58b233cdfb500ffc96b042",
+    "spec/08-transport.md": "87bb1adc1aae4883e13f8ba52a7c86153c71efb621ffc50458f7e2aa57db3eeb",
+    "spec/09-registry.md": "2f7e5468bf87e7a402c7853584fca8e345b5055a0625f7068a71e80e6321eb02",
+    "spec/10-resolution.md": "12466dfeec90465c3fe014700972549d76917c7db87c207ce28d63867fbbe55c",
+    "spec/11-registries.md": "eb673391143bd4ed9283ee8a6a578aeb44e0018a78f6d994ebfeb70160757bf4",
+    "verification/standards-clause-audit.md": "007426363bb387f80cf1b611f55cb4bbe652d2232d849979a0753515d77145c6",
+    "verification/traceability.json": "a83a28338a9e3f15cd7846ce251db2f915d9ffffaf7162bc749b7f38d784aae7"
+  },
+  "scope": "partial host observation contracts; no implementation run or full conformance claim",
+  "cases": [
+    {
+      "id": "mset-01-valid-channel",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 4,
+        "id": "mset-01-valid-channel",
+        "track": "runtime",
+        "rule_id": "MSET-01",
+        "source": "profiles/non-http-mcp-security.md",
+        "source_line": 40,
+        "trigger": "First encrypted initialize confirms responder before MCP processing",
+        "preconditions": "Explicitly selected SAGE 0.10.0 non-HTTP MCP 2025-06-18 binding; trusted isolated fixture; run all attached mandatory child assertions in their declared scope."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mset-01-wrong-owner",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 4,
+        "id": "mset-01-wrong-owner",
+        "track": "runtime",
+        "rule_id": "MSET-01",
+        "source": "profiles/non-http-mcp-security.md",
+        "source_line": 40,
+        "trigger": "Reuse the old readiness handle",
+        "preconditions": "Explicitly selected SAGE 0.10.0 non-HTTP MCP 2025-06-18 binding; trusted isolated fixture; run all attached mandatory child assertions in their declared scope."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mset-01-revoked-key",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 4,
+        "id": "mset-01-revoked-key",
+        "track": "runtime",
+        "rule_id": "MSET-01",
+        "source": "profiles/non-http-mcp-security.md",
+        "source_line": 40,
+        "trigger": "Receive the next setup record",
+        "preconditions": "Explicitly selected SAGE 0.10.0 non-HTTP MCP 2025-06-18 binding; trusted isolated fixture; run all attached mandatory child assertions in their declared scope."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mset-02-exact-bytes",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 4,
+        "id": "mset-02-exact-bytes",
+        "track": "runtime",
+        "rule_id": "MSET-02",
+        "source": "profiles/non-http-mcp-security.md",
+        "source_line": 82,
+        "trigger": "Preserve complete UTF-8 payload and distinct outer/inner request IDs",
+        "preconditions": "Explicitly selected SAGE 0.10.0 non-HTTP MCP 2025-06-18 binding; trusted isolated fixture; run all attached mandatory child assertions in their declared scope."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mset-02-size-boundary",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 4,
+        "id": "mset-02-size-boundary",
+        "track": "runtime",
+        "rule_id": "MSET-02",
+        "source": "profiles/non-http-mcp-security.md",
+        "source_line": 82,
+        "trigger": "Receive the oversized message",
+        "preconditions": "Explicitly selected SAGE 0.10.0 non-HTTP MCP 2025-06-18 binding; trusted isolated fixture; run all attached mandatory child assertions in their declared scope."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mset-02-json-duplicates",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 4,
+        "id": "mset-02-json-duplicates",
+        "track": "runtime",
+        "rule_id": "MSET-02",
+        "source": "profiles/non-http-mcp-security.md",
+        "source_line": 82,
+        "trigger": "Duplicate a JSON member or provide a batch/trailing JSON",
+        "preconditions": "Explicitly selected SAGE 0.10.0 non-HTTP MCP 2025-06-18 binding; trusted isolated fixture; run all attached mandatory child assertions in their declared scope."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mset-02-id-collision",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 4,
+        "id": "mset-02-id-collision",
+        "track": "runtime",
+        "rule_id": "MSET-02",
+        "source": "profiles/non-http-mcp-security.md",
+        "source_line": 82,
+        "trigger": "Use its outer UUID as the inner request UUID",
+        "preconditions": "Explicitly selected SAGE 0.10.0 non-HTTP MCP 2025-06-18 binding; trusted isolated fixture; run all attached mandatory child assertions in their declared scope."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mset-03-initialize-success",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 4,
+        "id": "mset-03-initialize-success",
+        "track": "runtime",
+        "rule_id": "MSET-03",
+        "source": "profiles/non-http-mcp-security.md",
+        "source_line": 132,
+        "trigger": "Select 2025-06-18 and exactly tools capability",
+        "preconditions": "Explicitly selected SAGE 0.10.0 non-HTTP MCP 2025-06-18 binding; trusted isolated fixture; run all attached mandatory child assertions in their declared scope."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mset-03-unsupported-version",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 4,
+        "id": "mset-03-unsupported-version",
+        "track": "runtime",
+        "rule_id": "MSET-03",
+        "source": "profiles/non-http-mcp-security.md",
+        "source_line": 132,
+        "trigger": "Return another MCP version without changing the authenticated peer",
+        "preconditions": "Explicitly selected SAGE 0.10.0 non-HTTP MCP 2025-06-18 binding; trusted isolated fixture; run all attached mandatory child assertions in their declared scope."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mset-03-capability-mismatch",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 4,
+        "id": "mset-03-capability-mismatch",
+        "track": "runtime",
+        "rule_id": "MSET-03",
+        "source": "profiles/non-http-mcp-security.md",
+        "source_line": 132,
+        "trigger": "Request unsupported optional features or omit tools capability",
+        "preconditions": "Explicitly selected SAGE 0.10.0 non-HTTP MCP 2025-06-18 binding; trusted isolated fixture; run all attached mandatory child assertions in their declared scope."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mset-03-wrong-request",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 4,
+        "id": "mset-03-wrong-request",
+        "track": "runtime",
+        "rule_id": "MSET-03",
+        "source": "profiles/non-http-mcp-security.md",
+        "source_line": 132,
+        "trigger": "Supply response belonging to another initialization request",
+        "preconditions": "Explicitly selected SAGE 0.10.0 non-HTTP MCP 2025-06-18 binding; trusted isolated fixture; run all attached mandatory child assertions in their declared scope."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mset-04-notification-ack",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 4,
+        "id": "mset-04-notification-ack",
+        "track": "runtime",
+        "rule_id": "MSET-04",
+        "source": "profiles/non-http-mcp-security.md",
+        "source_line": 159,
+        "trigger": "Verify correlated encrypted success with plaintext exactly {}",
+        "preconditions": "Explicitly selected SAGE 0.10.0 non-HTTP MCP 2025-06-18 binding; trusted isolated fixture; run all attached mandatory child assertions in their declared scope."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mset-04-ack-is-not-result",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 4,
+        "id": "mset-04-ack-is-not-result",
+        "track": "runtime",
+        "rule_id": "MSET-04",
+        "source": "profiles/non-http-mcp-security.md",
+        "source_line": 159,
+        "trigger": "Attempt to consume marker as Guard output",
+        "preconditions": "Explicitly selected SAGE 0.10.0 non-HTTP MCP 2025-06-18 binding; trusted isolated fixture; run all attached mandatory child assertions in their declared scope."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mset-04-malformed-ack",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 4,
+        "id": "mset-04-malformed-ack",
+        "track": "runtime",
+        "rule_id": "MSET-04",
+        "source": "profiles/non-http-mcp-security.md",
+        "source_line": 159,
+        "trigger": "Supply MCP result, whitespace variant, error or wrong request hash",
+        "preconditions": "Explicitly selected SAGE 0.10.0 non-HTTP MCP 2025-06-18 binding; trusted isolated fixture; run all attached mandatory child assertions in their declared scope."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mset-04-notification-has-id",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 4,
+        "id": "mset-04-notification-has-id",
+        "track": "runtime",
+        "rule_id": "MSET-04",
+        "source": "profiles/non-http-mcp-security.md",
+        "source_line": 159,
+        "trigger": "Receive initialized with a JSON-RPC request ID",
+        "preconditions": "Explicitly selected SAGE 0.10.0 non-HTTP MCP 2025-06-18 binding; trusted isolated fixture; run all attached mandatory child assertions in their declared scope."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mset-04-lost-ack",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 4,
+        "id": "mset-04-lost-ack",
+        "track": "runtime",
+        "rule_id": "MSET-04",
+        "source": "profiles/non-http-mcp-security.md",
+        "source_line": 159,
+        "trigger": "Deadline expires without acknowledgement; reconnect uses new setup",
+        "preconditions": "Explicitly selected SAGE 0.10.0 non-HTTP MCP 2025-06-18 binding; trusted isolated fixture; run all attached mandatory child assertions in their declared scope."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mset-05-discovery-success",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 4,
+        "id": "mset-05-discovery-success",
+        "track": "runtime",
+        "rule_id": "MSET-05",
+        "source": "profiles/non-http-mcp-security.md",
+        "source_line": 190,
+        "trigger": "Authenticate one-tool listing with pinned name/inputSchema",
+        "preconditions": "Explicitly selected SAGE 0.10.0 non-HTTP MCP 2025-06-18 binding; trusted isolated fixture; run all attached mandatory child assertions in their declared scope."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mset-05-schema-replacement",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 4,
+        "id": "mset-05-schema-replacement",
+        "track": "runtime",
+        "rule_id": "MSET-05",
+        "source": "profiles/non-http-mcp-security.md",
+        "source_line": 190,
+        "trigger": "Receive changed schema or nextCursor instead of fixed complete listing",
+        "preconditions": "Explicitly selected SAGE 0.10.0 non-HTTP MCP 2025-06-18 binding; trusted isolated fixture; run all attached mandatory child assertions in their declared scope."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mset-05-early-tool-call",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 4,
+        "id": "mset-05-early-tool-call",
+        "track": "runtime",
+        "rule_id": "MSET-05",
+        "source": "profiles/non-http-mcp-security.md",
+        "source_line": 190,
+        "trigger": "Attempt a protected tool call in a local unit scenario",
+        "preconditions": "Explicitly selected SAGE 0.10.0 non-HTTP MCP 2025-06-18 binding; trusted isolated fixture; run all attached mandatory child assertions in their declared scope."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mset-05-capability-not-authority",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 4,
+        "id": "mset-05-capability-not-authority",
+        "track": "runtime",
+        "rule_id": "MSET-05",
+        "source": "profiles/non-http-mcp-security.md",
+        "source_line": 190,
+        "trigger": "Attempt to create readiness without a protected local endpoint",
+        "preconditions": "Explicitly selected SAGE 0.10.0 non-HTTP MCP 2025-06-18 binding; trusted isolated fixture; run all attached mandatory child assertions in their declared scope."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mset-06-before-deadline",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 4,
+        "id": "mset-06-before-deadline",
+        "track": "runtime",
+        "rule_id": "MSET-06",
+        "source": "profiles/non-http-mcp-security.md",
+        "source_line": 227,
+        "trigger": "Commit final READY transition at elapsed 29999ms",
+        "preconditions": "Explicitly selected SAGE 0.10.0 non-HTTP MCP 2025-06-18 binding; trusted isolated fixture; run all attached mandatory child assertions in their declared scope."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mset-06-deadline-equality",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 4,
+        "id": "mset-06-deadline-equality",
+        "track": "runtime",
+        "rule_id": "MSET-06",
+        "source": "profiles/non-http-mcp-security.md",
+        "source_line": 227,
+        "trigger": "Commit final READY transition at elapsed 30000ms",
+        "preconditions": "Explicitly selected SAGE 0.10.0 non-HTTP MCP 2025-06-18 binding; trusted isolated fixture; run all attached mandatory child assertions in their declared scope."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mset-06-slow-callback",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 4,
+        "id": "mset-06-slow-callback",
+        "track": "runtime",
+        "rule_id": "MSET-06",
+        "source": "profiles/non-http-mcp-security.md",
+        "source_line": 227,
+        "trigger": "Trusted remaining deadline expires; no effect may proceed; additionally: Record close while work is paused; late completion has no admission rights and cannot replenish a bounded worker pool.",
+        "preconditions": "Explicitly selected SAGE 0.10.0 non-HTTP MCP 2025-06-18 binding; trusted isolated fixture; run all attached mandatory child assertions in their declared scope."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mset-06-uncertain-send",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 4,
+        "id": "mset-06-uncertain-send",
+        "track": "runtime",
+        "rule_id": "MSET-06",
+        "source": "profiles/non-http-mcp-security.md",
+        "source_line": 227,
+        "trigger": "Attempt resend or another reply on the old connection",
+        "preconditions": "Explicitly selected SAGE 0.10.0 non-HTTP MCP 2025-06-18 binding; trusted isolated fixture; run all attached mandatory child assertions in their declared scope."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mset-07-fresh-reconnect",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 4,
+        "id": "mset-07-fresh-reconnect",
+        "track": "runtime",
+        "rule_id": "MSET-07",
+        "source": "profiles/non-http-mcp-security.md",
+        "source_line": 255,
+        "trigger": "Complete fresh authenticated setup without executing old call again; additionally: Use a fresh owner with old durable identities; no recovery of old admission work or readiness.",
+        "preconditions": "Explicitly selected SAGE 0.10.0 non-HTTP MCP 2025-06-18 binding; trusted isolated fixture; run all attached mandatory child assertions in their declared scope."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mset-07-stale-ready",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 4,
+        "id": "mset-07-stale-ready",
+        "track": "runtime",
+        "rule_id": "MSET-07",
+        "source": "profiles/non-http-mcp-security.md",
+        "source_line": 255,
+        "trigger": "Reuse old initialization, acknowledgement, listing or readiness",
+        "preconditions": "Explicitly selected SAGE 0.10.0 non-HTTP MCP 2025-06-18 binding; trusted isolated fixture; run all attached mandatory child assertions in their declared scope."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mset-07-terminal-preserved",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 4,
+        "id": "mset-07-terminal-preserved",
+        "track": "runtime",
+        "rule_id": "MSET-07",
+        "source": "profiles/non-http-mcp-security.md",
+        "source_line": 255,
+        "trigger": "Request old signed call; preserve terminal and single client consumption",
+        "preconditions": "Explicitly selected SAGE 0.10.0 non-HTTP MCP 2025-06-18 binding; trusted isolated fixture; run all attached mandatory child assertions in their declared scope."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mset-07-missing-ledger",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 4,
+        "id": "mset-07-missing-ledger",
+        "track": "runtime",
+        "rule_id": "MSET-07",
+        "source": "profiles/non-http-mcp-security.md",
+        "source_line": 255,
+        "trigger": "Recreate an empty ledger to resume an old call",
+        "preconditions": "Explicitly selected SAGE 0.10.0 non-HTTP MCP 2025-06-18 binding; trusted isolated fixture; run all attached mandatory child assertions in their declared scope."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mset-08-proposal-scope",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 4,
+        "id": "mset-08-proposal-scope",
+        "track": "runtime",
+        "rule_id": "MSET-08",
+        "source": "profiles/non-http-mcp-security.md",
+        "source_line": 271,
+        "trigger": "Attempt to claim deployed negotiation or full conformance based solely on normative design adoption",
+        "preconditions": "Explicitly selected SAGE 0.10.0 non-HTTP MCP 2025-06-18 binding; trusted isolated fixture; run all attached mandatory child assertions in their declared scope."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mset-08-proposal-scope",
+      "track": "document_review",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 4,
+        "id": "mset-08-proposal-scope",
+        "track": "document_review",
+        "rule_id": "MSET-08",
+        "source": "profiles/non-http-mcp-security.md",
+        "source_line": 271,
+        "trigger": "Attempt to claim deployed negotiation or full conformance based solely on normative design adoption",
+        "preconditions": "Explicitly selected SAGE 0.10.0 non-HTTP MCP 2025-06-18 binding; trusted isolated fixture; run all attached mandatory child assertions in their declared scope."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mset-08-http-not-defined",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 4,
+        "id": "mset-08-http-not-defined",
+        "track": "runtime",
+        "rule_id": "MSET-08",
+        "source": "profiles/non-http-mcp-security.md",
+        "source_line": 271,
+        "trigger": "Fallback to unspecified HTTP mapping or plaintext protected call",
+        "preconditions": "Explicitly selected SAGE 0.10.0 non-HTTP MCP 2025-06-18 binding; trusted isolated fixture; run all attached mandatory child assertions in their declared scope."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mset-08-http-not-defined",
+      "track": "document_review",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 4,
+        "id": "mset-08-http-not-defined",
+        "track": "document_review",
+        "rule_id": "MSET-08",
+        "source": "profiles/non-http-mcp-security.md",
+        "source_line": 271,
+        "trigger": "Fallback to unspecified HTTP mapping or plaintext protected call",
+        "preconditions": "Explicitly selected SAGE 0.10.0 non-HTTP MCP 2025-06-18 binding; trusted isolated fixture; run all attached mandatory child assertions in their declared scope."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mset-08-historical-evidence",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 4,
+        "id": "mset-08-historical-evidence",
+        "track": "runtime",
+        "rule_id": "MSET-08",
+        "source": "profiles/non-http-mcp-security.md",
+        "source_line": 271,
+        "trigger": "Promote them based only on proposal validation",
+        "preconditions": "Explicitly selected SAGE 0.10.0 non-HTTP MCP 2025-06-18 binding; trusted isolated fixture; run all attached mandatory child assertions in their declared scope."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mset-08-historical-evidence",
+      "track": "document_review",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 4,
+        "id": "mset-08-historical-evidence",
+        "track": "document_review",
+        "rule_id": "MSET-08",
+        "source": "profiles/non-http-mcp-security.md",
+        "source_line": 271,
+        "trigger": "Promote them based only on proposal validation",
+        "preconditions": "Explicitly selected SAGE 0.10.0 non-HTTP MCP 2025-06-18 binding; trusted isolated fixture; run all attached mandatory child assertions in their declared scope."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mset-02-output-barrier",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 4,
+        "id": "mset-02-output-barrier",
+        "track": "runtime",
+        "rule_id": "MSET-02",
+        "source": "profiles/non-http-mcp-security.md",
+        "source_line": 82,
+        "trigger": "A protected request arrives before the send callback succeeds",
+        "preconditions": "Explicitly selected SAGE 0.10.0 non-HTTP MCP 2025-06-18 binding; trusted isolated fixture; run all attached mandatory child assertions in their declared scope."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mset-02-send-failure-after-prepare",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 4,
+        "id": "mset-02-send-failure-after-prepare",
+        "track": "runtime",
+        "rule_id": "MSET-02",
+        "source": "profiles/non-http-mcp-security.md",
+        "source_line": 82,
+        "trigger": "Local send reports partial or uncertain completion while input waits",
+        "preconditions": "Explicitly selected SAGE 0.10.0 non-HTTP MCP 2025-06-18 binding; trusted isolated fixture; run all attached mandatory child assertions in their declared scope."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mset-02-setup-id-reuse",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 4,
+        "id": "mset-02-setup-id-reuse",
+        "track": "runtime",
+        "rule_id": "MSET-02",
+        "source": "profiles/non-http-mcp-security.md",
+        "source_line": 82,
+        "trigger": "Reuse it for discovery or a later protected call",
+        "preconditions": "Explicitly selected SAGE 0.10.0 non-HTTP MCP 2025-06-18 binding; trusted isolated fixture; run all attached mandatory child assertions in their declared scope."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mset-02-history-exhaustion",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 4,
+        "id": "mset-02-history-exhaustion",
+        "track": "runtime",
+        "rule_id": "MSET-02",
+        "source": "profiles/non-http-mcp-security.md",
+        "source_line": 82,
+        "trigger": "Allocate a new endpoint and attempt another request",
+        "preconditions": "Explicitly selected SAGE 0.10.0 non-HTTP MCP 2025-06-18 binding; trusted isolated fixture; run all attached mandatory child assertions in their declared scope."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mset-02-inner-rejection-replay",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 4,
+        "id": "mset-02-inner-rejection-replay",
+        "track": "runtime",
+        "rule_id": "MSET-02",
+        "source": "profiles/non-http-mcp-security.md",
+        "source_line": 82,
+        "trigger": "Reject malformed inner JSON; retain consumed sequence and replay IDs",
+        "preconditions": "Explicitly selected SAGE 0.10.0 non-HTTP MCP 2025-06-18 binding; trusted isolated fixture; run all attached mandatory child assertions in their declared scope."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mset-05-extended-descriptor",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 4,
+        "id": "mset-05-extended-descriptor",
+        "track": "runtime",
+        "rule_id": "MSET-05",
+        "source": "profiles/non-http-mcp-security.md",
+        "source_line": 190,
+        "trigger": "Validate the complete descriptor against the fixed baseline",
+        "preconditions": "Explicitly selected SAGE 0.10.0 non-HTTP MCP 2025-06-18 binding; trusted isolated fixture; run all attached mandatory child assertions in their declared scope."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mset-06-deadline-after-callback",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 4,
+        "id": "mset-06-deadline-after-callback",
+        "track": "runtime",
+        "rule_id": "MSET-06",
+        "source": "profiles/non-http-mcp-security.md",
+        "source_line": 227,
+        "trigger": "Attempt to publish READY after callback completion",
+        "preconditions": "Explicitly selected SAGE 0.10.0 non-HTTP MCP 2025-06-18 binding; trusted isolated fixture; run all attached mandatory child assertions in their declared scope."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mset-06-close-completion-race",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 4,
+        "id": "mset-06-close-completion-race",
+        "track": "runtime",
+        "rule_id": "MSET-06",
+        "source": "profiles/non-http-mcp-security.md",
+        "source_line": 227,
+        "trigger": "A successful late send callback tries to publish its target state",
+        "preconditions": "Explicitly selected SAGE 0.10.0 non-HTTP MCP 2025-06-18 binding; trusted isolated fixture; run all attached mandatory child assertions in their declared scope."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "mset-06-ready-past-setup-deadline",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 4,
+        "id": "mset-06-ready-past-setup-deadline",
+        "track": "runtime",
+        "rule_id": "MSET-06",
+        "source": "profiles/non-http-mcp-security.md",
+        "source_line": 227,
+        "trigger": "The old setup deadline passes without a new setup operation",
+        "preconditions": "Explicitly selected SAGE 0.10.0 non-HTTP MCP 2025-06-18 binding; trusted isolated fixture; run all attached mandatory child assertions in their declared scope."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "merrata-config-valid",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 4,
+        "id": "merrata-config-valid",
+        "track": "runtime",
+        "rule_id": "MSET-01",
+        "source": "profiles/non-http-mcp-security.md",
+        "source_line": 40,
+        "trigger": "Trusted local descriptor JSON file has reordered members but the same complete object; binding, versions, peer tuple and digest match the pinned values",
+        "preconditions": "Pinned revised non-HTTP MCP binding; trusted isolated fixture; no attack-capable reproduction code."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "merrata-config-reject",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 4,
+        "id": "merrata-config-reject",
+        "track": "runtime",
+        "rule_id": "MSET-01",
+        "source": "profiles/non-http-mcp-security.md",
+        "source_line": 40,
+        "trigger": "Missing, malformed, differently encoded or mismatched binding identifier, version or descriptor digest",
+        "preconditions": "Pinned revised non-HTTP MCP binding; trusted isolated fixture; no attack-capable reproduction code."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "merrata-config-change",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.spec.host_case",
+        "phase": 4,
+        "id": "merrata-config-change",
+        "track": "runtime",
+        "rule_id": "MSET-01",
+        "source": "profiles/non-http-mcp-security.md",
+        "source_line": 40,
+        "trigger": "Trusted descriptor or binding configuration changes after owner construction",
+        "preconditions": "Pinned revised non-HTTP MCP binding; trusted isolated fixture; no attack-capable reproduction code."
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched": true,
+          "reason": "case_contract"
+        },
+        "effects": {}
+      }
+    }
+  ]
+}

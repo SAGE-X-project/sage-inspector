@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "CRYPTO-05-N01",
+  "track": "runtime",
+  "input": {
+    "operation": "sage.spec.host_case",
+    "phase": 6,
+    "id": "CRYPTO-05-N01",
+    "track": "runtime",
+    "rule_id": "CRYPTO-05",
+    "source": "spec/01-crypto.md",
+    "source_line": 59,
+    "trigger": "untrusted key access",
+    "preconditions": "Start from the valid group fixture; change only this condition. For state cases inject the specified race/crash/clock or policy state."
+  },
+  "expected": {
+    "verdict": "ACCEPT",
+    "output": {
+      "matched": true,
+      "reason": "case_contract"
+    },
+    "effects": {}
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "OVERVIEW-03-N03",
+  "track": "runtime",
+  "input": {
+    "operation": "sage.spec.host_case",
+    "phase": 6,
+    "id": "OVERVIEW-03-N03",
+    "track": "runtime",
+    "rule_id": "OVERVIEW-03",
+    "source": "spec/00-overview.md",
+    "source_line": 96,
+    "trigger": "automatic minor fallback",
+    "preconditions": "Start from the valid group fixture; change only this condition. For state cases inject the specified race/crash/clock or policy state."
+  },
+  "expected": {
+    "verdict": "ACCEPT",
+    "output": {
+      "matched": true,
+      "reason": "case_contract"
+    },
+    "effects": {}
+  }
+}

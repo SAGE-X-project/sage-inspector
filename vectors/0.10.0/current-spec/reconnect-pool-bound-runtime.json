@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "reconnect-pool-bound",
+  "track": "runtime",
+  "input": {
+    "operation": "sage.spec.host_case",
+    "phase": 5,
+    "id": "reconnect-pool-bound",
+    "track": "runtime",
+    "rule_id": "MOWN-06",
+    "source": "profiles/non-http-mcp-security.md",
+    "source_line": 737,
+    "trigger": "Repeated owners close/reconnect while bounded fixture I/O remains occupied",
+    "preconditions": "unit_and_bounded_local_runtime"
+  },
+  "expected": {
+    "verdict": "ACCEPT",
+    "output": {
+      "matched": true,
+      "reason": "case_contract"
+    },
+    "effects": {}
+  }
+}

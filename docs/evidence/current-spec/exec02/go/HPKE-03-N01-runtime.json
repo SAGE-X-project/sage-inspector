@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "HPKE-03-N01",
+  "track": "runtime",
+  "fixture_sha256": "9ff721e316b1b5e51d16486b6cd1f783e0c6638eb255cae5fd4dfdf385408e7e",
+  "input_sha256": "1da57b3bb0198260a83612bd7546d467df701506afcc5eca6d4084af635b6703",
+  "subject": {
+    "repository": "SAGE-X-project/sage",
+    "revision": "49379baadc6baec9ca8b4bb7d15bf43d65144bd7",
+    "executable_sha256": "86820fb3c36df17194398ce4247fe6dd3fac0efc12a9af1d84a6f87a308cfc88"
+  },
+  "actual": {
+    "verdict": "UNSUPPORTED",
+    "reason": "Core primitive adapter does not expose this operation."
+  },
+  "environment": "bounded-local-adapter"
+}

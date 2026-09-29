@@ -325,7 +325,8 @@ its runtime process isolation. These cases remain `NOT_RUN` for implementation
 conformance until a deployment review and runtime bypass-denial observations
 are captured against a named subject. A core primitive result cannot establish
 this host boundary.
-Four EXEC-02 cases have partial runtime fixtures for exact original-request
+The [EXEC-02 commitment observations](current-spec-exec02-evidence.md) provide
+four partial runtime fixtures for exact original-request
 framing and policy-descriptor commitment. The two mutation pairs check that a
 changed captured byte or policy artifact changes the computed digest. These
 primitives do not prove capture before expansion, policy authorization,

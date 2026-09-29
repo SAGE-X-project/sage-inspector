@@ -1,11 +1,13 @@
 # Remaining Execution Guard host boundaries
 
-The current 0.10.0 inventory has ten unbound EXEC parent cases after the
-bounded Go/Rust core observations. Each requires evidence from a versioned
-Agent or executor host integration. A core method that rejects a supplied
-fixture cannot prove that every host route invokes it. These cases remain
-`NOT_RUN` in the current-spec report; no synthetic result is promoted to
-implementation conformance.
+The current 0.10.0 inventory has ten host-dependent EXEC parent cases after
+the bounded Go/Rust core observations. Inspector now binds 15 typed runtime
+probes, including five EXEC-01 isolation cases, and 15 deployment-review
+fixtures across EXEC and CST-02. Each still requires
+evidence from a versioned Agent or executor host integration. A core method
+that rejects a supplied fixture cannot prove that every host route invokes it.
+These cases remain `NOT_RUN` in the current-spec report; the inert unit traces
+are not promoted to implementation conformance.
 
 | Case | Required observed boundary |
 | --- | --- |
@@ -20,7 +22,15 @@ implementation conformance.
 | `EXEC-08-N02` | Review every model/plugin-accessible signing surface and its caller authentication. No unrestricted signing operation may accept arbitrary intent bytes. |
 | `EXEC-08-N03` | Bound a trusted gate call, then inject timeout/disconnect through the host adapter. Observe denial and zero protected effect. |
 
-The Inspector should accept version-pinned host observations with the exact
+The [host fixture suite](../vectors/0.10.0/exec-host-contracts.json) and
+`scripts/current_spec_host_trace_bridge.py` define a bounded observation
+interface. A real host adapter receives only the case ID and trigger and must
+return typed facts plus separately observed and subject-reported effect counts.
+The bridge derives a verdict and never accepts a subject-reported PASS. The
+unit tests vary each case's decisive fact and check that contradictory effect
+counts fail. This prepares inspection; no host adapter has been run.
+
+The Inspector must accept version-pinned host observations with the exact
 request and component identity, ordered gate events, durable journal state,
 actual effect counter, and evidence of route coverage. Deployment reviews must
 name the host build, loader, policy/baseline authority, and all callable tool

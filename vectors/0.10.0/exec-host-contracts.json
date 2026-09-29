@@ -1,0 +1,702 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "source_sha256": "0538acbdcfc143d93fb7d99a2a2c09c068fc354388c4e37c7489204305b1913f",
+  "scope": "Inspector host observation and deployment review contracts only; no deployed subject or effect observation is claimed",
+  "cases": [
+    {
+      "id": "EXEC-01-P",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.host.execution.trace",
+        "input": {
+          "case_id": "EXEC-01-P",
+          "trigger": "protected_authorized_effect"
+        }
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "accepted": true,
+          "observed_trigger": "protected_authorized_effect"
+        },
+        "effects": {
+          "protected": 1
+        }
+      }
+    },
+    {
+      "id": "EXEC-01-N01",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.host.execution.trace",
+        "input": {
+          "case_id": "EXEC-01-N01",
+          "trigger": "plugin_attempts_key_read"
+        }
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "accepted": true,
+          "observed_trigger": "plugin_attempts_key_read"
+        },
+        "effects": {
+          "protected": 0
+        }
+      }
+    },
+    {
+      "id": "EXEC-01-N02",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.host.execution.trace",
+        "input": {
+          "case_id": "EXEC-01-N02",
+          "trigger": "plugin_attempts_verifier_replacement"
+        }
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "accepted": true,
+          "observed_trigger": "plugin_attempts_verifier_replacement"
+        },
+        "effects": {
+          "protected": 0
+        }
+      }
+    },
+    {
+      "id": "EXEC-01-N03",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.host.execution.trace",
+        "input": {
+          "case_id": "EXEC-01-N03",
+          "trigger": "untrusted_direct_effect_attempt"
+        }
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "accepted": true,
+          "observed_trigger": "untrusted_direct_effect_attempt"
+        },
+        "effects": {
+          "protected": 0
+        }
+      }
+    },
+    {
+      "id": "EXEC-01-N04",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.host.execution.trace",
+        "input": {
+          "case_id": "EXEC-01-N04",
+          "trigger": "required_hook_disabled"
+        }
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "accepted": true,
+          "observed_trigger": "required_hook_disabled"
+        },
+        "effects": {
+          "protected": 0
+        }
+      }
+    },
+    {
+      "id": "EXEC-02-N02",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.host.execution.trace",
+        "input": {
+          "case_id": "EXEC-02-N02",
+          "trigger": "unchecked_model_proposal"
+        }
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "accepted": true,
+          "observed_trigger": "unchecked_model_proposal"
+        },
+        "effects": {
+          "protected": 0
+        }
+      }
+    },
+    {
+      "id": "EXEC-02-N02",
+      "track": "deployment_review",
+      "input": {
+        "operation": "sage.host.deployment.review",
+        "input": {
+          "case_id": "EXEC-02-N02",
+          "required_artifacts": [
+            "route_inventory",
+            "signer_authority",
+            "authorization_trace"
+          ]
+        }
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "reviewed": true,
+          "artifacts": [
+            "route_inventory",
+            "signer_authority",
+            "authorization_trace"
+          ]
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "EXEC-04-N04",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.host.execution.trace",
+        "input": {
+          "case_id": "EXEC-04-N04",
+          "trigger": "arguments_change_before_dispatch"
+        }
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "accepted": true,
+          "observed_trigger": "arguments_change_before_dispatch"
+        },
+        "effects": {
+          "protected": 0
+        }
+      }
+    },
+    {
+      "id": "EXEC-05-N05",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.host.execution.trace",
+        "input": {
+          "case_id": "EXEC-05-N05",
+          "trigger": "cancel_after_commit"
+        }
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "accepted": true,
+          "observed_trigger": "cancel_after_commit"
+        },
+        "effects": {
+          "protected": 0
+        }
+      }
+    },
+    {
+      "id": "EXEC-06-N01",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.host.execution.trace",
+        "input": {
+          "case_id": "EXEC-06-N01",
+          "trigger": "untrusted_baseline_write"
+        }
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "accepted": true,
+          "observed_trigger": "untrusted_baseline_write"
+        },
+        "effects": {
+          "protected": 0
+        }
+      }
+    },
+    {
+      "id": "EXEC-06-N01",
+      "track": "deployment_review",
+      "input": {
+        "operation": "sage.host.deployment.review",
+        "input": {
+          "case_id": "EXEC-06-N01",
+          "required_artifacts": [
+            "baseline_admin_authority",
+            "plugin_write_boundary"
+          ]
+        }
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "reviewed": true,
+          "artifacts": [
+            "baseline_admin_authority",
+            "plugin_write_boundary"
+          ]
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "EXEC-06-N02",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.host.execution.trace",
+        "input": {
+          "case_id": "EXEC-06-N02",
+          "trigger": "symbolic_link_artifact"
+        }
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "accepted": true,
+          "observed_trigger": "symbolic_link_artifact"
+        },
+        "effects": {
+          "protected": 0
+        }
+      }
+    },
+    {
+      "id": "EXEC-06-N02",
+      "track": "deployment_review",
+      "input": {
+        "operation": "sage.host.deployment.review",
+        "input": {
+          "case_id": "EXEC-06-N02",
+          "required_artifacts": [
+            "loader_path_policy",
+            "file_type_observation"
+          ]
+        }
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "reviewed": true,
+          "artifacts": [
+            "loader_path_policy",
+            "file_type_observation"
+          ]
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "EXEC-06-N04",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.host.execution.trace",
+        "input": {
+          "case_id": "EXEC-06-N04",
+          "trigger": "artifact_changes_after_measurement"
+        }
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "accepted": true,
+          "observed_trigger": "artifact_changes_after_measurement"
+        },
+        "effects": {
+          "protected": 0
+        }
+      }
+    },
+    {
+      "id": "EXEC-06-N04",
+      "track": "deployment_review",
+      "input": {
+        "operation": "sage.host.deployment.review",
+        "input": {
+          "case_id": "EXEC-06-N04",
+          "required_artifacts": [
+            "measured_instance_binding",
+            "loader_instance_observation"
+          ]
+        }
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "reviewed": true,
+          "artifacts": [
+            "measured_instance_binding",
+            "loader_instance_observation"
+          ]
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "EXEC-06-N05",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.host.execution.trace",
+        "input": {
+          "case_id": "EXEC-06-N05",
+          "trigger": "peer_hash_as_attestation"
+        }
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "accepted": true,
+          "observed_trigger": "peer_hash_as_attestation"
+        },
+        "effects": {
+          "protected": 0
+        }
+      }
+    },
+    {
+      "id": "EXEC-06-N05",
+      "track": "deployment_review",
+      "input": {
+        "operation": "sage.host.deployment.review",
+        "input": {
+          "case_id": "EXEC-06-N05",
+          "required_artifacts": [
+            "security_claims",
+            "local_measurement_source"
+          ]
+        }
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "reviewed": true,
+          "artifacts": [
+            "security_claims",
+            "local_measurement_source"
+          ]
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "EXEC-08-N01",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.host.execution.trace",
+        "input": {
+          "case_id": "EXEC-08-N01",
+          "trigger": "model_skips_diagnostic_verifier"
+        }
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "accepted": true,
+          "observed_trigger": "model_skips_diagnostic_verifier"
+        },
+        "effects": {
+          "protected": 0
+        }
+      }
+    },
+    {
+      "id": "EXEC-08-N02",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.host.execution.trace",
+        "input": {
+          "case_id": "EXEC-08-N02",
+          "trigger": "model_requests_unrestricted_signing"
+        }
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "accepted": true,
+          "observed_trigger": "model_requests_unrestricted_signing"
+        },
+        "effects": {
+          "protected": 0
+        }
+      }
+    },
+    {
+      "id": "EXEC-08-N03",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.host.execution.trace",
+        "input": {
+          "case_id": "EXEC-08-N03",
+          "trigger": "internal_gate_timeout"
+        }
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "accepted": true,
+          "observed_trigger": "internal_gate_timeout"
+        },
+        "effects": {
+          "protected": 0
+        }
+      }
+    },
+    {
+      "id": "EXEC-02-P",
+      "track": "deployment_review",
+      "input": {
+        "operation": "sage.host.deployment.review",
+        "input": {
+          "case_id": "EXEC-02-P",
+          "required_artifacts": [
+            "capture_boundary",
+            "protected_original_store",
+            "derived_call_authority"
+          ]
+        }
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "reviewed": true,
+          "artifacts": [
+            "capture_boundary",
+            "protected_original_store",
+            "derived_call_authority"
+          ]
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "EXEC-02-N01",
+      "track": "deployment_review",
+      "input": {
+        "operation": "sage.host.deployment.review",
+        "input": {
+          "case_id": "EXEC-02-N01",
+          "required_artifacts": [
+            "original_store_write_boundary",
+            "capture_provenance"
+          ]
+        }
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "reviewed": true,
+          "artifacts": [
+            "original_store_write_boundary",
+            "capture_provenance"
+          ]
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "EXEC-02-N03",
+      "track": "deployment_review",
+      "input": {
+        "operation": "sage.host.deployment.review",
+        "input": {
+          "case_id": "EXEC-02-N03",
+          "required_artifacts": [
+            "policy_authority_source",
+            "digest_admission_boundary"
+          ]
+        }
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "reviewed": true,
+          "artifacts": [
+            "policy_authority_source",
+            "digest_admission_boundary"
+          ]
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "EXEC-06-P",
+      "track": "deployment_review",
+      "input": {
+        "operation": "sage.host.deployment.review",
+        "input": {
+          "case_id": "EXEC-06-P",
+          "required_artifacts": [
+            "complete_artifact_inventory",
+            "immutable_loader_binding"
+          ]
+        }
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "reviewed": true,
+          "artifacts": [
+            "complete_artifact_inventory",
+            "immutable_loader_binding"
+          ]
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "EXEC-06-N03",
+      "track": "deployment_review",
+      "input": {
+        "operation": "sage.host.deployment.review",
+        "input": {
+          "case_id": "EXEC-06-N03",
+          "required_artifacts": [
+            "transitive_dependency_inventory",
+            "dynamic_load_policy"
+          ]
+        }
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "reviewed": true,
+          "artifacts": [
+            "transitive_dependency_inventory",
+            "dynamic_load_policy"
+          ]
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "CST-02-01",
+      "track": "deployment_review",
+      "input": {
+        "operation": "sage.host.deployment.review",
+        "input": {
+          "case_id": "CST-02-01",
+          "required_artifacts": [
+            "policy_canonicalization_source",
+            "approval_record"
+          ]
+        }
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "reviewed": true,
+          "artifacts": [
+            "policy_canonicalization_source",
+            "approval_record"
+          ]
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "CST-02-02",
+      "track": "deployment_review",
+      "input": {
+        "operation": "sage.host.deployment.review",
+        "input": {
+          "case_id": "CST-02-02",
+          "required_artifacts": [
+            "artifact_hash_inventory",
+            "approved_policy_epoch"
+          ]
+        }
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "reviewed": true,
+          "artifacts": [
+            "artifact_hash_inventory",
+            "approved_policy_epoch"
+          ]
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "CST-02-03",
+      "track": "deployment_review",
+      "input": {
+        "operation": "sage.host.deployment.review",
+        "input": {
+          "case_id": "CST-02-03",
+          "required_artifacts": [
+            "retirement_order",
+            "dispatch_coordinator"
+          ]
+        }
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "reviewed": true,
+          "artifacts": [
+            "retirement_order",
+            "dispatch_coordinator"
+          ]
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "CST-02-04",
+      "track": "deployment_review",
+      "input": {
+        "operation": "sage.host.deployment.review",
+        "input": {
+          "case_id": "CST-02-04",
+          "required_artifacts": [
+            "ledger_recovery_authority",
+            "epoch_transition_record"
+          ]
+        }
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "reviewed": true,
+          "artifacts": [
+            "ledger_recovery_authority",
+            "epoch_transition_record"
+          ]
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "CST-02-05",
+      "track": "deployment_review",
+      "input": {
+        "operation": "sage.host.deployment.review",
+        "input": {
+          "case_id": "CST-02-05",
+          "required_artifacts": [
+            "policy_mapping_administrator",
+            "peer_write_boundary"
+          ]
+        }
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "reviewed": true,
+          "artifacts": [
+            "policy_mapping_administrator",
+            "peer_write_boundary"
+          ]
+        },
+        "effects": {}
+      }
+    }
+  ]
+}

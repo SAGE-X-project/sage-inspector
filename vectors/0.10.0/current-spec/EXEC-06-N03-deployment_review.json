@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "EXEC-06-N03",
+  "track": "deployment_review",
+  "input": {
+    "operation": "sage.host.deployment.review",
+    "input": {
+      "case_id": "EXEC-06-N03",
+      "required_artifacts": [
+        "transitive_dependency_inventory",
+        "dynamic_load_policy"
+      ]
+    }
+  },
+  "expected": {
+    "verdict": "ACCEPT",
+    "output": {
+      "reviewed": true,
+      "artifacts": [
+        "transitive_dependency_inventory",
+        "dynamic_load_policy"
+      ]
+    },
+    "effects": {}
+  }
+}

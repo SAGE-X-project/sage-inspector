@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "EXEC-01-N03",
+  "track": "runtime",
+  "input": {
+    "operation": "sage.host.execution.trace",
+    "input": {
+      "case_id": "EXEC-01-N03",
+      "trigger": "untrusted_direct_effect_attempt"
+    }
+  },
+  "expected": {
+    "verdict": "ACCEPT",
+    "output": {
+      "accepted": true,
+      "observed_trigger": "untrusted_direct_effect_attempt"
+    },
+    "effects": {
+      "protected": 0
+    }
+  }
+}

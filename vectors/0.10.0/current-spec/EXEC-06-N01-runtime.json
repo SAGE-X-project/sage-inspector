@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "EXEC-06-N01",
+  "track": "runtime",
+  "input": {
+    "operation": "sage.host.execution.trace",
+    "input": {
+      "case_id": "EXEC-06-N01",
+      "trigger": "untrusted_baseline_write"
+    }
+  },
+  "expected": {
+    "verdict": "ACCEPT",
+    "output": {
+      "accepted": true,
+      "observed_trigger": "untrusted_baseline_write"
+    },
+    "effects": {
+      "protected": 0
+    }
+  }
+}

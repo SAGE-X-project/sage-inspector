@@ -42,7 +42,7 @@ python3 -B scripts/current_spec_gap.py --output /tmp/current-spec-gap.json
 ```
 
 `scripts/current_spec_evidence.py` is the case-level evidence admission and
-status engine. Its 337 current bindings cover selected JCS, HTTP, HPKE,
+status engine. Its 367 current bindings cover selected JCS, HTTP, HPKE,
 session, DID, Agent Card, transport, and Registry cases only partially; the remaining cases still need bindings. A binding must name a current
 case or mandatory child, one required verification track, a repository-owned
 fixture hash, and whether that fixture covers the complete case or only part
@@ -420,9 +420,12 @@ call. Go and Rust accept the control but reject both excluded forms without
 creating a ledger entry or inert tool effect. Other host routes and model
 decision paths remain unobserved.
 
-The [remaining host-boundary cases](current-spec-host-boundary-gaps.md)
-identify the ten Execution Guard cases that cannot be closed by the pinned
-core seams. Their required host and deployment observations remain `NOT_RUN`.
+The [host-boundary contracts](current-spec-host-boundary-gaps.md) bind 15
+additional Execution Guard runtime probes and 15 deployment reviews. All 67
+Execution Guard/CST-01/CST-02/mrevision parent cases now have fixtures on
+each required track. Their typed, inert unit scenarios test Inspector's
+classification only. No host adapter or deployed effects are observed, so
+host-dependent parents remain `NOT_RUN`.
 
 The 95 cases added after the historical snapshot comprise 71 MCP cases and
 24 later corrections. The older 71-case MCP runtime overlay is useful bounded

@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "EXEC-06-N05",
+  "track": "runtime",
+  "input": {
+    "operation": "sage.host.execution.trace",
+    "input": {
+      "case_id": "EXEC-06-N05",
+      "trigger": "peer_hash_as_attestation"
+    }
+  },
+  "expected": {
+    "verdict": "ACCEPT",
+    "output": {
+      "accepted": true,
+      "observed_trigger": "peer_hash_as_attestation"
+    },
+    "effects": {
+      "protected": 0
+    }
+  }
+}

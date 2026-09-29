@@ -1,0 +1,104 @@
+// Public, bounded local hop fixture; no network or external tool execution.
+package main
+
+import (
+	"bytes"
+	"context"
+	"encoding/hex"
+	"encoding/json"
+	"io"
+	"os"
+	"path/filepath"
+
+	g "github.com/sage-x-project/sage/pkg/agent/guard010"
+)
+
+type parent struct {
+	guardFixture
+	allowed bool
+	checks  int
+}
+
+func (p *parent) Authorized(_ context.Context, _ []byte) error {
+	p.checks++
+	if !p.allowed {
+		return g.ErrInvalid
+	}
+	return nil
+}
+
+type child struct {
+	guardFixture
+	sends int
+}
+
+func (c *child) Sample(context.Context) (int64, int64, error) { return 1700000000000, 0, nil }
+func (c *child) Commit(context.Context, string, []byte) error { c.sends++; return nil }
+
+type request struct {
+	IncomingHex   string       `json:"incoming_hex"`
+	OutgoingHex   string       `json:"outgoing_hex"`
+	Parent        guardFixture `json:"parent"`
+	Child         guardFixture `json:"child"`
+	ParentAllowed bool         `json:"parent_allowed"`
+	Begin         bool         `json:"begin"`
+}
+type observation struct {
+	Opened       bool `json:"opened"`
+	Began        bool `json:"began"`
+	Journal      bool `json:"journal"`
+	Handoffs     int  `json:"handoffs"`
+	ParentChecks int  `json:"parent_checks"`
+}
+
+func run() error {
+	raw, e := io.ReadAll(io.LimitReader(os.Stdin, 1<<20+1))
+	if e != nil || len(raw) > 1<<20 {
+		return g.ErrInvalid
+	}
+	var q request
+	dec := json.NewDecoder(bytes.NewReader(raw))
+	dec.DisallowUnknownFields()
+	if dec.Decode(&q) != nil || dec.Decode(new(any)) != io.EOF {
+		return g.ErrInvalid
+	}
+	incoming, e := hex.DecodeString(q.IncomingHex)
+	if e != nil {
+		return e
+	}
+	outgoing, e := hex.DecodeString(q.OutgoingHex)
+	if e != nil {
+		return e
+	}
+	p := &parent{guardFixture: q.Parent, allowed: q.ParentAllowed}
+	c := &child{guardFixture: q.Child}
+	services := g.ClientServices{IntentAuthority: c, Policy: c, ResultAuthority: c, Clock: c, Sender: c,
+		ExpectedIssuer: c.s("expected_issuer"), ExpectedRecipient: c.s("expected_recipient")}
+	hop := g.HopServices{Authority: p, Policy: p, Parent: p}
+	directory, e := os.MkdirTemp("", "sage-hop-")
+	if e != nil {
+		return e
+	}
+	defer os.RemoveAll(directory)
+	path := filepath.Join(directory, "journal")
+	client, e := g.OpenHopClient(context.Background(), path, true, incoming, outgoing, services, hop)
+	o := observation{Opened: e == nil}
+	if client != nil {
+		if q.Begin {
+			_, e = client.Begin(context.Background(), "00000000-0000-4000-8000-000000000020")
+			o.Began = e == nil
+		}
+		if client.Close() != nil {
+			return g.ErrInvalid
+		}
+	}
+	_, e = os.Stat(path)
+	o.Journal = e == nil
+	o.Handoffs, o.ParentChecks = c.sends, p.checks
+	return json.NewEncoder(os.Stdout).Encode(o)
+}
+func main() {
+	if run() != nil {
+		os.Exit(2)
+	}
+}

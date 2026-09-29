@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "subject": {
+    "repository": "SAGE-X-project/rs-sage-core",
+    "revision": "ef63d76b88fe4d6ddbc7ae0fcfdbce7beab4d396",
+    "executable_sha256": "32cd8d4ce8fa5641da125314a7a1bbd52dde6c0d9b1c5574940e46e0dc3c26ba"
+  },
+  "runner_revision": "5a2f74f57199e056f0977454e7f4cb559ad15ef7",
+  "runner_sha256": "b17c65156f2951c04fd931cc81aa72c1e0dcb3a4aa7dbc82ae2a6eb74e512429",
+  "adapter_sha256": "229a423f7c845e3fe593a5c2a939f1f954b35a31b47b2c722616f477a69fc06d",
+  "observations": [
+    {
+      "id": "mrevision-hop-authorized",
+      "track": "runtime",
+      "path": "mrevision-hop-authorized-runtime.json",
+      "sha256": "120b215cd34c497469aaf73d7bdc297702fd93673ebb5888b01bfa83ab01f254"
+    },
+    {
+      "id": "mrevision-hop-unapproved",
+      "track": "runtime",
+      "path": "mrevision-hop-unapproved-runtime.json",
+      "sha256": "9a1410c4355145512a84bbb8a93e59c989fd3f45efa60130e22de7fd55d90269"
+    },
+    {
+      "id": "mrevision-parent-no-grant",
+      "track": "runtime",
+      "path": "mrevision-parent-no-grant-runtime.json",
+      "sha256": "611b319829b67a5801e832af0afd7dc48459ec2e5a83aa33daf91d3c584e1b90"
+    }
+  ]
+}

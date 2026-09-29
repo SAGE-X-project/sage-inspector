@@ -363,7 +363,8 @@ from unsupported semantic-safety and whole-host-integrity claims. The bounded
 claim classifier checks declarations only; it has not reviewed deployed
 product wording or independent attestation evidence.
 
-Three CST-01 cases now have partial runtime fixtures for signed pending and
+The [signed result lifecycle observations](current-spec-exec-result-state-evidence.md)
+add three CST-01 cases with partial runtime fixtures for signed pending and
 terminal snapshots, a rejection that races with an already committed
 dispatch, and an expired terminal retrieval. They observe executor storage
 and signature validity, not final Client output consumption.

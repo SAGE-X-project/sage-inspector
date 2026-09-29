@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "CST-01-09",
+  "track": "runtime",
+  "fixture_sha256": "e3c1a127dbee9bebf311f230f0a2022f3b67b5cadbcd183133743ed45cc8e268",
+  "input_sha256": "742d6a9c4761e9cd7f98df01072e147ef9df28a9fbacfe7eeb2a039b9d9fe5c0",
+  "subject": {
+    "repository": "SAGE-X-project/sage",
+    "revision": "49379baadc6baec9ca8b4bb7d15bf43d65144bd7",
+    "executable_sha256": "9f34db48de7c05288ef3d56e92db10e4304b282151ed4dc3cc1a290a70afb859"
+  },
+  "actual": {
+    "verdict": "ACCEPT",
+    "output": {
+      "rows": [
+        {
+          "ok": true,
+          "created": false,
+          "committed": false,
+          "state": "",
+          "intent_digest": "",
+          "signs": 0,
+          "result_status": "",
+          "result_signature_valid": false,
+          "effect_sha256": []
+        },
+        {
+          "ok": true,
+          "created": true,
+          "committed": true,
+          "state": "EXECUTING",
+          "intent_digest": "65c504f396f42389028fab10f844505cb350425a8b0362db3cc68a2ef71eb6aa",
+          "signs": 0,
+          "result_status": "",
+          "result_signature_valid": false,
+          "effect_sha256": [
+            "6751a6ca2a29a927c2613e0fd9531d1b16ba560399ab9286d571c1c4f0780f43"
+          ]
+        },
+        {
+          "ok": false,
+          "created": false,
+          "committed": false,
+          "state": "",
+          "intent_digest": "",
+          "signs": 0,
+          "result_status": "",
+          "result_signature_valid": false,
+          "effect_sha256": [
+            "6751a6ca2a29a927c2613e0fd9531d1b16ba560399ab9286d571c1c4f0780f43"
+          ]
+        },
+        {
+          "ok": true,
+          "created": false,
+          "committed": false,
+          "state": "",
+          "intent_digest": "",
+          "signs": 1,
+          "result_status": "",
+          "result_signature_valid": false,
+          "effect_sha256": [
+            "6751a6ca2a29a927c2613e0fd9531d1b16ba560399ab9286d571c1c4f0780f43"
+          ]
+        },
+        {
+          "ok": true,
+          "created": false,
+          "committed": false,
+          "state": "",
+          "intent_digest": "",
+          "signs": 1,
+          "result_status": "completed",
+          "result_signature_valid": true,
+          "effect_sha256": [
+            "6751a6ca2a29a927c2613e0fd9531d1b16ba560399ab9286d571c1c4f0780f43"
+          ]
+        }
+      ],
+      "journal_states": [
+        "RESERVED",
+        "EXECUTING",
+        "COMPLETED"
+      ],
+      "stored_result_status": "completed",
+      "stored_result_signature_valid": true,
+      "published_terminal_matches_storage": true
+    },
+    "effects": {
+      "dispatch": 1
+    }
+  },
+  "environment": "bounded-local-adapter"
+}

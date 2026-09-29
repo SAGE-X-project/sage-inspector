@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "subject": {
+    "repository": "SAGE-X-project/sage",
+    "revision": "49379baadc6baec9ca8b4bb7d15bf43d65144bd7",
+    "executable_sha256": "9f34db48de7c05288ef3d56e92db10e4304b282151ed4dc3cc1a290a70afb859"
+  },
+  "runner_revision": "445fc8dd9a4dea452be866c220b9ed75c2f710fd",
+  "runner_sha256": "b17c65156f2951c04fd931cc81aa72c1e0dcb3a4aa7dbc82ae2a6eb74e512429",
+  "adapter_sha256": "4d6dd8b54251296508a7625b68a0e1cdae5ac30b36f6eade493724692e3208bc",
+  "observations": [
+    {
+      "id": "CST-01-02",
+      "track": "runtime",
+      "path": "CST-01-02-runtime.json",
+      "sha256": "180aaf18797c6bf7334a2fc032c26269e53954d2d4bb5b1c98969beb8008c0b6"
+    },
+    {
+      "id": "CST-01-09",
+      "track": "runtime",
+      "path": "CST-01-09-runtime.json",
+      "sha256": "63bf1109d269e11e87ad49a170c14cd9d0430cd18013eb5f72191f03f064518c"
+    },
+    {
+      "id": "CST-01-10",
+      "track": "runtime",
+      "path": "CST-01-10-runtime.json",
+      "sha256": "6289af6d2148f8d1c34747ef4ed2de0b63c93b720b957e2d755cab9e2a62d4bc"
+    }
+  ]
+}

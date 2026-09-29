@@ -30,6 +30,8 @@ from current_spec_owner_children import IDS as MOWN06_CHILD_IDS
 from current_spec_owner_children import GROUPS as MOWN06_GROUPS
 from current_spec_owner_children import check as mown06_check
 from current_spec_owner_children import sample as mown06_sample
+from current_spec_remaining_overview import IDS as OVERVIEW_IDS
+from current_spec_remaining_overview import check as overview_check
 from current_spec_pending_contracts import SETUP_MODEL_SCENARIOS
 from current_spec_pending_contracts import mset01_classification, mset01_sample
 from current_spec_pending_contracts import mset02_classification, mset02_sample
@@ -991,6 +993,86 @@ class PendingContractTests(unittest.TestCase):
         child = mown06_sample('owner-history-1024')
         child['retained_ids'] = True
         self.assertFalse(mown06_check('owner-history-1024', child))
+
+    def test_overview_cases_reject_changed_normative_decisions(self):
+        root = Path(__file__).resolve().parents[1]
+        source = catalog()[1]
+        cases = {row['id']: row for row in source['cases']}
+        rules = {row['id']: row for row in source['rules']}
+        mutations = {
+            'OVERVIEW-01-P': ('grammar_accepted', False),
+            'OVERVIEW-01-N01': ('semantic_accepted', True),
+            'OVERVIEW-02-P': ('dependency_revision_matches', False),
+            'OVERVIEW-02-N01': ('historical_vectors_promoted', 0),
+            'OVERVIEW-03-P': ('outer_version', '0.9.0'),
+            'OVERVIEW-03-N01': ('inner_version', '0.10.0'),
+            'OVERVIEW-03-N02': ('profile_version', '0.10.0'),
+            'OVERVIEW-03-N03': ('fallback_used', False),
+            'OVERVIEW-04-P': ('normative_decision_source',
+                              'go_implementation'),
+            'OVERVIEW-04-N01': ('normative_decision_source', 'text'),
+        }
+        self.assertEqual(set(mutations), set(OVERVIEW_IDS))
+        for ident in OVERVIEW_IDS:
+            case = cases[ident]
+            rule = rules[case['rule_id']]
+            for track in ('runtime', 'document_review'):
+                fixture_path = (root / 'vectors/0.10.0/current-spec' /
+                                f'{ident}-{track}.json')
+                if not fixture_path.exists():
+                    continue
+                with self.subTest(ident=ident, track=track):
+                    fixture = json.loads(fixture_path.read_text())
+                    request = {key: fixture[key] for key in
+                               ('schema_version', 'spec_revision', 'id',
+                                'track', 'input')}
+                    trace = sample_observation(case, rule, track)
+                    self.assertEqual(trace['assertions'], {})
+                    self.assertEqual(observe(json.dumps(request).encode(), trace)
+                                     ['actual'], fixture['expected'])
+                    field, value = mutations[ident]
+                    trace['overview_evidence'][field] = value
+                    self.assertFalse(overview_check(ident,
+                                                    trace['overview_evidence']))
+                    self.assertEqual(observe(json.dumps(request).encode(), trace)
+                                     ['actual']['verdict'], 'REJECT')
+
+    def test_overview_cases_run_through_local_adapter(self):
+        root = Path(__file__).resolve().parents[1]
+        source = catalog()[1]
+        cases = {row['id']: row for row in source['cases']}
+        rules = {row['id']: row for row in source['rules']}
+        with tempfile.TemporaryDirectory() as temporary:
+            adapter = Path(temporary) / 'overview-observer'
+            environment = dict(os.environ, SAGE_CASE_ADAPTER=str(adapter))
+            for ident in OVERVIEW_IDS:
+                case = cases[ident]
+                rule = rules[case['rule_id']]
+                for track in ('runtime', 'document_review'):
+                    fixture_path = (root / 'vectors/0.10.0/current-spec' /
+                                    f'{ident}-{track}.json')
+                    if not fixture_path.exists():
+                        continue
+                    with self.subTest(ident=ident, track=track):
+                        fixture = json.loads(fixture_path.read_text())
+                        request = {key: fixture[key] for key in
+                                   ('schema_version', 'spec_revision', 'id',
+                                    'track', 'input')}
+                        trace = sample_observation(case, rule, track)
+                        adapter.write_text('#!/usr/bin/env python3\n'
+                                           'import json,sys\n'
+                                           'json.load(sys.stdin)\n'
+                                           f'print({json.dumps(json.dumps({"trace": trace}))})\n')
+                        adapter.chmod(0o700)
+                        result = subprocess.run(
+                            [sys.executable, '-B',
+                             str(root / 'scripts/current_spec_pending_bridge.py')],
+                            input=json.dumps(request).encode(), capture_output=True,
+                            env=environment, timeout=10, check=False)
+                        self.assertEqual(result.returncode, 0,
+                                         result.stderr.decode())
+                        self.assertEqual(json.loads(result.stdout)['actual'],
+                                         fixture['expected'])
 
 
 if __name__ == '__main__':

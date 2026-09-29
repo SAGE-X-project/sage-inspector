@@ -177,6 +177,11 @@ owners, administrative invalidation, scheduler limits and retained history.
 Each child rejects a changed decisive observation and runs through a bounded
 local adapter; the phase gate checks all 26 IDs. These synthetic observations
 do not establish that a deployed queue or durable store obeys the rules.
+The ten previously unbound OVERVIEW parents now have bounded decisions for
+combined grammar and semantic acceptance, dependency evidence provenance,
+exact version agreement and normative-text ownership. Their fourteen required
+runtime/document tracks pass local adapter controls. They remain partial
+because report fields and source-ownership claims need independent provenance.
 `scripts/run_current_spec_cases.py` can execute bound fixtures for one selected
 verification track against one explicit local adapter. It sends the case input but never the expected
 answer, bounds the process, and writes hashed observations for the evidence

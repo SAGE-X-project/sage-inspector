@@ -6,9 +6,10 @@ execution or implementation conformance evidence by themselves.
 """
 
 import json
+import hashlib
 import uuid
 
-from current_spec_catalog import require
+from current_spec_catalog import ROOT, require
 from mcp_setup_model import initial as setup_initial, invariant as setup_invariant
 from mcp_setup_model import step as setup_step
 
@@ -75,6 +76,88 @@ MSET04_SCENARIOS = {
     'mset-04-notification-has-id': 'notification_has_id',
     'mset-04-lost-ack': 'lost_ack',
 }
+MSET05_SCENARIOS = {
+    'mset-05-discovery-success': 'valid',
+    'mset-05-schema-replacement': 'schema_replacement',
+    'mset-05-capability-not-authority': 'missing_endpoint',
+    'mset-05-extended-descriptor': 'extended_descriptor',
+}
+PINNED_TOOL_SHA256 = 'c3edd622a7c90baa028118f63af42a91f354fe7202070ef91a4bd349e4048204'
+
+
+def pinned_tool():
+    raw = (ROOT / 'verification/0.10.0/mcp-consolidated-proposal/tool.json').read_bytes()
+    require(hashlib.sha256(raw).hexdigest() == PINNED_TOOL_SHA256,
+            'pinned MCP tool descriptor')
+    return json.loads(raw)
+
+
+def canonical_tool_digest(tool):
+    return hashlib.sha256(json.dumps(tool, sort_keys=True, separators=(',', ':'),
+                                     ensure_ascii=False).encode()).hexdigest()
+
+
+def mset05_classification(evidence):
+    require(type(evidence) is dict and
+            set(evidence) == {'request_id', 'response_json', 'outer_success',
+                              'outer_error', 'configured_digest',
+                              'endpoint_install_ids'} and
+            canonical_uuid4(evidence['request_id']) and
+            type(evidence['response_json']) is str and
+            len(evidence['response_json'].encode()) <= 16 * 1024 and
+            type(evidence['outer_success']) is bool and
+            (evidence['outer_error'] is None or
+             type(evidence['outer_error']) is str and
+             len(evidence['outer_error']) <= 128) and
+            sha256_hex(evidence['configured_digest']) and
+            bounded_ids(evidence['endpoint_install_ids']),
+            'bounded authenticated discovery response')
+    try:
+        response = json.loads(evidence['response_json'],
+                              object_pairs_hook=unique_json_object)
+    except (ValueError, TypeError):
+        return 'malformed_listing'
+    if type(response) is not dict or \
+            set(response) != {'jsonrpc', 'id', 'result'} or \
+            response['jsonrpc'] != '2.0' or \
+            response['id'] != evidence['request_id'] or \
+            type(response['result']) is not dict or \
+            set(response['result']) != {'tools'} or \
+            type(response['result']['tools']) is not list or \
+            len(response['result']['tools']) != 1 or \
+            not evidence['outer_success'] or evidence['outer_error'] is not None:
+        return 'malformed_listing'
+    discovered = response['result']['tools'][0]
+    expected = pinned_tool()
+    if type(discovered) is not dict:
+        return 'malformed_listing'
+    if set(discovered) - set(expected):
+        return 'extended_descriptor'
+    if discovered != expected or \
+            evidence['configured_digest'] != canonical_tool_digest(expected) or \
+            canonical_tool_digest(discovered) != evidence['configured_digest']:
+        return 'schema_replacement'
+    if not evidence['endpoint_install_ids']:
+        return 'missing_endpoint'
+    return 'valid'
+
+
+def mset05_sample(ident):
+    tool = pinned_tool()
+    evidence = {'request_id': '123e4567-e89b-42d3-a456-426614174003',
+                'outer_success': True, 'outer_error': None,
+                'configured_digest': canonical_tool_digest(tool),
+                'endpoint_install_ids': ['endpoint-1']}
+    if ident == 'mset-05-schema-replacement':
+        tool = dict(tool, name='replacement_tool')
+    elif ident == 'mset-05-extended-descriptor':
+        tool = dict(tool, title='unexpected metadata')
+    elif ident == 'mset-05-capability-not-authority':
+        evidence['endpoint_install_ids'] = []
+    evidence['response_json'] = json.dumps(
+        {'jsonrpc': '2.0', 'id': evidence['request_id'],
+         'result': {'tools': [tool]}}, separators=(',', ':'))
+    return evidence
 
 
 def bounded_ids(value):
@@ -294,7 +377,9 @@ def sample_observation(case, rule, track):
                   not (ident in MSET03_SCENARIOS and
                        name == 'initialize_correlation_checked') and
                   not (ident in MSET04_SCENARIOS and
-                       name == 'notification_ack_checked')}
+                       name == 'notification_ack_checked') and
+                  not (ident in MSET05_SCENARIOS and
+                       name == 'descriptor_and_gate_checked')}
     result = {'case_id': ident, 'track': track,
               'observed_outcome': case['expected'], 'assertions': assertions,
               'observer_effects': 0, 'subject_effects': 0}
@@ -304,6 +389,8 @@ def sample_observation(case, rule, track):
         result['mcp_response'] = mset03_sample(ident)
     if ident in MSET04_SCENARIOS:
         result['ack_evidence'] = mset04_sample(ident)
+    if ident in MSET05_SCENARIOS:
+        result['discovery_evidence'] = mset05_sample(ident)
     return result
 
 
@@ -318,6 +405,8 @@ def inspect(case, rule, track, phase, observed):
         fields.add('mcp_response')
     if case['id'] in MSET04_SCENARIOS:
         fields.add('ack_evidence')
+    if case['id'] in MSET05_SCENARIOS:
+        fields.add('discovery_evidence')
     require(type(observed) is dict and
             set(observed) == fields and
             observed['case_id'] == case['id'] and observed['track'] == track and
@@ -333,7 +422,9 @@ def inspect(case, rule, track, phase, observed):
                      not (case['id'] in MSET03_SCENARIOS and
                           name == 'initialize_correlation_checked') and
                      not (case['id'] in MSET04_SCENARIOS and
-                          name == 'notification_ack_checked'))
+                          name == 'notification_ack_checked') and
+                     not (case['id'] in MSET05_SCENARIOS and
+                          name == 'descriptor_and_gate_checked'))
     assertions_valid = (set(observed['assertions']) == set(required) and
                         all(observed['assertions'][key] is True for key in required))
     effects_agree = observed['observer_effects'] == observed['subject_effects']
@@ -348,9 +439,12 @@ def inspect(case, rule, track, phase, observed):
     ack_ok = (case['id'] not in MSET04_SCENARIOS or
               mset04_classification(observed['ack_evidence']) ==
               MSET04_SCENARIOS[case['id']])
+    discovery_ok = (case['id'] not in MSET05_SCENARIOS or
+                    mset05_classification(observed['discovery_evidence']) ==
+                    MSET05_SCENARIOS[case['id']])
     matched = (observed['observed_outcome'] == expected_outcome(case) and
                assertions_valid and effects_agree and setup_effects and
-               model_ok and mcp_response_ok and ack_ok)
+               model_ok and mcp_response_ok and ack_ok and discovery_ok)
     return {'verdict': 'ACCEPT' if matched else 'REJECT',
             'output': {'matched': matched,
                        'reason': 'case_contract' if matched else

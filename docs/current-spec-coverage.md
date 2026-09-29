@@ -124,6 +124,11 @@ The five MSET-04 notification cases now parse the exact no-ID notification,
 check the two-byte acknowledgement marker and request-hash correlation, and
 distinguish a lost acknowledgement from a Guard result. These checks still
 depend on a host observer for authenticated record provenance.
+Four MSET-05 discovery cases compare the entire one-tool descriptor with the
+pinned tool object and configured digest, and reject extra metadata, cursors,
+wrong response IDs or absent local endpoint installation. The early-call case
+is covered by the setup state model. Complete route inventory remains a host
+integration requirement.
 `scripts/run_current_spec_cases.py` can execute bound fixtures for one selected
 verification track against one explicit local adapter. It sends the case input but never the expected
 answer, bounds the process, and writes hashed observations for the evidence

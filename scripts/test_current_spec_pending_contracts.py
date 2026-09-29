@@ -13,10 +13,11 @@ from check_current_spec_pending_contracts import check
 from current_spec_pending_bridge import observe
 from current_spec_catalog import catalog
 from current_spec_pending_contracts import MSET03_SCENARIOS, MSET04_SCENARIOS
-from current_spec_pending_contracts import MSET06_SCENARIOS
+from current_spec_pending_contracts import MSET05_SCENARIOS, MSET06_SCENARIOS
 from current_spec_pending_contracts import SETUP_MODEL_SCENARIOS, assertions_for
 from current_spec_pending_contracts import mset03_classification, mset03_sample
 from current_spec_pending_contracts import mset04_classification, mset04_sample
+from current_spec_pending_contracts import mset05_classification, mset05_sample
 from current_spec_pending_contracts import sample_observation
 
 
@@ -237,6 +238,74 @@ class PendingContractTests(unittest.TestCase):
             adapter = Path(temporary) / 'ack-observer'
             environment = dict(os.environ, SAGE_CASE_ADAPTER=str(adapter))
             for ident in MSET04_SCENARIOS:
+                with self.subTest(ident=ident):
+                    fixture = json.loads((root / 'vectors/0.10.0/current-spec' /
+                                          f'{ident}-runtime.json').read_text())
+                    request = {key: fixture[key] for key in
+                               ('schema_version', 'spec_revision', 'id', 'track', 'input')}
+                    case = cases[ident]
+                    trace = sample_observation(case, rules[case['rule_id']],
+                                               'runtime')
+                    adapter.write_text('#!/usr/bin/env python3\n'
+                                       'import json,sys\n'
+                                       'json.load(sys.stdin)\n'
+                                       f'print({json.dumps(json.dumps({"trace": trace}))})\n')
+                    adapter.chmod(0o700)
+                    result = subprocess.run(
+                        [sys.executable, '-B',
+                         str(root / 'scripts/current_spec_pending_bridge.py')],
+                        input=json.dumps(request).encode(), capture_output=True,
+                        env=environment, timeout=10, check=False)
+                    self.assertEqual(result.returncode, 0,
+                                     result.stderr.decode())
+                    self.assertEqual(json.loads(result.stdout)['actual'],
+                                     fixture['expected'])
+
+    def test_discovery_cases_check_complete_descriptor(self):
+        root = Path(__file__).resolve().parents[1]
+        source = catalog()[1]
+        cases = {row['id']: row for row in source['cases']}
+        rules = {row['id']: row for row in source['rules']}
+        for ident in MSET05_SCENARIOS:
+            with self.subTest(ident=ident):
+                fixture = json.loads((root / 'vectors/0.10.0/current-spec' /
+                                      f'{ident}-runtime.json').read_text())
+                request = {key: fixture[key] for key in
+                           ('schema_version', 'spec_revision', 'id', 'track', 'input')}
+                case = cases[ident]
+                trace = sample_observation(case, rules[case['rule_id']], 'runtime')
+                self.assertNotIn('descriptor_and_gate_checked',
+                                 trace['assertions'])
+                self.assertEqual(observe(json.dumps(request).encode(), trace)
+                                 ['actual'], fixture['expected'])
+                replacement = ('mset-05-schema-replacement'
+                               if ident == 'mset-05-discovery-success' else
+                               'mset-05-discovery-success')
+                trace['discovery_evidence'] = mset05_sample(replacement)
+                self.assertEqual(observe(json.dumps(request).encode(), trace)
+                                 ['actual']['verdict'], 'REJECT')
+
+    def test_discovery_rejects_cursor_and_wrong_correlation(self):
+        evidence = mset05_sample('mset-05-discovery-success')
+        self.assertEqual(mset05_classification(evidence), 'valid')
+        response = json.loads(evidence['response_json'])
+        response['result']['nextCursor'] = 'next'
+        changed = dict(evidence, response_json=json.dumps(response))
+        self.assertEqual(mset05_classification(changed), 'malformed_listing')
+        response['result'].pop('nextCursor')
+        response['id'] = '123e4567-e89b-42d3-a456-426614174004'
+        changed = dict(evidence, response_json=json.dumps(response))
+        self.assertEqual(mset05_classification(changed), 'malformed_listing')
+
+    def test_discovery_bridge_runs_local_adapter(self):
+        root = Path(__file__).resolve().parents[1]
+        source = catalog()[1]
+        cases = {row['id']: row for row in source['cases']}
+        rules = {row['id']: row for row in source['rules']}
+        with tempfile.TemporaryDirectory() as temporary:
+            adapter = Path(temporary) / 'discovery-observer'
+            environment = dict(os.environ, SAGE_CASE_ADAPTER=str(adapter))
+            for ident in MSET05_SCENARIOS:
                 with self.subTest(ident=ident):
                     fixture = json.loads((root / 'vectors/0.10.0/current-spec' /
                                           f'{ident}-runtime.json').read_text())

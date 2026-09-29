@@ -156,6 +156,11 @@ UTF-8 byte counting, combined result size and the preservation of effects,
 reservations and replay identity after failure. All eight have local adapter
 runtime controls. Size reports and durable state still need independent host
 observation before implementation conformance can be claimed.
+For MOWN-05, four parent cases now compare active keys with their signing role,
+accept Ed25519 only, reject other algorithms even when a key exists, keep the
+HPKE KEM at X25519, and deny setup if a suitable signing key is absent. These
+are bounded role-selection controls; actual cryptographic verification and
+registry provenance remain separate evidence requirements.
 `scripts/run_current_spec_cases.py` can execute bound fixtures for one selected
 verification track against one explicit local adapter. It sends the case input but never the expected
 answer, bounds the process, and writes hashed observations for the evidence

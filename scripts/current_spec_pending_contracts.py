@@ -116,6 +116,86 @@ MOWN01_SCENARIOS = {
     'madd-result-representations', 'madd-post-effect-oversize',
     'madd-post-reservation-size-failure', 'madd-inner-size-replay',
 }
+MOWN05_ROLES = {
+    'mres-signature-intent': ('intent',),
+    'mres-signature-result': ('result',),
+    'mres-signature-carriage': ('outer', 'handshake'),
+    'mres-missing-signing-key': ('outer',),
+}
+
+
+def mown05_check(ident, evidence):
+    if ident not in MOWN05_ROLES or type(evidence) is not dict or \
+            set(evidence) != {'available_keys', 'attempts', 'hpke_kem',
+                              'setup_result', 'fallback_used'} or \
+            evidence['hpke_kem'] != 'X25519' or \
+            type(evidence['fallback_used']) is not bool or \
+            type(evidence['available_keys']) is not list or \
+            type(evidence['attempts']) is not list or \
+            len(evidence['available_keys']) > 16 or \
+            len(evidence['attempts']) > 16:
+        return False
+    roles = MOWN05_ROLES[ident]
+    keys = evidence['available_keys']
+    if not all(type(row) is dict and
+               set(row) == {'key_id', 'role', 'alg', 'active'} and
+               type(row['key_id']) is str and row['key_id'] and
+               row['role'] in roles and
+               row['alg'] in ('Ed25519', 'secp256k1', 'P-256', 'X25519') and
+               type(row['active']) is bool for row in keys):
+        return False
+    if ident == 'mres-missing-signing-key':
+        return (not any(row['alg'] == 'Ed25519' and row['active']
+                        for row in keys) and not evidence['attempts'] and
+                evidence['setup_result'] == 'UNSUPPORTED' and
+                evidence['fallback_used'] is False)
+    if evidence['setup_result'] != 'CONTINUE' or \
+            evidence['fallback_used'] is not False:
+        return False
+    attempts = evidence['attempts']
+    if len(attempts) != 2 * len(roles):
+        return False
+    seen = set()
+    for row in attempts:
+        if type(row) is not dict or \
+                set(row) != {'role', 'alg', 'key_id', 'result'} or \
+                row['role'] not in roles or \
+                row['alg'] not in ('Ed25519', 'secp256k1') or \
+                type(row['key_id']) is not str or \
+                row['result'] not in ('CONTINUE', 'REJECT') or \
+                (row['role'], row['alg']) in seen:
+            return False
+        seen.add((row['role'], row['alg']))
+        key = next((key for key in keys if key['key_id'] == row['key_id']), None)
+        permitted = (key is not None and key['active'] and
+                     key['role'] == row['role'] and key['alg'] == 'Ed25519' and
+                     row['alg'] == 'Ed25519')
+        if (row['result'] == 'CONTINUE') != permitted:
+            return False
+    return seen == {(role, alg) for role in roles
+                    for alg in ('Ed25519', 'secp256k1')}
+
+
+def mown05_sample(ident):
+    roles = MOWN05_ROLES[ident]
+    if ident == 'mres-missing-signing-key':
+        return {'available_keys': [{'key_id': 'other-1', 'role': 'outer',
+                                    'alg': 'secp256k1', 'active': True}],
+                'attempts': [], 'hpke_kem': 'X25519',
+                'setup_result': 'UNSUPPORTED', 'fallback_used': False}
+    keys, attempts = [], []
+    for role in roles:
+        keys.extend(({'key_id': role + '-ed', 'role': role,
+                      'alg': 'Ed25519', 'active': True},
+                     {'key_id': role + '-other', 'role': role,
+                      'alg': 'secp256k1', 'active': True}))
+        attempts.extend(({'role': role, 'alg': 'Ed25519',
+                          'key_id': role + '-ed', 'result': 'CONTINUE'},
+                         {'role': role, 'alg': 'secp256k1',
+                          'key_id': role + '-other', 'result': 'REJECT'}))
+    return {'available_keys': keys, 'attempts': attempts,
+            'hpke_kem': 'X25519', 'setup_result': 'CONTINUE',
+            'fallback_used': False}
 
 
 def mown01_check(ident, evidence):
@@ -830,6 +910,8 @@ def expected_result(ident=None):
 def sample_observation(case, rule, track):
     ident = case['id']
     assertions = {name: True for name in assertions_for(rule['id'])
+                  if not (ident in MOWN05_ROLES and
+                          name == 'signature_role_checked')
                   if not (ident in MOWN01_SCENARIOS and
                           name == 'ownership_boundary_checked')
                   if not (ident in MSET01_SCENARIOS and
@@ -870,6 +952,8 @@ def sample_observation(case, rule, track):
         result['configuration_evidence'] = merrata_config_sample(ident)
     if ident in MOWN01_SCENARIOS:
         result['size_evidence'] = mown01_sample(ident)
+    if ident in MOWN05_ROLES:
+        result['signature_evidence'] = mown05_sample(ident)
     return result
 
 
@@ -898,6 +982,8 @@ def inspect(case, rule, track, phase, observed):
         fields.add('configuration_evidence')
     if case['id'] in MOWN01_SCENARIOS:
         fields.add('size_evidence')
+    if case['id'] in MOWN05_ROLES:
+        fields.add('signature_evidence')
     require(type(observed) is dict and
             set(observed) == fields and
             observed['case_id'] == case['id'] and observed['track'] == track and
@@ -908,6 +994,8 @@ def inspect(case, rule, track, phase, observed):
             observed['observer_effects'] >= 0 and observed['subject_effects'] >= 0,
             'host observation shape and identity')
     required = tuple(name for name in assertions_for(rule['id'])
+                     if not (case['id'] in MOWN05_ROLES and
+                             name == 'signature_role_checked')
                      if not (case['id'] in MOWN01_SCENARIOS and
                              name == 'ownership_boundary_checked')
                      if not (case['id'] in MSET01_SCENARIOS and
@@ -960,11 +1048,13 @@ def inspect(case, rule, track, phase, observed):
                         MERRATA_CONFIG_SCENARIOS[case['id']])
     size_ok = (case['id'] not in MOWN01_SCENARIOS or
                mown01_check(case['id'], observed['size_evidence']))
+    signature_ok = (case['id'] not in MOWN05_ROLES or
+                    mown05_check(case['id'], observed['signature_evidence']))
     matched = (observed['observed_outcome'] == expected_outcome(case) and
                assertions_valid and effects_agree and setup_effects and
                model_ok and mcp_response_ok and ack_ok and discovery_ok and
                channel_ok and carriage_ok and reconnect_ok and scope_ok and
-               configuration_ok and size_ok)
+               configuration_ok and size_ok and signature_ok)
     return {'verdict': 'ACCEPT' if matched else 'REJECT',
             'output': {'matched': matched,
                        'reason': 'case_contract' if matched else

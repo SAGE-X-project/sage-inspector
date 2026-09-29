@@ -20,6 +20,8 @@ from current_spec_pending_contracts import MSET07_SCENARIOS
 from current_spec_pending_contracts import MSET08_SCENARIOS
 from current_spec_pending_contracts import MERRATA_CONFIG_SCENARIOS
 from current_spec_pending_contracts import MOWN01_SCENARIOS, mown01_check
+from current_spec_pending_contracts import MOWN05_ROLES, mown05_check
+from current_spec_pending_contracts import mown05_sample
 from current_spec_pending_contracts import SETUP_MODEL_SCENARIOS
 from current_spec_pending_contracts import mset01_classification, mset01_sample
 from current_spec_pending_contracts import mset02_classification, mset02_sample
@@ -686,6 +688,65 @@ class PendingContractTests(unittest.TestCase):
             adapter = Path(temporary) / 'size-observer'
             environment = dict(os.environ, SAGE_CASE_ADAPTER=str(adapter))
             for ident in MOWN01_SCENARIOS:
+                with self.subTest(ident=ident):
+                    fixture = json.loads((root / 'vectors/0.10.0/current-spec' /
+                                          f'{ident}-runtime.json').read_text())
+                    request = {key: fixture[key] for key in
+                               ('schema_version', 'spec_revision', 'id', 'track', 'input')}
+                    case = cases[ident]
+                    trace = sample_observation(case, rules[case['rule_id']],
+                                               'runtime')
+                    adapter.write_text('#!/usr/bin/env python3\n'
+                                       'import json,sys\n'
+                                       'json.load(sys.stdin)\n'
+                                       f'print({json.dumps(json.dumps({"trace": trace}))})\n')
+                    adapter.chmod(0o700)
+                    result = subprocess.run(
+                        [sys.executable, '-B',
+                         str(root / 'scripts/current_spec_pending_bridge.py')],
+                        input=json.dumps(request).encode(), capture_output=True,
+                        env=environment, timeout=10, check=False)
+                    self.assertEqual(result.returncode, 0,
+                                     result.stderr.decode())
+                    self.assertEqual(json.loads(result.stdout)['actual'],
+                                     fixture['expected'])
+
+    def test_signing_roles_reject_algorithm_and_key_substitution(self):
+        root = Path(__file__).resolve().parents[1]
+        source = catalog()[1]
+        cases = {row['id']: row for row in source['cases']}
+        rules = {row['id']: row for row in source['rules']}
+        for ident in MOWN05_ROLES:
+            with self.subTest(ident=ident):
+                fixture = json.loads((root / 'vectors/0.10.0/current-spec' /
+                                      f'{ident}-runtime.json').read_text())
+                request = {key: fixture[key] for key in
+                           ('schema_version', 'spec_revision', 'id', 'track', 'input')}
+                case = cases[ident]
+                trace = sample_observation(case, rules[case['rule_id']], 'runtime')
+                self.assertEqual(trace['assertions'], {})
+                self.assertEqual(observe(json.dumps(request).encode(), trace)
+                                 ['actual'], fixture['expected'])
+                if ident == 'mres-missing-signing-key':
+                    trace['signature_evidence']['fallback_used'] = True
+                else:
+                    trace['signature_evidence']['attempts'][1]['result'] = 'CONTINUE'
+                self.assertFalse(mown05_check(ident, trace['signature_evidence']))
+                self.assertEqual(observe(json.dumps(request).encode(), trace)
+                                 ['actual']['verdict'], 'REJECT')
+        changed = mown05_sample('mres-signature-carriage')
+        changed['hpke_kem'] = 'Ed25519'
+        self.assertFalse(mown05_check('mres-signature-carriage', changed))
+
+    def test_signing_role_bridge_runs_local_adapter(self):
+        root = Path(__file__).resolve().parents[1]
+        source = catalog()[1]
+        cases = {row['id']: row for row in source['cases']}
+        rules = {row['id']: row for row in source['rules']}
+        with tempfile.TemporaryDirectory() as temporary:
+            adapter = Path(temporary) / 'signature-observer'
+            environment = dict(os.environ, SAGE_CASE_ADAPTER=str(adapter))
+            for ident in MOWN05_ROLES:
                 with self.subTest(ident=ident):
                     fixture = json.loads((root / 'vectors/0.10.0/current-spec' /
                                           f'{ident}-runtime.json').read_text())

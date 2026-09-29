@@ -28,6 +28,10 @@ jobs:
           node scripts/check_envelope_signatures.js vectors/0.10.0/http-envelope-primitives.json
           python3 scripts/test_http_boundary_audit.py
           python3 scripts/test_http_inspection.py
+          python3 -B scripts/test_wire_http_binding_suite.py
+          python3 -B scripts/generate_wire_http_binding_suite.py
+          python3 -B scripts/test_wire_http_binding_reports.py
+          python3 -B scripts/check_wire_http_binding_reports.py
       - name: Audit independent HPKE fixtures
         run: |
           node scripts/check_hpke_vectors.js
@@ -121,6 +125,26 @@ jobs:
           cache: true
       - name: Run the vectors
         run: go run ./cmd/sage-inspector vectors -dir .sage-spec/vectors
+
+  wire-http-source:
+    name: Check pinned wire and HTTP source
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          path: sage-inspector
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: SAGE-X-project/sage-spec
+          ref: 44df132fee5925182018ce089dc82435cb353f8a
+          path: sage-spec
+      - name: Compare exact source bytes and Inspector cases
+        run: |
+          cd sage-inspector
+          python3 -B scripts/generate_wire_http_binding_suite.py --spec-root ../sage-spec
+          python3 -B scripts/test_wire_http_binding_suite.py
+          python3 -B scripts/check_wire_http_binding_reports.py
 
   current-spec:
     name: Current spec inventory

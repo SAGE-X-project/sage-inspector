@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "kind": "wire-http-binding-independent-fixture",
+  "protocol_version": "0.10.0",
+  "status": "OFFLINE_REFERENCE_NOT_PROTOCOL_CONFORMANCE",
+  "reference_now": 1730000010,
+  "provenance": {
+    "construction": "Synthetic Ed25519 keys and ASCII-only JSON generated outside both SAGE cores and Inspector. Private keys are discarded.",
+    "signatures": "Four Ed25519 signatures are checked with OpenSSL against exact wire and RFC 9421 signature-base bytes.",
+    "limitations": "No HPKE SetupBase or session key schedule is exercised. The initiation payload is shape-checked only; the signed unavailable response does not establish a session. Registry state, live freshness, replay, dispatch, and core conformance remain untested."
+  },
+  "source_sha256": {
+    "spec/01-crypto.md": "35463137986ae692593cb12a3654085270f3337acea3aa3d7efcdde8cea78a0a",
+    "spec/02-jcs.md": "4d4b202c8ddb5eb00c47a8e8056813a589834526e2174c023fb005a484eb3d94",
+    "spec/03-rfc9421.md": "b28d567cbf3f7a6a256c73fd35696865b5c0ebdc814de57624b90df082d49407",
+    "spec/04-hpke.md": "1420818451ce8363a16e391647dbaca8ec2f06efa56b6507027a4e17f399fdd6",
+    "spec/06-did-sage.md": "8e0d5f72fc36d46bd5f8c51446f46cb80b644db1ebcd85039c0a342f33bfe50b",
+    "spec/08-transport.md": "e11e8200d67ee913fcd1a47781c6d31a353556c9dfd4e4ce0a88dbe97e10bba6"
+  },
+  "public_keys": {
+    "initiator": {
+      "did": "did:sage:web:agents.example.com:billing-bot",
+      "kid": "did:sage:web:agents.example.com:billing-bot#sig-1",
+      "alg": "ed25519",
+      "state": "accepted",
+      "public_spki_der_b64": "MCowBQYDK2VwAyEAnwTko/9K+n1m/ibwoHtWfY4eJK/tPB4OSnk/cCVaGGg="
+    },
+    "responder": {
+      "did": "did:sage:web:processor.example.com:processor",
+      "kid": "did:sage:web:processor.example.com:processor#sig-1",
+      "alg": "ed25519",
+      "state": "accepted",
+      "public_spki_der_b64": "MCowBQYDK2VwAyEAqn5IfhHSrSx8kA4pMYpzSMbxKuXeO+viPqT+owNJoXI="
+    }
+  },
+  "kem_key_reference": "did:sage:web:processor.example.com:processor#kem-1",
+  "wire_request_signature_input_ascii": "sage-wire-request|0.10.0\n{\"context_id\":\"123e4567-e89b-42d3-a456-426614174000\",\"created\":1730000000,\"did\":\"did:sage:web:agents.example.com:billing-bot\",\"encoding\":\"plain\",\"expires\":1730000300,\"id\":\"123e4567-e89b-42d3-a456-426614174001\",\"kid\":\"did:sage:web:agents.example.com:billing-bot#sig-1\",\"metadata\":{\"purpose\":\"offline-binding-fixture\"},\"nonce\":\"ABEiM0RVZneImaq7zN3u_w\",\"payload\":\"eyJjb21iaW5lciI6ImUyZS14MjU1MTktaGtkZi12MSIsImN0eCI6IjEyM2U0NTY3LWU4OWItNDJkMy1hNDU2LTQyNjYxNDE3NDAwMCIsImVuYyI6InlnSXdCYV91aUQ5ZGM2bkhGa09rV0dJWmE3THhVU04wRTNabW5EQ3ZfRE0iLCJlcGhDIjoic1owdE5xZE1IQTFaQXBfWXFjeXRLR3ZzeGVGaTlOajBqUkdocjNRMGVuOCIsImluaXREaWQiOiJkaWQ6c2FnZTp3ZWI6YWdlbnRzLmV4YW1wbGUuY29tOmJpbGxpbmctYm90IiwiaW5pdEtpZCI6ImRpZDpzYWdlOndlYjphZ2VudHMuZXhhbXBsZS5jb206YmlsbGluZy1ib3Qjc2lnLTEiLCJrZW1LaWQiOiJkaWQ6c2FnZTp3ZWI6cHJvY2Vzc29yLmV4YW1wbGUuY29tOnByb2Nlc3NvciNrZW0tMSIsIm5vbmNlIjoiQUJFaU0wUlZabmVJbWFxN3pOM3VfdyIsInJlc3BEaWQiOiJkaWQ6c2FnZTp3ZWI6cHJvY2Vzc29yLmV4YW1wbGUuY29tOnByb2Nlc3NvciIsInJlc3BLaWQiOiJkaWQ6c2FnZTp3ZWI6cHJvY2Vzc29yLmV4YW1wbGUuY29tOnByb2Nlc3NvciNzaWctMSIsInN1aXRlIjoiaHBrZS1iYXNlK3gyNTUxOStoa2RmLXNoYTI1NiIsInRhc2siOiJocGtlL2luaXRAMC4xMC4wIiwidiI6IjAuMTAuMCJ9\",\"recipient\":\"did:sage:web:processor.example.com:processor\",\"role\":\"initiator\",\"version\":\"0.10.0\"}",
+  "wire_response_signature_input_ascii": "sage-wire-response|0.10.0\n{\"context_id\":\"123e4567-e89b-42d3-a456-426614174000\",\"created\":1730000001,\"data\":\"\",\"did\":\"did:sage:web:processor.example.com:processor\",\"encoding\":\"plain\",\"error\":\"unavailable\",\"expires\":1730000301,\"id\":\"123e4567-e89b-42d3-a456-426614174002\",\"kid\":\"did:sage:web:processor.example.com:processor#sig-1\",\"message_id\":\"123e4567-e89b-42d3-a456-426614174001\",\"nonce\":\"ECEyQ1RldoeYqbq73N3t7w\",\"recipient\":\"did:sage:web:agents.example.com:billing-bot\",\"request_hash\":\"0r0TmAjHgbwwilwQBAEbek7vmaazDvyUGuA7tp8NR_4\",\"role\":\"responder\",\"success\":false,\"version\":\"0.10.0\"}",
+  "http_request": {
+    "method": "POST",
+    "target_uri": "https://processor.example.com/sage/messages",
+    "authority": "processor.example.com",
+    "content_type": "application/json",
+    "body_utf8": "{\"version\":\"0.10.0\",\"id\":\"123e4567-e89b-42d3-a456-426614174001\",\"did\":\"did:sage:web:agents.example.com:billing-bot\",\"recipient\":\"did:sage:web:processor.example.com:processor\",\"kid\":\"did:sage:web:agents.example.com:billing-bot#sig-1\",\"created\":1730000000,\"expires\":1730000300,\"nonce\":\"ABEiM0RVZneImaq7zN3u_w\",\"encoding\":\"plain\",\"context_id\":\"123e4567-e89b-42d3-a456-426614174000\",\"role\":\"initiator\",\"metadata\":{\"purpose\":\"offline-binding-fixture\"},\"payload\":\"eyJjb21iaW5lciI6ImUyZS14MjU1MTktaGtkZi12MSIsImN0eCI6IjEyM2U0NTY3LWU4OWItNDJkMy1hNDU2LTQyNjYxNDE3NDAwMCIsImVuYyI6InlnSXdCYV91aUQ5ZGM2bkhGa09rV0dJWmE3THhVU04wRTNabW5EQ3ZfRE0iLCJlcGhDIjoic1owdE5xZE1IQTFaQXBfWXFjeXRLR3ZzeGVGaTlOajBqUkdocjNRMGVuOCIsImluaXREaWQiOiJkaWQ6c2FnZTp3ZWI6YWdlbnRzLmV4YW1wbGUuY29tOmJpbGxpbmctYm90IiwiaW5pdEtpZCI6ImRpZDpzYWdlOndlYjphZ2VudHMuZXhhbXBsZS5jb206YmlsbGluZy1ib3Qjc2lnLTEiLCJrZW1LaWQiOiJkaWQ6c2FnZTp3ZWI6cHJvY2Vzc29yLmV4YW1wbGUuY29tOnByb2Nlc3NvciNrZW0tMSIsIm5vbmNlIjoiQUJFaU0wUlZabmVJbWFxN3pOM3VfdyIsInJlc3BEaWQiOiJkaWQ6c2FnZTp3ZWI6cHJvY2Vzc29yLmV4YW1wbGUuY29tOnByb2Nlc3NvciIsInJlc3BLaWQiOiJkaWQ6c2FnZTp3ZWI6cHJvY2Vzc29yLmV4YW1wbGUuY29tOnByb2Nlc3NvciNzaWctMSIsInN1aXRlIjoiaHBrZS1iYXNlK3gyNTUxOStoa2RmLXNoYTI1NiIsInRhc2siOiJocGtlL2luaXRAMC4xMC4wIiwidiI6IjAuMTAuMCJ9\",\"signature\":\"SOeLl2QrMe1Sz9Wl2zGrqcXJFpxOwUeBCjkNMpD1Up703jXNV_2i2YT4x6ckHfmtl_6Qe073h21mp4n5o0TgCw\"}",
+    "x_sage_did": "did:sage:web:agents.example.com:billing-bot",
+    "x_sage_version": "0.10.0",
+    "keyid": "did:sage:web:agents.example.com:billing-bot#sig-1",
+    "alg": "ed25519",
+    "created": 1730000000,
+    "expires": 1730000300,
+    "nonce": "ABEiM0RVZneImaq7zN3u_w",
+    "tag": "sage-0.10.0",
+    "covered_components": [
+      "\"@method\"",
+      "\"@target-uri\"",
+      "\"@authority\"",
+      "\"content-type\"",
+      "\"content-digest\"",
+      "\"x-sage-did\"",
+      "\"x-sage-version\""
+    ],
+    "content_digest": "sha-256=:fpwRxZjfTFhGkcRUjm21UPJSw47XEA/3v+9KJNdV1Bs=:",
+    "signature_input": "sig1=(\"@method\" \"@target-uri\" \"@authority\" \"content-type\" \"content-digest\" \"x-sage-did\" \"x-sage-version\");keyid=\"did:sage:web:agents.example.com:billing-bot#sig-1\";alg=\"ed25519\";created=1730000000;expires=1730000300;nonce=\"ABEiM0RVZneImaq7zN3u_w\";tag=\"sage-0.10.0\"",
+    "signature_base_ascii": "\"@method\": POST\n\"@target-uri\": https://processor.example.com/sage/messages\n\"@authority\": processor.example.com\n\"content-type\": application/json\n\"content-digest\": sha-256=:fpwRxZjfTFhGkcRUjm21UPJSw47XEA/3v+9KJNdV1Bs=:\n\"x-sage-did\": did:sage:web:agents.example.com:billing-bot\n\"x-sage-version\": 0.10.0\n\"@signature-params\": (\"@method\" \"@target-uri\" \"@authority\" \"content-type\" \"content-digest\" \"x-sage-did\" \"x-sage-version\");keyid=\"did:sage:web:agents.example.com:billing-bot#sig-1\";alg=\"ed25519\";created=1730000000;expires=1730000300;nonce=\"ABEiM0RVZneImaq7zN3u_w\";tag=\"sage-0.10.0\"",
+    "signature_b64url": "iCW1guEzLURLHoizLLkP3OwsQW6ZRjXPBNBBbo40WtVCj-cukWexLvMy05VZrIxZaNj53f2bL8e0BASfF3_7BQ",
+    "signature_field": "sig1=:iCW1guEzLURLHoizLLkP3OwsQW6ZRjXPBNBBbo40WtVCj+cukWexLvMy05VZrIxZaNj53f2bL8e0BASfF3/7BQ==:"
+  },
+  "http_response": {
+    "status": 503,
+    "content_type": "application/json",
+    "body_utf8": "{\"version\":\"0.10.0\",\"id\":\"123e4567-e89b-42d3-a456-426614174002\",\"did\":\"did:sage:web:processor.example.com:processor\",\"recipient\":\"did:sage:web:agents.example.com:billing-bot\",\"kid\":\"did:sage:web:processor.example.com:processor#sig-1\",\"created\":1730000001,\"expires\":1730000301,\"nonce\":\"ECEyQ1RldoeYqbq73N3t7w\",\"encoding\":\"plain\",\"context_id\":\"123e4567-e89b-42d3-a456-426614174000\",\"role\":\"responder\",\"message_id\":\"123e4567-e89b-42d3-a456-426614174001\",\"request_hash\":\"0r0TmAjHgbwwilwQBAEbek7vmaazDvyUGuA7tp8NR_4\",\"success\":false,\"data\":\"\",\"error\":\"unavailable\",\"signature\":\"TBaBgqiA7xLTVJ4p8kn6_SQow8ceVf_7h1df4aoNAh7RLRBdwRZ6lhv9lAD5at20vbU-UvujyRbFcb1Ie7sOAw\"}",
+    "x_sage_did": "did:sage:web:processor.example.com:processor",
+    "x_sage_version": "0.10.0",
+    "keyid": "did:sage:web:processor.example.com:processor#sig-1",
+    "alg": "ed25519",
+    "created": 1730000001,
+    "expires": 1730000301,
+    "nonce": "ECEyQ1RldoeYqbq73N3t7w",
+    "tag": "sage-0.10.0",
+    "covered_components": [
+      "\"@status\"",
+      "\"@method\";req",
+      "\"@target-uri\";req",
+      "\"@authority\";req",
+      "\"content-digest\";req",
+      "\"signature\";req",
+      "\"x-sage-version\";req",
+      "\"content-type\"",
+      "\"content-digest\"",
+      "\"x-sage-did\"",
+      "\"x-sage-version\""
+    ],
+    "content_digest": "sha-256=:Yay2ZF3R359qgvIX+ZHIhhRNKyOSQrwDD5MWdALwhd4=:",
+    "signature_input": "sig1=(\"@status\" \"@method\";req \"@target-uri\";req \"@authority\";req \"content-digest\";req \"signature\";req \"x-sage-version\";req \"content-type\" \"content-digest\" \"x-sage-did\" \"x-sage-version\");keyid=\"did:sage:web:processor.example.com:processor#sig-1\";alg=\"ed25519\";created=1730000001;expires=1730000301;nonce=\"ECEyQ1RldoeYqbq73N3t7w\";tag=\"sage-0.10.0\"",
+    "signature_base_ascii": "\"@status\": 503\n\"@method\";req: POST\n\"@target-uri\";req: https://processor.example.com/sage/messages\n\"@authority\";req: processor.example.com\n\"content-digest\";req: sha-256=:fpwRxZjfTFhGkcRUjm21UPJSw47XEA/3v+9KJNdV1Bs=:\n\"signature\";req: sig1=:iCW1guEzLURLHoizLLkP3OwsQW6ZRjXPBNBBbo40WtVCj+cukWexLvMy05VZrIxZaNj53f2bL8e0BASfF3/7BQ==:\n\"x-sage-version\";req: 0.10.0\n\"content-type\": application/json\n\"content-digest\": sha-256=:Yay2ZF3R359qgvIX+ZHIhhRNKyOSQrwDD5MWdALwhd4=:\n\"x-sage-did\": did:sage:web:processor.example.com:processor\n\"x-sage-version\": 0.10.0\n\"@signature-params\": (\"@status\" \"@method\";req \"@target-uri\";req \"@authority\";req \"content-digest\";req \"signature\";req \"x-sage-version\";req \"content-type\" \"content-digest\" \"x-sage-did\" \"x-sage-version\");keyid=\"did:sage:web:processor.example.com:processor#sig-1\";alg=\"ed25519\";created=1730000001;expires=1730000301;nonce=\"ECEyQ1RldoeYqbq73N3t7w\";tag=\"sage-0.10.0\"",
+    "signature_b64url": "gFT4Ho40h3Tz4P-LCRwzOmi31Ki6yRgwOtHuB2Uoxx1ox0g_0SYLSrEGX8h_Jwe_AOppoAGCT6Ko1IJOONNOAA",
+    "signature_field": "sig1=:gFT4Ho40h3Tz4P+LCRwzOmi31Ki6yRgwOtHuB2Uoxx1ox0g/0SYLSrEGX8h/Jwe/AOppoAGCT6Ko1IJOONNOAA==:"
+  }
+}

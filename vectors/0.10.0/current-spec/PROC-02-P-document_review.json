@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "PROC-02-P",
+  "track": "document_review",
+  "input": {
+    "operation": "sage.process.review",
+    "input": {
+      "configuration": {
+        "vector_revision": "f4a4e7fbf71a665785984eef7609b2e8fabe833d",
+        "observation_present": true,
+        "claimed_status": "PASS"
+      }
+    }
+  },
+  "expected": {
+    "verdict": "ACCEPT",
+    "output": {
+      "accepted": true,
+      "reason": "revision_bound_evidence"
+    },
+    "effects": {}
+  }
+}

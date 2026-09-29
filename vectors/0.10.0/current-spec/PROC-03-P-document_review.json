@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "PROC-03-P",
+  "track": "document_review",
+  "input": {
+    "operation": "sage.process.review",
+    "input": {
+      "configuration": {
+        "canonical_sources": [
+          "spec/",
+          "profiles/",
+          "charter.md"
+        ],
+        "touched_repositories": [
+          "sage-inspector",
+          "sage-spec"
+        ]
+      }
+    }
+  },
+  "expected": {
+    "verdict": "ACCEPT",
+    "output": {
+      "accepted": true,
+      "reason": "single_specification_owner"
+    },
+    "effects": {}
+  }
+}

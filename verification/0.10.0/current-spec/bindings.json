@@ -2570,6 +2570,69 @@
       "fixture": "vectors/0.10.0/current-spec/CST-02-05-deployment_review.json",
       "fixture_sha256": "67923dd2b05eb984888e7d67cc41cf52e2eca8a233522bdd072331dc7efef597",
       "coverage": "partial"
+    },
+    {
+      "id": "PROC-01-P",
+      "track": "document_review",
+      "fixture": "vectors/0.10.0/current-spec/PROC-01-P-document_review.json",
+      "fixture_sha256": "e710a704280248442e535a3b346a6eff147a74d681e2ae30bc951406b01d8ebe",
+      "coverage": "partial"
+    },
+    {
+      "id": "PROC-01-N01",
+      "track": "document_review",
+      "fixture": "vectors/0.10.0/current-spec/PROC-01-N01-document_review.json",
+      "fixture_sha256": "4ecd0feff9a0420d359f820c4abe4493c71a75cead12b6979bc51ccc253e3452",
+      "coverage": "partial"
+    },
+    {
+      "id": "PROC-01-N02",
+      "track": "document_review",
+      "fixture": "vectors/0.10.0/current-spec/PROC-01-N02-document_review.json",
+      "fixture_sha256": "d1af65177943a673d004959b06019ab5b6752874e8f651cc38fa43bb7ad4f533",
+      "coverage": "partial"
+    },
+    {
+      "id": "PROC-02-P",
+      "track": "document_review",
+      "fixture": "vectors/0.10.0/current-spec/PROC-02-P-document_review.json",
+      "fixture_sha256": "719bace72ca01269e6c75a7f4e5ff341eb733de82bf9576ff02bb8fe97421232",
+      "coverage": "partial"
+    },
+    {
+      "id": "PROC-02-N01",
+      "track": "document_review",
+      "fixture": "vectors/0.10.0/current-spec/PROC-02-N01-document_review.json",
+      "fixture_sha256": "c63c8caed7e8b862e8f307b33a338fa7fcbe19c582bbdfc010b4c7c2729890fa",
+      "coverage": "partial"
+    },
+    {
+      "id": "PROC-02-N02",
+      "track": "document_review",
+      "fixture": "vectors/0.10.0/current-spec/PROC-02-N02-document_review.json",
+      "fixture_sha256": "e9d36507e95faec5f578ba1c6a488efa07255f1da377c0e5c57afb2fc2d67e25",
+      "coverage": "partial"
+    },
+    {
+      "id": "PROC-03-P",
+      "track": "document_review",
+      "fixture": "vectors/0.10.0/current-spec/PROC-03-P-document_review.json",
+      "fixture_sha256": "738d24f03c27c9b5e5ee743e9e83ead855eb88179b47a91ad0b6a31d3fa454ce",
+      "coverage": "partial"
+    },
+    {
+      "id": "PROC-03-N01",
+      "track": "document_review",
+      "fixture": "vectors/0.10.0/current-spec/PROC-03-N01-document_review.json",
+      "fixture_sha256": "998d2fe0da031133dd6dfd72ecd33084fb6d94ad5c7d06e93940b718e4eef1b7",
+      "coverage": "partial"
+    },
+    {
+      "id": "PROC-03-N02",
+      "track": "document_review",
+      "fixture": "vectors/0.10.0/current-spec/PROC-03-N02-document_review.json",
+      "fixture_sha256": "ffa7599678fe5c37b28f8f5ebaacb2aa14dbc07cad49f38e57e3d6e66a0ca061",
+      "coverage": "partial"
     }
   ]
 }

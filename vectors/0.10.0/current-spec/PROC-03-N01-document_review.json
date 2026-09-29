@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "PROC-03-N01",
+  "track": "document_review",
+  "input": {
+    "operation": "sage.process.review",
+    "input": {
+      "configuration": {
+        "canonical_sources": [
+          "spec/",
+          "profiles/",
+          "charter.md",
+          "docs/new-spec.md"
+        ],
+        "touched_repositories": [
+          "sage-inspector",
+          "sage-spec"
+        ]
+      }
+    }
+  },
+  "expected": {
+    "verdict": "REJECT",
+    "output": {
+      "accepted": false,
+      "reason": "competing_source_or_code_change"
+    },
+    "effects": {}
+  }
+}

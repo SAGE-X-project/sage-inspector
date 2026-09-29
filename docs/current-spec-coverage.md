@@ -42,8 +42,9 @@ python3 -B scripts/current_spec_gap.py --output /tmp/current-spec-gap.json
 ```
 
 `scripts/current_spec_evidence.py` is the case-level evidence admission and
-status engine. Its 367 current bindings cover selected JCS, HTTP, HPKE,
-session, DID, Agent Card, transport, and Registry cases only partially; the remaining cases still need bindings. A binding must name a current
+status engine. Its 376 current bindings cover selected JCS, HTTP, HPKE,
+session, DID, Agent Card, transport, Registry, execution, and process cases
+only partially; the remaining cases still need bindings. A binding must name a current
 case or mandatory child, one required verification track, a repository-owned
 fixture hash, and whether that fixture covers the complete case or only part
 of it. An external observation must pin the spec revision, exact fixture and
@@ -66,12 +67,16 @@ python3 -B scripts/current_spec_evidence.py \
 
 The unit tests use synthetic, inert observations to check status derivation.
 They are not evidence that a SAGE implementation passed a normative case.
-`scripts/run_current_spec_cases.py` can execute bound runtime fixtures against
-one explicit local adapter. It sends the case input but never the expected
+The nine PROC-01..03 document-review fixtures use the pinned `PROCESS.md` and
+bounded negative controls for source ownership, historical evidence, and
+repository scope. Their preserved observations are `PARTIAL`: they exercise
+Inspector's review decision, not all repository changes or product behaviour.
+`scripts/run_current_spec_cases.py` can execute bound fixtures for one selected
+verification track against one explicit local adapter. It sends the case input but never the expected
 answer, bounds the process, and writes hashed observations for the evidence
-engine. Document and deployment reviews use their own observation capture;
+engine. Document and deployment reviews require track-specific adapters;
 they cannot be replaced by a primitive adapter. An attempt to run a case
-without a reviewed runtime fixture fails explicitly. The primitive bridge
+without a reviewed fixture on the selected track fails explicitly. The primitive bridge
 translates the seven JCS parser cases to the existing Go/Rust core adapter request,
 preserving raw JSON bytes and returning only the core verdict. Its
 empty effect map means effects were not observed; this is partial case evidence.

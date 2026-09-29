@@ -100,6 +100,143 @@ MSET07_SCENARIOS = {
     'mset-07-terminal-preserved': 'terminal_preserved',
     'mset-07-missing-ledger': 'missing_ledger',
 }
+MSET08_SCENARIOS = {
+    'mset-08-proposal-scope': 'unproven_conformance_claim',
+    'mset-08-http-not-defined': 'http_excluded',
+    'mset-08-historical-evidence': 'historical_not_promoted',
+}
+MERRATA_CONFIG_SCENARIOS = {
+    'merrata-config-valid': 'valid_configuration',
+    'merrata-config-reject': 'invalid_configuration',
+    'merrata-config-change': 'closed_after_change',
+}
+SEMANTIC_MSET_IDS = (set(SETUP_MODEL_SCENARIOS) |
+                     set(MSET01_SCENARIOS) | set(MSET02_SCENARIOS) |
+                     set(MSET03_SCENARIOS) | set(MSET04_SCENARIOS) |
+                     set(MSET05_SCENARIOS) | set(MSET07_SCENARIOS) |
+                     set(MSET08_SCENARIOS) | set(MERRATA_CONFIG_SCENARIOS))
+MCP_BINDING_ID = 'sage-mcp-non-http/0.10.0/mcp-2025-06-18'
+MCP_DESCRIPTOR_DIGEST = 'sha256-jcs:f40nkKDT3hQs9poaxZxm8Bgw4hUV1f036fGMmIaKPtQ'
+
+
+def merrata_config_classification(evidence):
+    require(type(evidence) is dict and
+            set(evidence) == {'descriptor_json', 'binding_id',
+                              'peer_binding_id', 'sage_version',
+                              'mcp_version', 'configured_digest',
+                              'peer_digest', 'expected_peer_tuple_sha256',
+                              'observed_peer_tuple_sha256',
+                              'owner_descriptor_digest_at_construction',
+                              'current_descriptor_digest', 'owner_state'} and
+            type(evidence['descriptor_json']) is str and
+            len(evidence['descriptor_json'].encode()) <= 16 * 1024 and
+            all(evidence[key] is None or
+                type(evidence[key]) is str and len(evidence[key]) <= 128
+                for key in ('binding_id', 'peer_binding_id',
+                            'sage_version', 'mcp_version',
+                            'configured_digest', 'peer_digest')) and
+            all(sha256_hex(evidence[key]) for key in
+                ('expected_peer_tuple_sha256',
+                 'observed_peer_tuple_sha256',
+                 'owner_descriptor_digest_at_construction',
+                 'current_descriptor_digest')) and
+            evidence['owner_state'] in ('NEW', 'READY', 'CLOSED'),
+            'bounded trusted local MCP configuration')
+    if evidence['owner_descriptor_digest_at_construction'] != \
+            evidence['current_descriptor_digest']:
+        return ('closed_after_change' if evidence['owner_state'] == 'CLOSED'
+                else 'unsafe_configuration_change')
+    try:
+        descriptor = json.loads(evidence['descriptor_json'],
+                                object_pairs_hook=unique_json_object)
+    except (ValueError, TypeError):
+        return 'invalid_configuration'
+    digest_hex = canonical_tool_digest(pinned_tool())
+    digest = 'sha256-jcs:' + base64.urlsafe_b64encode(
+        bytes.fromhex(digest_hex)).rstrip(b'=').decode()
+    if digest != MCP_DESCRIPTOR_DIGEST or descriptor != pinned_tool() or \
+            canonical_tool_digest(descriptor) != digest_hex or \
+            evidence['binding_id'] != MCP_BINDING_ID or \
+            evidence['peer_binding_id'] != MCP_BINDING_ID or \
+            evidence['sage_version'] != '0.10.0' or \
+            evidence['mcp_version'] != '2025-06-18' or \
+            evidence['configured_digest'] != MCP_DESCRIPTOR_DIGEST or \
+            evidence['peer_digest'] != MCP_DESCRIPTOR_DIGEST or \
+            evidence['expected_peer_tuple_sha256'] != \
+            evidence['observed_peer_tuple_sha256']:
+        return 'invalid_configuration'
+    return 'valid_configuration'
+
+
+def merrata_config_sample(ident):
+    digest = canonical_tool_digest(pinned_tool())
+    evidence = {'descriptor_json': json.dumps(pinned_tool(),
+                                               sort_keys=True,
+                                               separators=(',', ':')),
+                'binding_id': MCP_BINDING_ID,
+                'peer_binding_id': MCP_BINDING_ID,
+                'sage_version': '0.10.0', 'mcp_version': '2025-06-18',
+                'configured_digest': MCP_DESCRIPTOR_DIGEST,
+                'peer_digest': MCP_DESCRIPTOR_DIGEST,
+                'expected_peer_tuple_sha256': 'a' * 64,
+                'observed_peer_tuple_sha256': 'a' * 64,
+                'owner_descriptor_digest_at_construction': digest,
+                'current_descriptor_digest': digest,
+                'owner_state': 'NEW'}
+    if ident == 'merrata-config-reject':
+        evidence['binding_id'] = None
+    elif ident == 'merrata-config-change':
+        evidence['owner_descriptor_digest_at_construction'] = 'b' * 64
+        evidence['owner_state'] = 'CLOSED'
+    return evidence
+
+
+def mset08_classification(evidence):
+    require(type(evidence) is dict and
+            set(evidence) == {'design_adopted', 'claim', 'transport',
+                              'runtime_evidence_ids', 'http_profile_defined',
+                              'fallback_effect_ids',
+                              'historical_not_run_count',
+                              'historical_promoted_ids'} and
+            type(evidence['design_adopted']) is bool and
+            evidence['claim'] in ('runtime_conformance',
+                                  'historical_pass', 'no_claim') and
+            evidence['transport'] in ('non_http', 'http') and
+            bounded_ids(evidence['runtime_evidence_ids']) and
+            type(evidence['http_profile_defined']) is bool and
+            bounded_ids(evidence['fallback_effect_ids']) and
+            type(evidence['historical_not_run_count']) is int and
+            0 <= evidence['historical_not_run_count'] <= 10000 and
+            bounded_ids(evidence['historical_promoted_ids']),
+            'bounded design-adoption and excluded transport claims')
+    if evidence['claim'] == 'runtime_conformance' and \
+            evidence['design_adopted'] and \
+            not evidence['runtime_evidence_ids']:
+        return 'unproven_conformance_claim'
+    if evidence['transport'] == 'http' and \
+            not evidence['http_profile_defined'] and \
+            not evidence['fallback_effect_ids']:
+        return 'http_excluded'
+    if evidence['claim'] == 'historical_pass' and \
+            evidence['historical_not_run_count'] == 71 and \
+            not evidence['historical_promoted_ids']:
+        return 'historical_not_promoted'
+    return 'unjustified_scope_or_promotion'
+
+
+def mset08_sample(ident):
+    evidence = {'design_adopted': True, 'claim': 'no_claim',
+                'transport': 'non_http', 'runtime_evidence_ids': [],
+                'http_profile_defined': False, 'fallback_effect_ids': [],
+                'historical_not_run_count': 71,
+                'historical_promoted_ids': []}
+    if ident == 'mset-08-proposal-scope':
+        evidence['claim'] = 'runtime_conformance'
+    elif ident == 'mset-08-http-not-defined':
+        evidence['transport'] = 'http'
+    elif ident == 'mset-08-historical-evidence':
+        evidence['claim'] = 'historical_pass'
+    return evidence
 
 
 def mset07_classification(evidence):
@@ -599,7 +736,9 @@ def sample_observation(case, rule, track):
                   not (ident in MSET05_SCENARIOS and
                        name == 'descriptor_and_gate_checked') and
                   not (ident in MSET07_SCENARIOS and
-                       name == 'fresh_owner_and_durable_state_checked')}
+                       name == 'fresh_owner_and_durable_state_checked') and
+                  not (ident in MSET08_SCENARIOS and
+                       name == 'profile_scope_checked')}
     result = {'case_id': ident, 'track': track,
               'observed_outcome': case['expected'], 'assertions': assertions,
               'observer_effects': 0, 'subject_effects': 0}
@@ -617,6 +756,10 @@ def sample_observation(case, rule, track):
         result['carriage_evidence'] = mset02_sample(ident)
     if ident in MSET07_SCENARIOS:
         result['reconnect_evidence'] = mset07_sample(ident)
+    if ident in MSET08_SCENARIOS:
+        result['scope_evidence'] = mset08_sample(ident)
+    if ident in MERRATA_CONFIG_SCENARIOS:
+        result['configuration_evidence'] = merrata_config_sample(ident)
     return result
 
 
@@ -639,6 +782,10 @@ def inspect(case, rule, track, phase, observed):
         fields.add('carriage_evidence')
     if case['id'] in MSET07_SCENARIOS:
         fields.add('reconnect_evidence')
+    if case['id'] in MSET08_SCENARIOS:
+        fields.add('scope_evidence')
+    if case['id'] in MERRATA_CONFIG_SCENARIOS:
+        fields.add('configuration_evidence')
     require(type(observed) is dict and
             set(observed) == fields and
             observed['case_id'] == case['id'] and observed['track'] == track and
@@ -661,7 +808,9 @@ def inspect(case, rule, track, phase, observed):
                      not (case['id'] in MSET05_SCENARIOS and
                           name == 'descriptor_and_gate_checked') and
                      not (case['id'] in MSET07_SCENARIOS and
-                          name == 'fresh_owner_and_durable_state_checked'))
+                          name == 'fresh_owner_and_durable_state_checked') and
+                     not (case['id'] in MSET08_SCENARIOS and
+                          name == 'profile_scope_checked'))
     assertions_valid = (set(observed['assertions']) == set(required) and
                         all(observed['assertions'][key] is True for key in required))
     effects_agree = observed['observer_effects'] == observed['subject_effects']
@@ -688,10 +837,18 @@ def inspect(case, rule, track, phase, observed):
     reconnect_ok = (case['id'] not in MSET07_SCENARIOS or
                     mset07_classification(observed['reconnect_evidence']) ==
                     MSET07_SCENARIOS[case['id']])
+    scope_ok = (case['id'] not in MSET08_SCENARIOS or
+                mset08_classification(observed['scope_evidence']) ==
+                MSET08_SCENARIOS[case['id']])
+    configuration_ok = (case['id'] not in MERRATA_CONFIG_SCENARIOS or
+                        merrata_config_classification(
+                            observed['configuration_evidence']) ==
+                        MERRATA_CONFIG_SCENARIOS[case['id']])
     matched = (observed['observed_outcome'] == expected_outcome(case) and
                assertions_valid and effects_agree and setup_effects and
                model_ok and mcp_response_ok and ack_ok and discovery_ok and
-               channel_ok and carriage_ok and reconnect_ok)
+               channel_ok and carriage_ok and reconnect_ok and scope_ok and
+               configuration_ok)
     return {'verdict': 'ACCEPT' if matched else 'REJECT',
             'output': {'matched': matched,
                        'reason': 'case_contract' if matched else

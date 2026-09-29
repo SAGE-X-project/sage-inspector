@@ -17,6 +17,8 @@ from current_spec_pending_contracts import MSET03_SCENARIOS
 from current_spec_pending_contracts import MSET04_SCENARIOS
 from current_spec_pending_contracts import MSET05_SCENARIOS, MSET06_SCENARIOS
 from current_spec_pending_contracts import MSET07_SCENARIOS
+from current_spec_pending_contracts import MSET08_SCENARIOS
+from current_spec_pending_contracts import MERRATA_CONFIG_SCENARIOS
 from current_spec_pending_contracts import SETUP_MODEL_SCENARIOS
 from current_spec_pending_contracts import mset01_classification, mset01_sample
 from current_spec_pending_contracts import mset02_classification, mset02_sample
@@ -24,6 +26,9 @@ from current_spec_pending_contracts import mset03_classification, mset03_sample
 from current_spec_pending_contracts import mset04_classification, mset04_sample
 from current_spec_pending_contracts import mset05_classification, mset05_sample
 from current_spec_pending_contracts import mset07_classification, mset07_sample
+from current_spec_pending_contracts import mset08_classification, mset08_sample
+from current_spec_pending_contracts import merrata_config_classification
+from current_spec_pending_contracts import merrata_config_sample
 from current_spec_pending_contracts import sample_observation
 
 
@@ -491,6 +496,131 @@ class PendingContractTests(unittest.TestCase):
             adapter = Path(temporary) / 'reconnect-observer'
             environment = dict(os.environ, SAGE_CASE_ADAPTER=str(adapter))
             for ident in MSET07_SCENARIOS:
+                with self.subTest(ident=ident):
+                    fixture = json.loads((root / 'vectors/0.10.0/current-spec' /
+                                          f'{ident}-runtime.json').read_text())
+                    request = {key: fixture[key] for key in
+                               ('schema_version', 'spec_revision', 'id', 'track', 'input')}
+                    case = cases[ident]
+                    trace = sample_observation(case, rules[case['rule_id']],
+                                               'runtime')
+                    adapter.write_text('#!/usr/bin/env python3\n'
+                                       'import json,sys\n'
+                                       'json.load(sys.stdin)\n'
+                                       f'print({json.dumps(json.dumps({"trace": trace}))})\n')
+                    adapter.chmod(0o700)
+                    result = subprocess.run(
+                        [sys.executable, '-B',
+                         str(root / 'scripts/current_spec_pending_bridge.py')],
+                        input=json.dumps(request).encode(), capture_output=True,
+                        env=environment, timeout=10, check=False)
+                    self.assertEqual(result.returncode, 0,
+                                     result.stderr.decode())
+                    self.assertEqual(json.loads(result.stdout)['actual'],
+                                     fixture['expected'])
+
+    def test_adoption_scope_cases_reject_unsupported_claims(self):
+        root = Path(__file__).resolve().parents[1]
+        source = catalog()[1]
+        cases = {row['id']: row for row in source['cases']}
+        rules = {row['id']: row for row in source['rules']}
+        for ident in MSET08_SCENARIOS:
+            for track in ('runtime', 'document_review'):
+                with self.subTest(ident=ident, track=track):
+                    fixture = json.loads((root / 'vectors/0.10.0/current-spec' /
+                                          f'{ident}-{track}.json').read_text())
+                    request = {key: fixture[key] for key in
+                               ('schema_version', 'spec_revision', 'id',
+                                'track', 'input')}
+                    case = cases[ident]
+                    trace = sample_observation(case, rules[case['rule_id']], track)
+                    self.assertEqual(trace['assertions'], {})
+                    self.assertEqual(observe(json.dumps(request).encode(), trace)
+                                     ['actual'], fixture['expected'])
+                    changed = dict(trace, scope_evidence=mset08_sample(
+                        'mset-08-historical-evidence' if
+                        ident == 'mset-08-proposal-scope' else
+                        'mset-08-proposal-scope'))
+                    self.assertEqual(observe(json.dumps(request).encode(), changed)
+                                     ['actual']['verdict'], 'REJECT')
+        changed = mset08_sample('mset-08-http-not-defined')
+        changed['fallback_effect_ids'] = ['effect-1']
+        self.assertEqual(mset08_classification(changed),
+                         'unjustified_scope_or_promotion')
+
+    def test_adoption_scope_bridge_runs_local_adapter(self):
+        root = Path(__file__).resolve().parents[1]
+        source = catalog()[1]
+        cases = {row['id']: row for row in source['cases']}
+        rules = {row['id']: row for row in source['rules']}
+        with tempfile.TemporaryDirectory() as temporary:
+            adapter = Path(temporary) / 'scope-observer'
+            environment = dict(os.environ, SAGE_CASE_ADAPTER=str(adapter))
+            for ident in MSET08_SCENARIOS:
+                for track in ('runtime', 'document_review'):
+                    with self.subTest(ident=ident, track=track):
+                        fixture = json.loads((root / 'vectors/0.10.0/current-spec' /
+                                              f'{ident}-{track}.json').read_text())
+                        request = {key: fixture[key] for key in
+                                   ('schema_version', 'spec_revision', 'id',
+                                    'track', 'input')}
+                        case = cases[ident]
+                        trace = sample_observation(case, rules[case['rule_id']],
+                                                   track)
+                        adapter.write_text('#!/usr/bin/env python3\n'
+                                           'import json,sys\n'
+                                           'json.load(sys.stdin)\n'
+                                           f'print({json.dumps(json.dumps({"trace": trace}))})\n')
+                        adapter.chmod(0o700)
+                        result = subprocess.run(
+                            [sys.executable, '-B',
+                             str(root / 'scripts/current_spec_pending_bridge.py')],
+                            input=json.dumps(request).encode(), capture_output=True,
+                            env=environment, timeout=10, check=False)
+                        self.assertEqual(result.returncode, 0,
+                                         result.stderr.decode())
+                        self.assertEqual(json.loads(result.stdout)['actual'],
+                                         fixture['expected'])
+
+    def test_trusted_configuration_cases_validate_complete_binding(self):
+        root = Path(__file__).resolve().parents[1]
+        source = catalog()[1]
+        cases = {row['id']: row for row in source['cases']}
+        rules = {row['id']: row for row in source['rules']}
+        for ident in MERRATA_CONFIG_SCENARIOS:
+            with self.subTest(ident=ident):
+                fixture = json.loads((root / 'vectors/0.10.0/current-spec' /
+                                      f'{ident}-runtime.json').read_text())
+                request = {key: fixture[key] for key in
+                           ('schema_version', 'spec_revision', 'id', 'track', 'input')}
+                case = cases[ident]
+                trace = sample_observation(case, rules[case['rule_id']], 'runtime')
+                self.assertEqual(observe(json.dumps(request).encode(), trace)
+                                 ['actual'], fixture['expected'])
+                replacement = ('merrata-config-reject'
+                               if ident == 'merrata-config-valid' else
+                               'merrata-config-valid')
+                trace['configuration_evidence'] = merrata_config_sample(replacement)
+                self.assertEqual(observe(json.dumps(request).encode(), trace)
+                                 ['actual']['verdict'], 'REJECT')
+        changed = merrata_config_sample('merrata-config-change')
+        changed['owner_state'] = 'READY'
+        self.assertEqual(merrata_config_classification(changed),
+                         'unsafe_configuration_change')
+        changed = merrata_config_sample('merrata-config-valid')
+        changed['peer_digest'] = 'sha256-jcs:wrong'
+        self.assertEqual(merrata_config_classification(changed),
+                         'invalid_configuration')
+
+    def test_trusted_configuration_bridge_runs_local_adapter(self):
+        root = Path(__file__).resolve().parents[1]
+        source = catalog()[1]
+        cases = {row['id']: row for row in source['cases']}
+        rules = {row['id']: row for row in source['rules']}
+        with tempfile.TemporaryDirectory() as temporary:
+            adapter = Path(temporary) / 'configuration-observer'
+            environment = dict(os.environ, SAGE_CASE_ADAPTER=str(adapter))
+            for ident in MERRATA_CONFIG_SCENARIOS:
                 with self.subTest(ident=ident):
                     fixture = json.loads((root / 'vectors/0.10.0/current-spec' /
                                           f'{ident}-runtime.json').read_text())

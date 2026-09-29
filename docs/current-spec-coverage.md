@@ -143,6 +143,14 @@ setup completion, dispatch counts, terminal digests, client consumption and
 ledger presence. Recreating a missing ledger as empty or dispatching an old
 call again fails the local contract; independent durable-store observations
 are still needed for a deployed host.
+The MSET-08 scope controls distinguish normative design adoption from runtime
+conformance, exclude unprofiled HTTP fallback, and preserve historical NOT_RUN
+evidence. Three trusted-configuration controls compare the complete descriptor,
+binding/version/peer tuple and fixed JCS digest, and require closure after a
+configuration change. Every one of the 43 MSET parent cases now has a
+case-specific local predicate; the phase gate checks this inventory. The
+contracts are still partial: reported events and repository-wide routes need
+independent provenance, and no deployed subject has been run on this revision.
 `scripts/run_current_spec_cases.py` can execute bound fixtures for one selected
 verification track against one explicit local adapter. It sends the case input but never the expected
 answer, bounds the process, and writes hashed observations for the evidence

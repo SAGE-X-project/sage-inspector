@@ -34,13 +34,17 @@ def run(root, adapter, repository, revision, output, selected=None,
     require(type(repository) is str and repository, 'subject repository')
     require(re.fullmatch('[0-9a-f]{40}', revision) is not None, 'subject revision')
     require(adapter.is_file() and not adapter.is_symlink(), 'adapter executable path')
+    configured = [Path(value).resolve() for name in
+                  ('SAGE_CORE_ADAPTER', 'SAGE_CASE_ADAPTER')
+                  if (value := os.environ.get(name))]
+    if configured:
+        require(subject_executable is not None,
+                'configured subject adapter needs a pinned executable')
     if subject_executable is not None:
         require(subject_executable.is_file() and not subject_executable.is_symlink(),
                 'subject executable path')
-        configured = os.environ.get('SAGE_CORE_ADAPTER')
-        if configured is not None:
-            require(Path(configured).resolve() == subject_executable.resolve(),
-                    'observed core adapter differs from pinned subject executable')
+        require(all(path == subject_executable.resolve() for path in configured),
+                'observed subject adapter differs from pinned executable')
     require(not output.exists() and not output.resolve().is_relative_to(root.resolve()),
             'new output directory outside repository required')
     if runner_revision is None:

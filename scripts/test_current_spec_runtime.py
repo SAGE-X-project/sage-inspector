@@ -5,6 +5,7 @@ from pathlib import Path
 import shutil
 import tempfile
 import unittest
+from unittest.mock import patch
 
 import current_spec_evidence as evidence
 import run_current_spec_cases as runner
@@ -94,6 +95,21 @@ class CurrentSpecRuntimeTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'no runtime fixture'):
             runner.run(self.root, self.adapter, 'example/core', 'a' * 40,
                        self.output, runner_revision='c' * 40)
+
+    def test_configured_host_must_match_pinned_subject(self):
+        self.bind()
+        self.make_adapter()
+        with patch.dict('os.environ', {'SAGE_CASE_ADAPTER': str(self.adapter)}):
+            with self.assertRaisesRegex(ValueError, 'needs a pinned executable'):
+                runner.run(self.root, self.adapter, 'example/core', 'a' * 40,
+                           self.output, runner_revision='c' * 40)
+            other = Path(self.temporary.name) / 'other-adapter'
+            other.write_bytes(self.adapter.read_bytes())
+            with self.assertRaisesRegex(ValueError, 'differs from pinned executable'):
+                runner.run(self.root, self.adapter, 'example/core', 'a' * 40,
+                           self.output, subject_executable=other,
+                           runner_revision='c' * 40)
+        self.assertFalse(self.output.exists())
 
 
 if __name__ == '__main__':

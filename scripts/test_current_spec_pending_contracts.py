@@ -32,6 +32,12 @@ from current_spec_owner_children import check as mown06_check
 from current_spec_owner_children import sample as mown06_sample
 from current_spec_remaining_overview import IDS as OVERVIEW_IDS
 from current_spec_remaining_overview import check as overview_check
+from current_spec_remaining_crypto import IDS as CRYPTO_IDS
+from current_spec_remaining_crypto import check as crypto_check
+from current_spec_remaining_hpke import SAMPLES as HPKE05_SAMPLES
+from current_spec_remaining_hpke import check as hpke05_check
+from current_spec_remaining_registry import IDS as REGISTRY_IDS
+from current_spec_remaining_registry import check as registry_check
 from current_spec_pending_contracts import SETUP_MODEL_SCENARIOS
 from current_spec_pending_contracts import mset01_classification, mset01_sample
 from current_spec_pending_contracts import mset02_classification, mset02_sample
@@ -1049,6 +1055,226 @@ class PendingContractTests(unittest.TestCase):
                 case = cases[ident]
                 rule = rules[case['rule_id']]
                 for track in ('runtime', 'document_review'):
+                    fixture_path = (root / 'vectors/0.10.0/current-spec' /
+                                    f'{ident}-{track}.json')
+                    if not fixture_path.exists():
+                        continue
+                    with self.subTest(ident=ident, track=track):
+                        fixture = json.loads(fixture_path.read_text())
+                        request = {key: fixture[key] for key in
+                                   ('schema_version', 'spec_revision', 'id',
+                                    'track', 'input')}
+                        trace = sample_observation(case, rule, track)
+                        adapter.write_text('#!/usr/bin/env python3\n'
+                                           'import json,sys\n'
+                                           'json.load(sys.stdin)\n'
+                                           f'print({json.dumps(json.dumps({"trace": trace}))})\n')
+                        adapter.chmod(0o700)
+                        result = subprocess.run(
+                            [sys.executable, '-B',
+                             str(root / 'scripts/current_spec_pending_bridge.py')],
+                            input=json.dumps(request).encode(), capture_output=True,
+                            env=environment, timeout=10, check=False)
+                        self.assertEqual(result.returncode, 0,
+                                         result.stderr.decode())
+                        self.assertEqual(json.loads(result.stdout)['actual'],
+                                         fixture['expected'])
+
+    def test_crypto_cases_compare_supported_suites_and_fixed_vectors(self):
+        root = Path(__file__).resolve().parents[1]
+        source = catalog()[1]
+        cases = {row['id']: row for row in source['cases']}
+        rules = {row['id']: row for row in source['rules']}
+        self.assertEqual(len(CRYPTO_IDS), 24)
+        for ident in CRYPTO_IDS:
+            case = cases[ident]
+            rule = rules[case['rule_id']]
+            for track in ('runtime', 'deployment_review'):
+                fixture_path = (root / 'vectors/0.10.0/current-spec' /
+                                f'{ident}-{track}.json')
+                if not fixture_path.exists():
+                    continue
+                with self.subTest(ident=ident, track=track):
+                    fixture = json.loads(fixture_path.read_text())
+                    request = {key: fixture[key] for key in
+                               ('schema_version', 'spec_revision', 'id',
+                                'track', 'input')}
+                    trace = sample_observation(case, rule, track)
+                    self.assertEqual(trace['assertions'], {})
+                    self.assertEqual(observe(json.dumps(request).encode(), trace)
+                                     ['actual'], fixture['expected'])
+                    evidence = trace['crypto_evidence']
+                    if ident.startswith('CRYPTO-02'):
+                        evidence['reports'][0]['verdict'] = (
+                            'REJECT' if evidence['reports'][0]['verdict'] ==
+                            'ACCEPT' else 'ACCEPT')
+                    else:
+                        evidence['accepted'] = not evidence['accepted']
+                    self.assertFalse(crypto_check(ident, evidence))
+                    self.assertEqual(observe(json.dumps(request).encode(), trace)
+                                     ['actual']['verdict'], 'REJECT')
+
+    def test_crypto_cases_run_through_local_adapter(self):
+        root = Path(__file__).resolve().parents[1]
+        source = catalog()[1]
+        cases = {row['id']: row for row in source['cases']}
+        rules = {row['id']: row for row in source['rules']}
+        with tempfile.TemporaryDirectory() as temporary:
+            adapter = Path(temporary) / 'crypto-observer'
+            environment = dict(os.environ, SAGE_CASE_ADAPTER=str(adapter))
+            for ident in CRYPTO_IDS:
+                case = cases[ident]
+                rule = rules[case['rule_id']]
+                for track in ('runtime', 'deployment_review'):
+                    fixture_path = (root / 'vectors/0.10.0/current-spec' /
+                                    f'{ident}-{track}.json')
+                    if not fixture_path.exists():
+                        continue
+                    with self.subTest(ident=ident, track=track):
+                        fixture = json.loads(fixture_path.read_text())
+                        request = {key: fixture[key] for key in
+                                   ('schema_version', 'spec_revision', 'id',
+                                    'track', 'input')}
+                        trace = sample_observation(case, rule, track)
+                        adapter.write_text('#!/usr/bin/env python3\n'
+                                           'import json,sys\n'
+                                           'json.load(sys.stdin)\n'
+                                           f'print({json.dumps(json.dumps({"trace": trace}))})\n')
+                        adapter.chmod(0o700)
+                        result = subprocess.run(
+                            [sys.executable, '-B',
+                             str(root / 'scripts/current_spec_pending_bridge.py')],
+                            input=json.dumps(request).encode(), capture_output=True,
+                            env=environment, timeout=10, check=False)
+                        self.assertEqual(result.returncode, 0,
+                                         result.stderr.decode())
+                        self.assertEqual(json.loads(result.stdout)['actual'],
+                                         fixture['expected'])
+
+    def test_provisional_session_cases_check_time_and_replay(self):
+        root = Path(__file__).resolve().parents[1]
+        source = catalog()[1]
+        cases = {row['id']: row for row in source['cases']}
+        rules = {row['id']: row for row in source['rules']}
+        mutations = {
+            'CST-05-01': ('first_record_ms', 300),
+            'CST-05-02': ('owner_closed', False),
+            'CST-05-03': ('replay_reservations', 1),
+            'CST-05-04': ('establishments', 2),
+            'CST-05-05': ('tool_effects', 1),
+            'CST-05-06': ('sequence_counter_reset', True),
+        }
+        self.assertEqual(set(mutations), set(HPKE05_SAMPLES))
+        for ident in HPKE05_SAMPLES:
+            with self.subTest(ident=ident):
+                fixture = json.loads((root / 'vectors/0.10.0/current-spec' /
+                                      f'{ident}-runtime.json').read_text())
+                request = {key: fixture[key] for key in
+                           ('schema_version', 'spec_revision', 'id', 'track', 'input')}
+                case = cases[ident]
+                trace = sample_observation(case, rules[case['rule_id']], 'runtime')
+                self.assertEqual(trace['assertions'], {})
+                self.assertEqual(observe(json.dumps(request).encode(), trace)
+                                 ['actual'], fixture['expected'])
+                field, value = mutations[ident]
+                trace['hpke_evidence'][field] = value
+                self.assertFalse(hpke05_check(ident, trace['hpke_evidence']))
+                self.assertEqual(observe(json.dumps(request).encode(), trace)
+                                 ['actual']['verdict'], 'REJECT')
+
+    def test_provisional_session_cases_run_through_local_adapter(self):
+        root = Path(__file__).resolve().parents[1]
+        source = catalog()[1]
+        cases = {row['id']: row for row in source['cases']}
+        rules = {row['id']: row for row in source['rules']}
+        with tempfile.TemporaryDirectory() as temporary:
+            adapter = Path(temporary) / 'session-observer'
+            environment = dict(os.environ, SAGE_CASE_ADAPTER=str(adapter))
+            for ident in HPKE05_SAMPLES:
+                with self.subTest(ident=ident):
+                    fixture = json.loads((root / 'vectors/0.10.0/current-spec' /
+                                          f'{ident}-runtime.json').read_text())
+                    request = {key: fixture[key] for key in
+                               ('schema_version', 'spec_revision', 'id',
+                                'track', 'input')}
+                    case = cases[ident]
+                    trace = sample_observation(case, rules[case['rule_id']],
+                                               'runtime')
+                    adapter.write_text('#!/usr/bin/env python3\n'
+                                       'import json,sys\n'
+                                       'json.load(sys.stdin)\n'
+                                       f'print({json.dumps(json.dumps({"trace": trace}))})\n')
+                    adapter.chmod(0o700)
+                    result = subprocess.run(
+                        [sys.executable, '-B',
+                         str(root / 'scripts/current_spec_pending_bridge.py')],
+                        input=json.dumps(request).encode(), capture_output=True,
+                        env=environment, timeout=10, check=False)
+                    self.assertEqual(result.returncode, 0,
+                                     result.stderr.decode())
+                    self.assertEqual(json.loads(result.stdout)['actual'],
+                                     fixture['expected'])
+
+    def test_registry_and_resolution_cases_reject_decisive_changes(self):
+        root = Path(__file__).resolve().parents[1]
+        source = catalog()[1]
+        cases = {row['id']: row for row in source['cases']}
+        rules = {row['id']: row for row in source['rules']}
+
+        def change(ident, evidence):
+            if ident.startswith('mrevision-'):
+                evidence['consumer_accepted'] = not evidence['consumer_accepted']
+            elif ident in ('mllm-kem-alg-valid', 'mllm-kem-alg-case'):
+                evidence['accepted'] = not evidence['accepted']
+            elif ident == 'mllm-kem-selection':
+                evidence['selected_name'] = 'b'
+            elif ident.startswith('mllm-pop-'):
+                evidence['accepted'] = not evidence['accepted']
+            elif ident == 'mllm-kem-signature-reject':
+                evidence['message_signature_accepted'] = True
+            elif ident == 'mstand-problem-fields':
+                evidence['problems'][0]['http_status'] = 503
+            else:
+                evidence['published_types'][0]['consumer_accepted'] = False
+
+        self.assertEqual(len(REGISTRY_IDS), 10)
+        for ident in REGISTRY_IDS:
+            case = cases[ident]
+            rule = rules[case['rule_id']]
+            for track in ('runtime', 'document_review',
+                          'deployment_review'):
+                fixture_path = (root / 'vectors/0.10.0/current-spec' /
+                                f'{ident}-{track}.json')
+                if not fixture_path.exists():
+                    continue
+                with self.subTest(ident=ident, track=track):
+                    fixture = json.loads(fixture_path.read_text())
+                    request = {key: fixture[key] for key in
+                               ('schema_version', 'spec_revision', 'id',
+                                'track', 'input')}
+                    trace = sample_observation(case, rule, track)
+                    self.assertEqual(trace['assertions'], {})
+                    self.assertEqual(observe(json.dumps(request).encode(), trace)
+                                     ['actual'], fixture['expected'])
+                    change(ident, trace['registry_evidence'])
+                    self.assertFalse(registry_check(ident,
+                                                    trace['registry_evidence']))
+                    self.assertEqual(observe(json.dumps(request).encode(), trace)
+                                     ['actual']['verdict'], 'REJECT')
+
+    def test_registry_cases_run_through_local_adapter(self):
+        root = Path(__file__).resolve().parents[1]
+        source = catalog()[1]
+        cases = {row['id']: row for row in source['cases']}
+        rules = {row['id']: row for row in source['rules']}
+        with tempfile.TemporaryDirectory() as temporary:
+            adapter = Path(temporary) / 'registry-observer'
+            environment = dict(os.environ, SAGE_CASE_ADAPTER=str(adapter))
+            for ident in REGISTRY_IDS:
+                case = cases[ident]
+                rule = rules[case['rule_id']]
+                for track in ('runtime', 'document_review',
+                              'deployment_review'):
                     fixture_path = (root / 'vectors/0.10.0/current-spec' /
                                     f'{ident}-{track}.json')
                     if not fixture_path.exists():

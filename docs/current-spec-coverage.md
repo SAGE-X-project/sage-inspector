@@ -182,6 +182,26 @@ combined grammar and semantic acceptance, dependency evidence provenance,
 exact version agreement and normative-text ownership. Their fourteen required
 runtime/document tracks pass local adapter controls. They remain partial
 because report fields and source-ownership claims need independent provenance.
+The 24 previously unbound CRYPTO parents now check suite and key shape,
+low-S scalar/recovery ranges, full DID key URLs, domain and secret-boundary
+observations. CRYPTO-02 cases compare implementation-reported verdicts against
+the pinned independent signature vectors, including mixed-torsion controls.
+These local checks do not replace real Go/Rust signature execution or prove
+host isolation; implementation status remains NOT_RUN without that evidence.
+The six CST-05 provisional-session cases now evaluate bounded first-record
+timing, rejected establishment, replay reservation, repeated-record handling,
+policy rejection and sequence retention. All six pass the local runtime
+adapter and mutation controls. Reported signature/AEAD decisions and durable
+state still need independent implementation observations.
+Ten registry and resolution parents now check exact DID/JWK projection,
+KEM algorithm and selection, PoP challenge framing, KEM signature exclusion,
+RFC 9457 problem fields and type-publication review claims. Their eleven
+required tracks pass local adapter and mutation controls. The type-publication
+review remains partial until deployed URIs, a pinned publication revision
+and an independent consumer are observed. The pinned REG-08-N04 source does
+not define the media-type decision, so Inspector reports `UNSUPPORTED` rather
+than making up a normative result. The phase gate requires a semantic review
+path for every other one of the 51 remaining parent cases.
 `scripts/run_current_spec_cases.py` can execute bound fixtures for one selected
 verification track against one explicit local adapter. It sends the case input but never the expected
 answer, bounds the process, and writes hashed observations for the evidence

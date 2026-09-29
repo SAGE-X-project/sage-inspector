@@ -25,6 +25,15 @@ from current_spec_owner_children import sample as mown06_sample
 from current_spec_remaining_overview import IDS as OVERVIEW_IDS
 from current_spec_remaining_overview import check as overview_check
 from current_spec_remaining_overview import sample as overview_sample
+from current_spec_remaining_crypto import IDS as CRYPTO_IDS
+from current_spec_remaining_crypto import check as crypto_check
+from current_spec_remaining_crypto import sample as crypto_sample
+from current_spec_remaining_hpke import SAMPLES as HPKE05_SAMPLES
+from current_spec_remaining_hpke import check as hpke05_check
+from current_spec_remaining_hpke import sample as hpke05_sample
+from current_spec_remaining_registry import IDS as REGISTRY_IDS
+from current_spec_remaining_registry import check as registry_check
+from current_spec_remaining_registry import sample as registry_sample
 
 
 RULE_ASSERTIONS = {
@@ -967,6 +976,12 @@ def expected_result(ident=None):
 def sample_observation(case, rule, track):
     ident = case['id']
     assertions = {name: True for name in assertions_for(rule['id'])
+                  if not (ident in REGISTRY_IDS and
+                          name == 'normative_boundary_checked')
+                  if not (ident in HPKE05_SAMPLES and
+                          name == 'normative_boundary_checked')
+                  if not (ident in CRYPTO_IDS and
+                          name == 'normative_boundary_checked')
                   if not (ident in OVERVIEW_IDS and
                           name == 'normative_boundary_checked')
                   if not (ident in MOWN06_CHILD_IDS and
@@ -1028,6 +1043,12 @@ def sample_observation(case, rule, track):
         result['child_evidence'] = mown06_sample(ident)
     if ident in OVERVIEW_IDS:
         result['overview_evidence'] = overview_sample(ident)
+    if ident in CRYPTO_IDS:
+        result['crypto_evidence'] = crypto_sample(ident)
+    if ident in HPKE05_SAMPLES:
+        result['hpke_evidence'] = hpke05_sample(ident)
+    if ident in REGISTRY_IDS:
+        result['registry_evidence'] = registry_sample(ident)
     return result
 
 
@@ -1066,6 +1087,12 @@ def inspect(case, rule, track, phase, observed):
         fields.add('child_evidence')
     if case['id'] in OVERVIEW_IDS:
         fields.add('overview_evidence')
+    if case['id'] in CRYPTO_IDS:
+        fields.add('crypto_evidence')
+    if case['id'] in HPKE05_SAMPLES:
+        fields.add('hpke_evidence')
+    if case['id'] in REGISTRY_IDS:
+        fields.add('registry_evidence')
     require(type(observed) is dict and
             set(observed) == fields and
             observed['case_id'] == case['id'] and observed['track'] == track and
@@ -1076,6 +1103,12 @@ def inspect(case, rule, track, phase, observed):
             observed['observer_effects'] >= 0 and observed['subject_effects'] >= 0,
             'host observation shape and identity')
     required = tuple(name for name in assertions_for(rule['id'])
+                     if not (case['id'] in REGISTRY_IDS and
+                             name == 'normative_boundary_checked')
+                     if not (case['id'] in HPKE05_SAMPLES and
+                             name == 'normative_boundary_checked')
+                     if not (case['id'] in CRYPTO_IDS and
+                             name == 'normative_boundary_checked')
                      if not (case['id'] in OVERVIEW_IDS and
                              name == 'normative_boundary_checked')
                      if not (case['id'] in MOWN06_CHILD_IDS and
@@ -1150,13 +1183,19 @@ def inspect(case, rule, track, phase, observed):
                 mown06_check(case['id'], observed['child_evidence']))
     overview_ok = (case['id'] not in OVERVIEW_IDS or
                    overview_check(case['id'], observed['overview_evidence']))
+    crypto_ok = (case['id'] not in CRYPTO_IDS or
+                 crypto_check(case['id'], observed['crypto_evidence']))
+    hpke_ok = (case['id'] not in HPKE05_SAMPLES or
+               hpke05_check(case['id'], observed['hpke_evidence']))
+    registry_ok = (case['id'] not in REGISTRY_IDS or
+                   registry_check(case['id'], observed['registry_evidence']))
     matched = (observed['observed_outcome'] == expected_outcome(case) and
                assertions_valid and effects_agree and setup_effects and
                model_ok and mcp_response_ok and ack_ok and discovery_ok and
                channel_ok and carriage_ok and reconnect_ok and scope_ok and
                configuration_ok and size_ok and signature_ok and
                owner_model_ok and owner_surface_ok and child_ok and
-               overview_ok)
+               overview_ok and crypto_ok and hpke_ok and registry_ok)
     return {'verdict': 'ACCEPT' if matched else 'REJECT',
             'output': {'matched': matched,
                        'reason': 'case_contract' if matched else

@@ -42,7 +42,7 @@ python3 -B scripts/current_spec_gap.py --output /tmp/current-spec-gap.json
 ```
 
 `scripts/current_spec_evidence.py` is the case-level evidence admission and
-status engine. Its 325 current bindings cover selected JCS, HTTP, HPKE,
+status engine. Its 327 current bindings cover selected JCS, HTTP, HPKE,
 session, DID, Agent Card, transport, and Registry cases only partially; the remaining cases still need bindings. A binding must name a current
 case or mandatory child, one required verification track, a repository-owned
 fixture hash, and whether that fixture covers the complete case or only part
@@ -380,6 +380,11 @@ add EXEC-04/CST-02 runtime fixtures checking that a locally denied
 policy, unavailable active signing key, or prior retirement prevents an inert
 dispatch. They do not establish resolver outage handling across replicas or
 an atomic retirement race with a live external effect.
+
+Two EXEC-05/CST-02 fixtures now model loss of the local durable ledger after
+one committed inert handoff. Reopening without the ledger must fail and
+cannot recreate history or dispatch again. The trusted epoch-recovery
+procedure remains outside this observation.
 
 The 95 cases added after the historical snapshot comprise 71 MCP cases and
 24 later corrections. The older 71-case MCP runtime overlay is useful bounded

@@ -2276,6 +2276,20 @@
       "fixture": "vectors/0.10.0/current-spec/CST-02-03.json",
       "fixture_sha256": "55c3975e9b18b9859f1ea06c902a0c19cd3a1ad42a3a669c10fa8f12b1c9ea8a",
       "coverage": "partial"
+    },
+    {
+      "id": "EXEC-05-N03",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/EXEC-05-N03.json",
+      "fixture_sha256": "6879edc70ba1129c03693e473a92fa0a5a9f5c12d2aa7f8b8a2c59bc6613af2d",
+      "coverage": "partial"
+    },
+    {
+      "id": "CST-02-04",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/CST-02-04.json",
+      "fixture_sha256": "71f9bc1d21fbd068b45e543aa9dd20748e644b51a9a9bc6cf62b938944a27297",
+      "coverage": "partial"
     }
   ]
 }

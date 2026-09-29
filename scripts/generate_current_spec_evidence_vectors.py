@@ -33,7 +33,7 @@ def cases():
         for track in TRACKS:
             report = scenarios_by_id[ident]
             yield ident, track, {'operation': 'sage.evidence.review',
-                                 'report': report}, evaluate(ident, track, report)
+                                 'report': report}, evaluate(ident, track, report, SPEC)
 
 
 def main():

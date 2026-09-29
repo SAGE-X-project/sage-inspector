@@ -26,7 +26,8 @@ def observe(raw, root=ROOT):
     require(type(inp) is dict and set(inp) == {'operation', 'report'} and
             inp['operation'] == 'sage.evidence.review',
             'evidence review operation')
-    actual = evaluate(request['id'], request['track'], inp['report'])
+    actual = evaluate(request['id'], request['track'], inp['report'],
+                      manifest['spec_revision'])
     return {'schema_version': 1, 'id': request['id'],
             'track': request['track'], 'actual': actual}
 

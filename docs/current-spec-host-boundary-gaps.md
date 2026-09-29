@@ -27,8 +27,16 @@ The [host fixture suite](../vectors/0.10.0/exec-host-contracts.json) and
 interface. A real host adapter receives only the case ID and trigger and must
 return typed facts plus separately observed and subject-reported effect counts.
 The bridge derives a verdict and never accepts a subject-reported PASS. The
-unit tests vary each case's decisive fact and check that contradictory effect
-counts fail. This prepares inspection; no host adapter has been run.
+unit tests vary every asserted fact and check that contradictory effect
+counts fail. All 15 runtime host cases compute their boundary-specific facts
+from bounded event IDs, route and capability inventories, file mode, hashes,
+ordered events, instance IDs or monotonic timing evidence rather than accepting
+those facts as subject-provided conclusions. The local subprocess test exercises
+all 15 review paths. The outcome and effect counts are still reported through
+the host observation interface. Route inventories, event records and effect
+counts need independent collection and complete host coverage; a trace supplied
+only by the subject cannot establish those properties. No deployed host adapter
+has been run.
 
 The Inspector must accept version-pinned host observations with the exact
 request and component identity, ordered gate events, durable journal state,

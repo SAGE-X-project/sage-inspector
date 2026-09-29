@@ -2,7 +2,15 @@
 
 from current_spec_catalog import ROOT, catalog, load, require, sha
 from current_spec_evidence import load_bindings
-from current_spec_pending_contracts import case_input, expected_result, inspect, assertions_for
+from current_spec_pending_contracts import case_input, expected_result, inspect
+from current_spec_pending_contracts import SEMANTIC_MSET_IDS
+from current_spec_pending_contracts import SEMANTIC_MOWN_PARENT_IDS
+from current_spec_pending_contracts import MOWN06_CHILD_IDS
+from current_spec_pending_contracts import sample_observation
+from current_spec_remaining_overview import IDS as OVERVIEW_IDS
+from current_spec_remaining_crypto import IDS as CRYPTO_IDS
+from current_spec_remaining_hpke import SAMPLES as HPKE05_SAMPLES
+from current_spec_remaining_registry import IDS as REGISTRY_IDS
 from generate_current_spec_pending_contracts import COUNTS
 
 
@@ -22,6 +30,24 @@ def check(phase, root=ROOT):
     bindings = load_bindings(root, manifest['spec_revision'], mapped, children)
     require(len(suite['cases']) == (COUNTS[phase][1] or len(suite['cases'])),
             'pending track count')
+    if phase == 4:
+        require(set(suite['parent_case_ids']) == SEMANTIC_MSET_IDS and
+                len(SEMANTIC_MSET_IDS) == 43,
+                'every setup parent has a semantic review path')
+    if phase == 5:
+        require(set(suite['parent_case_ids']) == SEMANTIC_MOWN_PARENT_IDS and
+                len(SEMANTIC_MOWN_PARENT_IDS) == 37,
+                'every owner parent has a semantic review path')
+        require({row['id'] for row in suite['cases'] if row['id'] in children} ==
+                MOWN06_CHILD_IDS and len(MOWN06_CHILD_IDS) == 26,
+                'every mandatory owner child has a semantic review path')
+    if phase == 6:
+        semantic_ids = (set(OVERVIEW_IDS) | set(CRYPTO_IDS) |
+                        set(HPKE05_SAMPLES) | set(REGISTRY_IDS))
+        require(len(semantic_ids) == 50 and
+                set(suite['parent_case_ids']) ==
+                semantic_ids | {'REG-08-N04'},
+                'every decidable remaining parent has a semantic review path')
     for row in suite['cases']:
         ident, track = row['id'], row['track']
         case = cases.get(ident, children.get(ident))
@@ -33,10 +59,7 @@ def check(phase, root=ROOT):
                 bindings[(ident, track)][1]['expected'] == expected and
                 bindings[(ident, track)][0]['coverage'] == 'partial',
                 'pending contract fixture: ' + ident)
-        good = {'case_id': ident, 'track': track,
-                'observed_outcome': case['expected'],
-                'assertions': {name: True for name in assertions_for(rule['id'])},
-                'observer_effects': 0, 'subject_effects': 0}
+        good = sample_observation(case, rule, track)
         require(inspect(case, rule, track, phase, good) == expected,
                 'safe positive trace: ' + ident)
         changed = dict(good, subject_effects=1)

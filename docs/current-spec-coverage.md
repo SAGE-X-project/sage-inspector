@@ -70,10 +70,18 @@ The nine PROC-01..03 document-review fixtures use the pinned `PROCESS.md` and
 bounded negative controls for source ownership, historical evidence, and
 repository scope. Their preserved observations are `PARTIAL`: they exercise
 Inspector's review decision, not all repository changes or product behaviour.
+The process reviewer now rejects orphaned requirements and cases in the pinned
+traceability graph. All nine cases also run through its bounded local CLI;
+the fixture configurations alone do not prove a real change record or complete
+repository history.
 The three EVIDENCE-01 parents have fixtures on all three required tracks.
 These reject unmeasured latency and two wrappers around the same executable;
 their synthetic reviewer observations are `PARTIAL`, never measured performance
 or independent interoperability evidence for a deployed implementation.
+Evidence review now also requires the report's exact pinned specification
+revision and links each execution revision to a listed implementation. The
+nine track fixtures run through the local CLI; their synthetic reports remain
+insufficient to establish independent implementation provenance.
 MSET-01..08 (43 parents and 46 tracks), MOWN-01..05 (37 parents and 26
 mandatory MOWN-06 children), and the remaining 51 parents (60 missing tracks)
 have pinned host observation contracts. Those contracts anchor the exact
@@ -100,6 +108,100 @@ is an inventory result; most new host contracts have no implementation
 observation. The bounded local MSET/MOWN state-machine controls exercise selected
 deadline, output, readiness, closure and reservation conditions without network
 attack traffic; they do not substitute for Go/Rust or deployed host evidence.
+The seven MSET-06 deadline cases now run their reported event sequence through
+the finite setup model before a host contract may match; the former generic
+deadline checkbox is not accepted for those cases. Event provenance and the
+remaining MSET host boundaries still require versioned integration evidence.
+Seven further MSET-02, MSET-05 and MSET-07 cases use the same model for output
+barriers, send failure, identifier history, rejected inner input, early calls
+and stale readiness. These are bounded scenario checks, not observations from
+a deployed endpoint.
+The four MSET-03 initialize cases parse a bounded response and classify the
+fixed MCP version, exact tools capability, outer success and both correlated
+request IDs. Duplicate JSON members are rejected. The response still needs a
+versioned host adapter to establish that it came from the authenticated peer.
+The five MSET-04 notification cases now parse the exact no-ID notification,
+check the two-byte acknowledgement marker and request-hash correlation, and
+distinguish a lost acknowledgement from a Guard result. These checks still
+depend on a host observer for authenticated record provenance.
+Four MSET-05 discovery cases compare the entire one-tool descriptor with the
+pinned tool object and configured digest, and reject extra metadata, cursors,
+wrong response IDs or absent local endpoint installation. The early-call case
+is covered by the setup state model. Complete route inventory remains a host
+integration requirement.
+The three MSET-01 channel cases bind the observed handshake and first record
+to the same session, owner, peer and key tuple, and require an active registry
+key event. A real host observer must supply independent handshake and registry
+records before these contracts can support a conformance result.
+Four MSET-02 carriage cases decode the actual reported plaintext bytes, compare
+sent and received bytes, enforce plaintext/record/wire bounds, reject duplicate
+JSON members and detect outer/inner request-ID collisions. The remaining
+carriage cases use the setup state model or still require a host-specific
+observation of cryptographic sequence and replay state.
+Three MSET-07 reconnect cases compare old and fresh session IDs, authenticated
+setup completion, dispatch counts, terminal digests, client consumption and
+ledger presence. Recreating a missing ledger as empty or dispatching an old
+call again fails the local contract; independent durable-store observations
+are still needed for a deployed host.
+The MSET-08 scope controls distinguish normative design adoption from runtime
+conformance, exclude unprofiled HTTP fallback, and preserve historical NOT_RUN
+evidence. Three trusted-configuration controls compare the complete descriptor,
+binding/version/peer tuple and fixed JCS digest, and require closure after a
+configuration change. Every one of the 43 MSET parent cases now has a
+case-specific local predicate; the phase gate checks this inventory. The
+contracts are still partial: reported events and repository-wide routes need
+independent provenance, and no deployed subject has been run on this revision.
+For MOWN-01, eight parent cases now check complete-message boundary counts,
+UTF-8 byte counting, combined result size and the preservation of effects,
+reservations and replay identity after failure. All eight have local adapter
+runtime controls. Size reports and durable state still need independent host
+observation before implementation conformance can be claimed.
+For MOWN-05, four parent cases now compare active keys with their signing role,
+accept Ed25519 only, reject other algorithms even when a key exists, keep the
+HPKE KEM at X25519, and deny setup if a suitable signing key is absent. These
+are bounded role-selection controls; actual cryptographic verification and
+registry provenance remain separate evidence requirements.
+Nine MOWN-03/MOWN-04 parents now replay bounded owner events through the
+finite admission model to check closure before or after reservation, retained
+admission after closure/crash, setup versus protected deadlines and session
+expiry. This model has no real durable store or executor; the resulting host
+contracts remain partial until versioned implementation events are observed.
+The 16 MOWN-02 parent cases now compare publication order, operation identity,
+single-flight slots, retained request history, cancellation, deferred input,
+fresh follow-up IDs and shared worker bounds from structured observations.
+Together with MOWN-01/03/04/05, all 37 MOWN parent cases have a distinct local
+decision path; the phase gate detects a missing parent. The 26 mandatory
+MOWN-06 children now also have grouped, case-specific predicates over
+generation changes, observation age, queue and fence outcomes, competing
+owners, administrative invalidation, scheduler limits and retained history.
+Each child rejects a changed decisive observation and runs through a bounded
+local adapter; the phase gate checks all 26 IDs. These synthetic observations
+do not establish that a deployed queue or durable store obeys the rules.
+The ten previously unbound OVERVIEW parents now have bounded decisions for
+combined grammar and semantic acceptance, dependency evidence provenance,
+exact version agreement and normative-text ownership. Their fourteen required
+runtime/document tracks pass local adapter controls. They remain partial
+because report fields and source-ownership claims need independent provenance.
+The 24 previously unbound CRYPTO parents now check suite and key shape,
+low-S scalar/recovery ranges, full DID key URLs, domain and secret-boundary
+observations. CRYPTO-02 cases compare implementation-reported verdicts against
+the pinned independent signature vectors, including mixed-torsion controls.
+These local checks do not replace real Go/Rust signature execution or prove
+host isolation; implementation status remains NOT_RUN without that evidence.
+The six CST-05 provisional-session cases now evaluate bounded first-record
+timing, rejected establishment, replay reservation, repeated-record handling,
+policy rejection and sequence retention. All six pass the local runtime
+adapter and mutation controls. Reported signature/AEAD decisions and durable
+state still need independent implementation observations.
+Ten registry and resolution parents now check exact DID/JWK projection,
+KEM algorithm and selection, PoP challenge framing, KEM signature exclusion,
+RFC 9457 problem fields and type-publication review claims. Their eleven
+required tracks pass local adapter and mutation controls. The type-publication
+review remains partial until deployed URIs, a pinned publication revision
+and an independent consumer are observed. The pinned REG-08-N04 source does
+not define the media-type decision, so Inspector reports `UNSUPPORTED` rather
+than making up a normative result. The phase gate requires a semantic review
+path for every other one of the 51 remaining parent cases.
 `scripts/run_current_spec_cases.py` can execute bound fixtures for one selected
 verification track against one explicit local adapter. It sends the case input but never the expected
 answer, bounds the process, and writes hashed observations for the evidence

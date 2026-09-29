@@ -11,7 +11,7 @@ func TestWireHTTPBindingSuitePreservesBoundaryInput(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	defer f.Close()
+	defer func() { _ = f.Close() }()
 	suite, err := Load(f)
 	if err != nil {
 		t.Fatal(err)
@@ -32,17 +32,18 @@ func TestWireHTTPBindingSuitePreservesBoundaryInput(t *testing.T) {
 			message.Controls.ClockTrusted == nil || !*message.Controls.ClockTrusted {
 			t.Fatalf("%s: trusted fixed clock missing", c.ID)
 		}
-		if c.ID == "wire-http-request-boundary" {
+		switch c.ID {
+		case "wire-http-request-boundary":
 			request = message.Request
 			if len(message.Response) != 0 {
 				t.Fatal("request boundary contains a response")
 			}
-		} else if c.ID == "wire-http-response-boundary" {
+		case "wire-http-response-boundary":
 			if !bytes.Equal(request, message.Request) ||
 				!bytes.HasPrefix(message.Response, []byte("HTTP/1.1 503 Service Unavailable\r\n")) {
 				t.Fatal("response lost the exact retained request or signed status")
 			}
-		} else {
+		default:
 			t.Fatalf("unexpected boundary case %s", c.ID)
 		}
 		if c.Expected.Verdict != "ACCEPT" {

@@ -15,20 +15,25 @@ class HostContractTests(unittest.TestCase):
     def test_pinned_host_cases_and_tracks(self):
         self.assertEqual(check(), 30)
 
-    def test_each_case_rejects_one_changed_security_fact(self):
+    def test_each_case_rejects_every_changed_security_fact(self):
         for ident, contract in CONTRACTS.items():
-            with self.subTest(ident=ident):
-                trace = {'case_id': ident, 'trigger': contract['trigger'],
-                         'facts': copy.deepcopy(contract['facts']),
-                         'observer_effects': contract['facts']['new_effects'],
-                         'subject_effects': contract['facts']['new_effects']}
-                self.assertEqual(inspect(ident, trace)['verdict'], 'ACCEPT')
-                key = next(iter(trace['facts']))
-                value = trace['facts'][key]
-                trace['facts'][key] = (not value if type(value) is bool
-                                       else (value + 1 if type(value) is int
-                                             else 'different'))
-                self.assertEqual(inspect(ident, trace)['verdict'], 'REJECT')
+            base = {'case_id': ident, 'trigger': contract['trigger'],
+                    'facts': copy.deepcopy(contract['facts']),
+                    'observer_effects': contract['facts']['new_effects'],
+                    'subject_effects': contract['facts']['new_effects']}
+            self.assertEqual(inspect(ident, base)['verdict'], 'ACCEPT')
+            for key, value in base['facts'].items():
+                with self.subTest(ident=ident, fact=key):
+                    trace = copy.deepcopy(base)
+                    trace['facts'][key] = (not value if type(value) is bool
+                                           else (value + 1 if type(value) is int
+                                                 else 'different'))
+                    self.assertEqual(inspect(ident, trace)['verdict'], 'REJECT')
+            for counter in ('observer_effects', 'subject_effects'):
+                with self.subTest(ident=ident, counter=counter):
+                    trace = copy.deepcopy(base)
+                    trace[counter] = 1 - trace[counter]
+                    self.assertEqual(inspect(ident, trace)['verdict'], 'REJECT')
 
     def test_external_effect_disagreement_is_not_accepted(self):
         ident = 'EXEC-08-N03'

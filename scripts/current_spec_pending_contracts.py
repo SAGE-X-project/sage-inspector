@@ -95,6 +95,95 @@ MSET02_SCENARIOS = {
     'mset-02-json-duplicates': 'invalid_json',
     'mset-02-id-collision': 'id_collision',
 }
+MSET07_SCENARIOS = {
+    'mset-07-fresh-reconnect': 'fresh_reconnect',
+    'mset-07-terminal-preserved': 'terminal_preserved',
+    'mset-07-missing-ledger': 'missing_ledger',
+}
+
+
+def mset07_classification(evidence):
+    require(type(evidence) is dict and
+            set(evidence) == {'old_session_id', 'new_session_id',
+                              'authenticated_session_ids',
+                              'completed_setup_session_ids',
+                              'old_call_id', 'old_dispatch_count',
+                              'new_dispatch_count',
+                              'terminal_digest_before',
+                              'terminal_digest_after',
+                              'client_consumed_before',
+                              'client_consumed_after',
+                              'ledger_present_before',
+                              'ledger_present_after',
+                              'empty_ledger_created'} and
+            all(type(evidence[key]) is str and 1 <= len(evidence[key]) <= 128
+                for key in ('old_session_id', 'new_session_id',
+                            'old_call_id')) and
+            all(bounded_ids(evidence[key]) for key in
+                ('authenticated_session_ids',
+                 'completed_setup_session_ids')) and
+            all(type(evidence[key]) is int and
+                0 <= evidence[key] <= 1
+                for key in ('old_dispatch_count', 'new_dispatch_count')) and
+            all(evidence[key] is None or sha256_hex(evidence[key])
+                for key in ('terminal_digest_before',
+                            'terminal_digest_after')) and
+            all(type(evidence[key]) is bool for key in
+                ('client_consumed_before', 'client_consumed_after',
+                 'ledger_present_before', 'ledger_present_after',
+                 'empty_ledger_created')),
+            'bounded reconnect and durable ledger observations')
+    if not evidence['ledger_present_before']:
+        return ('missing_ledger' if not evidence['ledger_present_after'] and
+                not evidence['empty_ledger_created'] and
+                evidence['new_dispatch_count'] == 0 else
+                'ledger_recreated_or_dispatched')
+    if evidence['new_session_id'] == evidence['old_session_id'] or \
+            evidence['new_session_id'] not in \
+            evidence['authenticated_session_ids'] or \
+            evidence['new_session_id'] not in \
+            evidence['completed_setup_session_ids'] or \
+            not evidence['ledger_present_after'] or \
+            evidence['empty_ledger_created'] or \
+            evidence['new_dispatch_count'] != 0:
+        return 'invalid_reconnect'
+    if evidence['terminal_digest_before'] is not None:
+        return ('terminal_preserved'
+                if evidence['terminal_digest_before'] ==
+                evidence['terminal_digest_after'] and
+                evidence['client_consumed_before'] and
+                evidence['client_consumed_after'] and
+                evidence['old_dispatch_count'] == 1 else
+                'terminal_changed')
+    return ('fresh_reconnect' if evidence['terminal_digest_after'] is None and
+            evidence['old_dispatch_count'] == 1 else
+            'old_call_reexecuted')
+
+
+def mset07_sample(ident):
+    evidence = {'old_session_id': 'session-1',
+                'new_session_id': 'session-2',
+                'authenticated_session_ids': ['session-2'],
+                'completed_setup_session_ids': ['session-2'],
+                'old_call_id': 'call-1', 'old_dispatch_count': 1,
+                'new_dispatch_count': 0,
+                'terminal_digest_before': None,
+                'terminal_digest_after': None,
+                'client_consumed_before': False,
+                'client_consumed_after': False,
+                'ledger_present_before': True,
+                'ledger_present_after': True,
+                'empty_ledger_created': False}
+    if ident == 'mset-07-terminal-preserved':
+        evidence['terminal_digest_before'] = 'a' * 64
+        evidence['terminal_digest_after'] = 'a' * 64
+        evidence['client_consumed_before'] = True
+        evidence['client_consumed_after'] = True
+    elif ident == 'mset-07-missing-ledger':
+        evidence['ledger_present_before'] = False
+        evidence['ledger_present_after'] = False
+        evidence['old_dispatch_count'] = 0
+    return evidence
 
 
 def mset02_classification(evidence):
@@ -508,7 +597,9 @@ def sample_observation(case, rule, track):
                   not (ident in MSET04_SCENARIOS and
                        name == 'notification_ack_checked') and
                   not (ident in MSET05_SCENARIOS and
-                       name == 'descriptor_and_gate_checked')}
+                       name == 'descriptor_and_gate_checked') and
+                  not (ident in MSET07_SCENARIOS and
+                       name == 'fresh_owner_and_durable_state_checked')}
     result = {'case_id': ident, 'track': track,
               'observed_outcome': case['expected'], 'assertions': assertions,
               'observer_effects': 0, 'subject_effects': 0}
@@ -524,6 +615,8 @@ def sample_observation(case, rule, track):
         result['channel_evidence'] = mset01_sample(ident)
     if ident in MSET02_SCENARIOS:
         result['carriage_evidence'] = mset02_sample(ident)
+    if ident in MSET07_SCENARIOS:
+        result['reconnect_evidence'] = mset07_sample(ident)
     return result
 
 
@@ -544,6 +637,8 @@ def inspect(case, rule, track, phase, observed):
         fields.add('channel_evidence')
     if case['id'] in MSET02_SCENARIOS:
         fields.add('carriage_evidence')
+    if case['id'] in MSET07_SCENARIOS:
+        fields.add('reconnect_evidence')
     require(type(observed) is dict and
             set(observed) == fields and
             observed['case_id'] == case['id'] and observed['track'] == track and
@@ -564,7 +659,9 @@ def inspect(case, rule, track, phase, observed):
                      not (case['id'] in MSET04_SCENARIOS and
                           name == 'notification_ack_checked') and
                      not (case['id'] in MSET05_SCENARIOS and
-                          name == 'descriptor_and_gate_checked'))
+                          name == 'descriptor_and_gate_checked') and
+                     not (case['id'] in MSET07_SCENARIOS and
+                          name == 'fresh_owner_and_durable_state_checked'))
     assertions_valid = (set(observed['assertions']) == set(required) and
                         all(observed['assertions'][key] is True for key in required))
     effects_agree = observed['observer_effects'] == observed['subject_effects']
@@ -588,10 +685,13 @@ def inspect(case, rule, track, phase, observed):
     carriage_ok = (case['id'] not in MSET02_SCENARIOS or
                    mset02_classification(observed['carriage_evidence']) ==
                    MSET02_SCENARIOS[case['id']])
+    reconnect_ok = (case['id'] not in MSET07_SCENARIOS or
+                    mset07_classification(observed['reconnect_evidence']) ==
+                    MSET07_SCENARIOS[case['id']])
     matched = (observed['observed_outcome'] == expected_outcome(case) and
                assertions_valid and effects_agree and setup_effects and
                model_ok and mcp_response_ok and ack_ok and discovery_ok and
-               channel_ok and carriage_ok)
+               channel_ok and carriage_ok and reconnect_ok)
     return {'verdict': 'ACCEPT' if matched else 'REJECT',
             'output': {'matched': matched,
                        'reason': 'case_contract' if matched else

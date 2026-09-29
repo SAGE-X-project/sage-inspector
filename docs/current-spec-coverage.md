@@ -108,6 +108,10 @@ is an inventory result; most new host contracts have no implementation
 observation. The bounded local MSET/MOWN state-machine controls exercise selected
 deadline, output, readiness, closure and reservation conditions without network
 attack traffic; they do not substitute for Go/Rust or deployed host evidence.
+The seven MSET-06 deadline cases now run their reported event sequence through
+the finite setup model before a host contract may match; the former generic
+deadline checkbox is not accepted for those cases. Event provenance and the
+remaining MSET host boundaries still require versioned integration evidence.
 `scripts/run_current_spec_cases.py` can execute bound fixtures for one selected
 verification track against one explicit local adapter. It sends the case input but never the expected
 answer, bounds the process, and writes hashed observations for the evidence

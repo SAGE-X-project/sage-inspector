@@ -2,7 +2,8 @@
 
 from current_spec_catalog import ROOT, catalog, load, require, sha
 from current_spec_evidence import load_bindings
-from current_spec_pending_contracts import case_input, expected_result, inspect, assertions_for
+from current_spec_pending_contracts import case_input, expected_result, inspect
+from current_spec_pending_contracts import sample_observation
 from generate_current_spec_pending_contracts import COUNTS
 
 
@@ -33,10 +34,7 @@ def check(phase, root=ROOT):
                 bindings[(ident, track)][1]['expected'] == expected and
                 bindings[(ident, track)][0]['coverage'] == 'partial',
                 'pending contract fixture: ' + ident)
-        good = {'case_id': ident, 'track': track,
-                'observed_outcome': case['expected'],
-                'assertions': {name: True for name in assertions_for(rule['id'])},
-                'observer_effects': 0, 'subject_effects': 0}
+        good = sample_observation(case, rule, track)
         require(inspect(case, rule, track, phase, good) == expected,
                 'safe positive trace: ' + ident)
         changed = dict(good, subject_effects=1)

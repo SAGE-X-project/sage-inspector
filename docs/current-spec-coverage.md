@@ -352,7 +352,8 @@ EXEC-05/CST-01 runtime fixtures exercising a separately signed
 changed nonce, repeated exact envelopes, a changed proof, and UNKNOWN after
 reopen. They bind only the local durable gate and an inert effect sink.
 
-Nine EXEC-06/07/08 cases now have partial runtime fixtures for manifest
+The [execution result observations](current-spec-exec-results-evidence.md)
+add nine EXEC-06/07/08 cases with partial runtime fixtures for manifest
 artifact bytes, signed result identity and intent binding, result expiry,
 invalid proof, and MCP structured/text agreement. Loaded-instance integrity,
 durable result consumption, and mandatory interception remain unobserved.

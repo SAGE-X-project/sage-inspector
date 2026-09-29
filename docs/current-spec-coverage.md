@@ -42,7 +42,7 @@ python3 -B scripts/current_spec_gap.py --output /tmp/current-spec-gap.json
 ```
 
 `scripts/current_spec_evidence.py` is the case-level evidence admission and
-status engine. Its 295 current bindings cover selected JCS, HTTP, HPKE,
+status engine. Its 299 current bindings cover selected JCS, HTTP, HPKE,
 session, DID, Agent Card, transport, and Registry cases only partially; the remaining cases still need bindings. A binding must name a current
 case or mandatory child, one required verification track, a repository-owned
 fixture hash, and whether that fixture covers the complete case or only part
@@ -339,6 +339,12 @@ a changed argument, an independently signed unknown field, the generic JSON
 size limit, an invalid nonce, and executor identity mismatch. The size probe
 does not cover an actual oversized intent envelope, and the executor identity
 probe does not cover outer HTTP identity binding.
+
+Four EXEC-04/05 cases now have partial runtime fixtures for an inert core
+dispatch sink. They distinguish one exact-argument commit, a changed approved
+manifest, expiry before dispatch, and a crash/reopen that leaves the same call
+`UNKNOWN` without a second dispatch. Parallel replicas, actual tool effects,
+and the full guard order are outside these fixtures.
 
 The 95 cases added after the historical snapshot comprise 71 MCP cases and
 24 later corrections. The older 71-case MCP runtime overlay is useful bounded

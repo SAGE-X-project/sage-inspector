@@ -80,6 +80,15 @@ class CurrentSpecRuntimeTests(unittest.TestCase):
                        self.output, runner_revision='c' * 40)
         self.assertFalse((self.output / 'manifest.json').exists())
 
+    def test_multi_case_selection_rejects_unbound_id(self):
+        self.bind()
+        self.make_adapter()
+        with self.assertRaisesRegex(ValueError, 'one or more selected cases'):
+            runner.run(self.root, self.adapter, 'example/core', 'a' * 40,
+                       self.output, selected=['merrata-config-valid', 'unknown'],
+                       runner_revision='c' * 40)
+        self.assertFalse(self.output.exists())
+
     def test_missing_fixture_is_not_silently_skipped(self):
         self.make_adapter()
         with self.assertRaisesRegex(ValueError, 'no runtime fixture'):

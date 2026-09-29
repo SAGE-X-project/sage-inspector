@@ -20,7 +20,13 @@ def run(root, adapter, repository, revision, output, selected=None,
     bindings = load_bindings(root, manifest['spec_revision'], mapped, children)
     runtime = {key: value for key, value in bindings.items() if key[1] == 'runtime'}
     if selected is not None:
-        runtime = {key: value for key, value in runtime.items() if key[0] == selected}
+        requested = {selected} if type(selected) is str else set(selected)
+        require(requested and all(type(ident) is str and ident for ident in requested),
+                'invalid case selection')
+        runtime = {key: value for key, value in runtime.items()
+                   if key[0] in requested}
+        require({key[0] for key in runtime} == requested,
+                'no runtime fixture is bound for one or more selected cases')
     require(runtime, 'no runtime fixture is bound for the selected case(s)')
     require(type(repository) is str and repository, 'subject repository')
     require(re.fullmatch('[0-9a-f]{40}', revision) is not None, 'subject revision')
@@ -98,7 +104,8 @@ def main():
     parser.add_argument('--subject-executable', type=Path,
                         help='Actual implementation binary when --adapter is a bridge')
     parser.add_argument('--output', type=Path, required=True)
-    parser.add_argument('--case')
+    parser.add_argument('--case', action='append',
+                        help='Run one named case; repeat to select several cases')
     args = parser.parse_args()
     try:
         report = run(ROOT, args.adapter.resolve(), args.repository, args.revision,

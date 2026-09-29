@@ -110,6 +110,112 @@ MERRATA_CONFIG_SCENARIOS = {
     'merrata-config-reject': 'invalid_configuration',
     'merrata-config-change': 'closed_after_change',
 }
+MOWN01_SCENARIOS = {
+    'madd-plaintext-boundary', 'madd-record-boundary',
+    'madd-wire-boundary', 'madd-utf8-and-escapes',
+    'madd-result-representations', 'madd-post-effect-oversize',
+    'madd-post-reservation-size-failure', 'madd-inner-size-replay',
+}
+
+
+def mown01_check(ident, evidence):
+    if type(evidence) is not dict or ident not in MOWN01_SCENARIOS:
+        return False
+    if ident == 'madd-plaintext-boundary':
+        if set(evidence) != {'within_b64', 'over_b64',
+                             'within_continued', 'over_dispatched'}:
+            return False
+        try:
+            within = base64.b64decode(evidence['within_b64'], validate=True)
+            over = base64.b64decode(evidence['over_b64'], validate=True)
+        except (ValueError, binascii.Error, TypeError):
+            return False
+        return (len(within) == 16348 and len(over) == 16349 and
+                evidence['within_continued'] is True and
+                evidence['over_dispatched'] is False)
+    if ident in ('madd-record-boundary', 'madd-wire-boundary'):
+        cap = 16384 if ident == 'madd-record-boundary' else 32768
+        return (set(evidence) == {'accepted_size', 'rejected_size',
+                                 'oversize_processed'} and
+                type(evidence['accepted_size']) is int and
+                type(evidence['rejected_size']) is int and
+                evidence['accepted_size'] == cap and
+                evidence['rejected_size'] == cap + 1 and
+                evidence['oversize_processed'] is False)
+    if ident == 'madd-utf8-and-escapes':
+        return (set(evidence) == {'complete_json', 'counted_bytes'} and
+                type(evidence['complete_json']) is str and
+                type(evidence['counted_bytes']) is int and
+                evidence['counted_bytes'] ==
+                len(evidence['complete_json'].encode()) and
+                len(evidence['complete_json'].encode()) >
+                len(evidence['complete_json']))
+    if ident == 'madd-result-representations':
+        return (set(evidence) == {'structured_bytes', 'text_bytes',
+                                 'complete_bytes', 'complete_rejected'} and
+                all(type(evidence[key]) is int and evidence[key] >= 0
+                    for key in ('structured_bytes', 'text_bytes',
+                                'complete_bytes')) and
+                evidence['structured_bytes'] <= 16348 and
+                evidence['text_bytes'] <= 16348 and
+                evidence['complete_bytes'] > 16348 and
+                evidence['complete_bytes'] >=
+                evidence['structured_bytes'] + evidence['text_bytes'] and
+                evidence['complete_rejected'] is True)
+    if ident == 'madd-post-effect-oversize':
+        return (set(evidence) == {'effect_count', 'terminal_before',
+                                 'terminal_after', 'delivery_closed',
+                                 'replacement_result_count'} and
+                evidence['effect_count'] == 1 and
+                sha256_hex(evidence['terminal_before']) and
+                evidence['terminal_before'] == evidence['terminal_after'] and
+                evidence['delivery_closed'] is True and
+                evidence['replacement_result_count'] == 0)
+    if ident == 'madd-post-reservation-size-failure':
+        return (set(evidence) == {'reserved_id_before',
+                                 'reserved_id_after', 'sent_count',
+                                 'owner_closed'} and
+                type(evidence['reserved_id_before']) is str and
+                evidence['reserved_id_before'] and
+                evidence['reserved_id_before'] ==
+                evidence['reserved_id_after'] and
+                evidence['sent_count'] == 0 and
+                evidence['owner_closed'] is True)
+    return (set(evidence) == {'replay_id_before', 'replay_id_after',
+                             'dispatch_count', 'owner_closed'} and
+            type(evidence['replay_id_before']) is str and
+            evidence['replay_id_before'] and
+            evidence['replay_id_before'] == evidence['replay_id_after'] and
+            evidence['dispatch_count'] == 0 and
+            evidence['owner_closed'] is True)
+
+
+def mown01_sample(ident):
+    if ident == 'madd-plaintext-boundary':
+        return {'within_b64': base64.b64encode(b'x' * 16348).decode(),
+                'over_b64': base64.b64encode(b'x' * 16349).decode(),
+                'within_continued': True, 'over_dispatched': False}
+    if ident in ('madd-record-boundary', 'madd-wire-boundary'):
+        cap = 16384 if ident == 'madd-record-boundary' else 32768
+        return {'accepted_size': cap, 'rejected_size': cap + 1,
+                'oversize_processed': False}
+    if ident == 'madd-utf8-and-escapes':
+        value = '{"text":"é"}'
+        return {'complete_json': value, 'counted_bytes': len(value.encode())}
+    if ident == 'madd-result-representations':
+        return {'structured_bytes': 9000, 'text_bytes': 9000,
+                'complete_bytes': 18032, 'complete_rejected': True}
+    if ident == 'madd-post-effect-oversize':
+        return {'effect_count': 1, 'terminal_before': 'a' * 64,
+                'terminal_after': 'a' * 64, 'delivery_closed': True,
+                'replacement_result_count': 0}
+    if ident == 'madd-post-reservation-size-failure':
+        return {'reserved_id_before': 'reservation-1',
+                'reserved_id_after': 'reservation-1',
+                'sent_count': 0, 'owner_closed': True}
+    return {'replay_id_before': 'replay-1',
+            'replay_id_after': 'replay-1',
+            'dispatch_count': 0, 'owner_closed': True}
 SEMANTIC_MSET_IDS = (set(SETUP_MODEL_SCENARIOS) |
                      set(MSET01_SCENARIOS) | set(MSET02_SCENARIOS) |
                      set(MSET03_SCENARIOS) | set(MSET04_SCENARIOS) |
@@ -724,6 +830,8 @@ def expected_result(ident=None):
 def sample_observation(case, rule, track):
     ident = case['id']
     assertions = {name: True for name in assertions_for(rule['id'])
+                  if not (ident in MOWN01_SCENARIOS and
+                          name == 'ownership_boundary_checked')
                   if not (ident in MSET01_SCENARIOS and
                           name in ('authenticated_channel',
                                    'session_owner_bound'))
@@ -760,6 +868,8 @@ def sample_observation(case, rule, track):
         result['scope_evidence'] = mset08_sample(ident)
     if ident in MERRATA_CONFIG_SCENARIOS:
         result['configuration_evidence'] = merrata_config_sample(ident)
+    if ident in MOWN01_SCENARIOS:
+        result['size_evidence'] = mown01_sample(ident)
     return result
 
 
@@ -786,6 +896,8 @@ def inspect(case, rule, track, phase, observed):
         fields.add('scope_evidence')
     if case['id'] in MERRATA_CONFIG_SCENARIOS:
         fields.add('configuration_evidence')
+    if case['id'] in MOWN01_SCENARIOS:
+        fields.add('size_evidence')
     require(type(observed) is dict and
             set(observed) == fields and
             observed['case_id'] == case['id'] and observed['track'] == track and
@@ -796,6 +908,8 @@ def inspect(case, rule, track, phase, observed):
             observed['observer_effects'] >= 0 and observed['subject_effects'] >= 0,
             'host observation shape and identity')
     required = tuple(name for name in assertions_for(rule['id'])
+                     if not (case['id'] in MOWN01_SCENARIOS and
+                             name == 'ownership_boundary_checked')
                      if not (case['id'] in MSET01_SCENARIOS and
                              name in ('authenticated_channel',
                                       'session_owner_bound'))
@@ -844,11 +958,13 @@ def inspect(case, rule, track, phase, observed):
                         merrata_config_classification(
                             observed['configuration_evidence']) ==
                         MERRATA_CONFIG_SCENARIOS[case['id']])
+    size_ok = (case['id'] not in MOWN01_SCENARIOS or
+               mown01_check(case['id'], observed['size_evidence']))
     matched = (observed['observed_outcome'] == expected_outcome(case) and
                assertions_valid and effects_agree and setup_effects and
                model_ok and mcp_response_ok and ack_ok and discovery_ok and
                channel_ok and carriage_ok and reconnect_ok and scope_ok and
-               configuration_ok)
+               configuration_ok and size_ok)
     return {'verdict': 'ACCEPT' if matched else 'REJECT',
             'output': {'matched': matched,
                        'reason': 'case_contract' if matched else

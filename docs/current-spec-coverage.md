@@ -151,6 +151,11 @@ configuration change. Every one of the 43 MSET parent cases now has a
 case-specific local predicate; the phase gate checks this inventory. The
 contracts are still partial: reported events and repository-wide routes need
 independent provenance, and no deployed subject has been run on this revision.
+For MOWN-01, eight parent cases now check complete-message boundary counts,
+UTF-8 byte counting, combined result size and the preservation of effects,
+reservations and replay identity after failure. All eight have local adapter
+runtime controls. Size reports and durable state still need independent host
+observation before implementation conformance can be claimed.
 `scripts/run_current_spec_cases.py` can execute bound fixtures for one selected
 verification track against one explicit local adapter. It sends the case input but never the expected
 answer, bounds the process, and writes hashed observations for the evidence

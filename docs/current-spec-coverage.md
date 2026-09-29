@@ -42,7 +42,7 @@ python3 -B scripts/current_spec_gap.py --output /tmp/current-spec-gap.json
 ```
 
 `scripts/current_spec_evidence.py` is the case-level evidence admission and
-status engine. Its 335 current bindings cover selected JCS, HTTP, HPKE,
+status engine. Its 337 current bindings cover selected JCS, HTTP, HPKE,
 session, DID, Agent Card, transport, and Registry cases only partially; the remaining cases still need bindings. A binding must name a current
 case or mandatory child, one required verification track, a repository-owned
 fixture hash, and whether that fixture covers the complete case or only part
@@ -413,6 +413,12 @@ records one inert dispatch before the signing key becomes inactive, then
 refuses an exact replay from the reopened ledger. The ledger reports `UNKNOWN`
 and the second attempt creates no additional handoff. Distributed rotation
 authority and external effects remain outside this local boundary.
+
+The [two guarded RPC route observations](current-spec-rpc-route-evidence.md)
+compare a valid protected tool request with a notification and a direct tool
+call. Go and Rust accept the control but reject both excluded forms without
+creating a ledger entry or inert tool effect. Other host routes and model
+decision paths remain unobserved.
 
 The 95 cases added after the historical snapshot comprise 71 MCP cases and
 24 later corrections. The older 71-case MCP runtime overlay is useful bounded

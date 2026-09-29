@@ -2346,6 +2346,20 @@
       "fixture": "vectors/0.10.0/current-spec/EXEC-05-N02.json",
       "fixture_sha256": "8fdc6000a64e279bf08a3700b92109f2b5dcac3f380662808cee1086d61b1076",
       "coverage": "partial"
+    },
+    {
+      "id": "EXEC-08-N04",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/EXEC-08-N04.json",
+      "fixture_sha256": "c3b9130edc154618077164294a670ab133a0ee65d5f606b7f3fbce1ab9c675b4",
+      "coverage": "partial"
+    },
+    {
+      "id": "EXEC-08-N05",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/EXEC-08-N05.json",
+      "fixture_sha256": "5e52b422d5e1316b8617da5afaaaf3276c3ec86b5196e262b300738a5aad3134",
+      "coverage": "partial"
     }
   ]
 }

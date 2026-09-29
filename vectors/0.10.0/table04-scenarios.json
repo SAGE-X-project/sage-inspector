@@ -1,0 +1,142 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "source_sha256": {
+    "spec/11-registries.md": "eb673391143bd4ed9283ee8a6a578aeb44e0018a78f6d994ebfeb70160757bf4",
+    "spec/04-hpke.md": "1420818451ce8363a16e391647dbaca8ec2f06efa56b6507027a4e17f399fdd6",
+    "spec/05-session.md": "8a45b8bdd3b6bfc399a94c420b2161b8f16db5c6b29ed2e85584a6282b17cce5",
+    "spec/07-a2a.md": "5ded622fdaf67342d5c6b4327da0f5787bfe9df2dc58b233cdfb500ffc96b042",
+    "spec/08-transport.md": "87bb1adc1aae4883e13f8ba52a7c86153c71efb621ffc50458f7e2aa57db3eeb",
+    "spec/09-registry.md": "2f7e5468bf87e7a402c7853584fca8e345b5055a0625f7068a71e80e6321eb02",
+    "profiles/agent-mcp-security.md": "0538acbdcfc143d93fb7d99a2a2c09c068fc354388c4e37c7489204305b1913f"
+  },
+  "scope": "synthetic domain-byte dispatch; no signatures, HKDF derivation, deployed cryptographic interoperability, or release claim",
+  "cases": [
+    {
+      "id": "TABLE-04-P",
+      "purpose": "exact domain bytes in eighteen constructions",
+      "input": {
+        "domains": {
+          "registry_pop": "736167652d706f702d302e31302e30",
+          "registry_claim": "736167652d636c61696d2d302e31302e3000",
+          "card_proof": "736167652d636172642d302e31302e3000",
+          "guard_intent": "736167652d657865637574696f6e2d696e74656e747c302e31302e3000",
+          "guard_result": "736167652d746f6f6c2d726573756c747c302e31302e3000",
+          "wire_request": "736167652d776972652d726571756573747c302e31302e300a",
+          "wire_response": "736167652d776972652d726573706f6e73657c302e31302e300a",
+          "hpke_combiner": "736167652d68706b652d636f6d62696e65727c302e31302e30",
+          "hpke_ack": "736167652d68706b652d61636b7c302e31302e30",
+          "hpke_info": "736167652d68706b652d696e666f7c302e31302e300a",
+          "hpke_export": "736167652d68706b652d6578706f72747c302e31302e300a",
+          "hpke_complete": "736167652d68706b652d636f6d706c6574657c302e31302e300a",
+          "record_aad": "736167652d7265636f72647c302e31302e30",
+          "session_id": "736167652d73657373696f6e7c302e31302e30",
+          "session_c2s": "736167652d6332732d6b65797c302e31302e30",
+          "session_s2c": "736167652d7332632d6b65797c302e31302e30",
+          "original_capture": "736167652d6f726967696e616c7c302e31302e3000",
+          "policy_commitment": "736167652d706f6c6963797c302e31302e3000"
+        }
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "matched_domains": 18
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "TABLE-04-N01",
+      "purpose": "obsolete HPKE info label",
+      "input": {
+        "domains": {
+          "registry_pop": "736167652d706f702d302e31302e30",
+          "registry_claim": "736167652d636c61696d2d302e31302e3000",
+          "card_proof": "736167652d636172642d302e31302e3000",
+          "guard_intent": "736167652d657865637574696f6e2d696e74656e747c302e31302e3000",
+          "guard_result": "736167652d746f6f6c2d726573756c747c302e31302e3000",
+          "wire_request": "736167652d776972652d726571756573747c302e31302e300a",
+          "wire_response": "736167652d776972652d726573706f6e73657c302e31302e300a",
+          "hpke_combiner": "736167652d68706b652d636f6d62696e65727c302e31302e30",
+          "hpke_ack": "736167652d68706b652d61636b7c302e31302e30",
+          "hpke_info": "736167652f68706b652d696e666f7c76310a",
+          "hpke_export": "736167652d68706b652d6578706f72747c302e31302e300a",
+          "hpke_complete": "736167652d68706b652d636f6d706c6574657c302e31302e300a",
+          "record_aad": "736167652d7265636f72647c302e31302e30",
+          "session_id": "736167652d73657373696f6e7c302e31302e30",
+          "session_c2s": "736167652d6332732d6b65797c302e31302e30",
+          "session_s2c": "736167652d7332632d6b65797c302e31302e30",
+          "original_capture": "736167652d6f726967696e616c7c302e31302e3000",
+          "policy_commitment": "736167652d706f6c6963797c302e31302e3000"
+        }
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {},
+        "effects": {}
+      }
+    },
+    {
+      "id": "TABLE-04-N02",
+      "purpose": "omitted wire-request line feed",
+      "input": {
+        "domains": {
+          "registry_pop": "736167652d706f702d302e31302e30",
+          "registry_claim": "736167652d636c61696d2d302e31302e3000",
+          "card_proof": "736167652d636172642d302e31302e3000",
+          "guard_intent": "736167652d657865637574696f6e2d696e74656e747c302e31302e3000",
+          "guard_result": "736167652d746f6f6c2d726573756c747c302e31302e3000",
+          "wire_request": "736167652d776972652d726571756573747c302e31302e30",
+          "wire_response": "736167652d776972652d726573706f6e73657c302e31302e300a",
+          "hpke_combiner": "736167652d68706b652d636f6d62696e65727c302e31302e30",
+          "hpke_ack": "736167652d68706b652d61636b7c302e31302e30",
+          "hpke_info": "736167652d68706b652d696e666f7c302e31302e300a",
+          "hpke_export": "736167652d68706b652d6578706f72747c302e31302e300a",
+          "hpke_complete": "736167652d68706b652d636f6d706c6574657c302e31302e300a",
+          "record_aad": "736167652d7265636f72647c302e31302e30",
+          "session_id": "736167652d73657373696f6e7c302e31302e30",
+          "session_c2s": "736167652d6332732d6b65797c302e31302e30",
+          "session_s2c": "736167652d7332632d6b65797c302e31302e30",
+          "original_capture": "736167652d6f726967696e616c7c302e31302e3000",
+          "policy_commitment": "736167652d706f6c6963797c302e31302e3000"
+        }
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {},
+        "effects": {}
+      }
+    },
+    {
+      "id": "TABLE-04-N03",
+      "purpose": "acknowledgment domain used for combiner HKDF",
+      "input": {
+        "domains": {
+          "registry_pop": "736167652d706f702d302e31302e30",
+          "registry_claim": "736167652d636c61696d2d302e31302e3000",
+          "card_proof": "736167652d636172642d302e31302e3000",
+          "guard_intent": "736167652d657865637574696f6e2d696e74656e747c302e31302e3000",
+          "guard_result": "736167652d746f6f6c2d726573756c747c302e31302e3000",
+          "wire_request": "736167652d776972652d726571756573747c302e31302e300a",
+          "wire_response": "736167652d776972652d726573706f6e73657c302e31302e300a",
+          "hpke_combiner": "736167652d68706b652d61636b7c302e31302e30",
+          "hpke_ack": "736167652d68706b652d61636b7c302e31302e30",
+          "hpke_info": "736167652d68706b652d696e666f7c302e31302e300a",
+          "hpke_export": "736167652d68706b652d6578706f72747c302e31302e300a",
+          "hpke_complete": "736167652d68706b652d636f6d706c6574657c302e31302e300a",
+          "record_aad": "736167652d7265636f72647c302e31302e30",
+          "session_id": "736167652d73657373696f6e7c302e31302e30",
+          "session_c2s": "736167652d6332732d6b65797c302e31302e30",
+          "session_s2c": "736167652d7332632d6b65797c302e31302e30",
+          "original_capture": "736167652d6f726967696e616c7c302e31302e3000",
+          "policy_commitment": "736167652d706f6c6963797c302e31302e3000"
+        }
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {},
+        "effects": {}
+      }
+    }
+  ]
+}

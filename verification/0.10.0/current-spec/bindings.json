@@ -1870,6 +1870,34 @@
       "fixture": "vectors/0.10.0/current-spec/mllm-kem-type-valid.json",
       "fixture_sha256": "2fed22f324ac441c726b62f04aae1873706ef1a7b2f230df0c4cbc2d64d73dfe",
       "coverage": "partial"
+    },
+    {
+      "id": "TABLE-04-P",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/TABLE-04-P.json",
+      "fixture_sha256": "35b1d29c1bc355d57dedd043be80686c12c2589e523c939d7cbccd8e46621787",
+      "coverage": "partial"
+    },
+    {
+      "id": "TABLE-04-N01",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/TABLE-04-N01.json",
+      "fixture_sha256": "264f23e66c5816060129eba4106bd08405ffd3a8031de87cfbba6b6c4e8b5de7",
+      "coverage": "partial"
+    },
+    {
+      "id": "TABLE-04-N02",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/TABLE-04-N02.json",
+      "fixture_sha256": "ac7a785e2d69e7fbdcc50b47f4c132ffa9e5d93a94dd0ec93632a0e3c17203a9",
+      "coverage": "partial"
+    },
+    {
+      "id": "TABLE-04-N03",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/TABLE-04-N03.json",
+      "fixture_sha256": "4dc7fb57b04c866ef9f6f072ad2daa730b403eb29fd6c23356a5f014d7c1bc8a",
+      "coverage": "partial"
     }
   ]
 }

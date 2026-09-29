@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "source_sha256": "0538acbdcfc143d93fb7d99a2a2c09c068fc354388c4e37c7489204305b1913f",
+  "scope": "synthetic claim declarations only; no review of actual product wording or external attestation",
+  "cases": [
+    {
+      "id": "EXEC-09-P",
+      "input": {
+        "claim": "authenticated-execution-intent",
+        "basis": [
+          "valid-signature",
+          "trusted-authorization-policy",
+          "enforced-dispatch-boundary"
+        ],
+        "scope": "approved-intent-only"
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {},
+        "effects": {}
+      }
+    },
+    {
+      "id": "EXEC-09-N01",
+      "input": {
+        "claim": "semantic-safety",
+        "basis": [
+          "valid-signature"
+        ],
+        "scope": "all-model-decisions"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {},
+        "effects": {}
+      }
+    },
+    {
+      "id": "EXEC-09-N02",
+      "input": {
+        "claim": "whole-host-integrity",
+        "basis": [
+          "file-hash"
+        ],
+        "scope": "entire-host"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {},
+        "effects": {}
+      }
+    }
+  ]
+}

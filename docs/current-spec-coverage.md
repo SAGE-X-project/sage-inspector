@@ -387,7 +387,8 @@ one committed inert handoff. Reopening without the ledger must fail and
 cannot recreate history or dispatch again. The trusted epoch-recovery
 procedure remains outside this observation.
 
-Two CST-01 partial fixtures distinguish a signed `UNKNOWN` terminal outcome
+The [two pending-state observations](current-spec-exec-pending-evidence.md)
+distinguish a signed `UNKNOWN` terminal outcome
 from ordinary Client `pending`, and check the signed MCP pending projection.
 Recovered server UNKNOWN issuance and the HTTP pending mapping still require
 separate boundary evidence.

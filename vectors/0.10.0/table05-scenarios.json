@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "source_sha256": {
+    "spec/11-registries.md": "eb673391143bd4ed9283ee8a6a578aeb44e0018a78f6d994ebfeb70160757bf4",
+    "spec/06-did-sage.md": "5791cc368111216a6539f7c423811abeb9821f9741e0c5d6ce177d5100b0b059",
+    "spec/09-registry.md": "2f7e5468bf87e7a402c7853584fca8e345b5055a0625f7068a71e80e6321eb02"
+  },
+  "scope": "synthetic kind and descriptor selection; no contract, ABI, chain finality, TLS, or deployment attestation",
+  "cases": [
+    {
+      "id": "TABLE-05-P",
+      "purpose": "configured eip155 kind and bounded deployment descriptor",
+      "input": {
+        "protocol_version": "0.10.0",
+        "kind": "eip155",
+        "locator": "11155111:0xc7ecf7ad6ee71cb0d94f0eb00f46f1ddf432a808",
+        "policy": {
+          "allow_eip155": true,
+          "allow_web": false,
+          "require_blockchain": true
+        },
+        "binding": {
+          "kind": "eip155",
+          "chain_id": "11155111",
+          "registry_address": "0xc7ecf7ad6ee71cb0d94f0eb00f46f1ddf432a808",
+          "deployed_code_hash": "0x1111111111111111111111111111111111111111111111111111111111111111",
+          "upgrade_policy": "pinned-code-hash",
+          "abi_mapping": "sections-1-through-5",
+          "operator_scopes": "controller-authorized",
+          "transaction_authorization": "authenticated-controller",
+          "finalized_node_readiness": "required",
+          "costs_latency": "measured-for-deployment"
+        }
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "selected_kind": "eip155"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "TABLE-05-N01",
+      "purpose": "reserved solana kind advertised as supported",
+      "input": {
+        "protocol_version": "0.10.0",
+        "kind": "solana",
+        "locator": "11155111:0xc7ecf7ad6ee71cb0d94f0eb00f46f1ddf432a808",
+        "policy": {
+          "allow_eip155": true,
+          "allow_web": false,
+          "require_blockchain": true
+        },
+        "binding": {
+          "kind": "eip155",
+          "chain_id": "11155111",
+          "registry_address": "0xc7ecf7ad6ee71cb0d94f0eb00f46f1ddf432a808",
+          "deployed_code_hash": "0x1111111111111111111111111111111111111111111111111111111111111111",
+          "upgrade_policy": "pinned-code-hash",
+          "abi_mapping": "sections-1-through-5",
+          "operator_scopes": "controller-authorized",
+          "transaction_authorization": "authenticated-controller",
+          "finalized_node_readiness": "required",
+          "costs_latency": "measured-for-deployment"
+        }
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {},
+        "effects": {}
+      }
+    },
+    {
+      "id": "TABLE-05-N02",
+      "purpose": "unregistered kind advertised as supported",
+      "input": {
+        "protocol_version": "0.10.0",
+        "kind": "unknownchain",
+        "locator": "11155111:0xc7ecf7ad6ee71cb0d94f0eb00f46f1ddf432a808",
+        "policy": {
+          "allow_eip155": true,
+          "allow_web": false,
+          "require_blockchain": true
+        },
+        "binding": {
+          "kind": "eip155",
+          "chain_id": "11155111",
+          "registry_address": "0xc7ecf7ad6ee71cb0d94f0eb00f46f1ddf432a808",
+          "deployed_code_hash": "0x1111111111111111111111111111111111111111111111111111111111111111",
+          "upgrade_policy": "pinned-code-hash",
+          "abi_mapping": "sections-1-through-5",
+          "operator_scopes": "controller-authorized",
+          "transaction_authorization": "authenticated-controller",
+          "finalized_node_readiness": "required",
+          "costs_latency": "measured-for-deployment"
+        }
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {},
+        "effects": {}
+      }
+    }
+  ]
+}

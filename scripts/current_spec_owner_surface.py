@@ -74,7 +74,9 @@ def sample(ident):
 
 def check(ident, evidence):
     if ident not in SAMPLES or type(evidence) is not dict or \
-            set(evidence) != set(SAMPLES[ident]):
+            set(evidence) != set(SAMPLES[ident]) or \
+            any(type(evidence[key]) is not type(value)
+                for key, value in SAMPLES[ident].items()):
         return False
     try:
         if ident == 'madd-mutable-buffer':

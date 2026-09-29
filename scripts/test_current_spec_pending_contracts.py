@@ -25,6 +25,11 @@ from current_spec_pending_contracts import mown05_sample
 from current_spec_pending_contracts import MOWN_MODEL_SCENARIOS, owner_model_check
 from current_spec_owner_surface import SAMPLES as MOWN02_SAMPLES
 from current_spec_owner_surface import check as mown02_check
+from current_spec_owner_surface import sample as mown02_sample
+from current_spec_owner_children import IDS as MOWN06_CHILD_IDS
+from current_spec_owner_children import GROUPS as MOWN06_GROUPS
+from current_spec_owner_children import check as mown06_check
+from current_spec_owner_children import sample as mown06_sample
 from current_spec_pending_contracts import SETUP_MODEL_SCENARIOS
 from current_spec_pending_contracts import mset01_classification, mset01_sample
 from current_spec_pending_contracts import mset02_classification, mset02_sample
@@ -899,6 +904,93 @@ class PendingContractTests(unittest.TestCase):
                                      result.stderr.decode())
                     self.assertEqual(json.loads(result.stdout)['actual'],
                                      fixture['expected'])
+
+    def test_mandatory_owner_children_reject_changed_security_facts(self):
+        root = Path(__file__).resolve().parents[1]
+        source = catalog()[1]
+        children = {row['id']: row for row in source['mandatory_subscenarios']}
+        rule = next(row for row in source['rules'] if row['id'] == 'MOWN-06')
+        def mutate(ident, evidence):
+            category = next(name for name, members in MOWN06_GROUPS.items()
+                            if ident in members)
+            changes = {
+                'generation': ('queue_admissions', 1),
+                'queue_failure': ('visible_queue_entries', 1),
+                'shared_close': ('owner_a_effects', 1),
+                'fence': ('queue_admissions', 1),
+                'write_failure': ('scope_available', True),
+                'recovery_failure': ('writer_ready', True),
+                'pool': ('new_slots_before_completion', 1),
+                'history': ('next_id_admitted', True),
+                'record_limit': ('owner_closed', False),
+            }
+            if category in ('observation', 'expiry'):
+                field = 'queue_admissions'
+                value = 0 if evidence[field] else 1
+            elif category == 'retirement':
+                field = 'entry_cancelled'
+                value = not evidence[field]
+            elif category == 'scheduler':
+                field, value = (('worker_claims', 1)
+                                if ident == 'scheduler-cancel-race' else
+                                ('extra_work_admitted', 1))
+            else:
+                field, value = changes[category]
+            evidence[field] = value
+        self.assertEqual(len(MOWN06_CHILD_IDS), 26)
+        for ident in MOWN06_CHILD_IDS:
+            with self.subTest(ident=ident):
+                fixture = json.loads((root / 'vectors/0.10.0/current-spec' /
+                                      f'{ident}-runtime.json').read_text())
+                request = {key: fixture[key] for key in
+                           ('schema_version', 'spec_revision', 'id', 'track', 'input')}
+                trace = sample_observation(children[ident], rule, 'runtime')
+                self.assertEqual(trace['assertions'], {})
+                self.assertEqual(observe(json.dumps(request).encode(), trace)
+                                 ['actual'], fixture['expected'])
+                mutate(ident, trace['child_evidence'])
+                self.assertFalse(mown06_check(ident, trace['child_evidence']))
+                self.assertEqual(observe(json.dumps(request).encode(), trace)
+                                 ['actual']['verdict'], 'REJECT')
+
+    def test_mandatory_owner_children_run_through_local_adapter(self):
+        root = Path(__file__).resolve().parents[1]
+        source = catalog()[1]
+        children = {row['id']: row for row in source['mandatory_subscenarios']}
+        rule = next(row for row in source['rules'] if row['id'] == 'MOWN-06')
+        with tempfile.TemporaryDirectory() as temporary:
+            adapter = Path(temporary) / 'child-observer'
+            environment = dict(os.environ, SAGE_CASE_ADAPTER=str(adapter))
+            for ident in MOWN06_CHILD_IDS:
+                with self.subTest(ident=ident):
+                    fixture = json.loads((root / 'vectors/0.10.0/current-spec' /
+                                          f'{ident}-runtime.json').read_text())
+                    request = {key: fixture[key] for key in
+                               ('schema_version', 'spec_revision', 'id',
+                                'track', 'input')}
+                    trace = sample_observation(children[ident], rule, 'runtime')
+                    adapter.write_text('#!/usr/bin/env python3\n'
+                                       'import json,sys\n'
+                                       'json.load(sys.stdin)\n'
+                                       f'print({json.dumps(json.dumps({"trace": trace}))})\n')
+                    adapter.chmod(0o700)
+                    result = subprocess.run(
+                        [sys.executable, '-B',
+                         str(root / 'scripts/current_spec_pending_bridge.py')],
+                        input=json.dumps(request).encode(), capture_output=True,
+                        env=environment, timeout=10, check=False)
+                    self.assertEqual(result.returncode, 0,
+                                     result.stderr.decode())
+                    self.assertEqual(json.loads(result.stdout)['actual'],
+                                     fixture['expected'])
+
+    def test_owner_observation_types_are_exact(self):
+        owner = mown02_sample('madd-history-capacity')
+        owner['retained_ids'] = True
+        self.assertFalse(mown02_check('madd-history-capacity', owner))
+        child = mown06_sample('owner-history-1024')
+        child['retained_ids'] = True
+        self.assertFalse(mown06_check('owner-history-1024', child))
 
 
 if __name__ == '__main__':

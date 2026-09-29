@@ -19,6 +19,9 @@ from mcp_owner_model import step as owner_step
 from current_spec_owner_surface import SAMPLES as MOWN02_SAMPLES
 from current_spec_owner_surface import check as mown02_check
 from current_spec_owner_surface import sample as mown02_sample
+from current_spec_owner_children import IDS as MOWN06_CHILD_IDS
+from current_spec_owner_children import check as mown06_check
+from current_spec_owner_children import sample as mown06_sample
 
 
 RULE_ASSERTIONS = {
@@ -961,6 +964,8 @@ def expected_result(ident=None):
 def sample_observation(case, rule, track):
     ident = case['id']
     assertions = {name: True for name in assertions_for(rule['id'])
+                  if not (ident in MOWN06_CHILD_IDS and
+                          name == 'mandatory_child_boundary_checked')
                   if not (ident in MOWN02_SAMPLES and
                           name == 'owner_publication_checked')
                   if not (ident in MOWN_MODEL_SCENARIOS and
@@ -1014,6 +1019,8 @@ def sample_observation(case, rule, track):
         result['owner_events'] = list(MOWN_MODEL_SCENARIOS[ident][0])
     if ident in MOWN02_SAMPLES:
         result['owner_surface_evidence'] = mown02_sample(ident)
+    if ident in MOWN06_CHILD_IDS:
+        result['child_evidence'] = mown06_sample(ident)
     return result
 
 
@@ -1048,6 +1055,8 @@ def inspect(case, rule, track, phase, observed):
         fields.add('owner_events')
     if case['id'] in MOWN02_SAMPLES:
         fields.add('owner_surface_evidence')
+    if case['id'] in MOWN06_CHILD_IDS:
+        fields.add('child_evidence')
     require(type(observed) is dict and
             set(observed) == fields and
             observed['case_id'] == case['id'] and observed['track'] == track and
@@ -1058,6 +1067,8 @@ def inspect(case, rule, track, phase, observed):
             observed['observer_effects'] >= 0 and observed['subject_effects'] >= 0,
             'host observation shape and identity')
     required = tuple(name for name in assertions_for(rule['id'])
+                     if not (case['id'] in MOWN06_CHILD_IDS and
+                             name == 'mandatory_child_boundary_checked')
                      if not (case['id'] in MOWN02_SAMPLES and
                              name == 'owner_publication_checked')
                      if not (case['id'] in MOWN_MODEL_SCENARIOS and
@@ -1124,12 +1135,14 @@ def inspect(case, rule, track, phase, observed):
     owner_surface_ok = (case['id'] not in MOWN02_SAMPLES or
                         mown02_check(case['id'],
                                      observed['owner_surface_evidence']))
+    child_ok = (case['id'] not in MOWN06_CHILD_IDS or
+                mown06_check(case['id'], observed['child_evidence']))
     matched = (observed['observed_outcome'] == expected_outcome(case) and
                assertions_valid and effects_agree and setup_effects and
                model_ok and mcp_response_ok and ack_ok and discovery_ok and
                channel_ok and carriage_ok and reconnect_ok and scope_ok and
                configuration_ok and size_ok and signature_ok and
-               owner_model_ok and owner_surface_ok)
+               owner_model_ok and owner_surface_ok and child_ok)
     return {'verdict': 'ACCEPT' if matched else 'REJECT',
             'output': {'matched': matched,
                        'reason': 'case_contract' if matched else

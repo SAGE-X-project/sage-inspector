@@ -5,6 +5,7 @@ from current_spec_evidence import load_bindings
 from current_spec_pending_contracts import case_input, expected_result, inspect
 from current_spec_pending_contracts import SEMANTIC_MSET_IDS
 from current_spec_pending_contracts import SEMANTIC_MOWN_PARENT_IDS
+from current_spec_pending_contracts import MOWN06_CHILD_IDS
 from current_spec_pending_contracts import sample_observation
 from generate_current_spec_pending_contracts import COUNTS
 
@@ -33,6 +34,9 @@ def check(phase, root=ROOT):
         require(set(suite['parent_case_ids']) == SEMANTIC_MOWN_PARENT_IDS and
                 len(SEMANTIC_MOWN_PARENT_IDS) == 37,
                 'every owner parent has a semantic review path')
+        require({row['id'] for row in suite['cases'] if row['id'] in children} ==
+                MOWN06_CHILD_IDS and len(MOWN06_CHILD_IDS) == 26,
+                'every mandatory owner child has a semantic review path')
     for row in suite['cases']:
         ident, track = row['id'], row['track']
         case = cases.get(ident, children.get(ident))

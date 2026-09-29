@@ -171,7 +171,12 @@ single-flight slots, retained request history, cancellation, deferred input,
 fresh follow-up IDs and shared worker bounds from structured observations.
 Together with MOWN-01/03/04/05, all 37 MOWN parent cases have a distinct local
 decision path; the phase gate detects a missing parent. The 26 mandatory
-MOWN-06 children still need their own semantic checks.
+MOWN-06 children now also have grouped, case-specific predicates over
+generation changes, observation age, queue and fence outcomes, competing
+owners, administrative invalidation, scheduler limits and retained history.
+Each child rejects a changed decisive observation and runs through a bounded
+local adapter; the phase gate checks all 26 IDs. These synthetic observations
+do not establish that a deployed queue or durable store obeys the rules.
 `scripts/run_current_spec_cases.py` can execute bound fixtures for one selected
 verification track against one explicit local adapter. It sends the case input but never the expected
 answer, bounds the process, and writes hashed observations for the evidence

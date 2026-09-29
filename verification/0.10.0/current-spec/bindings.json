@@ -2122,6 +2122,69 @@
       "fixture": "vectors/0.10.0/current-spec/CST-01-06.json",
       "fixture_sha256": "efc5a81f31abeb8d9e4cff7bd6e301c193601c0ccd07b791dbc703ddcc642d82",
       "coverage": "partial"
+    },
+    {
+      "id": "EXEC-06-P",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/EXEC-06-P.json",
+      "fixture_sha256": "fa895ad9f6a10a325703b4b403196745be4c8900feec70a4a7e2acdc8e7cb287",
+      "coverage": "partial"
+    },
+    {
+      "id": "EXEC-06-N03",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/EXEC-06-N03.json",
+      "fixture_sha256": "73a0baa3246027f3b9ccbba733a31aaef65abf559147b868ae63cbf1339aabbf",
+      "coverage": "partial"
+    },
+    {
+      "id": "EXEC-07-P",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/EXEC-07-P.json",
+      "fixture_sha256": "858dd546d3f2267a0180ee538e713aa817b1dac2e92702a30ac5b9b5a78b6acf",
+      "coverage": "partial"
+    },
+    {
+      "id": "EXEC-07-N01",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/EXEC-07-N01.json",
+      "fixture_sha256": "28ca9a834199c407ac107c371c06055a1253b7a651719944d6013b41cd606252",
+      "coverage": "partial"
+    },
+    {
+      "id": "EXEC-07-N02",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/EXEC-07-N02.json",
+      "fixture_sha256": "94a82734839bdace87ba6637bf8c6b6ddc324f51ee4386a2b441397c6ac906ba",
+      "coverage": "partial"
+    },
+    {
+      "id": "EXEC-07-N03",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/EXEC-07-N03.json",
+      "fixture_sha256": "79ff940d0dceac012b4d4153ecbab318336a8640fd568fe6b53ecbef0af46c89",
+      "coverage": "partial"
+    },
+    {
+      "id": "EXEC-07-N05",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/EXEC-07-N05.json",
+      "fixture_sha256": "4611aaa904468f41672a6a70110ddba4f4b8fe1ee01f6817d42e551d831a82f3",
+      "coverage": "partial"
+    },
+    {
+      "id": "EXEC-08-P",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/EXEC-08-P.json",
+      "fixture_sha256": "569e749a47f91271ba357ac75ce83f203050dd2918709be700e8f57a4ca7969d",
+      "coverage": "partial"
+    },
+    {
+      "id": "EXEC-08-N06",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/EXEC-08-N06.json",
+      "fixture_sha256": "8253c53c2a71b4b3344600ac59d20f31d488fe3a896582aad791d0217f10b133",
+      "coverage": "partial"
     }
   ]
 }

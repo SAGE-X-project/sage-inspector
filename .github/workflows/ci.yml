@@ -164,6 +164,10 @@ jobs:
           cd sage-inspector
           python3 -B scripts/test_latest_spec_catalog.py
           python3 -B scripts/latest_spec_catalog.py --spec-root ../sage-spec --report "${RUNNER_TEMP}/latest-spec-inventory.json"
+          python3 -B scripts/test_latest_spec_case_bindings.py
+          python3 -B scripts/test_latest_spec_evidence.py
+          python3 -B scripts/latest_spec_case_bindings.py --spec-root ../sage-spec
+          python3 -B scripts/latest_spec_evidence.py --output "${RUNNER_TEMP}/latest-spec-evidence.json"
       - name: Preserve the latest inventory
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
@@ -171,7 +175,9 @@ jobs:
           name: latest-spec-inventory-${{ github.sha }}
           if-no-files-found: ignore
           retention-days: 30
-          path: ${{ runner.temp }}/latest-spec-inventory.json
+          path: |
+            ${{ runner.temp }}/latest-spec-inventory.json
+            ${{ runner.temp }}/latest-spec-evidence.json
 
   current-spec:
     name: Earlier 481-case spec inventory

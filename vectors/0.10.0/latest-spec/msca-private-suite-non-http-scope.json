@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "spec_revision": "44df132fee5925182018ce089dc82435cb353f8a",
+  "id": "msca-private-suite-non-http-scope",
+  "track": "runtime",
+  "input": {
+    "operation": "sage.spec.host_case",
+    "id": "msca-private-suite-non-http-scope",
+    "track": "runtime",
+    "rule_id": "TABLE-02",
+    "source": "spec/11-registries.md",
+    "source_line": 28,
+    "source_case_sha256": "8905920e4c43a42dd2e70d7aa2e69dd2519411f6546dac11fdc62365d2601365",
+    "trigger": "A transport-independent signed envelope declares a permitted secp256k1/Keccak key without an HTTP alg parameter",
+    "preconditions": "Use an isolated synthetic record and the exact non-HTTP envelope domain; no HTTP carriage or live effects",
+    "normative_expected": "Evaluate only under the explicit non-HTTP suite and full registry/profile checks; the HTTP restriction alone does not reject this suite."
+  },
+  "expected": {
+    "verdict": "ACCEPT",
+    "output": {
+      "matched": true,
+      "reason": "case_contract"
+    },
+    "effects": {}
+  }
+}

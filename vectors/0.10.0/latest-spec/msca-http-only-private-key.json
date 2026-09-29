@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "spec_revision": "44df132fee5925182018ce089dc82435cb353f8a",
+  "id": "msca-http-only-private-key",
+  "track": "runtime",
+  "input": {
+    "operation": "sage.spec.host_case",
+    "id": "msca-http-only-private-key",
+    "track": "runtime",
+    "rule_id": "TRANSPORT-05",
+    "source": "spec/08-transport.md",
+    "source_line": 115,
+    "source_case_sha256": "577eb83b2c3b52515d637a3f02ef585badc87316a2fa489ea99bcdf9017a7536",
+    "trigger": "The sender record has only a valid secp256k1/Keccak signing key and attempts protected HTTP carriage",
+    "preconditions": "Use an isolated record and inert request; keep the HTTP recipient and effect sink fixed",
+    "normative_expected": "Reject before protected dispatch because no eligible matching HTTP signing key exists."
+  },
+  "expected": {
+    "verdict": "ACCEPT",
+    "output": {
+      "matched": true,
+      "reason": "case_contract"
+    },
+    "effects": {}
+  }
+}

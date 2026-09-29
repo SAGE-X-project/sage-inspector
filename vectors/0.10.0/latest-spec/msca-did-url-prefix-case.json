@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "spec_revision": "44df132fee5925182018ce089dc82435cb353f8a",
+  "id": "msca-did-url-prefix-case",
+  "track": "runtime",
+  "input": {
+    "operation": "sage.spec.host_case",
+    "id": "msca-did-url-prefix-case",
+    "track": "runtime",
+    "rule_id": "ID-01",
+    "source": "spec/06-did-sage.md",
+    "source_line": 9,
+    "source_case_sha256": "716ab570f3bf158625fd01d1cb4ccf7585a0c34a49811a05337a12ee5fe97455",
+    "trigger": "A key URL uses a mixed-case did:sage prefix with an otherwise valid fragment",
+    "preconditions": "Use an otherwise valid synthetic active key URL and fixed expected peer",
+    "normative_expected": "Reject the key URL as id.malformed before key selection; do not match the lowercase DID."
+  },
+  "expected": {
+    "verdict": "ACCEPT",
+    "output": {
+      "matched": true,
+      "reason": "case_contract"
+    },
+    "effects": {}
+  }
+}

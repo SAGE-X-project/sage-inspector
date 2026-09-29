@@ -34,9 +34,9 @@ is injected only through the test control. The existing Inspector
 [current-spec inventory](current-spec-coverage.md) is pinned to the older
 `5bcf511e604579afa63f434013447f44b6858828` revision with 481 parents.
 The imported sage-spec revision has 489 parents: eight new `msca-*` cases.
-They remain outside that older inventory until its full case, binding and
-evidence snapshot is deliberately updated. No `msca-*` parent is marked PASS
-by this import.
+They are listed in the separate [latest specification inventory](latest-spec-inventory.md)
+with partial source-bound host contracts. No `msca-*` parent is marked PASS
+by this fixture or its contracts.
 
 To repeat the checks from a checkout beside the pinned sage-spec revision:
 
@@ -49,7 +49,6 @@ go test ./pkg/conformance
 
 Rebuild `cmd/sage-conformance` and the two adapters against the stated core
 revisions to refresh runtime reports. Use a new report path for each run;
-preserved reports describe these exact revisions. The next work is to update
-the complete Inspector case inventory to the 489-case spec revision, retain
-unobserved cases as NOT_RUN, and later reconnect the full boundary once each
-core exposes a trusted-clock, key-status and replay-aware entry point.
+preserved reports describe these exact revisions. Full HTTP boundary inspection
+still requires each core to expose a trusted-clock, key-status and replay-aware
+entry point.

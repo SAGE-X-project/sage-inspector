@@ -60,8 +60,10 @@ def validate_subject(subject):
             'subject executable hash')
 
 
-def load_bindings(root, spec_revision, mapped, children):
-    base = root / 'verification/0.10.0/current-spec'
+def load_bindings(root, spec_revision, mapped, children,
+                  base_relative='verification/0.10.0/current-spec',
+                  fixture_prefix='vectors/0.10.0/current-spec/'):
+    base = root / base_relative
     contract = load((base / 'bindings.json').read_bytes())
     require(type(contract) is dict and set(contract) == {'schema_version',
             'spec_revision', 'bindings'} and contract['schema_version'] == 1
@@ -79,7 +81,7 @@ def load_bindings(root, spec_revision, mapped, children):
         require((ident, track) not in result, 'duplicate binding: ' + ident + '/' + track)
         require(row['coverage'] in ('complete', 'partial'), 'binding coverage')
         require(type(row['fixture']) is str and row['fixture'].startswith(
-            'vectors/0.10.0/current-spec/'), 'fixture outside current spec vectors')
+            fixture_prefix), 'fixture outside selected spec vectors')
         raw = safe_file(root, row['fixture'])
         require(sha(raw) == row['fixture_sha256'], 'fixture hash: ' + ident)
         fixture = load(raw)
@@ -162,10 +164,14 @@ def aggregate(statuses):
     return 'NOT_RUN'
 
 
-def assess(root=ROOT, evidence_root=None):
-    manifest, trace, mapped = catalog(root)
+def assess(root=ROOT, evidence_root=None,
+           base_relative='verification/0.10.0/current-spec',
+           fixture_prefix='vectors/0.10.0/current-spec/',
+           kind='current-spec-case-evidence'):
+    manifest, trace, mapped = catalog(root, base_relative=base_relative)
     children = index(trace['mandatory_subscenarios'], 'mandatory subscenario')
-    bindings = load_bindings(root, manifest['spec_revision'], mapped, children)
+    bindings = load_bindings(root, manifest['spec_revision'], mapped, children,
+                             base_relative, fixture_prefix)
     if evidence_root is None:
         observations, subject = {}, None
     else:
@@ -191,7 +197,7 @@ def assess(root=ROOT, evidence_root=None):
         rows.append({'id': cid, 'rule_id': case['rule_id'],
                      'tracks': tracks, 'status': state})
     counts = {state: sum(row['status'] == state for row in rows) for state in STATUSES}
-    return {'schema_version': 1, 'kind': 'current-spec-case-evidence',
+    return {'schema_version': 1, 'kind': kind,
             'spec_revision': manifest['spec_revision'], 'subject': subject,
             'status': 'EVIDENCE_CHECKED' if evidence_root is not None else 'INVENTORY_ONLY',
             'conformance': 'NOT_ESTABLISHED', 'counts': counts,

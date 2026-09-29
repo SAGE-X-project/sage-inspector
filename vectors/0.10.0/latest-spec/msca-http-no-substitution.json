@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "spec_revision": "44df132fee5925182018ce089dc82435cb353f8a",
+  "id": "msca-http-no-substitution",
+  "track": "runtime",
+  "input": {
+    "operation": "sage.spec.host_case",
+    "id": "msca-http-no-substitution",
+    "track": "runtime",
+    "rule_id": "TRANSPORT-05",
+    "source": "spec/08-transport.md",
+    "source_line": 115,
+    "source_case_sha256": "c4fdb2c15aec286673a031768e1b3e26183b056116b2c03d51a321292ad9b12a",
+    "trigger": "The inner kid names a secp256k1 key while the outer signature names a different Ed25519 or P-256 key",
+    "preconditions": "Both synthetic keys belong to the same active record; compare exact inner and outer key references",
+    "normative_expected": "Reject the mismatch; no alternate key, unsigned retry or weaker transport fallback authorizes the request."
+  },
+  "expected": {
+    "verdict": "ACCEPT",
+    "output": {
+      "matched": true,
+      "reason": "case_contract"
+    },
+    "effects": {}
+  }
+}

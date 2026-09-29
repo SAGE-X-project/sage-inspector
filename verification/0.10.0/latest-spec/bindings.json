@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "spec_revision": "44df132fee5925182018ce089dc82435cb353f8a",
+  "bindings": [
+    {
+      "id": "msca-http-ed25519",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/latest-spec/msca-http-ed25519.json",
+      "fixture_sha256": "6cfe08c50b3608ea35f009c7fafab3f920732d144954392d6fe6a9747c756589",
+      "coverage": "partial"
+    },
+    {
+      "id": "msca-http-p256",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/latest-spec/msca-http-p256.json",
+      "fixture_sha256": "901c7162bac8177c631da6368f150b6f915f7b1f4f139e7ce8304654dbdd4e3b",
+      "coverage": "partial"
+    },
+    {
+      "id": "msca-http-private-alg",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/latest-spec/msca-http-private-alg.json",
+      "fixture_sha256": "a1412c8856220f7de022e259701ddf1559e011b70b94f7bdbd0484d275f1780f",
+      "coverage": "partial"
+    },
+    {
+      "id": "msca-http-only-private-key",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/latest-spec/msca-http-only-private-key.json",
+      "fixture_sha256": "651bd922971111eb8c8232a7b6d0b7b9e8386695c9751759c4e9e6aeae1bb953",
+      "coverage": "partial"
+    },
+    {
+      "id": "msca-http-no-substitution",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/latest-spec/msca-http-no-substitution.json",
+      "fixture_sha256": "566ff81e56ab7047833321e282d3d69e6b40b255d89647be705c19607aa421f5",
+      "coverage": "partial"
+    },
+    {
+      "id": "msca-did-prefix-case",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/latest-spec/msca-did-prefix-case.json",
+      "fixture_sha256": "d2cf18ee93adfb059ea390d7195f6c319e690c74863d4555305ec059e4363f50",
+      "coverage": "partial"
+    },
+    {
+      "id": "msca-did-url-prefix-case",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/latest-spec/msca-did-url-prefix-case.json",
+      "fixture_sha256": "2a849dabed5dbf3a517e5d9bf3cefd61cd79a9c6c3eb005cdc0d1e9527b25068",
+      "coverage": "partial"
+    },
+    {
+      "id": "msca-private-suite-non-http-scope",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/latest-spec/msca-private-suite-non-http-scope.json",
+      "fixture_sha256": "7729eddc4559a6f4d56da051a6d529cdae3c2170b970317007e00345ebc3fd9c",
+      "coverage": "partial"
+    }
+  ]
+}

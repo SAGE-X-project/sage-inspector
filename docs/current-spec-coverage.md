@@ -381,7 +381,8 @@ policy, unavailable active signing key, or prior retirement prevents an inert
 dispatch. They do not establish resolver outage handling across replicas or
 an atomic retirement race with a live external effect.
 
-Two EXEC-05/CST-02 fixtures now model loss of the local durable ledger after
+The [two missing-ledger observations](current-spec-exec-lost-ledger-evidence.md)
+model EXEC-05/CST-02 loss of the local durable ledger after
 one committed inert handoff. Reopening without the ledger must fail and
 cannot recreate history or dispatch again. The trusted epoch-recovery
 procedure remains outside this observation.

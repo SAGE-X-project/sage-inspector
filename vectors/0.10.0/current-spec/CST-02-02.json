@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "CST-02-02",
+  "track": "runtime",
+  "input": {
+    "operation": "guard.policy.pair",
+    "input": {
+      "control": {
+        "descriptor": {
+          "version": "0.10.0",
+          "issuer": "did:sage:web:agents.example.com:alice",
+          "epoch": "8f0264a0-8743-424a-b3d7-47090d31fca1",
+          "engine": "fixture-evaluator/1",
+          "artifacts": {
+            "version": "0.10.0",
+            "files": [
+              {
+                "path": "policy/evaluator.wasm",
+                "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+              },
+              {
+                "path": "policy/rules.json",
+                "sha256": "2222222222222222222222222222222222222222222222222222222222222222"
+              }
+            ]
+          }
+        }
+      },
+      "candidate": {
+        "descriptor": {
+          "version": "0.10.0",
+          "issuer": "did:sage:web:agents.example.com:alice",
+          "epoch": "8f0264a0-8743-424a-b3d7-47090d31fca1",
+          "engine": "fixture-evaluator/1",
+          "artifacts": {
+            "version": "0.10.0",
+            "files": [
+              {
+                "path": "policy/evaluator.wasm",
+                "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+              },
+              {
+                "path": "policy/rules.json",
+                "sha256": "3333333333333333333333333333333333333333333333333333333333333333"
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "expected": {
+    "verdict": "ACCEPT",
+    "output": {
+      "control_digest": "c18bd407ee9574cea71d0e03556893ab65008e11cd45f554b5d750fed5c69263",
+      "candidate_digest": "a96b5f31b50b261e62abb790bcf49290161a2ee63b7e4a47f782f1836863147d"
+    },
+    "effects": {}
+  }
+}

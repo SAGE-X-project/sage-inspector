@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "TABLE-07-P",
+  "track": "runtime",
+  "input": {
+    "operation": "sage.diagnostic.application.boundary.check",
+    "input": {
+      "channel": "application-message",
+      "diagnostic_code": "sig.bad",
+      "local_log": {
+        "code": "sig.bad",
+        "event": "authentication-rejected"
+      },
+      "public_response": {
+        "status": 401,
+        "body": {
+          "error": "authentication_failed"
+        }
+      }
+    }
+  },
+  "expected": {
+    "verdict": "ACCEPT",
+    "output": {
+      "public_status": 401
+    },
+    "effects": {}
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "subject": {
+    "repository": "SAGE-X-project/rs-sage-core",
+    "revision": "ef63d76b88fe4d6ddbc7ae0fcfdbce7beab4d396",
+    "executable_sha256": "4e635b162eddf489feb267a6928efae362a2dd9179677e269ca46efe97f2c6b2"
+  },
+  "runner_revision": "596dd1492ddefc97dfa49129fef9f4a01dfd39c5",
+  "runner_sha256": "b17c65156f2951c04fd931cc81aa72c1e0dcb3a4aa7dbc82ae2a6eb74e512429",
+  "adapter_sha256": "cf484962b71565a4d4ffb3db347e0c442d0c864643cd17ae0b3a126491bc3ace",
+  "observations": [
+    {
+      "id": "CST-01-05",
+      "track": "runtime",
+      "path": "CST-01-05-runtime.json",
+      "sha256": "2ddd4d139a59f6472911451c39ff32b9438239afba2e79b6a00f9ed54e9efac3"
+    }
+  ]
+}

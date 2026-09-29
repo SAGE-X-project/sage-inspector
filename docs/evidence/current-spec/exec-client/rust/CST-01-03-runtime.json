@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "CST-01-03",
+  "track": "runtime",
+  "fixture_sha256": "1be5fcbce02a0721a337c351504e6cc3f9a320f64cd365491f44cb57c3f9e2ec",
+  "input_sha256": "54ea2fb81ecfe43bf630f3b458fc0954ee8b510cfc455add3aa3f3a640f9b359",
+  "subject": {
+    "repository": "SAGE-X-project/rs-sage-core",
+    "revision": "ef63d76b88fe4d6ddbc7ae0fcfdbce7beab4d396",
+    "executable_sha256": "4e635b162eddf489feb267a6928efae362a2dd9179677e269ca46efe97f2c6b2"
+  },
+  "actual": {
+    "verdict": "ACCEPT",
+    "output": {
+      "scenarios": {
+        "late-pending-and-duplicate": {
+          "steps": [
+            {
+              "ok": true,
+              "status": "",
+              "first": false,
+              "ignored": false,
+              "handoffs": 0
+            },
+            {
+              "ok": true,
+              "status": "",
+              "first": false,
+              "ignored": false,
+              "handoffs": 1
+            },
+            {
+              "ok": true,
+              "status": "",
+              "first": false,
+              "ignored": false,
+              "handoffs": 1
+            },
+            {
+              "ok": true,
+              "status": "",
+              "first": false,
+              "ignored": false,
+              "handoffs": 2
+            },
+            {
+              "ok": true,
+              "status": "",
+              "first": false,
+              "ignored": false,
+              "handoffs": 2
+            },
+            {
+              "ok": true,
+              "status": "",
+              "first": false,
+              "ignored": false,
+              "handoffs": 3
+            },
+            {
+              "ok": true,
+              "status": "completed",
+              "first": true,
+              "ignored": false,
+              "handoffs": 3
+            },
+            {
+              "ok": true,
+              "status": "",
+              "first": false,
+              "ignored": true,
+              "handoffs": 3
+            },
+            {
+              "ok": true,
+              "status": "",
+              "first": false,
+              "ignored": true,
+              "handoffs": 3
+            },
+            {
+              "ok": false,
+              "status": "",
+              "first": false,
+              "ignored": false,
+              "handoffs": 3
+            },
+            {
+              "ok": true,
+              "status": "",
+              "first": false,
+              "ignored": false,
+              "handoffs": 3
+            }
+          ],
+          "journal_kinds": [
+            "open",
+            "send",
+            "send",
+            "send",
+            "close",
+            "terminal",
+            "close",
+            "close"
+          ],
+          "terminal_results": 1,
+          "intent_unchanged": true,
+          "signed_results_valid": true
+        }
+      }
+    },
+    "effects": {
+      "handoff": 3
+    }
+  },
+  "environment": "bounded-local-adapter"
+}

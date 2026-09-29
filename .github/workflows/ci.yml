@@ -122,6 +122,192 @@ jobs:
       - name: Run the vectors
         run: go run ./cmd/sage-inspector vectors -dir .sage-spec/vectors
 
+  current-spec:
+    name: Current spec inventory
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          path: sage-inspector
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: SAGE-X-project/sage-spec
+          ref: 5bcf511e604579afa63f434013447f44b6858828
+          path: sage-spec
+      - name: Check every current requirement and case mapping
+        run: |
+          cd sage-inspector
+          python3 -B scripts/test_current_spec_catalog.py
+          python3 -B scripts/test_current_spec_gap.py
+          python3 -B scripts/test_current_spec_evidence.py
+          python3 -B scripts/test_current_spec_runtime.py
+          python3 -B scripts/test_current_spec_primitive_bridge.py
+          python3 -B scripts/test_current_spec_jcs_evidence.py
+          python3 -B scripts/test_current_spec_jcs_parser_evidence.py
+          python3 -B scripts/test_current_spec_jcs_positive_evidence.py
+          python3 -B scripts/test_current_spec_jcs_integer_vectors.py
+          python3 -B scripts/test_current_spec_jcs_integer_evidence.py
+          python3 -B scripts/test_current_spec_jcs_canonical_vectors.py
+          python3 -B scripts/test_current_spec_jcs_canonical_evidence.py
+          python3 -B scripts/test_current_spec_jcs_exclusion_vectors.py
+          python3 -B scripts/test_current_spec_jcs_exclusion_evidence.py
+          python3 -B scripts/test_current_spec_msg01_vectors.py
+          python3 -B scripts/test_current_spec_msg01_evidence.py
+          python3 -B scripts/test_current_spec_msg02_vectors.py
+          python3 -B scripts/test_current_spec_msg02_evidence.py
+          python3 -B scripts/test_current_spec_msg03_vectors.py
+          python3 -B scripts/test_current_spec_msg03_evidence.py
+          python3 -B scripts/test_current_spec_msg04_vectors.py
+          python3 -B scripts/test_current_spec_msg04_evidence.py
+          python3 -B scripts/test_current_spec_msg05_vectors.py
+          python3 -B scripts/test_current_spec_msg05_evidence.py
+          python3 -B scripts/test_current_spec_msg06_vectors.py
+          python3 -B scripts/test_current_spec_msg06_evidence.py
+          python3 -B scripts/test_current_spec_hpke01_vectors.py
+          python3 -B scripts/test_current_spec_hpke01_evidence.py
+          python3 -B scripts/test_current_spec_hpke02_vectors.py
+          python3 -B scripts/test_current_spec_hpke02_evidence.py
+          python3 -B scripts/test_current_spec_hpke03_vectors.py
+          python3 -B scripts/test_current_spec_hpke03_evidence.py
+          python3 -B scripts/test_current_spec_hpke04_vectors.py
+          python3 -B scripts/test_current_spec_hpke04_evidence.py
+          python3 -B scripts/test_current_spec_hpke05_vectors.py
+          python3 -B scripts/test_current_spec_hpke05_evidence.py
+          python3 -B scripts/test_current_spec_hpke06_vectors.py
+          python3 -B scripts/test_current_spec_hpke06_evidence.py
+          python3 -B scripts/test_current_spec_session01_vectors.py
+          python3 -B scripts/test_current_spec_session01_evidence.py
+          python3 -B scripts/test_current_spec_session02_vectors.py
+          python3 -B scripts/test_current_spec_session02_evidence.py
+          python3 -B scripts/test_current_spec_session03_vectors.py
+          python3 -B scripts/test_current_spec_session03_evidence.py
+          python3 -B scripts/test_current_spec_session04_vectors.py
+          python3 -B scripts/test_current_spec_session04_evidence.py
+          python3 -B scripts/test_current_spec_session05_vectors.py
+          python3 -B scripts/test_current_spec_session05_state.py
+          python3 -B scripts/test_current_spec_session05_evidence.py
+          python3 -B scripts/test_current_spec_session06_vectors.py
+          python3 -B scripts/test_current_spec_session06_state.py
+          python3 -B scripts/test_current_spec_session06_evidence.py
+          python3 -B scripts/test_current_spec_id01_vectors.py
+          python3 -B scripts/test_current_spec_id01_evidence.py
+          python3 -B scripts/test_current_spec_id02_vectors.py
+          python3 -B scripts/test_current_spec_id02_evidence.py
+          python3 -B scripts/test_current_spec_id03_vectors.py
+          python3 -B scripts/test_current_spec_id03_evidence.py
+          python3 -B scripts/test_current_spec_id04_vectors.py
+          python3 -B scripts/test_current_spec_id04_evidence.py
+          python3 -B scripts/test_current_spec_card01_vectors.py
+          python3 -B scripts/test_current_spec_card01_evidence.py
+          python3 -B scripts/test_current_spec_card02_vectors.py
+          python3 -B scripts/test_current_spec_card02_evidence.py
+          python3 -B scripts/test_current_spec_card03_vectors.py
+          python3 -B scripts/test_current_spec_card03_evidence.py
+          python3 -B scripts/test_current_spec_transport01_vectors.py
+          python3 -B scripts/test_current_spec_transport01_evidence.py
+          python3 -B scripts/test_current_spec_transport02_vectors.py
+          python3 -B scripts/test_current_spec_transport02_evidence.py
+          python3 -B scripts/test_current_spec_transport03_vectors.py
+          python3 -B scripts/test_current_spec_transport03_evidence.py
+          python3 -B scripts/test_current_spec_transport04_vectors.py
+          python3 -B scripts/test_current_spec_transport04_evidence.py
+          python3 -B scripts/test_current_spec_transport05_vectors.py
+          python3 -B scripts/test_current_spec_transport05_evidence.py
+          python3 -B scripts/test_current_spec_transport06_vectors.py
+          python3 -B scripts/test_current_spec_transport06_evidence.py
+          python3 -B scripts/test_current_spec_reg01_vectors.py
+          python3 -B scripts/test_current_spec_reg01_evidence.py
+          python3 -B scripts/test_current_spec_reg02_vectors.py
+          python3 -B scripts/test_current_spec_reg02_evidence.py
+          python3 -B scripts/test_current_spec_reg03_vectors.py
+          python3 -B scripts/test_current_spec_reg03_evidence.py
+          python3 -B scripts/test_current_spec_reg04_vectors.py
+          python3 -B scripts/test_current_spec_reg04_evidence.py
+          python3 -B scripts/test_current_spec_reg05_vectors.py
+          python3 -B scripts/test_current_spec_reg05_evidence.py
+          python3 -B scripts/test_current_spec_reg06_vectors.py
+          python3 -B scripts/test_current_spec_reg06_evidence.py
+          python3 -B scripts/test_current_spec_reg07_vectors.py
+          python3 -B scripts/test_current_spec_reg07_evidence.py
+          python3 -B scripts/test_current_spec_reg08_vectors.py
+          python3 -B scripts/test_current_spec_reg08_evidence.py
+          python3 -B scripts/test_current_spec_resolve01_vectors.py
+          python3 -B scripts/test_current_spec_resolve01_evidence.py
+          python3 -B scripts/test_current_spec_resolve02_vectors.py
+          python3 -B scripts/test_current_spec_resolve02_evidence.py
+          python3 -B scripts/test_current_spec_resolve03_vectors.py
+          python3 -B scripts/test_current_spec_resolve03_evidence.py
+          python3 -B scripts/test_current_spec_resolve04_vectors.py
+          python3 -B scripts/test_current_spec_resolve04_evidence.py
+          python3 -B scripts/test_current_spec_resolve05_vectors.py
+          python3 -B scripts/test_current_spec_resolve05_evidence.py
+          python3 -B scripts/test_current_spec_table01_vectors.py
+          python3 -B scripts/test_current_spec_table01_evidence.py
+          python3 -B scripts/test_current_spec_table02_vectors.py
+          python3 -B scripts/test_current_spec_table02_evidence.py
+          python3 -B scripts/test_current_spec_table03_vectors.py
+          python3 -B scripts/test_current_spec_table03_evidence.py
+          python3 -B scripts/test_current_spec_table04_vectors.py
+          python3 -B scripts/test_current_spec_table04_evidence.py
+          python3 -B scripts/test_current_spec_table05_vectors.py
+          python3 -B scripts/test_current_spec_table05_evidence.py
+          python3 -B scripts/test_current_spec_table06_vectors.py
+          python3 -B scripts/test_current_spec_table06_evidence.py
+          python3 -B scripts/test_current_spec_table07_vectors.py
+          python3 -B scripts/test_current_spec_table07_evidence.py
+          python3 -B scripts/test_current_spec_exec01_vectors.py
+          python3 -B scripts/test_current_spec_exec02_vectors.py
+          python3 -B scripts/test_current_spec_exec02_evidence.py
+          python3 -B scripts/test_current_spec_exec03_vectors.py
+          python3 -B scripts/test_current_spec_exec03_evidence.py
+          python3 -B scripts/test_current_spec_exec04_dispatch_vectors.py
+          python3 -B scripts/test_current_spec_exec04_dispatch_evidence.py
+          python3 -B scripts/test_current_spec_exec05_replay_vectors.py
+          python3 -B scripts/test_current_spec_exec05_replay_evidence.py
+          python3 -B scripts/test_current_spec_exec_results_vectors.py
+          python3 -B scripts/test_current_spec_exec_results_evidence.py
+          python3 -B scripts/test_current_spec_exec09_vectors.py
+          python3 -B scripts/test_current_spec_exec_result_state_vectors.py
+          python3 -B scripts/test_current_spec_exec_result_state_evidence.py
+          python3 -B scripts/test_current_spec_exec_client_vectors.py
+          python3 -B scripts/test_current_spec_exec_client_evidence.py
+          python3 -B scripts/test_current_spec_exec_denial_vectors.py
+          python3 -B scripts/test_current_spec_exec_denial_evidence.py
+          python3 -B scripts/test_current_spec_exec_lost_ledger_vectors.py
+          python3 -B scripts/test_current_spec_exec_lost_ledger_evidence.py
+          python3 -B scripts/test_current_spec_exec_pending_vectors.py
+          python3 -B scripts/test_current_spec_exec_pending_evidence.py
+          python3 -B scripts/test_current_spec_hop_vectors.py
+          python3 -B scripts/test_current_spec_hop_evidence.py
+          python3 -B scripts/test_current_spec_policy_admission_vectors.py
+          python3 -B scripts/test_current_spec_policy_admission_evidence.py
+          python3 -B scripts/test_current_spec_key_rotation_vectors.py
+          python3 -B scripts/test_current_spec_key_rotation_evidence.py
+          python3 -B scripts/test_current_spec_rpc_route_vectors.py
+          python3 -B scripts/test_current_spec_rpc_route_evidence.py
+          python3 -B scripts/test_current_spec_host_contracts.py
+          python3 -B scripts/test_current_spec_process_vectors.py
+          python3 -B scripts/test_current_spec_process_evidence.py
+          python3 -B scripts/test_current_spec_evidence_review.py
+          python3 -B scripts/test_current_spec_pending_contracts.py
+          python3 -B scripts/test_current_spec_pending_model.py
+          python3 -B scripts/test_current_spec_all_bindings.py
+          python3 -B scripts/current_spec_catalog.py --spec-root ../sage-spec --report "${RUNNER_TEMP}/current-spec-inventory.json"
+          python3 -B scripts/current_spec_gap.py --output "${RUNNER_TEMP}/current-spec-gap.json"
+          python3 -B scripts/current_spec_evidence.py --output "${RUNNER_TEMP}/current-spec-evidence.json"
+      - name: Preserve the incomplete inventory
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: current-spec-inventory-${{ github.sha }}
+          if-no-files-found: ignore
+          retention-days: 30
+          path: |
+            ${{ runner.temp }}/current-spec-inventory.json
+            ${{ runner.temp }}/current-spec-gap.json
+            ${{ runner.temp }}/current-spec-evidence.json
+
   lint:
     name: Lint
     runs-on: ubuntu-latest

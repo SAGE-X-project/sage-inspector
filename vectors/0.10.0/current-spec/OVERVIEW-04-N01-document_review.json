@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "OVERVIEW-04-N01",
+  "track": "document_review",
+  "input": {
+    "operation": "sage.spec.host_case",
+    "phase": 6,
+    "id": "OVERVIEW-04-N01",
+    "track": "document_review",
+    "rule_id": "OVERVIEW-04",
+    "source": "spec/00-overview.md",
+    "source_line": 116,
+    "trigger": "Go implementation used to fill silent normative gap",
+    "preconditions": "Start from the valid group fixture; change only this condition. For state cases inject the specified race/crash/clock or policy state."
+  },
+  "expected": {
+    "verdict": "ACCEPT",
+    "output": {
+      "matched": true,
+      "reason": "case_contract"
+    },
+    "effects": {}
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "TRANSPORT-06-N04",
+  "track": "runtime",
+  "input": {
+    "operation": "sage.transport.local.receive",
+    "input": {
+      "id": "TRANSPORT-06-N04",
+      "carrier": "local",
+      "tls_authenticated": null,
+      "message_kind": "json",
+      "compression": null,
+      "trusted_hook": true,
+      "envelope_hex": "7b2263726561746564223a313730303030303030302c22646964223a226469643a736167653a7765623a6167656e742e6578616d706c653a616c696365222c22656e636f64696e67223a22706c61696e222c2265787069726573223a313730303030303330302c226964223a2231313131313131312d313131312d343131312d383131312d313131313131313131313131222c226b6964223a226469643a736167653a7765623a6167656e742e6578616d706c653a616c696365237369676e696e672d31222c226e6f6e6365223a2241414141414141414141414141414141414141414141222c227061796c6f6164223a22653330222c22726563697069656e74223a226469643a736167653a7765623a6167656e742e6578616d706c653a626f62222c2276657273696f6e223a22302e31302e30227d",
+      "expected": "REJECT",
+      "expected_recipient": "did:sage:web:agent.example:bob",
+      "trusted_public_key_hex": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
+      "connection_url": "wss://agent.example/messages"
+    }
+  },
+  "expected": {
+    "verdict": "REJECT",
+    "output": {},
+    "effects": {
+      "application_dispatches": 0
+    }
+  }
+}

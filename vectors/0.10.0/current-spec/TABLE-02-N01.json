@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "TABLE-02-N01",
+  "track": "runtime",
+  "input": {
+    "operation": "sage.crypto.signature.suite.select",
+    "input": {
+      "registered_suites": [
+        {
+          "alg": "ed25519",
+          "key_type": "Ed25519",
+          "digest": "none",
+          "signature_bytes": 64,
+          "encoding": "R-S",
+          "status": "mandatory"
+        },
+        {
+          "alg": "sage-secp256k1-keccak256",
+          "key_type": "secp256k1",
+          "digest": "Keccak-256",
+          "signature_bytes": 65,
+          "encoding": "r-s-v-low-s",
+          "status": "optional"
+        },
+        {
+          "alg": "ecdsa-p256-sha256",
+          "key_type": "P-256",
+          "digest": "SHA-256",
+          "signature_bytes": 64,
+          "encoding": "r-s-low-s",
+          "status": "optional"
+        }
+      ],
+      "implementation_support": {
+        "ed25519": true,
+        "sage-secp256k1-keccak256": true,
+        "ecdsa-p256-sha256": false
+      },
+      "request": {
+        "alg": "es256k",
+        "key_type": "secp256k1",
+        "digest": "Keccak-256",
+        "signature_bytes": 65,
+        "encoding": "r-s-v-low-s",
+        "jose_alias": null,
+        "usage": "message-signature",
+        "wire_scope": "external"
+      }
+    }
+  },
+  "expected": {
+    "verdict": "REJECT",
+    "output": {},
+    "effects": {}
+  }
+}

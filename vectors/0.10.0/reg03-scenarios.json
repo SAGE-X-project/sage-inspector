@@ -1,0 +1,408 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "source_sha256": "89b1e11a38aff6e50a127b8956d3b86fe4915def2951ae7b438c5252ed7d15cf",
+  "scope": "fixed public records and declarative CAS transitions; no registry writes or network access",
+  "cases": [
+    {
+      "id": "REG-03-P",
+      "source_step": "step-5",
+      "input": {
+        "record": {
+          "id": "did:sage:eip155:1:0xabababababababababababababababababababab:alice",
+          "controller": "0xcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+          "keys": [
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:eip155:1:0xabababababababababababababababababababab:alice#signing-1",
+                "value": "TGcFfjhsgeNpnBP9fxLd3K9LuSEcdrs2tPFIgyrRUIbwey9KW5G8joPp2dhXfK3K7Rx42NLX0Hfxozepq0imCw"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:eip155:1:0xabababababababababababababababababababab:alice#signing-1",
+                "value": "rXfRw8Oh4zjvP2ZObHOI4T0Kv315exp4QWgw0R8EqDxuG7ZiOjEfI2Y3Eq2Ww48UOg5lUVBHKqRVJZftxPyaDQ"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "created",
+          "version": "1"
+        },
+        "operation": "lifecycle-transition",
+        "actor": "0xcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+        "expected_version": "1",
+        "new_state": "active"
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "version": "2",
+          "state": "active"
+        },
+        "effects": {
+          "mutations": 1
+        }
+      },
+      "purpose": "controller activation commits exactly one version"
+    },
+    {
+      "id": "REG-03-N01",
+      "source_step": "step-3",
+      "input": {
+        "record": {
+          "id": "did:sage:eip155:1:0xabababababababababababababababababababab:alice",
+          "controller": "0xcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+          "keys": [
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:eip155:1:0xabababababababababababababababababababab:alice#signing-1",
+                "value": "TGcFfjhsgeNpnBP9fxLd3K9LuSEcdrs2tPFIgyrRUIbwey9KW5G8joPp2dhXfK3K7Rx42NLX0Hfxozepq0imCw"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:eip155:1:0xabababababababababababababababababababab:alice#signing-1",
+                "value": "rXfRw8Oh4zjvP2ZObHOI4T0Kv315exp4QWgw0R8EqDxuG7ZiOjEfI2Y3Eq2Ww48UOg5lUVBHKqRVJZftxPyaDQ"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "created",
+          "version": "1"
+        },
+        "operation": "lifecycle-transition",
+        "actor": "0xcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+        "expected_version": "0",
+        "new_state": "active"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {},
+        "effects": {
+          "mutations": 0
+        }
+      },
+      "purpose": "stale expected version preserves created record"
+    },
+    {
+      "id": "REG-03-N02",
+      "source_step": "step-7",
+      "input": {
+        "record": {
+          "id": "did:sage:eip155:1:0xabababababababababababababababababababab:alice",
+          "controller": "0xcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+          "keys": [
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:eip155:1:0xabababababababababababababababababababab:alice#signing-1",
+                "value": "TGcFfjhsgeNpnBP9fxLd3K9LuSEcdrs2tPFIgyrRUIbwey9KW5G8joPp2dhXfK3K7Rx42NLX0Hfxozepq0imCw"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:eip155:1:0xabababababababababababababababababababab:alice#signing-1",
+                "value": "rXfRw8Oh4zjvP2ZObHOI4T0Kv315exp4QWgw0R8EqDxuG7ZiOjEfI2Y3Eq2Ww48UOg5lUVBHKqRVJZftxPyaDQ"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "active",
+          "version": "2"
+        },
+        "operation": "lifecycle-transition",
+        "actor": "0xcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+        "expected_version": "1",
+        "new_state": "deactivated",
+        "prior_commit": {
+          "step_id": "step-5",
+          "input": {
+            "action": "mutate",
+            "authorized": true,
+            "expected_version": "1",
+            "new_state": "active"
+          },
+          "expected": {
+            "verdict": "ACCEPT",
+            "output": {
+              "version": "2",
+              "state": "active"
+            }
+          }
+        }
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {},
+        "effects": {
+          "mutations": 0
+        }
+      },
+      "purpose": "second CAS with original version loses after committed activation"
+    },
+    {
+      "id": "REG-03-N03",
+      "source_step": "step-11",
+      "input": {
+        "record": {
+          "id": "did:sage:eip155:1:0xabababababababababababababababababababab:alice",
+          "controller": "0xcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+          "keys": [
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:eip155:1:0xabababababababababababababababababababab:alice#signing-1",
+                "value": "TGcFfjhsgeNpnBP9fxLd3K9LuSEcdrs2tPFIgyrRUIbwey9KW5G8joPp2dhXfK3K7Rx42NLX0Hfxozepq0imCw"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:eip155:1:0xabababababababababababababababababababab:alice#signing-1",
+                "value": "rXfRw8Oh4zjvP2ZObHOI4T0Kv315exp4QWgw0R8EqDxuG7ZiOjEfI2Y3Eq2Ww48UOg5lUVBHKqRVJZftxPyaDQ"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "deactivated",
+          "version": "3"
+        },
+        "operation": "lifecycle-transition",
+        "actor": "0xcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+        "expected_version": "3",
+        "new_state": "active",
+        "prior_commit": {
+          "step_id": "step-9",
+          "input": {
+            "action": "mutate",
+            "authorized": true,
+            "expected_version": "2",
+            "new_state": "deactivated"
+          },
+          "expected": {
+            "verdict": "ACCEPT",
+            "output": {
+              "version": "3",
+              "state": "deactivated"
+            }
+          }
+        }
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {},
+        "effects": {
+          "mutations": 0
+        }
+      },
+      "purpose": "terminal deactivation forbids reactivation"
+    },
+    {
+      "id": "REG-03-N04",
+      "source_step": "step-1",
+      "input": {
+        "record": {
+          "id": "did:sage:eip155:1:0xabababababababababababababababababababab:alice",
+          "controller": "0xcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+          "keys": [
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:eip155:1:0xabababababababababababababababababababab:alice#signing-1",
+                "value": "TGcFfjhsgeNpnBP9fxLd3K9LuSEcdrs2tPFIgyrRUIbwey9KW5G8joPp2dhXfK3K7Rx42NLX0Hfxozepq0imCw"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:eip155:1:0xabababababababababababababababababababab:alice#signing-1",
+                "value": "rXfRw8Oh4zjvP2ZObHOI4T0Kv315exp4QWgw0R8EqDxuG7ZiOjEfI2Y3Eq2Ww48UOg5lUVBHKqRVJZftxPyaDQ"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "created",
+          "version": "1"
+        },
+        "operation": "lifecycle-transition",
+        "actor": "other-controller",
+        "expected_version": "1",
+        "new_state": "active"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {},
+        "effects": {
+          "mutations": 0
+        }
+      },
+      "purpose": "unauthorized actor cannot activate record"
+    }
+  ],
+  "supplemental": [
+    {
+      "name": "version-ceiling",
+      "input": {
+        "record": {
+          "id": "did:sage:eip155:1:0xabababababababababababababababababababab:alice",
+          "controller": "0xcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+          "keys": [
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:eip155:1:0xabababababababababababababababababababab:alice#signing-1",
+                "value": "TGcFfjhsgeNpnBP9fxLd3K9LuSEcdrs2tPFIgyrRUIbwey9KW5G8joPp2dhXfK3K7Rx42NLX0Hfxozepq0imCw"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:eip155:1:0xabababababababababababababababababababab:alice#signing-1",
+                "value": "rXfRw8Oh4zjvP2ZObHOI4T0Kv315exp4QWgw0R8EqDxuG7ZiOjEfI2Y3Eq2Ww48UOg5lUVBHKqRVJZftxPyaDQ"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "active",
+          "version": "18446744073709551615"
+        },
+        "operation": "update-services",
+        "actor": "0xcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+        "expected_version": "18446744073709551615",
+        "services": [
+          {
+            "name": "api",
+            "type": "Agent",
+            "uri": "https://agents.example.com/api"
+          }
+        ]
+      },
+      "expected": "REJECT",
+      "purpose": "version must not wrap after uint64 maximum"
+    },
+    {
+      "name": "terminal-deactivate",
+      "input": {
+        "record": {
+          "id": "did:sage:eip155:1:0xabababababababababababababababababababab:alice",
+          "controller": "0xcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+          "keys": [
+            {
+              "name": "kem-1",
+              "alg": "x25519",
+              "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+              "proof": {
+                "signer": "did:sage:eip155:1:0xabababababababababababababababababababab:alice#signing-1",
+                "value": "TGcFfjhsgeNpnBP9fxLd3K9LuSEcdrs2tPFIgyrRUIbwey9KW5G8joPp2dhXfK3K7Rx42NLX0Hfxozepq0imCw"
+              },
+              "state": "accepted"
+            },
+            {
+              "name": "signing-1",
+              "alg": "ed25519",
+              "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+              "proof": {
+                "signer": "did:sage:eip155:1:0xabababababababababababababababababababab:alice#signing-1",
+                "value": "rXfRw8Oh4zjvP2ZObHOI4T0Kv315exp4QWgw0R8EqDxuG7ZiOjEfI2Y3Eq2Ww48UOg5lUVBHKqRVJZftxPyaDQ"
+              },
+              "state": "accepted"
+            }
+          ],
+          "services": [
+            {
+              "name": "api",
+              "type": "Agent",
+              "uri": "https://agents.example.com/api"
+            }
+          ],
+          "state": "active",
+          "version": "2"
+        },
+        "operation": "lifecycle-transition",
+        "actor": "0xcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+        "expected_version": "2",
+        "new_state": "deactivated"
+      },
+      "expected": "ACCEPT",
+      "purpose": "authorized active-to-deactivated transition is terminal"
+    }
+  ]
+}

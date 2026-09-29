@@ -1,0 +1,215 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "process_sha256": "2ebc54e5fd908bed118bc4b6005f8a81f6cc482d9407a4bef8a96977ddce55f3",
+  "historical_revision": "f4a4e7fbf71a665785984eef7609b2e8fabe833d",
+  "scope": "pinned process-source and in-memory negative review controls; product repositories are not executed or modified",
+  "cases": [
+    {
+      "id": "PROC-01-P",
+      "input": {
+        "operation": "sage.process.review",
+        "input": {
+          "configuration": {
+            "source_of_truth": "normative_text",
+            "remove_case_mapping": false
+          }
+        }
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "accepted": true,
+          "reason": "normative_mapping"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "PROC-01-N01",
+      "input": {
+        "operation": "sage.process.review",
+        "input": {
+          "configuration": {
+            "source_of_truth": "normative_text",
+            "remove_case_mapping": true
+          }
+        }
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {
+          "accepted": false,
+          "reason": "mapping_or_source_conflict"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "PROC-01-N02",
+      "input": {
+        "operation": "sage.process.review",
+        "input": {
+          "configuration": {
+            "source_of_truth": "implementation",
+            "remove_case_mapping": false
+          }
+        }
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {
+          "accepted": false,
+          "reason": "mapping_or_source_conflict"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "PROC-02-P",
+      "input": {
+        "operation": "sage.process.review",
+        "input": {
+          "configuration": {
+            "vector_revision": "f4a4e7fbf71a665785984eef7609b2e8fabe833d",
+            "observation_present": true,
+            "claimed_status": "PASS"
+          }
+        }
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "accepted": true,
+          "reason": "revision_bound_evidence"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "PROC-02-N01",
+      "input": {
+        "operation": "sage.process.review",
+        "input": {
+          "configuration": {
+            "vector_revision": "5bcf511e604579afa63f434013447f44b6858828",
+            "observation_present": true,
+            "claimed_status": "PASS"
+          }
+        }
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {
+          "accepted": false,
+          "reason": "false_evidence_promotion"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "PROC-02-N02",
+      "input": {
+        "operation": "sage.process.review",
+        "input": {
+          "configuration": {
+            "vector_revision": "f4a4e7fbf71a665785984eef7609b2e8fabe833d",
+            "observation_present": false,
+            "claimed_status": "PASS"
+          }
+        }
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {
+          "accepted": false,
+          "reason": "false_evidence_promotion"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "PROC-03-P",
+      "input": {
+        "operation": "sage.process.review",
+        "input": {
+          "configuration": {
+            "canonical_sources": [
+              "spec/",
+              "profiles/",
+              "charter.md"
+            ],
+            "touched_repositories": [
+              "sage-inspector",
+              "sage-spec"
+            ]
+          }
+        }
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "accepted": true,
+          "reason": "single_specification_owner"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "PROC-03-N01",
+      "input": {
+        "operation": "sage.process.review",
+        "input": {
+          "configuration": {
+            "canonical_sources": [
+              "spec/",
+              "profiles/",
+              "charter.md",
+              "docs/new-spec.md"
+            ],
+            "touched_repositories": [
+              "sage-inspector",
+              "sage-spec"
+            ]
+          }
+        }
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {
+          "accepted": false,
+          "reason": "competing_source_or_code_change"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "PROC-03-N02",
+      "input": {
+        "operation": "sage.process.review",
+        "input": {
+          "configuration": {
+            "canonical_sources": [
+              "spec/",
+              "profiles/",
+              "charter.md"
+            ],
+            "touched_repositories": [
+              "sage-inspector",
+              "sage-spec",
+              "sage"
+            ]
+          }
+        }
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {
+          "accepted": false,
+          "reason": "competing_source_or_code_change"
+        },
+        "effects": {}
+      }
+    }
+  ]
+}

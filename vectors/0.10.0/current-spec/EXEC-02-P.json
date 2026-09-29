@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "EXEC-02-P",
+  "track": "runtime",
+  "input": {
+    "operation": "sage.guard.original.commit",
+    "input": {
+      "items": [
+        {
+          "hex": "52656164207468652066696c65"
+        }
+      ]
+    }
+  },
+  "expected": {
+    "verdict": "ACCEPT",
+    "output": {
+      "original_digest": "45c26024a899b0b3909edb7fdbfb5c6fb49536d1278f70b0a7717ed0f487aec0"
+    },
+    "effects": {}
+  }
+}

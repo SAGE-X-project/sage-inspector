@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "SESSION-06-N05",
+  "track": "runtime",
+  "input": {
+    "operation": "sage.session.plaintext_fallback.verify",
+    "input": {
+      "scenario_id": "session-close",
+      "scenario_sha256": "945a321577c9cda525f07c117c169612b0f5fb9be96ee99dc858efbf8b51f745"
+    }
+  },
+  "expected": {
+    "verdict": "REJECT",
+    "output": {},
+    "effects": {}
+  }
+}

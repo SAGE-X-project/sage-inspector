@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "PROC-02-N01",
+  "track": "document_review",
+  "fixture_sha256": "c63c8caed7e8b862e8f307b33a338fa7fcbe19c582bbdfc010b4c7c2729890fa",
+  "input_sha256": "9bd9dc59a668077729db73612b9fa66faeedfa44a99922698ccdd857c9833a10",
+  "subject": {
+    "repository": "SAGE-X-project/sage-spec",
+    "revision": "5bcf511e604579afa63f434013447f44b6858828",
+    "executable_sha256": "1ed8891ad4758e495793ff2b9ae3015bd7047e58c26761e1abae6e91a70472a9"
+  },
+  "actual": {
+    "verdict": "REJECT",
+    "output": {
+      "accepted": false,
+      "reason": "false_evidence_promotion"
+    },
+    "effects": {}
+  },
+  "environment": "bounded-local-adapter"
+}

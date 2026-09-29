@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "REG-05-N01",
+  "track": "runtime",
+  "input": {
+    "operation": "sage.registry.observation.sequence",
+    "input": {
+      "scenario": {
+        "id": "registry-reject-keys_block_hash",
+        "source_sha256": "9d80cb47a440d2e592f8341b436e62d89f15c26889cbdda764e095b0956685ff",
+        "steps": [
+          {
+            "request": {
+              "action": "observe",
+              "did": "did:sage:eip155:1:0xabababababababababababababababababababab:alice",
+              "snapshot": {
+                "source": "fixture-authority",
+                "registry": "eip155:1:0xabababababababababababababababababababab",
+                "network": "1",
+                "did": "did:sage:eip155:1:0xabababababababababababababababababababab:alice",
+                "version": "2",
+                "state": "active",
+                "ready": true,
+                "validated": true,
+                "finalized": true,
+                "conflicting": false,
+                "acquired_ms": 10000,
+                "block_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "keys_block_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+                "keys": [
+                  {
+                    "name": "kem-1",
+                    "alg": "x25519",
+                    "material": "6604c47928b02a2f106b098cced13128bd5b3f12509a3e9dca76a61085d31a3a",
+                    "state": "accepted"
+                  },
+                  {
+                    "name": "signing-1",
+                    "alg": "ed25519",
+                    "material": "0343a58a4967c40b3ba00257d1d1e19af69b8a3a5dda072eeaf8778466ddd742",
+                    "state": "accepted"
+                  }
+                ],
+                "digest": "d0effea045b26b11a69f780d40e9a3eb66604dc60965c90b187b0081799fa81e"
+              },
+              "times": [
+                {
+                  "mono_ms": 10000,
+                  "unix": 100
+                },
+                {
+                  "mono_ms": 10000,
+                  "unix": 100
+                },
+                {
+                  "mono_ms": 10000,
+                  "unix": 100
+                }
+              ],
+              "clock_ok": true,
+              "source_ok": true
+            },
+            "expected": {
+              "verdict": "REJECT",
+              "output": {}
+            }
+          },
+          {
+            "request": {
+              "action": "inspect",
+              "did": "did:sage:eip155:1:0xabababababababababababababababababababab:alice"
+            },
+            "expected": {
+              "verdict": "ACCEPT",
+              "output": {
+                "highest_finalized_version": "0",
+                "tombstone": false
+              }
+            }
+          }
+        ]
+      },
+      "focus_step": 0
+    }
+  },
+  "expected": {
+    "verdict": "REJECT",
+    "output": {},
+    "effects": {}
+  }
+}

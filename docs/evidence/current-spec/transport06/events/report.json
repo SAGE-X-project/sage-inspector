@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "scenario_sha256": "fcc956821a4252acecdac2ac8f6fc81ec503f12bb6771eee39e6d95fd9ed8ec7",
+  "runner_sha256": "e76b926b792551af87c5774dcd239a0522757f58f97560495cc4ac784a1d58f9",
+  "bridge_sha256": "d02ab9b1ee263cd187fec0a1157edddf7bc16f4aef314f11d1f2f0163dd83c74",
+  "parser_sha256": "741cf2c9a6943e391369732f042c2a80d77ce8d2c000a53994b5256240473236",
+  "runner_revision": "8d0901ab8c6b3d229406445cc5b3d0e70c37b2d6",
+  "events": {
+    "schema_version": 1,
+    "scope": "in-memory Inspector wsproto event parser; no TLS, socket, or core receiver",
+    "wsproto_version": "1.2.0",
+    "h11_version": "0.14.0",
+    "fragmented_text": {
+      "verdict": "ACCEPT",
+      "messages": 1,
+      "envelope_sha256": "10599bc82ccfa4cd3368d0fd0660879289640d09a7a929447c6d0c2b72cbf94e"
+    },
+    "compressed_upgrade": {
+      "verdict": "REJECT"
+    },
+    "binary_event": {
+      "verdict": "REJECT"
+    },
+    "oversized_fragmented_message": "UNIT_ONLY_COMPACT_LENGTHS",
+    "unsigned_local_message": "UNIT_ONLY_NO_CORE_RECEIVER"
+  },
+  "signature_input": {
+    "algorithm": "ed25519",
+    "public_key_hex": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
+    "message_hex": "736167652d776972652d726571756573747c302e31302e300a7b2263726561746564223a313730303030303030302c22646964223a226469643a736167653a7765623a6167656e742e6578616d706c653a616c696365222c22656e636f64696e67223a22706c61696e222c2265787069726573223a313730303030303330302c226964223a2231313131313131312d313131312d343131312d383131312d313131313131313131313131222c226b6964223a226469643a736167653a7765623a6167656e742e6578616d706c653a616c696365237369676e696e672d31222c226e6f6e6365223a2241414141414141414141414141414141414141414141222c227061796c6f6164223a22653330222c22726563697069656e74223a226469643a736167653a7765623a6167656e742e6578616d706c653a626f62222c2276657273696f6e223a22302e31302e30227d",
+    "signature_hex": "58b76a681ccf6ea533a9f70a49f30ef9af8705fa1a9a448c24748c6f09e71697981872f54d4934505b9bfd87f65b453418467b077599208d9e01f3786d2e8f0e"
+  },
+  "subjects": {
+    "go": {
+      "repository": "SAGE-X-project/sage",
+      "revision": "49379baadc6baec9ca8b4bb7d15bf43d65144bd7",
+      "executable_sha256": "86820fb3c36df17194398ce4247fe6dd3fac0efc12a9af1d84a6f87a308cfc88"
+    },
+    "rust": {
+      "repository": "SAGE-X-project/rs-sage-core",
+      "revision": "ef63d76b88fe4d6ddbc7ae0fcfdbce7beab4d396",
+      "executable_sha256": "0b7206b639fb2ae7b6e75bcb0c6d34b12be2c51b7707bf22929651b0ad650e6f"
+    }
+  },
+  "signature_observations": {
+    "go": {
+      "case_id": "TRANSPORT-06-P-signature",
+      "output": {
+        "valid": true
+      },
+      "schema_version": 1,
+      "verdict": "ACCEPT"
+    },
+    "rust": {
+      "case_id": "TRANSPORT-06-P-signature",
+      "output": {
+        "valid": true
+      },
+      "schema_version": 1,
+      "verdict": "ACCEPT"
+    }
+  }
+}

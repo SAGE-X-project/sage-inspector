@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "TABLE-06-P",
+  "track": "runtime",
+  "input": {
+    "operation": "sage.http.headers.binding.check",
+    "input": {
+      "direction": "request",
+      "body_projection": {
+        "version": "0.10.0",
+        "did": "did:sage:web:agents.example.com:alice",
+        "kid": "did:sage:web:agents.example.com:alice#signing-1",
+        "id": "123e4567-e89b-42d3-a456-426614174000",
+        "context_id": "123e4567-e89b-42d3-a456-426614174001",
+        "task_id": "123e4567-e89b-42d3-a456-426614174002",
+        "created": 100,
+        "expires": 200,
+        "nonce": "AAAAAAAAAAAAAAAAAAAAAA"
+      },
+      "headers": {
+        "X-SAGE-Version": "0.10.0",
+        "X-SAGE-DID": "did:sage:web:agents.example.com:alice",
+        "X-SAGE-Message-ID": "123e4567-e89b-42d3-a456-426614174000",
+        "X-SAGE-Context-ID": "123e4567-e89b-42d3-a456-426614174001",
+        "X-SAGE-Task-ID": "123e4567-e89b-42d3-a456-426614174002",
+        "Content-Type": "application/json"
+      },
+      "signature_fields_present": [
+        "Signature-Input",
+        "Signature",
+        "Content-Digest"
+      ],
+      "signature_parameters": {
+        "keyid": "did:sage:web:agents.example.com:alice#signing-1",
+        "created": 100,
+        "expires": 200,
+        "nonce": "AAAAAAAAAAAAAAAAAAAAAA"
+      },
+      "covered_components": [
+        "@method",
+        "@target-uri",
+        "@authority",
+        "content-type",
+        "content-digest",
+        "x-sage-did",
+        "x-sage-version"
+      ],
+      "routing": {
+        "source": "verified-body",
+        "message_id": "123e4567-e89b-42d3-a456-426614174000"
+      }
+    }
+  },
+  "expected": {
+    "verdict": "ACCEPT",
+    "output": {
+      "message_id": "123e4567-e89b-42d3-a456-426614174000"
+    },
+    "effects": {}
+  }
+}

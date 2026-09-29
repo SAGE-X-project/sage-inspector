@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "mrevision-parent-no-grant",
+  "track": "runtime",
+  "fixture_sha256": "292c54dac22d5709aef5b738bf0634a994a33ef73c2d96958924ab9ca39c8a6b",
+  "input_sha256": "6e0acd81f5a4ad7cf817054aaf5dd1e538b4760b0642e8e6dc94088f707d0ed2",
+  "subject": {
+    "repository": "SAGE-X-project/rs-sage-core",
+    "revision": "ef63d76b88fe4d6ddbc7ae0fcfdbce7beab4d396",
+    "executable_sha256": "32cd8d4ce8fa5641da125314a7a1bbd52dde6c0d9b1c5574940e46e0dc3c26ba"
+  },
+  "actual": {
+    "verdict": "REJECT",
+    "output": {
+      "began": false,
+      "handoffs": 0,
+      "journal": false,
+      "opened": false,
+      "parent_checks": 1
+    },
+    "effects": {
+      "handoff": 0
+    }
+  },
+  "environment": "bounded-local-adapter"
+}

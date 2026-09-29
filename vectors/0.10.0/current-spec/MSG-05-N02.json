@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "MSG-05-N02",
+  "track": "runtime",
+  "input": {
+    "operation": "sage.http.freshness.verify",
+    "input": {
+      "sender_did": "did:sage:web:agent.example:alice",
+      "recipient_did": "did:sage:web:agent.example:bob",
+      "nonce": "AAAAAAAAAAAAAAAAAAAAAA",
+      "created": 1700000000,
+      "expires": 1700000300,
+      "trusted_now_unix": 1699999969,
+      "clock_trusted": true,
+      "signing_key_id": "signing-1",
+      "replay": {
+        "state": "intact",
+        "prior": [],
+        "copies": 1
+      }
+    }
+  },
+  "expected": {
+    "verdict": "REJECT",
+    "output": {},
+    "effects": {}
+  }
+}

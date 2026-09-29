@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "mllm-kem-type-valid",
+  "track": "runtime",
+  "input": {
+    "operation": "sage.registry.key.encoding.check",
+    "input": {
+      "record": {
+        "alg": "x25519",
+        "key": "CQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+      },
+      "document": {
+        "publicKeyJwk": {
+          "kty": "OKP",
+          "crv": "X25519",
+          "x": "CQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      },
+      "usage": "key-agreement"
+    }
+  },
+  "expected": {
+    "verdict": "ACCEPT",
+    "output": {
+      "key_type": "X25519"
+    },
+    "effects": {}
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "source_sha256": "89b1e11a38aff6e50a127b8956d3b86fe4915def2951ae7b438c5252ed7d15cf",
+  "runner_sha256": "6dca8b8c4005c1fcd6f7c3a62ba486c67666c169f7f5d7e099c7306bed90bfa9",
+  "runner_revision": "dfd2613d9d1ec897a6619d26498e70dba9ae8457",
+  "subjects": {
+    "go": {
+      "repository": "SAGE-X-project/sage",
+      "revision": "49379baadc6baec9ca8b4bb7d15bf43d65144bd7",
+      "executable_sha256": "f655775a1ea7879219d115cd2d346d70dce9977929456f4450b32586dd9f8c80"
+    },
+    "rust": {
+      "repository": "SAGE-X-project/rs-sage-core",
+      "revision": "ef63d76b88fe4d6ddbc7ae0fcfdbce7beab4d396",
+      "executable_sha256": "9e51172c562a2942b1b4376aa193fa8b84408b3a8c77860b56f56f8733cb31cb"
+    }
+  },
+  "requests": [
+    {
+      "id": "before",
+      "request": {
+        "action": "inspect",
+        "did": "did:sage:eip155:1:0xabababababababababababababababababababab:alice"
+      }
+    },
+    {
+      "id": "mutation",
+      "request": {
+        "action": "mutate"
+      }
+    },
+    {
+      "id": "after",
+      "request": {
+        "action": "inspect",
+        "did": "did:sage:eip155:1:0xabababababababababababababababababababab:alice"
+      }
+    }
+  ],
+  "observations": {
+    "go": {
+      "actual": [
+        {
+          "id": "before",
+          "output": {
+            "highest_finalized_version": "0",
+            "tombstone": false
+          },
+          "verdict": "ACCEPT"
+        },
+        {
+          "id": "mutation",
+          "output": {},
+          "verdict": "UNSUPPORTED"
+        },
+        {
+          "id": "after",
+          "output": {
+            "highest_finalized_version": "0",
+            "tombstone": false
+          },
+          "verdict": "ACCEPT"
+        }
+      ],
+      "stderr": ""
+    },
+    "rust": {
+      "actual": [
+        {
+          "id": "before",
+          "output": {
+            "highest_finalized_version": "0",
+            "tombstone": false
+          },
+          "verdict": "ACCEPT"
+        },
+        {
+          "id": "mutation",
+          "output": {},
+          "verdict": "UNSUPPORTED"
+        },
+        {
+          "id": "after",
+          "output": {
+            "highest_finalized_version": "0",
+            "tombstone": false
+          },
+          "verdict": "ACCEPT"
+        }
+      ],
+      "stderr": ""
+    }
+  }
+}

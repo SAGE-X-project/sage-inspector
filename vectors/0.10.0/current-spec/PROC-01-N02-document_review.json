@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "PROC-01-N02",
+  "track": "document_review",
+  "input": {
+    "operation": "sage.process.review",
+    "input": {
+      "configuration": {
+        "source_of_truth": "implementation",
+        "remove_case_mapping": false
+      }
+    }
+  },
+  "expected": {
+    "verdict": "REJECT",
+    "output": {
+      "accepted": false,
+      "reason": "mapping_or_source_conflict"
+    },
+    "effects": {}
+  }
+}

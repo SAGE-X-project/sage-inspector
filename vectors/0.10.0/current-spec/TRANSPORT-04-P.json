@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "TRANSPORT-04-P",
+  "track": "runtime",
+  "input": {
+    "operation": "sage.transport.receive.scenario",
+    "input": {
+      "scenario_id": "TRANSPORT-04-P",
+      "scenario_sha256": "5b3b74fd13142c6c4f0add104b55197f88d212cd9e528974862779c635c825fc"
+    }
+  },
+  "expected": {
+    "verdict": "ACCEPT",
+    "output": {
+      "accepted": 1,
+      "rejected": 0
+    },
+    "effects": {
+      "replay_reservations": 1,
+      "application_dispatches": 1
+    }
+  }
+}

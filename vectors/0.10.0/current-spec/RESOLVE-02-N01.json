@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "RESOLVE-02-N01",
+  "track": "runtime",
+  "input": {
+    "operation": "sage.did.resolve",
+    "input": {
+      "did": "did:sage:web:agents.example.com:alice",
+      "protocol_version": "0.10.0",
+      "policy": {
+        "allow_web": true,
+        "require_blockchain": false,
+        "configured_origin": "https://agents.example.com",
+        "approved_origins": [
+          "https://agents.example.com"
+        ],
+        "approved_destinations": [
+          "agents.example.com"
+        ]
+      },
+      "request": {
+        "url": "https://agents.example.com/.well-known/sage/agents/alice",
+        "method": "GET",
+        "cache_control": "no-cache, no-store",
+        "follow_redirects": false,
+        "authenticated_tls_origin": "https://agents.example.com"
+      },
+      "response": {
+        "status": 404,
+        "redirect_location": null,
+        "source": "direct-origin",
+        "cache_control": "no-store",
+        "body": {
+          "record": null,
+          "issued": 100,
+          "expires": 105
+        },
+        "body_bytes": 42
+      },
+      "trusted_now": 102,
+      "local_version_floor": 1
+    }
+  },
+  "expected": {
+    "verdict": "REJECT",
+    "output": {},
+    "effects": {}
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "CST-02-03",
+  "track": "runtime",
+  "fixture_sha256": "55c3975e9b18b9859f1ea06c902a0c19cd3a1ad42a3a669c10fa8f12b1c9ea8a",
+  "input_sha256": "4f6dc5639cc8902d8cc0edff58efdec2795819287155782d38bc94087835963f",
+  "subject": {
+    "repository": "SAGE-X-project/rs-sage-core",
+    "revision": "ef63d76b88fe4d6ddbc7ae0fcfdbce7beab4d396",
+    "executable_sha256": "c7e27bf0f212fc53960e4483be7c15a470fe874492ef17e7d594e06292e62202"
+  },
+  "actual": {
+    "verdict": "REJECT",
+    "output": {
+      "stages": [
+        [
+          {
+            "ok": true,
+            "created": false,
+            "committed": false,
+            "state": "",
+            "intent_digest": "",
+            "effect_sha256": []
+          },
+          {
+            "ok": true,
+            "created": false,
+            "committed": false,
+            "state": "",
+            "intent_digest": "",
+            "effect_sha256": []
+          },
+          {
+            "ok": false,
+            "created": false,
+            "committed": false,
+            "state": "",
+            "intent_digest": "",
+            "effect_sha256": []
+          }
+        ]
+      ],
+      "journal_states": []
+    },
+    "effects": {
+      "dispatch": 0
+    }
+  },
+  "environment": "bounded-local-adapter"
+}

@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "SESSION-02-P",
+  "track": "runtime",
+  "fixture_sha256": "ebcff0b04e2b67121135042cf010f20b16d7ced939ca8bcbd4e943c91066c5c2",
+  "input_sha256": "41c5237c22cdd44ee8e261d9170a1c527b0c37e26f8f9500270a0860c82cd85c",
+  "subject": {
+    "repository": "SAGE-X-project/sage",
+    "revision": "49379baadc6baec9ca8b4bb7d15bf43d65144bd7",
+    "executable_sha256": "86820fb3c36df17194398ce4247fe6dd3fac0efc12a9af1d84a6f87a308cfc88"
+  },
+  "actual": {
+    "verdict": "ACCEPT",
+    "output": {
+      "opened": {
+        "c2s-open-255": "7075626c69632073657373696f6e207265636f7264",
+        "c2s-open-256": "7075626c69632073657373696f6e207265636f7264",
+        "c2s-open-999": "7075626c69632073657373696f6e207265636f7264",
+        "s2c-open-255": "7075626c69632073657373696f6e207265636f7264",
+        "s2c-open-256": "7075626c69632073657373696f6e207265636f7264",
+        "s2c-open-999": "7075626c69632073657373696f6e207265636f7264"
+      }
+    },
+    "effects": {}
+  },
+  "environment": "bounded-local-adapter"
+}

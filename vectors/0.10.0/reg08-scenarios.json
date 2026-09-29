@@ -1,0 +1,767 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "source_sha256": "2f7e5468bf87e7a402c7853584fca8e345b5055a0625f7068a71e80e6321eb02",
+  "record_source_sha256": "63b83051cbe684c36af2eb3689550d9746f66da0b3d21b2ed1b3d3d37de2ee0d",
+  "scope": "synthetic HTTP response and trusted clock; no network, TLS, operator writes, or tombstones",
+  "cases": [
+    {
+      "id": "REG-08-P",
+      "purpose": "fresh exact-origin one-operation read",
+      "input": {
+        "did": "did:sage:web:agents.example.com:alice",
+        "protocol_version": "0.10.0",
+        "policy": {
+          "allow_web": true,
+          "require_blockchain": false,
+          "configured_origin": "https://agents.example.com",
+          "approved_origins": [
+            "https://agents.example.com"
+          ],
+          "approved_destinations": [
+            "agents.example.com"
+          ]
+        },
+        "request": {
+          "url": "https://agents.example.com/.well-known/sage/agents/alice",
+          "method": "GET",
+          "cache_control": "no-cache, no-store",
+          "follow_redirects": false,
+          "authenticated_tls_origin": "https://agents.example.com"
+        },
+        "response": {
+          "status": 200,
+          "redirect_location": null,
+          "source": "direct-origin",
+          "cache_control": "no-store",
+          "body": {
+            "record": {
+              "id": "did:sage:web:agents.example.com:alice",
+              "controller": "test-controller",
+              "keys": [
+                {
+                  "name": "kem-1",
+                  "alg": "x25519",
+                  "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+                  "proof": {
+                    "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                    "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+                  },
+                  "state": "accepted"
+                },
+                {
+                  "name": "signing-1",
+                  "alg": "ed25519",
+                  "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+                  "proof": {
+                    "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                    "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+                  },
+                  "state": "accepted"
+                }
+              ],
+              "services": [
+                {
+                  "name": "api",
+                  "type": "Agent",
+                  "uri": "https://agents.example.com/api"
+                }
+              ],
+              "state": "active",
+              "version": "1"
+            },
+            "issued": 100,
+            "expires": 105
+          },
+          "body_bytes": 780
+        },
+        "trusted_now": 102
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "record_id": "did:sage:web:agents.example.com:alice"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "REG-08-N01",
+      "purpose": "redirect to another origin",
+      "input": {
+        "did": "did:sage:web:agents.example.com:alice",
+        "protocol_version": "0.10.0",
+        "policy": {
+          "allow_web": true,
+          "require_blockchain": false,
+          "configured_origin": "https://agents.example.com",
+          "approved_origins": [
+            "https://agents.example.com"
+          ],
+          "approved_destinations": [
+            "agents.example.com"
+          ]
+        },
+        "request": {
+          "url": "https://agents.example.com/.well-known/sage/agents/alice",
+          "method": "GET",
+          "cache_control": "no-cache, no-store",
+          "follow_redirects": false,
+          "authenticated_tls_origin": "https://agents.example.com"
+        },
+        "response": {
+          "status": 302,
+          "redirect_location": "https://other.example/record",
+          "source": "direct-origin",
+          "cache_control": "no-store",
+          "body": {
+            "record": {
+              "id": "did:sage:web:agents.example.com:alice",
+              "controller": "test-controller",
+              "keys": [
+                {
+                  "name": "kem-1",
+                  "alg": "x25519",
+                  "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+                  "proof": {
+                    "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                    "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+                  },
+                  "state": "accepted"
+                },
+                {
+                  "name": "signing-1",
+                  "alg": "ed25519",
+                  "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+                  "proof": {
+                    "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                    "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+                  },
+                  "state": "accepted"
+                }
+              ],
+              "services": [
+                {
+                  "name": "api",
+                  "type": "Agent",
+                  "uri": "https://agents.example.com/api"
+                }
+              ],
+              "state": "active",
+              "version": "1"
+            },
+            "issued": 100,
+            "expires": 105
+          },
+          "body_bytes": 780
+        },
+        "trusted_now": 102
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {},
+        "effects": {}
+      }
+    },
+    {
+      "id": "REG-08-N02",
+      "purpose": "intermediated positive-cache response",
+      "input": {
+        "did": "did:sage:web:agents.example.com:alice",
+        "protocol_version": "0.10.0",
+        "policy": {
+          "allow_web": true,
+          "require_blockchain": false,
+          "configured_origin": "https://agents.example.com",
+          "approved_origins": [
+            "https://agents.example.com"
+          ],
+          "approved_destinations": [
+            "agents.example.com"
+          ]
+        },
+        "request": {
+          "url": "https://agents.example.com/.well-known/sage/agents/alice",
+          "method": "GET",
+          "cache_control": "no-cache, no-store",
+          "follow_redirects": false,
+          "authenticated_tls_origin": "https://agents.example.com"
+        },
+        "response": {
+          "status": 200,
+          "redirect_location": null,
+          "source": "intermediary-positive-cache",
+          "cache_control": "no-store",
+          "body": {
+            "record": {
+              "id": "did:sage:web:agents.example.com:alice",
+              "controller": "test-controller",
+              "keys": [
+                {
+                  "name": "kem-1",
+                  "alg": "x25519",
+                  "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+                  "proof": {
+                    "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                    "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+                  },
+                  "state": "accepted"
+                },
+                {
+                  "name": "signing-1",
+                  "alg": "ed25519",
+                  "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+                  "proof": {
+                    "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                    "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+                  },
+                  "state": "accepted"
+                }
+              ],
+              "services": [
+                {
+                  "name": "api",
+                  "type": "Agent",
+                  "uri": "https://agents.example.com/api"
+                }
+              ],
+              "state": "active",
+              "version": "1"
+            },
+            "issued": 100,
+            "expires": 105
+          },
+          "body_bytes": 780
+        },
+        "trusted_now": 102
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {},
+        "effects": {}
+      }
+    },
+    {
+      "id": "REG-08-N03",
+      "purpose": "missing configured authority",
+      "input": {
+        "did": "did:sage:web:agents.example.com:alice",
+        "protocol_version": "0.10.0",
+        "policy": {
+          "allow_web": true,
+          "require_blockchain": false,
+          "configured_origin": null,
+          "approved_origins": [
+            "https://agents.example.com"
+          ],
+          "approved_destinations": [
+            "agents.example.com"
+          ]
+        },
+        "request": {
+          "url": "https://agents.example.com/.well-known/sage/agents/alice",
+          "method": "GET",
+          "cache_control": "no-cache, no-store",
+          "follow_redirects": false,
+          "authenticated_tls_origin": "https://agents.example.com"
+        },
+        "response": {
+          "status": 200,
+          "redirect_location": null,
+          "source": "direct-origin",
+          "cache_control": "no-store",
+          "body": {
+            "record": {
+              "id": "did:sage:web:agents.example.com:alice",
+              "controller": "test-controller",
+              "keys": [
+                {
+                  "name": "kem-1",
+                  "alg": "x25519",
+                  "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+                  "proof": {
+                    "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                    "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+                  },
+                  "state": "accepted"
+                },
+                {
+                  "name": "signing-1",
+                  "alg": "ed25519",
+                  "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+                  "proof": {
+                    "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                    "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+                  },
+                  "state": "accepted"
+                }
+              ],
+              "services": [
+                {
+                  "name": "api",
+                  "type": "Agent",
+                  "uri": "https://agents.example.com/api"
+                }
+              ],
+              "state": "active",
+              "version": "1"
+            },
+            "issued": 100,
+            "expires": 105
+          },
+          "body_bytes": 780
+        },
+        "trusted_now": 102
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {},
+        "effects": {}
+      }
+    }
+  ],
+  "supplemental": [
+    {
+      "id": "cached-304",
+      "input": {
+        "did": "did:sage:web:agents.example.com:alice",
+        "protocol_version": "0.10.0",
+        "policy": {
+          "allow_web": true,
+          "require_blockchain": false,
+          "configured_origin": "https://agents.example.com",
+          "approved_origins": [
+            "https://agents.example.com"
+          ],
+          "approved_destinations": [
+            "agents.example.com"
+          ]
+        },
+        "request": {
+          "url": "https://agents.example.com/.well-known/sage/agents/alice",
+          "method": "GET",
+          "cache_control": "no-cache, no-store",
+          "follow_redirects": false,
+          "authenticated_tls_origin": "https://agents.example.com"
+        },
+        "response": {
+          "status": 304,
+          "redirect_location": null,
+          "source": "direct-origin",
+          "cache_control": "no-store",
+          "body": {
+            "record": {
+              "id": "did:sage:web:agents.example.com:alice",
+              "controller": "test-controller",
+              "keys": [
+                {
+                  "name": "kem-1",
+                  "alg": "x25519",
+                  "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+                  "proof": {
+                    "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                    "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+                  },
+                  "state": "accepted"
+                },
+                {
+                  "name": "signing-1",
+                  "alg": "ed25519",
+                  "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+                  "proof": {
+                    "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                    "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+                  },
+                  "state": "accepted"
+                }
+              ],
+              "services": [
+                {
+                  "name": "api",
+                  "type": "Agent",
+                  "uri": "https://agents.example.com/api"
+                }
+              ],
+              "state": "active",
+              "version": "1"
+            },
+            "issued": 100,
+            "expires": 105
+          },
+          "body_bytes": 780
+        },
+        "trusted_now": 102
+      },
+      "expected_verdict": "REJECT"
+    },
+    {
+      "id": "missing-no-store",
+      "input": {
+        "did": "did:sage:web:agents.example.com:alice",
+        "protocol_version": "0.10.0",
+        "policy": {
+          "allow_web": true,
+          "require_blockchain": false,
+          "configured_origin": "https://agents.example.com",
+          "approved_origins": [
+            "https://agents.example.com"
+          ],
+          "approved_destinations": [
+            "agents.example.com"
+          ]
+        },
+        "request": {
+          "url": "https://agents.example.com/.well-known/sage/agents/alice",
+          "method": "GET",
+          "cache_control": "no-cache, no-store",
+          "follow_redirects": false,
+          "authenticated_tls_origin": "https://agents.example.com"
+        },
+        "response": {
+          "status": 200,
+          "redirect_location": null,
+          "source": "direct-origin",
+          "cache_control": "max-age=60",
+          "body": {
+            "record": {
+              "id": "did:sage:web:agents.example.com:alice",
+              "controller": "test-controller",
+              "keys": [
+                {
+                  "name": "kem-1",
+                  "alg": "x25519",
+                  "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+                  "proof": {
+                    "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                    "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+                  },
+                  "state": "accepted"
+                },
+                {
+                  "name": "signing-1",
+                  "alg": "ed25519",
+                  "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+                  "proof": {
+                    "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                    "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+                  },
+                  "state": "accepted"
+                }
+              ],
+              "services": [
+                {
+                  "name": "api",
+                  "type": "Agent",
+                  "uri": "https://agents.example.com/api"
+                }
+              ],
+              "state": "active",
+              "version": "1"
+            },
+            "issued": 100,
+            "expires": 105
+          },
+          "body_bytes": 780
+        },
+        "trusted_now": 102
+      },
+      "expected_verdict": "REJECT"
+    },
+    {
+      "id": "expired",
+      "input": {
+        "did": "did:sage:web:agents.example.com:alice",
+        "protocol_version": "0.10.0",
+        "policy": {
+          "allow_web": true,
+          "require_blockchain": false,
+          "configured_origin": "https://agents.example.com",
+          "approved_origins": [
+            "https://agents.example.com"
+          ],
+          "approved_destinations": [
+            "agents.example.com"
+          ]
+        },
+        "request": {
+          "url": "https://agents.example.com/.well-known/sage/agents/alice",
+          "method": "GET",
+          "cache_control": "no-cache, no-store",
+          "follow_redirects": false,
+          "authenticated_tls_origin": "https://agents.example.com"
+        },
+        "response": {
+          "status": 200,
+          "redirect_location": null,
+          "source": "direct-origin",
+          "cache_control": "no-store",
+          "body": {
+            "record": {
+              "id": "did:sage:web:agents.example.com:alice",
+              "controller": "test-controller",
+              "keys": [
+                {
+                  "name": "kem-1",
+                  "alg": "x25519",
+                  "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+                  "proof": {
+                    "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                    "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+                  },
+                  "state": "accepted"
+                },
+                {
+                  "name": "signing-1",
+                  "alg": "ed25519",
+                  "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+                  "proof": {
+                    "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                    "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+                  },
+                  "state": "accepted"
+                }
+              ],
+              "services": [
+                {
+                  "name": "api",
+                  "type": "Agent",
+                  "uri": "https://agents.example.com/api"
+                }
+              ],
+              "state": "active",
+              "version": "1"
+            },
+            "issued": 100,
+            "expires": 105
+          },
+          "body_bytes": 780
+        },
+        "trusted_now": 105
+      },
+      "expected_verdict": "REJECT"
+    },
+    {
+      "id": "oversize",
+      "input": {
+        "did": "did:sage:web:agents.example.com:alice",
+        "protocol_version": "0.10.0",
+        "policy": {
+          "allow_web": true,
+          "require_blockchain": false,
+          "configured_origin": "https://agents.example.com",
+          "approved_origins": [
+            "https://agents.example.com"
+          ],
+          "approved_destinations": [
+            "agents.example.com"
+          ]
+        },
+        "request": {
+          "url": "https://agents.example.com/.well-known/sage/agents/alice",
+          "method": "GET",
+          "cache_control": "no-cache, no-store",
+          "follow_redirects": false,
+          "authenticated_tls_origin": "https://agents.example.com"
+        },
+        "response": {
+          "status": 200,
+          "redirect_location": null,
+          "source": "direct-origin",
+          "cache_control": "no-store",
+          "body": {
+            "record": {
+              "id": "did:sage:web:agents.example.com:alice",
+              "controller": "test-controller",
+              "keys": [
+                {
+                  "name": "kem-1",
+                  "alg": "x25519",
+                  "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+                  "proof": {
+                    "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                    "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+                  },
+                  "state": "accepted"
+                },
+                {
+                  "name": "signing-1",
+                  "alg": "ed25519",
+                  "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+                  "proof": {
+                    "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                    "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+                  },
+                  "state": "accepted"
+                }
+              ],
+              "services": [
+                {
+                  "name": "api",
+                  "type": "Agent",
+                  "uri": "https://agents.example.com/api"
+                }
+              ],
+              "state": "active",
+              "version": "1"
+            },
+            "issued": 100,
+            "expires": 105
+          },
+          "body_bytes": 69633
+        },
+        "trusted_now": 102
+      },
+      "expected_verdict": "REJECT"
+    },
+    {
+      "id": "blockchain-required",
+      "input": {
+        "did": "did:sage:web:agents.example.com:alice",
+        "protocol_version": "0.10.0",
+        "policy": {
+          "allow_web": true,
+          "require_blockchain": true,
+          "configured_origin": "https://agents.example.com",
+          "approved_origins": [
+            "https://agents.example.com"
+          ],
+          "approved_destinations": [
+            "agents.example.com"
+          ]
+        },
+        "request": {
+          "url": "https://agents.example.com/.well-known/sage/agents/alice",
+          "method": "GET",
+          "cache_control": "no-cache, no-store",
+          "follow_redirects": false,
+          "authenticated_tls_origin": "https://agents.example.com"
+        },
+        "response": {
+          "status": 200,
+          "redirect_location": null,
+          "source": "direct-origin",
+          "cache_control": "no-store",
+          "body": {
+            "record": {
+              "id": "did:sage:web:agents.example.com:alice",
+              "controller": "test-controller",
+              "keys": [
+                {
+                  "name": "kem-1",
+                  "alg": "x25519",
+                  "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+                  "proof": {
+                    "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                    "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+                  },
+                  "state": "accepted"
+                },
+                {
+                  "name": "signing-1",
+                  "alg": "ed25519",
+                  "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+                  "proof": {
+                    "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                    "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+                  },
+                  "state": "accepted"
+                }
+              ],
+              "services": [
+                {
+                  "name": "api",
+                  "type": "Agent",
+                  "uri": "https://agents.example.com/api"
+                }
+              ],
+              "state": "active",
+              "version": "1"
+            },
+            "issued": 100,
+            "expires": 105
+          },
+          "body_bytes": 780
+        },
+        "trusted_now": 102
+      },
+      "expected_verdict": "REJECT"
+    },
+    {
+      "id": "unapproved-destination",
+      "input": {
+        "did": "did:sage:web:agents.example.com:alice",
+        "protocol_version": "0.10.0",
+        "policy": {
+          "allow_web": true,
+          "require_blockchain": false,
+          "configured_origin": "https://agents.example.com",
+          "approved_origins": [
+            "https://agents.example.com"
+          ],
+          "approved_destinations": []
+        },
+        "request": {
+          "url": "https://agents.example.com/.well-known/sage/agents/alice",
+          "method": "GET",
+          "cache_control": "no-cache, no-store",
+          "follow_redirects": false,
+          "authenticated_tls_origin": "https://agents.example.com"
+        },
+        "response": {
+          "status": 200,
+          "redirect_location": null,
+          "source": "direct-origin",
+          "cache_control": "no-store",
+          "body": {
+            "record": {
+              "id": "did:sage:web:agents.example.com:alice",
+              "controller": "test-controller",
+              "keys": [
+                {
+                  "name": "kem-1",
+                  "alg": "x25519",
+                  "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+                  "proof": {
+                    "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                    "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+                  },
+                  "state": "accepted"
+                },
+                {
+                  "name": "signing-1",
+                  "alg": "ed25519",
+                  "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+                  "proof": {
+                    "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                    "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+                  },
+                  "state": "accepted"
+                }
+              ],
+              "services": [
+                {
+                  "name": "api",
+                  "type": "Agent",
+                  "uri": "https://agents.example.com/api"
+                }
+              ],
+              "state": "active",
+              "version": "1"
+            },
+            "issued": 100,
+            "expires": 105
+          },
+          "body_bytes": 780
+        },
+        "trusted_now": 102
+      },
+      "expected_verdict": "REJECT"
+    }
+  ],
+  "unresolved_case": {
+    "id": "REG-08-N04",
+    "condition": "Content-Type: text/plain",
+    "decision": "UNSPECIFIED",
+    "reason": "Chapter 09 does not define an accepted media type for the web origin record response; chapter 10 media types govern the separate public resolution API."
+  }
+}

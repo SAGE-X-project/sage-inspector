@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "OVERVIEW-04-P",
+  "track": "document_review",
+  "input": {
+    "operation": "sage.spec.host_case",
+    "phase": 6,
+    "id": "OVERVIEW-04-P",
+    "track": "document_review",
+    "rule_id": "OVERVIEW-04",
+    "source": "spec/00-overview.md",
+    "source_line": 116,
+    "trigger": "Text owns every protocol decision",
+    "preconditions": "Use protocol0.10.0 and an isolated fixture with active registered peers, trusted UTC, known policy and zero initial dispatch counter. For review cases provide configuration/source evidence instead of network traffic."
+  },
+  "expected": {
+    "verdict": "ACCEPT",
+    "output": {
+      "matched": true,
+      "reason": "case_contract"
+    },
+    "effects": {}
+  }
+}

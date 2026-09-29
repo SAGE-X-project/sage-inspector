@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "MSG-05-N02",
+  "track": "runtime",
+  "fixture_sha256": "dc18dbec7481cdc2b038c5fc1cf2b88c9c8abac50d897abd10984676d27e3adb",
+  "input_sha256": "89f92cda189e8fddaa835628102c97c0e03383d622bb9cdf0b9f38bc13feaab5",
+  "subject": {
+    "repository": "SAGE-X-project/rs-sage-core",
+    "revision": "ef63d76b88fe4d6ddbc7ae0fcfdbce7beab4d396",
+    "executable_sha256": "0b7206b639fb2ae7b6e75bcb0c6d34b12be2c51b7707bf22929651b0ad650e6f"
+  },
+  "actual": {
+    "verdict": "UNSUPPORTED",
+    "reason": "Core primitive adapter does not expose this operation."
+  },
+  "environment": "bounded-local-adapter"
+}

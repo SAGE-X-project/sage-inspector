@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "EXEC-06-N04",
+  "track": "deployment_review",
+  "input": {
+    "operation": "sage.host.deployment.review",
+    "input": {
+      "case_id": "EXEC-06-N04",
+      "required_artifacts": [
+        "measured_instance_binding",
+        "loader_instance_observation"
+      ]
+    }
+  },
+  "expected": {
+    "verdict": "ACCEPT",
+    "output": {
+      "reviewed": true,
+      "artifacts": [
+        "measured_instance_binding",
+        "loader_instance_observation"
+      ]
+    },
+    "effects": {}
+  }
+}

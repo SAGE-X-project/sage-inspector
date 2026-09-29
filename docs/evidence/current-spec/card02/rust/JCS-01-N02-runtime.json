@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "JCS-01-N02",
+  "track": "runtime",
+  "fixture_sha256": "98a0b8fc0bb85bee2f4d6c858fa8ffef9bd1d9782d85ed555bb672d7d16dea0a",
+  "input_sha256": "708273cfff4ab2d9fccfa74b392f21488577d4fb4c8b6496a0eacfead0c7d376",
+  "subject": {
+    "repository": "SAGE-X-project/rs-sage-core",
+    "revision": "ef63d76b88fe4d6ddbc7ae0fcfdbce7beab4d396",
+    "executable_sha256": "0b7206b639fb2ae7b6e75bcb0c6d34b12be2c51b7707bf22929651b0ad650e6f"
+  },
+  "actual": {
+    "verdict": "REJECT",
+    "output": {},
+    "effects": {}
+  },
+  "environment": "bounded-local-adapter"
+}

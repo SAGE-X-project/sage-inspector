@@ -1,0 +1,536 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "source": "profiles/agent-mcp-security.md#1-protection-and-trust-boundary--exec-01",
+  "source_sha256": "0538acbdcfc143d93fb7d99a2a2c09c068fc354388c4e37c7489204305b1913f",
+  "scope": "synthetic capability description only; no host isolation or deployment conformance claim",
+  "cases": [
+    {
+      "id": "EXEC-01-P",
+      "input": {
+        "untrusted_principals": [
+          "plugin",
+          "skill",
+          "mcp",
+          "model",
+          "child"
+        ],
+        "protected_assets": {
+          "original_request": {
+            "readers": [
+              "trusted_client"
+            ],
+            "writers": [
+              "trusted_admin"
+            ]
+          },
+          "policy": {
+            "readers": [
+              "trusted_client"
+            ],
+            "writers": [
+              "trusted_admin"
+            ]
+          },
+          "signing_key": {
+            "readers": [
+              "trusted_client"
+            ],
+            "writers": [
+              "trusted_admin"
+            ]
+          },
+          "component_manifest": {
+            "readers": [
+              "trusted_client"
+            ],
+            "writers": [
+              "trusted_admin"
+            ]
+          },
+          "verifier": {
+            "readers": [
+              "trusted_client"
+            ],
+            "writers": [
+              "trusted_admin"
+            ]
+          },
+          "dispatch_gate": {
+            "readers": [
+              "trusted_client"
+            ],
+            "writers": [
+              "trusted_admin"
+            ]
+          }
+        },
+        "effect_paths": {
+          "subprocess": {
+            "mediated_by": "trusted_dispatch_gate",
+            "bypass_credentials_exposed": false
+          },
+          "network": {
+            "mediated_by": "trusted_dispatch_gate",
+            "bypass_credentials_exposed": false
+          },
+          "file": {
+            "mediated_by": "trusted_dispatch_gate",
+            "bypass_credentials_exposed": false
+          },
+          "retry": {
+            "mediated_by": "trusted_dispatch_gate",
+            "bypass_credentials_exposed": false
+          },
+          "parallel": {
+            "mediated_by": "trusted_dispatch_gate",
+            "bypass_credentials_exposed": false
+          },
+          "subagent": {
+            "mediated_by": "trusted_dispatch_gate",
+            "bypass_credentials_exposed": false
+          }
+        },
+        "hook": {
+          "mandatory": true,
+          "writers": [
+            "trusted_admin"
+          ]
+        },
+        "server": {
+          "verifier_boundary": "trusted_server",
+          "dispatcher_boundary": "trusted_server",
+          "tool_boundary": "isolated_untrusted",
+          "tool_has_host_privilege": false
+        }
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {},
+        "effects": {}
+      }
+    },
+    {
+      "id": "EXEC-01-N01",
+      "input": {
+        "untrusted_principals": [
+          "plugin",
+          "skill",
+          "mcp",
+          "model",
+          "child"
+        ],
+        "protected_assets": {
+          "original_request": {
+            "readers": [
+              "trusted_client"
+            ],
+            "writers": [
+              "trusted_admin"
+            ]
+          },
+          "policy": {
+            "readers": [
+              "trusted_client"
+            ],
+            "writers": [
+              "trusted_admin"
+            ]
+          },
+          "signing_key": {
+            "readers": [
+              "trusted_client",
+              "plugin"
+            ],
+            "writers": [
+              "trusted_admin"
+            ]
+          },
+          "component_manifest": {
+            "readers": [
+              "trusted_client"
+            ],
+            "writers": [
+              "trusted_admin"
+            ]
+          },
+          "verifier": {
+            "readers": [
+              "trusted_client"
+            ],
+            "writers": [
+              "trusted_admin"
+            ]
+          },
+          "dispatch_gate": {
+            "readers": [
+              "trusted_client"
+            ],
+            "writers": [
+              "trusted_admin"
+            ]
+          }
+        },
+        "effect_paths": {
+          "subprocess": {
+            "mediated_by": "trusted_dispatch_gate",
+            "bypass_credentials_exposed": false
+          },
+          "network": {
+            "mediated_by": "trusted_dispatch_gate",
+            "bypass_credentials_exposed": false
+          },
+          "file": {
+            "mediated_by": "trusted_dispatch_gate",
+            "bypass_credentials_exposed": false
+          },
+          "retry": {
+            "mediated_by": "trusted_dispatch_gate",
+            "bypass_credentials_exposed": false
+          },
+          "parallel": {
+            "mediated_by": "trusted_dispatch_gate",
+            "bypass_credentials_exposed": false
+          },
+          "subagent": {
+            "mediated_by": "trusted_dispatch_gate",
+            "bypass_credentials_exposed": false
+          }
+        },
+        "hook": {
+          "mandatory": true,
+          "writers": [
+            "trusted_admin"
+          ]
+        },
+        "server": {
+          "verifier_boundary": "trusted_server",
+          "dispatcher_boundary": "trusted_server",
+          "tool_boundary": "isolated_untrusted",
+          "tool_has_host_privilege": false
+        }
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {},
+        "effects": {}
+      }
+    },
+    {
+      "id": "EXEC-01-N02",
+      "input": {
+        "untrusted_principals": [
+          "plugin",
+          "skill",
+          "mcp",
+          "model",
+          "child"
+        ],
+        "protected_assets": {
+          "original_request": {
+            "readers": [
+              "trusted_client"
+            ],
+            "writers": [
+              "trusted_admin"
+            ]
+          },
+          "policy": {
+            "readers": [
+              "trusted_client"
+            ],
+            "writers": [
+              "trusted_admin"
+            ]
+          },
+          "signing_key": {
+            "readers": [
+              "trusted_client"
+            ],
+            "writers": [
+              "trusted_admin"
+            ]
+          },
+          "component_manifest": {
+            "readers": [
+              "trusted_client"
+            ],
+            "writers": [
+              "trusted_admin"
+            ]
+          },
+          "verifier": {
+            "readers": [
+              "trusted_client"
+            ],
+            "writers": [
+              "trusted_admin",
+              "plugin"
+            ]
+          },
+          "dispatch_gate": {
+            "readers": [
+              "trusted_client"
+            ],
+            "writers": [
+              "trusted_admin"
+            ]
+          }
+        },
+        "effect_paths": {
+          "subprocess": {
+            "mediated_by": "trusted_dispatch_gate",
+            "bypass_credentials_exposed": false
+          },
+          "network": {
+            "mediated_by": "trusted_dispatch_gate",
+            "bypass_credentials_exposed": false
+          },
+          "file": {
+            "mediated_by": "trusted_dispatch_gate",
+            "bypass_credentials_exposed": false
+          },
+          "retry": {
+            "mediated_by": "trusted_dispatch_gate",
+            "bypass_credentials_exposed": false
+          },
+          "parallel": {
+            "mediated_by": "trusted_dispatch_gate",
+            "bypass_credentials_exposed": false
+          },
+          "subagent": {
+            "mediated_by": "trusted_dispatch_gate",
+            "bypass_credentials_exposed": false
+          }
+        },
+        "hook": {
+          "mandatory": true,
+          "writers": [
+            "trusted_admin"
+          ]
+        },
+        "server": {
+          "verifier_boundary": "trusted_server",
+          "dispatcher_boundary": "trusted_server",
+          "tool_boundary": "isolated_untrusted",
+          "tool_has_host_privilege": false
+        }
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {},
+        "effects": {}
+      }
+    },
+    {
+      "id": "EXEC-01-N03",
+      "input": {
+        "untrusted_principals": [
+          "plugin",
+          "skill",
+          "mcp",
+          "model",
+          "child"
+        ],
+        "protected_assets": {
+          "original_request": {
+            "readers": [
+              "trusted_client"
+            ],
+            "writers": [
+              "trusted_admin"
+            ]
+          },
+          "policy": {
+            "readers": [
+              "trusted_client"
+            ],
+            "writers": [
+              "trusted_admin"
+            ]
+          },
+          "signing_key": {
+            "readers": [
+              "trusted_client"
+            ],
+            "writers": [
+              "trusted_admin"
+            ]
+          },
+          "component_manifest": {
+            "readers": [
+              "trusted_client"
+            ],
+            "writers": [
+              "trusted_admin"
+            ]
+          },
+          "verifier": {
+            "readers": [
+              "trusted_client"
+            ],
+            "writers": [
+              "trusted_admin"
+            ]
+          },
+          "dispatch_gate": {
+            "readers": [
+              "trusted_client"
+            ],
+            "writers": [
+              "trusted_admin"
+            ]
+          }
+        },
+        "effect_paths": {
+          "subprocess": {
+            "mediated_by": "untrusted_plugin",
+            "bypass_credentials_exposed": false
+          },
+          "network": {
+            "mediated_by": "trusted_dispatch_gate",
+            "bypass_credentials_exposed": false
+          },
+          "file": {
+            "mediated_by": "trusted_dispatch_gate",
+            "bypass_credentials_exposed": false
+          },
+          "retry": {
+            "mediated_by": "trusted_dispatch_gate",
+            "bypass_credentials_exposed": false
+          },
+          "parallel": {
+            "mediated_by": "trusted_dispatch_gate",
+            "bypass_credentials_exposed": false
+          },
+          "subagent": {
+            "mediated_by": "trusted_dispatch_gate",
+            "bypass_credentials_exposed": false
+          }
+        },
+        "hook": {
+          "mandatory": true,
+          "writers": [
+            "trusted_admin"
+          ]
+        },
+        "server": {
+          "verifier_boundary": "trusted_server",
+          "dispatcher_boundary": "trusted_server",
+          "tool_boundary": "isolated_untrusted",
+          "tool_has_host_privilege": false
+        }
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {},
+        "effects": {}
+      }
+    },
+    {
+      "id": "EXEC-01-N04",
+      "input": {
+        "untrusted_principals": [
+          "plugin",
+          "skill",
+          "mcp",
+          "model",
+          "child"
+        ],
+        "protected_assets": {
+          "original_request": {
+            "readers": [
+              "trusted_client"
+            ],
+            "writers": [
+              "trusted_admin"
+            ]
+          },
+          "policy": {
+            "readers": [
+              "trusted_client"
+            ],
+            "writers": [
+              "trusted_admin"
+            ]
+          },
+          "signing_key": {
+            "readers": [
+              "trusted_client"
+            ],
+            "writers": [
+              "trusted_admin"
+            ]
+          },
+          "component_manifest": {
+            "readers": [
+              "trusted_client"
+            ],
+            "writers": [
+              "trusted_admin"
+            ]
+          },
+          "verifier": {
+            "readers": [
+              "trusted_client"
+            ],
+            "writers": [
+              "trusted_admin"
+            ]
+          },
+          "dispatch_gate": {
+            "readers": [
+              "trusted_client"
+            ],
+            "writers": [
+              "trusted_admin"
+            ]
+          }
+        },
+        "effect_paths": {
+          "subprocess": {
+            "mediated_by": "trusted_dispatch_gate",
+            "bypass_credentials_exposed": false
+          },
+          "network": {
+            "mediated_by": "trusted_dispatch_gate",
+            "bypass_credentials_exposed": false
+          },
+          "file": {
+            "mediated_by": "trusted_dispatch_gate",
+            "bypass_credentials_exposed": false
+          },
+          "retry": {
+            "mediated_by": "trusted_dispatch_gate",
+            "bypass_credentials_exposed": false
+          },
+          "parallel": {
+            "mediated_by": "trusted_dispatch_gate",
+            "bypass_credentials_exposed": false
+          },
+          "subagent": {
+            "mediated_by": "trusted_dispatch_gate",
+            "bypass_credentials_exposed": false
+          }
+        },
+        "hook": {
+          "mandatory": false,
+          "writers": [
+            "trusted_admin"
+          ]
+        },
+        "server": {
+          "verifier_boundary": "trusted_server",
+          "dispatcher_boundary": "trusted_server",
+          "tool_boundary": "isolated_untrusted",
+          "tool_has_host_privilege": false
+        }
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {},
+        "effects": {}
+      }
+    }
+  ]
+}

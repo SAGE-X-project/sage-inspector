@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "subject": {
+    "repository": "SAGE-X-project/sage-spec",
+    "revision": "5bcf511e604579afa63f434013447f44b6858828",
+    "executable_sha256": "9a17ee449e734a66dccee0475276f27ca4a94f4a7b68b2e6c6166c52de23680b"
+  },
+  "runner_revision": "9e7f66c42b86d9d879df5a5f502e87d0daebf103",
+  "runner_sha256": "b2aa772d7ce6b0a1eb799bef413381a9ea935ff852d062c130ff7ca3a40fe169",
+  "adapter_sha256": "9a17ee449e734a66dccee0475276f27ca4a94f4a7b68b2e6c6166c52de23680b",
+  "observations": [
+    {
+      "id": "EVIDENCE-01-N01",
+      "track": "deployment_review",
+      "path": "EVIDENCE-01-N01-deployment_review.json",
+      "sha256": "d91790ff1672d8a97c62f511ed073bff73e1b7f2e58f7da7ccb19f70e62c6696"
+    },
+    {
+      "id": "EVIDENCE-01-N01",
+      "track": "document_review",
+      "path": "EVIDENCE-01-N01-document_review.json",
+      "sha256": "92d8cf3a174724a807574b10dd0d7eea7666b0818395cefb2b20bb61ce67f9dc"
+    },
+    {
+      "id": "EVIDENCE-01-N01",
+      "track": "runtime",
+      "path": "EVIDENCE-01-N01-runtime.json",
+      "sha256": "b0cef898c385b7d02432df899d7d9daa4cc3e5e9936c98682bc9e31abd690963"
+    },
+    {
+      "id": "EVIDENCE-01-N02",
+      "track": "deployment_review",
+      "path": "EVIDENCE-01-N02-deployment_review.json",
+      "sha256": "1f3b97453dc3bdcc7171128311992a95fdcba90869c983179c62b7b53e7ace56"
+    },
+    {
+      "id": "EVIDENCE-01-N02",
+      "track": "document_review",
+      "path": "EVIDENCE-01-N02-document_review.json",
+      "sha256": "02bc0643f2c554ee7334fdd22af46b22441e456d56976a85cedef7e8525c44fe"
+    },
+    {
+      "id": "EVIDENCE-01-N02",
+      "track": "runtime",
+      "path": "EVIDENCE-01-N02-runtime.json",
+      "sha256": "b774c9699b409f4dafc280c78a740f367dfde9aaa6dcef2cf64ad5ef9b8ba33b"
+    },
+    {
+      "id": "EVIDENCE-01-P",
+      "track": "deployment_review",
+      "path": "EVIDENCE-01-P-deployment_review.json",
+      "sha256": "3705635bd5104c1670be26b766ae5feba1f421a5cc02869ee74a64374db0082a"
+    },
+    {
+      "id": "EVIDENCE-01-P",
+      "track": "document_review",
+      "path": "EVIDENCE-01-P-document_review.json",
+      "sha256": "b8d8b6afb488a8a9e4c2f6923ea508ec479913dbe88e7da9e217027beca083cf"
+    },
+    {
+      "id": "EVIDENCE-01-P",
+      "track": "runtime",
+      "path": "EVIDENCE-01-P-runtime.json",
+      "sha256": "7e562cacf3cd3c645935831f9bd4e41bb91a7c53ae3bb49bdbc7d284d54439af"
+    }
+  ]
+}

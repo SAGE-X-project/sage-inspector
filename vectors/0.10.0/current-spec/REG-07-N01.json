@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "REG-07-N01",
+  "track": "runtime",
+  "input": {
+    "operation": "sage.registry.profile.admit",
+    "input": {
+      "did": "did:sage:solana:chain:alice",
+      "protocol_version": "0.10.0",
+      "record": {
+        "id": "did:sage:solana:chain:alice",
+        "state": "active"
+      },
+      "claim_conformance": true
+    }
+  },
+  "expected": {
+    "verdict": "REJECT",
+    "output": {
+      "code": "id.unknown-kind"
+    },
+    "effects": {}
+  }
+}

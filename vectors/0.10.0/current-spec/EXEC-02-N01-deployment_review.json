@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "EXEC-02-N01",
+  "track": "deployment_review",
+  "input": {
+    "operation": "sage.host.deployment.review",
+    "input": {
+      "case_id": "EXEC-02-N01",
+      "required_artifacts": [
+        "original_store_write_boundary",
+        "capture_provenance"
+      ]
+    }
+  },
+  "expected": {
+    "verdict": "ACCEPT",
+    "output": {
+      "reviewed": true,
+      "artifacts": [
+        "original_store_write_boundary",
+        "capture_provenance"
+      ]
+    },
+    "effects": {}
+  }
+}

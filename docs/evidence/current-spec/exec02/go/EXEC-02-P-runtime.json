@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "EXEC-02-P",
+  "track": "runtime",
+  "fixture_sha256": "cddeee6bec2620c72a8bf233439e3be9393a4f88dfd1af667f1fa8ad2b8b5880",
+  "input_sha256": "6298d2bb86beb41d0b3eb84ff827551f1de8157d165a8bc52269e1bcd23819ce",
+  "subject": {
+    "repository": "SAGE-X-project/sage",
+    "revision": "49379baadc6baec9ca8b4bb7d15bf43d65144bd7",
+    "executable_sha256": "86820fb3c36df17194398ce4247fe6dd3fac0efc12a9af1d84a6f87a308cfc88"
+  },
+  "actual": {
+    "verdict": "ACCEPT",
+    "output": {
+      "original_digest": "45c26024a899b0b3909edb7fdbfb5c6fb49536d1278f70b0a7717ed0f487aec0"
+    },
+    "effects": {}
+  },
+  "environment": "bounded-local-adapter"
+}

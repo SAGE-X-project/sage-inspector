@@ -1,0 +1,4048 @@
+{
+  "schema_version": 1,
+  "kind": "current-spec-case-evidence",
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "subject": {
+    "repository": "SAGE-X-project/sage",
+    "revision": "49379baadc6baec9ca8b4bb7d15bf43d65144bd7",
+    "executable_sha256": "86820fb3c36df17194398ce4247fe6dd3fac0efc12a9af1d84a6f87a308cfc88"
+  },
+  "status": "EVIDENCE_CHECKED",
+  "conformance": "NOT_ESTABLISHED",
+  "counts": {
+    "PASS": 0,
+    "FAIL": 18,
+    "UNSUPPORTED": 180,
+    "PARTIAL": 33,
+    "NOT_RUN": 250
+  },
+  "mandatory_subscenarios": [
+    {
+      "id": "generation-policy",
+      "parent_case": "madd-close-before-handoff",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "generation-component",
+      "parent_case": "madd-close-before-handoff",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "generation-session",
+      "parent_case": "madd-close-before-handoff",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "observation-age-4999",
+      "parent_case": "madd-close-before-handoff",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "observation-age-5000",
+      "parent_case": "madd-close-before-handoff",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "observation-age-5001",
+      "parent_case": "madd-close-before-handoff",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "observation-before-start",
+      "parent_case": "madd-close-before-handoff",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "queue-capacity-race",
+      "parent_case": "madd-bounded-cancellation",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "queue-insert-failure",
+      "parent_case": "madd-close-before-handoff",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "shared-owner-close",
+      "parent_case": "madd-close-before-handoff",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "fence-close-success",
+      "parent_case": "mres-close-after-reservation",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "fence-close-failure",
+      "parent_case": "mres-close-after-reservation",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "fence-close-uncertain",
+      "parent_case": "mres-close-after-reservation",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "unknown-write-failure",
+      "parent_case": "mres-close-after-reservation",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "recovery-conversion-failure",
+      "parent_case": "mres-crash-after-admission",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "queue-expiry-before",
+      "parent_case": "mres-protected-timeout-before-admission",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "queue-expiry-after",
+      "parent_case": "mres-protected-timeout-after-admission",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "policy-retirement-invalidate-first",
+      "parent_case": "madd-close-after-handoff",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "policy-retirement-claim-first",
+      "parent_case": "madd-close-after-handoff",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "baseline-replacement-invalidate-first",
+      "parent_case": "madd-close-after-handoff",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "baseline-replacement-claim-first",
+      "parent_case": "madd-close-after-handoff",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "scheduler-cancel-race",
+      "parent_case": "madd-bounded-cancellation",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "scheduler-stall",
+      "parent_case": "madd-bounded-cancellation",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "reconnect-pool-bound",
+      "parent_case": "madd-bounded-cancellation",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "owner-history-1024",
+      "parent_case": "madd-history-capacity",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "session-record-limit-first",
+      "parent_case": "madd-history-capacity",
+      "status": "NOT_RUN"
+    }
+  ],
+  "cases": [
+    {
+      "id": "OVERVIEW-01-P",
+      "rule_id": "OVERVIEW-01",
+      "tracks": {
+        "document_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "OVERVIEW-01-N01",
+      "rule_id": "OVERVIEW-01",
+      "tracks": {
+        "document_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "OVERVIEW-02-P",
+      "rule_id": "OVERVIEW-02",
+      "tracks": {
+        "document_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "OVERVIEW-02-N01",
+      "rule_id": "OVERVIEW-02",
+      "tracks": {
+        "document_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "OVERVIEW-03-P",
+      "rule_id": "OVERVIEW-03",
+      "tracks": {
+        "runtime": "NOT_RUN",
+        "document_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "OVERVIEW-03-N01",
+      "rule_id": "OVERVIEW-03",
+      "tracks": {
+        "runtime": "NOT_RUN",
+        "document_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "OVERVIEW-03-N02",
+      "rule_id": "OVERVIEW-03",
+      "tracks": {
+        "runtime": "NOT_RUN",
+        "document_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "OVERVIEW-03-N03",
+      "rule_id": "OVERVIEW-03",
+      "tracks": {
+        "runtime": "NOT_RUN",
+        "document_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "OVERVIEW-04-P",
+      "rule_id": "OVERVIEW-04",
+      "tracks": {
+        "document_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "OVERVIEW-04-N01",
+      "rule_id": "OVERVIEW-04",
+      "tracks": {
+        "document_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CRYPTO-01-P",
+      "rule_id": "CRYPTO-01",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CRYPTO-01-N01",
+      "rule_id": "CRYPTO-01",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CRYPTO-01-N02",
+      "rule_id": "CRYPTO-01",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CRYPTO-01-N03",
+      "rule_id": "CRYPTO-01",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CRYPTO-01-N04",
+      "rule_id": "CRYPTO-01",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CRYPTO-02-P",
+      "rule_id": "CRYPTO-02",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CRYPTO-02-N01",
+      "rule_id": "CRYPTO-02",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CRYPTO-02-N02",
+      "rule_id": "CRYPTO-02",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CRYPTO-02-N03",
+      "rule_id": "CRYPTO-02",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CRYPTO-02-N04",
+      "rule_id": "CRYPTO-02",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CRYPTO-02-N05",
+      "rule_id": "CRYPTO-02",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CRYPTO-03-P",
+      "rule_id": "CRYPTO-03",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CRYPTO-03-N01",
+      "rule_id": "CRYPTO-03",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CRYPTO-03-N02",
+      "rule_id": "CRYPTO-03",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CRYPTO-03-N03",
+      "rule_id": "CRYPTO-03",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CRYPTO-03-N04",
+      "rule_id": "CRYPTO-03",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CRYPTO-04-P",
+      "rule_id": "CRYPTO-04",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CRYPTO-04-N01",
+      "rule_id": "CRYPTO-04",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CRYPTO-04-N02",
+      "rule_id": "CRYPTO-04",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CRYPTO-04-N03",
+      "rule_id": "CRYPTO-04",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CRYPTO-05-P",
+      "rule_id": "CRYPTO-05",
+      "tracks": {
+        "runtime": "NOT_RUN",
+        "deployment_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CRYPTO-05-N01",
+      "rule_id": "CRYPTO-05",
+      "tracks": {
+        "runtime": "NOT_RUN",
+        "deployment_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CRYPTO-05-N02",
+      "rule_id": "CRYPTO-05",
+      "tracks": {
+        "runtime": "NOT_RUN",
+        "deployment_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CRYPTO-05-N03",
+      "rule_id": "CRYPTO-05",
+      "tracks": {
+        "runtime": "NOT_RUN",
+        "deployment_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "JCS-01-P",
+      "rule_id": "JCS-01",
+      "tracks": {
+        "runtime": "PARTIAL"
+      },
+      "status": "PARTIAL"
+    },
+    {
+      "id": "JCS-01-N01",
+      "rule_id": "JCS-01",
+      "tracks": {
+        "runtime": "FAIL"
+      },
+      "status": "FAIL"
+    },
+    {
+      "id": "JCS-01-N02",
+      "rule_id": "JCS-01",
+      "tracks": {
+        "runtime": "PARTIAL"
+      },
+      "status": "PARTIAL"
+    },
+    {
+      "id": "JCS-01-N03",
+      "rule_id": "JCS-01",
+      "tracks": {
+        "runtime": "FAIL"
+      },
+      "status": "FAIL"
+    },
+    {
+      "id": "JCS-01-N04",
+      "rule_id": "JCS-01",
+      "tracks": {
+        "runtime": "PARTIAL"
+      },
+      "status": "PARTIAL"
+    },
+    {
+      "id": "JCS-01-N05",
+      "rule_id": "JCS-01",
+      "tracks": {
+        "runtime": "FAIL"
+      },
+      "status": "FAIL"
+    },
+    {
+      "id": "JCS-01-N06",
+      "rule_id": "JCS-01",
+      "tracks": {
+        "runtime": "FAIL"
+      },
+      "status": "FAIL"
+    },
+    {
+      "id": "JCS-02-P",
+      "rule_id": "JCS-02",
+      "tracks": {
+        "runtime": "PARTIAL"
+      },
+      "status": "PARTIAL"
+    },
+    {
+      "id": "JCS-02-N01",
+      "rule_id": "JCS-02",
+      "tracks": {
+        "runtime": "PARTIAL"
+      },
+      "status": "PARTIAL"
+    },
+    {
+      "id": "JCS-02-N02",
+      "rule_id": "JCS-02",
+      "tracks": {
+        "runtime": "PARTIAL"
+      },
+      "status": "PARTIAL"
+    },
+    {
+      "id": "JCS-02-N03",
+      "rule_id": "JCS-02",
+      "tracks": {
+        "runtime": "PARTIAL"
+      },
+      "status": "PARTIAL"
+    },
+    {
+      "id": "JCS-02-N04",
+      "rule_id": "JCS-02",
+      "tracks": {
+        "runtime": "PARTIAL"
+      },
+      "status": "PARTIAL"
+    },
+    {
+      "id": "JCS-03-P",
+      "rule_id": "JCS-03",
+      "tracks": {
+        "runtime": "PARTIAL"
+      },
+      "status": "PARTIAL"
+    },
+    {
+      "id": "JCS-03-N01",
+      "rule_id": "JCS-03",
+      "tracks": {
+        "runtime": "PARTIAL"
+      },
+      "status": "PARTIAL"
+    },
+    {
+      "id": "JCS-03-N02",
+      "rule_id": "JCS-03",
+      "tracks": {
+        "runtime": "PARTIAL"
+      },
+      "status": "PARTIAL"
+    },
+    {
+      "id": "JCS-03-N03",
+      "rule_id": "JCS-03",
+      "tracks": {
+        "runtime": "PARTIAL"
+      },
+      "status": "PARTIAL"
+    },
+    {
+      "id": "JCS-04-P",
+      "rule_id": "JCS-04",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "JCS-04-N01",
+      "rule_id": "JCS-04",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "JCS-04-N02",
+      "rule_id": "JCS-04",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "JCS-04-N03",
+      "rule_id": "JCS-04",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "MSG-01-P",
+      "rule_id": "MSG-01",
+      "tracks": {
+        "runtime": "FAIL"
+      },
+      "status": "FAIL"
+    },
+    {
+      "id": "MSG-01-N01",
+      "rule_id": "MSG-01",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "MSG-01-N02",
+      "rule_id": "MSG-01",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "MSG-01-N03",
+      "rule_id": "MSG-01",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "MSG-01-N04",
+      "rule_id": "MSG-01",
+      "tracks": {
+        "runtime": "PARTIAL"
+      },
+      "status": "PARTIAL"
+    },
+    {
+      "id": "MSG-02-P",
+      "rule_id": "MSG-02",
+      "tracks": {
+        "runtime": "FAIL"
+      },
+      "status": "FAIL"
+    },
+    {
+      "id": "MSG-02-N01",
+      "rule_id": "MSG-02",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "MSG-02-N02",
+      "rule_id": "MSG-02",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "MSG-02-N03",
+      "rule_id": "MSG-02",
+      "tracks": {
+        "runtime": "PARTIAL"
+      },
+      "status": "PARTIAL"
+    },
+    {
+      "id": "MSG-02-N04",
+      "rule_id": "MSG-02",
+      "tracks": {
+        "runtime": "PARTIAL"
+      },
+      "status": "PARTIAL"
+    },
+    {
+      "id": "MSG-02-N05",
+      "rule_id": "MSG-02",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "MSG-03-P",
+      "rule_id": "MSG-03",
+      "tracks": {
+        "runtime": "FAIL"
+      },
+      "status": "FAIL"
+    },
+    {
+      "id": "MSG-03-N01",
+      "rule_id": "MSG-03",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "MSG-03-N02",
+      "rule_id": "MSG-03",
+      "tracks": {
+        "runtime": "PARTIAL"
+      },
+      "status": "PARTIAL"
+    },
+    {
+      "id": "MSG-03-N03",
+      "rule_id": "MSG-03",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "MSG-03-N04",
+      "rule_id": "MSG-03",
+      "tracks": {
+        "runtime": "PARTIAL"
+      },
+      "status": "PARTIAL"
+    },
+    {
+      "id": "MSG-04-P",
+      "rule_id": "MSG-04",
+      "tracks": {
+        "runtime": "FAIL"
+      },
+      "status": "FAIL"
+    },
+    {
+      "id": "MSG-04-N01",
+      "rule_id": "MSG-04",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "MSG-04-N02",
+      "rule_id": "MSG-04",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "MSG-04-N03",
+      "rule_id": "MSG-04",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "MSG-04-N04",
+      "rule_id": "MSG-04",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "MSG-04-N05",
+      "rule_id": "MSG-04",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "MSG-05-P",
+      "rule_id": "MSG-05",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "MSG-05-N01",
+      "rule_id": "MSG-05",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "MSG-05-N02",
+      "rule_id": "MSG-05",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "MSG-05-N03",
+      "rule_id": "MSG-05",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "MSG-05-N04",
+      "rule_id": "MSG-05",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "MSG-05-N05",
+      "rule_id": "MSG-05",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "MSG-06-P",
+      "rule_id": "MSG-06",
+      "tracks": {
+        "runtime": "FAIL"
+      },
+      "status": "FAIL"
+    },
+    {
+      "id": "MSG-06-N01",
+      "rule_id": "MSG-06",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "MSG-06-N02",
+      "rule_id": "MSG-06",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "MSG-06-N03",
+      "rule_id": "MSG-06",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "HPKE-01-P",
+      "rule_id": "HPKE-01",
+      "tracks": {
+        "runtime": "PARTIAL"
+      },
+      "status": "PARTIAL"
+    },
+    {
+      "id": "HPKE-01-N01",
+      "rule_id": "HPKE-01",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "HPKE-01-N02",
+      "rule_id": "HPKE-01",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "HPKE-01-N03",
+      "rule_id": "HPKE-01",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "HPKE-02-P",
+      "rule_id": "HPKE-02",
+      "tracks": {
+        "runtime": "PARTIAL"
+      },
+      "status": "PARTIAL"
+    },
+    {
+      "id": "HPKE-02-N01",
+      "rule_id": "HPKE-02",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "HPKE-02-N02",
+      "rule_id": "HPKE-02",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "HPKE-02-N03",
+      "rule_id": "HPKE-02",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "HPKE-02-N04",
+      "rule_id": "HPKE-02",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "HPKE-03-P",
+      "rule_id": "HPKE-03",
+      "tracks": {
+        "runtime": "FAIL"
+      },
+      "status": "FAIL"
+    },
+    {
+      "id": "HPKE-03-N01",
+      "rule_id": "HPKE-03",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "HPKE-03-N02",
+      "rule_id": "HPKE-03",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "HPKE-03-N03",
+      "rule_id": "HPKE-03",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "HPKE-03-N04",
+      "rule_id": "HPKE-03",
+      "tracks": {
+        "runtime": "FAIL"
+      },
+      "status": "FAIL"
+    },
+    {
+      "id": "HPKE-04-P",
+      "rule_id": "HPKE-04",
+      "tracks": {
+        "runtime": "PARTIAL"
+      },
+      "status": "PARTIAL"
+    },
+    {
+      "id": "HPKE-04-N01",
+      "rule_id": "HPKE-04",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "HPKE-04-N02",
+      "rule_id": "HPKE-04",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "HPKE-04-N03",
+      "rule_id": "HPKE-04",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "HPKE-04-N04",
+      "rule_id": "HPKE-04",
+      "tracks": {
+        "runtime": "PARTIAL"
+      },
+      "status": "PARTIAL"
+    },
+    {
+      "id": "HPKE-05-P",
+      "rule_id": "HPKE-05",
+      "tracks": {
+        "runtime": "PARTIAL"
+      },
+      "status": "PARTIAL"
+    },
+    {
+      "id": "HPKE-05-N01",
+      "rule_id": "HPKE-05",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "HPKE-05-N02",
+      "rule_id": "HPKE-05",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "HPKE-05-N03",
+      "rule_id": "HPKE-05",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "HPKE-05-N04",
+      "rule_id": "HPKE-05",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "HPKE-06-P",
+      "rule_id": "HPKE-06",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "HPKE-06-N01",
+      "rule_id": "HPKE-06",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "HPKE-06-N02",
+      "rule_id": "HPKE-06",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "HPKE-06-N03",
+      "rule_id": "HPKE-06",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "HPKE-06-N04",
+      "rule_id": "HPKE-06",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "SESSION-01-P",
+      "rule_id": "SESSION-01",
+      "tracks": {
+        "runtime": "PARTIAL"
+      },
+      "status": "PARTIAL"
+    },
+    {
+      "id": "SESSION-01-N01",
+      "rule_id": "SESSION-01",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "SESSION-01-N02",
+      "rule_id": "SESSION-01",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "SESSION-01-N03",
+      "rule_id": "SESSION-01",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "SESSION-02-P",
+      "rule_id": "SESSION-02",
+      "tracks": {
+        "runtime": "PARTIAL"
+      },
+      "status": "PARTIAL"
+    },
+    {
+      "id": "SESSION-02-N01",
+      "rule_id": "SESSION-02",
+      "tracks": {
+        "runtime": "PARTIAL"
+      },
+      "status": "PARTIAL"
+    },
+    {
+      "id": "SESSION-02-N02",
+      "rule_id": "SESSION-02",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "SESSION-02-N03",
+      "rule_id": "SESSION-02",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "SESSION-02-N04",
+      "rule_id": "SESSION-02",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "SESSION-03-P",
+      "rule_id": "SESSION-03",
+      "tracks": {
+        "runtime": "PARTIAL"
+      },
+      "status": "PARTIAL"
+    },
+    {
+      "id": "SESSION-03-N01",
+      "rule_id": "SESSION-03",
+      "tracks": {
+        "runtime": "PARTIAL"
+      },
+      "status": "PARTIAL"
+    },
+    {
+      "id": "SESSION-03-N02",
+      "rule_id": "SESSION-03",
+      "tracks": {
+        "runtime": "PARTIAL"
+      },
+      "status": "PARTIAL"
+    },
+    {
+      "id": "SESSION-03-N03",
+      "rule_id": "SESSION-03",
+      "tracks": {
+        "runtime": "PARTIAL"
+      },
+      "status": "PARTIAL"
+    },
+    {
+      "id": "SESSION-03-N04",
+      "rule_id": "SESSION-03",
+      "tracks": {
+        "runtime": "PARTIAL"
+      },
+      "status": "PARTIAL"
+    },
+    {
+      "id": "SESSION-03-N05",
+      "rule_id": "SESSION-03",
+      "tracks": {
+        "runtime": "PARTIAL"
+      },
+      "status": "PARTIAL"
+    },
+    {
+      "id": "SESSION-04-P",
+      "rule_id": "SESSION-04",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "SESSION-04-N01",
+      "rule_id": "SESSION-04",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "SESSION-04-N02",
+      "rule_id": "SESSION-04",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "SESSION-04-N03",
+      "rule_id": "SESSION-04",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "SESSION-05-P",
+      "rule_id": "SESSION-05",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "SESSION-05-N01",
+      "rule_id": "SESSION-05",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "SESSION-05-N02",
+      "rule_id": "SESSION-05",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "SESSION-05-N03",
+      "rule_id": "SESSION-05",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "SESSION-05-N04",
+      "rule_id": "SESSION-05",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "SESSION-06-P",
+      "rule_id": "SESSION-06",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "SESSION-06-N01",
+      "rule_id": "SESSION-06",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "SESSION-06-N02",
+      "rule_id": "SESSION-06",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "SESSION-06-N03",
+      "rule_id": "SESSION-06",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "SESSION-06-N04",
+      "rule_id": "SESSION-06",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "SESSION-06-N05",
+      "rule_id": "SESSION-06",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "ID-01-P",
+      "rule_id": "ID-01",
+      "tracks": {
+        "runtime": "FAIL"
+      },
+      "status": "FAIL"
+    },
+    {
+      "id": "ID-01-N01",
+      "rule_id": "ID-01",
+      "tracks": {
+        "runtime": "FAIL"
+      },
+      "status": "FAIL"
+    },
+    {
+      "id": "ID-01-N02",
+      "rule_id": "ID-01",
+      "tracks": {
+        "runtime": "FAIL"
+      },
+      "status": "FAIL"
+    },
+    {
+      "id": "ID-01-N03",
+      "rule_id": "ID-01",
+      "tracks": {
+        "runtime": "FAIL"
+      },
+      "status": "FAIL"
+    },
+    {
+      "id": "ID-01-N04",
+      "rule_id": "ID-01",
+      "tracks": {
+        "runtime": "FAIL"
+      },
+      "status": "FAIL"
+    },
+    {
+      "id": "ID-01-N05",
+      "rule_id": "ID-01",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "ID-02-P",
+      "rule_id": "ID-02",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "ID-02-N01",
+      "rule_id": "ID-02",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "ID-02-N02",
+      "rule_id": "ID-02",
+      "tracks": {
+        "runtime": "FAIL"
+      },
+      "status": "FAIL"
+    },
+    {
+      "id": "ID-02-N03",
+      "rule_id": "ID-02",
+      "tracks": {
+        "runtime": "FAIL"
+      },
+      "status": "FAIL"
+    },
+    {
+      "id": "ID-03-P",
+      "rule_id": "ID-03",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "ID-03-N01",
+      "rule_id": "ID-03",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "ID-03-N02",
+      "rule_id": "ID-03",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "ID-03-N03",
+      "rule_id": "ID-03",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "ID-03-N04",
+      "rule_id": "ID-03",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "ID-03-N05",
+      "rule_id": "ID-03",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "ID-04-P",
+      "rule_id": "ID-04",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "ID-04-N01",
+      "rule_id": "ID-04",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "ID-04-N02",
+      "rule_id": "ID-04",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "ID-04-N03",
+      "rule_id": "ID-04",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "CARD-01-P",
+      "rule_id": "CARD-01",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "CARD-01-N01",
+      "rule_id": "CARD-01",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "CARD-01-N02",
+      "rule_id": "CARD-01",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "CARD-01-N03",
+      "rule_id": "CARD-01",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "CARD-01-N04",
+      "rule_id": "CARD-01",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "CARD-01-N05",
+      "rule_id": "CARD-01",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "CARD-02-P",
+      "rule_id": "CARD-02",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "CARD-02-N01",
+      "rule_id": "CARD-02",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "CARD-02-N02",
+      "rule_id": "CARD-02",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "CARD-02-N03",
+      "rule_id": "CARD-02",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "CARD-02-N04",
+      "rule_id": "CARD-02",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "CARD-03-P",
+      "rule_id": "CARD-03",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "CARD-03-N01",
+      "rule_id": "CARD-03",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "CARD-03-N02",
+      "rule_id": "CARD-03",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "CARD-03-N03",
+      "rule_id": "CARD-03",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "CARD-03-N04",
+      "rule_id": "CARD-03",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "TRANSPORT-01-P",
+      "rule_id": "TRANSPORT-01",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "TRANSPORT-01-N01",
+      "rule_id": "TRANSPORT-01",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "TRANSPORT-01-N02",
+      "rule_id": "TRANSPORT-01",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "TRANSPORT-01-N03",
+      "rule_id": "TRANSPORT-01",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "TRANSPORT-01-N04",
+      "rule_id": "TRANSPORT-01",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "TRANSPORT-02-P",
+      "rule_id": "TRANSPORT-02",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "TRANSPORT-02-N01",
+      "rule_id": "TRANSPORT-02",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "TRANSPORT-02-N02",
+      "rule_id": "TRANSPORT-02",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "TRANSPORT-02-N03",
+      "rule_id": "TRANSPORT-02",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "TRANSPORT-02-N04",
+      "rule_id": "TRANSPORT-02",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "TRANSPORT-03-P",
+      "rule_id": "TRANSPORT-03",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "TRANSPORT-03-N01",
+      "rule_id": "TRANSPORT-03",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "TRANSPORT-03-N02",
+      "rule_id": "TRANSPORT-03",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "TRANSPORT-03-N03",
+      "rule_id": "TRANSPORT-03",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "TRANSPORT-03-N04",
+      "rule_id": "TRANSPORT-03",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "TRANSPORT-03-N05",
+      "rule_id": "TRANSPORT-03",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "TRANSPORT-03-N06",
+      "rule_id": "TRANSPORT-03",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "TRANSPORT-04-P",
+      "rule_id": "TRANSPORT-04",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "TRANSPORT-04-N01",
+      "rule_id": "TRANSPORT-04",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "TRANSPORT-04-N02",
+      "rule_id": "TRANSPORT-04",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "TRANSPORT-04-N03",
+      "rule_id": "TRANSPORT-04",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "TRANSPORT-04-N04",
+      "rule_id": "TRANSPORT-04",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "TRANSPORT-05-P",
+      "rule_id": "TRANSPORT-05",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "TRANSPORT-05-N01",
+      "rule_id": "TRANSPORT-05",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "TRANSPORT-05-N02",
+      "rule_id": "TRANSPORT-05",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "TRANSPORT-05-N03",
+      "rule_id": "TRANSPORT-05",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "TRANSPORT-06-P",
+      "rule_id": "TRANSPORT-06",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "TRANSPORT-06-N01",
+      "rule_id": "TRANSPORT-06",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "TRANSPORT-06-N02",
+      "rule_id": "TRANSPORT-06",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "TRANSPORT-06-N03",
+      "rule_id": "TRANSPORT-06",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "TRANSPORT-06-N04",
+      "rule_id": "TRANSPORT-06",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "REG-01-P",
+      "rule_id": "REG-01",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "REG-01-N01",
+      "rule_id": "REG-01",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "REG-01-N02",
+      "rule_id": "REG-01",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "REG-01-N03",
+      "rule_id": "REG-01",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "REG-01-N04",
+      "rule_id": "REG-01",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "REG-02-P",
+      "rule_id": "REG-02",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "REG-02-N01",
+      "rule_id": "REG-02",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "REG-02-N02",
+      "rule_id": "REG-02",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "REG-02-N03",
+      "rule_id": "REG-02",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "REG-03-P",
+      "rule_id": "REG-03",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "REG-03-N01",
+      "rule_id": "REG-03",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "REG-03-N02",
+      "rule_id": "REG-03",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "REG-03-N03",
+      "rule_id": "REG-03",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "REG-03-N04",
+      "rule_id": "REG-03",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "REG-04-P",
+      "rule_id": "REG-04",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "REG-04-N01",
+      "rule_id": "REG-04",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "REG-04-N02",
+      "rule_id": "REG-04",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "REG-04-N03",
+      "rule_id": "REG-04",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "REG-04-N04",
+      "rule_id": "REG-04",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "REG-05-P",
+      "rule_id": "REG-05",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "REG-05-N01",
+      "rule_id": "REG-05",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "REG-05-N02",
+      "rule_id": "REG-05",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "REG-05-N03",
+      "rule_id": "REG-05",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "REG-05-N04",
+      "rule_id": "REG-05",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "REG-05-N05",
+      "rule_id": "REG-05",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "REG-06-P",
+      "rule_id": "REG-06",
+      "tracks": {
+        "runtime": "UNSUPPORTED",
+        "deployment_review": "NOT_RUN"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "REG-06-N01",
+      "rule_id": "REG-06",
+      "tracks": {
+        "runtime": "UNSUPPORTED",
+        "deployment_review": "NOT_RUN"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "REG-06-N02",
+      "rule_id": "REG-06",
+      "tracks": {
+        "runtime": "UNSUPPORTED",
+        "deployment_review": "NOT_RUN"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "REG-06-N03",
+      "rule_id": "REG-06",
+      "tracks": {
+        "runtime": "UNSUPPORTED",
+        "deployment_review": "NOT_RUN"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "REG-06-N04",
+      "rule_id": "REG-06",
+      "tracks": {
+        "runtime": "UNSUPPORTED",
+        "deployment_review": "NOT_RUN"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "REG-07-P",
+      "rule_id": "REG-07",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "REG-07-N01",
+      "rule_id": "REG-07",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "REG-08-P",
+      "rule_id": "REG-08",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "REG-08-N01",
+      "rule_id": "REG-08",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "REG-08-N02",
+      "rule_id": "REG-08",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "REG-08-N03",
+      "rule_id": "REG-08",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "REG-08-N04",
+      "rule_id": "REG-08",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "RESOLVE-01-P",
+      "rule_id": "RESOLVE-01",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "RESOLVE-01-N01",
+      "rule_id": "RESOLVE-01",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "RESOLVE-01-N02",
+      "rule_id": "RESOLVE-01",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "RESOLVE-01-N03",
+      "rule_id": "RESOLVE-01",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "RESOLVE-02-P",
+      "rule_id": "RESOLVE-02",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "RESOLVE-02-N01",
+      "rule_id": "RESOLVE-02",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "RESOLVE-02-N02",
+      "rule_id": "RESOLVE-02",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "RESOLVE-02-N03",
+      "rule_id": "RESOLVE-02",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "RESOLVE-02-N04",
+      "rule_id": "RESOLVE-02",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "RESOLVE-02-N05",
+      "rule_id": "RESOLVE-02",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "RESOLVE-03-P",
+      "rule_id": "RESOLVE-03",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "RESOLVE-03-N01",
+      "rule_id": "RESOLVE-03",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "RESOLVE-03-N02",
+      "rule_id": "RESOLVE-03",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "RESOLVE-03-N03",
+      "rule_id": "RESOLVE-03",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "RESOLVE-04-P",
+      "rule_id": "RESOLVE-04",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "RESOLVE-04-N01",
+      "rule_id": "RESOLVE-04",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "RESOLVE-04-N02",
+      "rule_id": "RESOLVE-04",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "RESOLVE-04-N03",
+      "rule_id": "RESOLVE-04",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "RESOLVE-04-N04",
+      "rule_id": "RESOLVE-04",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "RESOLVE-04-N05",
+      "rule_id": "RESOLVE-04",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "RESOLVE-05-P",
+      "rule_id": "RESOLVE-05",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "RESOLVE-05-N01",
+      "rule_id": "RESOLVE-05",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "RESOLVE-05-N02",
+      "rule_id": "RESOLVE-05",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "RESOLVE-05-N03",
+      "rule_id": "RESOLVE-05",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "RESOLVE-05-N04",
+      "rule_id": "RESOLVE-05",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "TABLE-01-P",
+      "rule_id": "TABLE-01",
+      "tracks": {
+        "runtime": "NOT_RUN",
+        "document_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "TABLE-01-N01",
+      "rule_id": "TABLE-01",
+      "tracks": {
+        "runtime": "NOT_RUN",
+        "document_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "TABLE-01-N02",
+      "rule_id": "TABLE-01",
+      "tracks": {
+        "runtime": "NOT_RUN",
+        "document_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "TABLE-01-N03",
+      "rule_id": "TABLE-01",
+      "tracks": {
+        "runtime": "NOT_RUN",
+        "document_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "TABLE-02-P",
+      "rule_id": "TABLE-02",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "TABLE-02-N01",
+      "rule_id": "TABLE-02",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "TABLE-02-N02",
+      "rule_id": "TABLE-02",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "TABLE-03-P",
+      "rule_id": "TABLE-03",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "TABLE-03-N01",
+      "rule_id": "TABLE-03",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "TABLE-03-N02",
+      "rule_id": "TABLE-03",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "TABLE-04-P",
+      "rule_id": "TABLE-04",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "TABLE-04-N01",
+      "rule_id": "TABLE-04",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "TABLE-04-N02",
+      "rule_id": "TABLE-04",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "TABLE-04-N03",
+      "rule_id": "TABLE-04",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "TABLE-05-P",
+      "rule_id": "TABLE-05",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "TABLE-05-N01",
+      "rule_id": "TABLE-05",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "TABLE-05-N02",
+      "rule_id": "TABLE-05",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "TABLE-06-P",
+      "rule_id": "TABLE-06",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "TABLE-06-N01",
+      "rule_id": "TABLE-06",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "TABLE-06-N02",
+      "rule_id": "TABLE-06",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "TABLE-07-P",
+      "rule_id": "TABLE-07",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "TABLE-07-N01",
+      "rule_id": "TABLE-07",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "TABLE-07-N02",
+      "rule_id": "TABLE-07",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-01-P",
+      "rule_id": "EXEC-01",
+      "tracks": {
+        "runtime": "NOT_RUN",
+        "deployment_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-01-N01",
+      "rule_id": "EXEC-01",
+      "tracks": {
+        "runtime": "NOT_RUN",
+        "deployment_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-01-N02",
+      "rule_id": "EXEC-01",
+      "tracks": {
+        "runtime": "NOT_RUN",
+        "deployment_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-01-N03",
+      "rule_id": "EXEC-01",
+      "tracks": {
+        "runtime": "NOT_RUN",
+        "deployment_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-01-N04",
+      "rule_id": "EXEC-01",
+      "tracks": {
+        "runtime": "NOT_RUN",
+        "deployment_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-02-P",
+      "rule_id": "EXEC-02",
+      "tracks": {
+        "runtime": "NOT_RUN",
+        "deployment_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-02-N01",
+      "rule_id": "EXEC-02",
+      "tracks": {
+        "runtime": "NOT_RUN",
+        "deployment_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-02-N02",
+      "rule_id": "EXEC-02",
+      "tracks": {
+        "runtime": "NOT_RUN",
+        "deployment_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-02-N03",
+      "rule_id": "EXEC-02",
+      "tracks": {
+        "runtime": "NOT_RUN",
+        "deployment_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-03-P",
+      "rule_id": "EXEC-03",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-03-N01",
+      "rule_id": "EXEC-03",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-03-N02",
+      "rule_id": "EXEC-03",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-03-N03",
+      "rule_id": "EXEC-03",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-03-N04",
+      "rule_id": "EXEC-03",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-03-N05",
+      "rule_id": "EXEC-03",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-04-P",
+      "rule_id": "EXEC-04",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-04-N01",
+      "rule_id": "EXEC-04",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-04-N02",
+      "rule_id": "EXEC-04",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-04-N03",
+      "rule_id": "EXEC-04",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-04-N04",
+      "rule_id": "EXEC-04",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-04-N05",
+      "rule_id": "EXEC-04",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-05-P",
+      "rule_id": "EXEC-05",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-05-N01",
+      "rule_id": "EXEC-05",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-05-N02",
+      "rule_id": "EXEC-05",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-05-N03",
+      "rule_id": "EXEC-05",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-05-N04",
+      "rule_id": "EXEC-05",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-05-N05",
+      "rule_id": "EXEC-05",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-06-P",
+      "rule_id": "EXEC-06",
+      "tracks": {
+        "runtime": "NOT_RUN",
+        "deployment_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-06-N01",
+      "rule_id": "EXEC-06",
+      "tracks": {
+        "runtime": "NOT_RUN",
+        "deployment_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-06-N02",
+      "rule_id": "EXEC-06",
+      "tracks": {
+        "runtime": "NOT_RUN",
+        "deployment_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-06-N03",
+      "rule_id": "EXEC-06",
+      "tracks": {
+        "runtime": "NOT_RUN",
+        "deployment_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-06-N04",
+      "rule_id": "EXEC-06",
+      "tracks": {
+        "runtime": "NOT_RUN",
+        "deployment_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-06-N05",
+      "rule_id": "EXEC-06",
+      "tracks": {
+        "runtime": "NOT_RUN",
+        "deployment_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-07-P",
+      "rule_id": "EXEC-07",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-07-N01",
+      "rule_id": "EXEC-07",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-07-N02",
+      "rule_id": "EXEC-07",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-07-N03",
+      "rule_id": "EXEC-07",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-07-N04",
+      "rule_id": "EXEC-07",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-07-N05",
+      "rule_id": "EXEC-07",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-08-P",
+      "rule_id": "EXEC-08",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-08-N01",
+      "rule_id": "EXEC-08",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-08-N02",
+      "rule_id": "EXEC-08",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-08-N03",
+      "rule_id": "EXEC-08",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-08-N04",
+      "rule_id": "EXEC-08",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-08-N05",
+      "rule_id": "EXEC-08",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-08-N06",
+      "rule_id": "EXEC-08",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-09-P",
+      "rule_id": "EXEC-09",
+      "tracks": {
+        "document_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-09-N01",
+      "rule_id": "EXEC-09",
+      "tracks": {
+        "document_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EXEC-09-N02",
+      "rule_id": "EXEC-09",
+      "tracks": {
+        "document_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "PROC-01-P",
+      "rule_id": "PROC-01",
+      "tracks": {
+        "document_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "PROC-01-N01",
+      "rule_id": "PROC-01",
+      "tracks": {
+        "document_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "PROC-01-N02",
+      "rule_id": "PROC-01",
+      "tracks": {
+        "document_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "PROC-02-P",
+      "rule_id": "PROC-02",
+      "tracks": {
+        "document_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "PROC-02-N01",
+      "rule_id": "PROC-02",
+      "tracks": {
+        "document_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "PROC-02-N02",
+      "rule_id": "PROC-02",
+      "tracks": {
+        "document_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "PROC-03-P",
+      "rule_id": "PROC-03",
+      "tracks": {
+        "document_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "PROC-03-N01",
+      "rule_id": "PROC-03",
+      "tracks": {
+        "document_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "PROC-03-N02",
+      "rule_id": "PROC-03",
+      "tracks": {
+        "document_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EVIDENCE-01-P",
+      "rule_id": "EVIDENCE-01",
+      "tracks": {
+        "runtime": "NOT_RUN",
+        "document_review": "NOT_RUN",
+        "deployment_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EVIDENCE-01-N01",
+      "rule_id": "EVIDENCE-01",
+      "tracks": {
+        "runtime": "NOT_RUN",
+        "document_review": "NOT_RUN",
+        "deployment_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "EVIDENCE-01-N02",
+      "rule_id": "EVIDENCE-01",
+      "tracks": {
+        "runtime": "NOT_RUN",
+        "document_review": "NOT_RUN",
+        "deployment_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CST-01-01",
+      "rule_id": "EXEC-05",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CST-01-02",
+      "rule_id": "EXEC-07",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CST-01-03",
+      "rule_id": "EXEC-07",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CST-01-04",
+      "rule_id": "EXEC-07",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CST-01-05",
+      "rule_id": "EXEC-05",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CST-01-06",
+      "rule_id": "EXEC-05",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CST-01-07",
+      "rule_id": "EXEC-08",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CST-01-08",
+      "rule_id": "EXEC-05",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CST-01-09",
+      "rule_id": "EXEC-07",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CST-01-10",
+      "rule_id": "EXEC-07",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CST-02-01",
+      "rule_id": "EXEC-02",
+      "tracks": {
+        "runtime": "NOT_RUN",
+        "deployment_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CST-02-02",
+      "rule_id": "EXEC-02",
+      "tracks": {
+        "runtime": "NOT_RUN",
+        "deployment_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CST-02-03",
+      "rule_id": "EXEC-02",
+      "tracks": {
+        "runtime": "NOT_RUN",
+        "deployment_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CST-02-04",
+      "rule_id": "EXEC-02",
+      "tracks": {
+        "runtime": "NOT_RUN",
+        "deployment_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CST-02-05",
+      "rule_id": "EXEC-02",
+      "tracks": {
+        "runtime": "NOT_RUN",
+        "deployment_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CST-03-01",
+      "rule_id": "SESSION-03",
+      "tracks": {
+        "runtime": "PARTIAL"
+      },
+      "status": "PARTIAL"
+    },
+    {
+      "id": "CST-03-02",
+      "rule_id": "SESSION-03",
+      "tracks": {
+        "runtime": "PARTIAL"
+      },
+      "status": "PARTIAL"
+    },
+    {
+      "id": "CST-04-01",
+      "rule_id": "SESSION-01",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "CST-04-02",
+      "rule_id": "SESSION-01",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "CST-04-03",
+      "rule_id": "SESSION-01",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "CST-04-04",
+      "rule_id": "SESSION-01",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "CST-05-01",
+      "rule_id": "HPKE-05",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CST-05-02",
+      "rule_id": "HPKE-05",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CST-05-03",
+      "rule_id": "HPKE-05",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CST-05-04",
+      "rule_id": "HPKE-05",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CST-05-05",
+      "rule_id": "HPKE-05",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CST-05-06",
+      "rule_id": "HPKE-05",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "CST-05-07",
+      "rule_id": "SESSION-02",
+      "tracks": {
+        "runtime": "UNSUPPORTED"
+      },
+      "status": "UNSUPPORTED"
+    },
+    {
+      "id": "mset-01-valid-channel",
+      "rule_id": "MSET-01",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mset-01-wrong-owner",
+      "rule_id": "MSET-01",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mset-01-revoked-key",
+      "rule_id": "MSET-01",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mset-02-exact-bytes",
+      "rule_id": "MSET-02",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mset-02-size-boundary",
+      "rule_id": "MSET-02",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mset-02-json-duplicates",
+      "rule_id": "MSET-02",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mset-02-id-collision",
+      "rule_id": "MSET-02",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mset-03-initialize-success",
+      "rule_id": "MSET-03",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mset-03-unsupported-version",
+      "rule_id": "MSET-03",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mset-03-capability-mismatch",
+      "rule_id": "MSET-03",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mset-03-wrong-request",
+      "rule_id": "MSET-03",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mset-04-notification-ack",
+      "rule_id": "MSET-04",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mset-04-ack-is-not-result",
+      "rule_id": "MSET-04",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mset-04-malformed-ack",
+      "rule_id": "MSET-04",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mset-04-notification-has-id",
+      "rule_id": "MSET-04",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mset-04-lost-ack",
+      "rule_id": "MSET-04",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mset-05-discovery-success",
+      "rule_id": "MSET-05",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mset-05-schema-replacement",
+      "rule_id": "MSET-05",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mset-05-early-tool-call",
+      "rule_id": "MSET-05",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mset-05-capability-not-authority",
+      "rule_id": "MSET-05",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mset-06-before-deadline",
+      "rule_id": "MSET-06",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mset-06-deadline-equality",
+      "rule_id": "MSET-06",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mset-06-slow-callback",
+      "rule_id": "MSET-06",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mset-06-uncertain-send",
+      "rule_id": "MSET-06",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mset-07-fresh-reconnect",
+      "rule_id": "MSET-07",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mset-07-stale-ready",
+      "rule_id": "MSET-07",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mset-07-terminal-preserved",
+      "rule_id": "MSET-07",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mset-07-missing-ledger",
+      "rule_id": "MSET-07",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mset-08-proposal-scope",
+      "rule_id": "MSET-08",
+      "tracks": {
+        "runtime": "NOT_RUN",
+        "document_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mset-08-http-not-defined",
+      "rule_id": "MSET-08",
+      "tracks": {
+        "runtime": "NOT_RUN",
+        "document_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mset-08-historical-evidence",
+      "rule_id": "MSET-08",
+      "tracks": {
+        "runtime": "NOT_RUN",
+        "document_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mset-02-output-barrier",
+      "rule_id": "MSET-02",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mset-02-send-failure-after-prepare",
+      "rule_id": "MSET-02",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mset-02-setup-id-reuse",
+      "rule_id": "MSET-02",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mset-02-history-exhaustion",
+      "rule_id": "MSET-02",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mset-02-inner-rejection-replay",
+      "rule_id": "MSET-02",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mset-05-extended-descriptor",
+      "rule_id": "MSET-05",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mset-06-deadline-after-callback",
+      "rule_id": "MSET-06",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mset-06-close-completion-race",
+      "rule_id": "MSET-06",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mset-06-ready-past-setup-deadline",
+      "rule_id": "MSET-06",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "madd-plaintext-boundary",
+      "rule_id": "MOWN-01",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "madd-record-boundary",
+      "rule_id": "MOWN-01",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "madd-wire-boundary",
+      "rule_id": "MOWN-01",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "madd-utf8-and-escapes",
+      "rule_id": "MOWN-01",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "madd-result-representations",
+      "rule_id": "MOWN-01",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "madd-post-effect-oversize",
+      "rule_id": "MOWN-01",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "madd-post-reservation-size-failure",
+      "rule_id": "MOWN-01",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "madd-inner-size-replay",
+      "rule_id": "MOWN-01",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "madd-mutable-buffer",
+      "rule_id": "MOWN-02",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "madd-synchronous-completion",
+      "rule_id": "MOWN-02",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "madd-duplicate-completion",
+      "rule_id": "MOWN-02",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "madd-old-incarnation",
+      "rule_id": "MOWN-02",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "madd-bounded-cancellation",
+      "rule_id": "MOWN-02",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "madd-history-capacity",
+      "rule_id": "MOWN-02",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "madd-close-before-handoff",
+      "rule_id": "MOWN-02",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "madd-close-after-handoff",
+      "rule_id": "MOWN-02",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "madd-cross-language-setup",
+      "rule_id": "MOWN-02",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "madd-restart-consumption",
+      "rule_id": "MOWN-02",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mres-close-before-reservation",
+      "rule_id": "MOWN-03",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mres-close-after-reservation",
+      "rule_id": "MOWN-03",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mres-close-after-admission",
+      "rule_id": "MOWN-03",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mres-crash-after-admission",
+      "rule_id": "MOWN-03",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mres-ready-past-setup",
+      "rule_id": "MOWN-04",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mres-stale-setup-completion",
+      "rule_id": "MOWN-04",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mres-protected-timeout-before-admission",
+      "rule_id": "MOWN-04",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mres-protected-timeout-after-admission",
+      "rule_id": "MOWN-04",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mres-ready-session-expiry",
+      "rule_id": "MOWN-04",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mres-signature-intent",
+      "rule_id": "MOWN-05",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mres-signature-result",
+      "rule_id": "MOWN-05",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mres-signature-carriage",
+      "rule_id": "MOWN-05",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mres-missing-signing-key",
+      "rule_id": "MOWN-05",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "merrata-config-valid",
+      "rule_id": "MSET-01",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "merrata-config-reject",
+      "rule_id": "MSET-01",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "merrata-config-change",
+      "rule_id": "MSET-01",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "merrata-local-single-flight",
+      "rule_id": "MOWN-02",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "merrata-server-overlap",
+      "rule_id": "MOWN-02",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "merrata-deferred-frame",
+      "rule_id": "MOWN-02",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "merrata-pending-followup",
+      "rule_id": "MOWN-02",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "merrata-deadline-close",
+      "rule_id": "MOWN-02",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "merrata-shared-owners",
+      "rule_id": "MOWN-02",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mrevision-hop-authorized",
+      "rule_id": "EXEC-02",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mrevision-hop-unapproved",
+      "rule_id": "EXEC-02",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mrevision-parent-no-grant",
+      "rule_id": "EXEC-05",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mrevision-did-consumer",
+      "rule_id": "RESOLVE-01",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mrevision-extra-jwk-authority",
+      "rule_id": "RESOLVE-01",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mllm-kem-alg-valid",
+      "rule_id": "REG-01",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mllm-kem-alg-case",
+      "rule_id": "REG-01",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mllm-kem-selection",
+      "rule_id": "REG-02",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mllm-pop-exact-bytes",
+      "rule_id": "REG-04",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mllm-pop-duplicate-field",
+      "rule_id": "REG-04",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mllm-kem-signature-reject",
+      "rule_id": "TABLE-02",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mllm-kem-type-valid",
+      "rule_id": "TABLE-03",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mllm-kem-key-length",
+      "rule_id": "TABLE-03",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mstand-problem-fields",
+      "rule_id": "RESOLVE-05",
+      "tracks": {
+        "runtime": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "mstand-problem-type-publication",
+      "rule_id": "RESOLVE-05",
+      "tracks": {
+        "document_review": "NOT_RUN",
+        "deployment_review": "NOT_RUN"
+      },
+      "status": "NOT_RUN"
+    }
+  ]
+}

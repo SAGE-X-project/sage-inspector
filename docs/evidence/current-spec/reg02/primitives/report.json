@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "scenario_sha256": "a0c8ecf4f5818fdbe9f1314e43d43f15ec7ea857ae37c205e722345ca13d96fc",
+  "runner_sha256": "a9bdbfda543f54f971e9bf20fa6e4798e033cc411e3867aa87062d25711121cb",
+  "bridge_sha256": "d02ab9b1ee263cd187fec0a1157edddf7bc16f4aef314f11d1f2f0163dd83c74",
+  "runner_revision": "ef0729acc4238aabcc4eda06ea65e8f5b300eaec",
+  "subjects": {
+    "go": {
+      "repository": "SAGE-X-project/sage",
+      "revision": "49379baadc6baec9ca8b4bb7d15bf43d65144bd7",
+      "executable_sha256": "86820fb3c36df17194398ce4247fe6dd3fac0efc12a9af1d84a6f87a308cfc88"
+    },
+    "rust": {
+      "repository": "SAGE-X-project/rs-sage-core",
+      "revision": "ef63d76b88fe4d6ddbc7ae0fcfdbce7beab4d396",
+      "executable_sha256": "0b7206b639fb2ae7b6e75bcb0c6d34b12be2c51b7707bf22929651b0ad650e6f"
+    }
+  },
+  "inputs": {
+    "selected-proof": {
+      "algorithm": "ed25519",
+      "public_key_hex": "0343a58a4967c40b3ba00257d1d1e19af69b8a3a5dda072eeaf8778466ddd742",
+      "message_hex": "736167652d706f702d302e31302e3000167765623a6167656e74732e6578616d706c652e636f6d0005616c69636500056b656d2d3000067832353531390020b1aef8234b3dea85c01532232463be364a73196f7cc52a8762d0d8e96b698f6d",
+      "signature_hex": "aa238f56d8e9203687c5f9e0d4a364f843ce0717898c115291fe42d292ce6f44826df2a316d59714f7f2708a952c5089da243451c005f1dc3404319b4c5a4805"
+    },
+    "later-proof": {
+      "algorithm": "ed25519",
+      "public_key_hex": "0343a58a4967c40b3ba00257d1d1e19af69b8a3a5dda072eeaf8778466ddd742",
+      "message_hex": "736167652d706f702d302e31302e3000167765623a6167656e74732e6578616d706c652e636f6d0005616c69636500056b656d2d31000678323535313900206604c47928b02a2f106b098cced13128bd5b3f12509a3e9dca76a61085d31a3a",
+      "signature_hex": "b9737c349ef566f73e2258070196d1c6f1135844e25331f012d75c466bbbe2244a2b61f7f39ce70293b020d1c036c3a1dfe5a2eca54a5a4dec6efdd52d3b3f06"
+    },
+    "unproven-selected-proof": {
+      "algorithm": "ed25519",
+      "public_key_hex": "0343a58a4967c40b3ba00257d1d1e19af69b8a3a5dda072eeaf8778466ddd742",
+      "message_hex": "736167652d706f702d302e31302e3000167765623a6167656e74732e6578616d706c652e636f6d0005616c69636500056b656d2d3000067832353531390020b1aef8234b3dea85c01532232463be364a73196f7cc52a8762d0d8e96b698f6d",
+      "signature_hex": "02238f56d8e9203687c5f9e0d4a364f843ce0717898c115291fe42d292ce6f44826df2a316d59714f7f2708a952c5089da243451c005f1dc3404319b4c5a4805"
+    },
+    "revoked-signer-proof": {
+      "algorithm": "ed25519",
+      "public_key_hex": "0343a58a4967c40b3ba00257d1d1e19af69b8a3a5dda072eeaf8778466ddd742",
+      "message_hex": "736167652d706f702d302e31302e3000167765623a6167656e74732e6578616d706c652e636f6d0005616c69636500097369676e696e672d3100076564323535313900200343a58a4967c40b3ba00257d1d1e19af69b8a3a5dda072eeaf8778466ddd742",
+      "signature_hex": "69810a8f3c07e8997e77f98ad8dd79692a2a759c2cfb63b6fea13c55351451c0f5dc5319d567f372d3aaa9983a100ae76fcc15b86f46c954b433fa10b7b23a08"
+    },
+    "replacement-proof": {
+      "algorithm": "ed25519",
+      "public_key_hex": "0343a58a4967c40b3ba00257d1d1e19af69b8a3a5dda072eeaf8778466ddd742",
+      "message_hex": "736167652d706f702d302e31302e3000167765623a6167656e74732e6578616d706c652e636f6d0005616c69636500056b656d2d3000067832353531390020e30e48c46d4e248e95036911236f0b01b12dac213cbba782a893e7e15680d94d",
+      "signature_hex": "25a883189ceec09f281813b8db4846ed17ae1558ecd6ca643867b2071f23c9bc22d9107d1e6e5e1474fb98946bc68cc17c5e5693e346d92870aa319a4825a008"
+    }
+  },
+  "observations": {
+    "go": {
+      "selected-proof": {
+        "case_id": "REG-02-selected-proof",
+        "output": {
+          "valid": true
+        },
+        "schema_version": 1,
+        "verdict": "ACCEPT"
+      },
+      "later-proof": {
+        "case_id": "REG-02-later-proof",
+        "output": {
+          "valid": true
+        },
+        "schema_version": 1,
+        "verdict": "ACCEPT"
+      },
+      "unproven-selected-proof": {
+        "case_id": "REG-02-unproven-selected-proof",
+        "output": {},
+        "schema_version": 1,
+        "verdict": "REJECT"
+      },
+      "revoked-signer-proof": {
+        "case_id": "REG-02-revoked-signer-proof",
+        "output": {
+          "valid": true
+        },
+        "schema_version": 1,
+        "verdict": "ACCEPT"
+      },
+      "replacement-proof": {
+        "case_id": "REG-02-replacement-proof",
+        "output": {
+          "valid": true
+        },
+        "schema_version": 1,
+        "verdict": "ACCEPT"
+      }
+    },
+    "rust": {
+      "selected-proof": {
+        "case_id": "REG-02-selected-proof",
+        "output": {
+          "valid": true
+        },
+        "schema_version": 1,
+        "verdict": "ACCEPT"
+      },
+      "later-proof": {
+        "case_id": "REG-02-later-proof",
+        "output": {
+          "valid": true
+        },
+        "schema_version": 1,
+        "verdict": "ACCEPT"
+      },
+      "unproven-selected-proof": {
+        "case_id": "REG-02-unproven-selected-proof",
+        "output": {},
+        "schema_version": 1,
+        "verdict": "REJECT"
+      },
+      "revoked-signer-proof": {
+        "case_id": "REG-02-revoked-signer-proof",
+        "output": {
+          "valid": true
+        },
+        "schema_version": 1,
+        "verdict": "ACCEPT"
+      },
+      "replacement-proof": {
+        "case_id": "REG-02-replacement-proof",
+        "output": {
+          "valid": true
+        },
+        "schema_version": 1,
+        "verdict": "ACCEPT"
+      }
+    }
+  }
+}

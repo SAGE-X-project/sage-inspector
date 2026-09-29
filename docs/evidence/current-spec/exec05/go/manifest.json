@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "subject": {
+    "repository": "SAGE-X-project/sage",
+    "revision": "49379baadc6baec9ca8b4bb7d15bf43d65144bd7",
+    "executable_sha256": "3000536462f12484e88f52f182561c413bfdd6e68a60362a6c1cf8c510494997"
+  },
+  "runner_revision": "12ea75a80f24e55ab8c7c01ac3d53a7e5a600ec2",
+  "runner_sha256": "b17c65156f2951c04fd931cc81aa72c1e0dcb3a4aa7dbc82ae2a6eb74e512429",
+  "adapter_sha256": "592c8c986c4080f03093130fcdee4502e5a738f2de0ef255f69998c1b5981374",
+  "observations": [
+    {
+      "id": "CST-01-01",
+      "track": "runtime",
+      "path": "CST-01-01-runtime.json",
+      "sha256": "d9dfae7986536a9ea715b7f3e03f07433a3732ee9e25fcf853a6abd162006677"
+    },
+    {
+      "id": "CST-01-06",
+      "track": "runtime",
+      "path": "CST-01-06-runtime.json",
+      "sha256": "492c1c34d5dda1e7e06fc7e8d15603594c9a68dd0fa7bb0a3fb5f70e3949c39f"
+    },
+    {
+      "id": "EXEC-05-N01",
+      "track": "runtime",
+      "path": "EXEC-05-N01-runtime.json",
+      "sha256": "6dc4d836520e00498bd85c2d23b1a5744d220070769dd70157d0e638c7ee16db"
+    },
+    {
+      "id": "EXEC-05-N04",
+      "track": "runtime",
+      "path": "EXEC-05-N04-runtime.json",
+      "sha256": "8ce7012521bdeb5eeac711c4c60564371d4d923a754d2098cf85d839bc537107"
+    }
+  ]
+}

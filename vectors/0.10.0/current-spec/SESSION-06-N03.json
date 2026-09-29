@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "SESSION-06-N03",
+  "track": "runtime",
+  "input": {
+    "operation": "sage.session.expired_key.verify",
+    "input": {
+      "scenario_id": "session-registry-expired",
+      "scenario_sha256": "becb3e6852fd7be497e474013801a1ae01028873b29203e78b108fc67182c713"
+    }
+  },
+  "expected": {
+    "verdict": "REJECT",
+    "output": {},
+    "effects": {}
+  }
+}

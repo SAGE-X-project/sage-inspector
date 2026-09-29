@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "CARD-01-P",
+  "track": "runtime",
+  "input": {
+    "operation": "sage.card.verify",
+    "input": {
+      "card_hex": "7b226361706162696c6974696573223a5b2272656164225d2c2265787069726573223a313730303030303330302c226964223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365222c22697373756564223a313730303030303030302c226e616d65223a22416c696365222c2270726f6f66223a7b22616c67223a2265643235353139222c2270726f6f6656616c7565223a226e6943494a77674432553650342d35793063484d70567034684f4278514d73364d35344a53583358504d654f6169714572794e5a372d38363443732d435045446d44545a4132666571582d4b503643747775617a4377222c2274797065223a22536167654167656e74436172645369676e6174757265305f31305f30222c22766572696669636174696f6e4d6574686f64223a226469643a736167653a7765623a6167656e74732e6578616d706c652e636f6d3a616c696365237369676e696e672d31227d2c227265636f726456657273696f6e223a2231222c227365727669636573223a5b7b226e616d65223a22617069222c2274797065223a224167656e74222c22757269223a2268747470733a2f2f6167656e74732e6578616d706c652e636f6d2f617069227d5d2c2276657273696f6e223a22302e31302e30227d",
+      "record": {
+        "id": "did:sage:web:agents.example.com:alice",
+        "controller": "test-controller",
+        "keys": [
+          {
+            "name": "kem-1",
+            "alg": "x25519",
+            "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+            "proof": {
+              "signer": "did:sage:web:agents.example.com:alice#signing-1",
+              "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+            },
+            "state": "accepted"
+          },
+          {
+            "name": "signing-1",
+            "alg": "ed25519",
+            "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+            "proof": {
+              "signer": "did:sage:web:agents.example.com:alice#signing-1",
+              "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+            },
+            "state": "accepted"
+          }
+        ],
+        "services": [
+          {
+            "name": "api",
+            "type": "Agent",
+            "uri": "https://agents.example.com/api"
+          }
+        ],
+        "state": "active",
+        "version": "1"
+      },
+      "now": 1700000000,
+      "clock_trusted": true,
+      "expected_peer": "did:sage:web:agents.example.com:alice"
+    }
+  },
+  "expected": {
+    "verdict": "ACCEPT",
+    "output": {
+      "valid": true
+    },
+    "effects": {}
+  }
+}

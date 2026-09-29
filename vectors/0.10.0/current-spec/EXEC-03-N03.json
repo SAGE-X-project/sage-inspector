@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "EXEC-03-N03",
+  "track": "runtime",
+  "input": {
+    "operation": "sage.guard.json.bounds",
+    "input": {
+      "prefix_hex": "7b2264617461223a22",
+      "repeat_byte": 97,
+      "repeat_count": 1048566,
+      "suffix_hex": "227d"
+    }
+  },
+  "expected": {
+    "verdict": "REJECT",
+    "output": {},
+    "effects": {}
+  }
+}

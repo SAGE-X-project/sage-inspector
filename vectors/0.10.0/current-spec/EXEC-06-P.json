@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "EXEC-06-P",
+  "track": "runtime",
+  "input": {
+    "operation": "sage.guard.manifest.verify",
+    "input": {
+      "manifest": {
+        "version": "0.10.0",
+        "files": [
+          {
+            "path": "engine.bin",
+            "sha256": "ff621db749f1652f145dfd110632075e1b835c16490c584759c893431d82eb69"
+          },
+          {
+            "path": "rules.json",
+            "sha256": "eb1aebf03cd5ccb6e231a1f1cd433302aae7c3426199c94087f647a04c806d08"
+          }
+        ]
+      },
+      "artifacts": [
+        {
+          "path": "engine.bin",
+          "bytes_hex": "7075626c69632070696e6e6564206576616c7561746f72"
+        },
+        {
+          "path": "rules.json",
+          "bytes_hex": "7b22616c6c6f77223a5b2272656164225d7d"
+        }
+      ]
+    }
+  },
+  "expected": {
+    "verdict": "ACCEPT",
+    "output": {
+      "manifest_digest": "2013a4561345167cd7a8751f26e9093a7300193bf3f6a94c6e49a5c30b0b0bdb"
+    },
+    "effects": {}
+  }
+}

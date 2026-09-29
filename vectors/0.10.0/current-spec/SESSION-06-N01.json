@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "SESSION-06-N01",
+  "track": "runtime",
+  "input": {
+    "operation": "sage.session.revoked_key.verify",
+    "input": {
+      "scenario_id": "session-registry-revoked-init-key",
+      "scenario_sha256": "bac4e77edf2fd6f1ce8c06ca9083401d2e91bc386f4238c5ae6e138ffdf498a6"
+    }
+  },
+  "expected": {
+    "verdict": "REJECT",
+    "output": {},
+    "effects": {}
+  }
+}

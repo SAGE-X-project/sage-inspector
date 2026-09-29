@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "EXEC-06-N01",
+  "track": "deployment_review",
+  "input": {
+    "operation": "sage.host.deployment.review",
+    "input": {
+      "case_id": "EXEC-06-N01",
+      "required_artifacts": [
+        "baseline_admin_authority",
+        "plugin_write_boundary"
+      ]
+    }
+  },
+  "expected": {
+    "verdict": "ACCEPT",
+    "output": {
+      "reviewed": true,
+      "artifacts": [
+        "baseline_admin_authority",
+        "plugin_write_boundary"
+      ]
+    },
+    "effects": {}
+  }
+}

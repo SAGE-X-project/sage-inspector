@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "EXEC-08-N04",
+  "track": "runtime",
+  "fixture_sha256": "c3b9130edc154618077164294a670ab133a0ee65d5f606b7f3fbce1ab9c675b4",
+  "input_sha256": "701dd58074418adddbc2d4743573be4aa2d075b0bf86fa296a4612f884283697",
+  "subject": {
+    "repository": "SAGE-X-project/sage",
+    "revision": "49379baadc6baec9ca8b4bb7d15bf43d65144bd7",
+    "executable_sha256": "9f34db48de7c05288ef3d56e92db10e4304b282151ed4dc3cc1a290a70afb859"
+  },
+  "actual": {
+    "verdict": "REJECT",
+    "output": {
+      "control": {
+        "accepted": true,
+        "committed": true,
+        "effects": 1,
+        "journal_states": [
+          "RESERVED",
+          "EXECUTING"
+        ]
+      },
+      "candidate": {
+        "accepted": false,
+        "committed": false,
+        "effects": 0,
+        "journal_states": []
+      }
+    },
+    "effects": {
+      "candidate_dispatch": 0
+    }
+  },
+  "environment": "bounded-local-adapter"
+}

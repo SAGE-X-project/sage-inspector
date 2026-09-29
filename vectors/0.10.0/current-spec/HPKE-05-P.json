@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "HPKE-05-P",
+  "track": "runtime",
+  "input": {
+    "operation": "sage.session.record010.open",
+    "input": {
+      "seed_hex": "a670cc6a4cf4eed950a26f2e85a185457e283ba617fd87da485625d96a2a61a6",
+      "th_hex": "a4dcfbf2cfe2b3ffd09acd65fbb78c675612b93c93b512a11b9b064786ee5488",
+      "direction": "c2s",
+      "record_hex": "0000000000000007000000000000000000000007e03726d63c5ab1c9bf7f64accb39b01735da64d0d7fbe1718fbd6bdcebfbbbf61b8ee01a0b",
+      "caller_aad_hex": "7b7d"
+    }
+  },
+  "expected": {
+    "verdict": "ACCEPT",
+    "output": {
+      "plaintext_hex": "7075626c69632073657373696f6e207265636f7264"
+    },
+    "effects": {}
+  }
+}

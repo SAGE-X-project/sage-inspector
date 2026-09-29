@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "TRANSPORT-06-N03",
+  "track": "runtime",
+  "input": {
+    "operation": "sage.transport.ws.receive",
+    "input": {
+      "id": "TRANSPORT-06-N03",
+      "carrier": "websocket",
+      "tls_authenticated": true,
+      "message_kind": "text",
+      "compression": false,
+      "fragment_lengths": [
+        8388608,
+        8388609
+      ],
+      "fill_byte_hex": "78",
+      "expected": "REJECT",
+      "expected_recipient": "did:sage:web:agent.example:bob",
+      "trusted_public_key_hex": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
+      "connection_url": "wss://agent.example/messages"
+    }
+  },
+  "expected": {
+    "verdict": "REJECT",
+    "output": {},
+    "effects": {
+      "application_dispatches": 0
+    }
+  }
+}

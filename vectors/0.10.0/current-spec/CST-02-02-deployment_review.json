@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "CST-02-02",
+  "track": "deployment_review",
+  "input": {
+    "operation": "sage.host.deployment.review",
+    "input": {
+      "case_id": "CST-02-02",
+      "required_artifacts": [
+        "artifact_hash_inventory",
+        "approved_policy_epoch"
+      ]
+    }
+  },
+  "expected": {
+    "verdict": "ACCEPT",
+    "output": {
+      "reviewed": true,
+      "artifacts": [
+        "artifact_hash_inventory",
+        "approved_policy_epoch"
+      ]
+    },
+    "effects": {}
+  }
+}

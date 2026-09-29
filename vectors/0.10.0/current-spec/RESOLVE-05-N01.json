@@ -1,0 +1,165 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "RESOLVE-05-N01",
+  "track": "runtime",
+  "input": {
+    "operation": "sage.did.http.resolve",
+    "input": {
+      "observation": {
+        "did": "did:sage:web:agents.example.com:alice",
+        "protocol_version": "0.10.0",
+        "policy": {
+          "allow_web": true,
+          "require_blockchain": false,
+          "configured_origin": "https://agents.example.com",
+          "approved_origins": [
+            "https://agents.example.com"
+          ],
+          "approved_destinations": [
+            "agents.example.com"
+          ]
+        },
+        "request": {
+          "url": "https://agents.example.com/.well-known/sage/agents/alice",
+          "method": "GET",
+          "cache_control": "no-cache, no-store",
+          "follow_redirects": false,
+          "authenticated_tls_origin": "https://agents.example.com"
+        },
+        "response": {
+          "status": 200,
+          "redirect_location": null,
+          "source": "direct-origin",
+          "cache_control": "no-store",
+          "body": {
+            "record": {
+              "id": "did:sage:web:agents.example.com:alice",
+              "controller": "test-controller",
+              "keys": [
+                {
+                  "name": "kem-1",
+                  "alg": "x25519",
+                  "key": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo",
+                  "proof": {
+                    "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                    "value": "uXN8NJ71Zvc-IlgHAZbRxvETWETiUzHwEtdcRmu74iRKK2H385znApOwINHANsOh3-Wi7KVKWk3sbv3VLTs_Bg"
+                  },
+                  "state": "accepted"
+                },
+                {
+                  "name": "signing-1",
+                  "alg": "ed25519",
+                  "key": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I",
+                  "proof": {
+                    "signer": "did:sage:web:agents.example.com:alice#signing-1",
+                    "value": "aYEKjzwH6Jl-d_mK2N15aSoqdZws-2O2_qE8VTUUUcD13FMZ1WfzctOqqZg6EArnb8wVuG9GyVS0M_oQt7I6CA"
+                  },
+                  "state": "accepted"
+                }
+              ],
+              "services": [
+                {
+                  "name": "api",
+                  "type": "Agent",
+                  "uri": "https://agents.example.com/api"
+                }
+              ],
+              "state": "active",
+              "version": "1"
+            },
+            "issued": 100,
+            "expires": 105
+          },
+          "body_bytes": 780
+        },
+        "trusted_now": 102,
+        "local_version_floor": 1
+      },
+      "request": {
+        "method": "GET",
+        "url": "https://agents.example.com/0.10.0/identifiers/did%3Asage%3Aweb%3Aagents.example.com%3Aalice",
+        "authenticated_tls_origin": "https://agents.example.com",
+        "headers": {
+          "X-SAGE-Version": "0.10.0",
+          "Accept": "application/json"
+        }
+      },
+      "response": {
+        "status": 200,
+        "location": null,
+        "source": "direct-origin",
+        "headers": {
+          "X-SAGE-Version": "0.10.0",
+          "Cache-Control": "no-store",
+          "Content-Type": "application/did-resolution"
+        },
+        "body": {
+          "didDocument": {
+            "id": "did:sage:web:agents.example.com:alice",
+            "verificationMethod": [
+              {
+                "id": "did:sage:web:agents.example.com:alice#kem-1",
+                "type": "JsonWebKey2020",
+                "controller": "did:sage:web:agents.example.com:alice",
+                "publicKeyJwk": {
+                  "kty": "OKP",
+                  "crv": "X25519",
+                  "x": "ZgTEeSiwKi8QawmMztExKL1bPxJQmj6dynamEIXTGjo"
+                }
+              },
+              {
+                "id": "did:sage:web:agents.example.com:alice#signing-1",
+                "type": "JsonWebKey2020",
+                "controller": "did:sage:web:agents.example.com:alice",
+                "publicKeyJwk": {
+                  "kty": "OKP",
+                  "crv": "Ed25519",
+                  "x": "A0OliklnxAs7oAJX0dHhmvabijpd2gcu6vh3hGbd10I"
+                }
+              }
+            ],
+            "authentication": [
+              "did:sage:web:agents.example.com:alice#signing-1"
+            ],
+            "assertionMethod": [
+              "did:sage:web:agents.example.com:alice#signing-1"
+            ],
+            "keyAgreement": [
+              "did:sage:web:agents.example.com:alice#kem-1"
+            ],
+            "service": [
+              {
+                "id": "did:sage:web:agents.example.com:alice#api",
+                "type": "Agent",
+                "serviceEndpoint": "https://agents.example.com/api"
+              }
+            ]
+          },
+          "didDocumentMetadata": {
+            "deactivated": false,
+            "versionId": "1",
+            "sage": {
+              "state": "active",
+              "controller": "test-controller",
+              "observedAt": 100,
+              "source": "https://agents.example.com",
+              "observedTime": 102
+            }
+          },
+          "didResolutionMetadata": {
+            "contentType": "application/did+json"
+          }
+        },
+        "trailing_whitespace_bytes": 0,
+        "body_bytes": 1123
+      },
+      "consumer_purpose": "inspection"
+    }
+  },
+  "expected": {
+    "verdict": "REJECT",
+    "output": {},
+    "effects": {}
+  }
+}

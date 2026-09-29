@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "EXEC-02-N02",
+  "track": "deployment_review",
+  "input": {
+    "operation": "sage.host.deployment.review",
+    "input": {
+      "case_id": "EXEC-02-N02",
+      "required_artifacts": [
+        "route_inventory",
+        "signer_authority",
+        "authorization_trace"
+      ]
+    }
+  },
+  "expected": {
+    "verdict": "ACCEPT",
+    "output": {
+      "reviewed": true,
+      "artifacts": [
+        "route_inventory",
+        "signer_authority",
+        "authorization_trace"
+      ]
+    },
+    "effects": {}
+  }
+}

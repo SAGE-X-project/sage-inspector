@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "subject": {
+    "repository": "SAGE-X-project/sage-spec",
+    "revision": "5bcf511e604579afa63f434013447f44b6858828",
+    "executable_sha256": "1ed8891ad4758e495793ff2b9ae3015bd7047e58c26761e1abae6e91a70472a9"
+  },
+  "runner_revision": "3e4b089fc5dc472f208c70f1acd9726cdd27400b",
+  "runner_sha256": "b2aa772d7ce6b0a1eb799bef413381a9ea935ff852d062c130ff7ca3a40fe169",
+  "adapter_sha256": "1ed8891ad4758e495793ff2b9ae3015bd7047e58c26761e1abae6e91a70472a9",
+  "observations": [
+    {
+      "id": "PROC-01-N01",
+      "track": "document_review",
+      "path": "PROC-01-N01-document_review.json",
+      "sha256": "cb9600cb1d50e6a0d2610b1ed903a0e20577cfa0c89d4c48ca6a91f1e2e779dd"
+    },
+    {
+      "id": "PROC-01-N02",
+      "track": "document_review",
+      "path": "PROC-01-N02-document_review.json",
+      "sha256": "e98963b3129ae4829fe9486bf7f73dd4e6d56c356c05170307c5d54468c66bce"
+    },
+    {
+      "id": "PROC-01-P",
+      "track": "document_review",
+      "path": "PROC-01-P-document_review.json",
+      "sha256": "e14830a6336c62a99429cd845381ff4b4d54f391a7e50415e02bc723424ed82b"
+    },
+    {
+      "id": "PROC-02-N01",
+      "track": "document_review",
+      "path": "PROC-02-N01-document_review.json",
+      "sha256": "980aa7357788aded8906c0ff3e90f9bcba3504542b00f459b87a4cdba89699e1"
+    },
+    {
+      "id": "PROC-02-N02",
+      "track": "document_review",
+      "path": "PROC-02-N02-document_review.json",
+      "sha256": "587809590f2ce31737cd7d3fe99c87f738c6b3003b239d05b2a418b069311dfa"
+    },
+    {
+      "id": "PROC-02-P",
+      "track": "document_review",
+      "path": "PROC-02-P-document_review.json",
+      "sha256": "23f42bbfdba41cc6de63ebb47ae55adfc9489c85097fb807a384804b31e02cf9"
+    },
+    {
+      "id": "PROC-03-N01",
+      "track": "document_review",
+      "path": "PROC-03-N01-document_review.json",
+      "sha256": "1eafa839c3c8955519aadeac28119e7b147327082086fad83e58d83dd2538b6d"
+    },
+    {
+      "id": "PROC-03-N02",
+      "track": "document_review",
+      "path": "PROC-03-N02-document_review.json",
+      "sha256": "8b2f5dca6a5c1e23a481365337c943137fc873ffe4a161612c5db2c206ca6a65"
+    },
+    {
+      "id": "PROC-03-P",
+      "track": "document_review",
+      "path": "PROC-03-P-document_review.json",
+      "sha256": "cf8111c92c53a880b36bf35010757a918d6a6b74f95bde86eacb65d28e16de38"
+    }
+  ]
+}

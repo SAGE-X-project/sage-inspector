@@ -1,0 +1,111 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "EXEC-01-N03",
+  "track": "deployment_review",
+  "input": {
+    "review_type": "execution_guard_capability_boundary",
+    "synthetic_description": {
+      "untrusted_principals": [
+        "plugin",
+        "skill",
+        "mcp",
+        "model",
+        "child"
+      ],
+      "protected_assets": {
+        "original_request": {
+          "readers": [
+            "trusted_client"
+          ],
+          "writers": [
+            "trusted_admin"
+          ]
+        },
+        "policy": {
+          "readers": [
+            "trusted_client"
+          ],
+          "writers": [
+            "trusted_admin"
+          ]
+        },
+        "signing_key": {
+          "readers": [
+            "trusted_client"
+          ],
+          "writers": [
+            "trusted_admin"
+          ]
+        },
+        "component_manifest": {
+          "readers": [
+            "trusted_client"
+          ],
+          "writers": [
+            "trusted_admin"
+          ]
+        },
+        "verifier": {
+          "readers": [
+            "trusted_client"
+          ],
+          "writers": [
+            "trusted_admin"
+          ]
+        },
+        "dispatch_gate": {
+          "readers": [
+            "trusted_client"
+          ],
+          "writers": [
+            "trusted_admin"
+          ]
+        }
+      },
+      "effect_paths": {
+        "subprocess": {
+          "mediated_by": "untrusted_plugin",
+          "bypass_credentials_exposed": false
+        },
+        "network": {
+          "mediated_by": "trusted_dispatch_gate",
+          "bypass_credentials_exposed": false
+        },
+        "file": {
+          "mediated_by": "trusted_dispatch_gate",
+          "bypass_credentials_exposed": false
+        },
+        "retry": {
+          "mediated_by": "trusted_dispatch_gate",
+          "bypass_credentials_exposed": false
+        },
+        "parallel": {
+          "mediated_by": "trusted_dispatch_gate",
+          "bypass_credentials_exposed": false
+        },
+        "subagent": {
+          "mediated_by": "trusted_dispatch_gate",
+          "bypass_credentials_exposed": false
+        }
+      },
+      "hook": {
+        "mandatory": true,
+        "writers": [
+          "trusted_admin"
+        ]
+      },
+      "server": {
+        "verifier_boundary": "trusted_server",
+        "dispatcher_boundary": "trusted_server",
+        "tool_boundary": "isolated_untrusted",
+        "tool_has_host_privilege": false
+      }
+    }
+  },
+  "expected": {
+    "verdict": "REJECT",
+    "output": {},
+    "effects": {}
+  }
+}

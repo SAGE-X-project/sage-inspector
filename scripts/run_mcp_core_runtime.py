@@ -88,6 +88,12 @@ for assessment in SETUP_VALUE['assessments']:
     for requirement in assessment['requirements']:
         SETUP_CONTRACT_CASES[requirement['language']].setdefault(requirement['test'], []).append(assessment['id'])
 GO_TEST_PACKAGES = SETUP_VALUE['cores']['go']['test_packages']
+SLOW_DURABLE_RECORD_TEST = 'TestMCPAuthenticatedSetupReachesRecordLimitBeforeOwnerHistory'
+
+
+def case_deadline_seconds(language, name):
+    # This test performs 997 synchronized record writes in each direction.
+    return 120 if language == 'go' and name == SLOW_DURABLE_RECORD_TEST else 25
 
 
 def normative_contract(language):
@@ -266,10 +272,13 @@ def execute(language, repo, output, work):
             selected_binary, package = go_hpke_binary, 'hpke'
         elif language == 'go' and name == 'TestStorageFailures':
             selected_binary, package = go_execution_binary, 'execution010'
-        command = ([str(selected_binary), '-test.run=^' + name + '$', '-test.v', '-test.timeout=25s']
+        deadline = case_deadline_seconds(language, name)
+        command = ([str(selected_binary), '-test.run=^' + name + '$', '-test.v',
+                    '-test.timeout=' + str(deadline) + 's']
                    if language == 'go' else [str(binary), name, '--exact', '--test-threads=1', '--color=never'])
         directory = source / ('pkg/agent/' + package) if language == 'go' else source
-        row = run(command, directory, output / f'{language}-{index}.log', 30, env)
+        row = run(command, directory, output / f'{language}-{index}.log',
+                  deadline + 5, env)
         row['test'] = name
         row['execution_status'] = row['status']
         row['evidence_kind'] = 'pinned-core-assertions'

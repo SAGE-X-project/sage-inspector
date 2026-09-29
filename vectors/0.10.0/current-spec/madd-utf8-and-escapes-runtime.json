@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "madd-utf8-and-escapes",
+  "track": "runtime",
+  "input": {
+    "operation": "sage.spec.host_case",
+    "phase": 5,
+    "id": "madd-utf8-and-escapes",
+    "track": "runtime",
+    "rule_id": "MOWN-01",
+    "source": "profiles/non-http-mcp-security.md",
+    "source_line": 306,
+    "trigger": "Non-ASCII and escaped JSON near the plaintext bound",
+    "preconditions": "Explicitly selected SAGE 0.10.0 non-HTTP MCP 2025-06-18 binding; trusted isolated fixture; run all attached mandatory child assertions in their declared scope."
+  },
+  "expected": {
+    "verdict": "ACCEPT",
+    "output": {
+      "matched": true,
+      "reason": "case_contract"
+    },
+    "effects": {}
+  }
+}

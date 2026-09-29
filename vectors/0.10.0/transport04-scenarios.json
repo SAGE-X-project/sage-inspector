@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "source_sha256": {
+    "http": "c8986a85ec4a75f5cb347fb4803d181bb262e9ac88280dc7ffe1fa7cdf2ae4ab",
+    "session_records": "cf0dcefeab7e82161445d6f6d05e4c70855e50336fcb6b01edbbdb2d999d05bd"
+  },
+  "scope": "declarative unit scenarios; no network, dispatch, or replay traffic is generated",
+  "scenarios": [
+    {
+      "id": "TRANSPORT-04-P",
+      "source_http_case": "valid-request",
+      "deliveries": 1,
+      "concurrent": false,
+      "expected_accepts": 1,
+      "expected_rejects": 0,
+      "expected_reservations": 1,
+      "expected_dispatches": 1
+    },
+    {
+      "id": "TRANSPORT-04-N01",
+      "source_http_case": "request-inner-signature",
+      "deliveries": 1,
+      "concurrent": false,
+      "expected_accepts": 0,
+      "expected_rejects": 1,
+      "expected_reservations": 0,
+      "expected_dispatches": 0
+    },
+    {
+      "id": "TRANSPORT-04-N02",
+      "source_http_case": "valid-request",
+      "deliveries": 2,
+      "concurrent": true,
+      "expected_accepts": 1,
+      "expected_rejects": 1,
+      "expected_reservations": 1,
+      "expected_dispatches": 1
+    },
+    {
+      "id": "TRANSPORT-04-N03",
+      "session_record_case": "tag",
+      "preconditions": {
+        "outer_verified": true,
+        "inner_verified": true
+      },
+      "deliveries": 1,
+      "concurrent": false,
+      "expected_accepts": 0,
+      "expected_rejects": 1,
+      "expected_reservations": 0,
+      "expected_dispatches": 0
+    },
+    {
+      "id": "TRANSPORT-04-N04",
+      "source_http_case": "valid-request",
+      "second_signed_envelope_hex": "7b2263726561746564223a313730303030303030302c22646964223a226469643a736167653a7765623a6167656e742e6578616d706c653a616c696365222c22656e636f64696e67223a22706c61696e222c2265787069726573223a313730303030303330302c226964223a2231313131313131312d313131312d343131312d383131312d313131313131313131313131222c226b6964223a226469643a736167653a7765623a6167656e742e6578616d706c653a616c696365237369676e696e672d31222c226e6f6e6365223a2241674943416749434167494341674943416749434167222c227061796c6f6164223a22653330222c22726563697069656e74223a226469643a736167653a7765623a6167656e742e6578616d706c653a626f62222c227369676e6174757265223a22525379734747534b654d4233357372323530615f6230776b36555a534d6531573634786b35436a30697a494848726c6b35756e324d3448593139756730774c6a463049617863376e4169376b4e56396e644246464341222c2276657273696f6e223a22302e31302e30227d",
+      "second_outer_binding": "simulated_precondition",
+      "deliveries": 2,
+      "concurrent": false,
+      "expected_accepts": 1,
+      "expected_rejects": 1,
+      "expected_reservations": 1,
+      "expected_dispatches": 1
+    }
+  ]
+}

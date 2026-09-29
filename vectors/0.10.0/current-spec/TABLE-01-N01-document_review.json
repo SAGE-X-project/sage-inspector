@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "TABLE-01-N01",
+  "track": "document_review",
+  "input": {
+    "review_subject": "SAGE-local registry governance",
+    "source": "spec/11-registries.md",
+    "input": {
+      "trusted_registry": {
+        "signature_algorithms": [
+          {
+            "value": "ed25519",
+            "digest": "none",
+            "status": "mandatory"
+          },
+          {
+            "value": "sage-secp256k1-keccak256",
+            "digest": "Keccak-256",
+            "status": "optional"
+          },
+          {
+            "value": "ecdsa-p256-sha256",
+            "digest": "SHA-256",
+            "status": "optional"
+          }
+        ],
+        "domain_labels": [
+          {
+            "value": "sage-pop-0.10.0",
+            "meaning": "Registry key possession",
+            "status": "assigned"
+          },
+          {
+            "value": "sage-pop-v1",
+            "meaning": "Legacy Registry key possession",
+            "status": "obsolete"
+          }
+        ],
+        "private_signature_prefix": "x-",
+        "wire_version": "0.10.0"
+      },
+      "candidate_registry": {
+        "signature_algorithms": [
+          {
+            "value": "ed25519",
+            "digest": "none",
+            "status": "mandatory"
+          },
+          {
+            "value": "sage-secp256k1-keccak256",
+            "digest": "Keccak-256",
+            "status": "optional"
+          },
+          {
+            "value": "ecdsa-p256-sha256",
+            "digest": "SHA-256",
+            "status": "optional"
+          }
+        ],
+        "domain_labels": [
+          {
+            "value": "sage-pop-0.10.0",
+            "meaning": "Registry key possession",
+            "status": "assigned"
+          },
+          {
+            "value": "sage-pop-v1",
+            "meaning": "New Registry key possession",
+            "status": "assigned"
+          }
+        ],
+        "private_signature_prefix": "x-",
+        "wire_version": "0.10.0"
+      },
+      "observed_wire_algorithm": "ed25519",
+      "wire_scope": "external"
+    }
+  },
+  "expected": {
+    "verdict": "REJECT",
+    "output": {},
+    "effects": {}
+  }
+}

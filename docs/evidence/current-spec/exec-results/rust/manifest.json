@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "subject": {
+    "repository": "SAGE-X-project/rs-sage-core",
+    "revision": "ef63d76b88fe4d6ddbc7ae0fcfdbce7beab4d396",
+    "executable_sha256": "0b7206b639fb2ae7b6e75bcb0c6d34b12be2c51b7707bf22929651b0ad650e6f"
+  },
+  "runner_revision": "d9d7b7f536c72e97d829759428b0eccacd39d1e5",
+  "runner_sha256": "b17c65156f2951c04fd931cc81aa72c1e0dcb3a4aa7dbc82ae2a6eb74e512429",
+  "adapter_sha256": "46c3bb9a5e0854d41ff68efcf88ba5d422e88e49d3a1d6ebf1a4c83fe2b4b16a",
+  "observations": [
+    {
+      "id": "EXEC-06-N03",
+      "track": "runtime",
+      "path": "EXEC-06-N03-runtime.json",
+      "sha256": "b1d00abca0a3205cb9ad0f56be2fdffe2da53002c7324d80b59a649f78603153"
+    },
+    {
+      "id": "EXEC-06-P",
+      "track": "runtime",
+      "path": "EXEC-06-P-runtime.json",
+      "sha256": "17d4f3bf743ce1af7e289f2b2be8d287e823c1bbfe0a98ea3428e243f390161f"
+    },
+    {
+      "id": "EXEC-07-N01",
+      "track": "runtime",
+      "path": "EXEC-07-N01-runtime.json",
+      "sha256": "cf3947c3f4a09fbdaca0d9ca595a9e323f19a31ac157d97645ff17f65de30e3f"
+    },
+    {
+      "id": "EXEC-07-N02",
+      "track": "runtime",
+      "path": "EXEC-07-N02-runtime.json",
+      "sha256": "c9edbfadad9c2ae20bf0634cd05ab918c7ccf1096bd2b5349060ee1ff7da385a"
+    },
+    {
+      "id": "EXEC-07-N03",
+      "track": "runtime",
+      "path": "EXEC-07-N03-runtime.json",
+      "sha256": "0f97d0115616e88f98e724090a5b36943f9747ce48e6d4577cfbf810f70f22a7"
+    },
+    {
+      "id": "EXEC-07-N05",
+      "track": "runtime",
+      "path": "EXEC-07-N05-runtime.json",
+      "sha256": "82c7b4b4f227e8dd989665aa7e95e3b584014fb3d1b41a36ef26eda930e4bec6"
+    },
+    {
+      "id": "EXEC-07-P",
+      "track": "runtime",
+      "path": "EXEC-07-P-runtime.json",
+      "sha256": "2b0992b4b01e9fd545163805c51dab8ac7030d5c2217994c22a2452c4e65fd9b"
+    },
+    {
+      "id": "EXEC-08-N06",
+      "track": "runtime",
+      "path": "EXEC-08-N06-runtime.json",
+      "sha256": "8ba5c8a8e11f42799688e43c70edb6d82031c0c072d5cce5ca5696d792f14167"
+    },
+    {
+      "id": "EXEC-08-P",
+      "track": "runtime",
+      "path": "EXEC-08-P-runtime.json",
+      "sha256": "5b9d64998311592be1a96d6b3e9b2b898bdbf52ed4e609834ce520a97b94fb8b"
+    }
+  ]
+}

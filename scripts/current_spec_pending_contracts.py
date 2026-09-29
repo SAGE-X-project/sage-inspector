@@ -46,21 +46,36 @@ MSET06_SCENARIOS = {
     'mset-06-ready-past-setup-deadline': (SERVER_SETUP +
                                           ('tick_30001',), 'READY'),
 }
+SETUP_MODEL_SCENARIOS = {
+    **MSET06_SCENARIOS,
+    'mset-02-output-barrier': (('initialize', 'call_2'), 'CLOSED'),
+    'mset-02-send-failure-after-prepare':
+        (('initialize', 'initialized', 'send_fail'), 'CLOSED'),
+    'mset-02-setup-id-reuse': (SERVER_SETUP + ('call_0',), 'CLOSED'),
+    'mset-02-history-exhaustion': (SERVER_SETUP + ('call_2',), 'CLOSED'),
+    'mset-02-inner-rejection-replay':
+        (('bad_inner', 'initialize'), 'CLOSED'),
+    'mset-05-early-tool-call':
+        (SERVER_SETUP[:2] + ('call_2',), 'CLOSED'),
+    'mset-07-stale-ready': (SERVER_SETUP + ('close', 'call_2'), 'CLOSED'),
+}
 
 
 def setup_model_check(ident, events):
-    prescribed, phase = MSET06_SCENARIOS[ident]
+    prescribed, phase = SETUP_MODEL_SCENARIOS[ident]
     if type(events) is not list or events != list(prescribed):
         return False
     state = setup_initial('server')
     try:
         for event in events:
-            after = setup_step(state, event)
+            after = setup_step(state, event,
+                               2 if ident == 'mset-02-history-exhaustion' else 3)
             setup_invariant(state, event, after)
             state = after
     except (ValueError, AssertionError):
         return False
-    return state.phase == phase and not state.admitted
+    return (state.phase == phase and not state.admitted and
+            (ident != 'mset-02-inner-rejection-replay' or state.replay != 0))
 
 
 def assertions_for(rule_id):
@@ -97,8 +112,8 @@ def sample_observation(case, rule, track):
     result = {'case_id': ident, 'track': track,
               'observed_outcome': case['expected'], 'assertions': assertions,
               'observer_effects': 0, 'subject_effects': 0}
-    if ident in MSET06_SCENARIOS:
-        result['model_events'] = list(MSET06_SCENARIOS[ident][0])
+    if ident in SETUP_MODEL_SCENARIOS:
+        result['model_events'] = list(SETUP_MODEL_SCENARIOS[ident][0])
     return result
 
 
@@ -107,7 +122,7 @@ def inspect(case, rule, track, phase, observed):
         return expected_result(case['id'])
     fields = {'case_id', 'track', 'observed_outcome', 'assertions',
               'observer_effects', 'subject_effects'}
-    if case['id'] in MSET06_SCENARIOS:
+    if case['id'] in SETUP_MODEL_SCENARIOS:
         fields.add('model_events')
     require(type(observed) is dict and
             set(observed) == fields and
@@ -127,7 +142,7 @@ def inspect(case, rule, track, phase, observed):
     # Setup cannot dispatch any protected call. Other cases retain an explicit
     # independent counter agreement without guessing a normative effect count.
     setup_effects = phase != 4 or observed['observer_effects'] == 0
-    model_ok = (case['id'] not in MSET06_SCENARIOS or
+    model_ok = (case['id'] not in SETUP_MODEL_SCENARIOS or
                 setup_model_check(case['id'], observed['model_events']))
     matched = (observed['observed_outcome'] == expected_outcome(case) and
                assertions_valid and effects_agree and setup_effects and

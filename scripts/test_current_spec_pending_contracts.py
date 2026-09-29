@@ -12,7 +12,8 @@ from unittest.mock import patch
 from check_current_spec_pending_contracts import check
 from current_spec_pending_bridge import observe
 from current_spec_catalog import catalog
-from current_spec_pending_contracts import MSET06_SCENARIOS, assertions_for
+from current_spec_pending_contracts import MSET06_SCENARIOS
+from current_spec_pending_contracts import SETUP_MODEL_SCENARIOS, assertions_for
 from current_spec_pending_contracts import sample_observation
 
 
@@ -62,13 +63,13 @@ class PendingContractTests(unittest.TestCase):
                          {'case_id': 'REG-08-N04', 'track': 'runtime'})
         self.assertEqual(result['actual']['verdict'], 'UNSUPPORTED')
 
-    def test_setup_deadline_cases_use_state_transitions(self):
+    def test_setup_cases_use_state_transitions(self):
         from pathlib import Path
         root = Path(__file__).resolve().parents[1]
         source = catalog()[1]
         cases = {row['id']: row for row in source['cases']}
         rules = {row['id']: row for row in source['rules']}
-        for ident in MSET06_SCENARIOS:
+        for ident in SETUP_MODEL_SCENARIOS:
             with self.subTest(ident=ident):
                 fixture = json.loads((root / 'vectors/0.10.0/current-spec' /
                                       f'{ident}-runtime.json').read_text())
@@ -76,14 +77,16 @@ class PendingContractTests(unittest.TestCase):
                            ('schema_version', 'spec_revision', 'id', 'track', 'input')}
                 case = cases[ident]
                 trace = sample_observation(case, rules[case['rule_id']], 'runtime')
-                self.assertNotIn('monotonic_deadline_checked', trace['assertions'])
+                if ident in MSET06_SCENARIOS:
+                    self.assertNotIn('monotonic_deadline_checked',
+                                     trace['assertions'])
                 self.assertEqual(observe(json.dumps(request).encode(), trace)
                                  ['actual'], fixture['expected'])
                 trace['model_events'] = trace['model_events'][:-1]
                 self.assertEqual(observe(json.dumps(request).encode(), trace)
                                  ['actual']['verdict'], 'REJECT')
 
-    def test_setup_deadline_bridge_runs_local_adapter(self):
+    def test_setup_model_bridge_runs_local_adapter(self):
         root = Path(__file__).resolve().parents[1]
         source = catalog()[1]
         cases = {row['id']: row for row in source['cases']}
@@ -91,7 +94,7 @@ class PendingContractTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temporary:
             adapter = Path(temporary) / 'setup-observer'
             environment = dict(os.environ, SAGE_CASE_ADAPTER=str(adapter))
-            for ident in MSET06_SCENARIOS:
+            for ident in SETUP_MODEL_SCENARIOS:
                 with self.subTest(ident=ident):
                     fixture = json.loads((root / 'vectors/0.10.0/current-spec' /
                                           f'{ident}-runtime.json').read_text())

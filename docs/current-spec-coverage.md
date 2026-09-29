@@ -112,6 +112,10 @@ The seven MSET-06 deadline cases now run their reported event sequence through
 the finite setup model before a host contract may match; the former generic
 deadline checkbox is not accepted for those cases. Event provenance and the
 remaining MSET host boundaries still require versioned integration evidence.
+Seven further MSET-02, MSET-05 and MSET-07 cases use the same model for output
+barriers, send failure, identifier history, rejected inner input, early calls
+and stale readiness. These are bounded scenario checks, not observations from
+a deployed endpoint.
 `scripts/run_current_spec_cases.py` can execute bound fixtures for one selected
 verification track against one explicit local adapter. It sends the case input but never the expected
 answer, bounds the process, and writes hashed observations for the evidence

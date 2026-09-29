@@ -1,0 +1,36 @@
+# Remaining Execution Guard host boundaries
+
+The current 0.10.0 inventory has ten unbound EXEC parent cases after the
+bounded Go/Rust core observations. Each requires evidence from a versioned
+Agent or executor host integration. A core method that rejects a supplied
+fixture cannot prove that every host route invokes it. These cases remain
+`NOT_RUN` in the current-spec report; no synthetic result is promoted to
+implementation conformance.
+
+| Case | Required observed boundary |
+| --- | --- |
+| `EXEC-02-N02` | Capture a model proposal, the Client's independent authorization decision, the exact signed intent, and zero protected dispatch when the proposal is unchecked. |
+| `EXEC-04-N04` | Hold a verified call at the final dispatch gate, change the proposed arguments before admission, and observe refusal without a protected effect. The observed component instance and exact admitted bytes must be recorded. |
+| `EXEC-05-N05` | Cancel after protected queue or external-effect commitment; record the durable state and externally observed outcome. The host must not report rollback or definite failure when the result is uncertain. |
+| `EXEC-06-N01` | Show that plugin or model writes cannot update the approved baseline. Record the authenticated administrative update path and old/new digest decisions. |
+| `EXEC-06-N02` | Inspect the loaded artifact's path and file type with the actual loader; symbolic links must be rejected before load. |
+| `EXEC-06-N04` | Couple measured bytes to the very artifact instance loaded by the worker. A check of one path followed by reopening changed bytes is insufficient. |
+| `EXEC-06-N05` | Review the host's claims and trust source: a peer-provided hash must not be accepted as local measurement or remote attestation. |
+| `EXEC-08-N01` | Exercise a protected request with model-visible verification omitted; the internal gate must still run and deny if no trusted verdict exists. |
+| `EXEC-08-N02` | Review every model/plugin-accessible signing surface and its caller authentication. No unrestricted signing operation may accept arbitrary intent bytes. |
+| `EXEC-08-N03` | Bound a trusted gate call, then inject timeout/disconnect through the host adapter. Observe denial and zero protected effect. |
+
+The Inspector should accept version-pinned host observations with the exact
+request and component identity, ordered gate events, durable journal state,
+actual effect counter, and evidence of route coverage. Deployment reviews must
+name the host build, loader, policy/baseline authority, and all callable tool
+paths. For cases involving mutation, cancellation, or timeout, the unit
+scenario may use an inert local sink; do not create an external attack tool.
+An absent host adapter or absent route inventory remains `NOT_RUN` or
+`UNSUPPORTED`, not `PASS`.
+
+The fixed remaining order is: finish these EXEC cases and their required
+tracks; then `PROC-01..03`; then `EVIDENCE-01`; then `MSET-01..08`; then
+`MOWN-01..05` and the 26 mandatory `MOWN-06` children; then the 51 earlier
+skipped cases. Moving to later groups before the Execution Guard inspection
+contract is complete would conceal the ten host boundaries above.

@@ -420,6 +420,10 @@ call. Go and Rust accept the control but reject both excluded forms without
 creating a ledger entry or inert tool effect. Other host routes and model
 decision paths remain unobserved.
 
+The [remaining host-boundary cases](current-spec-host-boundary-gaps.md)
+identify the ten Execution Guard cases that cannot be closed by the pinned
+core seams. Their required host and deployment observations remain `NOT_RUN`.
+
 The 95 cases added after the historical snapshot comprise 71 MCP cases and
 24 later corrections. The older 71-case MCP runtime overlay is useful bounded
 evidence, but it was captured against an earlier spec revision; this inventory

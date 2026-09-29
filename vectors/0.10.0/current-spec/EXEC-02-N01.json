@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "EXEC-02-N01",
+  "track": "runtime",
+  "input": {
+    "operation": "guard.original.pair",
+    "input": {
+      "control": {
+        "items": [
+          {
+            "hex": "52656164207468652066696c65"
+          }
+        ]
+      },
+      "candidate": {
+        "items": [
+          {
+            "hex": "52656164207468652066696c6520"
+          }
+        ]
+      }
+    }
+  },
+  "expected": {
+    "verdict": "ACCEPT",
+    "output": {
+      "control_digest": "45c26024a899b0b3909edb7fdbfb5c6fb49536d1278f70b0a7717ed0f487aec0",
+      "candidate_digest": "263d492fcee8b19d454e2fb41af356db04652202fab4a0fbfabc1608f8157e0c"
+    },
+    "effects": {}
+  }
+}

@@ -1,0 +1,142 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "source_sha256": "0538acbdcfc143d93fb7d99a2a2c09c068fc354388c4e37c7489204305b1913f",
+  "scope": "capture and policy hash primitives only; no trusted capture, authorization, retirement, or delegation claim",
+  "cases": [
+    {
+      "id": "EXEC-02-P",
+      "operation": "sage.guard.original.commit",
+      "input": {
+        "items": [
+          {
+            "hex": "52656164207468652066696c65"
+          }
+        ]
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "original_digest": "45c26024a899b0b3909edb7fdbfb5c6fb49536d1278f70b0a7717ed0f487aec0"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "EXEC-02-N01",
+      "operation": "guard.original.pair",
+      "input": {
+        "control": {
+          "items": [
+            {
+              "hex": "52656164207468652066696c65"
+            }
+          ]
+        },
+        "candidate": {
+          "items": [
+            {
+              "hex": "52656164207468652066696c6520"
+            }
+          ]
+        }
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "control_digest": "45c26024a899b0b3909edb7fdbfb5c6fb49536d1278f70b0a7717ed0f487aec0",
+          "candidate_digest": "263d492fcee8b19d454e2fb41af356db04652202fab4a0fbfabc1608f8157e0c"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "CST-02-01",
+      "operation": "sage.guard.policy.commit",
+      "input": {
+        "descriptor": {
+          "version": "0.10.0",
+          "issuer": "did:sage:web:agents.example.com:alice",
+          "epoch": "8f0264a0-8743-424a-b3d7-47090d31fca1",
+          "engine": "fixture-evaluator/1",
+          "artifacts": {
+            "version": "0.10.0",
+            "files": [
+              {
+                "path": "policy/evaluator.wasm",
+                "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+              },
+              {
+                "path": "policy/rules.json",
+                "sha256": "2222222222222222222222222222222222222222222222222222222222222222"
+              }
+            ]
+          }
+        }
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "policy_digest": "c18bd407ee9574cea71d0e03556893ab65008e11cd45f554b5d750fed5c69263"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "CST-02-02",
+      "operation": "guard.policy.pair",
+      "input": {
+        "control": {
+          "descriptor": {
+            "version": "0.10.0",
+            "issuer": "did:sage:web:agents.example.com:alice",
+            "epoch": "8f0264a0-8743-424a-b3d7-47090d31fca1",
+            "engine": "fixture-evaluator/1",
+            "artifacts": {
+              "version": "0.10.0",
+              "files": [
+                {
+                  "path": "policy/evaluator.wasm",
+                  "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+                },
+                {
+                  "path": "policy/rules.json",
+                  "sha256": "2222222222222222222222222222222222222222222222222222222222222222"
+                }
+              ]
+            }
+          }
+        },
+        "candidate": {
+          "descriptor": {
+            "version": "0.10.0",
+            "issuer": "did:sage:web:agents.example.com:alice",
+            "epoch": "8f0264a0-8743-424a-b3d7-47090d31fca1",
+            "engine": "fixture-evaluator/1",
+            "artifacts": {
+              "version": "0.10.0",
+              "files": [
+                {
+                  "path": "policy/evaluator.wasm",
+                  "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+                },
+                {
+                  "path": "policy/rules.json",
+                  "sha256": "3333333333333333333333333333333333333333333333333333333333333333"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "control_digest": "c18bd407ee9574cea71d0e03556893ab65008e11cd45f554b5d750fed5c69263",
+          "candidate_digest": "a96b5f31b50b261e62abb790bcf49290161a2ee63b7e4a47f782f1836863147d"
+        },
+        "effects": {}
+      }
+    }
+  ]
+}

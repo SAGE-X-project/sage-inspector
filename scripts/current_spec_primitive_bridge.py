@@ -120,6 +120,39 @@ def observe(raw, adapter):
                       'effects': {}}
         validate_outcome(actual)
         return {'schema_version': 1, 'id': ident, 'track': 'runtime', 'actual': actual}
+    if inp['operation'] in ('guard.original.pair', 'guard.policy.pair'):
+        pair = inp['input']
+        require(set(pair) == {'control', 'candidate'} and
+                all(type(pair[name]) is dict for name in pair),
+                'Guard commitment pair input')
+        primitive = ('sage.guard.original.commit' if
+                     inp['operation'] == 'guard.original.pair' else
+                     'sage.guard.policy.commit')
+        field = ('original_digest' if inp['operation'] == 'guard.original.pair'
+                 else 'policy_digest')
+        control = invoke_core(adapter, ident + '-control', primitive,
+                              pair['control'])
+        candidate = invoke_core(adapter, ident + '-candidate', primitive,
+                                pair['candidate'])
+        if 'UNSUPPORTED' in (control['verdict'], candidate['verdict']):
+            actual = {'verdict': 'UNSUPPORTED',
+                      'reason': 'Core adapter does not expose Guard commitment.'}
+        elif control['verdict'] == candidate['verdict'] == 'ACCEPT':
+            require(set(control['output']) == {field} and
+                    set(candidate['output']) == {field} and
+                    all(type(row['output'][field]) is str and
+                        re.fullmatch('[0-9a-f]{64}', row['output'][field]) is not None
+                        for row in (control, candidate)),
+                    'Guard commitment output')
+            actual = {'verdict': 'ACCEPT', 'output': {
+                'control_digest': control['output'][field],
+                'candidate_digest': candidate['output'][field]}, 'effects': {}}
+        else:
+            actual = {'verdict': 'REJECT', 'output': {
+                'control_verdict': control['verdict'],
+                'candidate_verdict': candidate['verdict']}, 'effects': {}}
+        validate_outcome(actual)
+        return {'schema_version': 1, 'id': ident, 'track': 'runtime', 'actual': actual}
     if inp['operation'] == 'sage.did.boundary.pair':
         pair = inp['input']
         require(set(pair) == {'control', 'candidate'} and

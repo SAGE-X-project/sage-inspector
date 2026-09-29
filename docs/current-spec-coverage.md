@@ -340,7 +340,8 @@ size limit, an invalid nonce, and executor identity mismatch. The size probe
 does not cover an actual oversized intent envelope, and the executor identity
 probe does not cover outer HTTP identity binding.
 
-Four EXEC-04/05 cases now have partial runtime fixtures for an inert core
+The [durable dispatch observations](current-spec-exec04-dispatch-evidence.md)
+cover four EXEC-04/05 cases with partial runtime fixtures for an inert core
 dispatch sink. They distinguish one exact-argument commit, a changed approved
 manifest, expiry before dispatch, and a crash/reopen that leaves the same call
 `UNKNOWN` without a second dispatch. Parallel replicas, actual tool effects,

@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "id": "EXEC-05-P",
+  "track": "runtime",
+  "fixture_sha256": "a1f896bf052af321535ca71ce79c58a7de0b32c0151c7db6f3b60cedaf65e1ed",
+  "input_sha256": "32619877f51291d21253b1501234dbc37131013d814a53a44c875664499f43b4",
+  "subject": {
+    "repository": "SAGE-X-project/sage",
+    "revision": "49379baadc6baec9ca8b4bb7d15bf43d65144bd7",
+    "executable_sha256": "3000536462f12484e88f52f182561c413bfdd6e68a60362a6c1cf8c510494997"
+  },
+  "actual": {
+    "verdict": "ACCEPT",
+    "output": {
+      "stages": [
+        [
+          {
+            "ok": true,
+            "created": false,
+            "committed": false,
+            "state": "",
+            "intent_digest": "",
+            "effect_sha256": []
+          },
+          {
+            "ok": true,
+            "created": true,
+            "committed": true,
+            "state": "EXECUTING",
+            "intent_digest": "65c504f396f42389028fab10f844505cb350425a8b0362db3cc68a2ef71eb6aa",
+            "effect_sha256": [
+              "6751a6ca2a29a927c2613e0fd9531d1b16ba560399ab9286d571c1c4f0780f43"
+            ]
+          }
+        ],
+        [
+          {
+            "ok": true,
+            "created": false,
+            "committed": false,
+            "state": "",
+            "intent_digest": "",
+            "effect_sha256": []
+          },
+          {
+            "ok": true,
+            "created": false,
+            "committed": false,
+            "state": "UNKNOWN",
+            "intent_digest": "65c504f396f42389028fab10f844505cb350425a8b0362db3cc68a2ef71eb6aa",
+            "effect_sha256": []
+          }
+        ]
+      ],
+      "journal_states": [
+        "RESERVED",
+        "EXECUTING",
+        "UNKNOWN"
+      ]
+    },
+    "effects": {
+      "dispatch": 1
+    }
+  },
+  "environment": "bounded-local-adapter"
+}

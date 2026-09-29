@@ -14,6 +14,8 @@ import uuid
 from current_spec_catalog import ROOT, require
 from mcp_setup_model import initial as setup_initial, invariant as setup_invariant
 from mcp_setup_model import step as setup_step
+from mcp_owner_model import State as owner_initial, invariant as owner_invariant
+from mcp_owner_model import step as owner_step
 
 
 RULE_ASSERTIONS = {
@@ -122,6 +124,50 @@ MOWN05_ROLES = {
     'mres-signature-carriage': ('outer', 'handshake'),
     'mres-missing-signing-key': ('outer',),
 }
+MOWN_MODEL_SCENARIOS = {
+    'mres-close-before-reservation':
+        (('setup_done', 'submit', 'close', 'reserve'), 'CLOSED', 'ABSENT', False, 0),
+    'mres-close-after-reservation':
+        (('setup_done', 'submit', 'reserve', 'close', 'admit'),
+         'CLOSED', 'RESERVED', False, 0),
+    'mres-close-after-admission':
+        (('setup_done', 'submit', 'reserve', 'admit', 'close',
+          'effect', 'finish'), 'CLOSED', 'COMPLETED', True, 1),
+    'mres-crash-after-admission':
+        (('setup_done', 'submit', 'reserve', 'admit', 'crash'),
+         'CLOSED', 'UNKNOWN', True, 0),
+    'mres-ready-past-setup':
+        (('setup_done', 'tick_31', 'submit', 'reserve', 'admit'),
+         'READY', 'EXECUTING', True, 0),
+    'mres-stale-setup-completion':
+        (('setup_done', 'setup_done'), 'READY', 'ABSENT', False, 0),
+    'mres-protected-timeout-before-admission':
+        (('setup_done', 'submit', 'reserve', 'tick_39', 'admit'),
+         'CLOSED', 'RESERVED', False, 0),
+    'mres-protected-timeout-after-admission':
+        (('setup_done', 'submit', 'reserve', 'admit', 'tick_39',
+          'effect', 'finish'), 'CLOSED', 'COMPLETED', True, 1),
+    'mres-ready-session-expiry':
+        (('setup_done', 'tick_60', 'submit'),
+         'CLOSED', 'ABSENT', False, 0),
+}
+
+
+def owner_model_check(ident, events):
+    prescribed, phase, ledger, admitted, effects = MOWN_MODEL_SCENARIOS[ident]
+    if type(events) is not list or events != list(prescribed):
+        return False
+    state = owner_initial()
+    try:
+        for event in events:
+            after = owner_step(state, event)
+            owner_invariant(state, event, after)
+            state = after
+    except (ValueError, AssertionError):
+        return False
+    return (state.phase == phase and state.ledger == ledger and
+            state.admitted is admitted and state.effects == effects and
+            not state.published)
 
 
 def mown05_check(ident, evidence):
@@ -910,6 +956,9 @@ def expected_result(ident=None):
 def sample_observation(case, rule, track):
     ident = case['id']
     assertions = {name: True for name in assertions_for(rule['id'])
+                  if not (ident in MOWN_MODEL_SCENARIOS and
+                          name in ('reservation_fence_checked',
+                                   'closure_and_deadline_checked'))
                   if not (ident in MOWN05_ROLES and
                           name == 'signature_role_checked')
                   if not (ident in MOWN01_SCENARIOS and
@@ -954,6 +1003,8 @@ def sample_observation(case, rule, track):
         result['size_evidence'] = mown01_sample(ident)
     if ident in MOWN05_ROLES:
         result['signature_evidence'] = mown05_sample(ident)
+    if ident in MOWN_MODEL_SCENARIOS:
+        result['owner_events'] = list(MOWN_MODEL_SCENARIOS[ident][0])
     return result
 
 
@@ -984,6 +1035,8 @@ def inspect(case, rule, track, phase, observed):
         fields.add('size_evidence')
     if case['id'] in MOWN05_ROLES:
         fields.add('signature_evidence')
+    if case['id'] in MOWN_MODEL_SCENARIOS:
+        fields.add('owner_events')
     require(type(observed) is dict and
             set(observed) == fields and
             observed['case_id'] == case['id'] and observed['track'] == track and
@@ -994,6 +1047,9 @@ def inspect(case, rule, track, phase, observed):
             observed['observer_effects'] >= 0 and observed['subject_effects'] >= 0,
             'host observation shape and identity')
     required = tuple(name for name in assertions_for(rule['id'])
+                     if not (case['id'] in MOWN_MODEL_SCENARIOS and
+                             name in ('reservation_fence_checked',
+                                      'closure_and_deadline_checked'))
                      if not (case['id'] in MOWN05_ROLES and
                              name == 'signature_role_checked')
                      if not (case['id'] in MOWN01_SCENARIOS and
@@ -1050,11 +1106,14 @@ def inspect(case, rule, track, phase, observed):
                mown01_check(case['id'], observed['size_evidence']))
     signature_ok = (case['id'] not in MOWN05_ROLES or
                     mown05_check(case['id'], observed['signature_evidence']))
+    owner_model_ok = (case['id'] not in MOWN_MODEL_SCENARIOS or
+                      owner_model_check(case['id'], observed['owner_events']))
     matched = (observed['observed_outcome'] == expected_outcome(case) and
                assertions_valid and effects_agree and setup_effects and
                model_ok and mcp_response_ok and ack_ok and discovery_ok and
                channel_ok and carriage_ok and reconnect_ok and scope_ok and
-               configuration_ok and size_ok and signature_ok)
+               configuration_ok and size_ok and signature_ok and
+               owner_model_ok)
     return {'verdict': 'ACCEPT' if matched else 'REJECT',
             'output': {'matched': matched,
                        'reason': 'case_contract' if matched else

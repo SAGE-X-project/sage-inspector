@@ -161,6 +161,11 @@ accept Ed25519 only, reject other algorithms even when a key exists, keep the
 HPKE KEM at X25519, and deny setup if a suitable signing key is absent. These
 are bounded role-selection controls; actual cryptographic verification and
 registry provenance remain separate evidence requirements.
+Nine MOWN-03/MOWN-04 parents now replay bounded owner events through the
+finite admission model to check closure before or after reservation, retained
+admission after closure/crash, setup versus protected deadlines and session
+expiry. This model has no real durable store or executor; the resulting host
+contracts remain partial until versioned implementation events are observed.
 `scripts/run_current_spec_cases.py` can execute bound fixtures for one selected
 verification track against one explicit local adapter. It sends the case input but never the expected
 answer, bounds the process, and writes hashed observations for the evidence

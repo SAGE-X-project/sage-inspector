@@ -2024,6 +2024,48 @@
       "fixture": "vectors/0.10.0/current-spec/CST-02-02.json",
       "fixture_sha256": "f58379b6606a4df83bfc6611c3333607afdff37c1d04ba319578268d05d39ddf",
       "coverage": "partial"
+    },
+    {
+      "id": "EXEC-03-P",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/EXEC-03-P.json",
+      "fixture_sha256": "a798c51ced61710220d8fb6335c458ad91f25b26435c622d7238c7720121ade0",
+      "coverage": "partial"
+    },
+    {
+      "id": "EXEC-03-N01",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/EXEC-03-N01.json",
+      "fixture_sha256": "ace62108467af0537b61ec6f411cdc37bbf9bf498efea32af53c30beaf2b61f0",
+      "coverage": "partial"
+    },
+    {
+      "id": "EXEC-03-N02",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/EXEC-03-N02.json",
+      "fixture_sha256": "fb3d6ed607889a62f67394e390f89fe086da7558eef8c3a0267dad3fe484d161",
+      "coverage": "partial"
+    },
+    {
+      "id": "EXEC-03-N03",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/EXEC-03-N03.json",
+      "fixture_sha256": "14482c0df2af1a9466966cfac5f43a809e63148438b2c946b666be6c97a59e83",
+      "coverage": "partial"
+    },
+    {
+      "id": "EXEC-03-N04",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/EXEC-03-N04.json",
+      "fixture_sha256": "eba94220fdfebfd4e4323daa294e377bc3d113c9c0b4dbcb37f6c7d4f2e42916",
+      "coverage": "partial"
+    },
+    {
+      "id": "EXEC-03-N05",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/EXEC-03-N05.json",
+      "fixture_sha256": "14d8dd388ea56eef088f0b2db6d74af01cf115498f5af846b3577b3da79001b4",
+      "coverage": "partial"
     }
   ]
 }

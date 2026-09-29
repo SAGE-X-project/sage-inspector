@@ -333,7 +333,8 @@ changed captured byte or policy artifact changes the computed digest. These
 primitives do not prove capture before expansion, policy authorization,
 retirement ordering, or a downstream Agent's independent authorization.
 
-Six EXEC-03 cases have partial runtime fixtures for a signed closed intent,
+The [EXEC-03 intent observations](current-spec-exec03-evidence.md) have six
+partial runtime fixtures for a signed closed intent,
 a changed argument, an independently signed unknown field, the generic JSON
 size limit, an invalid nonce, and executor identity mismatch. The size probe
 does not cover an actual oversized intent envelope, and the executor identity

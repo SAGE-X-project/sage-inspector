@@ -42,7 +42,7 @@ python3 -B scripts/current_spec_gap.py --output /tmp/current-spec-gap.json
 ```
 
 `scripts/current_spec_evidence.py` is the case-level evidence admission and
-status engine. Its 280 current bindings cover selected JCS, HTTP, HPKE,
+status engine. Its 285 current bindings cover selected JCS, HTTP, HPKE,
 session, DID, Agent Card, transport, and Registry cases only partially; the remaining cases still need bindings. A binding must name a current
 case or mandatory child, one required verification track, a repository-owned
 fixture hash, and whether that fixture covers the complete case or only part
@@ -314,6 +314,17 @@ three TABLE-07 runtime bindings for a generic public authentication failure,
 a sensitive local diagnostic, and a reason-dependent public response. The
 registered codes are pinned by independent controls; both core adapters lack
 the complete diagnostic-boundary operation.
+
+The five EXEC-01 cases now have partial deployment-review fixtures describing
+the trusted Client assets, all six protected effect paths, the mandatory hook,
+and the separate server verifier/dispatcher. An independent vector audit checks
+that each negative changes one capability boundary. The bounded
+`inspect_exec01_boundary.py` CLI detects missing or unsafe declarations in a
+local description. It does not inspect the host, its actual credentials, or
+its runtime process isolation. These cases remain `NOT_RUN` for implementation
+conformance until a deployment review and runtime bypass-denial observations
+are captured against a named subject. A core primitive result cannot establish
+this host boundary.
 
 The 95 cases added after the historical snapshot comprise 71 MCP cases and
 24 later corrections. The older 71-case MCP runtime overlay is useful bounded

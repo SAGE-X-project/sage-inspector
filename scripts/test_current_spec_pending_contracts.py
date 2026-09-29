@@ -12,8 +12,9 @@ from unittest.mock import patch
 from check_current_spec_pending_contracts import check
 from current_spec_pending_bridge import observe
 from current_spec_catalog import catalog
-from current_spec_pending_contracts import MSET06_SCENARIOS
+from current_spec_pending_contracts import MSET03_SCENARIOS, MSET06_SCENARIOS
 from current_spec_pending_contracts import SETUP_MODEL_SCENARIOS, assertions_for
+from current_spec_pending_contracts import mset03_classification, mset03_sample
 from current_spec_pending_contracts import sample_observation
 
 
@@ -117,6 +118,77 @@ class PendingContractTests(unittest.TestCase):
                                      result.stderr.decode())
                     self.assertEqual(json.loads(result.stdout)['actual'],
                                      fixture['expected'])
+
+    def test_initialize_response_cases_check_correlated_json(self):
+        root = Path(__file__).resolve().parents[1]
+        source = catalog()[1]
+        cases = {row['id']: row for row in source['cases']}
+        rules = {row['id']: row for row in source['rules']}
+        for ident in MSET03_SCENARIOS:
+            with self.subTest(ident=ident):
+                fixture = json.loads((root / 'vectors/0.10.0/current-spec' /
+                                      f'{ident}-runtime.json').read_text())
+                request = {key: fixture[key] for key in
+                           ('schema_version', 'spec_revision', 'id', 'track', 'input')}
+                case = cases[ident]
+                trace = sample_observation(case, rules[case['rule_id']], 'runtime')
+                self.assertNotIn('initialize_correlation_checked',
+                                 trace['assertions'])
+                self.assertEqual(observe(json.dumps(request).encode(), trace)
+                                 ['actual'], fixture['expected'])
+                replacement = ('mset-03-unsupported-version'
+                               if ident == 'mset-03-initialize-success' else
+                               'mset-03-initialize-success')
+                trace['mcp_response'] = mset03_sample(replacement)
+                self.assertEqual(observe(json.dumps(request).encode(), trace)
+                                 ['actual']['verdict'], 'REJECT')
+
+    def test_initialize_response_bridge_runs_local_adapter(self):
+        root = Path(__file__).resolve().parents[1]
+        source = catalog()[1]
+        cases = {row['id']: row for row in source['cases']}
+        rules = {row['id']: row for row in source['rules']}
+        with tempfile.TemporaryDirectory() as temporary:
+            adapter = Path(temporary) / 'initialize-observer'
+            environment = dict(os.environ, SAGE_CASE_ADAPTER=str(adapter))
+            for ident in MSET03_SCENARIOS:
+                with self.subTest(ident=ident):
+                    fixture = json.loads((root / 'vectors/0.10.0/current-spec' /
+                                          f'{ident}-runtime.json').read_text())
+                    request = {key: fixture[key] for key in
+                               ('schema_version', 'spec_revision', 'id', 'track', 'input')}
+                    case = cases[ident]
+                    trace = sample_observation(case, rules[case['rule_id']],
+                                               'runtime')
+                    adapter.write_text('#!/usr/bin/env python3\n'
+                                       'import json,sys\n'
+                                       'json.load(sys.stdin)\n'
+                                       f'print({json.dumps(json.dumps({"trace": trace}))})\n')
+                    adapter.chmod(0o700)
+                    result = subprocess.run(
+                        [sys.executable, '-B',
+                         str(root / 'scripts/current_spec_pending_bridge.py')],
+                        input=json.dumps(request).encode(), capture_output=True,
+                        env=environment, timeout=10, check=False)
+                    self.assertEqual(result.returncode, 0,
+                                     result.stderr.decode())
+                    self.assertEqual(json.loads(result.stdout)['actual'],
+                                     fixture['expected'])
+
+    def test_initialize_response_rejects_malformed_or_outer_failure(self):
+        evidence = mset03_sample('mset-03-initialize-success')
+        self.assertEqual(mset03_classification(evidence), 'valid')
+        changed = dict(evidence, outer_success=False)
+        self.assertEqual(mset03_classification(changed), 'outer_failure')
+        changed = dict(evidence, response_outer_id=
+                       '123e4567-e89b-42d3-a456-426614174002')
+        self.assertEqual(mset03_classification(changed), 'wrong_request')
+        changed = dict(evidence, response_json=
+                       '{"jsonrpc":"2.0","jsonrpc":"2.0"}')
+        self.assertEqual(mset03_classification(changed), 'malformed_response')
+        changed = dict(evidence, inner_request_id='not-a-uuid')
+        with self.assertRaises(ValueError):
+            mset03_classification(changed)
 
 
 if __name__ == '__main__':

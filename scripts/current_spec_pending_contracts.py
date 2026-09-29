@@ -5,6 +5,9 @@ independent effect counts. They are partial inspection interfaces, never protoco
 execution or implementation conformance evidence by themselves.
 """
 
+import json
+import uuid
+
 from current_spec_catalog import require
 from mcp_setup_model import initial as setup_initial, invariant as setup_invariant
 from mcp_setup_model import step as setup_step
@@ -59,6 +62,94 @@ SETUP_MODEL_SCENARIOS = {
         (SERVER_SETUP[:2] + ('call_2',), 'CLOSED'),
     'mset-07-stale-ready': (SERVER_SETUP + ('close', 'call_2'), 'CLOSED'),
 }
+MSET03_SCENARIOS = {
+    'mset-03-initialize-success': 'valid',
+    'mset-03-unsupported-version': 'unsupported_version',
+    'mset-03-capability-mismatch': 'capability_mismatch',
+    'mset-03-wrong-request': 'wrong_request',
+}
+
+
+def canonical_uuid4(value):
+    if type(value) is not str:
+        return False
+    try:
+        parsed = uuid.UUID(value)
+    except ValueError:
+        return False
+    return parsed.version == 4 and str(parsed) == value
+
+
+def unique_json_object(pairs):
+    value = {}
+    for key, item in pairs:
+        if key in value:
+            raise ValueError('duplicate JSON member')
+        value[key] = item
+    return value
+
+
+def mset03_classification(evidence):
+    require(type(evidence) is dict and
+            set(evidence) == {'outer_request_id', 'inner_request_id',
+                              'response_outer_id', 'response_json',
+                              'outer_success', 'outer_error'} and
+            all(canonical_uuid4(evidence[key]) for key in
+                ('outer_request_id', 'inner_request_id',
+                 'response_outer_id')) and
+            evidence['outer_request_id'] != evidence['inner_request_id'] and
+            type(evidence['response_json']) is str and
+            len(evidence['response_json'].encode()) <= 16 * 1024 and
+            type(evidence['outer_success']) is bool and
+            (evidence['outer_error'] is None or
+             type(evidence['outer_error']) is str and
+             len(evidence['outer_error']) <= 128),
+            'bounded authenticated initialize response')
+    try:
+        inner = json.loads(evidence['response_json'],
+                           object_pairs_hook=unique_json_object)
+    except (ValueError, TypeError):
+        return 'malformed_response'
+    if type(inner) is not dict or set(inner) != {'jsonrpc', 'id', 'result'} or \
+            inner['jsonrpc'] != '2.0' or type(inner['result']) is not dict:
+        return 'malformed_response'
+    if evidence['response_outer_id'] != evidence['outer_request_id'] or \
+            inner['id'] != evidence['inner_request_id']:
+        return 'wrong_request'
+    if not evidence['outer_success'] or evidence['outer_error'] is not None:
+        return 'outer_failure'
+    result = inner['result']
+    if set(result) != {'protocolVersion', 'serverInfo', 'capabilities'} or \
+            type(result['serverInfo']) is not dict or \
+            set(result['serverInfo']) != {'name', 'version'} or \
+            not all(type(value) is str and 1 <= len(value) <= 128
+                    for value in result['serverInfo'].values()):
+        return 'malformed_response'
+    if result['protocolVersion'] != '2025-06-18':
+        return 'unsupported_version'
+    if result['capabilities'] != {'tools': {}}:
+        return 'capability_mismatch'
+    return 'valid'
+
+
+def mset03_sample(ident):
+    outer = '123e4567-e89b-42d3-a456-426614174000'
+    inner = '123e4567-e89b-42d3-a456-426614174001'
+    response = {'jsonrpc': '2.0', 'id': inner,
+                'result': {'protocolVersion': '2025-06-18',
+                           'serverInfo': {'name': 'local-fixture', 'version': '1'},
+                           'capabilities': {'tools': {}}}}
+    evidence = {'outer_request_id': outer, 'inner_request_id': inner,
+                'response_outer_id': outer, 'outer_success': True,
+                'outer_error': None}
+    if ident == 'mset-03-unsupported-version':
+        response['result']['protocolVersion'] = '2024-11-05'
+    elif ident == 'mset-03-capability-mismatch':
+        response['result']['capabilities'] = {'resources': {}}
+    elif ident == 'mset-03-wrong-request':
+        response['id'] = '123e4567-e89b-42d3-a456-426614174002'
+    evidence['response_json'] = json.dumps(response, separators=(',', ':'))
+    return evidence
 
 
 def setup_model_check(ident, events):
@@ -108,12 +199,16 @@ def sample_observation(case, rule, track):
     ident = case['id']
     assertions = {name: True for name in assertions_for(rule['id'])
                   if not (ident in MSET06_SCENARIOS and
-                          name == 'monotonic_deadline_checked')}
+                          name == 'monotonic_deadline_checked') and
+                  not (ident in MSET03_SCENARIOS and
+                       name == 'initialize_correlation_checked')}
     result = {'case_id': ident, 'track': track,
               'observed_outcome': case['expected'], 'assertions': assertions,
               'observer_effects': 0, 'subject_effects': 0}
     if ident in SETUP_MODEL_SCENARIOS:
         result['model_events'] = list(SETUP_MODEL_SCENARIOS[ident][0])
+    if ident in MSET03_SCENARIOS:
+        result['mcp_response'] = mset03_sample(ident)
     return result
 
 
@@ -124,6 +219,8 @@ def inspect(case, rule, track, phase, observed):
               'observer_effects', 'subject_effects'}
     if case['id'] in SETUP_MODEL_SCENARIOS:
         fields.add('model_events')
+    if case['id'] in MSET03_SCENARIOS:
+        fields.add('mcp_response')
     require(type(observed) is dict and
             set(observed) == fields and
             observed['case_id'] == case['id'] and observed['track'] == track and
@@ -135,7 +232,9 @@ def inspect(case, rule, track, phase, observed):
             'host observation shape and identity')
     required = tuple(name for name in assertions_for(rule['id'])
                      if not (case['id'] in MSET06_SCENARIOS and
-                             name == 'monotonic_deadline_checked'))
+                             name == 'monotonic_deadline_checked') and
+                     not (case['id'] in MSET03_SCENARIOS and
+                          name == 'initialize_correlation_checked'))
     assertions_valid = (set(observed['assertions']) == set(required) and
                         all(observed['assertions'][key] is True for key in required))
     effects_agree = observed['observer_effects'] == observed['subject_effects']
@@ -144,9 +243,12 @@ def inspect(case, rule, track, phase, observed):
     setup_effects = phase != 4 or observed['observer_effects'] == 0
     model_ok = (case['id'] not in SETUP_MODEL_SCENARIOS or
                 setup_model_check(case['id'], observed['model_events']))
+    mcp_response_ok = (case['id'] not in MSET03_SCENARIOS or
+                       mset03_classification(observed['mcp_response']) ==
+                       MSET03_SCENARIOS[case['id']])
     matched = (observed['observed_outcome'] == expected_outcome(case) and
                assertions_valid and effects_agree and setup_effects and
-               model_ok)
+               model_ok and mcp_response_ok)
     return {'verdict': 'ACCEPT' if matched else 'REJECT',
             'output': {'matched': matched,
                        'reason': 'case_contract' if matched else

@@ -116,6 +116,10 @@ Seven further MSET-02, MSET-05 and MSET-07 cases use the same model for output
 barriers, send failure, identifier history, rejected inner input, early calls
 and stale readiness. These are bounded scenario checks, not observations from
 a deployed endpoint.
+The four MSET-03 initialize cases parse a bounded response and classify the
+fixed MCP version, exact tools capability, outer success and both correlated
+request IDs. Duplicate JSON members are rejected. The response still needs a
+versioned host adapter to establish that it came from the authenticated peer.
 `scripts/run_current_spec_cases.py` can execute bound fixtures for one selected
 verification track against one explicit local adapter. It sends the case input but never the expected
 answer, bounds the process, and writes hashed observations for the evidence

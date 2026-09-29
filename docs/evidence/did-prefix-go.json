@@ -1,0 +1,192 @@
+{
+  "schema_version": 1,
+  "protocol_version": "0.10.0",
+  "profile": "primitive-foundation",
+  "suite_id": "sage-did-prefix-0.10.0",
+  "suite_sha256": "348a9d0350adb04f8dd422a0ea00659b0a754d82a5eb8ff5fa5fa45e123cdbc7",
+  "runner_version": "dev",
+  "environment": "go1.26.8 darwin/arm64",
+  "created": "2026-09-29T13:29:31.248252Z",
+  "subject": {
+    "name": "sage-go",
+    "revision": "49379baadc6baec9ca8b4bb7d15bf43d65144bd7",
+    "kind": "external",
+    "executable_sha256": "d38bb983ec644e001637336529ced4104d4117fd18aad0ea3665df556935a1bd"
+  },
+  "sources": [
+    {
+      "id": "did-prefix-spec",
+      "kind": "spec-derived",
+      "uri": "sage-spec/spec/06-did-sage.md",
+      "reference": "44df132fee5925182018ce089dc82435cb353f8a ID-01 and msca-did-prefix-case/msca-did-url-prefix-case; synthetic local identifiers only."
+    }
+  ],
+  "scope": "Only listed primitive cases; no full SAGE, state-machine, registry or Execution Guard certification.",
+  "status": "FAIL",
+  "counts": {
+    "FAIL": 1,
+    "NOT_RUN": 0,
+    "PASS": 2,
+    "UNSUPPORTED": 3
+  },
+  "results": [
+    {
+      "case_id": "did-prefix-control",
+      "operation": "sage.did.validate",
+      "rule_ids": [
+        "ID-01"
+      ],
+      "source_ids": [
+        "did-prefix-spec"
+      ],
+      "derivation": "Pinned msca-did-prefix-case with an unchanged canonical web control. Rejecting a changed prefix alone is not complete case evidence.",
+      "input_sha256": "da5e4b41158de1f4cd8496e2e71d2b683280c16aaccc7c1c5a5283831b46ff91",
+      "adapter_request_sha256": "5b9ddcd4a4a0504c680a510fd85e775798445e8687746a4720d6047facb42629",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "did-prefix-control",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "FAIL",
+      "reason": "verdict mismatch",
+      "duration_ms": 473
+    },
+    {
+      "case_id": "did-prefix-scheme",
+      "operation": "sage.did.validate",
+      "rule_ids": [
+        "ID-01"
+      ],
+      "source_ids": [
+        "did-prefix-spec"
+      ],
+      "derivation": "Pinned msca-did-prefix-case with an unchanged canonical web control. Rejecting a changed prefix alone is not complete case evidence.",
+      "input_sha256": "d84d88093f259a76b3fa992db84e82d2c1ea5d153ece942ee8b3d46f6c294a6f",
+      "adapter_request_sha256": "09f7d3839d88a51e472077fa6ed695152000168548496670fd18fc5ce21bbddb",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "did-prefix-scheme",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "PASS",
+      "duration_ms": 28
+    },
+    {
+      "case_id": "did-prefix-method",
+      "operation": "sage.did.validate",
+      "rule_ids": [
+        "ID-01"
+      ],
+      "source_ids": [
+        "did-prefix-spec"
+      ],
+      "derivation": "Pinned msca-did-prefix-case with an unchanged canonical web control. Rejecting a changed prefix alone is not complete case evidence.",
+      "input_sha256": "324137954086c71f1973fcba4c0b3758e085cc0f5db5f99e4947a47ca29234dc",
+      "adapter_request_sha256": "a67e9d205d2c04415bbce04fa4d304ba099e7c822c7158d254941ef2e1a31f5f",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "did-prefix-method",
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "status": "PASS",
+      "duration_ms": 19
+    },
+    {
+      "case_id": "did-url-prefix-control",
+      "operation": "sage.did-url.validate",
+      "rule_ids": [
+        "ID-01"
+      ],
+      "source_ids": [
+        "did-prefix-spec"
+      ],
+      "derivation": "Pinned msca-did-url-prefix-case with an unchanged canonical web control. Rejecting a changed prefix alone is not complete case evidence.",
+      "input_sha256": "991a356fb302a54123618621b667facb1acaaa650a6835f8aa3e322444b62520",
+      "adapter_request_sha256": "1bec7318bd3990dbf4e8896d17e799a004b47bbb079a0f65931a69337a28dd21",
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "valid": true
+        }
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "did-url-prefix-control",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 15
+    },
+    {
+      "case_id": "did-url-prefix-scheme",
+      "operation": "sage.did-url.validate",
+      "rule_ids": [
+        "ID-01"
+      ],
+      "source_ids": [
+        "did-prefix-spec"
+      ],
+      "derivation": "Pinned msca-did-url-prefix-case with an unchanged canonical web control. Rejecting a changed prefix alone is not complete case evidence.",
+      "input_sha256": "a69a56a9cfb28275e94ea5eedb784f7aaab36095b4ecde830816797a0bac1048",
+      "adapter_request_sha256": "424cf1a387a22cb3debd4ddae5b74290e408e23da92b245aae6c2e23cfbc3f94",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "did-url-prefix-scheme",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 13
+    },
+    {
+      "case_id": "did-url-prefix-method",
+      "operation": "sage.did-url.validate",
+      "rule_ids": [
+        "ID-01"
+      ],
+      "source_ids": [
+        "did-prefix-spec"
+      ],
+      "derivation": "Pinned msca-did-url-prefix-case with an unchanged canonical web control. Rejecting a changed prefix alone is not complete case evidence.",
+      "input_sha256": "e6071120060b98f42e64e7861511a1106a47378ea0cf5c0d50e1be68d1deaece",
+      "adapter_request_sha256": "a7f3df7ba8acbf7a07ca1e2850e6eecd618e0502b92a9e752368b1fc39d462e7",
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      },
+      "actual": {
+        "schema_version": 1,
+        "case_id": "did-url-prefix-method",
+        "verdict": "UNSUPPORTED",
+        "output": {}
+      },
+      "status": "UNSUPPORTED",
+      "reason": "adapter does not support this operation",
+      "duration_ms": 13
+    }
+  ]
+}

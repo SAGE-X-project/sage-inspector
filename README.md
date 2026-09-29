@@ -67,6 +67,9 @@ The [earlier 481-case inventory](docs/current-spec-coverage.md) and its
 revision-bound observations remain available. Neither inventory establishes
 complete-case conformance.
 
+The [remaining-work register](docs/remaining-work.md) gives the ordered gates
+and links the complete case inventory to implementation and deployment work.
+
 See the [prioritized work list](docs/next-work.md) for dependencies and acceptance
 criteria for real core adapters, stateful scenarios, and protocol coverage.
 
@@ -86,6 +89,8 @@ HTTP signature bases, content checks and archived verification: [scope and obser
 HTTP/envelope boundary fixtures and current binding limitations: [evidence and reproduction](docs/http-boundary-vectors.md).
 
 Signed SAGE wire and HTTP reference bytes from the newer specification revision: [Go/Rust observations and limits](docs/wire-http-binding-vectors.md).
+
+Canonical DID and DID URL prefix checks: [Go/Rust runtime observations and limits](docs/did-prefix-observations.md).
 
 Run all HTTP/envelope inspections with [the versioned bundle command](docs/http-inspection.md).
 

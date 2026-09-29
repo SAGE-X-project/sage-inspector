@@ -2325,6 +2325,20 @@
       "fixture": "vectors/0.10.0/current-spec/mrevision-parent-no-grant.json",
       "fixture_sha256": "292c54dac22d5709aef5b738bf0634a994a33ef73c2d96958924ab9ca39c8a6b",
       "coverage": "partial"
+    },
+    {
+      "id": "EXEC-02-N03",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/EXEC-02-N03.json",
+      "fixture_sha256": "6179bb936ef1bee1f55aa8a89dbc204498eda384c919dcd0cd3954c43db1e083",
+      "coverage": "partial"
+    },
+    {
+      "id": "CST-02-05",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/CST-02-05.json",
+      "fixture_sha256": "2d4d53b9be0e34f1d5a090efba0f56f7662da06518eeb68df476d02a5b0e0257",
+      "coverage": "partial"
     }
   ]
 }

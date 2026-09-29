@@ -42,7 +42,7 @@ python3 -B scripts/current_spec_gap.py --output /tmp/current-spec-gap.json
 ```
 
 `scripts/current_spec_evidence.py` is the case-level evidence admission and
-status engine. Its 332 current bindings cover selected JCS, HTTP, HPKE,
+status engine. Its 334 current bindings cover selected JCS, HTTP, HPKE,
 session, DID, Agent Card, transport, and Registry cases only partially; the remaining cases still need bindings. A binding must name a current
 case or mandatory child, one required verification track, a repository-owned
 fixture hash, and whether that fixture covers the complete case or only part
@@ -400,6 +400,13 @@ fixture sends once; either missing B authorization or missing parent admission
 prevents journal creation and transport handoff. These are partial runtime
 observations. Host routing, protected persistence of parent admission, and
 the exact source of an upstream UNKNOWN outcome remain unobserved.
+
+The [two policy admission observations](current-spec-policy-admission-evidence.md)
+show that a valid signature and matching policy digest do not override an
+independent local policy denial, and that an incoming self-approved digest
+cannot replace the pinned local mapping. Both cores reject the bounded signed
+intents. Host ownership of the policy store and all downstream effect paths
+still require separate review.
 
 The 95 cases added after the historical snapshot comprise 71 MCP cases and
 24 later corrections. The older 71-case MCP runtime overlay is useful bounded

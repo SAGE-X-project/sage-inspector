@@ -84,6 +84,8 @@ HTTP signature bases, content checks and archived verification: [scope and obser
 
 HTTP/envelope boundary fixtures and current binding limitations: [evidence and reproduction](docs/http-boundary-vectors.md).
 
+Signed SAGE wire and HTTP reference bytes from the newer specification revision: [Go/Rust observations and limits](docs/wire-http-binding-vectors.md).
+
 Run all HTTP/envelope inspections with [the versioned bundle command](docs/http-inspection.md).
 
 HPKE schedule, completion and lifecycle inspection: [workflow and evidence](docs/hpke-inspection.md).

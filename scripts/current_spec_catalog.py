@@ -120,8 +120,8 @@ def rendered_snapshot(spec_root):
     }
 
 
-def catalog(root=ROOT, spec_root=None):
-    base = root / 'verification/0.10.0/current-spec'
+def catalog(root=ROOT, spec_root=None, base_relative='verification/0.10.0/current-spec'):
+    base = root / base_relative
     manifest = load((base / 'manifest.json').read_bytes())
     trace_raw = (base / 'traceability.json').read_bytes()
     trace = load(trace_raw)

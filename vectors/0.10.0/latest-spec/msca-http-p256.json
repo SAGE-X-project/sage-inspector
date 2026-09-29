@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "spec_revision": "44df132fee5925182018ce089dc82435cb353f8a",
+  "id": "msca-http-p256",
+  "track": "runtime",
+  "input": {
+    "operation": "sage.spec.host_case",
+    "id": "msca-http-p256",
+    "track": "runtime",
+    "rule_id": "MSG-01",
+    "source": "spec/03-rfc9421.md",
+    "source_line": 10,
+    "source_case_sha256": "a6a006be1b4c555c6d70f7d61af74c19eb247b3f49e39788d826b68dc75cd19b",
+    "trigger": "A protected HTTP request and response use an active P-256 key and exact alg ecdsa-p256-sha256",
+    "preconditions": "Synthetic P-256 peers in an implementation that advertises the optional suite; otherwise report UNSUPPORTED, never substitute Ed25519",
+    "normative_expected": "Accept only under the exact registered P-256 suite and full profile; unsupported implementations refuse cleanly."
+  },
+  "expected": {
+    "verdict": "ACCEPT",
+    "output": {
+      "matched": true,
+      "reason": "case_contract"
+    },
+    "effects": {}
+  }
+}

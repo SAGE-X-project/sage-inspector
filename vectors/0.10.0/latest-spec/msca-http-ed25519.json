@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "spec_revision": "44df132fee5925182018ce089dc82435cb353f8a",
+  "id": "msca-http-ed25519",
+  "track": "runtime",
+  "input": {
+    "operation": "sage.spec.host_case",
+    "id": "msca-http-ed25519",
+    "track": "runtime",
+    "rule_id": "MSG-01",
+    "source": "spec/03-rfc9421.md",
+    "source_line": 10,
+    "source_case_sha256": "ca3d6fbb1ebb54fa074b1bda5b17cb7b041f99df57ba653d87dd7c7c66dbb288",
+    "trigger": "A protected HTTP request and response use an active Ed25519 key and exact alg ed25519",
+    "preconditions": "Synthetic registered Ed25519 peers, fixed body and received HTTP components; exercise both directions with one replay transaction",
+    "normative_expected": "Accept only if the HTTP and inner signatures, exact key URL, body binding and all profile checks succeed."
+  },
+  "expected": {
+    "verdict": "ACCEPT",
+    "output": {
+      "matched": true,
+      "reason": "case_contract"
+    },
+    "effects": {}
+  }
+}

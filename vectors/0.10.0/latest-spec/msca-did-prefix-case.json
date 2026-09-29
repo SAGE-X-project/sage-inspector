@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "spec_revision": "44df132fee5925182018ce089dc82435cb353f8a",
+  "id": "msca-did-prefix-case",
+  "track": "runtime",
+  "input": {
+    "operation": "sage.spec.host_case",
+    "id": "msca-did-prefix-case",
+    "track": "runtime",
+    "rule_id": "ID-01",
+    "source": "spec/06-did-sage.md",
+    "source_line": 9,
+    "source_case_sha256": "4fbcf5175a37e06aa9b257c3ed9c672503e86d7e9996fae3e4668415cd489d56",
+    "trigger": "A DID uses mixed-case scheme or method prefix such as DID:sage: or did:SAGE:",
+    "preconditions": "Use otherwise valid bounded eip155 and web identifiers with only prefix case changed",
+    "normative_expected": "Reject as id.malformed without normalization or alias lookup."
+  },
+  "expected": {
+    "verdict": "ACCEPT",
+    "output": {
+      "matched": true,
+      "reason": "case_contract"
+    },
+    "effects": {}
+  }
+}

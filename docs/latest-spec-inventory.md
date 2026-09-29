@@ -32,6 +32,27 @@ source-integrity check, not an implementation result. Earlier fixtures and
 observations remain bound to revision
 `5bcf511e604579afa63f434013447f44b6858828`; no previous verdict is
 silently inherited. CI checks both inventories against their respective source
-revisions and publishes the latest report. Implementation bindings and
-observations for the newer revision must be admitted separately before any
-case status can change.
+revisions and publishes the latest report.
+
+The eight new cases now have [source-exact partial host contracts](../verification/0.10.0/latest-spec/bindings.json).
+Each fixture pins its case, rule, source location, trigger, preconditions and
+normative expectation to the new revision. The local contract's `ACCEPT`
+expectation means only that a future host observation matches that contract;
+it does not mean the HTTP message or DID is accepted. No core observation is
+included, so all eight remain `NOT_RUN`. Even a matching observation of these
+partial contracts can reach only `PARTIAL`, never case `PASS`. Run the bounded
+contract and evidence checks with:
+
+```sh
+python3 -B scripts/test_latest_spec_case_bindings.py
+python3 -B scripts/test_latest_spec_evidence.py
+python3 -B scripts/latest_spec_case_bindings.py --spec-root /path/to/sage-spec
+python3 -B scripts/latest_spec_evidence.py --output /tmp/latest-spec-evidence.json
+```
+
+These contracts contain no signed request/response exchange, key selection,
+replay transaction or protected dispatch. Version-matched implementation
+adapters and independently recorded observations are required before the
+new cases can acquire implementation results. The earlier 481 cases likewise
+remain `NOT_RUN` for this newer revision until their bindings and evidence
+are migrated deliberately.

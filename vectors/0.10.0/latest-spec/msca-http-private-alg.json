@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "spec_revision": "44df132fee5925182018ce089dc82435cb353f8a",
+  "id": "msca-http-private-alg",
+  "track": "runtime",
+  "input": {
+    "operation": "sage.spec.host_case",
+    "id": "msca-http-private-alg",
+    "track": "runtime",
+    "rule_id": "MSG-01",
+    "source": "spec/03-rfc9421.md",
+    "source_line": 10,
+    "source_case_sha256": "5a6234b717f7a26fe98a86afe194e8273fb378d6149bba5d2edd72ac63bc0a88",
+    "trigger": "An otherwise valid synthetic HTTP signature declares sage-secp256k1-keccak256 as alg",
+    "preconditions": "Use inert HTTP fixture bytes and a synthetic active secp256k1 record; no live endpoint or protected tool effect",
+    "normative_expected": "Reject the HTTP message with generic remote authentication failure; do not try the private suite through RFC 9421."
+  },
+  "expected": {
+    "verdict": "ACCEPT",
+    "output": {
+      "matched": true,
+      "reason": "case_contract"
+    },
+    "effects": {}
+  }
+}

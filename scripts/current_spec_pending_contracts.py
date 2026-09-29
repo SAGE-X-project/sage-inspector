@@ -16,6 +16,9 @@ from mcp_setup_model import initial as setup_initial, invariant as setup_invaria
 from mcp_setup_model import step as setup_step
 from mcp_owner_model import State as owner_initial, invariant as owner_invariant
 from mcp_owner_model import step as owner_step
+from current_spec_owner_surface import SAMPLES as MOWN02_SAMPLES
+from current_spec_owner_surface import check as mown02_check
+from current_spec_owner_surface import sample as mown02_sample
 
 
 RULE_ASSERTIONS = {
@@ -151,6 +154,8 @@ MOWN_MODEL_SCENARIOS = {
         (('setup_done', 'tick_60', 'submit'),
          'CLOSED', 'ABSENT', False, 0),
 }
+SEMANTIC_MOWN_PARENT_IDS = (set(MOWN01_SCENARIOS) | set(MOWN02_SAMPLES) |
+                            set(MOWN_MODEL_SCENARIOS) | set(MOWN05_ROLES))
 
 
 def owner_model_check(ident, events):
@@ -956,6 +961,8 @@ def expected_result(ident=None):
 def sample_observation(case, rule, track):
     ident = case['id']
     assertions = {name: True for name in assertions_for(rule['id'])
+                  if not (ident in MOWN02_SAMPLES and
+                          name == 'owner_publication_checked')
                   if not (ident in MOWN_MODEL_SCENARIOS and
                           name in ('reservation_fence_checked',
                                    'closure_and_deadline_checked'))
@@ -1005,6 +1012,8 @@ def sample_observation(case, rule, track):
         result['signature_evidence'] = mown05_sample(ident)
     if ident in MOWN_MODEL_SCENARIOS:
         result['owner_events'] = list(MOWN_MODEL_SCENARIOS[ident][0])
+    if ident in MOWN02_SAMPLES:
+        result['owner_surface_evidence'] = mown02_sample(ident)
     return result
 
 
@@ -1037,6 +1046,8 @@ def inspect(case, rule, track, phase, observed):
         fields.add('signature_evidence')
     if case['id'] in MOWN_MODEL_SCENARIOS:
         fields.add('owner_events')
+    if case['id'] in MOWN02_SAMPLES:
+        fields.add('owner_surface_evidence')
     require(type(observed) is dict and
             set(observed) == fields and
             observed['case_id'] == case['id'] and observed['track'] == track and
@@ -1047,6 +1058,8 @@ def inspect(case, rule, track, phase, observed):
             observed['observer_effects'] >= 0 and observed['subject_effects'] >= 0,
             'host observation shape and identity')
     required = tuple(name for name in assertions_for(rule['id'])
+                     if not (case['id'] in MOWN02_SAMPLES and
+                             name == 'owner_publication_checked')
                      if not (case['id'] in MOWN_MODEL_SCENARIOS and
                              name in ('reservation_fence_checked',
                                       'closure_and_deadline_checked'))
@@ -1108,12 +1121,15 @@ def inspect(case, rule, track, phase, observed):
                     mown05_check(case['id'], observed['signature_evidence']))
     owner_model_ok = (case['id'] not in MOWN_MODEL_SCENARIOS or
                       owner_model_check(case['id'], observed['owner_events']))
+    owner_surface_ok = (case['id'] not in MOWN02_SAMPLES or
+                        mown02_check(case['id'],
+                                     observed['owner_surface_evidence']))
     matched = (observed['observed_outcome'] == expected_outcome(case) and
                assertions_valid and effects_agree and setup_effects and
                model_ok and mcp_response_ok and ack_ok and discovery_ok and
                channel_ok and carriage_ok and reconnect_ok and scope_ok and
                configuration_ok and size_ok and signature_ok and
-               owner_model_ok)
+               owner_model_ok and owner_surface_ok)
     return {'verdict': 'ACCEPT' if matched else 'REJECT',
             'output': {'matched': matched,
                        'reason': 'case_contract' if matched else

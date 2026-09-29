@@ -166,6 +166,12 @@ finite admission model to check closure before or after reservation, retained
 admission after closure/crash, setup versus protected deadlines and session
 expiry. This model has no real durable store or executor; the resulting host
 contracts remain partial until versioned implementation events are observed.
+The 16 MOWN-02 parent cases now compare publication order, operation identity,
+single-flight slots, retained request history, cancellation, deferred input,
+fresh follow-up IDs and shared worker bounds from structured observations.
+Together with MOWN-01/03/04/05, all 37 MOWN parent cases have a distinct local
+decision path; the phase gate detects a missing parent. The 26 mandatory
+MOWN-06 children still need their own semantic checks.
 `scripts/run_current_spec_cases.py` can execute bound fixtures for one selected
 verification track against one explicit local adapter. It sends the case input but never the expected
 answer, bounds the process, and writes hashed observations for the evidence

@@ -23,6 +23,8 @@ from current_spec_pending_contracts import MOWN01_SCENARIOS, mown01_check
 from current_spec_pending_contracts import MOWN05_ROLES, mown05_check
 from current_spec_pending_contracts import mown05_sample
 from current_spec_pending_contracts import MOWN_MODEL_SCENARIOS, owner_model_check
+from current_spec_owner_surface import SAMPLES as MOWN02_SAMPLES
+from current_spec_owner_surface import check as mown02_check
 from current_spec_pending_contracts import SETUP_MODEL_SCENARIOS
 from current_spec_pending_contracts import mset01_classification, mset01_sample
 from current_spec_pending_contracts import mset02_classification, mset02_sample
@@ -801,6 +803,80 @@ class PendingContractTests(unittest.TestCase):
             adapter = Path(temporary) / 'owner-observer'
             environment = dict(os.environ, SAGE_CASE_ADAPTER=str(adapter))
             for ident in MOWN_MODEL_SCENARIOS:
+                with self.subTest(ident=ident):
+                    fixture = json.loads((root / 'vectors/0.10.0/current-spec' /
+                                          f'{ident}-runtime.json').read_text())
+                    request = {key: fixture[key] for key in
+                               ('schema_version', 'spec_revision', 'id', 'track', 'input')}
+                    case = cases[ident]
+                    trace = sample_observation(case, rules[case['rule_id']],
+                                               'runtime')
+                    adapter.write_text('#!/usr/bin/env python3\n'
+                                       'import json,sys\n'
+                                       'json.load(sys.stdin)\n'
+                                       f'print({json.dumps(json.dumps({"trace": trace}))})\n')
+                    adapter.chmod(0o700)
+                    result = subprocess.run(
+                        [sys.executable, '-B',
+                         str(root / 'scripts/current_spec_pending_bridge.py')],
+                        input=json.dumps(request).encode(), capture_output=True,
+                        env=environment, timeout=10, check=False)
+                    self.assertEqual(result.returncode, 0,
+                                     result.stderr.decode())
+                    self.assertEqual(json.loads(result.stdout)['actual'],
+                                     fixture['expected'])
+
+    def test_owner_publication_cases_reject_changed_decisive_evidence(self):
+        root = Path(__file__).resolve().parents[1]
+        source = catalog()[1]
+        cases = {row['id']: row for row in source['cases']}
+        rules = {row['id']: row for row in source['rules']}
+        mutations = {
+            'madd-mutable-buffer': ('handoff_sha256', 'b' * 64),
+            'madd-synchronous-completion': ('publication_seq', 1),
+            'madd-duplicate-completion': ('output_count', 2),
+            'madd-old-incarnation': ('new_owner_mutations', 1),
+            'madd-bounded-cancellation': ('before_admission_effects', 1),
+            'madd-history-capacity': ('next_id_accepted', True),
+            'madd-close-before-handoff': ('queue_admissions', 1),
+            'madd-close-after-handoff': ('admission_retained', False),
+            'madd-cross-language-setup': ('independent_implementations', 1),
+            'madd-restart-consumption': ('redeliveries', 1),
+            'merrata-local-single-flight': ('second_signatures', 1),
+            'merrata-server-overlap': ('second_queue_insertions', 1),
+            'merrata-deferred-frame': ('deferred_auth_seq', 1),
+            'merrata-pending-followup': ('next_inner_id', 'inner-1'),
+            'merrata-deadline-close': ('redispatches', 1),
+            'merrata-shared-owners': ('extra_work_admitted', 1),
+        }
+        self.assertEqual(set(mutations), set(MOWN02_SAMPLES))
+        for ident in MOWN02_SAMPLES:
+            with self.subTest(ident=ident):
+                fixture = json.loads((root / 'vectors/0.10.0/current-spec' /
+                                      f'{ident}-runtime.json').read_text())
+                request = {key: fixture[key] for key in
+                           ('schema_version', 'spec_revision', 'id', 'track', 'input')}
+                case = cases[ident]
+                trace = sample_observation(case, rules[case['rule_id']], 'runtime')
+                self.assertEqual(trace['assertions'], {})
+                self.assertEqual(observe(json.dumps(request).encode(), trace)
+                                 ['actual'], fixture['expected'])
+                field, value = mutations[ident]
+                trace['owner_surface_evidence'][field] = value
+                self.assertFalse(mown02_check(ident,
+                                             trace['owner_surface_evidence']))
+                self.assertEqual(observe(json.dumps(request).encode(), trace)
+                                 ['actual']['verdict'], 'REJECT')
+
+    def test_owner_publication_bridge_runs_local_adapter(self):
+        root = Path(__file__).resolve().parents[1]
+        source = catalog()[1]
+        cases = {row['id']: row for row in source['cases']}
+        rules = {row['id']: row for row in source['rules']}
+        with tempfile.TemporaryDirectory() as temporary:
+            adapter = Path(temporary) / 'publication-observer'
+            environment = dict(os.environ, SAGE_CASE_ADAPTER=str(adapter))
+            for ident in MOWN02_SAMPLES:
                 with self.subTest(ident=ident):
                     fixture = json.loads((root / 'vectors/0.10.0/current-spec' /
                                           f'{ident}-runtime.json').read_text())

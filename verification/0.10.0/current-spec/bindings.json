@@ -1919,6 +1919,27 @@
       "fixture": "vectors/0.10.0/current-spec/TABLE-05-N02.json",
       "fixture_sha256": "99acb358ecdae9045588ea9a4c7e87f9e6c8e6edffe38a2896264d2ccc17b8bd",
       "coverage": "partial"
+    },
+    {
+      "id": "TABLE-06-P",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/TABLE-06-P.json",
+      "fixture_sha256": "6be25fa130f5d9bda0d3635454a5447960a80c98fbda9daf3a4d343e9cf510a7",
+      "coverage": "partial"
+    },
+    {
+      "id": "TABLE-06-N01",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/TABLE-06-N01.json",
+      "fixture_sha256": "d016976e3caad8f1c2a3c65c882ff4440a7d399561b806253c3d77c227506475",
+      "coverage": "partial"
+    },
+    {
+      "id": "TABLE-06-N02",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/TABLE-06-N02.json",
+      "fixture_sha256": "326b121bd58eb3c0c74a8e0b0db47d96a114dc878a5ec52addf070faa1685ad0",
+      "coverage": "partial"
     }
   ]
 }

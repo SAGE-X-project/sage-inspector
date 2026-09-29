@@ -1,0 +1,341 @@
+{
+  "schema_version": 1,
+  "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+  "source_sha256": "f11192af6397ac95f80287a3ff32ef662a3e94532a57646fab09b6776d938e01",
+  "scope": "synthetic report admission; implementation performance and interoperability remain unmeasured",
+  "cases": [
+    {
+      "id": "EVIDENCE-01-P",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.evidence.review",
+        "report": {
+          "claim": "measured_interoperability",
+          "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+          "executions": [
+            {
+              "input_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+              "revision": "2222222222222222222222222222222222222222",
+              "duration_ms": 7
+            }
+          ],
+          "implementations": [
+            {
+              "repository": "example/go",
+              "revision": "2222222222222222222222222222222222222222",
+              "executable_sha256": "3333333333333333333333333333333333333333333333333333333333333333"
+            },
+            {
+              "repository": "example/rust",
+              "revision": "4444444444444444444444444444444444444444",
+              "executable_sha256": "5555555555555555555555555555555555555555555555555555555555555555"
+            }
+          ]
+        }
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "accepted": true,
+          "reason": "versioned_distinct_observations",
+          "review_track": "runtime"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "EVIDENCE-01-P",
+      "track": "document_review",
+      "input": {
+        "operation": "sage.evidence.review",
+        "report": {
+          "claim": "measured_interoperability",
+          "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+          "executions": [
+            {
+              "input_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+              "revision": "2222222222222222222222222222222222222222",
+              "duration_ms": 7
+            }
+          ],
+          "implementations": [
+            {
+              "repository": "example/go",
+              "revision": "2222222222222222222222222222222222222222",
+              "executable_sha256": "3333333333333333333333333333333333333333333333333333333333333333"
+            },
+            {
+              "repository": "example/rust",
+              "revision": "4444444444444444444444444444444444444444",
+              "executable_sha256": "5555555555555555555555555555555555555555555555555555555555555555"
+            }
+          ]
+        }
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "accepted": true,
+          "reason": "versioned_distinct_observations",
+          "review_track": "document_review"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "EVIDENCE-01-P",
+      "track": "deployment_review",
+      "input": {
+        "operation": "sage.evidence.review",
+        "report": {
+          "claim": "measured_interoperability",
+          "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+          "executions": [
+            {
+              "input_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+              "revision": "2222222222222222222222222222222222222222",
+              "duration_ms": 7
+            }
+          ],
+          "implementations": [
+            {
+              "repository": "example/go",
+              "revision": "2222222222222222222222222222222222222222",
+              "executable_sha256": "3333333333333333333333333333333333333333333333333333333333333333"
+            },
+            {
+              "repository": "example/rust",
+              "revision": "4444444444444444444444444444444444444444",
+              "executable_sha256": "5555555555555555555555555555555555555555555555555555555555555555"
+            }
+          ]
+        }
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "accepted": true,
+          "reason": "versioned_distinct_observations",
+          "review_track": "deployment_review"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "EVIDENCE-01-N01",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.evidence.review",
+        "report": {
+          "claim": "measured_interoperability",
+          "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+          "executions": [],
+          "implementations": [
+            {
+              "repository": "example/go",
+              "revision": "2222222222222222222222222222222222222222",
+              "executable_sha256": "3333333333333333333333333333333333333333333333333333333333333333"
+            },
+            {
+              "repository": "example/rust",
+              "revision": "4444444444444444444444444444444444444444",
+              "executable_sha256": "5555555555555555555555555555555555555555555555555555555555555555"
+            }
+          ]
+        }
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {
+          "accepted": false,
+          "reason": "missing_measurement",
+          "review_track": "runtime"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "EVIDENCE-01-N01",
+      "track": "document_review",
+      "input": {
+        "operation": "sage.evidence.review",
+        "report": {
+          "claim": "measured_interoperability",
+          "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+          "executions": [],
+          "implementations": [
+            {
+              "repository": "example/go",
+              "revision": "2222222222222222222222222222222222222222",
+              "executable_sha256": "3333333333333333333333333333333333333333333333333333333333333333"
+            },
+            {
+              "repository": "example/rust",
+              "revision": "4444444444444444444444444444444444444444",
+              "executable_sha256": "5555555555555555555555555555555555555555555555555555555555555555"
+            }
+          ]
+        }
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {
+          "accepted": false,
+          "reason": "missing_measurement",
+          "review_track": "document_review"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "EVIDENCE-01-N01",
+      "track": "deployment_review",
+      "input": {
+        "operation": "sage.evidence.review",
+        "report": {
+          "claim": "measured_interoperability",
+          "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+          "executions": [],
+          "implementations": [
+            {
+              "repository": "example/go",
+              "revision": "2222222222222222222222222222222222222222",
+              "executable_sha256": "3333333333333333333333333333333333333333333333333333333333333333"
+            },
+            {
+              "repository": "example/rust",
+              "revision": "4444444444444444444444444444444444444444",
+              "executable_sha256": "5555555555555555555555555555555555555555555555555555555555555555"
+            }
+          ]
+        }
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {
+          "accepted": false,
+          "reason": "missing_measurement",
+          "review_track": "deployment_review"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "EVIDENCE-01-N02",
+      "track": "runtime",
+      "input": {
+        "operation": "sage.evidence.review",
+        "report": {
+          "claim": "measured_interoperability",
+          "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+          "executions": [
+            {
+              "input_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+              "revision": "2222222222222222222222222222222222222222",
+              "duration_ms": 7
+            }
+          ],
+          "implementations": [
+            {
+              "repository": "example/go",
+              "revision": "2222222222222222222222222222222222222222",
+              "executable_sha256": "3333333333333333333333333333333333333333333333333333333333333333"
+            },
+            {
+              "repository": "example/rust",
+              "revision": "4444444444444444444444444444444444444444",
+              "executable_sha256": "3333333333333333333333333333333333333333333333333333333333333333"
+            }
+          ]
+        }
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {
+          "accepted": false,
+          "reason": "same_implementation_not_independent",
+          "review_track": "runtime"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "EVIDENCE-01-N02",
+      "track": "document_review",
+      "input": {
+        "operation": "sage.evidence.review",
+        "report": {
+          "claim": "measured_interoperability",
+          "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+          "executions": [
+            {
+              "input_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+              "revision": "2222222222222222222222222222222222222222",
+              "duration_ms": 7
+            }
+          ],
+          "implementations": [
+            {
+              "repository": "example/go",
+              "revision": "2222222222222222222222222222222222222222",
+              "executable_sha256": "3333333333333333333333333333333333333333333333333333333333333333"
+            },
+            {
+              "repository": "example/rust",
+              "revision": "4444444444444444444444444444444444444444",
+              "executable_sha256": "3333333333333333333333333333333333333333333333333333333333333333"
+            }
+          ]
+        }
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {
+          "accepted": false,
+          "reason": "same_implementation_not_independent",
+          "review_track": "document_review"
+        },
+        "effects": {}
+      }
+    },
+    {
+      "id": "EVIDENCE-01-N02",
+      "track": "deployment_review",
+      "input": {
+        "operation": "sage.evidence.review",
+        "report": {
+          "claim": "measured_interoperability",
+          "spec_revision": "5bcf511e604579afa63f434013447f44b6858828",
+          "executions": [
+            {
+              "input_sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+              "revision": "2222222222222222222222222222222222222222",
+              "duration_ms": 7
+            }
+          ],
+          "implementations": [
+            {
+              "repository": "example/go",
+              "revision": "2222222222222222222222222222222222222222",
+              "executable_sha256": "3333333333333333333333333333333333333333333333333333333333333333"
+            },
+            {
+              "repository": "example/rust",
+              "revision": "4444444444444444444444444444444444444444",
+              "executable_sha256": "3333333333333333333333333333333333333333333333333333333333333333"
+            }
+          ]
+        }
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {
+          "accepted": false,
+          "reason": "same_implementation_not_independent",
+          "review_track": "deployment_review"
+        },
+        "effects": {}
+      }
+    }
+  ]
+}

@@ -42,7 +42,7 @@ python3 -B scripts/current_spec_gap.py --output /tmp/current-spec-gap.json
 ```
 
 `scripts/current_spec_evidence.py` is the case-level evidence admission and
-status engine. Its 376 current bindings cover selected JCS, HTTP, HPKE,
+status engine. Its 385 current bindings cover selected JCS, HTTP, HPKE,
 session, DID, Agent Card, transport, Registry, execution, and process cases
 only partially; the remaining cases still need bindings. A binding must name a current
 case or mandatory child, one required verification track, a repository-owned
@@ -71,6 +71,10 @@ The nine PROC-01..03 document-review fixtures use the pinned `PROCESS.md` and
 bounded negative controls for source ownership, historical evidence, and
 repository scope. Their preserved observations are `PARTIAL`: they exercise
 Inspector's review decision, not all repository changes or product behaviour.
+The three EVIDENCE-01 parents have fixtures on all three required tracks.
+These reject unmeasured latency and two wrappers around the same executable;
+their synthetic reviewer observations are `PARTIAL`, never measured performance
+or independent interoperability evidence for a deployed implementation.
 `scripts/run_current_spec_cases.py` can execute bound fixtures for one selected
 verification track against one explicit local adapter. It sends the case input but never the expected
 answer, bounds the process, and writes hashed observations for the evidence

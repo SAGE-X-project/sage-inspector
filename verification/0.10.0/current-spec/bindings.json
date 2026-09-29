@@ -2633,6 +2633,69 @@
       "fixture": "vectors/0.10.0/current-spec/PROC-03-N02-document_review.json",
       "fixture_sha256": "ffa7599678fe5c37b28f8f5ebaacb2aa14dbc07cad49f38e57e3d6e66a0ca061",
       "coverage": "partial"
+    },
+    {
+      "id": "EVIDENCE-01-P",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/EVIDENCE-01-P-runtime.json",
+      "fixture_sha256": "c93c02210b9ec82cc7d8006ba1cbf53383121ab0203f5ec129484786a2eab84c",
+      "coverage": "partial"
+    },
+    {
+      "id": "EVIDENCE-01-P",
+      "track": "document_review",
+      "fixture": "vectors/0.10.0/current-spec/EVIDENCE-01-P-document_review.json",
+      "fixture_sha256": "d0511991869deef80a3aab0139317c45b966aea13a1dbbcbc8d2cfc7ab80c3a1",
+      "coverage": "partial"
+    },
+    {
+      "id": "EVIDENCE-01-P",
+      "track": "deployment_review",
+      "fixture": "vectors/0.10.0/current-spec/EVIDENCE-01-P-deployment_review.json",
+      "fixture_sha256": "6805898d9ddd93c23e67e0a8b846dc67eb6ffaac1400e86eb163001d284b52f2",
+      "coverage": "partial"
+    },
+    {
+      "id": "EVIDENCE-01-N01",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/EVIDENCE-01-N01-runtime.json",
+      "fixture_sha256": "2bd1d46cc068c80e5536181d2606c71a4aec9cc13e326bcd87aa065ea1e1866b",
+      "coverage": "partial"
+    },
+    {
+      "id": "EVIDENCE-01-N01",
+      "track": "document_review",
+      "fixture": "vectors/0.10.0/current-spec/EVIDENCE-01-N01-document_review.json",
+      "fixture_sha256": "b4bc0d7232d68c72bf77ad64789cca06be16d018d64a90f590c402ebd22adcf0",
+      "coverage": "partial"
+    },
+    {
+      "id": "EVIDENCE-01-N01",
+      "track": "deployment_review",
+      "fixture": "vectors/0.10.0/current-spec/EVIDENCE-01-N01-deployment_review.json",
+      "fixture_sha256": "0c92fe7b7050af9b35d595be33e35dc58b64ab8ee162a2d6d8d857cdf36f7798",
+      "coverage": "partial"
+    },
+    {
+      "id": "EVIDENCE-01-N02",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/EVIDENCE-01-N02-runtime.json",
+      "fixture_sha256": "2f6b22ff3fa20236faa3bcfe91b6473402f56d41047d463f082af8fab19f7000",
+      "coverage": "partial"
+    },
+    {
+      "id": "EVIDENCE-01-N02",
+      "track": "document_review",
+      "fixture": "vectors/0.10.0/current-spec/EVIDENCE-01-N02-document_review.json",
+      "fixture_sha256": "07a34a07140543c859dcf7a3635b7e4ee22c8a7d8eda764a84c5b6909a3480d1",
+      "coverage": "partial"
+    },
+    {
+      "id": "EVIDENCE-01-N02",
+      "track": "deployment_review",
+      "fixture": "vectors/0.10.0/current-spec/EVIDENCE-01-N02-deployment_review.json",
+      "fixture_sha256": "0925df974df85c07f928940b104cc2f3c4045526092ff3572bdaec0d925cb0ec",
+      "coverage": "partial"
     }
   ]
 }

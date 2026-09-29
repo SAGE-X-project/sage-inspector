@@ -2255,6 +2255,27 @@
       "fixture": "vectors/0.10.0/current-spec/CST-01-08.json",
       "fixture_sha256": "0e81be068baae6f78f652fc0f68a5447716da646d6a4f4b50ada46135a938ae5",
       "coverage": "partial"
+    },
+    {
+      "id": "EXEC-04-N01",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/EXEC-04-N01.json",
+      "fixture_sha256": "454671c054fb34eb15cfe607c4558f3d24f5cc655e380ccde074979cd22fffc3",
+      "coverage": "partial"
+    },
+    {
+      "id": "EXEC-04-N02",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/EXEC-04-N02.json",
+      "fixture_sha256": "45e9bdb922279cb9deb6ee9ccc493f60162074220fcf1d9370033ed3b8788ce8",
+      "coverage": "partial"
+    },
+    {
+      "id": "CST-02-03",
+      "track": "runtime",
+      "fixture": "vectors/0.10.0/current-spec/CST-02-03.json",
+      "fixture_sha256": "55c3975e9b18b9859f1ea06c902a0c19cd3a1ad42a3a669c10fa8f12b1c9ea8a",
+      "coverage": "partial"
     }
   ]
 }

@@ -1,6 +1,10 @@
 # Current 0.10.0 specification coverage
 
-The current inventory is pinned to `sage-spec` revision
+This page records the earlier, revision-bound 481-case inventory and its
+observations. The [latest 489-case inventory](latest-spec-inventory.md) tracks
+the newer specification revision; results here are not transferred to it.
+
+This inventory is pinned to `sage-spec` revision
 `5bcf511e604579afa63f434013447f44b6858828`. It contains 45 requirements,
 91 rule groups, 481 parent cases and 26 mandatory subscenarios. The previous
 386-case INS-01 snapshot and its evidence remain historical. They are not

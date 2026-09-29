@@ -61,10 +61,11 @@ protocol documentation or historical vectors.
 INS-01 is complete: see the [pinned specification baseline](docs/spec-baseline.md)
 for all 386 planned cases and the limited relationship to foundation vectors.
 
-The [current specification inventory](docs/current-spec-coverage.md) separately
-tracks all 481 cases and 26 mandatory subscenarios at the latest pinned
-`sage-spec` revision. It detects missing case mappings and normative source
-drift; its complete-case execution verdict remains `NOT_ESTABLISHED`.
+The [latest specification inventory](docs/latest-spec-inventory.md) maps all
+489 cases and 26 mandatory subscenarios at the pinned `sage-spec` revision.
+The [earlier 481-case inventory](docs/current-spec-coverage.md) and its
+revision-bound observations remain available. Neither inventory establishes
+complete-case conformance.
 
 See the [prioritized work list](docs/next-work.md) for dependencies and acceptance
 criteria for real core adapters, stateful scenarios, and protocol coverage.

@@ -146,8 +146,35 @@ jobs:
           python3 -B scripts/test_wire_http_binding_suite.py
           python3 -B scripts/check_wire_http_binding_reports.py
 
+  latest-spec:
+    name: Latest spec inventory
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          path: sage-inspector
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: SAGE-X-project/sage-spec
+          ref: 44df132fee5925182018ce089dc82435cb353f8a
+          path: sage-spec
+      - name: Check the latest case graph and source files
+        run: |
+          cd sage-inspector
+          python3 -B scripts/test_latest_spec_catalog.py
+          python3 -B scripts/latest_spec_catalog.py --spec-root ../sage-spec --report "${RUNNER_TEMP}/latest-spec-inventory.json"
+      - name: Preserve the latest inventory
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: latest-spec-inventory-${{ github.sha }}
+          if-no-files-found: ignore
+          retention-days: 30
+          path: ${{ runner.temp }}/latest-spec-inventory.json
+
   current-spec:
-    name: Current spec inventory
+    name: Earlier 481-case spec inventory
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:

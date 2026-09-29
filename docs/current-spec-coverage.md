@@ -375,7 +375,8 @@ results, conflicting terminal replies, polling frequency, and expiry. Both
 cores match the bounded local Client and durable-journal fixtures. Model
 decision and deployed transport boundaries remain unobserved.
 
-Three additional EXEC-04/CST-02 runtime fixtures check that a locally denied
+The [three dispatch denial observations](current-spec-exec-denial-evidence.md)
+add EXEC-04/CST-02 runtime fixtures checking that a locally denied
 policy, unavailable active signing key, or prior retirement prevents an inert
 dispatch. They do not establish resolver outage handling across replicas or
 an atomic retirement race with a live external effect.

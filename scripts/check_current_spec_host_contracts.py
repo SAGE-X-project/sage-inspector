@@ -1,7 +1,7 @@
 """Audit all remaining EXEC host contracts and their required tracks."""
 
 from current_spec_catalog import ROOT, catalog, load, require, sha
-from current_spec_host_probe import CONTRACTS, inspect
+from current_spec_host_probe import CONTRACTS, inspect, sample_observation
 from generate_current_spec_host_contracts import SPEC, REVIEWS, cases
 
 
@@ -32,11 +32,7 @@ def check(root=ROOT):
                 'host partial fixture binding')
         if track == 'runtime':
             facts = CONTRACTS[ident]['facts']
-            positive = {'case_id': ident,
-                        'trigger': CONTRACTS[ident]['trigger'],
-                        'facts': facts.copy(),
-                        'observer_effects': facts['new_effects'],
-                        'subject_effects': facts['new_effects']}
+            positive = sample_observation(ident)
             require(inspect(ident, positive) == expected,
                     'safe host trace classification')
             if ident == 'EXEC-05-N05':

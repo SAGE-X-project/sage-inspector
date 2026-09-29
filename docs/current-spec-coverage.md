@@ -347,7 +347,8 @@ manifest, expiry before dispatch, and a crash/reopen that leaves the same call
 `UNKNOWN` without a second dispatch. Parallel replicas, actual tool effects,
 and the full guard order are outside these fixtures.
 
-Four additional EXEC-05/CST-01 runtime fixtures exercise a separately signed
+The [replay observations](current-spec-exec05-replay-evidence.md) add four
+EXEC-05/CST-01 runtime fixtures exercising a separately signed
 changed nonce, repeated exact envelopes, a changed proof, and UNKNOWN after
 reopen. They bind only the local durable gate and an inert effect sink.
 

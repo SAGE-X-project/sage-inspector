@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "kind": "web-registry-local-durable-write-subcondition-vectors",
+  "protocol_version": "0.10.0",
+  "rule_id": "REG-08",
+  "scope": "Local append-only journal and separate process restart; no deployed source or credential verifier",
+  "proof_fixture": "reg08-record-proofs.json:base",
+  "cases": [
+    {
+      "id": "create",
+      "sequence": "main",
+      "mode": "create",
+      "expected": {
+        "verdict": "TRANSITION_ACCEPT",
+        "committed": true,
+        "history_len": 1,
+        "tombstoned": false
+      }
+    },
+    {
+      "id": "wrong-source-open",
+      "sequence": "main",
+      "mode": "wrong-source-open",
+      "expected": {
+        "exit_code": 2
+      }
+    },
+    {
+      "id": "activate",
+      "sequence": "main",
+      "mode": "activate",
+      "expected": {
+        "verdict": "TRANSITION_ACCEPT",
+        "committed": true,
+        "history_len": 2,
+        "tombstoned": false
+      }
+    },
+    {
+      "id": "missing-credentials",
+      "sequence": "main",
+      "mode": "missing-credentials",
+      "expected": {
+        "verdict": "WRITE_REJECTED",
+        "committed": false,
+        "history_len": 2,
+        "tombstoned": false
+      }
+    },
+    {
+      "id": "stale-version",
+      "sequence": "main",
+      "mode": "stale-version",
+      "expected": {
+        "verdict": "RECORD_STALE",
+        "committed": false,
+        "history_len": 2,
+        "tombstoned": false
+      }
+    },
+    {
+      "id": "deactivate",
+      "sequence": "main",
+      "mode": "deactivate",
+      "expected": {
+        "verdict": "TRANSITION_ACCEPT",
+        "committed": true,
+        "history_len": 3,
+        "tombstoned": true
+      }
+    },
+    {
+      "id": "terminal-reuse",
+      "sequence": "main",
+      "mode": "terminal-reuse",
+      "expected": {
+        "verdict": "RECORD_INVALID",
+        "committed": false,
+        "history_len": 3,
+        "tombstoned": true
+      }
+    },
+    {
+      "id": "incomplete-restart",
+      "sequence": "main",
+      "mode": "incomplete-restart",
+      "expected": {
+        "exit_code": 2
+      }
+    },
+    {
+      "id": "expired-create",
+      "sequence": "recovery",
+      "mode": "expired-create",
+      "expected": {
+        "verdict": "TRANSITION_ACCEPT",
+        "committed": true,
+        "history_len": 1,
+        "tombstoned": false
+      }
+    },
+    {
+      "id": "expired-activate",
+      "sequence": "recovery",
+      "mode": "expired-activate",
+      "expected": {
+        "verdict": "TRANSITION_ACCEPT",
+        "committed": true,
+        "history_len": 2,
+        "tombstoned": false
+      }
+    },
+    {
+      "id": "expired-repair",
+      "sequence": "recovery",
+      "mode": "expired-repair",
+      "expected": {
+        "verdict": "TRANSITION_ACCEPT",
+        "committed": true,
+        "history_len": 3,
+        "tombstoned": false
+      }
+    },
+    {
+      "id": "recovered-service-update",
+      "sequence": "recovery",
+      "mode": "recovered-service-update",
+      "expected": {
+        "verdict": "TRANSITION_ACCEPT",
+        "committed": true,
+        "history_len": 4,
+        "tombstoned": false
+      }
+    }
+  ]
+}

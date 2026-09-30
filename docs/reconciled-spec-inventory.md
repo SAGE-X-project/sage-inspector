@@ -190,6 +190,16 @@ cores. This proves only one bounded publication snapshot. The actual deployed
 public server's storage, production administrator framing, delegation state,
 remote atomic writes and all REG-08 parent cases remain unobserved.
 
+The [5 shared local journal publication subconditions](../vectors/0.10.0/reconciled-spec/reg08-public-journal.json)
+commit a controller write through mTLS, close that writer, and start a public
+HTTPS publisher that reads the same durable journal. Inspector checks the
+actual response body and independently calls each core's HTTP reader. Creation
+and activation publish versions 1 and 2 with new five-second response windows;
+wrong source, wrong DID and missing journal fail before publication. This
+demonstrates the local reference publisher's storage linkage, not the storage
+or server behavior of a deployed service. All REG-08 parent cases remain
+`NOT_RUN` and complete conformance remains `NOT_ESTABLISHED`.
+
 Run the revision-bound checks against the exact spec checkout:
 
 ```sh
@@ -274,6 +284,11 @@ python3 -B scripts/observe_reconciled_reg08_public_binding.py \
   --spec-root /path/to/sage-spec --go-root /path/to/sage \
   --rust-root /path/to/rs-sage-core \
   --report /tmp/reconciled-reg08-core-public-binding.json
+python3 -B scripts/test_observe_reconciled_reg08_public_journal.py
+python3 -B scripts/observe_reconciled_reg08_public_journal.py \
+  --spec-root /path/to/sage-spec --go-root /path/to/sage \
+  --rust-root /path/to/rs-sage-core \
+  --report /tmp/reconciled-reg08-core-public-journal.json
 ```
 
 Next, bind the deployed public server's actual storage to the administrator

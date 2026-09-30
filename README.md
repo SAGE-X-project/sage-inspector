@@ -61,10 +61,12 @@ protocol documentation or historical vectors.
 INS-01 is complete: see the [pinned specification baseline](docs/spec-baseline.md)
 for all 386 planned cases and the limited relationship to foundation vectors.
 
-The [latest specification inventory](docs/latest-spec-inventory.md) maps all
-489 cases and 26 mandatory subscenarios at the pinned `sage-spec` revision.
+The [current specification inventory](docs/reconciled-spec-inventory.md) maps
+all 489 cases and 26 mandatory subscenarios to the revised `sage-spec` source,
+including the REG-08 media decision. The [earlier 489-case inventory](docs/latest-spec-inventory.md)
+is preserved at its original revision.
 The [earlier 481-case inventory](docs/current-spec-coverage.md) and its
-revision-bound observations remain available. Neither inventory establishes
+revision-bound observations remain available. None of these inventories establishes
 complete-case conformance.
 
 The [remaining-work register](docs/remaining-work.md) gives the ordered gates

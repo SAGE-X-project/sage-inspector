@@ -25,3 +25,10 @@ HPKE fixtures include selected RFC9180 Appendix A.2.1 public test private keys a
 exported values, RFC5869 Appendix A.1 HKDF anchors, and synthetic SAGE0.10.0
 transcripts using public deterministic test entropy. No production secrets are used.
 See ../docs/hpke-inspection.md for independent derivation and scope.
+
+The reconciled REG-08 media fixture is an exact pinned copy of the SAGE
+0.10.0 normative design's `verification/vectors/web-registry-media-0.10.0.json`
+at `sage-spec` revision `dcdd028b5160de5e32eb1f43cf1f71eed3fc4744`.
+Inspector checks its source bytes and independently evaluates the bounded
+header decisions. Those expected values do not come from either core, and
+the fixture is not evidence of a complete web Registry read.

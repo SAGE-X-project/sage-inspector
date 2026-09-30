@@ -183,6 +183,37 @@ jobs:
             ${{ runner.temp }}/latest-spec-inventory.json
             ${{ runner.temp }}/latest-spec-evidence.json
 
+  reconciled-spec:
+    name: Current normative spec and REG-08 media
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          path: sage-inspector
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: SAGE-X-project/sage-spec
+          ref: dcdd028b5160de5e32eb1f43cf1f71eed3fc4744
+          path: sage-spec
+      - name: Check the revision-bound inventory and media decisions
+        run: |
+          cd sage-inspector
+          python3 -B scripts/test_reconciled_spec_catalog.py
+          python3 -B scripts/test_reconciled_spec_reg08_media.py
+          python3 -B scripts/reconciled_spec_catalog.py --spec-root ../sage-spec --report "${RUNNER_TEMP}/reconciled-spec-inventory.json"
+          python3 -B scripts/reconciled_spec_reg08_media.py --spec-root ../sage-spec --report "${RUNNER_TEMP}/reconciled-reg08-media.json"
+      - name: Preserve revision-bound reports
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: reconciled-spec-inventory-${{ github.sha }}
+          if-no-files-found: ignore
+          retention-days: 30
+          path: |
+            ${{ runner.temp }}/reconciled-spec-inventory.json
+            ${{ runner.temp }}/reconciled-reg08-media.json
+
   current-spec:
     name: Earlier 481-case spec inventory
     runs-on: ubuntu-latest

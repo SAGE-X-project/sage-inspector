@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "kind": "web-registry-media-subcondition-vectors",
+  "protocol_version": "0.10.0",
+  "rule_id": "REG-08",
+  "scope": "HTTP media type and content coding only; no record validation or implementation conformance",
+  "cases": [
+    {
+      "id": "lowercase-json",
+      "parent_case_id": "REG-08-P",
+      "header_lines": [["Content-Type", "application/json"]],
+      "expected": "MEDIA_ACCEPT"
+    },
+    {
+      "id": "mixed-case-json",
+      "parent_case_id": "REG-08-P",
+      "header_lines": [["cOnTeNt-TyPe", "Application/JSON"]],
+      "expected": "MEDIA_ACCEPT"
+    },
+    {
+      "id": "wrong-type",
+      "parent_case_id": "REG-08-N04",
+      "header_lines": [["Content-Type", "text/plain"]],
+      "expected": "RECORD_INVALID"
+    },
+    {
+      "id": "did-document-type",
+      "parent_case_id": "REG-08-N04",
+      "header_lines": [["Content-Type", "application/did+json"]],
+      "expected": "RECORD_INVALID"
+    },
+    {
+      "id": "problem-detail-type",
+      "parent_case_id": "REG-08-N04",
+      "header_lines": [["Content-Type", "application/problem+json"]],
+      "expected": "RECORD_INVALID"
+    },
+    {
+      "id": "missing-type",
+      "parent_case_id": "REG-08-N04",
+      "header_lines": [],
+      "expected": "RECORD_INVALID"
+    },
+    {
+      "id": "parameterized-json",
+      "parent_case_id": "REG-08-N04",
+      "header_lines": [["Content-Type", "application/json; charset=utf-8"]],
+      "expected": "RECORD_INVALID"
+    },
+    {
+      "id": "duplicate-type",
+      "parent_case_id": "REG-08-N04",
+      "header_lines": [["Content-Type", "application/json"], ["content-type", "application/json"]],
+      "expected": "RECORD_INVALID"
+    },
+    {
+      "id": "combined-type",
+      "parent_case_id": "REG-08-N04",
+      "header_lines": [["Content-Type", "application/json, text/plain"]],
+      "expected": "RECORD_INVALID"
+    },
+    {
+      "id": "gzip-coding",
+      "parent_case_id": "REG-08-N04",
+      "header_lines": [["Content-Type", "application/json"], ["Content-Encoding", "gzip"]],
+      "expected": "RECORD_INVALID"
+    },
+    {
+      "id": "explicit-identity-coding",
+      "parent_case_id": "REG-08-N04",
+      "header_lines": [["Content-Type", "application/json"], ["Content-Encoding", "identity"]],
+      "expected": "RECORD_INVALID"
+    },
+    {
+      "id": "trailer-type",
+      "parent_case_id": "REG-08-N04",
+      "header_lines": [["Content-Type", "application/json"]],
+      "trailer_lines": [["Content-Type", "text/plain"]],
+      "expected": "RECORD_INVALID"
+    },
+    {
+      "id": "trailer-coding",
+      "parent_case_id": "REG-08-N04",
+      "header_lines": [["Content-Type", "application/json"]],
+      "trailer_lines": [["Content-Encoding", "gzip"]],
+      "expected": "RECORD_INVALID"
+    }
+  ]
+}

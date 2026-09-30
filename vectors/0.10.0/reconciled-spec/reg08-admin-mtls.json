@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "kind": "web-registry-local-admin-mtls-subcondition-vectors",
+  "protocol_version": "0.10.0",
+  "rule_id": "REG-08",
+  "scope": "Verified local mTLS controller credential and single-DID journal; public origin and production admin framing remain deployment-specific",
+  "proof_fixture": "reg08-record-proofs.json:base",
+  "cases": [
+    {
+      "id": "controller-create",
+      "mode": "controller-create",
+      "client": "client",
+      "actor": "operator",
+      "source": "trusted-web-origin",
+      "now": 100,
+      "expected": {
+        "verdict": "TRANSITION_ACCEPT",
+        "committed": true
+      }
+    },
+    {
+      "id": "missing-certificate",
+      "mode": "missing-certificate",
+      "client": "none",
+      "actor": "operator",
+      "source": "trusted-web-origin",
+      "now": 150,
+      "expected": {
+        "verdict": "WRITE_REJECTED",
+        "committed": false
+      }
+    },
+    {
+      "id": "unrecognized-certificate",
+      "mode": "unrecognized-certificate",
+      "client": "other",
+      "actor": "operator",
+      "source": "trusted-web-origin",
+      "now": 150,
+      "expected": {
+        "verdict": "WRITE_REJECTED",
+        "committed": false
+      }
+    },
+    {
+      "id": "untrusted-certificate-root",
+      "mode": "untrusted-certificate-root",
+      "client": "foreign",
+      "actor": "operator",
+      "source": "trusted-web-origin",
+      "now": 150,
+      "expected": {
+        "verdict": "WRITE_REJECTED",
+        "committed": false
+      }
+    },
+    {
+      "id": "wrong-controller",
+      "mode": "wrong-controller",
+      "client": "client",
+      "actor": "assistant",
+      "source": "trusted-web-origin",
+      "now": 150,
+      "expected": {
+        "verdict": "WRITE_REJECTED",
+        "committed": false
+      }
+    },
+    {
+      "id": "source-mismatch",
+      "mode": "source-mismatch",
+      "client": "client",
+      "actor": "operator",
+      "source": "other-origin",
+      "now": 150,
+      "expected": {
+        "verdict": "RECORD_UNREACHABLE",
+        "committed": false
+      }
+    },
+    {
+      "id": "controller-activate",
+      "mode": "controller-activate",
+      "client": "client",
+      "actor": "operator",
+      "source": "trusted-web-origin",
+      "now": 200,
+      "expected": {
+        "verdict": "TRANSITION_ACCEPT",
+        "committed": true
+      }
+    },
+    {
+      "id": "stale-version",
+      "mode": "stale-version",
+      "client": "client",
+      "actor": "operator",
+      "source": "trusted-web-origin",
+      "now": 300,
+      "expected": {
+        "verdict": "RECORD_STALE",
+        "committed": false
+      }
+    }
+  ]
+}

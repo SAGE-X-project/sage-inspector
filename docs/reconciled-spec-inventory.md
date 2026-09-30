@@ -170,6 +170,17 @@ bounded local journal observation on the CI host. Deployed source and credential
 authentication, delegation provenance, remote atomic writes, all REG-08 parent
 cases and complete conformance remain unobserved.
 
+The [8 local administrator mTLS subconditions](../vectors/0.10.0/reconciled-spec/reg08-admin-mtls.json)
+run controller writes through fresh server-side TLS handshakes and the same
+single-DID journal. A configured client CA verifies the certificate; an exact
+leaf-certificate fingerprint maps it to the controller identifier. Separate
+processes observe creation, denial of absent, unrecognized or untrusted certificates,
+wrong-controller denial, source mismatch, activation and stale-version denial.
+This is a bounded reference administrator binding, not a required wire API.
+The deployed public source, production request framing, scoped delegation and
+remote atomic writes remain unobserved. REG-08 parent cases and complete
+conformance remain `NOT_RUN` or `NOT_ESTABLISHED`.
+
 Run the revision-bound checks against the exact spec checkout:
 
 ```sh
@@ -244,12 +255,17 @@ python3 -B scripts/observe_reconciled_reg08_durable_write.py \
   --spec-root /path/to/sage-spec --go-root /path/to/sage \
   --rust-root /path/to/rs-sage-core \
   --report /tmp/reconciled-reg08-core-durable-write.json
+python3 -B scripts/test_observe_reconciled_reg08_admin_mtls.py
+python3 -B scripts/observe_reconciled_reg08_admin_mtls.py \
+  --spec-root /path/to/sage-spec --go-root /path/to/sage \
+  --rust-root /path/to/rs-sage-core \
+  --report /tmp/reconciled-reg08-core-admin-mtls.json
 ```
 
-Next, bind these structural predicates to a trusted source with verified
-credentials and controller-authorized operator scopes, then bind the local
-journal to deployed storage semantics and verify complete mutation log, record
-and tombstones as one atomic transaction. Expand the
+Next, bind the authenticated public source to the administrator write state,
+define deployed request framing and controller-authorized operator scopes,
+then bind the local journal to deployed storage semantics and verify complete
+mutation log, record and tombstones as one atomic transaction. Expand the
 bounded HTTP adapter's accepted framing only with equally explicit ambiguity
 checks. Run those paths against isolated local fixtures and retain actual
 observations.

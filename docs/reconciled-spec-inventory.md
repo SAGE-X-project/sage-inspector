@@ -111,6 +111,16 @@ other response framing, and does not establish controller writes, tombstones,
 or mutation history. All REG-08 parent cases remain `NOT_RUN` and full
 conformance remains `NOT_ESTABLISHED`.
 
+The [18 creation and transition subconditions](../vectors/0.10.0/reconciled-spec/reg08-transition-shape.json)
+invoke compiled Go and Rust predicates with independent, signed record pairs.
+They check version increments, controller immutability, retained key material,
+terminal deactivation, and the active signing endorser for a newly added KEM
+key. Both cores matched 18/18 decisions locally. The pair inputs are supplied
+by the test; neither predicate proves that a trusted source supplied a
+complete history, authenticated a controller or operator, or committed a write
+atomically. Inspector records those boundaries as `NOT_RUN`, as well as every
+REG-08 parent case and full conformance.
+
 Run the revision-bound checks against the exact spec checkout:
 
 ```sh
@@ -155,10 +165,16 @@ python3 -B scripts/observe_reconciled_reg08_http_record.py \
   --spec-root /path/to/sage-spec --go-root /path/to/sage \
   --rust-root /path/to/rs-sage-core \
   --report /tmp/reconciled-reg08-core-http-record.json
+python3 -B scripts/test_observe_reconciled_reg08_transition_shape.py
+python3 -B scripts/observe_reconciled_reg08_transition_shape.py \
+  --spec-root /path/to/sage-spec --go-root /path/to/sage \
+  --rust-root /path/to/rs-sage-core \
+  --report /tmp/reconciled-reg08-core-transition-shape.json
 ```
 
-Next, define and verify a trusted source's controller authentication, atomic
-mutation rules, tombstones, and retained KEM-endorser history. Expand the
+Next, bind these structural predicates to a trusted source with authenticated
+controller/operator actions, a complete mutation log, atomic writes and
+durable tombstones. Expand the
 bounded HTTP adapter's accepted framing only with equally explicit ambiguity
 checks. Run those paths against isolated local fixtures and retain actual
 observations.

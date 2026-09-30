@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "kind": "web-registry-transition-shape-subcondition-vectors",
+  "protocol_version": "0.10.0",
+  "rule_id": "REG-08",
+  "scope": "Creation and one structural mutation over caller-supplied history; no actor authentication, complete history proof, or atomic Registry write",
+  "proof_fixture": "reg08-record-proofs.json:base",
+  "cases": [
+    {"id": "create-with-usable-endorser", "mode": "create-valid", "expected": "TRANSITION_ACCEPT"},
+    {"id": "create-with-revoked-endorser", "mode": "create-revoked-endorser", "expected": "RECORD_INVALID"},
+    {"id": "activate-exact-version", "mode": "activate-valid", "expected": "TRANSITION_ACCEPT"},
+    {"id": "skip-version", "mode": "skipped-version", "expected": "RECORD_INVALID"},
+    {"id": "change-controller", "mode": "controller-transfer", "expected": "RECORD_INVALID"},
+    {"id": "add-kem-with-usable-endorser", "mode": "add-kem-valid", "expected": "TRANSITION_ACCEPT"},
+    {"id": "add-kem-with-revoked-endorser", "mode": "add-kem-revoked-endorser", "expected": "RECORD_INVALID"},
+    {"id": "omit-retained-key", "mode": "omit-retained-key", "expected": "RECORD_INVALID"},
+    {"id": "reaccept-revoked-key", "mode": "reaccept-revoked-key", "expected": "RECORD_INVALID"},
+    {"id": "change-retained-key-expiry", "mode": "change-key-expiry", "expected": "RECORD_INVALID"},
+    {"id": "revoke-key", "mode": "revoke-key-valid", "expected": "TRANSITION_ACCEPT"},
+    {"id": "revoke-kem-endorser-and-retain-proof", "mode": "revoke-kem-endorser-valid", "expected": "TRANSITION_ACCEPT"},
+    {"id": "revoke-last-signer-and-deactivate", "mode": "revoke-last-signer-terminal", "expected": "TRANSITION_ACCEPT"},
+    {"id": "revoke-last-signer-still-active", "mode": "revoke-last-signer-active", "expected": "RECORD_INVALID"},
+    {"id": "deactivate", "mode": "deactivate-valid", "expected": "TRANSITION_ACCEPT"},
+    {"id": "reactivate-terminal-record", "mode": "reactivate-terminal", "expected": "RECORD_INVALID"},
+    {"id": "replace-services", "mode": "service-update-valid", "expected": "TRANSITION_ACCEPT"},
+    {"id": "add-key-and-change-services", "mode": "add-key-with-service-change", "expected": "RECORD_INVALID"}
+  ]
+}

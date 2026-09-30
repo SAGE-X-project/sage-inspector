@@ -1,0 +1,305 @@
+{
+  "schema_version": 1,
+  "kind": "web-registry-proof-subcondition-vectors",
+  "protocol_version": "0.10.0",
+  "rule_id": "REG-08",
+  "scope": "Cryptographic record proofs only; no origin or controller authority",
+  "provenance": "Fixed Ed25519, X25519, and P-256 keys from Python cryptography; fixed secp256k1 proof over Keccak-256 from Go Ethereum",
+  "base": {
+    "expected_did": "did:sage:web:agents.example.com:billing-bot",
+    "now": 100,
+    "body": {
+      "record": {
+        "id": "did:sage:web:agents.example.com:billing-bot",
+        "controller": "operator",
+        "keys": [
+          {
+            "name": "a-ed",
+            "alg": "ed25519",
+            "key": "iojj3XQJ8ZX9UtstPLpdcspnCb8dlBIb83SIAbQPb1w",
+            "proof": {
+              "signer": "did:sage:web:agents.example.com:billing-bot#a-ed",
+              "value": "POlBCDoA8i7qP9-xWxx5r3D_no7WyX4hG456m8vU2gAqGx7Q0xeDlIqZYGx8PmNSbODEr-R0FxQOjnIVqH9ACw"
+            },
+            "state": "accepted"
+          },
+          {
+            "name": "b-kem",
+            "alg": "x25519",
+            "key": "E75P6uryBMf9M1j8nAByGIHRdCeBKCJ-xnTzf3_pe20",
+            "proof": {
+              "signer": "did:sage:web:agents.example.com:billing-bot#a-ed",
+              "value": "flGFWRcrh2wHlBmqx84LiERKeD2jcpGb8Kn8Up6aFk8GhoMwUQ2kYYbYDKiT_44xCdFPcfSeHH14UJbQttGXBQ"
+            },
+            "state": "accepted"
+          },
+          {
+            "name": "c-p256",
+            "alg": "ecdsa-p256-sha256",
+            "key": "BHzyexiNA09-ilI4AwS1GsPAiWnid_IbNaYLSPxHZpl4B3dVENuO0EApPZrGn3Qw27p9reY86YIpngS3nSJ4c9E",
+            "proof": {
+              "signer": "did:sage:web:agents.example.com:billing-bot#c-p256",
+              "value": "Lq077zm98HX-_wkQpeCEmMLraxoinR5-zESE9pyTWRBzssQWn0D4nTlRVPhHcjQKjrlL6jbuws0leHfj8GXJ4Q"
+            },
+            "state": "accepted"
+          },
+          {
+            "name": "d-secp",
+            "alg": "sage-secp256k1-keccak256",
+            "key": "BPkwigGSWMMQSTRPhfidUim1MchFg2-ZsIYB8RO84Db5OI97D2Mt6BQP4zfmKjfzVmUAqZk0wiMbbLn9dYS45nI",
+            "proof": {
+              "signer": "did:sage:web:agents.example.com:billing-bot#d-secp",
+              "value": "BefA2C8udo1Qd3HUQI7dwMF_45XB3o4Q_saZZYOI7Udh6j2M__xyvdkzU3U6qA716PsNJ6eFnz4W0IpDFhFRrwE"
+            },
+            "state": "accepted"
+          }
+        ],
+        "services": [],
+        "state": "active",
+        "version": "1"
+      },
+      "issued": 100,
+      "expires": 105
+    }
+  },
+  "cases": [
+    {
+      "id": "valid-all-suites",
+      "expected": "PROOFS_ACCEPT"
+    },
+    {
+      "id": "historical-revoked-endorser",
+      "expected": "PROOFS_ACCEPT",
+      "set": [
+        {
+          "path": [
+            "record",
+            "keys",
+            0,
+            "state"
+          ],
+          "value": "revoked"
+        }
+      ]
+    },
+    {
+      "id": "historical-expired-endorser",
+      "expected": "PROOFS_ACCEPT",
+      "set": [
+        {
+          "path": [
+            "record",
+            "keys",
+            0,
+            "expires"
+          ],
+          "value": 100
+        }
+      ]
+    },
+    {
+      "id": "wrong-registry-proof",
+      "expected": "RECORD_INVALID",
+      "set": [
+        {
+          "path": [
+            "record",
+            "keys",
+            0,
+            "proof",
+            "value"
+          ],
+          "value": "ngx0w1oCMdRjtGR2uDtMGbhyfV06gayTg9UpmKcW47YWUvu-z4ivat6hPvDkTK8Jyey3lkw1ac_fqIZG2P8rCw"
+        }
+      ]
+    },
+    {
+      "id": "changed-ed-proof",
+      "expected": "RECORD_INVALID",
+      "set": [
+        {
+          "path": [
+            "record",
+            "keys",
+            0,
+            "proof",
+            "value"
+          ],
+          "value": "POlBCDoA8i7qP9-xWxx5r3D_no7WyX4hG456m8vU2gAqGx7Q0xeDlIqZYGx8PmNSbODEr-R0FxQOjnIVqH9ACg"
+        }
+      ]
+    },
+    {
+      "id": "small-order-ed-key",
+      "expected": "RECORD_INVALID",
+      "set": [
+        {
+          "path": [
+            "record",
+            "keys",
+            0,
+            "key"
+          ],
+          "value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      ]
+    },
+    {
+      "id": "small-order-ed-r",
+      "expected": "RECORD_INVALID",
+      "set": [
+        {
+          "path": [
+            "record",
+            "keys",
+            0,
+            "proof",
+            "value"
+          ],
+          "value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAqGx7Q0xeDlIqZYGx8PmNSbODEr-R0FxQOjnIVqH9ACw"
+        }
+      ]
+    },
+    {
+      "id": "wrong-kem-signature",
+      "expected": "RECORD_INVALID",
+      "set": [
+        {
+          "path": [
+            "record",
+            "keys",
+            1,
+            "proof",
+            "value"
+          ],
+          "value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      ]
+    },
+    {
+      "id": "missing-kem-signer",
+      "expected": "RECORD_INVALID",
+      "set": [
+        {
+          "path": [
+            "record",
+            "keys",
+            1,
+            "proof",
+            "signer"
+          ],
+          "value": "did:sage:web:agents.example.com:billing-bot#missing"
+        }
+      ]
+    },
+    {
+      "id": "low-order-kem-key",
+      "expected": "RECORD_INVALID",
+      "set": [
+        {
+          "path": [
+            "record",
+            "keys",
+            1,
+            "key"
+          ],
+          "value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      ]
+    },
+    {
+      "id": "invalid-p256-point",
+      "expected": "RECORD_INVALID",
+      "set": [
+        {
+          "path": [
+            "record",
+            "keys",
+            2,
+            "key"
+          ],
+          "value": "BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      ]
+    },
+    {
+      "id": "high-s-p256",
+      "expected": "RECORD_INVALID",
+      "set": [
+        {
+          "path": [
+            "record",
+            "keys",
+            2,
+            "proof",
+            "value"
+          ],
+          "value": "Lq077zm98HX-_wkQpeCEmMLraxoinR5-zESE9pyTWRCMTTvoYL8HY8auqwe4jcv1Li2uw3Ao27fOQVLfC_1bcA"
+        }
+      ]
+    },
+    {
+      "id": "invalid-secp-point",
+      "expected": "RECORD_INVALID",
+      "set": [
+        {
+          "path": [
+            "record",
+            "keys",
+            3,
+            "key"
+          ],
+          "value": "BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        }
+      ]
+    },
+    {
+      "id": "high-s-secp",
+      "expected": "RECORD_INVALID",
+      "set": [
+        {
+          "path": [
+            "record",
+            "keys",
+            3,
+            "proof",
+            "value"
+          ],
+          "value": "BefA2C8udo1Qd3HUQI7dwMF_45XB3o4Q_saZZYOI7UeeFcJzAAONQibMrIrFV_EI0bPPvwfDAP2pAdRJuiTvkgA"
+        }
+      ]
+    },
+    {
+      "id": "wrong-secp-recovery",
+      "expected": "RECORD_INVALID",
+      "set": [
+        {
+          "path": [
+            "record",
+            "keys",
+            3,
+            "proof",
+            "value"
+          ],
+          "value": "BefA2C8udo1Qd3HUQI7dwMF_45XB3o4Q_saZZYOI7Udh6j2M__xyvdkzU3U6qA716PsNJ6eFnz4W0IpDFhFRrwA"
+        }
+      ]
+    },
+    {
+      "id": "wrong-secp-digest",
+      "expected": "RECORD_INVALID",
+      "set": [
+        {
+          "path": [
+            "record",
+            "keys",
+            3,
+            "proof",
+            "value"
+          ],
+          "value": "SWXTntl-ABeXL8wyrnOTwJ0gry6x0XwTHHao-sb778IMkqy_EBn7XZDnaS-s7PkVRXgwrsxfoZ5Eaf3Mgjt6-AA"
+        }
+      ]
+    }
+  ]
+}

@@ -18,13 +18,20 @@ neither the earlier excluded case nor its Go/Rust observations is silently
 promoted to a result for this revision.
 
 The [13 bounded media subconditions](../vectors/0.10.0/reconciled-spec/reg08-media.json)
-are evaluated by a separate local Inspector checker. They cover two accepted
-media headers and eleven rejection conditions under `REG-08-P` and
-`REG-08-N04`. A successful checker run proves only the reference media
-decision and source integrity. It does not observe a Go or Rust implementation,
-perform TLS or HTTP fetching, validate a complete registry record, or establish
-either parent case. Both parents, the web-origin deployment and core
-implementation therefore remain `NOT_RUN`.
+cover two accepted media headers and eleven rejection conditions under
+`REG-08-P` and `REG-08-N04`. The reference checker validates their source and
+expected decisions. A separate runtime observer builds the pinned Go core at
+`1dc22e71673bfa40cc63b342a2e66fdfee2f3ee2` and Rust core at
+`79fe9bbcd7a417a523d77a267c8420cf4f506746`, runs each case against
+both executables, and records the actual verdicts, source revisions and binary
+hashes. Each core matched all 13 media decisions in the local run. The CI
+report retains the same bounded evidence for its own build.
+
+These observations cover only the response media decision. Neither executable
+fetches an HTTP response, verifies TLS or web-origin authority, parses a
+complete Registry record, or establishes `REG-08-P` or `REG-08-N04`. Both
+parent cases and the remaining 487 parent cases remain `NOT_RUN`; complete
+implementation conformance remains `NOT_ESTABLISHED`.
 
 Run the revision-bound checks against the exact spec checkout:
 
@@ -35,11 +42,15 @@ python3 -B scripts/reconciled_spec_catalog.py --spec-root /path/to/sage-spec \
   --report /tmp/reconciled-spec-inventory.json
 python3 -B scripts/reconciled_spec_reg08_media.py --spec-root /path/to/sage-spec \
   --report /tmp/reconciled-reg08-media.json
+python3 -B scripts/test_observe_reconciled_reg08_media.py
+python3 -B scripts/observe_reconciled_reg08_media.py \
+  --spec-root /path/to/sage-spec --go-root /path/to/sage \
+  --rust-root /path/to/rs-sage-core \
+  --report /tmp/reconciled-reg08-core-media.json
 ```
 
-Next, add version-matched Go and Rust adapters that expose the complete web
-Registry read, including trusted origin, freshness, record validation and
-media/header handling. Run them against isolated local HTTP/TLS fixtures and
-retain actual subject revisions and observations. Only then can Inspector
-assess `REG-08-P` and `REG-08-N04` beyond the current bounded reference check.
+Next, extend the core adapters to expose the complete web Registry read,
+including trusted origin, freshness and record validation. Run those paths
+against isolated local HTTP/TLS fixtures and retain actual observations.
+Only then can Inspector assess `REG-08-P` and `REG-08-N04` as complete cases.
 The older 481-case and 489-case evidence directories remain historical.

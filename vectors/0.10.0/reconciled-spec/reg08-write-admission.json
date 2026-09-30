@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "kind": "web-registry-write-admission-subcondition-vectors",
+  "protocol_version": "0.10.0",
+  "rule_id": "REG-08",
+  "scope": "Policy decisions over a local fixture authority; no real credential verification, authenticated delegation store, atomic write or complete source history",
+  "proof_fixture": "reg08-record-proofs.json:base",
+  "cases": [
+    {"id": "controller-creates-record", "mode": "controller-create", "expected": "TRANSITION_ACCEPT"},
+    {"id": "other-actor-cannot-create", "mode": "other-create", "expected": "WRITE_REJECTED"},
+    {"id": "missing-creation-credentials", "mode": "missing-create-credentials", "expected": "WRITE_REJECTED"},
+    {"id": "empty-authenticated-actor", "mode": "empty-actor", "expected": "WRITE_REJECTED"},
+    {"id": "controller-activates-record", "mode": "controller-activate", "expected": "TRANSITION_ACCEPT"},
+    {"id": "scoped-operator-activates-record", "mode": "delegated-activate", "expected": "TRANSITION_ACCEPT"},
+    {"id": "operator-lacks-activation-scope", "mode": "wrong-scope", "expected": "WRITE_REJECTED"},
+    {"id": "incorrect-expected-version", "mode": "wrong-expected-version", "expected": "RECORD_STALE"},
+    {"id": "invalid-candidate-version", "mode": "invalid-candidate-version", "expected": "RECORD_INVALID"},
+    {"id": "controller-substitution", "mode": "controller-substitution", "expected": "RECORD_INVALID"},
+    {"id": "missing-mutation-credentials", "mode": "missing-mutation-credentials", "expected": "WRITE_REJECTED"}
+  ]
+}

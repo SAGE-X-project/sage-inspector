@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "kind": "web-registry-tls-origin-subcondition-vectors",
+  "protocol_version": "0.10.0",
+  "rule_id": "REG-08",
+  "scope": "Isolated local TLS handshake to an approved IP endpoint with web DID certificate-name verification; no HTTP response or Registry authority is established.",
+  "provenance": "Independent scenarios from sage-spec spec/09-registry.md at dcdd028b5160de5e32eb1f43cf1f71eed3fc4744",
+  "base": {
+    "expected_did": "did:sage:web:agents.example.com:billing-bot",
+    "allowed_origins": ["https://agents.example.com"],
+    "destination": "@server",
+    "allowed_destinations": ["@server"],
+    "root_der": "@server"
+  },
+  "cases": [
+    {"id": "approved-origin-and-certificate", "server": "valid", "expected": "TLS_ACCEPT", "overrides": {}},
+    {"id": "unapproved-origin", "server": "valid", "expected": "RECORD_UNREACHABLE", "overrides": {"allowed_origins": []}},
+    {"id": "unapproved-destination", "server": "valid", "expected": "RECORD_UNREACHABLE", "overrides": {"allowed_destinations": []}},
+    {"id": "unknown-certificate-root", "server": "valid", "expected": "RECORD_UNREACHABLE", "overrides": {"root_der": "@other"}},
+    {"id": "certificate-for-other-name", "server": "other", "expected": "RECORD_UNREACHABLE", "overrides": {}},
+    {"id": "malformed-root", "server": "valid", "expected": "RECORD_UNREACHABLE", "overrides": {"root_der": "@invalid"}},
+    {"id": "invalid-ip-literal-did", "server": "valid", "expected": "RECORD_INVALID", "overrides": {"expected_did": "did:sage:web:127.0.0.1:billing-bot"}},
+    {"id": "different-did-domain", "server": "valid", "expected": "RECORD_UNREACHABLE", "overrides": {"expected_did": "did:sage:web:other.example.com:billing-bot", "allowed_origins": ["https://other.example.com"]}},
+    {"id": "zero-port-destination", "server": "valid", "expected": "RECORD_UNREACHABLE", "overrides": {"destination": "127.0.0.1:0", "allowed_destinations": ["127.0.0.1:0"]}}
+  ]
+}

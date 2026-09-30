@@ -449,6 +449,53 @@ jobs:
           retention-days: 30
           path: ${{ runner.temp }}/reconciled-reg08-core-origin-policy.json
 
+  reconciled-reg08-core-tls-origin:
+    name: Observe pinned Go and Rust REG-08 TLS origin
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          path: sage-inspector
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: SAGE-X-project/sage-spec
+          ref: dcdd028b5160de5e32eb1f43cf1f71eed3fc4744
+          path: sage-spec
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: SAGE-X-project/sage
+          ref: bb75ff3111dcaa6dc4981cb53dc1cb922578c75c
+          path: sage
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: SAGE-X-project/rs-sage-core
+          ref: b4cb29884b315c80f6cf83dae5aaff8e642e818d
+          path: rs-sage-core
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        with:
+          go-version-file: sage/go.mod
+          cache-dependency-path: sage/go.sum
+      - name: Install Rust
+        run: rustup toolchain install 1.88.0 --profile minimal
+      - name: Observe bounded TLS origin decisions
+        working-directory: sage-inspector
+        env:
+          RUSTUP_TOOLCHAIN: 1.88.0
+        run: |
+          python3 -B scripts/test_observe_reconciled_reg08_tls_origin.py
+          python3 -B scripts/observe_reconciled_reg08_tls_origin.py \
+            --spec-root ../sage-spec --go-root ../sage --rust-root ../rs-sage-core \
+            --report "${RUNNER_TEMP}/reconciled-reg08-core-tls-origin.json"
+      - name: Preserve bounded TLS origin observations
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: reconciled-reg08-core-tls-origin-${{ github.sha }}
+          if-no-files-found: warn
+          retention-days: 30
+          path: ${{ runner.temp }}/reconciled-reg08-core-tls-origin.json
+
   current-spec:
     name: Earlier 481-case spec inventory
     runs-on: ubuntu-latest

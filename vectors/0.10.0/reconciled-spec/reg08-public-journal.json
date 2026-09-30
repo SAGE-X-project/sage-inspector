@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "kind": "web-registry-shared-local-journal-publication-vectors",
+  "protocol_version": "0.10.0",
+  "rule_id": "REG-08",
+  "scope": "One mTLS administrator write and one public HTTPS response produced from the same durable local journal",
+  "cases": [
+    {"id": "created-record-published", "write": "create", "publisher_source": "https://agents.example.com", "publisher_did": "expected", "now": 101, "expected_version": "1", "expected": "RECORD_ACCEPT"},
+    {"id": "active-record-published", "write": "activate", "publisher_source": "https://agents.example.com", "publisher_did": "expected", "now": 102, "expected_version": "2", "expected": "RECORD_ACCEPT"},
+    {"id": "wrong-public-source", "write": "create", "publisher_source": "other-origin", "publisher_did": "expected", "now": 101, "expected_version": null, "expected": "RECORD_UNREACHABLE"},
+    {"id": "wrong-public-did", "write": "create", "publisher_source": "https://agents.example.com", "publisher_did": "other", "now": 101, "expected_version": null, "expected": "RECORD_UNREACHABLE"},
+    {"id": "missing-committed-journal", "write": "none", "publisher_source": "https://agents.example.com", "publisher_did": "expected", "now": 101, "expected_version": null, "expected": "RECORD_UNREACHABLE"}
+  ]
+}

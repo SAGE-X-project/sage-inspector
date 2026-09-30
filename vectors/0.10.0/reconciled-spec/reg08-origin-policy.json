@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "kind": "web-registry-origin-policy-subcondition-vectors",
+  "protocol_version": "0.10.0",
+  "rule_id": "REG-08",
+  "scope": "The configured lookup URL, HTTP status, media and no-store response policy; TLS, DNS destination, intermediary cache, framing, record, and write authority are not established.",
+  "provenance": "Independently specified from sage-spec spec/09-registry.md at dcdd028b5160de5e32eb1f43cf1f71eed3fc4744",
+  "base": {
+    "expected_did": "did:sage:web:agents.example.com:billing-bot",
+    "allowed_origins": ["https://agents.example.com"],
+    "status": 200,
+    "headers": [
+      {"Name": "Content-Type", "Value": "application/json"},
+      {"Name": "Cache-Control", "Value": "no-store"}
+    ],
+    "trailers": []
+  },
+  "cases": [
+    {"id": "exact-authorized-origin", "expected": "POLICY_ACCEPT", "overrides": {}},
+    {"id": "allowlist-with-other-origin", "expected": "POLICY_ACCEPT", "overrides": {"allowed_origins": ["https://other.example.com", "https://agents.example.com"]}},
+    {"id": "no-allowlisted-origin", "expected": "RECORD_UNREACHABLE", "overrides": {"allowed_origins": []}},
+    {"id": "http-origin-not-accepted", "expected": "RECORD_UNREACHABLE", "overrides": {"allowed_origins": ["http://agents.example.com"]}},
+    {"id": "origin-with-port-not-accepted", "expected": "RECORD_UNREACHABLE", "overrides": {"allowed_origins": ["https://agents.example.com:443"]}},
+    {"id": "different-origin-not-accepted", "expected": "RECORD_UNREACHABLE", "overrides": {"allowed_origins": ["https://other.example.com"]}},
+    {"id": "ip-literal-did-invalid", "expected": "RECORD_INVALID", "overrides": {"expected_did": "did:sage:web:127.0.0.1:billing-bot"}},
+    {"id": "uppercase-domain-invalid", "expected": "RECORD_INVALID", "overrides": {"expected_did": "did:sage:web:Agents.example.com:billing-bot"}},
+    {"id": "redirect-status-unreachable", "expected": "RECORD_UNREACHABLE", "overrides": {"status": 302}},
+    {"id": "not-modified-unreachable", "expected": "RECORD_UNREACHABLE", "overrides": {"status": 304}},
+    {"id": "missing-no-store-invalid", "expected": "RECORD_INVALID", "overrides": {"headers": [{"Name": "Content-Type", "Value": "application/json"}]}},
+    {"id": "no-store-parameter-invalid", "expected": "RECORD_INVALID", "overrides": {"headers": [{"Name": "Content-Type", "Value": "application/json"}, {"Name": "Cache-Control", "Value": "no-store=1"}]}},
+    {"id": "wrong-media-invalid", "expected": "RECORD_INVALID", "overrides": {"headers": [{"Name": "Content-Type", "Value": "text/plain"}, {"Name": "Cache-Control", "Value": "no-store"}]}},
+    {"id": "content-coding-invalid", "expected": "RECORD_INVALID", "overrides": {"headers": [{"Name": "Content-Type", "Value": "application/json"}, {"Name": "Content-Encoding", "Value": "gzip"}, {"Name": "Cache-Control", "Value": "no-store"}]}},
+    {"id": "media-trailer-invalid", "expected": "RECORD_INVALID", "overrides": {"trailers": [{"Name": "Content-Type", "Value": "application/json"}]}}
+  ]
+}

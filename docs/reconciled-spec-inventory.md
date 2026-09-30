@@ -77,6 +77,17 @@ when the endorsement was added. HTTPS origin, controller and mutation history,
 all REG-08 parent cases, and complete conformance remain `NOT_RUN` or
 `NOT_ESTABLISHED` as appropriate.
 
+The [15 bounded origin-policy subconditions](../vectors/0.10.0/reconciled-spec/reg08-origin-policy.json)
+check exact web DID lookup URL construction against a locally configured HTTPS
+origin allowlist, non-200 status rejection, the existing media boundary, and
+the origin's `no-store` response directive. Inspector runs separate Go and Rust
+policy adapters, retaining their source revisions, executable hashes, exact
+case decisions and URLs. Both cores matched 15/15 cases locally. These adapters
+perform no network request, so they cannot prove TLS identity, the connected
+DNS destination, absence of an intermediary cache, unambiguous HTTP framing,
+or controller/mutation authority. All REG-08 parent cases remain `NOT_RUN`;
+conformance remains `NOT_ESTABLISHED`.
+
 Run the revision-bound checks against the exact spec checkout:
 
 ```sh
@@ -106,6 +117,11 @@ python3 -B scripts/observe_reconciled_reg08_record_proofs.py \
   --spec-root /path/to/sage-spec --go-root /path/to/sage \
   --rust-root /path/to/rs-sage-core \
   --report /tmp/reconciled-reg08-core-proofs.json
+python3 -B scripts/test_observe_reconciled_reg08_origin_policy.py
+python3 -B scripts/observe_reconciled_reg08_origin_policy.py \
+  --spec-root /path/to/sage-spec --go-root /path/to/sage \
+  --rust-root /path/to/rs-sage-core \
+  --report /tmp/reconciled-reg08-core-origin-policy.json
 ```
 
 Next, extend the core adapters to authenticate controller and mutation history,

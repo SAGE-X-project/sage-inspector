@@ -140,6 +140,17 @@ not verified credentials or authenticated management state. Inspector reports
 those deployment boundaries, atomic writes, source history, all REG-08 parent
 cases, and complete conformance as unobserved.
 
+The [8 expired-key recovery subconditions](../vectors/0.10.0/reconciled-spec/reg08-expired-key-recovery.json)
+check the boundary between ordinary record validation and an authenticated
+Registry mutation. A previously `active` record with an accepted but expired
+signing key remains invalid for ordinary reads, while the local controller or
+scoped operator may add a new, proven, usable signing key. Revoked prior keys,
+invalid prior proofs, stale versions, and absent fixture credentials are
+rejected. This observes only the bounded predicate against local fixture
+authority; credential authentication, delegation provenance, authenticated
+source history, atomic writes, REG-08 parent cases, and complete conformance
+remain unobserved.
+
 Run the revision-bound checks against the exact spec checkout:
 
 ```sh
@@ -199,6 +210,11 @@ python3 -B scripts/observe_reconciled_reg08_write_admission.py \
   --spec-root /path/to/sage-spec --go-root /path/to/sage \
   --rust-root /path/to/rs-sage-core \
   --report /tmp/reconciled-reg08-core-write-admission.json
+python3 -B scripts/test_observe_reconciled_reg08_expired_key_recovery.py
+python3 -B scripts/observe_reconciled_reg08_expired_key_recovery.py \
+  --spec-root /path/to/sage-spec --go-root /path/to/sage \
+  --rust-root /path/to/rs-sage-core \
+  --report /tmp/reconciled-reg08-core-expired-key-recovery.json
 ```
 
 Next, bind these structural predicates to a trusted source with verified

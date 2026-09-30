@@ -88,6 +88,17 @@ DNS destination, absence of an intermediary cache, unambiguous HTTP framing,
 or controller/mutation authority. All REG-08 parent cases remain `NOT_RUN`;
 conformance remains `NOT_ESTABLISHED`.
 
+The [9 local TLS-origin subconditions](../vectors/0.10.0/reconciled-spec/reg08-tls-origin.json)
+connect to short-lived loopback TLS servers under exact approved IP endpoints.
+The servers use newly generated certificates for the web DID domain or another
+domain. Inspector pins the Go and Rust source revisions, executable hashes,
+independent decisions, and the Rust dependency resolution in
+[`registry-tls-origin-Cargo.lock`](../verification/0.10.0/reconciled-spec/registry-tls-origin-Cargo.lock).
+Both cores matched 9/9 decisions locally. This verifies a TLS handshake and
+certificate-name/chain check, not an HTTP response on that same connection.
+No authenticated record or controller/mutation history is established; all
+REG-08 parent cases remain `NOT_RUN` and conformance `NOT_ESTABLISHED`.
+
 Run the revision-bound checks against the exact spec checkout:
 
 ```sh
@@ -122,10 +133,17 @@ python3 -B scripts/observe_reconciled_reg08_origin_policy.py \
   --spec-root /path/to/sage-spec --go-root /path/to/sage \
   --rust-root /path/to/rs-sage-core \
   --report /tmp/reconciled-reg08-core-origin-policy.json
+python3 -B scripts/test_observe_reconciled_reg08_tls_origin.py
+python3 -B scripts/observe_reconciled_reg08_tls_origin.py \
+  --spec-root /path/to/sage-spec --go-root /path/to/sage \
+  --rust-root /path/to/rs-sage-core \
+  --report /tmp/reconciled-reg08-core-tls-origin.json
 ```
 
-Next, extend the core adapters to authenticate controller and mutation history,
-including retained KEM endorsers, and the trusted web origin. Run those paths
-against isolated local HTTP/TLS fixtures and retain actual observations.
+Next, fetch and validate the HTTP record over the same authenticated TLS
+connection, including framing, cache, bounded content and cryptographic checks.
+Then authenticate controller and mutation history, including retained KEM
+endorsers. Run those paths against isolated local HTTP/TLS fixtures and retain
+actual observations.
 Only then can Inspector assess `REG-08-P` and `REG-08-N04` as complete cases.
 The older 481-case and 489-case evidence directories remain historical.

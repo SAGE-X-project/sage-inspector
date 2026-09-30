@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "kind": "web-registry-transaction-boundary-subcondition-vectors",
+  "protocol_version": "0.10.0",
+  "rule_id": "REG-08",
+  "scope": "Process-local transaction fixture; no deployed source, credential verifier, delegation provenance or durable commit",
+  "proof_fixture": "reg08-record-proofs.json:base",
+  "cases": [
+    {"id": "create-complete-state", "mode": "create", "expected": {"verdict": "TRANSITION_ACCEPT", "committed": true, "history_len": 1, "tombstoned": false}},
+    {"id": "activate-complete-state", "mode": "activate", "expected": {"verdict": "TRANSITION_ACCEPT", "committed": true, "history_len": 2, "tombstoned": false}},
+    {"id": "stale-expected-version", "mode": "stale-version", "expected": {"verdict": "RECORD_STALE", "committed": false, "history_len": 1, "tombstoned": false}},
+    {"id": "untrusted-source", "mode": "wrong-source", "expected": {"verdict": "RECORD_UNREACHABLE", "committed": false, "history_len": 0, "tombstoned": false}},
+    {"id": "missing-credentials", "mode": "missing-credentials", "expected": {"verdict": "WRITE_REJECTED", "committed": false, "history_len": 1, "tombstoned": false}},
+    {"id": "missing-authenticated-history", "mode": "missing-history", "expected": {"verdict": "RECORD_INVALID", "committed": false, "history_len": 0, "tombstoned": false}},
+    {"id": "deactivate-with-tombstone", "mode": "deactivate", "expected": {"verdict": "TRANSITION_ACCEPT", "committed": true, "history_len": 3, "tombstoned": true}},
+    {"id": "terminal-name-not-reused", "mode": "terminal-reuse", "expected": {"verdict": "RECORD_INVALID", "committed": false, "history_len": 3, "tombstoned": true}},
+    {"id": "inconsistent-tombstone", "mode": "tombstone-mismatch", "expected": {"verdict": "RECORD_INVALID", "committed": false, "history_len": 2, "tombstoned": true}},
+    {"id": "expired-signer-recovery", "mode": "expired-key-recovery", "expected": {"verdict": "TRANSITION_ACCEPT", "committed": true, "history_len": 3, "tombstoned": false}},
+    {"id": "duplicate-identifier", "mode": "duplicate-create", "expected": {"verdict": "RECORD_INVALID", "committed": false, "history_len": 1, "tombstoned": false}},
+    {"id": "scoped-operator", "mode": "delegated-activate", "expected": {"verdict": "TRANSITION_ACCEPT", "committed": true, "history_len": 2, "tombstoned": false}},
+    {"id": "wrong-operator-scope", "mode": "wrong-delegation", "expected": {"verdict": "WRITE_REJECTED", "committed": false, "history_len": 1, "tombstoned": false}}
+  ]
+}

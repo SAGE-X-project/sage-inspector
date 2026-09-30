@@ -151,6 +151,16 @@ authority; credential authentication, delegation provenance, authenticated
 source history, atomic writes, REG-08 parent cases, and complete conformance
 remain unobserved.
 
+The [13 transaction boundary subconditions](../vectors/0.10.0/reconciled-spec/reg08-transaction-boundary.json)
+run the two cores with a process-local store that supplies source identity,
+current record, complete history, tombstone and fixture authority to one
+transaction callback. They observe creation, mutation, version conflict,
+history mismatch, scoped delegation, terminal name reservation and expired-key
+recovery, including whether the fixture changed state on failure. The fixture
+is not a durable store or credential verifier. Authenticated source history,
+credential and delegation provenance, durable atomic writes, all REG-08 parent
+cases and complete conformance remain unobserved.
+
 Run the revision-bound checks against the exact spec checkout:
 
 ```sh
@@ -215,6 +225,11 @@ python3 -B scripts/observe_reconciled_reg08_expired_key_recovery.py \
   --spec-root /path/to/sage-spec --go-root /path/to/sage \
   --rust-root /path/to/rs-sage-core \
   --report /tmp/reconciled-reg08-core-expired-key-recovery.json
+python3 -B scripts/test_observe_reconciled_reg08_transaction_boundary.py
+python3 -B scripts/observe_reconciled_reg08_transaction_boundary.py \
+  --spec-root /path/to/sage-spec --go-root /path/to/sage \
+  --rust-root /path/to/rs-sage-core \
+  --report /tmp/reconciled-reg08-core-transaction-boundary.json
 ```
 
 Next, bind these structural predicates to a trusted source with verified

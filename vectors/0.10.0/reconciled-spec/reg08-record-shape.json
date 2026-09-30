@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "kind": "web-registry-record-shape-subcondition-vectors",
+  "protocol_version": "0.10.0",
+  "rule_id": "REG-08",
+  "scope": "Encoded record size and structure only; no proof, origin, or authorization verdict",
+  "base": {
+    "expected_did": "did:sage:web:agents.example.com:billing-bot",
+    "now": 100,
+    "body": {
+      "record": {
+        "id": "did:sage:web:agents.example.com:billing-bot",
+        "controller": "operator",
+        "keys": [
+          {
+            "name": "sign-1",
+            "alg": "ed25519",
+            "key": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "proof": {
+              "signer": "did:sage:web:agents.example.com:billing-bot#sign-1",
+              "value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+            },
+            "state": "accepted"
+          }
+        ],
+        "services": [{"name": "api", "type": "A2A", "uri": "https://api.example.com/v1"}],
+        "state": "active",
+        "version": "1"
+      },
+      "issued": 100,
+      "expires": 105
+    }
+  },
+  "cases": [
+    {"id": "valid-active", "expected": "SHAPE_ACCEPT"},
+    {"id": "valid-created-expired", "set": [{"path": ["record", "state"], "value": "created"}, {"path": ["record", "keys", 0, "expires"], "value": 100}], "expected": "SHAPE_ACCEPT"},
+    {"id": "valid-max-version", "set": [{"path": ["record", "version"], "value": "18446744073709551615"}], "expected": "SHAPE_ACCEPT"},
+    {"id": "valid-service-ip", "set": [{"path": ["record", "services", 0, "uri"], "value": "https://127.0.0.1:8443/v1"}], "expected": "SHAPE_ACCEPT"},
+    {"id": "wrong-record-id", "set": [{"path": ["record", "id"], "value": "did:sage:web:other.example.com:billing-bot"}], "expected": "RECORD_INVALID"},
+    {"id": "malformed-expected-did", "expected_did": "did:sage:web:Agents.example.com:billing-bot", "expected": "RECORD_INVALID"},
+    {"id": "unknown-record-field", "set": [{"path": ["record", "unexpected"], "value": true}], "expected": "RECORD_INVALID"},
+    {"id": "missing-services", "delete": [["record", "services"]], "expected": "RECORD_INVALID"},
+    {"id": "leading-zero-version", "set": [{"path": ["record", "version"], "value": "01"}], "expected": "RECORD_INVALID"},
+    {"id": "overflow-version", "set": [{"path": ["record", "version"], "value": "18446744073709551616"}], "expected": "RECORD_INVALID"},
+    {"id": "empty-keys", "set": [{"path": ["record", "keys"], "value": []}], "expected": "RECORD_INVALID"},
+    {"id": "unknown-algorithm", "set": [{"path": ["record", "keys", 0, "alg"], "value": "X25519"}], "expected": "RECORD_INVALID"},
+    {"id": "padded-key", "set": [{"path": ["record", "keys", 0, "key"], "value": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="}], "expected": "RECORD_INVALID"},
+    {"id": "private-key-field", "set": [{"path": ["record", "keys", 0, "private"], "value": "excluded"}], "expected": "RECORD_INVALID"},
+    {"id": "wrong-proof-signer", "set": [{"path": ["record", "keys", 0, "proof", "signer"], "value": "did:sage:web:agents.example.com:billing-bot#other"}], "expected": "RECORD_INVALID"},
+    {"id": "expired-active-key", "set": [{"path": ["record", "keys", 0, "expires"], "value": 100}], "expected": "RECORD_INVALID"},
+    {"id": "fractional-key-expiry", "set": [{"path": ["record", "keys", 0, "expires"], "value": 100.5}], "expected": "RECORD_INVALID"},
+    {"id": "duplicate-key-material", "copy_key": {"name": "sign-2", "signer": "did:sage:web:agents.example.com:billing-bot#sign-2"}, "expected": "RECORD_INVALID"},
+    {"id": "unsorted-keys", "copy_key": {"name": "a", "signer": "did:sage:web:agents.example.com:billing-bot#a", "key": "AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"}, "expected": "RECORD_INVALID"},
+    {"id": "service-name-collision", "set": [{"path": ["record", "services", 0, "name"], "value": "sign-1"}], "expected": "RECORD_INVALID"},
+    {"id": "service-http", "set": [{"path": ["record", "services", 0, "uri"], "value": "http://api.example.com"}], "expected": "RECORD_INVALID"},
+    {"id": "service-userinfo", "set": [{"path": ["record", "services", 0, "uri"], "value": "https://user@api.example.com"}], "expected": "RECORD_INVALID"},
+    {"id": "service-fragment", "set": [{"path": ["record", "services", 0, "uri"], "value": "https://api.example.com/#"}], "expected": "RECORD_INVALID"},
+    {"id": "service-bad-percent", "set": [{"path": ["record", "services", 0, "uri"], "value": "https://api.example.com/%ZZ"}], "expected": "RECORD_INVALID"},
+    {"id": "record-at-limit", "pad_record_to": 65536, "expected": "SHAPE_ACCEPT"},
+    {"id": "record-over-limit", "pad_record_to": 65537, "expected": "SIZE_EXCEEDED"}
+  ]
+}

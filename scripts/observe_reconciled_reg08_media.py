@@ -4,6 +4,7 @@ import argparse
 import json
 import os
 from pathlib import Path
+import shutil
 import subprocess
 import tempfile
 
@@ -14,6 +15,8 @@ from reconciled_spec_reg08_media import VECTOR, check
 
 GO_REVISION = '1dc22e71673bfa40cc63b342a2e66fdfee2f3ee2'
 RUST_REVISION = '79fe9bbcd7a417a523d77a267c8420cf4f506746'
+RUST_LOCK = 'verification/0.10.0/reconciled-spec/registry-media-Cargo.lock'
+RUST_LOCK_SHA256 = 'd99e1e7f037561e6ef5bbd7ae4a0e5090e1d0cb26f6b1148cd832f131c0b5c5a'
 VERDICTS = {'MEDIA_ACCEPT', 'RECORD_INVALID'}
 
 
@@ -27,7 +30,7 @@ def revision(root):
     return value
 
 
-def build(go_root, rust_root, output):
+def build(go_root, rust_root, output, lock_source):
     """Compile fresh bounded local adapters from the pinned source checkouts."""
     go_binary = output / 'sage-reg08-media-go'
     go_env = os.environ.copy()
@@ -35,6 +38,12 @@ def build(go_root, rust_root, output):
     subprocess.run(['go', 'build', '-o', str(go_binary),
                     './examples/registry-media010'], cwd=go_root,
                    env=go_env, check=True, timeout=300)
+    target_lock = rust_root / 'Cargo.lock'
+    if target_lock.exists():
+        require(sha(target_lock.read_bytes()) == RUST_LOCK_SHA256,
+                'subject has a different local Cargo.lock')
+    else:
+        shutil.copyfile(lock_source, target_lock)
     rust_target = output / 'rust-target'
     subprocess.run(['cargo', 'build', '--locked', '--example',
                     'registry_media010', '--target-dir', str(rust_target)],
@@ -60,12 +69,15 @@ def run_case(binary, row):
 def observe(go_root, rust_root, spec_root=None, root=ROOT):
     """Return observed bounded results without promoting REG-08 parent cases."""
     reference = check(root, spec_root)
+    lock_source = root / RUST_LOCK
+    require(sha(lock_source.read_bytes()) == RUST_LOCK_SHA256,
+            'pinned Rust dependency lock changed')
     actual_revisions = {'go': revision(go_root), 'rust': revision(rust_root)}
     require(actual_revisions == {'go': GO_REVISION, 'rust': RUST_REVISION},
             'core source revision mismatch')
     suite = json.loads((root / VECTOR).read_text())
     with tempfile.TemporaryDirectory(prefix='sage-reg08-media-') as temporary:
-        binaries = build(go_root, rust_root, Path(temporary))
+        binaries = build(go_root, rust_root, Path(temporary), lock_source)
         observations = {}
         for name, binary in binaries.items():
             cases = []
@@ -86,6 +98,7 @@ def observe(go_root, rust_root, spec_root=None, root=ROOT):
         'kind': 'reg08-media-core-observation',
         'spec_revision': REVISION,
         'vector_sha256': sha((root / VECTOR).read_bytes()),
+        'rust_dependency_lock_sha256': RUST_LOCK_SHA256,
         'reference_subconditions': reference['checked_subconditions'],
         'subjects': observations,
         'parent_cases': {'REG-08-P': 'NOT_RUN', 'REG-08-N04': 'NOT_RUN'},

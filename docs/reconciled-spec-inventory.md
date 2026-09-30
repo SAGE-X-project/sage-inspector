@@ -24,8 +24,11 @@ expected decisions. A separate runtime observer builds the pinned Go core at
 `1dc22e71673bfa40cc63b342a2e66fdfee2f3ee2` and Rust core at
 `79fe9bbcd7a417a523d77a267c8420cf4f506746`, runs each case against
 both executables, and records the actual verdicts, source revisions and binary
-hashes. Each core matched all 13 media decisions in the local run. The CI
-report retains the same bounded evidence for its own build.
+hashes. Inspector also pins the Rust dependency resolution in
+[`registry-media-Cargo.lock`](../verification/0.10.0/reconciled-spec/registry-media-Cargo.lock)
+because the Rust library does not track a lockfile. Each core matched all 13
+media decisions in the local run. The CI report retains the same bounded
+evidence for its own build.
 
 These observations cover only the response media decision. Neither executable
 fetches an HTTP response, verifies TLS or web-origin authority, parses a

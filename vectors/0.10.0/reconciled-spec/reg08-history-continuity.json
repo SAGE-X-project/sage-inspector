@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "kind": "web-registry-history-continuity-subcondition-vectors",
+  "protocol_version": "0.10.0",
+  "rule_id": "REG-08",
+  "scope": "Continuity of caller-supplied historical envelopes and agreement with a current record; source completeness, authority and atomic writes unobserved",
+  "proof_fixture": "reg08-record-proofs.json:base",
+  "cases": [
+    {"id": "creation-through-service-update", "mode": "complete-services", "expected": "TRANSITION_ACCEPT"},
+    {"id": "creation-only", "mode": "single-create", "expected": "TRANSITION_ACCEPT"},
+    {"id": "creation-through-deactivation", "mode": "complete-terminal", "expected": "TRANSITION_ACCEPT"},
+    {"id": "missing-creation", "mode": "missing-creation", "expected": "RECORD_INVALID"},
+    {"id": "skipped-version", "mode": "skipped-version", "expected": "RECORD_INVALID"},
+    {"id": "repeated-version", "mode": "repeated-version", "expected": "RECORD_INVALID"},
+    {"id": "wrong-operation", "mode": "wrong-operation", "expected": "RECORD_INVALID"},
+    {"id": "controller-transfer", "mode": "controller-transfer", "expected": "RECORD_INVALID"},
+    {"id": "removed-historical-key", "mode": "removed-key", "expected": "RECORD_INVALID"},
+    {"id": "time-regression", "mode": "time-regression", "expected": "RECORD_INVALID"},
+    {"id": "future-mutation", "mode": "future-mutation", "expected": "RECORD_INVALID"},
+    {"id": "stale-current-record", "mode": "stale-current", "expected": "RECORD_INVALID"},
+    {"id": "altered-current-record", "mode": "altered-current", "expected": "RECORD_INVALID"},
+    {"id": "mutation-after-deactivation", "mode": "post-terminal", "expected": "RECORD_INVALID"},
+    {"id": "invalid-creation", "mode": "invalid-creation", "expected": "RECORD_INVALID"}
+  ]
+}

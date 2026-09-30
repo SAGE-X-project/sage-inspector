@@ -121,6 +121,16 @@ complete history, authenticated a controller or operator, or committed a write
 atomically. Inspector records those boundaries as `NOT_RUN`, as well as every
 REG-08 parent case and full conformance.
 
+The [15 history continuity subconditions](../vectors/0.10.0/reconciled-spec/reg08-history-continuity.json)
+run the compiled Go and Rust predicates from a supplied version-1 creation
+through a current, proof-valid record. They include missing and repeated
+versions, time regression, invalid mutations, terminal deactivation, and a
+current record that differs from the last supplied version. Both cores matched
+15/15 decisions locally. This verifies the asserted sequence only: the input
+is a local fixture, not an authenticated Registry mutation log. Inspector keeps
+source history, controller authentication, atomic writes, all REG-08 parent
+cases, and conformance unestablished.
+
 Run the revision-bound checks against the exact spec checkout:
 
 ```sh
@@ -170,6 +180,11 @@ python3 -B scripts/observe_reconciled_reg08_transition_shape.py \
   --spec-root /path/to/sage-spec --go-root /path/to/sage \
   --rust-root /path/to/rs-sage-core \
   --report /tmp/reconciled-reg08-core-transition-shape.json
+python3 -B scripts/test_observe_reconciled_reg08_history_continuity.py
+python3 -B scripts/observe_reconciled_reg08_history_continuity.py \
+  --spec-root /path/to/sage-spec --go-root /path/to/sage \
+  --rust-root /path/to/rs-sage-core \
+  --report /tmp/reconciled-reg08-core-history-continuity.json
 ```
 
 Next, bind these structural predicates to a trusted source with authenticated

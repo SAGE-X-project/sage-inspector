@@ -99,6 +99,18 @@ certificate-name/chain check, not an HTTP response on that same connection.
 No authenticated record or controller/mutation history is established; all
 REG-08 parent cases remain `NOT_RUN` and conformance `NOT_ESTABLISHED`.
 
+The [13 local authenticated HTTP subconditions](../vectors/0.10.0/reconciled-spec/reg08-http-record.json)
+exercise the Go and Rust Registry fetchers against isolated loopback TLS
+servers. The server checks the exact GET, Host, and request cache directive;
+the cores check the approved destination, certificate name, status, response
+media and cache directive, one bounded `Content-Length`, JSON record, and key
+proofs on the same TLS connection. Inspector pins the core source revisions,
+executable hashes, proof fixture, vector, and Rust dependency lock. Both cores
+matched 13/13 decisions locally. This bounded adapter rejects chunked and
+other response framing, and does not establish controller writes, tombstones,
+or mutation history. All REG-08 parent cases remain `NOT_RUN` and full
+conformance remains `NOT_ESTABLISHED`.
+
 Run the revision-bound checks against the exact spec checkout:
 
 ```sh
@@ -138,12 +150,17 @@ python3 -B scripts/observe_reconciled_reg08_tls_origin.py \
   --spec-root /path/to/sage-spec --go-root /path/to/sage \
   --rust-root /path/to/rs-sage-core \
   --report /tmp/reconciled-reg08-core-tls-origin.json
+python3 -B scripts/test_observe_reconciled_reg08_http_record.py
+python3 -B scripts/observe_reconciled_reg08_http_record.py \
+  --spec-root /path/to/sage-spec --go-root /path/to/sage \
+  --rust-root /path/to/rs-sage-core \
+  --report /tmp/reconciled-reg08-core-http-record.json
 ```
 
-Next, fetch and validate the HTTP record over the same authenticated TLS
-connection, including framing, cache, bounded content and cryptographic checks.
-Then authenticate controller and mutation history, including retained KEM
-endorsers. Run those paths against isolated local HTTP/TLS fixtures and retain
-actual observations.
+Next, define and verify a trusted source's controller authentication, atomic
+mutation rules, tombstones, and retained KEM-endorser history. Expand the
+bounded HTTP adapter's accepted framing only with equally explicit ambiguity
+checks. Run those paths against isolated local fixtures and retain actual
+observations.
 Only then can Inspector assess `REG-08-P` and `REG-08-N04` as complete cases.
 The older 481-case and 489-case evidence directories remain historical.

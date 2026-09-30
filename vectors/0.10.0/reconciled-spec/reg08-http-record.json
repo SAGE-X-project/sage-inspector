@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "kind": "web-registry-http-record-subcondition-vectors",
+  "protocol_version": "0.10.0",
+  "rule_id": "REG-08",
+  "scope": "Authenticated TLS GET and one bounded Content-Length response; no controller or mutation-history authority",
+  "proof_fixture": "reg08-record-proofs.json:base",
+  "cases": [
+    {"id": "valid-signed-record", "mode": "valid", "expected": "RECORD_ACCEPT"},
+    {"id": "redirect", "mode": "redirect", "expected": "RECORD_UNREACHABLE"},
+    {"id": "wrong-media", "mode": "wrong-media", "expected": "RECORD_INVALID"},
+    {"id": "missing-no-store", "mode": "missing-no-store", "expected": "RECORD_INVALID"},
+    {"id": "content-encoding", "mode": "content-encoding", "expected": "RECORD_INVALID"},
+    {"id": "missing-length", "mode": "missing-length", "expected": "RECORD_INVALID"},
+    {"id": "duplicate-length", "mode": "duplicate-length", "expected": "RECORD_INVALID"},
+    {"id": "transfer-coding", "mode": "transfer-coding", "expected": "RECORD_INVALID"},
+    {"id": "oversized-length", "mode": "oversized-length", "expected": "SIZE_EXCEEDED"},
+    {"id": "truncated-body", "mode": "truncated-body", "expected": "RECORD_UNREACHABLE"},
+    {"id": "changed-proof", "mode": "changed-proof", "expected": "RECORD_INVALID"},
+    {"id": "wrong-certificate-name", "mode": "wrong-certificate-name", "expected": "RECORD_UNREACHABLE"},
+    {"id": "unapproved-destination", "mode": "unapproved-destination", "expected": "RECORD_UNREACHABLE"}
+  ]
+}

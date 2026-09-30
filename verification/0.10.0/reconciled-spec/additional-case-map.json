@@ -1,0 +1,1345 @@
+[
+  {
+    "id": "mset-01-valid-channel",
+    "rule_id": "MSET-01",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "First encrypted initialize confirms responder before MCP processing",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mset-01-wrong-owner",
+    "rule_id": "MSET-01",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Reuse the old readiness handle",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mset-01-revoked-key",
+    "rule_id": "MSET-01",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Receive the next setup record",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mset-02-exact-bytes",
+    "rule_id": "MSET-02",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Preserve complete UTF-8 payload and distinct outer/inner request IDs",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mset-02-size-boundary",
+    "rule_id": "MSET-02",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Receive the oversized message",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mset-02-json-duplicates",
+    "rule_id": "MSET-02",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Duplicate a JSON member or provide a batch/trailing JSON",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mset-02-id-collision",
+    "rule_id": "MSET-02",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Use its outer UUID as the inner request UUID",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mset-03-initialize-success",
+    "rule_id": "MSET-03",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Select 2025-06-18 and exactly tools capability",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mset-03-unsupported-version",
+    "rule_id": "MSET-03",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Return another MCP version without changing the authenticated peer",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mset-03-capability-mismatch",
+    "rule_id": "MSET-03",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Request unsupported optional features or omit tools capability",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mset-03-wrong-request",
+    "rule_id": "MSET-03",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Supply response belonging to another initialization request",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mset-04-notification-ack",
+    "rule_id": "MSET-04",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Verify correlated encrypted success with plaintext exactly {}",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mset-04-ack-is-not-result",
+    "rule_id": "MSET-04",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Attempt to consume marker as Guard output",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mset-04-malformed-ack",
+    "rule_id": "MSET-04",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Supply MCP result, whitespace variant, error or wrong request hash",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mset-04-notification-has-id",
+    "rule_id": "MSET-04",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Receive initialized with a JSON-RPC request ID",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mset-04-lost-ack",
+    "rule_id": "MSET-04",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Deadline expires without acknowledgement; reconnect uses new setup",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mset-05-discovery-success",
+    "rule_id": "MSET-05",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Authenticate one-tool listing with pinned name/inputSchema",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mset-05-schema-replacement",
+    "rule_id": "MSET-05",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Receive changed schema or nextCursor instead of fixed complete listing",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mset-05-early-tool-call",
+    "rule_id": "MSET-05",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Attempt a protected tool call in a local unit scenario",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mset-05-capability-not-authority",
+    "rule_id": "MSET-05",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Attempt to create readiness without a protected local endpoint",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mset-06-before-deadline",
+    "rule_id": "MSET-06",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Commit final READY transition at elapsed 29999ms",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mset-06-deadline-equality",
+    "rule_id": "MSET-06",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Commit final READY transition at elapsed 30000ms",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mset-06-slow-callback",
+    "rule_id": "MSET-06",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Trusted remaining deadline expires; no effect may proceed; additionally: Record close while work is paused; late completion has no admission rights and cannot replenish a bounded worker pool.",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mset-06-uncertain-send",
+    "rule_id": "MSET-06",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Attempt resend or another reply on the old connection",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mset-07-fresh-reconnect",
+    "rule_id": "MSET-07",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Complete fresh authenticated setup without executing old call again; additionally: Use a fresh owner with old durable identities; no recovery of old admission work or readiness.",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mset-07-stale-ready",
+    "rule_id": "MSET-07",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Reuse old initialization, acknowledgement, listing or readiness",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mset-07-terminal-preserved",
+    "rule_id": "MSET-07",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Request old signed call; preserve terminal and single client consumption",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mset-07-missing-ledger",
+    "rule_id": "MSET-07",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Recreate an empty ledger to resume an old call",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mset-08-proposal-scope",
+    "rule_id": "MSET-08",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime",
+      "document_review"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Attempt to claim deployed negotiation or full conformance based solely on normative design adoption",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mset-08-http-not-defined",
+    "rule_id": "MSET-08",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime",
+      "document_review"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Fallback to unspecified HTTP mapping or plaintext protected call",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mset-08-historical-evidence",
+    "rule_id": "MSET-08",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime",
+      "document_review"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Promote them based only on proposal validation",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mset-02-output-barrier",
+    "rule_id": "MSET-02",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "A protected request arrives before the send callback succeeds",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mset-02-send-failure-after-prepare",
+    "rule_id": "MSET-02",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Local send reports partial or uncertain completion while input waits",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mset-02-setup-id-reuse",
+    "rule_id": "MSET-02",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Reuse it for discovery or a later protected call",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mset-02-history-exhaustion",
+    "rule_id": "MSET-02",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Allocate a new endpoint and attempt another request",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mset-02-inner-rejection-replay",
+    "rule_id": "MSET-02",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Reject malformed inner JSON; retain consumed sequence and replay IDs",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mset-05-extended-descriptor",
+    "rule_id": "MSET-05",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Validate the complete descriptor against the fixed baseline",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mset-06-deadline-after-callback",
+    "rule_id": "MSET-06",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Attempt to publish READY after callback completion",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mset-06-close-completion-race",
+    "rule_id": "MSET-06",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "A successful late send callback tries to publish its target state",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mset-06-ready-past-setup-deadline",
+    "rule_id": "MSET-06",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "The old setup deadline passes without a new setup operation",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "madd-plaintext-boundary",
+    "rule_id": "MOWN-01",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Complete control and protected request plaintext at 16348 and 16349 UTF-8 bytes",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "madd-record-boundary",
+    "rule_id": "MOWN-01",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Decoded records at 16384 and 16385 bytes",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "madd-wire-boundary",
+    "rule_id": "MOWN-01",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Complete envelopes at 32768 and 32769 bytes including deferred receive",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "madd-utf8-and-escapes",
+    "rule_id": "MOWN-01",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Non-ASCII and escaped JSON near the plaintext bound",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "madd-result-representations",
+    "rule_id": "MOWN-01",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Structured result plus escaped canonical text jointly exceeds bound",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "madd-post-effect-oversize",
+    "rule_id": "MOWN-01",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Inert effect commits; complete terminal response exceeds carriage limit; additionally: Distinguish admission, actual effect, durable terminal and failed delivery in the recorded trace.",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "madd-post-reservation-size-failure",
+    "rule_id": "MOWN-01",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Final wire size fails after sequence and request-ID reservation",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "madd-inner-size-replay",
+    "rule_id": "MOWN-01",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Outer acceptance succeeds but decrypted size fails",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "madd-mutable-buffer",
+    "rule_id": "MOWN-02",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Caller modifies submitted bytes while work is pending; additionally: Verify exact captured bytes and pinned instance through fence, observation and atomic queue insertion.",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "madd-synchronous-completion",
+    "rule_id": "MOWN-02",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Transport completion fires before send returns",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "madd-duplicate-completion",
+    "rule_id": "MOWN-02",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Same completed operation reports success again; additionally: Distinguish output callback and admission work completion; neither may enqueue or publish twice.",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "madd-old-incarnation",
+    "rule_id": "MOWN-02",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Completion from closed owner reaches replacement connection; additionally: Check private operation/incarnation identity at queue insertion as well as output publication.",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "madd-bounded-cancellation",
+    "rule_id": "MOWN-02",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Repeated timeout/cancel with pending callbacks and deferred input; additionally: Separate pre-admission zero-effect cancellation from post-admission unresolved execution. Bound occupied slots; do not claim forced termination of an uncancellable provider.",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "madd-history-capacity",
+    "rule_id": "MOWN-02",
+    "source_mode": "owner_unit_plus_distinct_session_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Separate isolated 1024-ID owner history testing from authenticated session record exhaustion.",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "madd-close-before-handoff",
+    "rule_id": "MOWN-02",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Use queue insertion as the handoff point; close during storage or verification must win without waiting for the execution mutex.",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "madd-close-after-handoff",
+    "rule_id": "MOWN-02",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Use queue insertion, not durable EXECUTING, as the admitted event. No automatic retry or false non-execution claim after close.",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "madd-cross-language-setup",
+    "rule_id": "MOWN-02",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Go/Go, Go/Rust, Rust/Go and Rust/Rust authenticated setup and inert protected exchange; additionally: Preserve real admission ordering and journal evidence in all four pairings, not only successful message exchange.",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "madd-restart-consumption",
+    "rule_id": "MOWN-02",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Reconnect and client restart after stored terminal consumption; additionally: Confirm that recovery never reconstructs an unresolved execution queue, while existing client single-consumption protection remains.",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mres-close-before-reservation",
+    "rule_id": "MOWN-03",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Close before reservation: no queue insertion or effect; no invented durable outcome.",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mres-close-after-reservation",
+    "rule_id": "MOWN-03",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Exercise close before fencing and close during/after successful fencing but before queue insertion. Zero admissions/effects; retain reservation/nonce and conservative UNKNOWN or storage unavailability.",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mres-close-after-admission",
+    "rule_id": "MOWN-03",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Observe successful protected queue insertion before close. Preserve one admission and any eventual outcome without claiming rollback or retry.",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mres-crash-after-admission",
+    "rule_id": "MOWN-03",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Crash after queue insertion but before worker effect. Recover durable EXECUTING as UNKNOWN without rebuilding the queue. Separately exercise a durable fence without queue insertion.",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mres-ready-past-setup",
+    "rule_id": "MOWN-04",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "READY before 30 seconds; protected exchange after 30 seconds",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mres-stale-setup-completion",
+    "rule_id": "MOWN-04",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Duplicate SETUP completion arrives after READY",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mres-protected-timeout-before-admission",
+    "rule_id": "MOWN-04",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Expire before queue insertion, including during fence persistence or post-storage checks. Zero admissions/effects; retain identity and conservative storage state.",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mres-protected-timeout-after-admission",
+    "rule_id": "MOWN-04",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Expire after queue insertion. Close delivery without reversing admission; preserve terminal or unresolved outcome and prohibit redispatch.",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mres-ready-session-expiry",
+    "rule_id": "MOWN-04",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "READY session expires while protected deadline remains valid; additionally: Exercise expiry before and after queue insertion; deny new admission without fabricating rollback of an earlier admission.",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mres-signature-intent",
+    "rule_id": "MOWN-05",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Valid role-bound intent proofs for Ed25519, P-256 and secp256k1",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mres-signature-result",
+    "rule_id": "MOWN-05",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Valid correlated result proofs for Ed25519, P-256 and secp256k1",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mres-signature-carriage",
+    "rule_id": "MOWN-05",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Outer and handshake signatures under each baseline signing algorithm",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mres-missing-signing-key",
+    "rule_id": "MOWN-05",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Participant lacks a suitable active Ed25519 signing key",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "merrata-config-valid",
+    "rule_id": "MSET-01",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Trusted local descriptor JSON file has reordered members but the same complete object; binding, versions, peer tuple and digest match the pinned values",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "merrata-config-reject",
+    "rule_id": "MSET-01",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Missing, malformed, differently encoded or mismatched binding identifier, version or descriptor digest",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "merrata-config-change",
+    "rule_id": "MSET-01",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Trusted descriptor or binding configuration changes after owner construction",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "merrata-local-single-flight",
+    "rule_id": "MOWN-02",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Two local protected submissions reach one READY client owner while the first exchange remains active",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "merrata-server-overlap",
+    "rule_id": "MOWN-02",
+    "source_mode": "unit_state_machine",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "A second authenticated protected request reaches a server owner with an active exchange",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "merrata-deferred-frame",
+    "rule_id": "MOWN-02",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "One bounded wire frame arrives while first response is in OUTPUT_PENDING",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "merrata-pending-followup",
+    "rule_id": "MOWN-02",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "A verified pending snapshot is followed by a status retrieval on the same READY owner",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "merrata-deadline-close",
+    "rule_id": "MOWN-02",
+    "source_mode": "unit_state_machine",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Wrong or late response, fixed PROTECTED deadline, or owner closure races completion",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "merrata-shared-owners",
+    "rule_id": "MOWN-02",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Two independently authenticated owners share one finite Guard gate",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mrevision-hop-authorized",
+    "rule_id": "EXEC-02",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Authenticated A-to-B input and a fresh exact B-to-C request",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mrevision-hop-unapproved",
+    "rule_id": "EXEC-02",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "B forwards authenticated A-to-B content or digest without B-side authorization",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mrevision-parent-no-grant",
+    "rule_id": "EXEC-05",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "B creates a new downstream ID after an upstream denial or UNKNOWN outcome",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mrevision-did-consumer",
+    "rule_id": "RESOLVE-01",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Produced application/did+json document using JsonWebKey2020",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mrevision-extra-jwk-authority",
+    "rule_id": "RESOLVE-01",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Authoritative SAGE projection input with an extra, contradictory or private JWK member",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mllm-kem-alg-valid",
+    "rule_id": "REG-01",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "A registry entry uses exact alg x25519 with a 32-byte X25519 public key and signing-key endorsement",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mllm-kem-alg-case",
+    "rule_id": "REG-01",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "An otherwise valid KEM entry uses alg X25519 or an unregistered alias",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mllm-kem-selection",
+    "rule_id": "REG-02",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "An active record has multiple accepted unexpired x25519 entries with distinct ASCII names",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mllm-pop-exact-bytes",
+    "rule_id": "REG-04",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "REG-04 signing-key and KEM-endorsement challenges use length-only len16 followed once by each field",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mllm-pop-duplicate-field",
+    "rule_id": "REG-04",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "The PoP challenge repeats each field after a len16 encoder that already included the field",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mllm-kem-signature-reject",
+    "rule_id": "TABLE-02",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "A message signature declares alg x25519 or names a KEM-role entry",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mllm-kem-type-valid",
+    "rule_id": "TABLE-03",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Registry alg x25519 and 32-byte X25519 public key agree",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mllm-kem-key-length",
+    "rule_id": "TABLE-03",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "Registry alg x25519 has a 31-byte public key instead of exactly 32 bytes",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mstand-problem-fields",
+    "rule_id": "RESOLVE-05",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "For each public resolution error, compare the exact RFC 9457 type URI, title and numeric status with the actual HTTP status; include a deliberately mismatched status and an unknown code as negative cases.",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "mstand-problem-type-publication",
+    "rule_id": "RESOLVE-05",
+    "source_mode": "deployment_or_document_review",
+    "verification_tracks": [
+      "document_review",
+      "deployment_review"
+    ],
+    "classification_reason": "Review normative claims and deployment evidence.",
+    "scenario": "For each emitted problem type URI, review stable ownership, published human-readable documentation and an independent problem-details consumer.",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "msca-http-ed25519",
+    "rule_id": "MSG-01",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "A protected HTTP request and response use an active Ed25519 key and exact alg ed25519",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "msca-http-p256",
+    "rule_id": "MSG-01",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "A protected HTTP request and response use an active P-256 key and exact alg ecdsa-p256-sha256",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "msca-http-private-alg",
+    "rule_id": "MSG-01",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "An otherwise valid synthetic HTTP signature declares sage-secp256k1-keccak256 as alg",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "msca-http-only-private-key",
+    "rule_id": "TRANSPORT-05",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "The sender record has only a valid secp256k1/Keccak signing key and attempts protected HTTP carriage",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "msca-http-no-substitution",
+    "rule_id": "TRANSPORT-05",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "The inner kid names a secp256k1 key while the outer signature names a different Ed25519 or P-256 key",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "msca-did-prefix-case",
+    "rule_id": "ID-01",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "A DID uses mixed-case scheme or method prefix such as DID:sage: or did:SAGE:",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "msca-did-url-prefix-case",
+    "rule_id": "ID-01",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "A key URL uses a mixed-case did:sage prefix with an otherwise valid fragment",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  },
+  {
+    "id": "msca-private-suite-non-http-scope",
+    "rule_id": "TABLE-02",
+    "source_mode": "unit_and_bounded_local_runtime",
+    "verification_tracks": [
+      "runtime"
+    ],
+    "classification_reason": "Exercise the stated scenario against an independently observed subject.",
+    "scenario": "A transport-independent signed envelope declares a permitted secp256k1/Keccak key without an HTTP alg parameter",
+    "partial_vector_ids": [],
+    "coverage": "no_case_vector",
+    "evidence_status": "NOT_RUN"
+  }
+]

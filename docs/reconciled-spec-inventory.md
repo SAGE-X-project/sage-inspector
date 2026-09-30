@@ -161,6 +161,15 @@ is not a durable store or credential verifier. Authenticated source history,
 credential and delegation provenance, durable atomic writes, all REG-08 parent
 cases and complete conformance remain unobserved.
 
+The [12 local durable-write subconditions](../vectors/0.10.0/reconciled-spec/reg08-durable-write.json)
+run each write in a separate Go or Rust process against an isolated single-DID
+journal. They observe restart recovery, complete history and tombstones, stale
+version and missing fixture-credential rejection, source binding on open,
+fail-closed incomplete tails, and expired-key repair after restart. This is a
+bounded local journal observation on the CI host. Deployed source and credential
+authentication, delegation provenance, remote atomic writes, all REG-08 parent
+cases and complete conformance remain unobserved.
+
 Run the revision-bound checks against the exact spec checkout:
 
 ```sh
@@ -230,11 +239,17 @@ python3 -B scripts/observe_reconciled_reg08_transaction_boundary.py \
   --spec-root /path/to/sage-spec --go-root /path/to/sage \
   --rust-root /path/to/rs-sage-core \
   --report /tmp/reconciled-reg08-core-transaction-boundary.json
+python3 -B scripts/test_observe_reconciled_reg08_durable_write.py
+python3 -B scripts/observe_reconciled_reg08_durable_write.py \
+  --spec-root /path/to/sage-spec --go-root /path/to/sage \
+  --rust-root /path/to/rs-sage-core \
+  --report /tmp/reconciled-reg08-core-durable-write.json
 ```
 
 Next, bind these structural predicates to a trusted source with verified
-credentials and controller-authorized operator scopes, then commit a complete
-mutation log, record and durable tombstones in one atomic transaction. Expand the
+credentials and controller-authorized operator scopes, then bind the local
+journal to deployed storage semantics and verify complete mutation log, record
+and tombstones as one atomic transaction. Expand the
 bounded HTTP adapter's accepted framing only with equally explicit ambiguity
 checks. Run those paths against isolated local fixtures and retain actual
 observations.

@@ -131,6 +131,15 @@ is a local fixture, not an authenticated Registry mutation log. Inspector keeps
 source history, controller authentication, atomic writes, all REG-08 parent
 cases, and conformance unestablished.
 
+The [11 write admission subconditions](../vectors/0.10.0/reconciled-spec/reg08-write-admission.json)
+exercise the compiled cores with a local fixture authority. They check
+controller creation, exact expected version, operation-scoped delegation,
+invalid mutations, and denial when the fixture provides no actor. Both cores
+matched 11/11 decisions locally. The fixture's actor and scope are test inputs,
+not verified credentials or authenticated management state. Inspector reports
+those deployment boundaries, atomic writes, source history, all REG-08 parent
+cases, and complete conformance as unobserved.
+
 Run the revision-bound checks against the exact spec checkout:
 
 ```sh
@@ -185,11 +194,16 @@ python3 -B scripts/observe_reconciled_reg08_history_continuity.py \
   --spec-root /path/to/sage-spec --go-root /path/to/sage \
   --rust-root /path/to/rs-sage-core \
   --report /tmp/reconciled-reg08-core-history-continuity.json
+python3 -B scripts/test_observe_reconciled_reg08_write_admission.py
+python3 -B scripts/observe_reconciled_reg08_write_admission.py \
+  --spec-root /path/to/sage-spec --go-root /path/to/sage \
+  --rust-root /path/to/rs-sage-core \
+  --report /tmp/reconciled-reg08-core-write-admission.json
 ```
 
-Next, bind these structural predicates to a trusted source with authenticated
-controller/operator actions, a complete mutation log, atomic writes and
-durable tombstones. Expand the
+Next, bind these structural predicates to a trusted source with verified
+credentials and controller-authorized operator scopes, then commit a complete
+mutation log, record and durable tombstones in one atomic transaction. Expand the
 bounded HTTP adapter's accepted framing only with equally explicit ambiguity
 checks. Run those paths against isolated local fixtures and retain actual
 observations.

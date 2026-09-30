@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "kind": "web-registry-expired-key-recovery-subcondition-vectors",
+  "protocol_version": "0.10.0",
+  "rule_id": "REG-08",
+  "scope": "Local authority fixture for recovery of an active record after accepted signing-key expiry; no credential or source-history authentication or atomic write",
+  "proof_fixture": "reg08-record-proofs.json:base",
+  "cases": [
+    {"id": "controller-adds-usable-signer", "mode": "controller-repair", "expected": "TRANSITION_ACCEPT"},
+    {"id": "delegated-operator-adds-usable-signer", "mode": "delegated-repair", "expected": "TRANSITION_ACCEPT"},
+    {"id": "ordinary-transition-rejects-expired-active", "mode": "strict-transition", "expected": "RECORD_INVALID"},
+    {"id": "candidate-remains-without-usable-signer", "mode": "unrepaired-candidate", "expected": "RECORD_INVALID"},
+    {"id": "prior-active-has-no-accepted-signer", "mode": "revoked-prior", "expected": "RECORD_INVALID"},
+    {"id": "prior-proof-invalid", "mode": "invalid-prior-proof", "expected": "RECORD_INVALID"},
+    {"id": "wrong-expected-version", "mode": "stale-version", "expected": "RECORD_STALE"},
+    {"id": "credentials-missing", "mode": "missing-credentials", "expected": "WRITE_REJECTED"}
+  ]
+}

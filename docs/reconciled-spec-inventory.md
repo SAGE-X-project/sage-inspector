@@ -49,6 +49,18 @@ implementation conformance remains `NOT_ESTABLISHED`.
 The envelope observations have the same limit: they do not check the nested
 record's separate 65536-byte bound, schema, DID, key proofs, or authority.
 
+The [26 bounded record-shape subconditions](../vectors/0.10.0/reconciled-spec/reg08-record-shape.json)
+now check the exact encoded 65536-byte record bound, closed fields, web DID
+binding, key and service structure, and version. Inspector builds the pinned
+Go core at `19c39080cc78918a307bc9008834874558bdd4c8` and Rust core at
+`d13b4dff709a90428da4272ce45c1b1df48914b3`, then records each actual
+decision and executable hash. Both matched 26/26 cases in the local runtime
+check; CI preserves its own report. The positive fixtures use placeholder public
+bytes and proof values solely for structural checks. A shape acceptance is
+not a valid signature, trusted HTTPS origin, authenticated controller, or
+complete Registry observation. All REG-08 parent cases remain `NOT_RUN` and
+conformance remains `NOT_ESTABLISHED`.
+
 Run the revision-bound checks against the exact spec checkout:
 
 ```sh
@@ -68,10 +80,15 @@ python3 -B scripts/observe_reconciled_reg08_envelope.py \
   --spec-root /path/to/sage-spec --go-root /path/to/sage \
   --rust-root /path/to/rs-sage-core \
   --report /tmp/reconciled-reg08-core-envelope.json
+python3 -B scripts/test_observe_reconciled_reg08_record_shape.py
+python3 -B scripts/observe_reconciled_reg08_record_shape.py \
+  --spec-root /path/to/sage-spec --go-root /path/to/sage \
+  --rust-root /path/to/rs-sage-core \
+  --report /tmp/reconciled-reg08-core-record-shape.json
 ```
 
-Next, extend the core adapters to expose the complete web Registry read,
-including trusted origin and complete record validation. Run those paths
+Next, extend the core adapters to verify cryptographic key points and proofs,
+authenticated controller/history, and the trusted web origin. Run those paths
 against isolated local HTTP/TLS fixtures and retain actual observations.
 Only then can Inspector assess `REG-08-P` and `REG-08-N04` as complete cases.
 The older 481-case and 489-case evidence directories remain historical.

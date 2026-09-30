@@ -261,6 +261,53 @@ jobs:
           retention-days: 30
           path: ${{ runner.temp }}/reconciled-reg08-core-media.json
 
+  reconciled-reg08-core-envelope:
+    name: Observe pinned Go and Rust REG-08 envelope
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          path: sage-inspector
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: SAGE-X-project/sage-spec
+          ref: dcdd028b5160de5e32eb1f43cf1f71eed3fc4744
+          path: sage-spec
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: SAGE-X-project/sage
+          ref: 628d36cce452762abb0c9e4a0e10b35d4a059529
+          path: sage
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: SAGE-X-project/rs-sage-core
+          ref: 7658959e34f69ad100d085a0a04702dab8d8c2e4
+          path: rs-sage-core
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        with:
+          go-version-file: sage/go.mod
+          cache-dependency-path: sage/go.sum
+      - name: Install Rust
+        run: rustup toolchain install 1.88.0 --profile minimal
+      - name: Observe bounded envelope decisions
+        working-directory: sage-inspector
+        env:
+          RUSTUP_TOOLCHAIN: 1.88.0
+        run: |
+          python3 -B scripts/test_observe_reconciled_reg08_envelope.py
+          python3 -B scripts/observe_reconciled_reg08_envelope.py \
+            --spec-root ../sage-spec --go-root ../sage --rust-root ../rs-sage-core \
+            --report "${RUNNER_TEMP}/reconciled-reg08-core-envelope.json"
+      - name: Preserve bounded core envelope observations
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: reconciled-reg08-core-envelope-${{ github.sha }}
+          if-no-files-found: warn
+          retention-days: 30
+          path: ${{ runner.temp }}/reconciled-reg08-core-envelope.json
+
   current-spec:
     name: Earlier 481-case spec inventory
     runs-on: ubuntu-latest

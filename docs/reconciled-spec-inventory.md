@@ -61,6 +61,22 @@ not a valid signature, trusted HTTPS origin, authenticated controller, or
 complete Registry observation. All REG-08 parent cases remain `NOT_RUN` and
 conformance remains `NOT_ESTABLISHED`.
 
+The [16 bounded proof subconditions](../vectors/0.10.0/reconciled-spec/reg08-record-proofs.json)
+exercise REG-04 signatures over the exact web Registry challenge for Ed25519,
+P-256, and secp256k1, plus X25519 KEM endorsement. Inspector builds Go core
+`3c09b4a497f4086e11ac5fa529ea933df32d7208` and Rust core
+`061c2e489e3f388bcee113382167285e17b72064`. The fixed input includes
+independently generated Ed25519, X25519, and P-256 material; every actual
+decision and executable hash is retained. The Rust build uses the pinned
+[`registry-proofs-Cargo.lock`](../verification/0.10.0/reconciled-spec/registry-proofs-Cargo.lock).
+Both cores matched 16/16 expected decisions in the local runtime check; CI
+preserves its own report. A successful proof check establishes
+only these cryptographic subconditions. In particular, a revoked or expired
+historical KEM signer still needs authenticated evidence that it was authorized
+when the endorsement was added. HTTPS origin, controller and mutation history,
+all REG-08 parent cases, and complete conformance remain `NOT_RUN` or
+`NOT_ESTABLISHED` as appropriate.
+
 Run the revision-bound checks against the exact spec checkout:
 
 ```sh
@@ -85,10 +101,15 @@ python3 -B scripts/observe_reconciled_reg08_record_shape.py \
   --spec-root /path/to/sage-spec --go-root /path/to/sage \
   --rust-root /path/to/rs-sage-core \
   --report /tmp/reconciled-reg08-core-record-shape.json
+python3 -B scripts/test_observe_reconciled_reg08_record_proofs.py
+python3 -B scripts/observe_reconciled_reg08_record_proofs.py \
+  --spec-root /path/to/sage-spec --go-root /path/to/sage \
+  --rust-root /path/to/rs-sage-core \
+  --report /tmp/reconciled-reg08-core-proofs.json
 ```
 
-Next, extend the core adapters to verify cryptographic key points and proofs,
-authenticated controller/history, and the trusted web origin. Run those paths
+Next, extend the core adapters to authenticate controller and mutation history,
+including retained KEM endorsers, and the trusted web origin. Run those paths
 against isolated local HTTP/TLS fixtures and retain actual observations.
 Only then can Inspector assess `REG-08-P` and `REG-08-N04` as complete cases.
 The older 481-case and 489-case evidence directories remain historical.

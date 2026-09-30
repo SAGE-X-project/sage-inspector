@@ -181,6 +181,15 @@ The deployed public source, production request framing, scoped delegation and
 remote atomic writes remain unobserved. REG-08 parent cases and complete
 conformance remain `NOT_RUN` or `NOT_ESTABLISHED`.
 
+The [7 public-journal binding subconditions](../vectors/0.10.0/reconciled-spec/reg08-public-binding.json)
+start with an authenticated local administrator write, then compare its journal
+record with a newly fetched HTTPS record from the exact configured web origin.
+The runtime checks matching and different records, a journal source mismatch,
+unapproved origins and destinations, and wrong TLS names or roots in both
+cores. This proves only one bounded publication snapshot. The actual deployed
+public server's storage, production administrator framing, delegation state,
+remote atomic writes and all REG-08 parent cases remain unobserved.
+
 Run the revision-bound checks against the exact spec checkout:
 
 ```sh
@@ -260,10 +269,15 @@ python3 -B scripts/observe_reconciled_reg08_admin_mtls.py \
   --spec-root /path/to/sage-spec --go-root /path/to/sage \
   --rust-root /path/to/rs-sage-core \
   --report /tmp/reconciled-reg08-core-admin-mtls.json
+python3 -B scripts/test_observe_reconciled_reg08_public_binding.py
+python3 -B scripts/observe_reconciled_reg08_public_binding.py \
+  --spec-root /path/to/sage-spec --go-root /path/to/sage \
+  --rust-root /path/to/rs-sage-core \
+  --report /tmp/reconciled-reg08-core-public-binding.json
 ```
 
-Next, bind the authenticated public source to the administrator write state,
-define deployed request framing and controller-authorized operator scopes,
+Next, bind the deployed public server's actual storage to the administrator
+write state, define production request framing and controller-authorized operator scopes,
 then bind the local journal to deployed storage semantics and verify complete
 mutation log, record and tombstones as one atomic transaction. Expand the
 bounded HTTP adapter's accepted framing only with equally explicit ambiguity

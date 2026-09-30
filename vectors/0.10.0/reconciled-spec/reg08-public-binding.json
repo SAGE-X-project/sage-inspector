@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "kind": "web-registry-public-journal-subcondition-vectors",
+  "protocol_version": "0.10.0",
+  "rule_id": "REG-08",
+  "scope": "One verified administrator journal write followed by one independently authenticated public HTTPS record comparison",
+  "cases": [
+    {"id": "matching-public-record", "admin_source": "https://agents.example.com", "public_record": "created", "policy": "approved", "expected": "MATCH"},
+    {"id": "different-public-record", "admin_source": "https://agents.example.com", "public_record": "different", "policy": "approved", "expected": "RECORD_STALE"},
+    {"id": "unbound-admin-source", "admin_source": "other-origin", "public_record": "none", "policy": "approved", "expected": "RECORD_UNREACHABLE"},
+    {"id": "unapproved-origin", "admin_source": "https://agents.example.com", "public_record": "none", "policy": "no-origin", "expected": "RECORD_UNREACHABLE"},
+    {"id": "unapproved-destination", "admin_source": "https://agents.example.com", "public_record": "none", "policy": "no-destination", "expected": "RECORD_UNREACHABLE"},
+    {"id": "wrong-tls-name", "admin_source": "https://agents.example.com", "public_record": "created", "policy": "wrong-name", "expected": "RECORD_UNREACHABLE"},
+    {"id": "untrusted-tls-root", "admin_source": "https://agents.example.com", "public_record": "created", "policy": "untrusted-root", "expected": "RECORD_UNREACHABLE"}
+  ]
+}

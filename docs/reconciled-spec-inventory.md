@@ -30,11 +30,24 @@ because the Rust library does not track a lockfile. Each core matched all 13
 media decisions in the local run. The CI report retains the same bounded
 evidence for its own build.
 
-These observations cover only the response media decision. Neither executable
+The [20 bounded envelope subconditions](../vectors/0.10.0/reconciled-spec/reg08-envelope.json)
+now exercise the 69632-byte response limit, closed JSON wrapper, duplicate
+members, Unicode and number parsing, and the five-second issued/expires
+lifetime. Inspector builds Go core revision
+`628d36cce452762abb0c9e4a0e10b35d4a059529` and Rust core revision
+`7658959e34f69ad100d085a0a04702dab8d8c2e4` with the pinned Rust
+dependency lock. Each matched all 20 expected decisions in a local runtime
+check; CI preserves its own per-case report and executable hashes. Accepted
+envelopes in these fixtures deliberately contain an empty `record` object.
+They do not imply that a usable Registry record exists.
+
+The 13 media observations cover only the response media decision. Neither executable
 fetches an HTTP response, verifies TLS or web-origin authority, parses a
 complete Registry record, or establishes `REG-08-P` or `REG-08-N04`. Both
 parent cases and the remaining 487 parent cases remain `NOT_RUN`; complete
 implementation conformance remains `NOT_ESTABLISHED`.
+The envelope observations have the same limit: they do not check the nested
+record's separate 65536-byte bound, schema, DID, key proofs, or authority.
 
 Run the revision-bound checks against the exact spec checkout:
 
@@ -50,10 +63,15 @@ python3 -B scripts/observe_reconciled_reg08_media.py \
   --spec-root /path/to/sage-spec --go-root /path/to/sage \
   --rust-root /path/to/rs-sage-core \
   --report /tmp/reconciled-reg08-core-media.json
+python3 -B scripts/test_observe_reconciled_reg08_envelope.py
+python3 -B scripts/observe_reconciled_reg08_envelope.py \
+  --spec-root /path/to/sage-spec --go-root /path/to/sage \
+  --rust-root /path/to/rs-sage-core \
+  --report /tmp/reconciled-reg08-core-envelope.json
 ```
 
 Next, extend the core adapters to expose the complete web Registry read,
-including trusted origin, freshness and record validation. Run those paths
+including trusted origin and complete record validation. Run those paths
 against isolated local HTTP/TLS fixtures and retain actual observations.
 Only then can Inspector assess `REG-08-P` and `REG-08-N04` as complete cases.
 The older 481-case and 489-case evidence directories remain historical.

@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "kind": "web-registry-envelope-subcondition-vectors",
+  "protocol_version": "0.10.0",
+  "rule_id": "REG-08",
+  "scope": "JSON wrapper, body size, and issued/expires lifetime only; record and origin remain unvalidated",
+  "cases": [
+    {"id":"issued-boundary","body":"{\"record\":{},\"issued\":100,\"expires\":105}","now":100,"expected":"ENVELOPE_ACCEPT"},
+    {"id":"before-expiry","body":"{\"record\":{},\"issued\":100,\"expires\":105}","now":104,"expected":"ENVELOPE_ACCEPT"},
+    {"id":"exact-exponent","body":"{\"record\":{},\"issued\":1e2,\"expires\":105}","now":100,"expected":"ENVELOPE_ACCEPT"},
+    {"id":"at-expiry","body":"{\"record\":{},\"issued\":100,\"expires\":105}","now":105,"expected":"RECORD_INVALID"},
+    {"id":"before-issue","body":"{\"record\":{},\"issued\":100,\"expires\":105}","now":99,"expected":"RECORD_INVALID"},
+    {"id":"long-lifetime","body":"{\"record\":{},\"issued\":100,\"expires\":106}","now":100,"expected":"RECORD_INVALID"},
+    {"id":"zero-lifetime","body":"{\"record\":{},\"issued\":100,\"expires\":100}","now":100,"expected":"RECORD_INVALID"},
+    {"id":"missing-record","body":"{\"issued\":100,\"expires\":105}","now":100,"expected":"RECORD_INVALID"},
+    {"id":"nonobject-record","body":"{\"record\":[],\"issued\":100,\"expires\":105}","now":100,"expected":"RECORD_INVALID"},
+    {"id":"unknown-member","body":"{\"record\":{},\"issued\":100,\"expires\":105,\"extra\":0}","now":100,"expected":"RECORD_INVALID"},
+    {"id":"duplicate-root","body":"{\"record\":{},\"issued\":100,\"issued\":100,\"expires\":105}","now":100,"expected":"RECORD_INVALID"},
+    {"id":"duplicate-nested","body":"{\"record\":{\"a\":1,\"a\":2},\"issued\":100,\"expires\":105}","now":100,"expected":"RECORD_INVALID"},
+    {"id":"escaped-duplicate","body":"{\"record\":{\"a\":1,\"\\u0061\":2},\"issued\":100,\"expires\":105}","now":100,"expected":"RECORD_INVALID"},
+    {"id":"negative-zero","body":"{\"record\":{},\"issued\":-0,\"expires\":105}","now":100,"expected":"RECORD_INVALID"},
+    {"id":"lone-surrogate","body":"{\"record\":{\"x\":\"\\ud800\"},\"issued\":100,\"expires\":105}","now":100,"expected":"RECORD_INVALID"},
+    {"id":"fractional-time","body":"{\"record\":{},\"issued\":100.5,\"expires\":105}","now":100,"expected":"RECORD_INVALID"},
+    {"id":"string-time","body":"{\"record\":{},\"issued\":\"100\",\"expires\":105}","now":100,"expected":"RECORD_INVALID"},
+    {"id":"trailing-document","body":"{\"record\":{},\"issued\":100,\"expires\":105}{}","now":100,"expected":"RECORD_INVALID"},
+    {"id":"invalid-clock","body":"{\"record\":{},\"issued\":100,\"expires\":105}","now":9007199254740992,"expected":"RECORD_INVALID"},
+    {"id":"oversize","repeat_byte":" ","repeat_count":69633,"now":100,"expected":"SIZE_EXCEEDED"}
+  ]
+}

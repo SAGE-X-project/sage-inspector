@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "kind": "registry-operator-transaction-subconditions",
+  "protocol_version": "0.10.0",
+  "scope": "Planned REG-03 and REG-08 subconditions; no core, service, or deployment result",
+  "cases": [
+    {"id": "controller-grant", "parent_case_id": "REG-03-P", "precondition": "Authenticated controller, created record, absent activate grant, current expected version", "expected": "ACCEPT_ONE_VERSION_AND_GRANT", "evidence_status": "planned_not_executed"},
+    {"id": "exact-scope-write", "parent_case_id": "REG-03-P", "precondition": "Authenticated operator with active exact operation grant and current expected version", "expected": "ACCEPT_ONE_NAMED_TRANSITION", "evidence_status": "planned_not_executed"},
+    {"id": "controller-revoke", "parent_case_id": "REG-03-P", "precondition": "Authenticated controller revokes one present scope while another remains", "expected": "ACCEPT_ONE_VERSION_AND_REMOVE_ONLY_TARGET", "evidence_status": "planned_not_executed"},
+    {"id": "state-retirement", "parent_case_id": "REG-03-P", "precondition": "Activation or deactivation makes one or more active scopes ineligible", "expected": "ACCEPT_ONE_VERSION_AND_RETIRE_INELIGIBLE", "evidence_status": "planned_not_executed"},
+    {"id": "explicit-regrant", "parent_case_id": "REG-03-P", "precondition": "Controller grants a previously revoked pair at a fresh version", "expected": "ACCEPT_ONE_VERSION_AND_GRANT", "evidence_status": "planned_not_executed"},
+    {"id": "expired-key-management", "parent_case_id": "REG-03-P", "precondition": "Active record has no usable signing key; authenticated controller revokes a grant", "expected": "ACCEPT_MANAGEMENT_ONLY_NO_MESSAGE_AUTHORITY", "evidence_status": "planned_not_executed"},
+    {"id": "duplicate-or-missing-grant", "parent_case_id": "REG-03-P", "precondition": "Controller repeats an active grant or revokes an absent pair", "expected": "REJECT_UNCHANGED", "evidence_status": "planned_not_executed"},
+    {"id": "grant-capacity", "parent_case_id": "REG-03-P", "precondition": "Controller attempts a 129th simultaneously active grant", "expected": "REJECT_UNCHANGED", "evidence_status": "planned_not_executed"},
+    {"id": "stale-version", "parent_case_id": "REG-03-N01", "precondition": "Command supplies a prior, missing, noncanonical, or maximum version that cannot increment", "expected": "REJECT_UNCHANGED", "evidence_status": "planned_not_executed"},
+    {"id": "competing-commands", "parent_case_id": "REG-03-N02", "precondition": "Grant and record mutation, or revoke and operator write, race at the same expected version", "expected": "ONE_COMMIT_OTHER_STALE_BY_LINEARIZATION", "evidence_status": "planned_not_executed"},
+    {"id": "uncertain-commit", "parent_case_id": "REG-03-N02", "precondition": "Durable commit outcome cannot be established after a write or restart", "expected": "QUARANTINE_NO_SUCCESS_CLAIM", "evidence_status": "planned_not_executed"},
+    {"id": "restart-history", "parent_case_id": "REG-03-N02", "precondition": "Restart follows committed grant and revoke with complete ordered state", "expected": "RECOVER_EXACT_VERSION_AND_GRANTS", "evidence_status": "planned_not_executed"},
+    {"id": "deactivated-management", "parent_case_id": "REG-03-N03", "precondition": "Authenticated controller or operator attempts a grant or write after deactivation", "expected": "REJECT_UNCHANGED", "evidence_status": "planned_not_executed"},
+    {"id": "operator-delegates", "parent_case_id": "REG-03-N04", "precondition": "Operator with a valid lifecycle scope attempts to grant or revoke authority", "expected": "REJECT_UNCHANGED", "evidence_status": "planned_not_executed"},
+    {"id": "scope-or-identity-mismatch", "parent_case_id": "REG-03-N04", "precondition": "Operator requests another operation, DID, registry, or unauthenticated certificate mapping", "expected": "REJECT_UNCHANGED", "evidence_status": "planned_not_executed"},
+    {"id": "public-read-atomicity", "parent_case_id": "REG-08-P", "precondition": "Public HTTPS read races a controller management commit", "expected": "COMPLETE_OLD_OR_NEW_RECORD", "evidence_status": "planned_not_executed"},
+    {"id": "storage-authority-loss", "parent_case_id": "REG-08-N03", "precondition": "Deployed origin cannot prove shared committed state, history, or storage ownership", "expected": "NO_CONFORMANCE_OR_SUCCESS_CLAIM", "evidence_status": "planned_not_executed"}
+  ]
+}

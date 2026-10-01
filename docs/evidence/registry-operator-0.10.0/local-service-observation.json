@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "kind": "registry-operator-local-observation",
+  "protocol_version": "0.10.0",
+  "spec_revision": "fa006fd917ad365eb554a27f4178301cd66e2379",
+  "vector_sha256": "c79ecaa507b8d92e2847924f1e4a19330ecfc2749372bfaa99d5503fd023046b",
+  "subject_revisions": {
+    "service": "baf5570578ddc19685ebe2a5bda4a284f45c8e05",
+    "go": "9c7dce33202377721259d246acd7d973d2dc0d86",
+    "spec": "fa006fd917ad365eb554a27f4178301cd66e2379"
+  },
+  "service_executable_sha256": "5338539607a19333cb2e4ebcde9d9fe947d691bb792b541d3c633ec9d3aa1631",
+  "cases": [
+    {
+      "id": "controller-grant",
+      "parent_case_id": "REG-03-P",
+      "status": "PASS",
+      "track": "local_tls_runtime"
+    },
+    {
+      "id": "exact-scope-write",
+      "parent_case_id": "REG-03-P",
+      "status": "PASS",
+      "track": "local_tls_runtime"
+    },
+    {
+      "id": "controller-revoke",
+      "parent_case_id": "REG-03-P",
+      "status": "PASS",
+      "track": "local_tls_runtime"
+    },
+    {
+      "id": "state-retirement",
+      "parent_case_id": "REG-03-P",
+      "status": "PASS",
+      "track": "local_tls_runtime"
+    },
+    {
+      "id": "explicit-regrant",
+      "parent_case_id": "REG-03-P",
+      "status": "PASS",
+      "track": "local_tls_runtime"
+    },
+    {
+      "id": "expired-key-management",
+      "parent_case_id": "REG-03-P",
+      "status": "PARTIAL",
+      "track": "local_tls_runtime",
+      "reason": "Expired signing keys and management were observed; no protected-message authorization was exercised."
+    },
+    {
+      "id": "duplicate-or-missing-grant",
+      "parent_case_id": "REG-03-P",
+      "status": "PASS",
+      "track": "local_tls_runtime"
+    },
+    {
+      "id": "grant-capacity",
+      "parent_case_id": "REG-03-P",
+      "status": "PASS",
+      "track": "local_tls_runtime"
+    },
+    {
+      "id": "stale-version",
+      "parent_case_id": "REG-03-N01",
+      "status": "PASS",
+      "track": "local_tls_runtime"
+    },
+    {
+      "id": "competing-commands",
+      "parent_case_id": "REG-03-N02",
+      "status": "PASS",
+      "track": "local_tls_runtime"
+    },
+    {
+      "id": "uncertain-commit",
+      "parent_case_id": "REG-03-N02",
+      "status": "PASS",
+      "track": "local_tls_runtime"
+    },
+    {
+      "id": "restart-history",
+      "parent_case_id": "REG-03-N02",
+      "status": "PASS",
+      "track": "local_tls_runtime"
+    },
+    {
+      "id": "deactivated-management",
+      "parent_case_id": "REG-03-N03",
+      "status": "PASS",
+      "track": "local_tls_runtime"
+    },
+    {
+      "id": "operator-delegates",
+      "parent_case_id": "REG-03-N04",
+      "status": "PASS",
+      "track": "local_tls_runtime"
+    },
+    {
+      "id": "scope-or-identity-mismatch",
+      "parent_case_id": "REG-03-N04",
+      "status": "PASS",
+      "track": "local_tls_runtime"
+    },
+    {
+      "id": "public-read-atomicity",
+      "parent_case_id": "REG-08-P",
+      "status": "PASS",
+      "track": "local_tls_runtime"
+    },
+    {
+      "id": "storage-authority-loss",
+      "parent_case_id": "REG-08-N03",
+      "status": "NOT_RUN",
+      "track": "local_tls_runtime",
+      "reason": "No deployed origin and storage owner were supplied."
+    }
+  ],
+  "local_pass": 15,
+  "partial": 1,
+  "not_run": 1,
+  "deployed_reg08": "NOT_RUN",
+  "conformance": "NOT_ESTABLISHED"
+}

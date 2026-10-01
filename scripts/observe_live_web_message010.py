@@ -28,6 +28,7 @@ BOB = 'did:sage:web:agent.example:bob'
 GO_REVISION = '59c7d165c4654873c80f0e0a546e6795819ee55e'
 SERVICE_REVISION = 'baf5570578ddc19685ebe2a5bda4a284f45c8e05'
 SPEC_REVISION = 'fa006fd917ad365eb554a27f4178301cd66e2379'
+RUST_REVISION = 'ffa1234720f7a519b753471cfe315605be7deb1c'
 
 
 def encoded(value):
@@ -97,12 +98,15 @@ def build_service(service_root, output):
     return binary
 
 
-def run(service_root, go_root, spec_root, adapter, output):
+def run(service_root, go_root, spec_root, rust_root, sender_adapter, receiver_adapter,
+        sender_core, receiver_core, output):
     fixture_path = ROOT / 'vectors/0.10.0/live-web-message010.json'
     fixture = json.loads(fixture_path.read_text())
     assert fixture['schema_version'] == 1 and fixture['kind'] == 'live-web-registry-protected-message'
     assert fixture['cases'] == [{'id': 'before-key-revocation', 'expected': 'ACCEPT'},
                                 {'id': 'after-named-key-revocation', 'expected': 'REJECT'}]
+    assert fixture['directions'] == ['go-to-go', 'go-to-rust', 'rust-to-go', 'rust-to-rust']
+    assert f'{sender_core}-to-{receiver_core}' in fixture['directions']
     assert fixture['conformance'] == 'NOT_ESTABLISHED'
     go_revision = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=go_root, text=True).strip()
     service_revision = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=service_root, text=True).strip()
@@ -111,6 +115,13 @@ def run(service_root, go_root, spec_root, adapter, output):
     assert not subprocess.check_output(['git', 'diff', 'HEAD', '--'], cwd=go_root)
     assert not subprocess.check_output(['git', 'diff', 'HEAD', '--'], cwd=service_root)
     assert not subprocess.check_output(['git', 'diff', 'HEAD', '--'], cwd=spec_root)
+    rust_revision = None
+    if 'rust' in (sender_core, receiver_core):
+        assert rust_root is not None
+        rust_revision = subprocess.check_output(['git', 'rev-parse', 'HEAD'],
+                                                cwd=rust_root, text=True).strip()
+        assert rust_revision == RUST_REVISION
+        assert not subprocess.check_output(['git', 'diff', 'HEAD', '--'], cwd=rust_root)
     output.mkdir(parents=True, exist_ok=False)
     report = {'schema_version': 1, 'kind': fixture['kind'], 'status': 'RUNNING',
               'conformance': 'NOT_ESTABLISHED', 'scope': fixture['scope'],
@@ -118,8 +129,11 @@ def run(service_root, go_root, spec_root, adapter, output):
               'inspector_revision': subprocess.check_output(['git', 'rev-parse', 'HEAD'],
                                                             cwd=ROOT, text=True).strip(),
               'go_revision': go_revision, 'service_revision': service_revision,
-              'spec_revision': spec_revision,
-              'adapter_sha256': digest(adapter), 'observations': [], 'raw': 'raw.jsonl'}
+              'spec_revision': spec_revision, 'rust_revision': rust_revision,
+              'sender_core': sender_core, 'receiver_core': receiver_core,
+              'adapter_sha256': {'sender': digest(sender_adapter),
+                                 'receiver': digest(receiver_adapter)},
+              'observations': [], 'raw': 'raw.jsonl'}
 
     def save():
         (output / 'report.json').write_text(json.dumps(report, indent=2) + '\n')
@@ -176,9 +190,9 @@ def run(service_root, go_root, spec_root, adapter, output):
                                    for did in (ALICE, BOB)},
                     }))
                     profile = 'live-web:' + str(config_path)
-                    alice = Actor('alice', 'alice', directory / 'alice-session', adapter, log,
+                    alice = Actor('alice', 'alice', directory / 'alice-session', sender_adapter, log,
                                   profile=profile)
-                    bob = Actor('bob', 'bob', directory / 'bob-session', adapter, log,
+                    bob = Actor('bob', 'bob', directory / 'bob-session', receiver_adapter, log,
                                 profile=profile)
                     try:
                         initiation = bytes.fromhex(alice.call('start')['wire_hex'])
@@ -251,8 +265,18 @@ if __name__ == '__main__':
     parser.add_argument('--service-root', required=True, type=Path)
     parser.add_argument('--go-root', required=True, type=Path)
     parser.add_argument('--spec-root', required=True, type=Path)
-    parser.add_argument('--adapter', required=True, type=Path)
+    parser.add_argument('--adapter', type=Path)
+    parser.add_argument('--sender-adapter', type=Path)
+    parser.add_argument('--receiver-adapter', type=Path)
+    parser.add_argument('--sender-core', choices=('go', 'rust'), default='go')
+    parser.add_argument('--receiver-core', choices=('go', 'rust'), default='go')
+    parser.add_argument('--rust-root', type=Path)
     parser.add_argument('--output', required=True, type=Path)
     args = parser.parse_args()
+    sender = args.sender_adapter or args.adapter
+    receiver = args.receiver_adapter or args.adapter
+    if sender is None or receiver is None:
+        parser.error('both actor executables are required')
     run(args.service_root.resolve(), args.go_root.resolve(), args.spec_root.resolve(),
-        args.adapter.resolve(), args.output.resolve())
+        args.rust_root.resolve() if args.rust_root else None, sender.resolve(), receiver.resolve(),
+        args.sender_core, args.receiver_core, args.output.resolve())

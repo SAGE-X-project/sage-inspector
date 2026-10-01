@@ -1130,6 +1130,54 @@ jobs:
           retention-days: 30
           path: ${{ runner.temp }}/http-registry-expiry010/
 
+  live-web-message010:
+    name: Observe live Registry reads before protected HTTP acceptance
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          path: sage-inspector
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: SAGE-X-project/sage
+          ref: 59c7d165c4654873c80f0e0a546e6795819ee55e
+          path: sage
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: SAGE-X-project/sage-registry-service
+          ref: baf5570578ddc19685ebe2a5bda4a284f45c8e05
+          path: sage-registry-service
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: SAGE-X-project/sage-spec
+          ref: fa006fd917ad365eb554a27f4178301cd66e2379
+          path: sage-spec
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        with:
+          go-version-file: sage/go.mod
+          cache-dependency-path: |
+            sage-inspector/adapters/go/go.sum
+            sage-registry-service/go.sum
+      - name: Build adapter and run bounded live service observation
+        working-directory: sage-inspector
+        run: |
+          python3 -m venv "${RUNNER_TEMP}/live-web-venv"
+          "${RUNNER_TEMP}/live-web-venv/bin/pip" install 'cryptography==50.0.0'
+          (cd adapters/go && go test -race -tags liveweb010 ./cmd/sage-completion010 && go build -tags liveweb010 -o "${RUNNER_TEMP}/sage-completion010-live" ./cmd/sage-completion010)
+          "${RUNNER_TEMP}/live-web-venv/bin/python" -B scripts/observe_live_web_message010.py \
+            --service-root ../sage-registry-service --go-root ../sage --spec-root ../sage-spec \
+            --adapter "${RUNNER_TEMP}/sage-completion010-live" \
+            --output "${RUNNER_TEMP}/live-web-message010"
+      - name: Preserve live Registry message observation
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: live-web-message010-${{ github.sha }}
+          if-no-files-found: warn
+          retention-days: 30
+          path: ${{ runner.temp }}/live-web-message010/
+
   current-spec:
     name: Earlier 481-case spec inventory
     runs-on: ubuntu-latest

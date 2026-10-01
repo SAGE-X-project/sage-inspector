@@ -2006,3 +2006,75 @@ jobs:
           if-no-files-found: warn
           retention-days: 30
           path: ${{ runner.temp }}/registry-proof010/
+
+  strict-did010:
+    name: Observe strict 0.10.0 DID syntax in Go and Rust
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          path: sage-inspector
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: SAGE-X-project/sage
+          ref: be8c177653553c7fc4b91aafe5a4e39a68e6855f
+          path: sage
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: SAGE-X-project/rs-sage-core
+          ref: 1577ed80fef601284a999a3bfc460b57239a6d74
+          path: rs-sage-core
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: SAGE-X-project/sage-spec
+          ref: fa006fd917ad365eb554a27f4178301cd66e2379
+          path: sage-spec
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        with:
+          go-version-file: sage/go.mod
+          cache-dependency-path: sage-inspector/adapters/go-strict010/go.sum
+      - name: Build adapters and inspect DID syntax
+        working-directory: sage-inspector
+        env:
+          RUSTUP_TOOLCHAIN: 1.88.0
+        run: |
+          rustup toolchain install 1.88.0 --profile minimal
+          python3 -B scripts/test_strict_did010_reports.py
+          mkdir -p "${RUNNER_TEMP}/strict-did010"
+          go build -o "${RUNNER_TEMP}/strict-did010/sage-conformance" ./cmd/sage-conformance
+          (cd adapters/go-strict010 && go build -o "${RUNNER_TEMP}/strict-did010/go-adapter" .)
+          cargo build --locked --manifest-path adapters/rust-strict010/Cargo.toml \
+            --bin strict010_inspector --target-dir "${RUNNER_TEMP}/strict-did010/rust-target"
+          "${RUNNER_TEMP}/strict-did010/sage-conformance" \
+            -suite vectors/0.10.0/strict-did010.json \
+            -adapter "${RUNNER_TEMP}/strict-did010/go-adapter" \
+            -subject go-strict010 -revision be8c177653553c7fc4b91aafe5a4e39a68e6855f \
+            -report "${RUNNER_TEMP}/strict-did010/go-report.json" \
+            > "${RUNNER_TEMP}/strict-did010/go.stdout.json"
+          "${RUNNER_TEMP}/strict-did010/sage-conformance" \
+            -suite vectors/0.10.0/strict-did010.json \
+            -adapter "${RUNNER_TEMP}/strict-did010/rust-target/debug/strict010_inspector" \
+            -subject rust-strict010 -revision 1577ed80fef601284a999a3bfc460b57239a6d74 \
+            -report "${RUNNER_TEMP}/strict-did010/rust-report.json" \
+            > "${RUNNER_TEMP}/strict-did010/rust.stdout.json"
+          python3 -B scripts/check_strict_did010_reports.py \
+            --go-root ../sage --rust-root ../rs-sage-core --spec-root ../sage-spec \
+            --go-adapter "${RUNNER_TEMP}/strict-did010/go-adapter" \
+            --rust-adapter "${RUNNER_TEMP}/strict-did010/rust-target/debug/strict010_inspector" \
+            --go-report "${RUNNER_TEMP}/strict-did010/go-report.json" \
+            --rust-report "${RUNNER_TEMP}/strict-did010/rust-report.json" \
+            --go-revision be8c177653553c7fc4b91aafe5a4e39a68e6855f \
+            --rust-revision 1577ed80fef601284a999a3bfc460b57239a6d74
+      - name: Preserve strict DID syntax evidence
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: strict-did010-${{ github.sha }}
+          if-no-files-found: warn
+          retention-days: 30
+          path: |
+            ${{ runner.temp }}/strict-did010/go-report.json
+            ${{ runner.temp }}/strict-did010/rust-report.json
+            ${{ runner.temp }}/strict-did010/go.stdout.json
+            ${{ runner.temp }}/strict-did010/rust.stdout.json

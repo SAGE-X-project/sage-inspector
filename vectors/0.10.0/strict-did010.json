@@ -1,0 +1,413 @@
+{
+  "schema_version": 1,
+  "protocol_version": "0.10.0",
+  "profile": "primitive-foundation",
+  "id": "sage-strict-did-0.10.0",
+  "sources": [
+    {
+      "id": "strict-did-spec",
+      "kind": "spec-derived",
+      "uri": "sage-spec/spec/06-did-sage.md",
+      "reference": "fa006fd917ad365eb554a27f4178301cd66e2379 ID-01/ID-02; profile syntax in spec/09-registry.md \u00a7\u00a76\u20138. Synthetic identifiers only."
+    }
+  ],
+  "cases": [
+    {
+      "id": "canonical-web",
+      "operation": "sage.did010.parse",
+      "rule_ids": [
+        "ID-01",
+        "ID-02"
+      ],
+      "source_ids": [
+        "strict-did-spec"
+      ],
+      "derivation": "Manually classified from the pinned 0.10.0 syntax and profile restrictions; this observes parsing only, not resolution or peer binding.",
+      "input": {
+        "did": "did:sage:web:agents.example.com:billing-bot"
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "kind": "web",
+          "locator": "agents.example.com",
+          "agent_id": "billing-bot"
+        }
+      }
+    },
+    {
+      "id": "canonical-alabel",
+      "operation": "sage.did010.parse",
+      "rule_ids": [
+        "ID-01",
+        "ID-02"
+      ],
+      "source_ids": [
+        "strict-did-spec"
+      ],
+      "derivation": "Manually classified from the pinned 0.10.0 syntax and profile restrictions; this observes parsing only, not resolution or peer binding.",
+      "input": {
+        "did": "did:sage:web:xn--bcher-kva.example:agent_1"
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "kind": "web",
+          "locator": "xn--bcher-kva.example",
+          "agent_id": "agent_1"
+        }
+      }
+    },
+    {
+      "id": "canonical-chain",
+      "operation": "sage.did010.parse",
+      "rule_ids": [
+        "ID-01",
+        "ID-02"
+      ],
+      "source_ids": [
+        "strict-did-spec"
+      ],
+      "derivation": "Manually classified from the pinned 0.10.0 syntax and profile restrictions; this observes parsing only, not resolution or peer binding.",
+      "input": {
+        "did": "did:sage:eip155:11155111:0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:0x1234abcd"
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "kind": "eip155",
+          "locator": "11155111:0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "agent_id": "0x1234abcd"
+        }
+      }
+    },
+    {
+      "id": "uppercase-scheme",
+      "operation": "sage.did010.parse",
+      "rule_ids": [
+        "ID-01",
+        "ID-02"
+      ],
+      "source_ids": [
+        "strict-did-spec"
+      ],
+      "derivation": "Manually classified from the pinned 0.10.0 syntax and profile restrictions; this observes parsing only, not resolution or peer binding.",
+      "input": {
+        "did": "DID:sage:web:agents.example.com:billing-bot"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "uppercase-method",
+      "operation": "sage.did010.parse",
+      "rule_ids": [
+        "ID-01",
+        "ID-02"
+      ],
+      "source_ids": [
+        "strict-did-spec"
+      ],
+      "derivation": "Manually classified from the pinned 0.10.0 syntax and profile restrictions; this observes parsing only, not resolution or peer binding.",
+      "input": {
+        "did": "did:SAGE:web:agents.example.com:billing-bot"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "uppercase-domain",
+      "operation": "sage.did010.parse",
+      "rule_ids": [
+        "ID-01",
+        "ID-02"
+      ],
+      "source_ids": [
+        "strict-did-spec"
+      ],
+      "derivation": "Manually classified from the pinned 0.10.0 syntax and profile restrictions; this observes parsing only, not resolution or peer binding.",
+      "input": {
+        "did": "did:sage:web:Agents.example.com:billing-bot"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "ip-literal",
+      "operation": "sage.did010.parse",
+      "rule_ids": [
+        "ID-01",
+        "ID-02"
+      ],
+      "source_ids": [
+        "strict-did-spec"
+      ],
+      "derivation": "Manually classified from the pinned 0.10.0 syntax and profile restrictions; this observes parsing only, not resolution or peer binding.",
+      "input": {
+        "did": "did:sage:web:127.0.0.1:alice"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "trailing-domain-dot",
+      "operation": "sage.did010.parse",
+      "rule_ids": [
+        "ID-01",
+        "ID-02"
+      ],
+      "source_ids": [
+        "strict-did-spec"
+      ],
+      "derivation": "Manually classified from the pinned 0.10.0 syntax and profile restrictions; this observes parsing only, not resolution or peer binding.",
+      "input": {
+        "did": "did:sage:web:agents.example.com.:alice"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "missing-agent",
+      "operation": "sage.did010.parse",
+      "rule_ids": [
+        "ID-01",
+        "ID-02"
+      ],
+      "source_ids": [
+        "strict-did-spec"
+      ],
+      "derivation": "Manually classified from the pinned 0.10.0 syntax and profile restrictions; this observes parsing only, not resolution or peer binding.",
+      "input": {
+        "did": "did:sage:web:agents.example.com:"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "extra-segment",
+      "operation": "sage.did010.parse",
+      "rule_ids": [
+        "ID-01",
+        "ID-02"
+      ],
+      "source_ids": [
+        "strict-did-spec"
+      ],
+      "derivation": "Manually classified from the pinned 0.10.0 syntax and profile restrictions; this observes parsing only, not resolution or peer binding.",
+      "input": {
+        "did": "did:sage:web:agents.example.com:billing-bot:extra"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "legacy-alias",
+      "operation": "sage.did010.parse",
+      "rule_ids": [
+        "ID-01",
+        "ID-02"
+      ],
+      "source_ids": [
+        "strict-did-spec"
+      ],
+      "derivation": "Manually classified from the pinned 0.10.0 syntax and profile restrictions; this observes parsing only, not resolution or peer binding.",
+      "input": {
+        "did": "did:sage:ETH:0xabc"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "reserved-kind",
+      "operation": "sage.did010.parse",
+      "rule_ids": [
+        "ID-01",
+        "ID-02"
+      ],
+      "source_ids": [
+        "strict-did-spec"
+      ],
+      "derivation": "Manually classified from the pinned 0.10.0 syntax and profile restrictions; this observes parsing only, not resolution or peer binding.",
+      "input": {
+        "did": "did:sage:solana:abc:agent"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "chain-leading-zero",
+      "operation": "sage.did010.parse",
+      "rule_ids": [
+        "ID-01",
+        "ID-02"
+      ],
+      "source_ids": [
+        "strict-did-spec"
+      ],
+      "derivation": "Manually classified from the pinned 0.10.0 syntax and profile restrictions; this observes parsing only, not resolution or peer binding.",
+      "input": {
+        "did": "did:sage:eip155:01:0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa:alice"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "uppercase-address",
+      "operation": "sage.did010.parse",
+      "rule_ids": [
+        "ID-01",
+        "ID-02"
+      ],
+      "source_ids": [
+        "strict-did-spec"
+      ],
+      "derivation": "Manually classified from the pinned 0.10.0 syntax and profile restrictions; this observes parsing only, not resolution or peer binding.",
+      "input": {
+        "did": "did:sage:eip155:1:0xAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA:alice"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "long-agent",
+      "operation": "sage.did010.parse",
+      "rule_ids": [
+        "ID-01",
+        "ID-02"
+      ],
+      "source_ids": [
+        "strict-did-spec"
+      ],
+      "derivation": "Manually classified from the pinned 0.10.0 syntax and profile restrictions; this observes parsing only, not resolution or peer binding.",
+      "input": {
+        "did": "did:sage:web:agents.example.com:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "canonical-key-url",
+      "operation": "sage.did-url010.parse",
+      "rule_ids": [
+        "ID-01",
+        "ID-02"
+      ],
+      "source_ids": [
+        "strict-did-spec"
+      ],
+      "derivation": "Manually classified from the pinned 0.10.0 syntax and profile restrictions; this observes parsing only, not resolution or peer binding.",
+      "input": {
+        "did_url": "did:sage:web:agents.example.com:billing-bot#signing-1"
+      },
+      "expected": {
+        "verdict": "ACCEPT",
+        "output": {
+          "kind": "web",
+          "locator": "agents.example.com",
+          "agent_id": "billing-bot",
+          "key_id": "signing-1"
+        }
+      }
+    },
+    {
+      "id": "key-url-no-fragment",
+      "operation": "sage.did-url010.parse",
+      "rule_ids": [
+        "ID-01",
+        "ID-02"
+      ],
+      "source_ids": [
+        "strict-did-spec"
+      ],
+      "derivation": "Manually classified from the pinned 0.10.0 syntax and profile restrictions; this observes parsing only, not resolution or peer binding.",
+      "input": {
+        "did_url": "did:sage:web:agents.example.com:billing-bot"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "key-url-extra-fragment",
+      "operation": "sage.did-url010.parse",
+      "rule_ids": [
+        "ID-01",
+        "ID-02"
+      ],
+      "source_ids": [
+        "strict-did-spec"
+      ],
+      "derivation": "Manually classified from the pinned 0.10.0 syntax and profile restrictions; this observes parsing only, not resolution or peer binding.",
+      "input": {
+        "did_url": "did:sage:web:agents.example.com:billing-bot#signing-1#other"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "key-url-invalid-fragment",
+      "operation": "sage.did-url010.parse",
+      "rule_ids": [
+        "ID-01",
+        "ID-02"
+      ],
+      "source_ids": [
+        "strict-did-spec"
+      ],
+      "derivation": "Manually classified from the pinned 0.10.0 syntax and profile restrictions; this observes parsing only, not resolution or peer binding.",
+      "input": {
+        "did_url": "did:sage:web:agents.example.com:billing-bot#key.1"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    },
+    {
+      "id": "key-url-uppercase-prefix",
+      "operation": "sage.did-url010.parse",
+      "rule_ids": [
+        "ID-01",
+        "ID-02"
+      ],
+      "source_ids": [
+        "strict-did-spec"
+      ],
+      "derivation": "Manually classified from the pinned 0.10.0 syntax and profile restrictions; this observes parsing only, not resolution or peer binding.",
+      "input": {
+        "did_url": "DID:sage:web:agents.example.com:billing-bot#signing-1"
+      },
+      "expected": {
+        "verdict": "REJECT",
+        "output": {}
+      }
+    }
+  ]
+}

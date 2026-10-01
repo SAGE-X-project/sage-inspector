@@ -76,6 +76,10 @@ The [Registry operator observation](docs/registry-operator-observation.md)
 binds the 17 new REG-03/REG-08 subconditions to a merged service revision and
 retains partial and missing evidence without promoting parent conformance.
 
+The [strict DID syntax observation](docs/strict-did010-observation.md) runs
+separate 0.10.0 Go and Rust parser APIs against 20 pinned inputs while
+preserving the historical legacy-parser findings.
+
 See the [prioritized work list](docs/next-work.md) for dependencies and acceptance
 criteria for real core adapters, stateful scenarios, and protocol coverage.
 

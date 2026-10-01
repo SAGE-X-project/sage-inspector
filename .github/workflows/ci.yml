@@ -1019,6 +1019,50 @@ jobs:
           retention-days: 30
           path: ${{ runner.temp }}/reconciled-reg08-service-storage.json
 
+  registry-operator-service:
+    name: Observe pinned Registry operator transactions
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          path: sage-inspector
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: SAGE-X-project/sage-spec
+          ref: fa006fd917ad365eb554a27f4178301cd66e2379
+          path: sage-spec
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: SAGE-X-project/sage-registry-service
+          ref: baf5570578ddc19685ebe2a5bda4a284f45c8e05
+          path: sage-registry-service
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: SAGE-X-project/sage
+          ref: 9c7dce33202377721259d246acd7d973d2dc0d86
+          path: sage
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        with:
+          go-version-file: sage-registry-service/go.mod
+          cache-dependency-path: sage-registry-service/go.sum
+      - name: Observe authenticated operator transactions
+        working-directory: sage-inspector
+        run: |
+          python3 -B scripts/test_observe_registry_operator_service.py
+          python3 -B scripts/observe_registry_operator_service.py \
+            --spec-root ../sage-spec --service-root ../sage-registry-service \
+            --go-root ../sage \
+            --output "${RUNNER_TEMP}/registry-operator-service.json"
+      - name: Preserve operator transaction observation
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: registry-operator-service-${{ github.sha }}
+          if-no-files-found: warn
+          retention-days: 30
+          path: ${{ runner.temp }}/registry-operator-service.json
+
   current-spec:
     name: Earlier 481-case spec inventory
     runs-on: ubuntu-latest

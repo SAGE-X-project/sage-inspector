@@ -42,15 +42,22 @@ type completionControl struct {
 	expiry     int64
 	mono, utc  int64
 	mode       string
+	live       *liveWebSource
 }
 
 func (c *completionControl) Now() (registry010.Stamp, error) {
+	if c.live != nil {
+		return c.live.Now()
+	}
 	if c.mode == "clock-error" {
 		return registry010.Stamp{}, errors.New("clock")
 	}
 	return registry010.Stamp{MonoMS: c.mono, Unix: c.utc}, nil
 }
-func (c *completionControl) Read(_ context.Context, did string) (registry010.Snapshot, error) {
+func (c *completionControl) Read(ctx context.Context, did string) (registry010.Snapshot, error) {
+	if c.live != nil {
+		return c.live.Read(ctx, did)
+	}
 	if c.mode == "source-error" {
 		return registry010.Snapshot{}, errors.New("source")
 	}

@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "kind": "live-web-registry-protected-message",
+  "scope": "Two loopback Registry services, authenticated public and inspection reads, Go HTTP session requests",
+  "cases": [
+    {"id": "before-key-revocation", "expected": "ACCEPT"},
+    {"id": "after-named-key-revocation", "expected": "REJECT"}
+  ],
+  "conformance": "NOT_ESTABLISHED"
+}

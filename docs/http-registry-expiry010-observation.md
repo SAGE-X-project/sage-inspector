@@ -29,6 +29,11 @@ historical read and management result. Combining these observations does not
 prove a live service-to-message authorization chain. Overall conformance remains
 `NOT_ESTABLISHED`.
 
+A later [bounded live service observation](live-web-message010-observation.md)
+connects authenticated Registry reads to this Go HTTP session path under pinned
+local service and Inspector credentials. Its limits and evidence are recorded
+separately.
+
 CI builds the pinned Go adapter and preserves the new report and raw process
 transcript as an artifact. To repeat the bounded local observation with a clean
 Go checkout at the pinned revision:

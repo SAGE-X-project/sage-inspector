@@ -13,6 +13,7 @@ import (
 	"github.com/sage-x-project/sage/pkg/agent/registry010"
 	"io"
 	"os"
+	"strings"
 )
 
 type request struct {
@@ -68,10 +69,11 @@ func decode(b []byte) (request, []byte, error) {
 	return q, nil, nil
 }
 func run() error {
-	if (len(os.Args) != 3 && (len(os.Args) != 4 || os.Args[3] != "guard-fixture")) || (os.Args[1] != "alice" && os.Args[1] != "bob") {
+	liveProfile := len(os.Args) == 4 && strings.HasPrefix(os.Args[3], "live-web:")
+	if (len(os.Args) != 3 && (len(os.Args) != 4 || (os.Args[3] != "guard-fixture" && !liveProfile))) || (os.Args[1] != "alice" && os.Args[1] != "bob") {
 		return errors.New("expected role and local journal path")
 	}
-	if len(os.Args) == 4 {
+	if len(os.Args) == 4 && !liveProfile {
 		guardProfile = true
 		completionRegistry = "web:agents.example.com"
 		completionAlice = "did:sage:web:agents.example.com:alice"
@@ -86,12 +88,21 @@ func run() error {
 		kem = bytes.Repeat([]byte{3}, 32)
 	}
 	c := &completionControl{utc: 100}
+	gateConfig := registry010.Config{Source: "fixture-authority", Registry: completionRegistry, Network: "local"}
+	if liveProfile {
+		live, err := openLiveWebSource(strings.TrimPrefix(os.Args[3], "live-web:"))
+		if err != nil {
+			return err
+		}
+		c.live = live
+		gateConfig.Source = live.origin
+	}
 	j, x := registry010.OpenJournal(os.Args[2], true)
 	if x != nil {
 		return x
 	}
 	defer func() { _ = j.Close() }()
-	g, x := registry010.NewGate(registry010.Config{Source: "fixture-authority", Registry: completionRegistry, Network: "local"}, c, c, j)
+	g, x := registry010.NewGate(gateConfig, c, c, j)
 	if x != nil {
 		return x
 	}

@@ -35,6 +35,16 @@ replay reservation and closes the session. The vector and report keep this
 case separate from named-key revocation; stopping a local service does not
 establish how a deployed chain or network partition behaves.
 
+The recovery sequence starts with the same accepted-request and source-outage
+checks. Inspector restarts Alice's service from its existing local journal,
+checks that the authenticated version 2 inspection and journal bytes match
+their pre-restart values, and updates the pinned loopback
+destination. The old session stays closed and cannot accept the previously
+denied request. A distinct new Go/Rust handshake then accepts a fresh signed
+request. This shows bounded local journal recovery and new-session admission;
+it does not show session resumption, rollback resistance of deployed storage,
+or readiness of a blockchain source.
+
 This is a controlled integration observation. The adapter's mTLS inspection
 credential and two loopback destination mappings are test configuration, not a
 general client resolver. The services themselves attest their local committed
@@ -43,7 +53,7 @@ assurance, production trust distribution and the general HTTP profile remain
 unverified. Overall conformance stays `NOT_ESTABLISHED`.
 
 CI runs the Go adapter's race-enabled unit tests, Rust source and case-selection
-unit tests, and eight loopback TLS scenarios. It preserves revision-pinned reports and raw
+unit tests, and twelve loopback TLS scenarios. It preserves revision-pinned reports and raw
 process transcripts as artifacts. With clean checkouts at the revisions above,
 build both live adapters and run one direction as follows; CI runs all four:
 

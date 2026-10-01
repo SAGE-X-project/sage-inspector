@@ -19,12 +19,18 @@ class LiveWebCaseSelectionTests(unittest.TestCase):
                                  ('before-key-revocation', 'after-named-key-revocation'))
                 self.assertEqual(selected_cases(self.fixture, 'registry-unavailable', sender, receiver),
                                  ('before-registry-unavailable', 'after-registry-unavailable'))
+                self.assertEqual(selected_cases(self.fixture, 'registry-recovery', sender, receiver),
+                                 ('before-registry-recovery-outage',
+                                  'after-registry-recovery-outage',
+                                  'closed-session-after-source-restart',
+                                  'fresh-session-after-source-restart'))
 
     def test_rejects_case_or_conformance_promotion(self):
         for change in (
             lambda fixture: fixture['cases'][3].update(expected='ACCEPT'),
             lambda fixture: fixture.update(conformance='PASS'),
             lambda fixture: fixture['directions'].remove('rust-to-go'),
+            lambda fixture: fixture['cases'][7].update(expected='REJECT'),
         ):
             fixture = copy.deepcopy(self.fixture)
             change(fixture)

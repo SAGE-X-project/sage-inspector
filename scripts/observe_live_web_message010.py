@@ -36,12 +36,20 @@ def selected_cases(fixture, failure_mode, sender_core, receiver_core):
     assert fixture['cases'] == [{'id': 'before-key-revocation', 'expected': 'ACCEPT'},
                                 {'id': 'after-named-key-revocation', 'expected': 'REJECT'},
                                 {'id': 'before-registry-unavailable', 'expected': 'ACCEPT'},
-                                {'id': 'after-registry-unavailable', 'expected': 'REJECT'}]
+                                {'id': 'after-registry-unavailable', 'expected': 'REJECT'},
+                                {'id': 'before-registry-recovery-outage', 'expected': 'ACCEPT'},
+                                {'id': 'after-registry-recovery-outage', 'expected': 'REJECT'},
+                                {'id': 'closed-session-after-source-restart', 'expected': 'REJECT'},
+                                {'id': 'fresh-session-after-source-restart', 'expected': 'ACCEPT'}]
     assert fixture['directions'] == ['go-to-go', 'go-to-rust', 'rust-to-go', 'rust-to-rust']
     assert fixture['conformance'] == 'NOT_ESTABLISHED'
     assert f'{sender_core}-to-{receiver_core}' in fixture['directions']
     cases = {'key-revocation': ('before-key-revocation', 'after-named-key-revocation'),
-             'registry-unavailable': ('before-registry-unavailable', 'after-registry-unavailable')}
+             'registry-unavailable': ('before-registry-unavailable', 'after-registry-unavailable'),
+             'registry-recovery': ('before-registry-recovery-outage',
+                                   'after-registry-recovery-outage',
+                                   'closed-session-after-source-restart',
+                                   'fresh-session-after-source-restart')}
     return cases[failure_mode]
 
 
@@ -116,8 +124,8 @@ def run(service_root, go_root, spec_root, rust_root, sender_adapter, receiver_ad
         sender_core, receiver_core, failure_mode, output):
     fixture_path = ROOT / 'vectors/0.10.0/live-web-message010.json'
     fixture = json.loads(fixture_path.read_text())
-    positive_case, negative_case = selected_cases(fixture, failure_mode,
-                                                   sender_core, receiver_core)
+    cases = selected_cases(fixture, failure_mode, sender_core, receiver_core)
+    positive_case, negative_case = cases[:2]
     go_revision = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=go_root, text=True).strip()
     service_revision = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=service_root, text=True).strip()
     spec_revision = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=spec_root, text=True).strip()
@@ -163,6 +171,8 @@ def run(service_root, go_root, spec_root, rust_root, sender_adapter, receiver_ad
                 public_cert, public_key_path = public_certificate(directory, 'public', 'agent.example')
                 binary = build_service(service_root, directory)
                 active = {}
+                service_configs = {}
+                committed_inspections = {}
                 processes = []
                 for did, seed, kem in ((ALICE, 1, False), (BOB, 2, True)):
                     agent = did.rsplit(':', 1)[1]
@@ -181,25 +191,27 @@ def run(service_root, go_root, spec_root, rust_root, sender_adapter, receiver_ad
                         process, ready = start(binary, directory / (agent + '.json'), config)
                         processes.append(process)
                         active[did] = (ready, initial)
+                        service_configs[did] = config
                         submit(ready, certs, did, 'create', '', initial)
                         activated = copy.deepcopy(initial)
                         activated.update(state='active', version='2')
                         submit(ready, certs, did, 'activate', '1', activated)
-                        inspect(ready, certs, inspector, did, '2')
+                        committed_inspections[did] = inspect(ready, certs, inspector, did, '2')
                     except Exception:
                         for running in reversed(processes):
                             stop(running)
                         raise
                 try:
                     config_path = directory / 'live-source.json'
-                    config_path.write_text(json.dumps({
+                    live_config = {
                         'origin': ORIGIN, 'admin_host': 'admin.example.com',
                         'root_der': encoded(certs['root_der']),
                         'inspector_cert': str(inspector[0]), 'inspector_key': str(inspector[1]),
                         'agents': {did: {'public': active[did][0]['public_addr'],
                                          'admin': active[did][0]['admin_addr']}
                                    for did in (ALICE, BOB)},
-                    }))
+                    }
+                    config_path.write_text(json.dumps(live_config))
                     profile = 'live-web:' + str(config_path)
                     alice = Actor('alice', 'alice', directory / 'alice-session', sender_adapter, log,
                                   profile=profile)
@@ -251,16 +263,76 @@ def run(service_root, go_root, spec_root, rust_root, sender_adapter, receiver_ad
                             unavailable = processes.pop(0)
                             stop(unavailable)
                             assert unavailable.poll() is not None
+                            journal_before = digest(Path(service_configs[ALICE]['journal_path']))
                             log({'source_event': 'alice Registry service stopped',
-                                 'exit_code': unavailable.returncode})
+                                 'exit_code': unavailable.returncode,
+                                 'journal_sha256': journal_before})
                         bob.call('http-request-open', 'REJECT', wire_hex=canonical(second).hex())
                         assert bob.call('record-inspect') == {'state': 'CLOSED', 'reservations': 1}
                         report['observations'].append({'id': negative_case,
                                                        'verdict': 'REJECT',
                                                        'signature_base_sha256': second_base,
                                                        'replay_reservations': 1})
-                        assert [row['id'] for row in report['observations']] == [positive_case,
-                                                                                  negative_case]
+                        if failure_mode == 'registry-recovery':
+                            restart_config = dict(service_configs[ALICE], create=False)
+                            recovered, recovered_ready = start(binary, directory / 'alice-restart.json',
+                                                               restart_config)
+                            processes.append(recovered)
+                            assert recovered.pid != unavailable.pid
+                            recovered_state = inspect(recovered_ready, certs, inspector, ALICE, '2')
+                            assert recovered_state == committed_inspections[ALICE]
+                            journal_after = digest(Path(restart_config['journal_path']))
+                            assert journal_after == journal_before
+                            report['source_recovery'] = {
+                                'inspection_sha256': hashlib.sha256(
+                                    canonical(recovered_state)).hexdigest(),
+                                'journal_sha256': journal_after,
+                                'new_process': True,
+                            }
+                            log({'source_event': 'alice Registry service recovered',
+                                 'inspection_sha256': report['source_recovery']['inspection_sha256'],
+                                 'journal_sha256': journal_after})
+                            live_config['agents'][ALICE] = {
+                                'public': recovered_ready['public_addr'],
+                                'admin': recovered_ready['admin_addr'],
+                            }
+                            config_path.write_text(json.dumps(live_config))
+                            bob.call('http-request-open', 'REJECT', wire_hex=canonical(second).hex())
+                            assert bob.call('record-inspect') == {'state': 'CLOSED', 'reservations': 1}
+                            report['observations'].append({'id': cases[2], 'verdict': 'REJECT',
+                                                           'replay_reservations': 1})
+                            renewed_alice = Actor('renewed-alice', 'alice', directory / 'renewed-alice',
+                                                  sender_adapter, log, profile=profile)
+                            renewed_bob = Actor('renewed-bob', 'bob', directory / 'renewed-bob',
+                                                receiver_adapter, log, profile=profile)
+                            try:
+                                renewed_initiation = bytes.fromhex(
+                                    renewed_alice.call('start')['wire_hex'])
+                                renewed_completion = bytes.fromhex(
+                                    renewed_bob.call('respond', wire_hex=renewed_initiation.hex())['wire_hex'])
+                                renewed_alice.call('complete', wire_hex=renewed_completion.hex())
+                                independent(renewed_initiation, renewed_completion)
+                                assert renewed_initiation != initiation
+                                renewed_alice.call('http-bind')
+                                renewed_bob.call('http-bind')
+                                renewed_request = json.loads(bytes.fromhex(
+                                    renewed_alice.call('http-request-seal',
+                                                       wire_hex=b'after-restart'.hex())['wire_hex']))
+                                renewed_base = audit(renewed_request, 1)
+                                reopened = renewed_bob.call(
+                                    'http-request-open', wire_hex=canonical(renewed_request).hex())
+                                assert bytes.fromhex(reopened['plaintext_hex']) == b'after-restart'
+                                assert renewed_bob.call('record-inspect') == {
+                                    'state': 'ESTABLISHED', 'reservations': 1}
+                                report['observations'].append({'id': cases[3], 'verdict': 'ACCEPT',
+                                                               'signature_base_sha256': renewed_base,
+                                                               'replay_reservations': 1})
+                            finally:
+                                try:
+                                    renewed_alice.close()
+                                finally:
+                                    renewed_bob.close()
+                        assert [row['id'] for row in report['observations']] == list(cases)
                         report['status'] = 'PASS'
                     finally:
                         try:
@@ -278,7 +350,7 @@ def run(service_root, go_root, spec_root, rust_root, sender_adapter, receiver_ad
             raw.flush()
             report['raw_sha256'] = hashlib.sha256((output / 'raw.jsonl').read_bytes()).hexdigest()
             save()
-    print(f'Live Registry {failure_mode} denied a protected HTTP request')
+    print(f'Live Registry {failure_mode} protected HTTP observation passed')
 
 
 if __name__ == '__main__':
@@ -292,7 +364,8 @@ if __name__ == '__main__':
     parser.add_argument('--sender-core', choices=('go', 'rust'), default='go')
     parser.add_argument('--receiver-core', choices=('go', 'rust'), default='go')
     parser.add_argument('--rust-root', type=Path)
-    parser.add_argument('--failure-mode', choices=('key-revocation', 'registry-unavailable'),
+    parser.add_argument('--failure-mode', choices=('key-revocation', 'registry-unavailable',
+                                                  'registry-recovery'),
                         default='key-revocation')
     parser.add_argument('--output', required=True, type=Path)
     args = parser.parse_args()

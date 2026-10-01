@@ -1176,7 +1176,7 @@ jobs:
           rustup toolchain install 1.88.0 --profile minimal
           cargo test --locked --manifest-path adapters/rust-live/Cargo.toml --bin completion010_live --target-dir "${RUNNER_TEMP}/live-web-rust"
           cargo build --locked --manifest-path adapters/rust-live/Cargo.toml --bin completion010_live --target-dir "${RUNNER_TEMP}/live-web-rust"
-          for failure_mode in key-revocation registry-unavailable; do
+          for failure_mode in key-revocation registry-unavailable registry-recovery; do
             mkdir -p "${RUNNER_TEMP}/live-web-message010/${failure_mode}"
             "${RUNNER_TEMP}/live-web-venv/bin/python" -B scripts/observe_live_web_message010.py \
               --service-root ../sage-registry-service --go-root ../sage --spec-root ../sage-spec \

@@ -7,7 +7,11 @@
     {"id": "before-key-revocation", "expected": "ACCEPT"},
     {"id": "after-named-key-revocation", "expected": "REJECT"},
     {"id": "before-registry-unavailable", "expected": "ACCEPT"},
-    {"id": "after-registry-unavailable", "expected": "REJECT"}
+    {"id": "after-registry-unavailable", "expected": "REJECT"},
+    {"id": "before-registry-recovery-outage", "expected": "ACCEPT"},
+    {"id": "after-registry-recovery-outage", "expected": "REJECT"},
+    {"id": "closed-session-after-source-restart", "expected": "REJECT"},
+    {"id": "fresh-session-after-source-restart", "expected": "ACCEPT"}
   ],
   "conformance": "NOT_ESTABLISHED"
 }

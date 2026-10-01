@@ -27,6 +27,14 @@ TLS record fetch and history-continuity predicate plus a separately verified
 mTLS inspection connection. Its live build uses `adapters/rust-live` so the
 older Rust adapter's pinned Cargo lock and evidence remain intact.
 
+Each direction also has a separate service-unavailability observation. After
+the first accepted request, Alice signs a distinct second request. Inspector
+then cleanly stops Alice's local Registry service while Bob's service remains
+available. Bob rejects the second request, returns no plaintext, creates no new
+replay reservation and closes the session. The vector and report keep this
+case separate from named-key revocation; stopping a local service does not
+establish how a deployed chain or network partition behaves.
+
 This is a controlled integration observation. The adapter's mTLS inspection
 credential and two loopback destination mappings are test configuration, not a
 general client resolver. The services themselves attest their local committed
@@ -34,8 +42,8 @@ histories; independently established deployment storage ownership, clock
 assurance, production trust distribution and the general HTTP profile remain
 unverified. Overall conformance stays `NOT_ESTABLISHED`.
 
-CI runs the Go adapter's race-enabled unit tests, Rust source unit tests and
-four loopback TLS scenarios. It preserves revision-pinned reports and raw
+CI runs the Go adapter's race-enabled unit tests, Rust source and case-selection
+unit tests, and eight loopback TLS scenarios. It preserves revision-pinned reports and raw
 process transcripts as artifacts. With clean checkouts at the revisions above,
 build both live adapters and run one direction as follows; CI runs all four:
 
@@ -51,6 +59,6 @@ python3 -B scripts/observe_live_web_message010.py \
   --spec-root /absolute/path/to/sage-spec \
   --sender-adapter /tmp/sage-completion010-live \
   --receiver-adapter adapters/rust-live/target/debug/completion010_live \
-  --sender-core go --receiver-core rust \
+  --sender-core go --receiver-core rust --failure-mode registry-unavailable \
   --output /tmp/live-web-message010-go-to-rust
 ```

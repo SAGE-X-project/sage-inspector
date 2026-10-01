@@ -5,7 +5,9 @@
   "directions": ["go-to-go", "go-to-rust", "rust-to-go", "rust-to-rust"],
   "cases": [
     {"id": "before-key-revocation", "expected": "ACCEPT"},
-    {"id": "after-named-key-revocation", "expected": "REJECT"}
+    {"id": "after-named-key-revocation", "expected": "REJECT"},
+    {"id": "before-registry-unavailable", "expected": "ACCEPT"},
+    {"id": "after-registry-unavailable", "expected": "REJECT"}
   ],
   "conformance": "NOT_ESTABLISHED"
 }

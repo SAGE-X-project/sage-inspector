@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "kind": "web-registry-local-service-storage-vectors",
+  "protocol_version": "0.10.0",
+  "rule_id": "REG-08",
+  "cases": [
+    {"id": "empty-record-unavailable", "expected": "UNAVAILABLE"},
+    {"id": "controller-create-published", "expected": "VERSION_1"},
+    {"id": "controller-activate-published", "expected": "VERSION_2"},
+    {"id": "stale-write-preserves-record", "expected": "VERSION_2"},
+    {"id": "malformed-write-preserves-record", "expected": "VERSION_2"},
+    {"id": "restart-preserves-record", "expected": "VERSION_2"}
+  ]
+}

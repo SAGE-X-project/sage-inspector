@@ -200,6 +200,21 @@ demonstrates the local reference publisher's storage linkage, not the storage
 or server behavior of a deployed service. All REG-08 parent cases remain
 `NOT_RUN` and complete conformance remains `NOT_ESTABLISHED`.
 
+The [6 local Registry service subconditions](../vectors/0.10.0/reconciled-spec/reg08-service-storage.json)
+run a separate Go service executable with public HTTPS and administrator mTLS
+listeners backed by one live journal. Inspector observes an empty source,
+controller creation and activation, unchanged publication after stale and
+malformed writes, and restart recovery. The Go and Rust core HTTP readers
+then read the service's public endpoint. Every core read attempt and its
+caller-sampled time is retained: a read crossing a whole-second boundary may
+fail closed because the service issued a response after the caller sampled
+`now`; only that `RECORD_INVALID` result triggers one fresh read with a new
+clock sample. This records the availability limit rather than treating the
+first refusal as a successful observation. The CI job pins the service and
+both core revisions. This local run does not establish ownership of deployed
+storage, authenticated operator delegation, remote atomic writes, any REG-08
+parent case, or complete conformance.
+
 Run the revision-bound checks against the exact spec checkout:
 
 ```sh
@@ -289,6 +304,11 @@ python3 -B scripts/observe_reconciled_reg08_public_journal.py \
   --spec-root /path/to/sage-spec --go-root /path/to/sage \
   --rust-root /path/to/rs-sage-core \
   --report /tmp/reconciled-reg08-core-public-journal.json
+python3 -B scripts/test_observe_reconciled_reg08_service_storage.py
+python3 -B scripts/observe_reconciled_reg08_service_storage.py \
+  --spec-root /path/to/sage-spec --service-root /path/to/sage-registry-service \
+  --go-root /path/to/sage --rust-root /path/to/rs-sage-core \
+  --report /tmp/reconciled-reg08-service-storage.json
 ```
 
 Next, bind the deployed public server's actual storage to the administrator

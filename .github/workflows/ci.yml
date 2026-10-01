@@ -1131,9 +1131,9 @@ jobs:
           path: ${{ runner.temp }}/http-registry-expiry010/
 
   live-web-message010:
-    name: Observe live Registry reads before protected HTTP acceptance
+    name: Observe live Registry reads across Go and Rust HTTP sessions
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -1153,6 +1153,11 @@ jobs:
           repository: SAGE-X-project/sage-spec
           ref: fa006fd917ad365eb554a27f4178301cd66e2379
           path: sage-spec
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: SAGE-X-project/rs-sage-core
+          ref: ffa1234720f7a519b753471cfe315605be7deb1c
+          path: rs-sage-core
       - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
         with:
           go-version-file: sage/go.mod
@@ -1161,14 +1166,32 @@ jobs:
             sage-registry-service/go.sum
       - name: Build adapter and run bounded live service observation
         working-directory: sage-inspector
+        env:
+          RUSTUP_TOOLCHAIN: 1.88.0
         run: |
           python3 -m venv "${RUNNER_TEMP}/live-web-venv"
           "${RUNNER_TEMP}/live-web-venv/bin/pip" install 'cryptography==50.0.0'
           (cd adapters/go && go test -race -tags liveweb010 ./cmd/sage-completion010 && go build -tags liveweb010 -o "${RUNNER_TEMP}/sage-completion010-live" ./cmd/sage-completion010)
+          rustup toolchain install 1.88.0 --profile minimal
+          cargo test --locked --manifest-path adapters/rust-live/Cargo.toml --bin completion010_live --target-dir "${RUNNER_TEMP}/live-web-rust"
+          cargo build --locked --manifest-path adapters/rust-live/Cargo.toml --bin completion010_live --target-dir "${RUNNER_TEMP}/live-web-rust"
+          mkdir -p "${RUNNER_TEMP}/live-web-message010"
           "${RUNNER_TEMP}/live-web-venv/bin/python" -B scripts/observe_live_web_message010.py \
             --service-root ../sage-registry-service --go-root ../sage --spec-root ../sage-spec \
             --adapter "${RUNNER_TEMP}/sage-completion010-live" \
-            --output "${RUNNER_TEMP}/live-web-message010"
+            --output "${RUNNER_TEMP}/live-web-message010/go-to-go"
+          "${RUNNER_TEMP}/live-web-venv/bin/python" -B scripts/observe_live_web_message010.py \
+            --service-root ../sage-registry-service --go-root ../sage --spec-root ../sage-spec --rust-root ../rs-sage-core \
+            --sender-adapter "${RUNNER_TEMP}/sage-completion010-live" --receiver-adapter "${RUNNER_TEMP}/live-web-rust/debug/completion010_live" \
+            --sender-core go --receiver-core rust --output "${RUNNER_TEMP}/live-web-message010/go-to-rust"
+          "${RUNNER_TEMP}/live-web-venv/bin/python" -B scripts/observe_live_web_message010.py \
+            --service-root ../sage-registry-service --go-root ../sage --spec-root ../sage-spec --rust-root ../rs-sage-core \
+            --sender-adapter "${RUNNER_TEMP}/live-web-rust/debug/completion010_live" --receiver-adapter "${RUNNER_TEMP}/sage-completion010-live" \
+            --sender-core rust --receiver-core go --output "${RUNNER_TEMP}/live-web-message010/rust-to-go"
+          "${RUNNER_TEMP}/live-web-venv/bin/python" -B scripts/observe_live_web_message010.py \
+            --service-root ../sage-registry-service --go-root ../sage --spec-root ../sage-spec --rust-root ../rs-sage-core \
+            --adapter "${RUNNER_TEMP}/live-web-rust/debug/completion010_live" \
+            --sender-core rust --receiver-core rust --output "${RUNNER_TEMP}/live-web-message010/rust-to-rust"
       - name: Preserve live Registry message observation
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1

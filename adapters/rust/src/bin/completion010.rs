@@ -1,4 +1,9 @@
 //! Bounded local test dependencies; no network target or production credentials.
+#[cfg(feature = "liveweb010")]
+#[path = "completion010_live_web.rs"]
+mod live_web;
+#[cfg(feature = "liveweb010")]
+use live_web::LiveWeb;
 use sage_crypto_core::guard010 as g;
 use sage_crypto_core::{
     error::{Error, Result},
@@ -55,12 +60,18 @@ struct Control {
     mono: i64,
     utc: i64,
     mode: String,
+    #[cfg(feature = "liveweb010")]
+    live: Option<LiveWeb>,
 }
 #[derive(Clone)]
 struct Controls(Rc<RefCell<Control>>);
 impl Clock for Controls {
     fn now(&mut self) -> Result<Stamp> {
         let c = self.0.borrow();
+        #[cfg(feature = "liveweb010")]
+        if let Some(live) = &c.live {
+            return live.now();
+        }
         if c.mode == "clock-error" {
             return Err(bad());
         }
@@ -73,6 +84,10 @@ impl Clock for Controls {
 impl Source for Controls {
     fn read(&mut self, did: &str) -> Result<Snapshot> {
         let c = self.0.borrow();
+        #[cfg(feature = "liveweb010")]
+        if let Some(live) = &c.live {
+            return live.read(did);
+        }
         if c.mode == "source-error" {
             return Err(bad());
         }
@@ -316,22 +331,38 @@ fn decode(bytes: &[u8]) -> Result<(Request, Vec<u8>)> {
 }
 fn run() -> std::result::Result<(), Box<dyn std::error::Error>> {
     let args: Vec<_> = std::env::args().collect();
-    if (args.len() != 3 && (args.len() != 4 || args[3] != "guard-fixture")) || !["alice", "bob"].contains(&args[1].as_str()) {
+    #[cfg(feature = "liveweb010")]
+    let live_profile = args.len() == 4 && args[3].starts_with("live-web:");
+    #[cfg(not(feature = "liveweb010"))]
+    let live_profile = false;
+    if (args.len() != 3 && (args.len() != 4 || (args[3] != "guard-fixture" && !live_profile))) || !["alice", "bob"].contains(&args[1].as_str()) {
         return Err("expected role and local journal path".into());
     }
-    let _ = GUARD_PROFILE.set(args.len() == 4);
+    let _ = GUARD_PROFILE.set(args.len() == 4 && !live_profile);
     let (did, n) = if args[1] == "alice" {
         (alice(), 1)
     } else {
         (bob(), 2)
     };
+    #[cfg(feature = "liveweb010")]
+    let live = if live_profile {
+        Some(LiveWeb::open(Path::new(&args[3]["live-web:".len()..]))?)
+    } else {
+        None
+    };
+    #[cfg(feature = "liveweb010")]
+    let source = if live_profile { "https://agent.example" } else { "fixture-authority" };
+    #[cfg(not(feature = "liveweb010"))]
+    let source = "fixture-authority";
     let controls = Controls(Rc::new(RefCell::new(Control {
         utc: 100,
+        #[cfg(feature = "liveweb010")]
+        live,
         ..Default::default()
     })));
     let gate = Gate::new(
         Config {
-            source: "fixture-authority".into(),
+            source: source.into(),
             registry: registry().into(),
             network: "local".into(),
             blockchain: false,

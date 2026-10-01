@@ -1,7 +1,8 @@
 {
   "schema_version": 1,
   "kind": "live-web-registry-protected-message",
-  "scope": "Two loopback Registry services, authenticated public and inspection reads, Go HTTP session requests",
+  "scope": "Two loopback Registry services, authenticated public and inspection reads, Go and Rust HTTP session requests",
+  "directions": ["go-to-go", "go-to-rust", "rust-to-go", "rust-to-rust"],
   "cases": [
     {"id": "before-key-revocation", "expected": "ACCEPT"},
     {"id": "after-named-key-revocation", "expected": "REJECT"}

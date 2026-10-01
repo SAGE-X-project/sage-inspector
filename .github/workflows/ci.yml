@@ -1096,6 +1096,40 @@ jobs:
           retention-days: 30
           path: ${{ runner.temp }}/msg01-go-tag.json
 
+  http-registry-expiry010:
+    name: Observe protected HTTP requests at registry key expiry
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          path: sage-inspector
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: SAGE-X-project/sage
+          ref: 59c7d165c4654873c80f0e0a546e6795819ee55e
+          path: sage
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        with:
+          go-version-file: sage/go.mod
+          cache-dependency-path: sage-inspector/adapters/go/go.sum
+      - name: Build the Go session adapter and observe key expiry
+        working-directory: sage-inspector
+        run: |
+          (cd adapters/go && go test -race ./cmd/sage-completion010 && go build -o "${RUNNER_TEMP}/sage-completion010" ./cmd/sage-completion010)
+          python3 -B scripts/observe_http_registry_expiry010.py \
+            --go-root ../sage --adapter "${RUNNER_TEMP}/sage-completion010" \
+            --expected-revision 59c7d165c4654873c80f0e0a546e6795819ee55e \
+            --output "${RUNNER_TEMP}/http-registry-expiry010"
+      - name: Preserve protected request observation
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: http-registry-expiry010-${{ github.sha }}
+          if-no-files-found: warn
+          retention-days: 30
+          path: ${{ runner.temp }}/http-registry-expiry010/
+
   current-spec:
     name: Earlier 481-case spec inventory
     runs-on: ubuntu-latest

@@ -52,11 +52,10 @@ python3 -B scripts/observe_registry_operator_service.py \
 
 The observer checks all three source revisions before running. It copies the
 independent vector, validates the report's case order and refuses to promote
-missing deployment evidence into a conformance result. The next implementation
-step is a 0.10 protected-message verifier that binds exact RFC 9421 `keyid`
-and sender to a fresh validated Registry read, then validates the signature,
-wire envelope and replay state before authorizing execution. Inspector must
-exercise a valid pre-expiry message and reject the same key after expiry;
-deployed REG-08 still requires separate authority and storage evidence.
+missing deployment evidence into a conformance result. A later
+[session HTTP observation](http-registry-expiry010-observation.md) checks a
+protected request before and at key expiry in the Go core. It uses a synthetic
+Registry source, so the live service-to-message authorization chain and
+deployed REG-08 authority and storage evidence still require separate work.
 The `registry-operator-service` CI job repeats the local TLS observation at
 those exact revisions and retains its generated report as a build artifact.

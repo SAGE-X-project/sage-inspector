@@ -982,7 +982,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: SAGE-X-project/sage-registry-service
-          ref: 337b3c94a7390f9198500a1a28f85b49be189a8f
+          ref: 431ad432bd5658f7b4911414426cb6fa4374f52e
           path: sage-registry-service
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:

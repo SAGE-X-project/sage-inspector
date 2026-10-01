@@ -27,7 +27,7 @@ from observe_reconciled_reg08_transition_shape import (
 
 VECTOR = 'vectors/0.10.0/reconciled-spec/reg08-service-storage.json'
 VECTOR_SHA256 = 'c4921d705047beed2454c0ba89a10be157643b3a1d84112576b07b9f5660178d'
-SERVICE_REVISION = '337b3c94a7390f9198500a1a28f85b49be189a8f'
+SERVICE_REVISION = '431ad432bd5658f7b4911414426cb6fa4374f52e'
 GO_REVISION = '8038e1906f9b7595a0589584fdc707fd3f9e2ce1'
 RUST_REVISION = '6f16f85c334297ce348c395edd5d6c9462c1d3e8'
 ORIGIN = 'https://agents.example.com'

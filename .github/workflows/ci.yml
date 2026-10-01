@@ -1171,27 +1171,33 @@ jobs:
         run: |
           python3 -m venv "${RUNNER_TEMP}/live-web-venv"
           "${RUNNER_TEMP}/live-web-venv/bin/pip" install 'cryptography==50.0.0'
+          "${RUNNER_TEMP}/live-web-venv/bin/python" -B scripts/test_live_web_message010.py
           (cd adapters/go && go test -race -tags liveweb010 ./cmd/sage-completion010 && go build -tags liveweb010 -o "${RUNNER_TEMP}/sage-completion010-live" ./cmd/sage-completion010)
           rustup toolchain install 1.88.0 --profile minimal
           cargo test --locked --manifest-path adapters/rust-live/Cargo.toml --bin completion010_live --target-dir "${RUNNER_TEMP}/live-web-rust"
           cargo build --locked --manifest-path adapters/rust-live/Cargo.toml --bin completion010_live --target-dir "${RUNNER_TEMP}/live-web-rust"
-          mkdir -p "${RUNNER_TEMP}/live-web-message010"
-          "${RUNNER_TEMP}/live-web-venv/bin/python" -B scripts/observe_live_web_message010.py \
-            --service-root ../sage-registry-service --go-root ../sage --spec-root ../sage-spec \
-            --adapter "${RUNNER_TEMP}/sage-completion010-live" \
-            --output "${RUNNER_TEMP}/live-web-message010/go-to-go"
-          "${RUNNER_TEMP}/live-web-venv/bin/python" -B scripts/observe_live_web_message010.py \
-            --service-root ../sage-registry-service --go-root ../sage --spec-root ../sage-spec --rust-root ../rs-sage-core \
-            --sender-adapter "${RUNNER_TEMP}/sage-completion010-live" --receiver-adapter "${RUNNER_TEMP}/live-web-rust/debug/completion010_live" \
-            --sender-core go --receiver-core rust --output "${RUNNER_TEMP}/live-web-message010/go-to-rust"
-          "${RUNNER_TEMP}/live-web-venv/bin/python" -B scripts/observe_live_web_message010.py \
-            --service-root ../sage-registry-service --go-root ../sage --spec-root ../sage-spec --rust-root ../rs-sage-core \
-            --sender-adapter "${RUNNER_TEMP}/live-web-rust/debug/completion010_live" --receiver-adapter "${RUNNER_TEMP}/sage-completion010-live" \
-            --sender-core rust --receiver-core go --output "${RUNNER_TEMP}/live-web-message010/rust-to-go"
-          "${RUNNER_TEMP}/live-web-venv/bin/python" -B scripts/observe_live_web_message010.py \
-            --service-root ../sage-registry-service --go-root ../sage --spec-root ../sage-spec --rust-root ../rs-sage-core \
-            --adapter "${RUNNER_TEMP}/live-web-rust/debug/completion010_live" \
-            --sender-core rust --receiver-core rust --output "${RUNNER_TEMP}/live-web-message010/rust-to-rust"
+          for failure_mode in key-revocation registry-unavailable; do
+            mkdir -p "${RUNNER_TEMP}/live-web-message010/${failure_mode}"
+            "${RUNNER_TEMP}/live-web-venv/bin/python" -B scripts/observe_live_web_message010.py \
+              --service-root ../sage-registry-service --go-root ../sage --spec-root ../sage-spec \
+              --adapter "${RUNNER_TEMP}/sage-completion010-live" --failure-mode "${failure_mode}" \
+              --output "${RUNNER_TEMP}/live-web-message010/${failure_mode}/go-to-go"
+            "${RUNNER_TEMP}/live-web-venv/bin/python" -B scripts/observe_live_web_message010.py \
+              --service-root ../sage-registry-service --go-root ../sage --spec-root ../sage-spec --rust-root ../rs-sage-core \
+              --sender-adapter "${RUNNER_TEMP}/sage-completion010-live" --receiver-adapter "${RUNNER_TEMP}/live-web-rust/debug/completion010_live" \
+              --sender-core go --receiver-core rust --failure-mode "${failure_mode}" \
+              --output "${RUNNER_TEMP}/live-web-message010/${failure_mode}/go-to-rust"
+            "${RUNNER_TEMP}/live-web-venv/bin/python" -B scripts/observe_live_web_message010.py \
+              --service-root ../sage-registry-service --go-root ../sage --spec-root ../sage-spec --rust-root ../rs-sage-core \
+              --sender-adapter "${RUNNER_TEMP}/live-web-rust/debug/completion010_live" --receiver-adapter "${RUNNER_TEMP}/sage-completion010-live" \
+              --sender-core rust --receiver-core go --failure-mode "${failure_mode}" \
+              --output "${RUNNER_TEMP}/live-web-message010/${failure_mode}/rust-to-go"
+            "${RUNNER_TEMP}/live-web-venv/bin/python" -B scripts/observe_live_web_message010.py \
+              --service-root ../sage-registry-service --go-root ../sage --spec-root ../sage-spec --rust-root ../rs-sage-core \
+              --adapter "${RUNNER_TEMP}/live-web-rust/debug/completion010_live" \
+              --sender-core rust --receiver-core rust --failure-mode "${failure_mode}" \
+              --output "${RUNNER_TEMP}/live-web-message010/${failure_mode}/rust-to-rust"
+          done
       - name: Preserve live Registry message observation
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1

@@ -1,4 +1,4 @@
-"""Run protected Go HTTP requests against two authenticated Registry services."""
+"""Run protected Go and Rust HTTP requests against two authenticated Registry services."""
 
 import argparse
 import base64
@@ -29,6 +29,20 @@ GO_REVISION = '59c7d165c4654873c80f0e0a546e6795819ee55e'
 SERVICE_REVISION = 'baf5570578ddc19685ebe2a5bda4a284f45c8e05'
 SPEC_REVISION = 'fa006fd917ad365eb554a27f4178301cd66e2379'
 RUST_REVISION = 'ffa1234720f7a519b753471cfe315605be7deb1c'
+
+
+def selected_cases(fixture, failure_mode, sender_core, receiver_core):
+    assert fixture['schema_version'] == 1 and fixture['kind'] == 'live-web-registry-protected-message'
+    assert fixture['cases'] == [{'id': 'before-key-revocation', 'expected': 'ACCEPT'},
+                                {'id': 'after-named-key-revocation', 'expected': 'REJECT'},
+                                {'id': 'before-registry-unavailable', 'expected': 'ACCEPT'},
+                                {'id': 'after-registry-unavailable', 'expected': 'REJECT'}]
+    assert fixture['directions'] == ['go-to-go', 'go-to-rust', 'rust-to-go', 'rust-to-rust']
+    assert fixture['conformance'] == 'NOT_ESTABLISHED'
+    assert f'{sender_core}-to-{receiver_core}' in fixture['directions']
+    cases = {'key-revocation': ('before-key-revocation', 'after-named-key-revocation'),
+             'registry-unavailable': ('before-registry-unavailable', 'after-registry-unavailable')}
+    return cases[failure_mode]
 
 
 def encoded(value):
@@ -99,15 +113,11 @@ def build_service(service_root, output):
 
 
 def run(service_root, go_root, spec_root, rust_root, sender_adapter, receiver_adapter,
-        sender_core, receiver_core, output):
+        sender_core, receiver_core, failure_mode, output):
     fixture_path = ROOT / 'vectors/0.10.0/live-web-message010.json'
     fixture = json.loads(fixture_path.read_text())
-    assert fixture['schema_version'] == 1 and fixture['kind'] == 'live-web-registry-protected-message'
-    assert fixture['cases'] == [{'id': 'before-key-revocation', 'expected': 'ACCEPT'},
-                                {'id': 'after-named-key-revocation', 'expected': 'REJECT'}]
-    assert fixture['directions'] == ['go-to-go', 'go-to-rust', 'rust-to-go', 'rust-to-rust']
-    assert f'{sender_core}-to-{receiver_core}' in fixture['directions']
-    assert fixture['conformance'] == 'NOT_ESTABLISHED'
+    positive_case, negative_case = selected_cases(fixture, failure_mode,
+                                                   sender_core, receiver_core)
     go_revision = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=go_root, text=True).strip()
     service_revision = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=service_root, text=True).strip()
     spec_revision = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=spec_root, text=True).strip()
@@ -131,6 +141,7 @@ def run(service_root, go_root, spec_root, rust_root, sender_adapter, receiver_ad
               'go_revision': go_revision, 'service_revision': service_revision,
               'spec_revision': spec_revision, 'rust_revision': rust_revision,
               'sender_core': sender_core, 'receiver_core': receiver_core,
+              'failure_mode': failure_mode,
               'adapter_sha256': {'sender': digest(sender_adapter),
                                  'receiver': digest(receiver_adapter)},
               'observations': [], 'raw': 'raw.jsonl'}
@@ -207,7 +218,7 @@ def run(service_root, go_root, spec_root, rust_root, sender_adapter, receiver_ad
                         accepted = bob.call('http-request-open', wire_hex=canonical(first).hex())
                         assert bytes.fromhex(accepted['plaintext_hex']) == b'allowed'
                         assert bob.call('record-inspect') == {'state': 'ESTABLISHED', 'reservations': 1}
-                        report['observations'].append({'id': 'before-key-revocation',
+                        report['observations'].append({'id': positive_case,
                                                        'verdict': 'ACCEPT',
                                                        'signature_base_sha256': first_base})
                         save()
@@ -217,29 +228,39 @@ def run(service_root, go_root, spec_root, rust_root, sender_adapter, receiver_ad
                         one, two = json.loads(body(first)), json.loads(body(second))
                         assert one['id'] != two['id'] and one['nonce'] != two['nonce']
 
-                        ready, initial = active[ALICE]
-                        replacement = ed25519.Ed25519PrivateKey.from_private_bytes(bytes([4]) * 32)
-                        material = public_key(replacement)
-                        parts = [b'web:agent.example', b'alice', b'signing-2', b'ed25519', material]
-                        challenge = b'sage-pop-0.10.0' + b''.join(len(p).to_bytes(2, 'big') + p for p in parts)
-                        added = copy.deepcopy(initial)
-                        added.update(state='active', version='3')
-                        added['keys'].append({'name': 'signing-2', 'alg': 'ed25519',
-                            'key': encoded(material), 'state': 'accepted',
-                            'proof': {'signer': ALICE + '#signing-2',
-                                      'value': encoded(replacement.sign(challenge))}})
-                        submit(ready, certs, ALICE, 'add-key', '2', added)
-                        revoked = copy.deepcopy(added)
-                        revoked['version'] = '4'
-                        revoked['keys'][0]['state'] = 'revoked'
-                        submit(ready, certs, ALICE, 'revoke-key', '3', revoked)
-                        inspect(ready, certs, inspector, ALICE, '4')
+                        if failure_mode == 'key-revocation':
+                            ready, initial = active[ALICE]
+                            replacement = ed25519.Ed25519PrivateKey.from_private_bytes(bytes([4]) * 32)
+                            material = public_key(replacement)
+                            parts = [b'web:agent.example', b'alice', b'signing-2', b'ed25519', material]
+                            challenge = b'sage-pop-0.10.0' + b''.join(len(p).to_bytes(2, 'big') + p for p in parts)
+                            added = copy.deepcopy(initial)
+                            added.update(state='active', version='3')
+                            added['keys'].append({'name': 'signing-2', 'alg': 'ed25519',
+                                'key': encoded(material), 'state': 'accepted',
+                                'proof': {'signer': ALICE + '#signing-2',
+                                          'value': encoded(replacement.sign(challenge))}})
+                            submit(ready, certs, ALICE, 'add-key', '2', added)
+                            revoked = copy.deepcopy(added)
+                            revoked['version'] = '4'
+                            revoked['keys'][0]['state'] = 'revoked'
+                            submit(ready, certs, ALICE, 'revoke-key', '3', revoked)
+                            inspect(ready, certs, inspector, ALICE, '4')
+                        else:
+                            inspect(active[BOB][0], certs, inspector, BOB, '2')
+                            unavailable = processes.pop(0)
+                            stop(unavailable)
+                            assert unavailable.poll() is not None
+                            log({'source_event': 'alice Registry service stopped',
+                                 'exit_code': unavailable.returncode})
                         bob.call('http-request-open', 'REJECT', wire_hex=canonical(second).hex())
                         assert bob.call('record-inspect') == {'state': 'CLOSED', 'reservations': 1}
-                        report['observations'].append({'id': 'after-named-key-revocation',
+                        report['observations'].append({'id': negative_case,
                                                        'verdict': 'REJECT',
                                                        'signature_base_sha256': second_base,
                                                        'replay_reservations': 1})
+                        assert [row['id'] for row in report['observations']] == [positive_case,
+                                                                                  negative_case]
                         report['status'] = 'PASS'
                     finally:
                         try:
@@ -257,7 +278,7 @@ def run(service_root, go_root, spec_root, rust_root, sender_adapter, receiver_ad
             raw.flush()
             report['raw_sha256'] = hashlib.sha256((output / 'raw.jsonl').read_bytes()).hexdigest()
             save()
-    print('Live Registry reads authorized and then denied protected HTTP requests')
+    print(f'Live Registry {failure_mode} denied a protected HTTP request')
 
 
 if __name__ == '__main__':
@@ -271,6 +292,8 @@ if __name__ == '__main__':
     parser.add_argument('--sender-core', choices=('go', 'rust'), default='go')
     parser.add_argument('--receiver-core', choices=('go', 'rust'), default='go')
     parser.add_argument('--rust-root', type=Path)
+    parser.add_argument('--failure-mode', choices=('key-revocation', 'registry-unavailable'),
+                        default='key-revocation')
     parser.add_argument('--output', required=True, type=Path)
     args = parser.parse_args()
     sender = args.sender_adapter or args.adapter
@@ -279,4 +302,4 @@ if __name__ == '__main__':
         parser.error('both actor executables are required')
     run(args.service_root.resolve(), args.go_root.resolve(), args.spec_root.resolve(),
         args.rust_root.resolve() if args.rust_root else None, sender.resolve(), receiver.resolve(),
-        args.sender_core, args.receiver_core, args.output.resolve())
+        args.sender_core, args.receiver_core, args.failure_mode, args.output.resolve())

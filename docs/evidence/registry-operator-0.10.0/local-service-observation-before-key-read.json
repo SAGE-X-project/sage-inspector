@@ -46,11 +46,7 @@
       "parent_case_id": "REG-03-P",
       "status": "PARTIAL",
       "track": "local_tls_runtime",
-      "reason": "The Go core accepted the live record before key expiry and rejected it after expiry; controller revocation committed. No protected-message authorization was exercised.",
-      "registry_read": {
-        "before_expiry": "RECORD_ACCEPT",
-        "after_expiry": "RECORD_INVALID"
-      }
+      "reason": "Expired signing keys and management were observed; no protected-message authorization was exercised."
     },
     {
       "id": "duplicate-or-missing-grant",

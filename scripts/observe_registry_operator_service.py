@@ -99,8 +99,11 @@ def check_report(report, root=ROOT):
                     PENDING_CASES[row['id']], 'deployed storage was promoted')
         elif row['id'] == 'expired-key-management':
             require(row['status'] == 'PARTIAL' and row['reason'] ==
-                    'Expired signing keys and management were observed; '
-                    'no protected-message authorization was exercised.',
+                    'The Go core accepted the live record before key expiry and '
+                    'rejected it after expiry; controller revocation committed. '
+                    'No protected-message authorization was exercised.' and
+                    row['registry_read'] == {'before_expiry': 'RECORD_ACCEPT',
+                                             'after_expiry': 'RECORD_INVALID'},
                     'expired-key observation was overclaimed')
         else:
             require(set(row) == {'id', 'parent_case_id', 'status', 'track'} and
@@ -205,6 +208,28 @@ def public(ready, certs):
     return result
 
 
+def core_registry_read(binary, ready, certs):
+    destination = ready['public_addr']
+    request = {
+        'expected_did': DID,
+        'allowed_origins': [ORIGIN],
+        'destination': destination,
+        'allowed_destinations': [destination],
+        'root_der': base64.urlsafe_b64encode(certs['root_der']).rstrip(b'=').decode(),
+        'now': int(time.time()),
+    }
+    process = subprocess.run([str(binary)], input=json.dumps(request),
+                             text=True, capture_output=True, timeout=10)
+    require(process.returncode == 0 and not process.stderr and
+            len(process.stdout) <= 256,
+            'Go core Registry read adapter failed')
+    result = json.loads(process.stdout)
+    require(set(result) == {'verdict'} and result['verdict'] in
+            {'RECORD_ACCEPT', 'RECORD_INVALID', 'RECORD_UNREACHABLE'},
+            'Go core Registry read verdict malformed')
+    return result['verdict']
+
+
 def observe_capacity(binary, directory, config_path, config, certs, controller,
                      record):
     capacity_config = copy.deepcopy(config)
@@ -235,14 +260,14 @@ def observe_capacity(binary, directory, config_path, config, certs, controller,
         stop(process)
 
 
-def observe_expired_management(binary, directory, config_path, config, certs,
+def observe_expired_management(binary, core_binary, directory, config_path, config, certs,
                                controller, inspector, record):
     expired_config = copy.deepcopy(config)
     expired_config['journal_path'] = str(directory / 'expired.journal')
     expired_config['create'] = True
     trimmed = copy.deepcopy(record)
     trimmed['keys'] = trimmed['keys'][:2]
-    expiry = int(time.time()) + 8
+    expiry = int(time.time()) + 20
     trimmed['keys'][0]['expires'] = expiry
     process, ready = start(binary, config_path, expired_config)
     try:
@@ -257,6 +282,9 @@ def observe_expired_management(binary, directory, config_path, config, certs,
                        command('authorize-operator', '2', target='delegate',
                                scope='add-key'), controller) == 204,
                 'pre-expiry grant failed')
+        before_read = core_registry_read(core_binary, ready, certs)
+        require(before_read == 'RECORD_ACCEPT',
+                f'Go core rejected the valid pre-expiry Registry read: {before_read}')
         time.sleep(max(0, expiry + 1 - time.time()))
         before = public(ready, certs)
         require(before['record']['state'] == 'active' and
@@ -264,6 +292,9 @@ def observe_expired_management(binary, directory, config_path, config, certs,
                     for key in before['record']['keys']
                     if key['alg'] != 'x25519' and key['state'] == 'accepted'),
                 'signing keys did not expire')
+        after_read = core_registry_read(core_binary, ready, certs)
+        require(after_read == 'RECORD_INVALID',
+                'Go core did not reject the expired Registry signing key')
         status = submit(ready, certs,
                         command('revoke-operator', '3', target='delegate',
                                 scope='add-key'), controller)
@@ -273,7 +304,7 @@ def observe_expired_management(binary, directory, config_path, config, certs,
                 after['grants'] == [] and current['record']['state'] == 'active',
                 f'expired management status={status}, version={after["version"]}, '
                 f'grants={after["grants"]}, state={current["record"]["state"]}')
-        return True
+        return {'before_expiry': before_read, 'after_expiry': after_read}
     finally:
         stop(process)
 
@@ -322,6 +353,10 @@ def observe(service_root, go_root, spec_root, root=ROOT):
         environment['GOCACHE'] = str(directory / 'go-cache')
         subprocess.run(['go', 'build', '-o', str(binary),
                         './cmd/sage-registry-service'], cwd=service_root,
+                       env=environment, check=True, timeout=300)
+        core_binary = directory / 'sage-registry-http-read'
+        subprocess.run(['go', 'build', '-o', str(core_binary),
+                        './examples/registry-web-http-record010'], cwd=go_root,
                        env=environment, check=True, timeout=300)
         config_path = directory / 'service.json'
         config = configuration(directory, certs, public_cert, public_key,
@@ -450,13 +485,15 @@ def observe(service_root, go_root, spec_root, root=ROOT):
                 stop(process)
         passed('grant-capacity', observe_capacity(binary, directory,
                directory / 'capacity.json', config, certs, controller, record))
-        require(observe_expired_management(binary, directory,
+        registry_read = observe_expired_management(binary, core_binary, directory,
                 directory / 'expired.json', config, certs, controller,
-                inspector, record), 'expired-key management failed')
+                inspector, record)
         observed['expired-key-management'] = {
             'status': 'PARTIAL', 'track': 'local_tls_runtime',
-            'reason': 'Expired signing keys and management were observed; '
-                      'no protected-message authorization was exercised.'}
+            'reason': 'The Go core accepted the live record before key expiry and '
+                      'rejected it after expiry; controller revocation committed. '
+                      'No protected-message authorization was exercised.',
+            'registry_read': registry_read}
         passed('uncertain-commit', observe_uncertain_restart(binary, directory,
                directory / 'uncertain.json', config))
         executable_sha256 = sha(binary.read_bytes())

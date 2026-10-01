@@ -21,8 +21,13 @@ or REG-08 parent-case verdict.
 
 `expired-key-management` is `PARTIAL`: an active record's signing key expired,
 the controller's grant revocation committed, and the grant history remained
-readable. The observer did not run a protected-message authorization decision
-against that expired key. `storage-authority-loss` is `NOT_RUN` because no
+readable. The Go core's authenticated TLS Registry reader accepted the active
+record before expiry and rejected the same live record after expiry. This
+establishes the read boundary, not a protected-message authorization decision:
+the current 0.10 Go and Rust message verifiers do not bind their RFC 9421
+verification to a fresh authoritative Registry observation. The
+[prior local report](evidence/registry-operator-0.10.0/local-service-observation-before-key-read.json)
+is retained as historical evidence. `storage-authority-loss` is `NOT_RUN` because no
 deployed origin, storage owner, clock source, or independent read/write observer
 was supplied. The report retains `deployed_reg08: NOT_RUN` and
 `conformance: NOT_ESTABLISHED`. Historical Registry evidence and its pinned
@@ -47,8 +52,11 @@ python3 -B scripts/observe_registry_operator_service.py \
 
 The observer checks all three source revisions before running. It copies the
 independent vector, validates the report's case order and refuses to promote
-missing deployment evidence into a conformance result. A later Inspector
-adapter should execute a protected-message decision for the expired-key case;
+missing deployment evidence into a conformance result. The next implementation
+step is a 0.10 protected-message verifier that binds exact RFC 9421 `keyid`
+and sender to a fresh validated Registry read, then validates the signature,
+wire envelope and replay state before authorizing execution. Inspector must
+exercise a valid pre-expiry message and reject the same key after expiry;
 deployed REG-08 still requires separate authority and storage evidence.
 The `registry-operator-service` CI job repeats the local TLS observation at
 those exact revisions and retains its generated report as a build artifact.

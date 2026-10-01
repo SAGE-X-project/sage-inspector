@@ -30,13 +30,16 @@ profile remain unverified. Overall conformance stays `NOT_ESTABLISHED`.
 CI runs the adapter's race-enabled unit tests and the loopback TLS scenario,
 then preserves a revision-pinned report and raw process transcript as an
 artifact. To reproduce with clean checkouts at the revisions above, build
-`adapters/go/cmd/sage-completion010` from Inspector and run:
+`adapters/go/cmd/sage-completion010` from Inspector with the `liveweb010` build
+tag and run:
 
 ```sh
+(cd adapters/go && go test -race -tags liveweb010 ./cmd/sage-completion010 && \
+  go build -tags liveweb010 -o /tmp/sage-completion010-live ./cmd/sage-completion010)
 python3 -B scripts/observe_live_web_message010.py \
   --service-root /absolute/path/to/sage-registry-service \
   --go-root /absolute/path/to/sage \
   --spec-root /absolute/path/to/sage-spec \
-  --adapter /absolute/path/to/sage-completion010 \
+  --adapter /tmp/sage-completion010-live \
   --output /tmp/live-web-message010
 ```

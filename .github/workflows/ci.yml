@@ -1164,7 +1164,7 @@ jobs:
         run: |
           python3 -m venv "${RUNNER_TEMP}/live-web-venv"
           "${RUNNER_TEMP}/live-web-venv/bin/pip" install 'cryptography==50.0.0'
-          (cd adapters/go && go test -race ./cmd/sage-completion010 && go build -o "${RUNNER_TEMP}/sage-completion010-live" ./cmd/sage-completion010)
+          (cd adapters/go && go test -race -tags liveweb010 ./cmd/sage-completion010 && go build -tags liveweb010 -o "${RUNNER_TEMP}/sage-completion010-live" ./cmd/sage-completion010)
           "${RUNNER_TEMP}/live-web-venv/bin/python" -B scripts/observe_live_web_message010.py \
             --service-root ../sage-registry-service --go-root ../sage --spec-root ../sage-spec \
             --adapter "${RUNNER_TEMP}/sage-completion010-live" \

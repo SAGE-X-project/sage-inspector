@@ -1,3 +1,5 @@
+//go:build liveweb010
+
 package main
 
 import (

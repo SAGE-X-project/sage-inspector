@@ -13,8 +13,11 @@ registered signing key expires. Inspector checks that the receiver returns no
 plaintext, creates no new replay reservation and closes the session. A separate
 session with the key expiring at second 102 accepts a signed request at second
 101. This control distinguishes key expiry from a general clock or record
-failure. The Go core also runs a race-enabled unit regression for the same
-boundary.
+failure. A fourth process scenario accepts an initial request, then observes
+the sender signing key as revoked before a second valid request. The second
+request is rejected without plaintext or a replay reservation. This separately
+checks the fresh Registry read rather than relying on the key's stored expiry.
+The Go core also runs a race-enabled unit regression for the expiry boundary.
 
 The Registry source, trusted clock and replay store in this observation are
 synthetic test components. The result establishes this **session HTTP path** at

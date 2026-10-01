@@ -12,6 +12,7 @@
     "before": "ACCEPT",
     "at_expiry": "REJECT",
     "before_control_expiry": "ACCEPT",
+    "revoked_after_first_request": "REJECT",
     "accepted_replay_reservations": 1,
     "state_after_expiry": "CLOSED"
   }

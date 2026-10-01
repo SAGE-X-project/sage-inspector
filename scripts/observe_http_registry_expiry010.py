@@ -144,6 +144,46 @@ def main():
                         control_alice.close()
                     finally:
                         control_bob.close()
+
+                revoked_alice = Actor('revoked-alice', 'alice', Path(state) / 'revoked-alice',
+                                      adapter, log, fixture['control_key_expires'])
+                revoked_bob = Actor('revoked-bob', 'bob', Path(state) / 'revoked-bob',
+                                    adapter, log, fixture['control_key_expires'])
+                try:
+                    initiation = bytes.fromhex(revoked_alice.call('start')['wire_hex'])
+                    completion = bytes.fromhex(revoked_bob.call(
+                        'respond', wire_hex=initiation.hex()
+                    )['wire_hex'])
+                    revoked_alice.call('complete', wire_hex=completion.hex())
+                    independent(initiation, completion)
+                    revoked_alice.call('http-bind')
+                    revoked_bob.call('http-bind')
+                    first = json.loads(bytes.fromhex(revoked_alice.call(
+                        'http-request-seal', wire_hex=fixture['before_request'].encode().hex()
+                    )['wire_hex']))
+                    audit(first, 1)
+                    first_result = revoked_bob.call('http-request-open', wire_hex=canonical(first).hex())
+                    assert bytes.fromhex(first_result['plaintext_hex']) == fixture['before_request'].encode()
+                    second = json.loads(bytes.fromhex(revoked_alice.call(
+                        'http-request-seal', wire_hex=fixture['after_request'].encode().hex()
+                    )['wire_hex']))
+                    revoked_base = audit(second, 1)
+                    revoked_bob.call('http-request-open', 'REJECT',
+                                     wire_hex=canonical(second).hex(), mode='revoke-init')
+                    assert revoked_bob.call('record-inspect') == {
+                        'state': 'CLOSED', 'reservations': 1,
+                    }
+                    report['observations'].append({
+                        'case': 'revoked-after-first-request', 'verdict': 'REJECT',
+                        'signature_base_sha256': revoked_base,
+                        'state': 'CLOSED', 'replay_reservations': 1,
+                    })
+                    report['status'] = 'PASS'
+                finally:
+                    try:
+                        revoked_alice.close()
+                    finally:
+                        revoked_bob.close()
         except Exception as exc:
             report['status'], report['reason'] = 'FAIL', str(exc)
             raise
@@ -151,7 +191,7 @@ def main():
             raw.flush()
             report['raw_sha256'] = hashlib.sha256((output / 'raw.jsonl').read_bytes()).hexdigest()
             save()
-    print('Go HTTP session accepted before key expiry and rejected at expiry')
+    print('Four Go HTTP session expiry and revocation observations passed')
 
 
 if __name__ == '__main__':

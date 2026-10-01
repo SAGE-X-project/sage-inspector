@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "kind": "http-registry-signing-key-expiry",
+  "scope": "Go authenticated HTTP session with a synthetic authoritative registry source",
+  "key_expires": 101,
+  "control_key_expires": 102,
+  "before_unix": 100,
+  "at_expiry_unix": 101,
+  "before_request": "accepted before expiry",
+  "after_request": "must stay private",
+  "expected": {
+    "before": "ACCEPT",
+    "at_expiry": "REJECT",
+    "before_control_expiry": "ACCEPT",
+    "accepted_replay_reservations": 1,
+    "state_after_expiry": "CLOSED"
+  }
+}

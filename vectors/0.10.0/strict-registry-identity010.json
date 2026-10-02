@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "protocol_version": "0.10.0",
+  "id": "sage-registry-identity-0.10.0",
+  "source": "sage-spec fa006fd917ad365eb554a27f4178301cd66e2379, ID-01, ID-02, ID-03 step 1",
+  "scope": "Synthetic trusted-source Gate boundary; no deployed Registry authority or message signature claim",
+  "cases": [
+    {
+      "id": "canonical-exact-signer",
+      "action": "select",
+      "did": "did:sage:eip155:1:0xabababababababababababababababababababab:alice",
+      "signing_url": "did:sage:eip155:1:0xabababababababababababababababababababab:alice#signing-1",
+      "expected_verdict": "ACCEPT",
+      "expected_journal_version": "2"
+    },
+    {
+      "id": "legacy-kind",
+      "action": "observe",
+      "did": "did:sage:chain:x:alice",
+      "expected_verdict": "REJECT",
+      "expected_journal_version": "0"
+    },
+    {
+      "id": "noncanonical-chain",
+      "action": "observe",
+      "did": "did:sage:eip155:01:0xabababababababababababababababababababab:alice",
+      "expected_verdict": "REJECT",
+      "expected_journal_version": "0"
+    },
+    {
+      "id": "different-registry",
+      "action": "observe",
+      "did": "did:sage:web:agents.example.com:alice",
+      "expected_verdict": "REJECT",
+      "expected_journal_version": "0"
+    },
+    {
+      "id": "missing-key-fragment",
+      "action": "select",
+      "did": "did:sage:eip155:1:0xabababababababababababababababababababab:alice",
+      "signing_url": "did:sage:eip155:1:0xabababababababababababababababababababab:alice",
+      "expected_verdict": "REJECT",
+      "expected_journal_version": "0"
+    },
+    {
+      "id": "extra-key-fragment",
+      "action": "select",
+      "did": "did:sage:eip155:1:0xabababababababababababababababababababab:alice",
+      "signing_url": "did:sage:eip155:1:0xabababababababababababababababababababab:alice#signing-1#other",
+      "expected_verdict": "REJECT",
+      "expected_journal_version": "0"
+    },
+    {
+      "id": "key-of-other-agent",
+      "action": "select",
+      "did": "did:sage:eip155:1:0xabababababababababababababababababababab:alice",
+      "signing_url": "did:sage:eip155:1:0xabababababababababababababababababababab:bob#signing-1",
+      "expected_verdict": "REJECT",
+      "expected_journal_version": "0"
+    },
+    {
+      "id": "invalid-key-name",
+      "action": "select",
+      "did": "did:sage:eip155:1:0xabababababababababababababababababababab:alice",
+      "signing_url": "did:sage:eip155:1:0xabababababababababababababababababababab:alice#signing.1",
+      "expected_verdict": "REJECT",
+      "expected_journal_version": "0"
+    }
+  ]
+}

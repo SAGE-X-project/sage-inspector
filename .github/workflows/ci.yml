@@ -2078,3 +2078,60 @@ jobs:
             ${{ runner.temp }}/strict-did010/rust-report.json
             ${{ runner.temp }}/strict-did010/go.stdout.json
             ${{ runner.temp }}/strict-did010/rust.stdout.json
+
+  strict-registry-identity010:
+    name: Observe canonical Registry Gate identity in Go and Rust
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          path: sage-inspector
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: SAGE-X-project/sage
+          ref: fbd9b2169c72d62c62dcbaa2336275d08a5735a8
+          path: sage
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: SAGE-X-project/rs-sage-core
+          ref: 0a6f1e0356f323d6f0bcca5bd96ad3fdab82297f
+          path: rs-sage-core
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: SAGE-X-project/sage-spec
+          ref: fa006fd917ad365eb554a27f4178301cd66e2379
+          path: sage-spec
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        with:
+          go-version-file: sage/go.mod
+          cache-dependency-path: sage-inspector/adapters/go/go.sum
+      - name: Build adapters and observe Registry Gate identity
+        working-directory: sage-inspector
+        env:
+          RUSTUP_TOOLCHAIN: 1.88.0
+        run: |
+          rustup toolchain install 1.88.0 --profile minimal
+          python3 -B scripts/test_strict_registry_identity010_unit.py
+          mkdir -p "${RUNNER_TEMP}/strict-registry-identity010"
+          (cd adapters/go && go test -race ./cmd/sage-registry010 && \
+            go build -o "${RUNNER_TEMP}/strict-registry-identity010/go-adapter" ./cmd/sage-registry010)
+          cargo test --locked --manifest-path adapters/rust-registry-identity010/Cargo.toml \
+            --bin registry_identity010 --target-dir "${RUNNER_TEMP}/strict-registry-identity010/rust-target"
+          cargo build --locked --manifest-path adapters/rust-registry-identity010/Cargo.toml \
+            --bin registry_identity010 --target-dir "${RUNNER_TEMP}/strict-registry-identity010/rust-target"
+          python3 -B scripts/test_strict_registry_identity010.py \
+            --go-root ../sage --rust-root ../rs-sage-core --spec-root ../sage-spec \
+            --go-revision fbd9b2169c72d62c62dcbaa2336275d08a5735a8 \
+            --rust-revision 0a6f1e0356f323d6f0bcca5bd96ad3fdab82297f \
+            --go-adapter "${RUNNER_TEMP}/strict-registry-identity010/go-adapter" \
+            --rust-adapter "${RUNNER_TEMP}/strict-registry-identity010/rust-target/debug/registry_identity010" \
+            --report "${RUNNER_TEMP}/strict-registry-identity010/report.json"
+      - name: Preserve Registry Gate identity evidence
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: strict-registry-identity010-${{ github.sha }}
+          if-no-files-found: warn
+          retention-days: 30
+          path: ${{ runner.temp }}/strict-registry-identity010/report.json

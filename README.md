@@ -80,6 +80,10 @@ The [strict DID syntax observation](docs/strict-did010-observation.md) runs
 separate 0.10.0 Go and Rust parser APIs against 20 pinned inputs while
 preserving the historical legacy-parser findings.
 
+The [Registry Gate identity observation](docs/strict-registry-identity010-observation.md)
+checks eight exact DID and key-URL decisions in both cores and records whether
+a rejected input reached durable observation state.
+
 See the [prioritized work list](docs/next-work.md) for dependencies and acceptance
 criteria for real core adapters, stateful scenarios, and protocol coverage.
 

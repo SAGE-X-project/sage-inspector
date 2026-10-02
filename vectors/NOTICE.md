@@ -32,3 +32,10 @@ at `sage-spec` revision `dcdd028b5160de5e32eb1f43cf1f71eed3fc4744`.
 Inspector checks its source bytes and independently evaluates the bounded
 header decisions. Those expected values do not come from either core, and
 the fixture is not evidence of a complete web Registry read.
+
+The strict Registry Gate identity suite is manually classified from
+`sage-spec` revision `fa006fd917ad365eb554a27f4178301cd66e2379`
+ID-01, ID-02 and the key-reference parsing step of ID-03. Its canonical
+eip155 identifier and key name are synthetic. Expected journal state is
+derived from the rule that malformed identifiers are rejected before
+authoritative observation; it is not copied from either core.

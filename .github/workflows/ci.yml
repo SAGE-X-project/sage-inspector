@@ -2113,6 +2113,7 @@ jobs:
         run: |
           rustup toolchain install 1.88.0 --profile minimal
           python3 -B scripts/test_strict_registry_identity010_unit.py
+          python3 -B scripts/test_registry_key_selection010_unit.py
           mkdir -p "${RUNNER_TEMP}/strict-registry-identity010"
           (cd adapters/go && go test -race ./cmd/sage-registry010 && \
             go build -o "${RUNNER_TEMP}/strict-registry-identity010/go-adapter" ./cmd/sage-registry010)
@@ -2127,6 +2128,13 @@ jobs:
             --go-adapter "${RUNNER_TEMP}/strict-registry-identity010/go-adapter" \
             --rust-adapter "${RUNNER_TEMP}/strict-registry-identity010/rust-target/debug/registry_identity010" \
             --report "${RUNNER_TEMP}/strict-registry-identity010/report.json"
+          python3 -B scripts/test_registry_key_selection010.py \
+            --go-root ../sage --rust-root ../rs-sage-core --spec-root ../sage-spec \
+            --go-revision fbd9b2169c72d62c62dcbaa2336275d08a5735a8 \
+            --rust-revision 0a6f1e0356f323d6f0bcca5bd96ad3fdab82297f \
+            --go-adapter "${RUNNER_TEMP}/strict-registry-identity010/go-adapter" \
+            --rust-adapter "${RUNNER_TEMP}/strict-registry-identity010/rust-target/debug/registry_identity010" \
+            --report "${RUNNER_TEMP}/strict-registry-identity010/key-selection-report.json"
       - name: Preserve Registry Gate identity evidence
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
@@ -2134,4 +2142,6 @@ jobs:
           name: strict-registry-identity010-${{ github.sha }}
           if-no-files-found: warn
           retention-days: 30
-          path: ${{ runner.temp }}/strict-registry-identity010/report.json
+          path: |
+            ${{ runner.temp }}/strict-registry-identity010/report.json
+            ${{ runner.temp }}/strict-registry-identity010/key-selection-report.json

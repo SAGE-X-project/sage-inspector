@@ -84,6 +84,10 @@ The [Registry Gate identity observation](docs/strict-registry-identity010-observ
 checks eight exact DID and key-URL decisions in both cores and records whether
 a rejected input reached durable observation state.
 
+The [Registry key-selection observation](docs/registry-key-selection010-observation.md)
+checks that both cores use only the named active signing key and do not
+substitute another signing or KEM key.
+
 See the [prioritized work list](docs/next-work.md) for dependencies and acceptance
 criteria for real core adapters, stateful scenarios, and protocol coverage.
 

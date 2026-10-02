@@ -39,3 +39,9 @@ ID-01, ID-02 and the key-reference parsing step of ID-03. Its canonical
 eip155 identifier and key name are synthetic. Expected journal state is
 derived from the rule that malformed identifiers are rejected before
 authoritative observation; it is not copied from either core.
+
+The Registry key-selection suite is manually classified from the same
+`sage-spec` revision, ID-03 and REG-02. Its key status and expiry boundaries,
+no-substitution expectations and journal effects are fixed independently of
+the cores. The additional public Ed25519 key is derived from the public test
+seed consisting of 32 bytes of `0x11`; no production key material is used.

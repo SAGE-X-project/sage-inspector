@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "protocol_version": "0.10.0",
+  "id": "sage-registry-key-selection-0.10.0",
+  "source": "sage-spec fa006fd917ad365eb554a27f4178301cd66e2379, ID-03 steps 2-5 and REG-02",
+  "scope": "Synthetic trusted Registry Gate source; key choice only, without message signature or deployed authority",
+  "cases": [
+    {
+      "id": "exact-active-signer",
+      "signing_key": "signing-1",
+      "expected_verdict": "ACCEPT",
+      "expected_journal_version": "2"
+    },
+    {
+      "id": "missing-signer-no-fallback",
+      "signing_key": "signing-2",
+      "expected_verdict": "REJECT",
+      "expected_journal_version": "2"
+    },
+    {
+      "id": "revoked-signer-no-fallback",
+      "signing_key": "signing-1",
+      "selected_key_state": "revoked",
+      "alternative_signer": true,
+      "expected_verdict": "REJECT",
+      "expected_journal_version": "2"
+    },
+    {
+      "id": "expired-signer-no-fallback",
+      "signing_key": "signing-1",
+      "selected_key_expires": 100,
+      "alternative_signer": true,
+      "expected_verdict": "REJECT",
+      "expected_journal_version": "2"
+    },
+    {
+      "id": "kem-key-cannot-sign",
+      "signing_key": "kem-1",
+      "expected_verdict": "REJECT",
+      "expected_journal_version": "2"
+    },
+    {
+      "id": "inactive-record-cannot-sign",
+      "signing_key": "signing-1",
+      "record_state": "created",
+      "expected_verdict": "REJECT",
+      "expected_journal_version": "2"
+    },
+    {
+      "id": "missing-kem-cannot-establish-session",
+      "signing_key": "signing-1",
+      "require_kem": true,
+      "kem_key_state": "revoked",
+      "expected_verdict": "REJECT",
+      "expected_journal_version": "2"
+    }
+  ]
+}

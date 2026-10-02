@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "protocol_version": "0.10.0",
+  "id": "sage-signed-peer-binding-0.10.0",
+  "source": "sage-spec fa006fd917ad365eb554a27f4178301cd66e2379, ID-03 steps 5-7, TRANSPORT-01/02/04 and HPKE-02",
+  "scope": "Bounded plain handshake receive boundary with synthetic trusted Registry Source; no deployed authority or general transport claim",
+  "cases": [
+    {"id": "exact-signed-request", "mutation": "none", "expected_verdict": "ACCEPT"},
+    {"id": "signed-sender-disagrees-with-handshake", "mutation": "sender", "expected_verdict": "REJECT"},
+    {"id": "signed-key-url-disagrees-with-handshake", "mutation": "key-url", "expected_verdict": "REJECT"},
+    {"id": "signed-recipient-disagrees-with-handshake", "mutation": "recipient", "expected_verdict": "REJECT"},
+    {"id": "signature-uses-another-agent-key", "mutation": "other-key-signature", "expected_verdict": "REJECT"},
+    {"id": "signed-request-addresses-another-peer", "mutation": "peer", "expected_verdict": "REJECT"}
+  ]
+}

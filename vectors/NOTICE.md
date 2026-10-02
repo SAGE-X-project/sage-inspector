@@ -45,3 +45,9 @@ The Registry key-selection suite is manually classified from the same
 no-substitution expectations and journal effects are fixed independently of
 the cores. The additional public Ed25519 key is derived from the public test
 seed consisting of 32 bytes of `0x11`; no production key material is used.
+
+The signed peer-binding suite derives its accept/reject expectations from
+`sage-spec` revision `fa006fd917ad365eb554a27f4178301cd66e2379` ID-03,
+TRANSPORT-01/02/04 and HPKE-02. It uses only the explicitly public seed-1 and
+seed-2 keys already attributed in `completion010.json`; independent Node
+signing and verification are confined to these bounded test messages.

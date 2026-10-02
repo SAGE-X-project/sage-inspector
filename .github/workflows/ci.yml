@@ -2145,3 +2145,30 @@ jobs:
           path: |
             ${{ runner.temp }}/strict-registry-identity010/report.json
             ${{ runner.temp }}/strict-registry-identity010/key-selection-report.json
+      - name: Observe signed sender and peer binding
+        working-directory: sage-inspector
+        env:
+          RUSTUP_TOOLCHAIN: 1.88.0
+        run: |
+          python3 -B scripts/test_signed_peer_binding010_unit.py
+          (cd adapters/go && go test -race ./cmd/sage-completion010 && \
+            go build -o "${RUNNER_TEMP}/strict-registry-identity010/go-completion-adapter" ./cmd/sage-completion010)
+          cargo test --locked --manifest-path adapters/rust-live/Cargo.toml \
+            --bin completion010_live --target-dir "${RUNNER_TEMP}/strict-registry-identity010/rust-completion-target"
+          cargo build --locked --manifest-path adapters/rust-live/Cargo.toml \
+            --bin completion010_live --target-dir "${RUNNER_TEMP}/strict-registry-identity010/rust-completion-target"
+          python3 -B scripts/test_signed_peer_binding010.py \
+            --go-root ../sage --rust-root ../rs-sage-core --spec-root ../sage-spec \
+            --go-adapter "${RUNNER_TEMP}/strict-registry-identity010/go-completion-adapter" \
+            --rust-adapter "${RUNNER_TEMP}/strict-registry-identity010/rust-completion-target/debug/completion010_live" \
+            --output "${RUNNER_TEMP}/strict-registry-identity010/signed-peer-binding"
+      - name: Preserve signed peer-binding evidence
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: signed-peer-binding010-${{ github.sha }}
+          if-no-files-found: warn
+          retention-days: 30
+          path: |
+            ${{ runner.temp }}/strict-registry-identity010/signed-peer-binding/report.json
+            ${{ runner.temp }}/strict-registry-identity010/signed-peer-binding/raw.jsonl

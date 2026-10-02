@@ -88,6 +88,10 @@ The [Registry key-selection observation](docs/registry-key-selection010-observat
 checks that both cores use only the named active signing key and do not
 substitute another signing or KEM key.
 
+The [signed peer-binding observation](docs/signed-peer-binding010-observation.md)
+runs validly signed, mismatched handshake requests through both core receivers
+and checks that rejection creates no session or replay reservation.
+
 See the [prioritized work list](docs/next-work.md) for dependencies and acceptance
 criteria for real core adapters, stateful scenarios, and protocol coverage.
 

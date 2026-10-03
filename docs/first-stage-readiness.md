@@ -33,14 +33,12 @@ implementation cases. Missing subjects remain `NOT_RUN` or `UNSUPPORTED`.
    contracts agree on accept/reject bytes and boundaries. Any contradiction
    returns to `sage-spec` first, then receives a versioned Inspector update.
 
-The current Inspector main is synchronized and contains substantial selected
-Go/Rust execution evidence, including protected MCP-to-Guard policy tests.
-It does not yet satisfy the exit criteria above: the latest complete-case
-inventory is still `NOT_RUN` at its pinned specification revision, some
-contracts are partial, and the current specification branch must be
-reconciled before a final catalog can be generated. The [INS-11 integrated
-verdict](ins11-integrated-verdict.md) remains `INCOMPLETE` and conformance
-`NOT_ESTABLISHED`.
+The [first-stage completion record](first-stage-completion.md) now closes
+these design and Inspector-tooling criteria at the byte-pinned 0.10.0 source
+revision. All 489 complete implementation cases remain `NOT_RUN` against
+that revision until actual subjects and independent observations are bound.
+The [INS-11 integrated verdict](ins11-integrated-verdict.md) remains
+`INCOMPLETE` and conformance `NOT_ESTABLISHED`.
 
 ## Work order inside this stage
 

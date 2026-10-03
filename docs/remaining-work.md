@@ -1,5 +1,14 @@
 # Remaining SAGE 0.10.0 work register
 
+2026-10-03 first-stage closure: the
+[design/Inspector tooling verdict](first-stage-completion.md) is
+`TOOLING_READY` at `sage-spec`
+`85fee1830b2bc0d2420557df40796ae83073de12`. It does not change the
+historical implementation and deployment gates below. In particular, full
+case execution, selected Registry Source and Agent-host observations,
+INS-11, and organizationally independent review remain open in the approved
+later stages.
+
 The [first-stage readiness contract](first-stage-readiness.md) aligns this
 technical register with the approved fourteen-stage program sequence:
 `sage-spec` and Inspector design/test readiness come first. The nine gates

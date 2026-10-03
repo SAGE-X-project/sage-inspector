@@ -1,5 +1,12 @@
 # Remaining SAGE 0.10.0 work register
 
+The [first-stage readiness contract](first-stage-readiness.md) aligns this
+technical register with the approved fourteen-stage program sequence:
+`sage-spec` and Inspector design/test readiness come first. The nine gates
+below remain ordered implementation and evidence obligations; their later
+runtime and deployment results are not prerequisites for calling the first
+stage's *tooling* ready, and tooling readiness is not conformance.
+
 2026-10-03 addendum: the [current-core protected MCP-to-Guard policy
 observation](guard-session-policy010-observation.md) passed 12 local runtime
 cases, including denial after policy revocation. The

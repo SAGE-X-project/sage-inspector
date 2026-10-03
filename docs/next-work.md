@@ -220,6 +220,7 @@ WS·영속 replay/quarantine·실제 Source·호스트 검증은 계속 후속 �
 
 0.10.0 HTTP 핸드셰이크·TLS 연결: [실제 바이트 및 인증 TLS 검증](http-handshake010-bindings.md).
 HTTP 핸드셰이크 DID·서명 키 결합의 추가 실행 증거: [HTTP identity binding](http-handshake-identity010-observation.md).
+MCP 세션 수신 시 DID·서명 키·수신자·역할 결합의 추가 실행 증거: [MCP session identity binding](mcp-session-identity010-observation.md).
 두 코어의 핸드셰이크에 HTTP 서명·원본 요청 연결·단일 replay 예약을 적용하고,
 엄격한 HTTP/1.1 코덱으로 원시 헤더와 길이·대상 주소를 검증한다. 공통 핸드셰이크
 22개, 오프라인 프레이밍 거부 24개와 크기 경계, 프로세스 88개 및 실제 루프백 TLS

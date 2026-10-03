@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "kind": "agent-host-candidate-assessment",
+  "protocol_version": "0.10.0",
+  "status": "CANDIDATE_ONLY",
+  "deployed_host": "NOT_RUN",
+  "conformance": "NOT_ESTABLISHED",
+  "selected_host": null,
+  "sources": {
+    "sage-adk": {
+      "revision": "6037298b49054ed6d1784ca1a28b6318b7dc310f",
+      "files": {
+        "go.mod": "8ba6ca37c35786035ec113906e205b1b8623291d14681fa7eaee3464db4f3de8",
+        "core/agent/agent.go": "03339172582a948802baa95b02b6c761d30501c05428af55f5eed3f79455971e",
+        "cmd/adk/serve.go": "7eb56f9fd9e8b3ddb87701e72cb4b2d38ed0242e942a5c77732d6c072f8193bc",
+        "core/tools/types.go": "cf4a3e0695803b2382372437afd24007e922a94e482306aa0f94cb16af3f4ba7",
+        "examples/tools-agent/main.go": "ae71f4580b5b4f691c93075580f68e65873c21046a9bea7662eb38579d347ff4"
+      }
+    },
+    "sage": {
+      "revision": "fbd9b2169c72d62c62dcbaa2336275d08a5735a8",
+      "files": {
+        "pkg/agent/guard010/mcp_host.go": "3107a4ca72cdc85bed8876cd90f7c7ce5caf863175c8424847ca0c35a5c00217"
+      }
+    },
+    "rs-sage-core": {
+      "revision": "0a6f1e0356f323d6f0bcca5bd96ad3fdab82297f",
+      "files": {
+        "src/guard010/mcp_owned.rs": "7323460c0cb5d73ff5dbea20e523ab4708a2e23db6d0655081c29a44ffe71e85"
+      }
+    }
+  },
+  "findings": {
+    "adk_default_handler": "cmd/adk/serve.go:196",
+    "adk_message_dispatch": "core/agent/agent.go:63",
+    "adk_tool_registry": "core/tools/types.go:177",
+    "adk_example_tool_call": "examples/tools-agent/main.go:192",
+    "go_private_host": "pkg/agent/guard010/mcp_host.go:15",
+    "rust_private_owner": "src/guard010/mcp_owned.rs:355"
+  }
+}

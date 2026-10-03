@@ -1,5 +1,15 @@
 # Remaining SAGE 0.10.0 work register
 
+2026-10-03 addendum: the [current-core protected MCP-to-Guard policy
+observation](guard-session-policy010-observation.md) passed 12 local runtime
+cases, including denial after policy revocation. The
+[Agent host candidate assessment](agent-host-candidate-assessment.md) identified
+`sage-adk` as a possible integration consumer, not a selected or inspected
+deployment. The nine ordered gates and all deployment `NOT_RUN` statuses below
+remain unchanged. The counts and revisions in the following historical
+snapshot are retained as of its stated date; later bounded observations do not
+convert complete normative cases into `PASS`.
+
 Status as of 2026-09-29. This register separates completed document and
 Inspector tooling work from implementation, deployed integration and release
 evidence. Its normative source is `sage-spec`

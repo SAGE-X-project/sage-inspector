@@ -12,6 +12,10 @@ liveweb010 = []
 name = "completion010_live"
 path = "../rust/src/bin/completion010.rs"
 
+[[bin]]
+name = "guard_results010_live"
+path = "../rust/src/bin/guard_results010.rs"
+
 [dependencies]
 sage_crypto_core = { path = "../../../rs-sage-core" }
 serde = { version = "1.0", features = ["derive"] }

@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "protocol_version": "0.10.0",
+  "scope": "Protected local MCP request delivery followed by current-core Guard policy admission with an inert effect sink; deployed Agent host enforcement is not observed.",
+  "cases": [
+    {"id": "allow", "policy_at_setup": true, "policy_after_open": true, "expected_verdict": "ACCEPT"},
+    {"id": "deny", "policy_at_setup": false, "policy_after_open": false, "expected_verdict": "REJECT"},
+    {"id": "revoke-after-open", "policy_at_setup": true, "policy_after_open": false, "expected_verdict": "REJECT"}
+  ]
+}

@@ -2211,3 +2211,29 @@ jobs:
           path: |
             ${{ runner.temp }}/strict-registry-identity010/mcp-session-identity/report.json
             ${{ runner.temp }}/strict-registry-identity010/mcp-session-identity/raw.jsonl
+      - name: Observe Guard policy after protected MCP delivery
+        working-directory: sage-inspector
+        env:
+          RUSTUP_TOOLCHAIN: 1.88.0
+        run: |
+          python3 -B scripts/test_guard_session_policy010_unit.py
+          (cd adapters/go && go build -o "${RUNNER_TEMP}/strict-registry-identity010/go-guard-adapter" ./cmd/sage-guard-results010)
+          cargo build --locked --manifest-path adapters/rust-live/Cargo.toml \
+            --bin guard_results010_live --target-dir "${RUNNER_TEMP}/strict-registry-identity010/rust-completion-target"
+          python3 -B scripts/test_guard_session_policy010.py \
+            --go-root ../sage --rust-root ../rs-sage-core --spec-root ../sage-spec \
+            --go-session "${RUNNER_TEMP}/strict-registry-identity010/go-completion-adapter" \
+            --rust-session "${RUNNER_TEMP}/strict-registry-identity010/rust-completion-target/debug/completion010_live" \
+            --go-guard "${RUNNER_TEMP}/strict-registry-identity010/go-guard-adapter" \
+            --rust-guard "${RUNNER_TEMP}/strict-registry-identity010/rust-completion-target/debug/guard_results010_live" \
+            --output "${RUNNER_TEMP}/strict-registry-identity010/guard-session-policy"
+      - name: Preserve Guard policy evidence
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: guard-session-policy010-${{ github.sha }}
+          if-no-files-found: warn
+          retention-days: 30
+          path: |
+            ${{ runner.temp }}/strict-registry-identity010/guard-session-policy/report.json
+            ${{ runner.temp }}/strict-registry-identity010/guard-session-policy/raw.jsonl

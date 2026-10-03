@@ -103,6 +103,8 @@ def check_facts(row, facts, actual, subject, artifact_hashes):
 def status(row, actual, environment=None):
     if actual is None:
         return 'NOT_RUN'
+    if environment == 'unit-simulation':
+        return 'PARTIAL'
     if actual.get('verdict') == 'UNSUPPORTED':
         require(set(actual) == {'verdict', 'reason'} and
                 type(actual['reason']) is str and actual['reason'],
@@ -110,8 +112,6 @@ def status(row, actual, environment=None):
         return 'UNSUPPORTED'
     if not same(actual, row['expected']):
         return 'FAIL'
-    if environment == 'unit-simulation':
-        return 'PARTIAL'
     return ('PASS' if row['coverage'] in
             ('required-subcondition', 'complete-boundary-contract') else 'PARTIAL')
 

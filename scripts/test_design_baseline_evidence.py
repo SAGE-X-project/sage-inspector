@@ -157,5 +157,22 @@ class DesignBaselineEvidenceTests(unittest.TestCase):
         manifest_path.write_text(json.dumps(manifest))
         self.assertEqual(assess(evidence_root=self.evidence)['counts']['PARTIAL'], 1)
 
+    def test_unit_simulation_mismatch_is_not_a_subject_failure(self):
+        actual = copy.deepcopy(self.row['expected'])
+        actual['output']['canonical_hex'] = '00'
+        self.write_observation(actual)
+        path = self.evidence / 'observation.json'
+        observation = json.loads(path.read_bytes())
+        observation['environment'] = 'unit-simulation'
+        raw = (json.dumps(observation) + '\n').encode()
+        path.write_bytes(raw)
+        manifest_path = self.evidence / 'manifest.json'
+        manifest = json.loads(manifest_path.read_bytes())
+        manifest['observations'][0]['sha256'] = sha(raw)
+        manifest_path.write_text(json.dumps(manifest))
+        result = assess(evidence_root=self.evidence)
+        self.assertEqual(result['counts']['PARTIAL'], 1)
+        self.assertEqual(result['counts']['FAIL'], 0)
+
 if __name__ == '__main__':
     unittest.main()

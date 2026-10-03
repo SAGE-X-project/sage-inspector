@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "protocol_version": "0.10.0",
+  "scope": "Fixed public-key local HTTP handshake identity and signature-role bindings; synthetic registry, replay and clocks",
+  "cases": [
+    {"id": "valid", "phase": "request", "mutation": "none", "expected_verdict": "ACCEPT"},
+    {"id": "request-did-header", "phase": "request", "mutation": "did", "expected_verdict": "REJECT"},
+    {"id": "request-keyid", "phase": "request", "mutation": "wrong-keyid", "expected_verdict": "REJECT"},
+    {"id": "request-algorithm", "phase": "request", "mutation": "wrong-alg", "expected_verdict": "REJECT"},
+    {"id": "request-other-signer", "phase": "request", "mutation": "other-signer", "expected_verdict": "REJECT"},
+    {"id": "response-did-header", "phase": "response", "mutation": "did", "expected_verdict": "REJECT"},
+    {"id": "response-keyid", "phase": "response", "mutation": "wrong-keyid", "expected_verdict": "REJECT"},
+    {"id": "response-algorithm", "phase": "response", "mutation": "wrong-alg", "expected_verdict": "REJECT"},
+    {"id": "response-other-signer", "phase": "response", "mutation": "other-signer", "expected_verdict": "REJECT"}
+  ]
+}

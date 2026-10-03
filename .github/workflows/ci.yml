@@ -2192,3 +2192,22 @@ jobs:
           path: |
             ${{ runner.temp }}/strict-registry-identity010/http-handshake-identity/report.json
             ${{ runner.temp }}/strict-registry-identity010/http-handshake-identity/raw.jsonl
+      - name: Observe MCP session identity binding
+        working-directory: sage-inspector
+        run: |
+          python3 -B scripts/test_mcp_session_identity010_unit.py
+          python3 -B scripts/test_mcp_session_identity010.py \
+            --go-root ../sage --rust-root ../rs-sage-core --spec-root ../sage-spec \
+            --go-adapter "${RUNNER_TEMP}/strict-registry-identity010/go-completion-adapter" \
+            --rust-adapter "${RUNNER_TEMP}/strict-registry-identity010/rust-completion-target/debug/completion010_live" \
+            --output "${RUNNER_TEMP}/strict-registry-identity010/mcp-session-identity"
+      - name: Preserve MCP session identity evidence
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: mcp-session-identity010-${{ github.sha }}
+          if-no-files-found: warn
+          retention-days: 30
+          path: |
+            ${{ runner.temp }}/strict-registry-identity010/mcp-session-identity/report.json
+            ${{ runner.temp }}/strict-registry-identity010/mcp-session-identity/raw.jsonl

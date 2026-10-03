@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "protocol_version": "0.10.0",
+  "scope": "Fixed public-key local MCP session outer identity and signature-role bindings; no Guard effect or external tool",
+  "cases": [
+    {"id": "valid", "phase": "request", "mutation": "none", "expected_verdict": "ACCEPT"},
+    {"id": "request-did", "phase": "request", "mutation": "did", "expected_verdict": "REJECT"},
+    {"id": "request-key", "phase": "request", "mutation": "kid", "expected_verdict": "REJECT"},
+    {"id": "request-recipient", "phase": "request", "mutation": "recipient", "expected_verdict": "REJECT"},
+    {"id": "request-role", "phase": "request", "mutation": "role", "expected_verdict": "REJECT"},
+    {"id": "request-other-signer", "phase": "request", "mutation": "other-signer", "expected_verdict": "REJECT"},
+    {"id": "response-did", "phase": "response", "mutation": "did", "expected_verdict": "REJECT"},
+    {"id": "response-key", "phase": "response", "mutation": "kid", "expected_verdict": "REJECT"},
+    {"id": "response-recipient", "phase": "response", "mutation": "recipient", "expected_verdict": "REJECT"},
+    {"id": "response-role", "phase": "response", "mutation": "role", "expected_verdict": "REJECT"},
+    {"id": "response-other-signer", "phase": "response", "mutation": "other-signer", "expected_verdict": "REJECT"}
+  ]
+}

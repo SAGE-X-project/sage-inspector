@@ -1,5 +1,11 @@
 # Remaining SAGE 0.10.0 work register
 
+The [protected host-port inspection controls](host-port-inspection.md) now
+link nine host responsibilities to 13 existing normative cases and pin the
+unchanged source hashes. They report `NOT_RUN` without a versioned host;
+matching bounded records remain `PARTIAL`. This inventory does not close the
+later core, real Agent/MCP host, Registry Source or INS-11 gates below.
+
 2026-10-03 first-stage closure: the
 [design/Inspector tooling verdict](first-stage-completion.md) is
 `TOOLING_READY` at `sage-spec`

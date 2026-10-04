@@ -1,5 +1,10 @@
 # Remaining SAGE 0.10.0 work register
 
+The [root capture core observation](core-root-capture-observation.md) records
+the first native Go/Rust Client import boundary against exact revisions and an
+independent commitment value. It does not change any deployed-host `NOT_RUN`
+verdict or close the library, cross-core and full-case gates below.
+
 The [protected host-port inspection controls](host-port-inspection.md) now
 link nine host responsibilities to 13 existing normative cases and pin the
 unchanged source hashes. They report `NOT_RUN` without a versioned host;

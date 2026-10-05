@@ -81,6 +81,11 @@ independently verifies commitments, signed results and the inert effect ledger.
 Registry, loaded component and key custody remain local fixtures; independent
 hop execution and deployed host inspection are still open.
 
+The [host integration readiness review](docs/host-integration-readiness.md)
+compares pinned ADK, gateway and Registry candidates and maps their missing
+bindings to the existing nine host ports. Source and offline packaging checks
+prepare the selection decision; they do not establish a protected deployment.
+
 The [remaining-work register](docs/remaining-work.md) gives the ordered gates
 and links the complete case inventory to implementation and deployment work.
 

@@ -1,0 +1,231 @@
+{
+  "build_preflight": {
+    "command": [
+      "go",
+      "list",
+      "-e",
+      "-mod=readonly",
+      "-json",
+      "./cmd/adk"
+    ],
+    "environment": {
+      "GOPROXY": "off",
+      "GOSUMDB": "off",
+      "GOTOOLCHAIN": "local"
+    },
+    "host_started": false,
+    "kind": "OFFLINE_PACKAGE_METADATA_ONLY",
+    "missing_replacement": "../../sage",
+    "observed_incomplete": true,
+    "offline_dependencies": "INCOMPLETE"
+  },
+  "conformance": "NOT_ESTABLISHED",
+  "deployed_host": "NOT_RUN",
+  "independent_hop_execution": "NOT_RUN",
+  "kind": "host-integration-source-readiness",
+  "normative_source_revision": "1820ab5eafb843e1c13f4c46c34aeeb28d934ac9",
+  "protocol_version": "0.10.0",
+  "recommended_agent_candidate": "sage-adk",
+  "references": {
+    "adk-a2a-conversion": {
+      "file": "adapters/a2a/server.go",
+      "line": 116,
+      "repository": "sage-adk",
+      "source_text": "sdkMsg := convertA2AMessageToSDK(&msg)"
+    },
+    "adk-a2a-reply": {
+      "file": "adapters/a2a/server.go",
+      "line": 170,
+      "repository": "sage-adk",
+      "source_text": "func (m *simpleMessageContext) Reply(text string) error {"
+    },
+    "adk-default-handler": {
+      "file": "cmd/adk/serve.go",
+      "line": 196,
+      "repository": "sage-adk",
+      "source_text": "b.OnMessage(defaultMessageHandler())"
+    },
+    "adk-first-text": {
+      "file": "core/agent/message.go",
+      "line": 36,
+      "repository": "sage-adk",
+      "source_text": "func (m *messageContext) Text() string {"
+    },
+    "adk-mode-auto": {
+      "file": "builder/builder.go",
+      "line": 442,
+      "repository": "sage-adk",
+      "source_text": "return nil, errors.ErrNotImplemented.WithMessage(\"Auto protocol mode not yet implemented\")"
+    },
+    "adk-mode-sage": {
+      "file": "builder/builder.go",
+      "line": 438,
+      "repository": "sage-adk",
+      "source_text": "return nil, errors.ErrNotImplemented.WithMessage(\"SAGE protocol server not yet implemented\")"
+    },
+    "adk-process": {
+      "file": "core/agent/agent.go",
+      "line": 63,
+      "repository": "sage-adk",
+      "source_text": "func (a *agentImpl) Process(ctx context.Context, msg *types.Message) (*types.Message, error) {"
+    },
+    "adk-raw-tool": {
+      "file": "core/tools/types.go",
+      "line": 182,
+      "repository": "sage-adk",
+      "source_text": "return tool.Execute(ctx, params)"
+    },
+    "gateway-forwarding": {
+      "file": "pkg/gateway/verify/verify.go",
+      "line": 134,
+      "repository": "sage-gateway",
+      "source_text": "func ReverseProxy(upstream *url.URL, o Options) http.Handler {"
+    },
+    "gateway-signing": {
+      "file": "pkg/gateway/sign/sign.go",
+      "line": 46,
+      "repository": "sage-gateway",
+      "source_text": "func (t *Transport) RoundTrip(req *http.Request) (*http.Response, error) {"
+    },
+    "go-hop-entry": {
+      "file": "pkg/agent/guard010/mcp_public.go",
+      "line": 281,
+      "repository": "sage",
+      "source_text": "func (c *MCPConnection) OpenHopClient(path string, create bool, intent []byte, services MCPClientServices, parent MCPHopServices) (err error) {"
+    },
+    "go-hop-issuer": {
+      "file": "pkg/agent/guard010/issuance.go",
+      "line": 105,
+      "repository": "sage",
+      "source_text": "func NewHopIntentIssuer(capture *RootCapture, s IssuerServices, incoming []byte, h HopServices) (*IntentIssuer, error) {"
+    },
+    "go-issuer": {
+      "file": "pkg/agent/guard010/issuance.go",
+      "line": 85,
+      "repository": "sage",
+      "source_text": "func NewIntentIssuer(capture *RootCapture, s IssuerServices) (*IntentIssuer, error) {"
+    },
+    "go-mcp": {
+      "file": "pkg/agent/guard010/mcp_public.go",
+      "line": 67,
+      "repository": "sage",
+      "source_text": "func OpenMCPHost(path string, create bool, recipient string, s MCPHostServices, b MCPHostBounds) (*MCPHost, error) {"
+    },
+    "registry-now": {
+      "file": "registry/server.go",
+      "line": 87,
+      "repository": "sage-registry-service",
+      "source_text": "clock = time.Now"
+    },
+    "registry-public": {
+      "file": "registry/server.go",
+      "line": 133,
+      "repository": "sage-registry-service",
+      "source_text": "func (s *Server) Public(w http.ResponseWriter, r *http.Request) {"
+    },
+    "rust-hop-entry": {
+      "file": "src/guard010/mcp_public.rs",
+      "line": 369,
+      "repository": "rs-sage-core",
+      "source_text": "pub fn open_hop_client("
+    },
+    "rust-issuer": {
+      "file": "src/guard010/issuance.rs",
+      "line": 120,
+      "repository": "rs-sage-core",
+      "source_text": "pub fn new(capture: RootCapture, services: IssuerServices) -> Result<Self> {"
+    }
+  },
+  "schema_version": 1,
+  "selected_host": null,
+  "sources": {
+    "rs-sage-core": {
+      "files": {
+        "Cargo.toml": "8dfe7286e8eae2718cfce19113ab40364cd8ed6a3bc6a0b9f78d4caaf096e36a",
+        "src/guard010/client.rs": "a93a2cbc94b79f4f5d4cc4082364567cb216bb0cbec5828c0fe2110c21d5aca8",
+        "src/guard010/dispatch.rs": "038875d6bd463b34d9d3c2526ff3fdb8fad7f356f963dd0ab9deb6dee38501ac",
+        "src/guard010/issuance.rs": "7bd94da4b694ff9a3793e432323362df8a02992f8734e0e514ff6b62692d1cb4",
+        "src/guard010/mcp_public.rs": "cf49f22182f5bd6787a17a281e561bb7130722ff144fae33eb700442f33a14ff",
+        "src/guard010/registry.rs": "4490cd2a5567485e5cba7ddcff700d159ee63623ab06eff985fe45fb6b572c26"
+      },
+      "revision": "cf3edb86a04e8ca0141b252c85e002c1f49bf9eb"
+    },
+    "sage": {
+      "files": {
+        "go.mod": "c23a68976d75c786fff32e062e6c5b670a6a3959ec3580ff0b2a09cbf1e45536",
+        "pkg/agent/guard010/client.go": "c5101f228c2e0ba17aacbc79f5010c6b5697b450075bf3e070d4d6368b304676",
+        "pkg/agent/guard010/dispatch.go": "52b1d9f126ccb76a8af465ca20698690ff2431a624a6bd49a8a8a2bbdd6eefcd",
+        "pkg/agent/guard010/issuance.go": "e0537b5418eca3e10bb98db5858636e659811ba759ec8d698199ee6f5b555032",
+        "pkg/agent/guard010/mcp_public.go": "f3c495302c730349dd89f461b4a19236a36b734a8c60ffdf0c2caa6d0a47bf6d",
+        "pkg/agent/guard010/mcp_root_capture.go": "abfb4f152ce1bb0ed7535418c61d0c1e41004402485a39c9d6216dd7b8350399",
+        "pkg/agent/guard010/registry.go": "d6ac914001f74e61406dc64cf1d94dce35a2c6a457894bd97e071e8f4c724a47"
+      },
+      "revision": "11b1cd91691de99fdbd734db78dc6755c187b2e9"
+    },
+    "sage-a2a-go": {
+      "files": {
+        "go.mod": "d73b7f0ed5321c0609273c08ec7381c3a444c7d2cccc1eeaf06db03e0c23488e",
+        "protocol/protocol.go": "9313fa78b6106ea8d7df1f7425bf527cf80742a60450d8c08494680aee2cc920",
+        "server/server.go": "4b6d43d186137013890d5b358ef8bed049fda49dcf5fe6ad64fbc6500e913fe6"
+      },
+      "revision": "574e787cb40b8957e3dbd76b2d42bd0bde730d0b"
+    },
+    "sage-adk": {
+      "files": {
+        "adapters/a2a/server.go": "30415e4d90c3e5528d7cadfa34f0b95a8558c2eb746eb68c9069f2d81fa9ff31",
+        "adapters/sage/adapter.go": "553aabd7beb0fd9149ba024732e8992946d6503794716632bbd23fc777772057",
+        "adapters/sage/config.go": "daf1c950a0aa4ab308e4e6659f745a974890ce87dc3c6906e8739c68c71d791c",
+        "adapters/sage/did.go": "1d147078b0943ca23ec078b8386ec34d0b7fc01e3e789712a03293f53c36b363",
+        "adapters/sage/network.go": "d87afcad2d51f7756be5bc8fdcf74ca472e4dada405b24aa40dd2b5e2f255f80",
+        "adapters/sage/signing.go": "cc1c36cb077576a5714b38f1ccd0382ced03b15f73f8566ebd90a524e7a25fc6",
+        "builder/builder.go": "3ad8897bf26dbb72cb3cefc0eee3eba431199ec4086ad1b4c619523990ff20fc",
+        "cmd/adk/serve.go": "7eb56f9fd9e8b3ddb87701e72cb4b2d38ed0242e942a5c77732d6c072f8193bc",
+        "core/agent/agent.go": "03339172582a948802baa95b02b6c761d30501c05428af55f5eed3f79455971e",
+        "core/agent/message.go": "2d376e1cbcc0b4459e8fcfb319b90f9815f7e9696df3fa770dcb9dfd4b04c317",
+        "core/agent/options.go": "01323149ecef1baa52f3432207300acc4c283d5e457635f038c88f201363c145",
+        "core/tools/types.go": "cf4a3e0695803b2382372437afd24007e922a94e482306aa0f94cb16af3f4ba7",
+        "examples/tools-agent/main.go": "ae71f4580b5b4f691c93075580f68e65873c21046a9bea7662eb38579d347ff4",
+        "go.mod": "8ba6ca37c35786035ec113906e205b1b8623291d14681fa7eaee3464db4f3de8",
+        "go.sum": "3d721a2dc8d4ac9e90abbe444423a9e7b72ce208827a45a034e6f7bb1de32f0b"
+      },
+      "guard_reference_scan": {
+        "inventory_sha256": "741aad3ee5e194b2aac4c54f30745bcb0657ad4edafdf29672ad167633b9c8cb",
+        "matches": [],
+        "tracked_go_files": 224
+      },
+      "revision": "6037298b49054ed6d1784ca1a28b6318b7dc310f"
+    },
+    "sage-gateway": {
+      "files": {
+        "cmd/sage-gateway/main.go": "218b3c2693da97249c6e1aac34322421ee881eafb4a6bd96424864fcdc2e3e4d",
+        "go.mod": "e1e247ba6e2795294fd271590b89fb62282eb534755e563c0a64adad54dfa4c6",
+        "go.sum": "8e3170639b11f19c479c6b68f67b34ea58cdecec4820a130356d01a7dc82e21d",
+        "pkg/gateway/resolve/resolve.go": "876b6bb18387b950eeb614f8196cc464837542829abc1c32b47b3c1c456fc33c",
+        "pkg/gateway/sign/sign.go": "18342b0cdc88c23b67dcaebc435e41d693a815a1fa8fbb4ea3d6ab59e4a90b53",
+        "pkg/gateway/verify/verify.go": "e51ce72ced4fac205f024df6bdee2180ce8f3ab747fea77bb4ded47a99c40af8"
+      },
+      "guard_reference_scan": {
+        "inventory_sha256": "ee61cbd144cbcb57eaeed21f18d762e694ce9603b9e8f4bb89cb0348b0fe0190",
+        "matches": [],
+        "tracked_go_files": 8
+      },
+      "revision": "4e7266857676b338eb07d67673fbb5c4b275c263"
+    },
+    "sage-proxy-server": {
+      "files": {
+        "LICENSE": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4"
+      },
+      "revision": "eb7e9340d358bf5b2a32921b9a01d7a07cf6bcc6"
+    },
+    "sage-registry-service": {
+      "files": {
+        "cmd/sage-registry-service/main.go": "6d3a58ad3d44cedbf7f383b1a710579229a97f3c6e61185c0116d88f40c69065",
+        "go.mod": "5cf7fc568564d472c02d3422a60cfa7f70533bee0b22e4b66d0f685adf00b115",
+        "go.sum": "53352d58a5ff801289211c32588f883dc90f410eacfb871157bf29f3bbcae813",
+        "registry/server.go": "a45207d08e4e9d09a2a9a218e344b0dadaa94cfa17892421b938fd9f729da0b9"
+      },
+      "revision": "baf5570578ddc19685ebe2a5bda4a284f45c8e05"
+    }
+  },
+  "status": "SELECTION_PENDING"
+}

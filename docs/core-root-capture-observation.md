@@ -70,3 +70,10 @@ a mismatched reopen, and same-language and cross-language restart without a
 duplicate send. This closes the public captured Client and durable-journal
 parity question left open by the constructor-only report. It does not observe
 a deployed host or promote the 13 host controls or complete normative cases.
+
+The [signed result parity report](evidence/captured-client-results.md) extends
+that API observation through completed and pending result consumption. Both
+cores reject wrong-intent and invalid-proof results without releasing output,
+write the same terminal journal bytes, and reopen each other's terminal state
+without another send or output release. The deployed-host and complete-case
+verdicts remain unchanged.

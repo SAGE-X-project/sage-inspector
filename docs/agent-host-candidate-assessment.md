@@ -46,3 +46,21 @@ reconcile the normative snapshot, map both core and consumer contracts, then
 stabilize strict libraries and host ports before selecting and inspecting a
 deployed Agent host. The later decision is which executable and effect
 inventory will be the first host subject; this review does not select one.
+
+## Native Client readiness update
+
+At Go `8c29b785e36fe8f7d7dc9e55bd9deb036df0088f` and Rust
+`c99d373b772a3fb33e166fda3e07ee7ba94414f0`, the native capture constructors
+and captured Client opening entry points are public. The later
+[capture and journal report](evidence/captured-client-parity.md) and
+[signed result report](evidence/captured-client-results.md) independently
+exercise these APIs with pinned consumers. This supersedes the earlier
+crate-private `RootCapture` finding for those revisions; the full MCP host
+assembly and deployed route ownership still require integration evidence.
+
+A source recheck found `sage-adk` still at the revision above, with no tracked
+Go source references to `guard010`, `execution010` or `OpenCapturedClient`.
+Its message-handler and tool-registry paths therefore remain integration
+candidates. The public Client evidence does not supply a protected ADK
+executable or an independent host effect observer, so the host verdicts stay
+`NOT_RUN`.

@@ -523,6 +523,11 @@ same-language and cross-language restart without another send. This is
 implementation evidence for the captured Client boundary, not a deployed
 host or complete normative-case verdict.
 
+The [captured Client signed result observation](evidence/captured-client-results.md)
+adds ten bounded Go/Rust runs for one-time completed output, nonterminal
+pending results, wrong-intent and invalid-proof denial, and cross-language
+terminal restart. It keeps the 13 deployed-host controls `NOT_RUN`.
+
 The [three dispatch denial observations](current-spec-exec-denial-evidence.md)
 add EXEC-04/CST-02 runtime fixtures checking that a locally denied
 policy, unavailable active signing key, or prior retirement prevents an inert

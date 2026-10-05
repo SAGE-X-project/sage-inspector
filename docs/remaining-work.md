@@ -4,8 +4,10 @@ The [root capture core observation](core-root-capture-observation.md) records
 the native Go/Rust Client import boundary and a later independent public
 constructor parity run against exact revisions. The later
 [signed captured Client parity run](evidence/captured-client-parity.md) checks
-both public opening APIs and cross-core journal restarts. Neither changes a
-deployed-host `NOT_RUN` verdict or closes the full-case gates below.
+both public opening APIs and cross-core journal restarts. The
+[signed result run](evidence/captured-client-results.md) also verifies output
+consumption and terminal restart through those APIs. None changes a deployed-host
+`NOT_RUN` verdict or closes the full-case gates below.
 
 The [protected host-port inspection controls](host-port-inspection.md) now
 link nine host responsibilities to 13 existing normative cases and pin the

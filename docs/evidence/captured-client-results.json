@@ -1,0 +1,89 @@
+{
+  "cases": [
+    {
+      "handoffs": 1,
+      "id": "go-completed",
+      "journal_sha256": "7baafefed3d2e35d5b3f797bc8257587f604595e0dfa5bd3390506ee92f40f94",
+      "output_releases": 1,
+      "status": "PASS"
+    },
+    {
+      "handoffs": 1,
+      "id": "go-wrong-intent",
+      "journal_sha256": "13af45389e30f1dbf3eecd8cac7859b21d8c3dd597242cbc4cbccce5c35fad65",
+      "output_releases": 0,
+      "status": "PASS"
+    },
+    {
+      "handoffs": 1,
+      "id": "go-invalid-proof",
+      "journal_sha256": "13af45389e30f1dbf3eecd8cac7859b21d8c3dd597242cbc4cbccce5c35fad65",
+      "output_releases": 0,
+      "status": "PASS"
+    },
+    {
+      "handoffs": 2,
+      "id": "go-pending-then-completed",
+      "journal_sha256": "61835e272c131b12f406fb772867cabce3fa2ec7910612e3943f58d5ee9c0c42",
+      "output_releases": 1,
+      "status": "PASS"
+    },
+    {
+      "handoffs": 1,
+      "id": "rust-completed",
+      "journal_sha256": "7baafefed3d2e35d5b3f797bc8257587f604595e0dfa5bd3390506ee92f40f94",
+      "output_releases": 1,
+      "status": "PASS"
+    },
+    {
+      "handoffs": 1,
+      "id": "rust-wrong-intent",
+      "journal_sha256": "13af45389e30f1dbf3eecd8cac7859b21d8c3dd597242cbc4cbccce5c35fad65",
+      "output_releases": 0,
+      "status": "PASS"
+    },
+    {
+      "handoffs": 1,
+      "id": "rust-invalid-proof",
+      "journal_sha256": "13af45389e30f1dbf3eecd8cac7859b21d8c3dd597242cbc4cbccce5c35fad65",
+      "output_releases": 0,
+      "status": "PASS"
+    },
+    {
+      "handoffs": 2,
+      "id": "rust-pending-then-completed",
+      "journal_sha256": "61835e272c131b12f406fb772867cabce3fa2ec7910612e3943f58d5ee9c0c42",
+      "output_releases": 1,
+      "status": "PASS"
+    },
+    {
+      "handoffs": 0,
+      "id": "go-to-rust-terminal-reopen",
+      "journal_sha256": "7baafefed3d2e35d5b3f797bc8257587f604595e0dfa5bd3390506ee92f40f94",
+      "output_releases": 0,
+      "status": "PASS"
+    },
+    {
+      "handoffs": 0,
+      "id": "rust-to-go-terminal-reopen",
+      "journal_sha256": "7baafefed3d2e35d5b3f797bc8257587f604595e0dfa5bd3390506ee92f40f94",
+      "output_releases": 0,
+      "status": "PASS"
+    }
+  ],
+  "deployed_host": "NOT_RUN",
+  "fixture_sha256": "2c7b043f6f761a2eff0e7eea89cf838746a31a221c31e2d82b47d30b6937c271",
+  "full_protocol_conformance": "NOT_ESTABLISHED",
+  "go_adapter_sha256": "fd35ecb441280bd64cf72cc03572611a940548182ee21019d3f5a768193b20eb",
+  "go_revision": "8c29b785e36fe8f7d7dc9e55bd9deb036df0088f",
+  "kind": "captured-client-signed-result-parity",
+  "normative_source_revision": "1820ab5eafb843e1c13f4c46c34aeeb28d934ac9",
+  "protocol_version": "0.10.0",
+  "rust_adapter_sha256": "513502dd39a1cf3b9dbfdcc90814551cb60517e7245c76a5a1876fe7e5882935",
+  "rust_revision": "c99d373b772a3fb33e166fda3e07ee7ba94414f0",
+  "schema_version": 1,
+  "signature_checks": 2,
+  "signature_oracle_sha256": "2da7a7212b14af4d23e429bc0cf416c4bdeba7dd182a321d7494057f8898b311",
+  "status": "SIGNED_RESULT_API_PARITY",
+  "vector_sha256": "8c50f78dbb55aea458760dc4cfaf96dcf6dc822eb78f50c70a6707837dd16f49"
+}

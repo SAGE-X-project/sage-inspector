@@ -76,10 +76,21 @@ owner/setup/admission/lifecycle assembly. External compiler checks and four
 independently checked root TCP observations cover both same-core and cross-core
 directions. This is `ROOT_MCP_TCP_INTEROP`, not deployed host certification.
 
-Within approved program stage 5, the next work is external consumer binding
-of protected capture, issuance, policy, registry, immutable loader and actual
-effect services, followed by selection and inspection of an exact host.
-Issuer-to-MCP consumer binding and independent hop execution remain `NOT_RUN`. Preserve every broader gate below. No host is
+The 2026-10-06 [external MCP consumer update](evidence/mcp-consumer.md) pins
+Go `11b1cd91691de99fdbd734db78dc6755c187b2e9` and Rust
+`cf3edb86a04e8ca0141b252c85e002c1f49bf9eb`. Separate external programs now
+bind protected root issuance to public native MCP ownership using the same
+durable Client journal. Four allowed directions and ten cross-core denials
+are independently checked as `ROOT_EXTERNAL_CONSUMER_BOUND`. Registry,
+clock, key custody and loaded component binding remain local fixtures;
+this is not production loader or deployment evidence.
+
+Within approved program stage 5, the next work is selection and pinning of an
+exact Agent/MCP host and its protected capture, policy, authoritative registry,
+key custody, immutable loader and actual effect services, then deployment
+inspection. Independent hop execution remains `NOT_RUN` and must be bound
+separately; root-only consumer evidence does not close it. Preserve every
+broader gate below. No host is
 selected, all thirteen deployed-host controls remain `NOT_RUN`, full
 conformance remains `NOT_ESTABLISHED`, and demo work stays in its later stage.
 

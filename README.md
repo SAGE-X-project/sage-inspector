@@ -74,6 +74,13 @@ checks external Go/Rust API compilation and four bounded root TCP directions
 with independent signed-intent, result and ledger verification. Protected
 external consumer binding and deployed host inspection remain separate work.
 
+The [external MCP consumer observation](docs/evidence/mcp-consumer.md) now
+checks protected root issuance through separate public Go/Rust consumers in
+four allowed and ten denial directions. It proves same-journal transfer and
+independently verifies commitments, signed results and the inert effect ledger.
+Registry, loaded component and key custody remain local fixtures; independent
+hop execution and deployed host inspection are still open.
+
 The [remaining-work register](docs/remaining-work.md) gives the ordered gates
 and links the complete case inventory to implementation and deployment work.
 

@@ -58,3 +58,15 @@ public capture constructor only. It does not independently verify signed
 intent, journal, transport, final dispatch, output release or whether a host
 actually captured user input. Those remain `NOT_RUN` at this evidence level;
 the 13 deployed-host controls and complete normative cases are unchanged.
+
+## Signed Client and journal parity
+
+The later [captured Client report](evidence/captured-client-parity.md) binds
+that same independent original-byte vector to a valid Ed25519-signed intent.
+Inspector-owned consumers exercise `OpenCapturedClient` and `open_captured`
+at the pinned Go/Rust revisions above. Twelve runtime checks cover denial
+before journal creation, one matching handoff, unchanged journal bytes after
+a mismatched reopen, and same-language and cross-language restart without a
+duplicate send. This closes the public captured Client and durable-journal
+parity question left open by the constructor-only report. It does not observe
+a deployed host or promote the 13 host controls or complete normative cases.

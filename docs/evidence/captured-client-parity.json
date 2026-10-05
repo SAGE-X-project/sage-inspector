@@ -1,0 +1,89 @@
+{
+  "cases": [
+    {
+      "handoffs": 0,
+      "id": "go-changed-original",
+      "journal": "ABSENT",
+      "status": "PASS"
+    },
+    {
+      "handoffs": 0,
+      "id": "go-changed-request-id",
+      "journal": "ABSENT",
+      "status": "PASS"
+    },
+    {
+      "handoffs": 1,
+      "id": "go-create-send",
+      "journal_sha256": "6737336f87c9ff89428b35209e8fbf2034b620b0184412b1aca19d38ad821081",
+      "status": "PASS"
+    },
+    {
+      "handoffs": 0,
+      "id": "go-reopen-changed",
+      "journal_sha256": "6737336f87c9ff89428b35209e8fbf2034b620b0184412b1aca19d38ad821081",
+      "status": "PASS"
+    },
+    {
+      "handoffs": 0,
+      "id": "go-reopen-same",
+      "journal_sha256": "6737336f87c9ff89428b35209e8fbf2034b620b0184412b1aca19d38ad821081",
+      "status": "PASS"
+    },
+    {
+      "handoffs": 0,
+      "id": "rust-changed-original",
+      "journal": "ABSENT",
+      "status": "PASS"
+    },
+    {
+      "handoffs": 0,
+      "id": "rust-changed-request-id",
+      "journal": "ABSENT",
+      "status": "PASS"
+    },
+    {
+      "handoffs": 1,
+      "id": "rust-create-send",
+      "journal_sha256": "6737336f87c9ff89428b35209e8fbf2034b620b0184412b1aca19d38ad821081",
+      "status": "PASS"
+    },
+    {
+      "handoffs": 0,
+      "id": "rust-reopen-changed",
+      "journal_sha256": "6737336f87c9ff89428b35209e8fbf2034b620b0184412b1aca19d38ad821081",
+      "status": "PASS"
+    },
+    {
+      "handoffs": 0,
+      "id": "rust-reopen-same",
+      "journal_sha256": "6737336f87c9ff89428b35209e8fbf2034b620b0184412b1aca19d38ad821081",
+      "status": "PASS"
+    },
+    {
+      "handoffs": 0,
+      "id": "go-to-rust-reopen",
+      "journal_sha256": "6737336f87c9ff89428b35209e8fbf2034b620b0184412b1aca19d38ad821081",
+      "status": "PASS"
+    },
+    {
+      "handoffs": 0,
+      "id": "rust-to-go-reopen",
+      "journal_sha256": "6737336f87c9ff89428b35209e8fbf2034b620b0184412b1aca19d38ad821081",
+      "status": "PASS"
+    }
+  ],
+  "deployed_host": "NOT_RUN",
+  "fixture_sha256": "2c7b043f6f761a2eff0e7eea89cf838746a31a221c31e2d82b47d30b6937c271",
+  "full_protocol_conformance": "NOT_ESTABLISHED",
+  "go_adapter_sha256": "fd35ecb441280bd64cf72cc03572611a940548182ee21019d3f5a768193b20eb",
+  "go_revision": "8c29b785e36fe8f7d7dc9e55bd9deb036df0088f",
+  "kind": "captured-client-public-api-parity",
+  "normative_source_revision": "1820ab5eafb843e1c13f4c46c34aeeb28d934ac9",
+  "protocol_version": "0.10.0",
+  "rust_adapter_sha256": "513502dd39a1cf3b9dbfdcc90814551cb60517e7245c76a5a1876fe7e5882935",
+  "rust_revision": "c99d373b772a3fb33e166fda3e07ee7ba94414f0",
+  "schema_version": 1,
+  "status": "CAPTURED_CLIENT_API_PARITY",
+  "vector_sha256": "8c50f78dbb55aea458760dc4cfaf96dcf6dc822eb78f50c70a6707837dd16f49"
+}

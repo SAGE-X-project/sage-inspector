@@ -56,19 +56,24 @@ revision-bound PASS/FAIL records remain separate; they are not added to 489.
 
 ## Current public API audit and next core changes
 
-The [nine-port public API audit](evidence/host-public-api.md) pins both current
-core revisions and compiles separate external consumers. Eight conceptual
-ports have public primitives or callbacks; protected intent issuance remains
-a source review gap. Coordinated non-HTTP MCP owner/setup/admission assembly
-remains internal despite its public carriage primitives. Compiler observations
-are `PUBLIC_API_ACCESSIBILITY`, never full-case `PASS`.
+The [nine-port public API audit](evidence/host-public-api.md) records its
+historical source review and external compiler observations. At those pins,
+protected intent issuance was a source gap and coordinated non-HTTP MCP
+owner/setup/admission assembly was internal.
 
-Within approved program stage 5, proceed in this order: protected intent
-issuance with authorization before key use; public MCP ownership and lifecycle
-assembly; then an external consumer binding the host-supplied services and a
-pinned host inspection. Preserve every broader gate below. No host is selected,
-all thirteen deployed-host controls remain `NOT_RUN`, and demo work stays in
-the later approved stage.
+The 2026-10-06 [protected issuance update](evidence/intent-issuance.md) pins
+Go `d9d61d5d8daa9b2894ba6eddea2a771ccfe7ab54` and Rust
+`eb0529922f2dd632357ceb1ed89eefb17cda9a29`. Both now expose protected root
+and admitted-hop issuance, one-use approval and durable issuance fencing.
+Four independently checked native root observations cover Go-to-Rust and
+Rust-to-Go recovery and signing-failure fences. Native hop unit coverage is
+separate; independent hop execution remains `NOT_RUN`.
+
+Within approved program stage 5, the next work is public MCP ownership and
+lifecycle assembly; then external consumer binding of host-supplied services
+and a pinned host inspection. Preserve every broader gate below. No host is
+selected, all thirteen deployed-host controls remain `NOT_RUN`, full
+conformance remains `NOT_ESTABLISHED`, and demo work stays in its later stage.
 
 ## Ordered remaining gates
 

@@ -38,6 +38,13 @@ jobs:
           cargo fetch --manifest-path .sage-rust/Cargo.toml
           python3 -m venv "${RUNNER_TEMP}/capture-venv"
           "${RUNNER_TEMP}/capture-venv/bin/pip" install 'cryptography==50.0.0'
+      - name: Audit external public host APIs
+        run: |
+          python3 -B scripts/inspect_host_public_api.py \
+            --go-root .sage-go --rust-root .sage-rust \
+            --output "${RUNNER_TEMP}/host-public-api.json"
+          cmp docs/evidence/host-public-api.json "${RUNNER_TEMP}/host-public-api.json"
+          python3 -B scripts/test_host_public_api.py
       - name: Run independent signed Client consumers
         run: |
           test -z "$(gofmt -d adapters/captured-client/go/*.go.txt)"

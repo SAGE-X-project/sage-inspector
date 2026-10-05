@@ -64,3 +64,15 @@ Its message-handler and tool-registry paths therefore remain integration
 candidates. The public Client evidence does not supply a protected ADK
 executable or an independent host effect observer, so the host verdicts stay
 `NOT_RUN`.
+
+## Nine-port public API audit
+
+The [public API audit](evidence/host-public-api.md) checks external compiler
+access at the current core revisions above. Capture, policy, registry,
+measurement, generic admission, effect callbacks, carriage and result
+consumption have public seams. The reviewed Guard surface still lacks a
+dedicated protected intent issuance entry point, and the coordinated non-HTTP
+MCP owner/setup/admission assembly remains internal. These two core API
+follow-ups precede host selection within the approved refactor. Compilation
+does not demonstrate host route mediation or replace the deployment controls;
+ADK remains a candidate and all host verdicts remain `NOT_RUN`.

@@ -37,3 +37,11 @@ host-bypass or vulnerability reproduction code. Product hook names are not
 portable protocol events; a deployed Claude Code or Codex adapter must map its
 own actual routes and failure behavior to these trusted-host obligations.
 Existing `EXEC-01..09`, MSET/MOWN and INS-11 verdicts are unchanged.
+
+## Public core API evidence
+
+The [nine-port API audit](evidence/host-public-api.md) separately checks public
+Go/Rust compiler access and records the protected intent issuance and private
+MCP assembly gaps. It does not provide independent effect observations for
+these thirteen controls. All controls without a pinned host remain `NOT_RUN`;
+compilation evidence cannot promote a control or a complete normative case.

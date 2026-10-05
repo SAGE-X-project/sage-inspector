@@ -1,0 +1,422 @@
+// Bounded external consumer fixture. Loopback only; no production registry or tool.
+package main
+
+import (
+	"bytes"
+	"context"
+	"crypto/ecdh"
+	"crypto/ed25519"
+	"crypto/sha256"
+	"encoding/hex"
+	"encoding/json"
+	"errors"
+	"fmt"
+	g "github.com/sage-x-project/sage/pkg/agent/guard010"
+	h "github.com/sage-x-project/sage/pkg/agent/hpke"
+	r "github.com/sage-x-project/sage/pkg/agent/registry010"
+	"net"
+	"os"
+	"path/filepath"
+	"strings"
+	"sync/atomic"
+	"time"
+)
+
+const alice = "did:sage:web:agent.example:alice"
+const bob = "did:sage:web:agent.example:bob"
+const request = "00000000-0000-4000-8000-000000000002"
+const instance = "inert-exact-read-v1"
+
+func must(e error) {
+	if e != nil {
+		panic(e)
+	}
+}
+func encoded(v any) []byte { b, e := json.Marshal(v); must(e); return b }
+func hash(b []byte) string { s := sha256.Sum256(b); return hex.EncodeToString(s[:]) }
+
+type clock struct{ mono atomic.Int64 }
+
+func (c *clock) Now() (r.Stamp, error) {
+	m := c.mono.Load()
+	return r.Stamp{MonoMS: m, Unix: 100 + m/1000}, nil
+}
+func (c *clock) Sample(context.Context) (int64, int64, error) {
+	m := c.mono.Load()
+	return 100000 + m, m, nil
+}
+
+type source struct{ c *clock }
+
+func (s source) Read(_ context.Context, did string) (r.Snapshot, error) {
+	if did != alice && did != bob {
+		return r.Snapshot{}, g.ErrInvalid
+	}
+	seed := byte(1)
+	if did == bob {
+		seed = 2
+	}
+	keys := []r.Key{{Name: "signing-1", Alg: "ed25519", Material: hex.EncodeToString(ed25519.NewKeyFromSeed(bytes.Repeat([]byte{seed}, 32)).Public().(ed25519.PublicKey)), State: "accepted"}}
+	if did == bob {
+		kem, err := ecdh.X25519().NewPrivateKey(bytes.Repeat([]byte{3}, 32))
+		if err != nil {
+			return r.Snapshot{}, err
+		}
+		keys = append([]r.Key{{Name: "kem-1", Alg: "x25519", Material: hex.EncodeToString(kem.PublicKey().Bytes()), State: "accepted"}}, keys...)
+	}
+	stamp, _ := s.c.Now()
+	return r.Snapshot{Source: "external-fixture", Registry: "web:agent.example", Network: "local", DID: did, Version: "1", State: "active", Digest: strings.Repeat("a", 64), Ready: true, Validated: true, Finalized: true, AcquiredMS: stamp.MonoMS, Keys: keys}, nil
+}
+
+type environment struct {
+	root, mode string
+	c          *clock
+	journals   []*r.Journal
+	replays    []*h.ReplayJournal010
+}
+
+func (e *environment) gate(name string) *r.Gate {
+	j, err := r.OpenJournal(filepath.Join(e.root, e.mode+"-"+name), true)
+	must(err)
+	e.journals = append(e.journals, j)
+	a, err := r.NewGate(r.Config{Source: "external-fixture", Registry: "web:agent.example", Network: "local"}, source{e.c}, e.c, j)
+	must(err)
+	return a
+}
+func (e *environment) authority(name, did string) *g.RegistryAuthority {
+	a, err := g.NewRegistryAuthority(e.gate(name), did, did+"#signing-1")
+	must(err)
+	return a
+}
+func (e *environment) close() {
+	for _, j := range e.journals {
+		must(j.Close())
+	}
+	for _, j := range e.replays {
+		must(j.Close())
+	}
+}
+func manifest() []byte {
+	return encoded(map[string]any{"version": "0.10.0", "files": []any{map[string]any{"path": "component.bin", "sha256": hash([]byte(instance))}}})
+}
+func policy() []byte {
+	return encoded(map[string]any{"version": "0.10.0", "issuer": alice, "epoch": "00000000-0000-4000-8000-000000000001", "engine": "external-consumer-fixture/1", "artifacts": json.RawMessage(manifest())})
+}
+
+type loaded struct {
+	material []byte
+	effects  atomic.Int64
+	measures atomic.Int64
+}
+
+func (l *loaded) Check(ctx context.Context, digest, tool string) error {
+	l.measures.Add(1)
+	m, e := g.ManifestCommitment(manifest())
+	if e != nil || ctx.Err() != nil || tool != "read" || m != digest || !bytes.Equal(l.material, []byte(instance)) {
+		return g.ErrInvalid
+	}
+	return nil
+}
+func (l *loaded) Run(ctx context.Context, i *g.Invocation) ([]byte, error) {
+	if ctx.Err() != nil || !bytes.Equal(i.Arguments(), []byte(`{"path":"public.txt"}`)) || l.Check(ctx, i.ManifestDigest(), "read") != nil {
+		return nil, g.ErrInvalid
+	}
+	l.effects.Add(1)
+	return []byte(`{"ok":true}`), nil
+}
+
+type authorizer struct{}
+
+func (authorizer) Bindings(_ context.Context, i, id string) (string, []byte, []byte, error) {
+	if i != alice || id != request {
+		return "", nil, nil, g.ErrInvalid
+	}
+	d, e := g.OriginalCommitment([][]byte{[]byte("trusted root input")})
+	return d, policy(), manifest(), e
+}
+func (authorizer) Authorize(_ context.Context, i, tool string, args []byte) error {
+	if i != alice || tool != "read" || !bytes.Equal(args, []byte(`{"path":"public.txt"}`)) {
+		return g.ErrInvalid
+	}
+	return nil
+}
+func (a authorizer) ApproveIntent(ctx context.Context, raw []byte) error {
+	var i struct {
+		Issuer, Recipient, RequestID string
+		Arguments                    json.RawMessage
+		Tool                         string
+	}
+	var v map[string]json.RawMessage
+	if json.Unmarshal(raw, &v) != nil {
+		return g.ErrInvalid
+	}
+	must(json.Unmarshal(v["issuer"], &i.Issuer))
+	must(json.Unmarshal(v["recipient"], &i.Recipient))
+	must(json.Unmarshal(v["request_id"], &i.RequestID))
+	must(json.Unmarshal(v["tool"], &i.Tool))
+	args, e := g.Canonicalize(v["arguments"])
+	if e != nil || i.Recipient != bob || i.RequestID != request {
+		return g.ErrInvalid
+	}
+	return a.Authorize(ctx, i.Issuer, i.Tool, args)
+}
+
+type noSend struct{}
+
+func (noSend) Commit(context.Context, string, []byte) error { return g.ErrInvalid }
+
+type intentSigner struct {
+	root  string
+	calls *atomic.Int64
+	body  *[]byte
+	fail  bool
+}
+
+func (s intentSigner) Sign(_ context.Context, kid string, msg []byte) ([]byte, error) {
+	if kid != alice+"#signing-1" || !bytes.HasPrefix(msg, []byte("sage-execution-intent|0.10.0\x00")) {
+		return nil, g.ErrInvalid
+	}
+	b, e := os.ReadFile(filepath.Join(s.root, "client-journal.issuance"))
+	if e != nil || string(b) != "sage-intent-issuance|0.10.0\n"+hash(msg[len("sage-execution-intent|0.10.0\x00"):])+"\n" {
+		return nil, g.ErrInvalid
+	}
+	*s.body = append([]byte(nil), msg[len("sage-execution-intent|0.10.0\x00"):]...)
+	s.calls.Add(1)
+	if s.fail {
+		return nil, g.ErrInvalid
+	}
+	return ed25519.Sign(ed25519.NewKeyFromSeed(bytes.Repeat([]byte{1}, 32)), msg), nil
+}
+
+type resultSigner struct{ c *clock }
+
+func (s resultSigner) Now(context.Context) (int64, error) {
+	stamp, _ := s.c.Now()
+	return stamp.Unix, nil
+}
+func (resultSigner) ActiveKey(_ context.Context, i, k string) (ed25519.PublicKey, error) {
+	if i != bob || k != bob+"#signing-1" {
+		return nil, g.ErrInvalid
+	}
+	return ed25519.NewKeyFromSeed(bytes.Repeat([]byte{2}, 32)).Public().(ed25519.PublicKey), nil
+}
+func (resultSigner) KeyID(context.Context) (string, error) { return bob + "#signing-1", nil }
+func (resultSigner) Sign(_ context.Context, k string, b []byte) ([]byte, error) {
+	if k != bob+"#signing-1" {
+		return nil, g.ErrInvalid
+	}
+	return ed25519.Sign(ed25519.NewKeyFromSeed(bytes.Repeat([]byte{2}, 32)), b), nil
+}
+
+type handler struct {
+	env           *environment
+	loaded        *loaded
+	client        bool
+	scenario      string
+	signs         atomic.Int64
+	completed     bool
+	before        []byte
+	body          []byte
+	stage         string
+	ownedCapture  string
+	prepareDenied bool
+}
+
+func (x *handler) Endpoint(context.Context) (*h.CompletionEndpoint010, error) {
+	did := bob
+	seed := byte(2)
+	var kem []byte
+	if x.client {
+		did = alice
+		seed = 1
+	} else {
+		kem = bytes.Repeat([]byte{3}, 32)
+	}
+	replay, e := h.OpenReplayJournal010(filepath.Join(x.env.root, x.env.mode+"-endpoint-replay"), true, x.env.c)
+	if e != nil {
+		return nil, e
+	}
+	x.env.replays = append(x.env.replays, replay)
+	endpoint, e := h.NewCompletionEndpoint010(did, did+"#signing-1", bytes.Repeat([]byte{seed}, 32), kem, x.env.gate("endpoint-registry"), x.env.c, replay)
+	if e != nil {
+		return nil, e
+	}
+	x.env.c.mono.Store(360000)
+	return endpoint, nil
+}
+func (x *handler) Prepare(context.Context) error {
+	if !x.client && x.scenario == "readiness-denied" {
+		x.prepareDenied = true
+		return g.ErrInvalid
+	}
+	return nil
+}
+func (x *handler) Handle(ctx context.Context, c *g.MCPConnection) error {
+	if !x.client {
+		for c.ServeOne() == nil {
+		}
+		return nil
+	}
+	x.stage = "capture"
+	capture, e := g.NewRootCapture([][]byte{[]byte("trusted root input")}, request)
+	if e != nil {
+		return e
+	}
+	if x.scenario == "measurement-denied" {
+		x.loaded.material = []byte("changed fixture")
+	}
+	services := g.IssuerServices{Client: g.ClientServices{IntentAuthority: x.env.authority("issuer-intent", alice), ResultAuthority: x.env.authority("issuer-result", bob), Policy: authorizer{}, Clock: x.env.c, Sender: noSend{}, ExpectedIssuer: alice, ExpectedRecipient: bob}, Policy: authorizer{}, Signer: intentSigner{x.env.root, &x.signs, &x.body, x.scenario == "signing-denied"}, Measurement: x.loaded, KeyID: alice + "#signing-1"}
+	issuer, e := g.NewIntentIssuer(capture, services)
+	if e != nil {
+		return e
+	}
+	defer issuer.Retire()
+	args := []byte(`{"path":"public.txt"}`)
+	if x.scenario == "policy-denied" {
+		args = []byte(`{"path":"other.txt"}`)
+	}
+	x.stage = "authorizing"
+	token, e := issuer.Authorize(ctx, g.IntentProposal{Tool: "read", Arguments: args, LifetimeSeconds: 300})
+	if e != nil {
+		return e
+	}
+	path := filepath.Join(x.env.root, "client-journal")
+	x.stage = "issuing"
+	durable, e := issuer.Issue(ctx, path, token)
+	if e != nil {
+		return e
+	}
+	raw, e := durable.JournaledIntent()
+	if e != nil {
+		_ = durable.Close()
+		return e
+	}
+	must(durable.Close())
+	x.before, e = os.ReadFile(path)
+	if e != nil {
+		return e
+	}
+	if x.scenario == "capture-denied" {
+		capture, e = g.NewRootCapture([][]byte{[]byte("changed root")}, request)
+		if e != nil {
+			return e
+		}
+	}
+	original := []byte("trusted root input")
+	if x.scenario == "capture-denied" {
+		original = []byte("changed root")
+	}
+	x.ownedCapture, e = g.OriginalCommitment([][]byte{original})
+	if e != nil {
+		return e
+	}
+	x.stage = "opening"
+	e = c.OpenRootClient(path, false, raw, g.MCPClientServices{IntentAuthority: x.env.authority("owned-intent", alice), ResultAuthority: x.env.authority("owned-result", bob), Policy: authorizer{}, Clock: x.env.c}, capture)
+	if e != nil {
+		return e
+	}
+	x.stage = "exchanging"
+	for n := 0; n < 20; n++ {
+		time.Sleep(20 * time.Millisecond)
+		x.env.c.mono.Add(1000)
+		d, e := c.Exchange()
+		if e != nil {
+			return e
+		}
+		if d.Status() == "completed" {
+			if !d.FirstTerminal() || !bytes.Equal(d.Output(), []byte(`{"ok":true}`)) {
+				return g.ErrInvalid
+			}
+			x.stage = "completed"
+			x.completed = true
+			return nil
+		}
+	}
+	return g.ErrInvalid
+}
+func read(path string) string {
+	b, e := os.ReadFile(path)
+	if errors.Is(e, os.ErrNotExist) {
+		return ""
+	}
+	must(e)
+	return hex.EncodeToString(b)
+}
+func main() {
+	root := os.Getenv("SAGE_CONSUMER_ROOT")
+	mode := os.Getenv("SAGE_CONSUMER_MODE")
+	scenario := os.Getenv("SAGE_CONSUMER_SCENARIO")
+	if root == "" || (mode != "client" && mode != "server") || !(scenario == "allowed" || scenario == "policy-denied" || scenario == "measurement-denied" || scenario == "capture-denied" || scenario == "readiness-denied" || scenario == "signing-denied") {
+		panic("fixed fixture configuration")
+	}
+	env := &environment{root: root, mode: mode, c: &clock{}}
+	defer env.close()
+	l := &loaded{material: []byte(instance)}
+	x := &handler{env: env, loaded: l, client: mode == "client", scenario: scenario}
+	path := filepath.Join(root, mode+"-gate")
+	host, e := g.OpenMCPHost(path, true, bob, g.MCPHostServices{IntentAuthority: env.authority("host-intent", alice), ResultAuthority: env.authority("host-result", bob), Policy: authorizer{}, Executor: l, Signer: resultSigner{env.c}, Clock: env.c}, g.MCPHostBounds{Capacity: 2, Preparations: 2, Clients: 2, Owners: 4, Workers: 1, Request: 20 * time.Second, Claim: 10 * time.Second, Worker: time.Second, Client: 20 * time.Second, Tick: time.Millisecond})
+	must(e)
+	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+	defer cancel()
+	cfg := g.MCPConnectionConfig{Role: g.MCPResponder, Name: "external fixture", Version: "1", TTLSeconds: 300, Timeout: 3 * time.Second}
+	status := "completed"
+	if mode == "server" {
+		listener, e := net.Listen("tcp", "127.0.0.1:0")
+		must(e)
+		must(os.WriteFile(filepath.Join(root, "address"), []byte(listener.Addr().String()), 0600))
+		go func() {
+			for ctx.Err() == nil {
+				if _, e := os.Stat(filepath.Join(root, "finished")); e == nil {
+					cancel()
+					return
+				}
+				time.Sleep(10 * time.Millisecond)
+			}
+		}()
+		e = host.Serve(ctx, listener, 1, cfg, x)
+		if !errors.Is(e, context.Canceled) {
+			must(e)
+		}
+	} else {
+		cfg.Role = g.MCPInitiator
+		cfg.Recipient = bob
+		cfg.RecipientKey = bob + "#signing-1"
+		address, e := os.ReadFile(filepath.Join(root, "address"))
+		must(e)
+		ip, port, e := net.SplitHostPort(string(address))
+		must(e)
+		if ip != "127.0.0.1" || port == "0" {
+			panic("loopback only")
+		}
+		tcp, e := net.DialTimeout("tcp", string(address), time.Second)
+		must(e)
+		e = host.Connect(ctx, tcp, cfg, x)
+		if scenario == "allowed" {
+			must(e)
+			if !x.completed {
+				panic("no terminal")
+			}
+		} else {
+			if e == nil || x.completed {
+				panic("denial accepted")
+			}
+			status = "denied"
+		}
+		must(os.WriteFile(filepath.Join(root, "finished"), []byte("done"), 0600))
+	}
+	closeCtx, end := context.WithTimeout(context.Background(), 3*time.Second)
+	defer end()
+	must(host.Close(closeCtx))
+	record := map[string]any{"mode": mode, "status": status, "effects": l.effects.Load(), "ledger_hex": read(path), "prepare_denied": x.prepareDenied}
+	if mode == "client" {
+		record["journal_hex"] = read(filepath.Join(root, "client-journal"))
+		record["fence_hex"] = read(filepath.Join(root, "client-journal.issuance"))
+		record["before_transfer_hex"] = hex.EncodeToString(x.before)
+		record["stage"] = x.stage
+		record["owned_capture_digest"] = x.ownedCapture
+		record["sign_calls"] = x.signs.Load()
+		record["issuance_body_hex"] = hex.EncodeToString(x.body)
+	}
+	must(os.WriteFile(filepath.Join(root, mode+".json"), encoded(record), 0600))
+	fmt.Println("EXTERNAL_MCP_CONSUMER")
+}

@@ -43,6 +43,15 @@ the missing-issuer finding above. The original compiler audit, machine report,
 source pins and verdicts remain unchanged. The four root runtime observations
 do not establish deployed host mediation or independently execute hops.
 
+## Later public MCP host evidence
+
+At Go `6a99b558a18d9c33ae9a07ce2ffa75af495661d0` and Rust
+`cc83fba11d0e155d31af67dbdd840c9ab8cb0d9e`, the
+[public native host and TCP report](public-mcp-host.md) supersedes the private
+coordinated assembly gap. Public compiler probes and four root TCP observations
+check the bounded entry points; external consumer services and deployed host
+mediation remain open. Historical source hashes and verdicts are preserved.
+
 ## Ordered follow-up within the approved core refactor
 
 1. Protected intent issuance is implemented at the later revisions above.
@@ -51,10 +60,12 @@ do not establish deployed host mediation or independently execute hops.
    role-bound active Ed25519, one-use authorization and protected operation
    identity. Native denial tests and bounded root recovery are recorded
    separately; protected host binding and independent hop execution remain open.
-2. Stabilize a public non-HTTP MCP assembly around the existing private owner,
+2. Public native assembly is implemented at the later revisions above around
+   the existing private owner,
    setup, readiness, admission and close coordination. Exporting private structs
    mechanically is insufficient: ownership, cancellation, retry uncertainty,
-   recovery and lifetime must remain enforced at the reusable entry point.
+   recovery and lifetime remain enforced at the reusable entry point; deployed
+   host binding remains unestablished.
 3. Bind the host-supplied capture, policy, registry, immutable loader and effect
    callbacks in an external consumer, then inspect that exact executable and
    its claimed routes. The host selection decision follows these API contracts.

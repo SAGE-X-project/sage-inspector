@@ -40,7 +40,7 @@ jobs:
           "${RUNNER_TEMP}/capture-venv/bin/pip" install 'cryptography==50.0.0'
       - name: Run independent signed Client consumers
         run: |
-          test -z "$(gofmt -d adapters/captured-client/go/*.go)"
+          test -z "$(gofmt -d adapters/captured-client/go/*.go.txt)"
           "${RUNNER_TEMP}/capture-venv/bin/python" -B scripts/inspect_captured_client_parity.py \
             --go-root .sage-go --rust-root .sage-rust \
             --output "${RUNNER_TEMP}/captured-client-parity.json"

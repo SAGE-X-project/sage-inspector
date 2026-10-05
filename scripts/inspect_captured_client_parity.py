@@ -65,7 +65,7 @@ def build(temp, go_root, rust_root):
     go_dir.mkdir()
     (rust_dir / 'src').mkdir(parents=True)
     for name in ('main.go', 'fixtures.go'):
-        shutil.copyfile(GO_SOURCE / name, go_dir / name)
+        shutil.copyfile(GO_SOURCE / (name + '.txt'), go_dir / name)
     (go_dir / 'go.mod').write_text(
         'module sage-inspector-captured-client\n\ngo 1.26.0\n\n'
         'require github.com/sage-x-project/sage v0.0.0\n'
@@ -186,8 +186,8 @@ def inspect(go_root, rust_root):
             'protocol_version': '0.10.0', 'normative_source_revision': NORMATIVE_REVISION,
             'go_revision': GO_REVISION, 'rust_revision': RUST_REVISION,
             'fixture_sha256': fixture_hash, 'vector_sha256': vector_hash,
-            'go_adapter_sha256': sha((GO_SOURCE / 'main.go').read_bytes() +
-                                     (GO_SOURCE / 'fixtures.go').read_bytes()),
+            'go_adapter_sha256': sha((GO_SOURCE / 'main.go.txt').read_bytes() +
+                                     (GO_SOURCE / 'fixtures.go.txt').read_bytes()),
             'rust_adapter_sha256': sha(RUST_SOURCE.read_bytes()),
             'status': 'CAPTURED_CLIENT_API_PARITY', 'deployed_host': 'NOT_RUN',
             'full_protocol_conformance': 'NOT_ESTABLISHED', 'cases': cases}
@@ -200,8 +200,8 @@ def check_report(report):
                 'normative_source_revision': NORMATIVE_REVISION,
                 'go_revision': GO_REVISION, 'rust_revision': RUST_REVISION,
                 'fixture_sha256': fixture_hash, 'vector_sha256': vector_hash,
-                'go_adapter_sha256': sha((GO_SOURCE / 'main.go').read_bytes() +
-                                         (GO_SOURCE / 'fixtures.go').read_bytes()),
+                'go_adapter_sha256': sha((GO_SOURCE / 'main.go.txt').read_bytes() +
+                                         (GO_SOURCE / 'fixtures.go.txt').read_bytes()),
                 'rust_adapter_sha256': sha(RUST_SOURCE.read_bytes()),
                 'status': 'CAPTURED_CLIENT_API_PARITY', 'deployed_host': 'NOT_RUN',
                 'full_protocol_conformance': 'NOT_ESTABLISHED'}

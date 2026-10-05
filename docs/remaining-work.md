@@ -88,7 +88,12 @@ this is not production loader or deployment evidence.
 Within approved program stage 5, the next work is selection and pinning of an
 exact Agent/MCP host and its protected capture, policy, authoritative registry,
 key custody, immutable loader and actual effect services, then deployment
-inspection. Independent hop execution remains `NOT_RUN` and must be bound
+inspection. The [host integration readiness review](host-integration-readiness.md)
+compares current ADK, gateway and Registry candidates and records the dependency,
+capture, dispatch and provider preparation needed before a host can be inspected.
+It recommends ADK as the Agent integration candidate but makes no selection;
+the first host and authoritative Registry deployment are still decisions.
+Independent hop execution remains `NOT_RUN` and must be bound
 separately; root-only consumer evidence does not close it. Preserve every
 broader gate below. No host is
 selected, all thirteen deployed-host controls remain `NOT_RUN`, full

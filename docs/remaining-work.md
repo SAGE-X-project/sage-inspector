@@ -54,6 +54,22 @@ Use `python3 -B scripts/latest_spec_evidence.py --output /tmp/latest-spec-eviden
 for every ID and status. Historical 386-, 457- and 481-case plans and their
 revision-bound PASS/FAIL records remain separate; they are not added to 489.
 
+## Current public API audit and next core changes
+
+The [nine-port public API audit](evidence/host-public-api.md) pins both current
+core revisions and compiles separate external consumers. Eight conceptual
+ports have public primitives or callbacks; protected intent issuance remains
+a source review gap. Coordinated non-HTTP MCP owner/setup/admission assembly
+remains internal despite its public carriage primitives. Compiler observations
+are `PUBLIC_API_ACCESSIBILITY`, never full-case `PASS`.
+
+Within approved program stage 5, proceed in this order: protected intent
+issuance with authorization before key use; public MCP ownership and lifecycle
+assembly; then an external consumer binding the host-supplied services and a
+pinned host inspection. Preserve every broader gate below. No host is selected,
+all thirteen deployed-host controls remain `NOT_RUN`, and demo work stays in
+the later approved stage.
+
 ## Ordered remaining gates
 
 1. **Freeze and reconcile the 0.10.0 normative snapshot.** The coordinated

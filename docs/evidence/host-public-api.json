@@ -1,0 +1,409 @@
+{
+  "catalog_sha256": "929bfbf7124c536eef99c9f5d70eecee41aad694f21724514d93870eabecb9d2",
+  "deployed_host": "NOT_RUN",
+  "full_conformance": "NOT_ESTABLISHED",
+  "go_revision": "8c29b785e36fe8f7d7dc9e55bd9deb036df0088f",
+  "host_contract_sha256": "48c3e90a9c177182a8378591a5eb89b0f7a0471dcd3455a5a5c768e08fabf871",
+  "kind": "host-public-api-audit",
+  "normative_source_revision": "1820ab5eafb843e1c13f4c46c34aeeb28d934ac9",
+  "ports": [
+    {
+      "coverage": "PUBLIC_PRIMITIVE",
+      "evidence": "EXTERNAL_COMPILATION_ONLY",
+      "gap": null,
+      "go": {
+        "references": [
+          "NewRootCapture",
+          "OriginalCommitment",
+          "OpenCapturedClient"
+        ],
+        "sources": {
+          "pkg/agent/guard010/client.go": "aea1caf35153d421dfa68b7d5ab347b28687242e3673279332777b465abc39f1",
+          "pkg/agent/guard010/commitment.go": "74ce20c5097ada6c3ed1b732452daf40ca8a4bac5fa14fc578f78286334c0486",
+          "pkg/agent/guard010/mcp_root_capture.go": "abfb4f152ce1bb0ed7535418c61d0c1e41004402485a39c9d6216dd7b8350399"
+        },
+        "traits": [],
+        "types": [
+          "RootCapture",
+          "Client"
+        ]
+      },
+      "host_obligation": "Capture exact ordered input before expansion; generate fresh request IDs and protect durable originals.",
+      "port": "CaptureStore",
+      "rust": {
+        "references": [
+          "RootCapture::new",
+          "original_commitment",
+          "Client::open_captured"
+        ],
+        "sources": {
+          "src/guard010/client.rs": "31972668462c157edd52bee32f16c406474c914a48638f9d25952114efdc2c65",
+          "src/guard010/mcp_owned.rs": "509b95d465ae285483dceeb8808127b9f6b0ef370cba7c8eea903efb41327f2f",
+          "src/guard010/mod.rs": "fc72c8dfb609586d8e98fee02074a530a97c3364ff0791d76797282a6f4705b0"
+        },
+        "traits": [],
+        "types": [
+          "RootCapture",
+          "Client"
+        ]
+      }
+    },
+    {
+      "coverage": "PUBLIC_CALLBACK",
+      "evidence": "EXTERNAL_COMPILATION_ONLY",
+      "gap": null,
+      "go": {
+        "references": [
+          "IntentPolicy.Bindings",
+          "IntentPolicy.Authorize",
+          "PolicyCommitment"
+        ],
+        "sources": {
+          "pkg/agent/guard010/commitment.go": "74ce20c5097ada6c3ed1b732452daf40ca8a4bac5fa14fc578f78286334c0486",
+          "pkg/agent/guard010/verify.go": "04b1c09f18a54c004d31bbdde1db95af757e815877344981b1b50797c189df60"
+        },
+        "traits": [],
+        "types": [
+          "IntentPolicy"
+        ]
+      },
+      "host_obligation": "Implement local policy evaluation, protected epoch/bindings and one-use approval; verification snapshots alone do not grant a new effect.",
+      "port": "PolicyAuthorizer",
+      "rust": {
+        "references": [
+          "policy_commitment"
+        ],
+        "sources": {
+          "src/guard010/mod.rs": "fc72c8dfb609586d8e98fee02074a530a97c3364ff0791d76797282a6f4705b0"
+        },
+        "traits": [
+          "IntentPolicy"
+        ],
+        "types": [
+          "Bindings"
+        ]
+      }
+    },
+    {
+      "coverage": "PUBLIC_CALLBACK_WITH_PRIVATE_ASSEMBLY",
+      "evidence": "EXTERNAL_COMPILATION_ONLY",
+      "gap": "Public RegistryAuthority does not expose the coordinated non-HTTP MCP setup/close/readiness owner.",
+      "go": {
+        "references": [
+          "Authority.Now",
+          "Authority.ActiveKey",
+          "NewRegistryAuthority"
+        ],
+        "sources": {
+          "pkg/agent/guard010/mcp_setup.go": "0cfac5cf2180bb8cec1de7f4171db3645bcd4c93fc5b1f688ab9b58a381708e2",
+          "pkg/agent/guard010/registry.go": "d6ac914001f74e61406dc64cf1d94dce35a2c6a457894bd97e071e8f4c724a47",
+          "pkg/agent/guard010/verify.go": "04b1c09f18a54c004d31bbdde1db95af757e815877344981b1b50797c189df60"
+        },
+        "traits": [],
+        "types": [
+          "Authority",
+          "RegistryAuthority"
+        ]
+      },
+      "host_obligation": "Supply fresh authoritative registry, trusted time, role-bound key custody and actual transport readiness.",
+      "port": "IdentityAndReadiness",
+      "rust": {
+        "references": [
+          "RegistryAuthority::new"
+        ],
+        "sources": {
+          "src/guard010/mcp_setup.rs": "b00a53c17d4bda3a0f4d76efca41e10a6066d18250a272a2f9a9dc1d322a4eac",
+          "src/guard010/mod.rs": "fc72c8dfb609586d8e98fee02074a530a97c3364ff0791d76797282a6f4705b0",
+          "src/guard010/registry.rs": "4490cd2a5567485e5cba7ddcff700d159ee63623ab06eff985fe45fb6b572c26"
+        },
+        "traits": [
+          "Authority"
+        ],
+        "types": [
+          "RegistryAuthority"
+        ]
+      }
+    },
+    {
+      "coverage": "PUBLIC_CALLBACK",
+      "evidence": "EXTERNAL_COMPILATION_ONLY",
+      "gap": null,
+      "go": {
+        "references": [
+          "VerifyManifest",
+          "ManifestCommitment",
+          "Component.Check"
+        ],
+        "sources": {
+          "pkg/agent/guard010/commitment.go": "74ce20c5097ada6c3ed1b732452daf40ca8a4bac5fa14fc578f78286334c0486",
+          "pkg/agent/guard010/dispatch.go": "52b1d9f126ccb76a8af465ca20698690ff2431a624a6bd49a8a8a2bbdd6eefcd"
+        },
+        "traits": [],
+        "types": [
+          "Artifact",
+          "Component"
+        ]
+      },
+      "host_obligation": "Measure and pin the same immutable loaded instance and dependencies against an approved manifest; hashes alone do not attest runtime loading.",
+      "port": "MeasuredComponent",
+      "rust": {
+        "references": [
+          "verify_manifest",
+          "manifest_commitment"
+        ],
+        "sources": {
+          "src/guard010/dispatch.rs": "038875d6bd463b34d9d3c2526ff3fdb8fad7f356f963dd0ab9deb6dee38501ac",
+          "src/guard010/mod.rs": "fc72c8dfb609586d8e98fee02074a530a97c3364ff0791d76797282a6f4705b0"
+        },
+        "traits": [
+          "Component"
+        ],
+        "types": [
+          "Artifact"
+        ]
+      }
+    },
+    {
+      "coverage": "SOURCE_REVIEW_GAP",
+      "evidence": "SOURCE_REVIEW_ONLY",
+      "gap": "Reviewed Guard APIs verify caller-signed intent and sign executor results; no dedicated protected intent issuance API is exposed. Generic cryptographic signing is not this port.",
+      "go": {
+        "references": [],
+        "sources": {
+          "pkg/agent/guard010/client.go": "aea1caf35153d421dfa68b7d5ab347b28687242e3673279332777b465abc39f1",
+          "pkg/agent/guard010/results.go": "5e7e8d60d5baa4e6db2a150fdcc4502900653b52c4a741e7a8f126925a4b8c65",
+          "pkg/agent/guard010/verify.go": "04b1c09f18a54c004d31bbdde1db95af757e815877344981b1b50797c189df60"
+        },
+        "traits": [],
+        "types": []
+      },
+      "host_obligation": "Keep keys outside model/plugin authority; authorize the exact intent and peer tuple before signing, with one-use decision and durable identity.",
+      "port": "IntentSigner",
+      "rust": {
+        "references": [],
+        "sources": {
+          "src/guard010/client.rs": "31972668462c157edd52bee32f16c406474c914a48638f9d25952114efdc2c65",
+          "src/guard010/dispatch/publication.rs": "14f9f1e29440cd484e77f79b9a7570560ae0b92e812250e7917e452559ba18e8",
+          "src/guard010/mod.rs": "fc72c8dfb609586d8e98fee02074a530a97c3364ff0791d76797282a6f4705b0"
+        },
+        "traits": [],
+        "types": []
+      }
+    },
+    {
+      "coverage": "PUBLIC_PRIMITIVE_WITH_PRIVATE_ASSEMBLY",
+      "evidence": "EXTERNAL_COMPILATION_ONLY",
+      "gap": "Public framing/session primitives exist, but coordinated non-HTTP MCP host, setup and owned client assembly remains private.",
+      "go": {
+        "references": [
+          "ClientSender.Commit",
+          "NewMCPClientSender",
+          "NewMCPEndpoint",
+          "SealMCPSessionRequest",
+          "OpenMCPSessionRequest"
+        ],
+        "sources": {
+          "pkg/agent/guard010/client.go": "aea1caf35153d421dfa68b7d5ab347b28687242e3673279332777b465abc39f1",
+          "pkg/agent/guard010/mcp_host.go": "3107a4ca72cdc85bed8876cd90f7c7ce5caf863175c8424847ca0c35a5c00217",
+          "pkg/agent/guard010/mcp_owned_client.go": "600a9d7ee31bb17d730ab016d32069998a8b1bf73d1a5a257ca0828520390619",
+          "pkg/agent/guard010/mcp_rpc.go": "8e48f15940001e59a4e61d55b9404f65d5a2bf0836634780fb1f6fcd5147c315",
+          "pkg/agent/guard010/mcp_session.go": "d2cf452012be1825c1618f1f762ca34fdbab4055312b3c741bf535048089113b"
+        },
+        "traits": [],
+        "types": [
+          "ClientSender",
+          "MCPWireSender",
+          "MCPEndpoint",
+          "MCPSessionCall"
+        ]
+      },
+      "host_obligation": "Own authenticated carriage, session/peer identity, bounded handoff and retry without substituting intent; preserve uncertainty.",
+      "port": "TransportOwner",
+      "rust": {
+        "references": [
+          "MCPClientSender::new",
+          "MCPEndpoint::new",
+          "seal_mcp_session_request",
+          "open_mcp_session_request"
+        ],
+        "sources": {
+          "src/guard010/client.rs": "31972668462c157edd52bee32f16c406474c914a48638f9d25952114efdc2c65",
+          "src/guard010/mcp_owned.rs": "509b95d465ae285483dceeb8808127b9f6b0ef370cba7c8eea903efb41327f2f",
+          "src/guard010/mcp_rpc.rs": "c8704132740ee3e51b6e213fba8042d607884521077132d7d7dcb039c4863de8",
+          "src/guard010/mcp_session.rs": "e8a89743769367e60dcb73295ac75e4993c478602cdde63d73704a0f60491da7",
+          "src/guard010/mcp_transport.rs": "dd2c9aca02b96d4cfe31100e469df51296740eb13c5a2d4749b1a85c22ef3e45"
+        },
+        "traits": [
+          "ClientSender",
+          "MCPWireSender"
+        ],
+        "types": [
+          "MCPClientSender",
+          "MCPEndpoint",
+          "MCPSessionCall"
+        ]
+      }
+    },
+    {
+      "coverage": "PUBLIC_PRIMITIVE_WITH_PRIVATE_ASSEMBLY",
+      "evidence": "EXTERNAL_COMPILATION_ONLY",
+      "gap": "Generic Guard admission is public; the non-HTTP MCP owner admission bridge is internal.",
+      "go": {
+        "references": [
+          "OpenLedger",
+          "GuardLedger.Reserve",
+          "OpenDispatchGate",
+          "DispatchGate.Dispatch",
+          "DispatchGate.Retire"
+        ],
+        "sources": {
+          "pkg/agent/guard010/dispatch.go": "52b1d9f126ccb76a8af465ca20698690ff2431a624a6bd49a8a8a2bbdd6eefcd",
+          "pkg/agent/guard010/ledger.go": "957e27e791ac34d2e7a20ae4d7262a8677806317e67c71fc19b110314409019b",
+          "pkg/agent/guard010/mcp_admission.go": "fd4df3e247c1278445e925b4f57fae3870cb1f6466cb1752ad845ed7fddcc7d9"
+        },
+        "traits": [],
+        "types": [
+          "GuardLedger",
+          "DispatchGate",
+          "Reservation"
+        ]
+      },
+      "host_obligation": "Protect storage against rollback and deletion; own exclusive gate lifetime and readiness/close ordering before durable reservation.",
+      "port": "AdmissionLedger",
+      "rust": {
+        "references": [
+          "GuardLedger::open",
+          "GuardLedger::reserve",
+          "DispatchGate::open",
+          "DispatchGate::dispatch",
+          "DispatchGate::retire"
+        ],
+        "sources": {
+          "src/guard010/dispatch.rs": "038875d6bd463b34d9d3c2526ff3fdb8fad7f356f963dd0ab9deb6dee38501ac",
+          "src/guard010/dispatch/mcp_admission.rs": "d7ab7e487c0eb237a90da4212861fb956809fe0cf464364d320443ee624f54d7",
+          "src/guard010/ledger.rs": "53bcb18977c27e2d312ed90054e0eabde31aedf5a95819f07f0112f4fddba7f5"
+        },
+        "traits": [],
+        "types": [
+          "GuardLedger",
+          "DispatchGate",
+          "Reservation"
+        ]
+      }
+    },
+    {
+      "coverage": "PUBLIC_CALLBACK",
+      "evidence": "EXTERNAL_COMPILATION_ONLY",
+      "gap": null,
+      "go": {
+        "references": [
+          "Component.Commit",
+          "Invocation.Arguments",
+          "Invocation.Completion"
+        ],
+        "sources": {
+          "pkg/agent/guard010/dispatch.go": "52b1d9f126ccb76a8af465ca20698690ff2431a624a6bd49a8a8a2bbdd6eefcd",
+          "pkg/agent/guard010/results.go": "5e7e8d60d5baa4e6db2a150fdcc4502900653b52c4a741e7a8f126925a4b8c65"
+        },
+        "traits": [],
+        "types": [
+          "Component",
+          "Invocation",
+          "Completion"
+        ]
+      },
+      "host_obligation": "Mediate every protected effect path and commit exact arguments to the same pinned instance; enforce capability isolation and bounded callbacks.",
+      "port": "EffectOwner",
+      "rust": {
+        "references": [
+          "Invocation::arguments",
+          "Invocation::completion"
+        ],
+        "sources": {
+          "src/guard010/dispatch.rs": "038875d6bd463b34d9d3c2526ff3fdb8fad7f356f963dd0ab9deb6dee38501ac"
+        },
+        "traits": [
+          "Component"
+        ],
+        "types": [
+          "Invocation",
+          "Completion"
+        ]
+      }
+    },
+    {
+      "coverage": "PUBLIC_PRIMITIVE",
+      "evidence": "EXTERNAL_COMPILATION_ONLY",
+      "gap": null,
+      "go": {
+        "references": [
+          "VerifyResult",
+          "Client.Accept",
+          "Client.AcceptMCPResponse",
+          "ClientDelivery.Output",
+          "DispatchGate.Finish",
+          "DispatchGate.Reply"
+        ],
+        "sources": {
+          "pkg/agent/guard010/client.go": "aea1caf35153d421dfa68b7d5ab347b28687242e3673279332777b465abc39f1",
+          "pkg/agent/guard010/mcp_rpc.go": "8e48f15940001e59a4e61d55b9404f65d5a2bf0836634780fb1f6fcd5147c315",
+          "pkg/agent/guard010/results.go": "5e7e8d60d5baa4e6db2a150fdcc4502900653b52c4a741e7a8f126925a4b8c65",
+          "pkg/agent/guard010/verify.go": "04b1c09f18a54c004d31bbdde1db95af757e815877344981b1b50797c189df60"
+        },
+        "traits": [],
+        "types": [
+          "Client",
+          "VerifiedResult",
+          "Outstanding",
+          "ResultSigner"
+        ]
+      },
+      "host_obligation": "Protect the outstanding journal and authority callbacks; release only verified first-terminal output within the actual host.",
+      "port": "ResultConsumer",
+      "rust": {
+        "references": [
+          "verify_result",
+          "Client::accept",
+          "Client::accept_mcp_response",
+          "ClientDelivery::output",
+          "DispatchGate::finish",
+          "DispatchGate::reply"
+        ],
+        "sources": {
+          "src/guard010/client.rs": "31972668462c157edd52bee32f16c406474c914a48638f9d25952114efdc2c65",
+          "src/guard010/dispatch/publication.rs": "14f9f1e29440cd484e77f79b9a7570560ae0b92e812250e7917e452559ba18e8",
+          "src/guard010/mcp_rpc.rs": "c8704132740ee3e51b6e213fba8042d607884521077132d7d7dcb039c4863de8",
+          "src/guard010/mod.rs": "fc72c8dfb609586d8e98fee02074a530a97c3364ff0791d76797282a6f4705b0"
+        },
+        "traits": [
+          "Outstanding",
+          "ResultSigner"
+        ],
+        "types": [
+          "Client",
+          "VerifiedResult",
+          "ClientDelivery"
+        ]
+      }
+    }
+  ],
+  "private_assembly": {
+    "go": "NOT_IMPORTABLE",
+    "rust": "NOT_IMPORTABLE"
+  },
+  "probe_sha256": {
+    "go": {
+      "private": "a0d09b0b47c0b3d2c436fff8f378e19af4d3f6ee7f96c779309cf7ca232696e6",
+      "public": "e9da11b29744ead90eaa8e8a44dd9e665e7e306f885e41ead5e3772630344980"
+    },
+    "rust": {
+      "private": "68ea07835cc128673969225b4d0e53c57200390633d4493255ad40d3a7465642",
+      "public": "88c58498f2d5ee0218bf31edffb9cbaee8ccb3c622860a90382f7497b433ff9b"
+    }
+  },
+  "protected_intent_issuance": "NOT_RUN",
+  "protocol_version": "0.10.0",
+  "rust_revision": "c99d373b772a3fb33e166fda3e07ee7ba94414f0",
+  "schema_version": 1,
+  "status": "PUBLIC_API_ACCESSIBILITY"
+}

@@ -34,14 +34,23 @@ from the existing host-port contract; cores need not export those literal names.
 | EffectOwner | `Component.Commit`, `Invocation`, `Completion` / `Component`, `Invocation`, `Completion` | Public trusted effect callback and gate-bound tokens. The host must mediate its complete effect inventory and isolate capabilities. |
 | ResultConsumer | `VerifyResult`, `Client.Accept`, gate result publication / `verify_result`, `Client::accept`, gate result publication | Public verifier and durable Client consumption primitives. Host journal protection and actual output release still require deployment evidence. |
 
+## Later protected issuance evidence
+
+At Go `d9d61d5d8daa9b2894ba6eddea2a771ccfe7ab54` and Rust
+`eb0529922f2dd632357ceb1ed89eefb17cda9a29`, the
+[protected issuer and native recovery report](intent-issuance.md) supersedes
+the missing-issuer finding above. The original compiler audit, machine report,
+source pins and verdicts remain unchanged. The four root runtime observations
+do not establish deployed host mediation or independently execute hops.
+
 ## Ordered follow-up within the approved core refactor
 
-1. Define and implement a protected intent issuance entry point in both cores.
-   Bind captured root or admitted parent, locally selected issuer/recipient,
-   exact final tool arguments, manifest and policy epoch before key use. Require
+1. Protected intent issuance is implemented at the later revisions above.
+   It binds captured root or admitted parent, locally selected issuer/recipient,
+   exact final tool arguments, manifest and policy epoch before key use, with
    role-bound active Ed25519, one-use authorization and protected operation
-   identity; do not turn an arbitrary signing callback into a model-facing API.
-   Verify denial cases with unit tests and bounded ordinary runtime exchanges.
+   identity. Native denial tests and bounded root recovery are recorded
+   separately; protected host binding and independent hop execution remain open.
 2. Stabilize a public non-HTTP MCP assembly around the existing private owner,
    setup, readiness, admission and close coordination. Exporting private structs
    mechanically is insufficient: ownership, cancellation, retry uncertainty,

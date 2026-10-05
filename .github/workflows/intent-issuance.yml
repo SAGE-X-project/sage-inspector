@@ -1,0 +1,56 @@
+name: Protected intent issuance interop
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  issuance:
+    name: Independent native intent issuance and recovery
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: SAGE-X-project/sage
+          ref: d9d61d5d8daa9b2894ba6eddea2a771ccfe7ab54
+          path: .sage-go
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: SAGE-X-project/rs-sage-core
+          ref: eb0529922f2dd632357ceb1ed89eefb17cda9a29
+          path: .sage-rust
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        with:
+          go-version: '1.26.8'
+          cache: false
+      - uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: '1.88.0'
+      - name: Fetch public dependencies
+        run: |
+          (cd .sage-go && go mod download)
+          cargo fetch --locked --manifest-path .sage-rust/Cargo.toml
+          python3 -m venv "${RUNNER_TEMP}/issuance-venv"
+          "${RUNNER_TEMP}/issuance-venv/bin/pip" install 'cryptography==50.0.0'
+      - name: Verify saved evidence and rejection units
+        run: |
+          "${RUNNER_TEMP}/issuance-venv/bin/python" -B scripts/inspect_intent_issuance.py
+          "${RUNNER_TEMP}/issuance-venv/bin/python" -B scripts/test_intent_issuance.py
+      - name: Observe native issuance and cross-core recovery
+        run: |
+          "${RUNNER_TEMP}/issuance-venv/bin/python" -B scripts/inspect_intent_issuance.py \
+            --go-root .sage-go --rust-root .sage-rust \
+            --output "${RUNNER_TEMP}/intent-issuance.json"
+      - name: Preserve native issuance evidence
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: intent-issuance-${{ github.sha }}
+          if-no-files-found: error
+          retention-days: 30
+          path: ${{ runner.temp }}/intent-issuance.json

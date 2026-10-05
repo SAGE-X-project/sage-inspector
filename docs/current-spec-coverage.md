@@ -515,6 +515,14 @@ results, conflicting terminal replies, polling frequency, and expiry. Both
 cores match the bounded local Client and durable-journal fixtures. Model
 decision and deployed transport boundaries remain unobserved.
 
+The [captured Client parity observation](evidence/captured-client-parity.md)
+adds twelve bounded public-API runs at pinned Go/Rust revisions. A valid
+signed root intent binds the independently checked original-byte commitment;
+the runs compare rejection before journal creation, one handoff and
+same-language and cross-language restart without another send. This is
+implementation evidence for the captured Client boundary, not a deployed
+host or complete normative-case verdict.
+
 The [three dispatch denial observations](current-spec-exec-denial-evidence.md)
 add EXEC-04/CST-02 runtime fixtures checking that a locally denied
 policy, unavailable active signing key, or prior retirement prevents an inert

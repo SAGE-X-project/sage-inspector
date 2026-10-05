@@ -15,7 +15,7 @@ import tempfile
 ROOT = Path(__file__).resolve().parents[1]
 VECTORS = ROOT / 'vectors/0.10.0/root-capture-parity.json'
 VECTOR_SHA256 = '8c50f78dbb55aea458760dc4cfaf96dcf6dc822eb78f50c70a6707837dd16f49'
-GO_ADAPTER = ROOT / 'adapters/root-capture/go/main.go'
+GO_ADAPTER = ROOT / 'adapters/root-capture/go/main.go.txt'
 RUST_ADAPTER = ROOT / 'adapters/root-capture/rust/main.rs'
 NORMATIVE_REVISION = '1820ab5eafb843e1c13f4c46c34aeeb28d934ac9'
 GO_REVISION = '8c29b785e36fe8f7d7dc9e55bd9deb036df0088f'

@@ -38,6 +38,7 @@ jobs:
           cargo fetch --manifest-path .sage-rust/Cargo.toml
       - name: Run independent public API consumers
         run: |
+          test -z "$(gofmt -d adapters/root-capture/go/main.go.txt)"
           python3 -B scripts/inspect_root_capture_parity.py \
             --go-root .sage-go --rust-root .sage-rust \
             --output "${RUNNER_TEMP}/root-capture-parity.json"

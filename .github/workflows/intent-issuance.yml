@@ -35,6 +35,7 @@ jobs:
       - name: Fetch public dependencies
         run: |
           (cd .sage-go && go mod download)
+          cp verification/0.10.0/intent-issuance/Cargo.lock .sage-rust/Cargo.lock
           cargo fetch --locked --manifest-path .sage-rust/Cargo.toml
           python3 -m venv "${RUNNER_TEMP}/issuance-venv"
           "${RUNNER_TEMP}/issuance-venv/bin/pip" install 'cryptography==50.0.0'

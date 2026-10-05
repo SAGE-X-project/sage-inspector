@@ -5,6 +5,7 @@ import hashlib
 import json
 from pathlib import Path
 import subprocess
+import tempfile
 import unittest
 from unittest.mock import patch
 
@@ -85,6 +86,18 @@ class IssuanceEvidenceTest(unittest.TestCase):
                     self.subTest(language=language), self.assertRaises(ValueError):
                 audit.run(language, {'go': Path('/go'), 'rust': Path('/rust')},
                           {'go': Path('/source'), 'rust': Path('/source')}, Path('/journal'), 'issue')
+
+    def test_dependency_lock_drift_is_rejected_before_compilation(self):
+        with tempfile.TemporaryDirectory() as directory:
+            lock = Path(directory) / 'Cargo.lock'
+            lock.write_text('changed dependency resolution')
+            with patch.object(audit, 'RUST_LOCK', lock), \
+                    patch.object(audit, 'build') as compiler:
+                with self.assertRaisesRegex(ValueError, 'pinned Rust dependency lock'):
+                    audit.check_report(self.report)
+                with self.assertRaisesRegex(ValueError, 'pinned Rust dependency lock'):
+                    audit.inspect(Path('/go'), Path('/rust'))
+                compiler.assert_not_called()
 
     def test_wrong_source_revision_fails_before_compilation(self):
         with patch.object(audit, 'check_source', side_effect=ValueError('source revision')), \

@@ -20,6 +20,7 @@ from inspect_root_capture_parity import NORMATIVE_REVISION, ROOT, UUID, check_so
 GO_REVISION = 'd9d61d5d8daa9b2894ba6eddea2a771ccfe7ab54'
 RUST_REVISION = 'eb0529922f2dd632357ceb1ed89eefb17cda9a29'
 EVIDENCE = ROOT / 'docs/evidence/intent-issuance.json'
+RUST_LOCK = ROOT / 'verification/0.10.0/intent-issuance/Cargo.lock'
 FIXTURE = ROOT / 'vectors/0.10.0/guard-client.json'
 HEADER = b'sage-guard-client|0.10.0\n'
 FENCE = b'sage-intent-issuance|0.10.0\n'
@@ -27,7 +28,7 @@ SOURCE_FILES = {
     'go': ['pkg/agent/guard010/issuance.go', 'pkg/agent/guard010/issuance_test.go',
            'pkg/agent/guard010/testdata/guard-client.json'],
     'rust': ['src/guard010/issuance.rs', 'src/guard010/issuance_tests.rs',
-             'src/guard010/testdata/guard-client.json'],
+             'src/guard010/testdata/guard-client.json', 'Cargo.lock'],
 }
 
 SOURCE_SHA256 = {
@@ -39,7 +40,8 @@ SOURCE_SHA256 = {
     "rust": {
         "src/guard010/issuance.rs": "7bd94da4b694ff9a3793e432323362df8a02992f8734e0e514ff6b62692d1cb4",
         "src/guard010/issuance_tests.rs": "7faeb0ba20bf44b07b94cc4405881947635adcccc667ceb6eb8f7baf76a178f2",
-        "src/guard010/testdata/guard-client.json": "2c7b043f6f761a2eff0e7eea89cf838746a31a221c31e2d82b47d30b6937c271"
+        "src/guard010/testdata/guard-client.json": "2c7b043f6f761a2eff0e7eea89cf838746a31a221c31e2d82b47d30b6937c271",
+        "Cargo.lock": "04099b5ee7c1320fb249112b1fba052aad1a433cc26d60e4537db108b69d6a38"
     }
 }
 
@@ -145,6 +147,8 @@ def run(language, binaries, roots, path, mode):
 
 
 def inspect(go_root, rust_root):
+    require(sha(RUST_LOCK.read_bytes()) == SOURCE_SHA256['rust']['Cargo.lock'],
+            'pinned Rust dependency lock')
     roots = {'go': check_source(go_root, GO_REVISION), 'rust': check_source(rust_root, RUST_REVISION)}
     sources = {language: {name: sha((root / name).read_bytes()) for name in SOURCE_FILES[language]}
                for language, root in roots.items()}
@@ -194,6 +198,8 @@ def check_report(report):
             report['independent_hop_execution'] == 'NOT_RUN' and report['full_conformance'] == 'NOT_ESTABLISHED',
             'issuance report scope and provenance')
     require(report['source_sha256'] == SOURCE_SHA256, 'pinned issuance source bytes')
+    require(sha(RUST_LOCK.read_bytes()) == SOURCE_SHA256['rust']['Cargo.lock'],
+            'pinned Rust dependency lock')
     rows = report['cases']
     require(type(rows) is list and len(rows) == 4 and [row['id'] for row in rows] ==
             ['go-to-rust-resume', 'go-to-rust-fenced-reissue', 'rust-to-go-resume', 'rust-to-go-fenced-reissue'],

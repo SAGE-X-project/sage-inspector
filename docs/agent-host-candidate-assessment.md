@@ -70,11 +70,11 @@ executable or an independent host effect observer, so the host verdicts stay
 The [public API audit](evidence/host-public-api.md) checks external compiler
 access at the current core revisions above. Capture, policy, registry,
 measurement, generic admission, effect callbacks, carriage and result
-consumption have public seams. At those reviewed revisions, dedicated protected intent issuance was missing
+consumption have public seams. At those reviewed revisions, dedicated
+protected intent issuance was missing
 and coordinated non-HTTP MCP owner/setup/admission assembly was internal.
 The later [protected issuance evidence](evidence/intent-issuance.md) closes
 the dedicated issuer implementation gap at its new core pins. Public MCP
 assembly and external host binding still precede host selection within the
-approved refactor. Compilation
-does not demonstrate host route mediation or replace the deployment controls;
+approved refactor. Compilation does not demonstrate host route mediation or replace the deployment controls;
 ADK remains a candidate and all host verdicts remain `NOT_RUN`.

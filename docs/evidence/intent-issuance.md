@@ -49,9 +49,13 @@ No 0.10.0 wire rule or normative specification was changed.
 
 Use clean core checkouts at the two revisions above and fetch their public
 dependencies first. Use Go 1.26.8, Rust 1.88.0 and Python with
-`cryptography==50.0.0`:
+`cryptography==50.0.0`. The Rust library intentionally ignores `Cargo.lock`;
+Inspector stores the exact tested [dependency lock](../../verification/0.10.0/intent-issuance/Cargo.lock)
+and includes its hash in the observed inputs. Copy it into the Rust checkout
+before `cargo fetch --locked`; native compilation uses `--locked --offline`:
 
 ```sh
+cp verification/0.10.0/intent-issuance/Cargo.lock /path/to/rs-sage-core/Cargo.lock
 RUSTUP_TOOLCHAIN=1.88.0 python3 -B scripts/inspect_intent_issuance.py \
   --go-root /path/to/sage --rust-root /path/to/rs-sage-core \
   --output /tmp/intent-issuance.json
@@ -64,6 +68,6 @@ checks the exact source hashes and bindings and verifies every new signature;
 it does not compare random output with the saved report. Without core paths,
 the script validates saved artifacts only and performs no native execution.
 The dedicated CI job repeats native execution at the exact revisions and
-preserves its fresh report as an artifact. Eight unit tests reject corrupted
+preserves its fresh report as an artifact. Nine unit tests reject corrupted
 or promoted evidence, including a valid fixture signature bound to the wrong
 original input; they do not reproduce an attack against a host.

@@ -46,3 +46,8 @@ jobs:
             --output "${RUNNER_TEMP}/captured-client-parity.json"
           cmp docs/evidence/captured-client-parity.json "${RUNNER_TEMP}/captured-client-parity.json"
           "${RUNNER_TEMP}/capture-venv/bin/python" -B scripts/test_captured_client_parity.py
+          "${RUNNER_TEMP}/capture-venv/bin/python" -B scripts/inspect_captured_client_results.py \
+            --go-root .sage-go --rust-root .sage-rust \
+            --output "${RUNNER_TEMP}/captured-client-results.json"
+          cmp docs/evidence/captured-client-results.json "${RUNNER_TEMP}/captured-client-results.json"
+          "${RUNNER_TEMP}/capture-venv/bin/python" -B scripts/test_captured_client_results.py

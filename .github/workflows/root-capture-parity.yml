@@ -1,0 +1,45 @@
+name: Root capture public API parity
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  parity:
+    name: Independent Go and Rust capture vectors
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: SAGE-X-project/sage
+          ref: 8c29b785e36fe8f7d7dc9e55bd9deb036df0088f
+          path: .sage-go
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: SAGE-X-project/rs-sage-core
+          ref: c99d373b772a3fb33e166fda3e07ee7ba94414f0
+          path: .sage-rust
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        with:
+          go-version: '1.26.8'
+          cache: false
+      - uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: '1.88.0'
+      - name: Fetch public dependencies
+        run: |
+          (cd .sage-go && go mod download)
+          cargo fetch --manifest-path .sage-rust/Cargo.toml
+      - name: Run independent public API consumers
+        run: |
+          python3 -B scripts/inspect_root_capture_parity.py \
+            --go-root .sage-go --rust-root .sage-rust \
+            --output "${RUNNER_TEMP}/root-capture-parity.json"
+          cmp docs/evidence/root-capture-parity.json "${RUNNER_TEMP}/root-capture-parity.json"
+          python3 -B scripts/test_root_capture_parity.py

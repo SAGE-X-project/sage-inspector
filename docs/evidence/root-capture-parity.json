@@ -1,0 +1,58 @@
+{
+  "cases": [
+    {
+      "expected": "ACCEPT:4dfd470e686f50c56d34a34147d753c21c7de8e012111afcd6c98f84817c8014",
+      "go": "ACCEPT:4dfd470e686f50c56d34a34147d753c21c7de8e012111afcd6c98f84817c8014",
+      "id": "single-utf8",
+      "rust": "ACCEPT:4dfd470e686f50c56d34a34147d753c21c7de8e012111afcd6c98f84817c8014"
+    },
+    {
+      "expected": "ACCEPT:b854d671596b9f09517bb3e6e77155a79c9f3be5468625a4fc70d0fa258771c5",
+      "go": "ACCEPT:b854d671596b9f09517bb3e6e77155a79c9f3be5468625a4fc70d0fa258771c5",
+      "id": "ordered-items",
+      "rust": "ACCEPT:b854d671596b9f09517bb3e6e77155a79c9f3be5468625a4fc70d0fa258771c5"
+    },
+    {
+      "expected": "ACCEPT:6d105f71c31d8d02dfbc8a6a5940acf33f41f2f42fc398aae8312dc893f43f2c",
+      "go": "ACCEPT:6d105f71c31d8d02dfbc8a6a5940acf33f41f2f42fc398aae8312dc893f43f2c",
+      "id": "reversed-items",
+      "rust": "ACCEPT:6d105f71c31d8d02dfbc8a6a5940acf33f41f2f42fc398aae8312dc893f43f2c"
+    },
+    {
+      "expected": "ACCEPT:f195f5c966b4dcc4ff95bdac41b121eb9ec13db918a2a4bc38361946db27e4f2",
+      "go": "ACCEPT:f195f5c966b4dcc4ff95bdac41b121eb9ec13db918a2a4bc38361946db27e4f2",
+      "id": "empty-list",
+      "rust": "ACCEPT:f195f5c966b4dcc4ff95bdac41b121eb9ec13db918a2a4bc38361946db27e4f2"
+    },
+    {
+      "expected": "REJECT",
+      "go": "REJECT",
+      "id": "invalid-utf8",
+      "rust": "REJECT"
+    },
+    {
+      "expected": "REJECT",
+      "go": "REJECT",
+      "id": "invalid-request-id",
+      "rust": "REJECT"
+    },
+    {
+      "expected": "REJECT",
+      "go": "REJECT",
+      "id": "wrong-uuid-version",
+      "rust": "REJECT"
+    }
+  ],
+  "deployed_host": "NOT_RUN",
+  "go_adapter_sha256": "917dcdb157150250c0c4d5d785670f5b0c68db7615ee7c9bc9925496ae705b8e",
+  "go_revision": "8c29b785e36fe8f7d7dc9e55bd9deb036df0088f",
+  "kind": "root-capture-public-api-parity",
+  "normative_source_revision": "1820ab5eafb843e1c13f4c46c34aeeb28d934ac9",
+  "protected_client": "NOT_RUN",
+  "protocol_version": "0.10.0",
+  "rust_adapter_sha256": "bef7468663c80948208e36a724e8fb57e51b98a23f88f2c113cf40667a269183",
+  "rust_revision": "c99d373b772a3fb33e166fda3e07ee7ba94414f0",
+  "schema_version": 1,
+  "status": "CAPTURE_CONSTRUCTOR_PARITY",
+  "vector_sha256": "8c50f78dbb55aea458760dc4cfaf96dcf6dc822eb78f50c70a6707837dd16f49"
+}

@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "protocol_version": "0.10.0",
+  "scope": "exact original-byte commitment and root-capture constructor only",
+  "cases": [
+    {
+      "id": "single-utf8",
+      "request_id": "00000000-0000-4000-8000-000000000002",
+      "items_hex": ["7472757374656420726f6f7420696e707574"],
+      "expected": "ACCEPT:4dfd470e686f50c56d34a34147d753c21c7de8e012111afcd6c98f84817c8014"
+    },
+    {
+      "id": "ordered-items",
+      "request_id": "00000000-0000-4000-8000-000000000002",
+      "items_hex": ["6167656e74", "636c69656e74"],
+      "expected": "ACCEPT:b854d671596b9f09517bb3e6e77155a79c9f3be5468625a4fc70d0fa258771c5"
+    },
+    {
+      "id": "reversed-items",
+      "request_id": "00000000-0000-4000-8000-000000000002",
+      "items_hex": ["636c69656e74", "6167656e74"],
+      "expected": "ACCEPT:6d105f71c31d8d02dfbc8a6a5940acf33f41f2f42fc398aae8312dc893f43f2c"
+    },
+    {
+      "id": "empty-list",
+      "request_id": "00000000-0000-4000-8000-000000000002",
+      "items_hex": [],
+      "expected": "ACCEPT:f195f5c966b4dcc4ff95bdac41b121eb9ec13db918a2a4bc38361946db27e4f2"
+    },
+    {
+      "id": "invalid-utf8",
+      "request_id": "00000000-0000-4000-8000-000000000002",
+      "items_hex": ["ff"],
+      "expected": "REJECT"
+    },
+    {
+      "id": "invalid-request-id",
+      "request_id": "not-a-request-id",
+      "items_hex": ["7472757374656420726f6f7420696e707574"],
+      "expected": "REJECT"
+    },
+    {
+      "id": "wrong-uuid-version",
+      "request_id": "00000000-0000-5000-8000-000000000002",
+      "items_hex": ["7472757374656420726f6f7420696e707574"],
+      "expected": "REJECT"
+    }
+  ]
+}

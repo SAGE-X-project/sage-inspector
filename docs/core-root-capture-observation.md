@@ -38,3 +38,23 @@ returned `{"NOT_RUN":13}` for the host controls with no observation input.
 The core tests use an independent expected byte commitment, but the Inspector
 has not yet run the complete normative 489-parent/26-child suite against these
 core revisions. That remains a separate implementation evidence task.
+
+## Public constructor parity at the next core revisions
+
+The [independent parity report](evidence/root-capture-parity.json) pins Go
+`8c29b785e36fe8f7d7dc9e55bd9deb036df0088f` and Rust
+`c99d373b772a3fb33e166fda3e07ee7ba94414f0`. Both MCP-owned root paths
+retain their early capture check and now use the same captured Client opening
+entry point as external native hosts. Separate, Inspector-owned Go and Rust
+consumer programs build against those exact commits. Seven synthetic cases
+produce identical byte commitments or rejection verdicts; the independent
+Python reference checks the vector bytes, ordering and UUID/UTF-8 boundaries.
+
+Run `python3 -B scripts/inspect_root_capture_parity.py --go-root <Go checkout>
+--rust-root <Rust checkout> --output <report>` against clean, pinned sources.
+`python3 -B scripts/test_root_capture_parity.py` checks the saved report and
+rejects promoted host or protected-Client claims. The parity result covers the
+public capture constructor only. It does not independently verify signed
+intent, journal, transport, final dispatch, output release or whether a host
+actually captured user input. Those remain `NOT_RUN` at this evidence level;
+the 13 deployed-host controls and complete normative cases are unchanged.

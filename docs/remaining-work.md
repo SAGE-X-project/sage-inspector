@@ -69,9 +69,17 @@ Four independently checked native root observations cover Go-to-Rust and
 Rust-to-Go recovery and signing-failure fences. Native hop unit coverage is
 separate; independent hop execution remains `NOT_RUN`.
 
-Within approved program stage 5, the next work is public MCP ownership and
-lifecycle assembly; then external consumer binding of host-supplied services
-and a pinned host inspection. Preserve every broader gate below. No host is
+The 2026-10-06 [public MCP host update](evidence/public-mcp-host.md) pins
+Go `6a99b558a18d9c33ae9a07ce2ffa75af495661d0` and Rust
+`cc83fba11d0e155d31af67dbdd840c9ab8cb0d9e`. Both now expose bounded native
+owner/setup/admission/lifecycle assembly. External compiler checks and four
+independently checked root TCP observations cover both same-core and cross-core
+directions. This is `ROOT_MCP_TCP_INTEROP`, not deployed host certification.
+
+Within approved program stage 5, the next work is external consumer binding
+of protected capture, issuance, policy, registry, immutable loader and actual
+effect services, followed by selection and inspection of an exact host.
+Issuer-to-MCP consumer binding and independent hop execution remain `NOT_RUN`. Preserve every broader gate below. No host is
 selected, all thirteen deployed-host controls remain `NOT_RUN`, full
 conformance remains `NOT_ESTABLISHED`, and demo work stays in its later stage.
 

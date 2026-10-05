@@ -71,3 +71,13 @@ The dedicated CI job repeats native execution at the exact revisions and
 preserves its fresh report as an artifact. Nine unit tests reject corrupted
 or promoted evidence, including a valid fixture signature bound to the wrong
 original input; they do not reproduce an attack against a host.
+
+
+## Later public host assembly
+
+The [public MCP host report](public-mcp-host.md) records later merged Go/Rust
+assembly and four independently checked root TCP paths. It supersedes the
+private assembly gap at those new revisions. It does not connect this issuer
+to an external consumer's MCP operation or change this report's historical
+source pins. Protected consumer services and a pinned host inspection remain
+next in the approved sequence.

@@ -69,6 +69,11 @@ The [earlier 481-case inventory](docs/current-spec-coverage.md) and its
 revision-bound observations remain available. None of these inventories establishes
 complete-case conformance.
 
+The [public native MCP host observation](docs/evidence/public-mcp-host.md)
+checks external Go/Rust API compilation and four bounded root TCP directions
+with independent signed-intent, result and ledger verification. Protected
+external consumer binding and deployed host inspection remain separate work.
+
 The [remaining-work register](docs/remaining-work.md) gives the ordered gates
 and links the complete case inventory to implementation and deployment work.
 

@@ -111,6 +111,39 @@ jobs:
       - name: Build
         run: go build ./...
 
+  adk-source-inventory:
+    name: ADK source route inventory
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: SAGE-X-project/sage-adk
+          ref: afa469cdd8539992185235008ac1591c74012f7f
+          path: .sage-adk
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        with:
+          go-version-file: go.mod
+          cache: true
+      - name: Test and build source-only parser
+        run: |
+          go test -race ./tools/adk-source-inventory
+          go build -o "${RUNNER_TEMP}/adk-source-inventory" ./tools/adk-source-inventory
+      - name: Test refusals and reproduce pinned source report
+        env:
+          ADK_SYNTAX_PARSER: ${{ runner.temp }}/adk-source-inventory
+        run: |
+          python3 -B scripts/test_adk_source_inventory.py
+          python3 -B scripts/inspect_adk_source_inventory.py --adk-root .sage-adk --parser "${RUNNER_TEMP}/adk-source-inventory" --check docs/evidence/adk-source-inventory.json --output "${RUNNER_TEMP}/adk-source-inventory.json"
+      - name: Preserve source query report
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: adk-source-inventory-${{ github.sha }}
+          if-no-files-found: error
+          retention-days: 30
+          path: ${{ runner.temp }}/adk-source-inventory.json
+
   spec:
     name: Legacy spec vectors
     runs-on: ubuntu-latest

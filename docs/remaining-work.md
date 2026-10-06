@@ -207,3 +207,16 @@ not a hidden 0.10.0 completion criterion. The current 0.10.0 trust boundary
 still requires protection and verification of later requests, messages,
 component changes and effects even on a compromised endpoint when the
 pre-registered identity was sound.
+
+## Pinned ADK execution-route preparation
+
+The 2026-10-06 [ADK source route inventory](adk-source-inventory.md) pins
+`sage-adk` `afa469cdd8539992185235008ac1591c74012f7f`. It parses all 163
+tracked non-test Go files and checks 29 manually reviewed route anchors.
+The opt-in native Guard owner is separate from capture-only Agent processing
+and ordinary Tool Registry, Agent, A2A and gRPC callbacks. Signer/clock adapters
+remain protected provider ports; model tool calls remain proposals. This
+source query records those integration boundaries without running ADK or
+closing any deployed-host control. It preserves the ordered work and historical
+evidence above. Concrete policy, approved loader/final effects, authoritative
+blockchain Registry deployment and a pinned inspected host remain outstanding.

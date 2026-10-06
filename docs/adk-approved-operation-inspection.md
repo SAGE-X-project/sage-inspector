@@ -87,3 +87,8 @@ and run the existing Inspector host controls. Complete independent parent-hop
 binding separately. The [remaining-work register](remaining-work.md) and approved
 program order remain unchanged; this does not start demo work or later normative
 A2A/DID upgrades.
+
+The subsequent [blockchain connection preflight](registry-contract-preflight.md)
+records exact ABI/record/proof/lifecycle mapping differences in the existing
+contract candidate and the actual loader/provider decisions needed for assembly.
+It preserves these source-query limitations and all deployment verdicts.

@@ -80,3 +80,13 @@ version are identified. Then select and pin the executable/configuration,
 providers, supported effects and independent observer, and run the existing
 Inspector controls. The approved program order is unchanged; demo work and
 later normative A2A/DID changes remain in their planned stages.
+
+## Later approved-operation snapshot
+
+The [approved-operation inspection](adk-approved-operation-inspection.md) adds
+an explicitly selected query at ADK `fb98773df57b258c29ff9c355d062158bdf56c0e`.
+It covers the new exact local policy, artifact snapshot and same-instance native
+binding code with 49 reviewed anchors across 169 files. This historical query,
+catalog and report remain unchanged, including their default CLI selection and
+all deployment limitations. The new query does not attest a loaded provider or
+select a Registry/host deployment.

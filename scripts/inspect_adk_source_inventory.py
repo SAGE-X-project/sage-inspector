@@ -16,9 +16,17 @@ CATALOG = ROOT / 'verification/0.10.0/adk-source-inventory/catalog.json'
 CATALOG_SHA = '2d0daea8502398ca08ce621053f55200ea4e1e4403e367b0b5296abdb99a2730'
 ADK_REVISION = 'afa469cdd8539992185235008ac1591c74012f7f'
 NORMATIVE_REVISION = '1820ab5eafb843e1c13f4c46c34aeeb28d934ac9'
+SNAPSHOTS = {
+    'routes': {'path': CATALOG, 'sha256': CATALOG_SHA, 'revision': ADK_REVISION},
+    'approved-operation': {
+        'path': ROOT / 'verification/0.10.0/adk-approved-operation/catalog.json',
+        'sha256': '5d342fc196073de169b2ebe349ead6c3032da1d5fbb119a6d7f1803d21c1b399',
+        'revision': 'fb98773df57b258c29ff9c355d062158bdf56c0e',
+    },
+}
 KINDS = {'GUARD_NATIVE_OPT_IN', 'CAPTURE_ONLY', 'PROTECTED_PROVIDER',
          'LEGACY_UNMEDIATED', 'CONFIGURATION_ONLY', 'PROPOSAL_ONLY',
-         'OUTBOUND_LLM_PROPOSAL'}
+         'OUTBOUND_LLM_PROPOSAL', 'APPROVED_OPERATION_OPT_IN'}
 
 
 def require(condition, message):
@@ -30,14 +38,16 @@ def sha(data):
     return hashlib.sha256(data).hexdigest()
 
 
-def catalog(path=CATALOG):
-    raw = Path(path).read_bytes()
-    require(sha(raw) == CATALOG_SHA, 'reviewed catalog changed')
+def catalog(path=None, snapshot='routes'):
+    require(snapshot in SNAPSHOTS, 'unknown snapshot')
+    pinned = SNAPSHOTS[snapshot]
+    raw = Path(pinned['path'] if path is None else path).read_bytes()
+    require(sha(raw) == pinned['sha256'], 'reviewed catalog changed')
     suite = json.loads(raw)
     contract = ROOT / 'verification/0.10.0/host-port/cases.json'
     require(sha(contract.read_bytes()) == suite['host_port_catalog_sha256'],
             'host-port catalog drift')
-    require(suite['adk_revision'] == ADK_REVISION and
+    require(suite['adk_revision'] == pinned['revision'] and
             suite['normative_source_revision'] == NORMATIVE_REVISION,
             'source revision drift')
     return suite
@@ -102,6 +112,11 @@ def validate_inventory(inventory, suite):
 
 
 def report(inventory, suite):
+    snapshots = [name for name, pinned in SNAPSHOTS.items()
+                 if suite.get('adk_revision') == pinned['revision']]
+    require(len(snapshots) == 1, 'unreviewed source revision')
+    snapshot = snapshots[0]
+    require(suite == catalog(snapshot=snapshot), 'reviewed catalog changed')
     files = validate_inventory(inventory, suite)
     routes = []
     for row in suite['routes']:
@@ -113,13 +128,13 @@ def report(inventory, suite):
             require(declarations[0]['calls'].count(anchor) == 1,
                     'reviewed syntactic call missing: ' + row['id'])
         routes.append(dict(row, anchor_status='MATCHED'))
-    return {
+    result = {
         'schema_version': 1,
         'kind': 'ADK_SOURCE_ROUTE_INVENTORY',
         'protocol_version': '0.10.0',
         'normative_source_revision': NORMATIVE_REVISION,
-        'adk_revision': ADK_REVISION,
-        'catalog_sha256': CATALOG_SHA,
+        'adk_revision': suite['adk_revision'],
+        'catalog_sha256': SNAPSHOTS[snapshot]['sha256'],
         'host_port_catalog_sha256': suite['host_port_catalog_sha256'],
         'query_status': 'AST_QUERY_EXECUTED',
         'source_file_count': len(files),
@@ -146,16 +161,27 @@ def report(inventory, suite):
             'Native protection is opt-in and depends on isolated authoritative policy, registry, custody and loader bindings.',
         ],
     }
+    if snapshot == 'approved-operation':
+        result['limitations'] += [
+            'Exact-operation rules are trusted local root configuration; parent-hop policy is separate.',
+            'Factory.Load and Instance.Check remain trusted providers; snapshots and source queries do not attest actual loaded code.',
+            'Binding.Tool remains a trusted native configuration capability, not a model-facing unsigned dispatcher.',
+            'Artifact reading requires protected serialized administration; local gating does not establish OS isolation or durable distributed epochs.',
+            'Linux/macOS and unsupported-platform sources are both parsed; build-tag selection and execution are not observed.',
+        ]
+    return result
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--adk-root', type=Path, required=True)
     parser.add_argument('--parser', type=Path, required=True, help='trusted Inspector-built AST CLI')
+    parser.add_argument('--snapshot', choices=sorted(SNAPSHOTS), default='routes',
+                        help='exact reviewed source revision; historical routes remain the default')
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--check', type=Path, help='require exact saved report equality')
     args = parser.parse_args()
-    suite = catalog()
+    suite = catalog(snapshot=args.snapshot)
     root, paths = check_source(args.adk_root, suite)
     result = subprocess.run([str(args.parser.resolve(strict=True)), '--root', str(root)],
                             input=json.dumps(paths), text=True, capture_output=True, timeout=60)

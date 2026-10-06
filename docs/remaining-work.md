@@ -220,3 +220,13 @@ source query records those integration boundaries without running ADK or
 closing any deployed-host control. It preserves the ordered work and historical
 evidence above. Concrete policy, approved loader/final effects, authoritative
 blockchain Registry deployment and a pinned inspected host remain outstanding.
+
+The later [approved-operation inspection](adk-approved-operation-inspection.md)
+adds a separate ADK `fb98773df57b258c29ff9c355d062158bdf56c0e` source query.
+It checks 49 reviewed anchors across 169 production files, including the exact
+local policy/artifact/same-instance binding helper. The earlier source catalog,
+report and all nine ordered gates remain intact. Concrete local binding code
+is now available; protected actual loaded-code attestation, authoritative
+blockchain Source details, selected host/effects and independent observation
+remain outstanding. All deployed-host controls and independent hop execution
+remain `NOT_RUN`; full conformance remains `NOT_ESTABLISHED`.

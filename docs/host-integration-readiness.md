@@ -132,3 +132,12 @@ source query records those integration boundaries without running ADK or
 closing any deployed-host control. It preserves the ordered work and historical
 evidence above. Concrete policy, approved loader/final effects, authoritative
 blockchain Registry deployment and a pinned inspected host remain outstanding.
+
+The later [approved-operation inspection](adk-approved-operation-inspection.md)
+pins ADK `fb98773df57b258c29ff9c355d062158bdf56c0e` separately. Its new local
+helper binds independently selected exact rules and artifact snapshots to one
+native instance. The source query checks 49 reviewed boundaries across 169
+files while preserving the earlier report above. Actual loader attestation,
+authoritative blockchain Source, selected final effects and deployed host
+inspection remain outstanding; no deployed control or full conformance verdict
+is changed.

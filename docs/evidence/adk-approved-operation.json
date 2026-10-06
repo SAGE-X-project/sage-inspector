@@ -1,0 +1,950 @@
+{
+  "schema_version": 1,
+  "kind": "ADK_SOURCE_ROUTE_INVENTORY",
+  "protocol_version": "0.10.0",
+  "normative_source_revision": "1820ab5eafb843e1c13f4c46c34aeeb28d934ac9",
+  "adk_revision": "fb98773df57b258c29ff9c355d062158bdf56c0e",
+  "catalog_sha256": "5d342fc196073de169b2ebe349ead6c3032da1d5fbb119a6d7f1803d21c1b399",
+  "host_port_catalog_sha256": "48c3e90a9c177182a8378591a5eb89b0f7a0471dcd3455a5a5c768e08fabf871",
+  "query_status": "AST_QUERY_EXECUTED",
+  "source_file_count": 169,
+  "declaration_count": 1147,
+  "syntactic_call_count": 5216,
+  "route_classification_counts": {
+    "APPROVED_OPERATION_OPT_IN": 20,
+    "CAPTURE_ONLY": 1,
+    "CONFIGURATION_ONLY": 3,
+    "GUARD_NATIVE_OPT_IN": 4,
+    "LEGACY_UNMEDIATED": 12,
+    "OUTBOUND_LLM_PROPOSAL": 3,
+    "PROPOSAL_ONLY": 1,
+    "PROTECTED_PROVIDER": 5
+  },
+  "selected_host": null,
+  "host_selection": "SELECTION_PENDING",
+  "deployed_host_controls": {
+    "count": 13,
+    "status": "NOT_RUN"
+  },
+  "adk_runtime": "NOT_RUN",
+  "effect_observations": null,
+  "independent_hop_execution": "NOT_RUN",
+  "full_conformance": "NOT_ESTABLISHED",
+  "routes": [
+    {
+      "id": "native-effect",
+      "path": "core/toolhost/executor.go",
+      "declaration": "executor.Run",
+      "line": 69,
+      "classification": "GUARD_NATIVE_OPT_IN",
+      "calls": [
+        {
+          "callee": "admission.Authorized",
+          "line": 81
+        },
+        {
+          "callee": "admission.Authorized",
+          "line": 92
+        },
+        {
+          "callee": "g.VerifyIntent",
+          "line": 84
+        },
+        {
+          "callee": "e.Check",
+          "line": 92
+        },
+        {
+          "callee": "b.Tool.Execute",
+          "line": 97
+        }
+      ],
+      "review": "Native admitted invocation is rechecked before the same fixed loaded instance executes; loader, policy and provider isolation remain host obligations.",
+      "anchor_status": "MATCHED"
+    },
+    {
+      "id": "native-owner",
+      "path": "core/toolhost/host.go",
+      "declaration": "Open",
+      "line": 35,
+      "classification": "GUARD_NATIVE_OPT_IN",
+      "calls": [
+        {
+          "callee": "g.OpenMCPHost",
+          "line": 43
+        }
+      ],
+      "review": "Fixed native length-framed MCP owner; does not wrap ordinary Agent callbacks, A2A, HTTP or stdio.",
+      "anchor_status": "MATCHED"
+    },
+    {
+      "id": "native-connect",
+      "path": "core/toolhost/host.go",
+      "declaration": "Host.Connect",
+      "line": 52,
+      "classification": "GUARD_NATIVE_OPT_IN",
+      "calls": [
+        {
+          "callee": "h.native.Connect",
+          "line": 56
+        }
+      ],
+      "review": "Trusted handler owns the native connection; not a model-facing capability.",
+      "anchor_status": "MATCHED"
+    },
+    {
+      "id": "native-serve",
+      "path": "core/toolhost/host.go",
+      "declaration": "Host.Serve",
+      "line": 61,
+      "classification": "GUARD_NATIVE_OPT_IN",
+      "calls": [
+        {
+          "callee": "h.native.Serve",
+          "line": 65
+        }
+      ],
+      "review": "Bounded native accept loop with fixed providers and loaded instances.",
+      "anchor_status": "MATCHED"
+    },
+    {
+      "id": "capture-original",
+      "path": "core/agent/original.go",
+      "declaration": "ProcessOriginal",
+      "line": 21,
+      "classification": "CAPTURE_ONLY",
+      "calls": [
+        {
+          "callee": "host.Capture",
+          "line": 31
+        },
+        {
+          "callee": "request.Inputs",
+          "line": 35
+        },
+        {
+          "callee": "request.Inputs",
+          "line": 46
+        },
+        {
+          "callee": "a.Process",
+          "line": 49
+        }
+      ],
+      "review": "Durable original capture precedes decode and callback, but callback effects are not mediated.",
+      "anchor_status": "MATCHED"
+    },
+    {
+      "id": "capture-issuer",
+      "path": "core/capture/request.go",
+      "declaration": "Request.NewIntentIssuer",
+      "line": 62,
+      "classification": "PROTECTED_PROVIDER",
+      "calls": [
+        {
+          "callee": "g.NewIntentIssuer",
+          "line": 79
+        }
+      ],
+      "review": "Protected retained-input issuer adapter; requires independently authoritative policy, measurement and custody.",
+      "anchor_status": "MATCHED"
+    },
+    {
+      "id": "capture-transfer",
+      "path": "core/capture/mcp.go",
+      "declaration": "Request.OpenMCPClient",
+      "line": 15,
+      "classification": "PROTECTED_PROVIDER",
+      "calls": [
+        {
+          "callee": "connection.OpenRootClient",
+          "line": 28
+        }
+      ],
+      "review": "Reopens an existing issued journal under native ownership; host must serialize close/reopen and retain fencing.",
+      "anchor_status": "MATCHED"
+    },
+    {
+      "id": "intent-custody",
+      "path": "core/guardservices/intent.go",
+      "declaration": "IntentSigner.Sign",
+      "line": 26,
+      "classification": "PROTECTED_PROVIDER",
+      "calls": [
+        {
+          "callee": "s.binding.sign",
+          "line": 30
+        }
+      ],
+      "review": "Current role-bound key custody for the intent domain; not approval, complete message validation or fencing.",
+      "anchor_status": "MATCHED"
+    },
+    {
+      "id": "result-custody",
+      "path": "core/guardservices/result.go",
+      "declaration": "ResultSigner.Sign",
+      "line": 65,
+      "classification": "PROTECTED_PROVIDER",
+      "calls": [
+        {
+          "callee": "s.binding.sign",
+          "line": 69
+        }
+      ],
+      "review": "Current role-bound result custody; not execution authorization or proof of a real deployment.",
+      "anchor_status": "MATCHED"
+    },
+    {
+      "id": "clock",
+      "path": "core/guardservices/clock.go",
+      "declaration": "SystemClock.Sample",
+      "line": 31,
+      "classification": "PROTECTED_PROVIDER",
+      "calls": [],
+      "review": "Local process clock adapter; not external time attestation.",
+      "anchor_status": "MATCHED"
+    },
+    {
+      "id": "legacy-registry",
+      "path": "core/tools/types.go",
+      "declaration": "Registry.Execute",
+      "line": 177,
+      "classification": "LEGACY_UNMEDIATED",
+      "calls": [
+        {
+          "callee": "tool.Execute",
+          "line": 182
+        }
+      ],
+      "review": "Ordinary map-based tool dispatch does not pass through the native Guard owner.",
+      "anchor_status": "MATCHED"
+    },
+    {
+      "id": "legacy-tool",
+      "path": "core/tools/types.go",
+      "declaration": "FunctionTool.Execute",
+      "line": 107,
+      "classification": "LEGACY_UNMEDIATED",
+      "calls": [
+        {
+          "callee": "t.execute",
+          "line": 108
+        }
+      ],
+      "review": "Raw callback capability; keep unavailable to untrusted routes in a protected host.",
+      "anchor_status": "MATCHED"
+    },
+    {
+      "id": "legacy-get",
+      "path": "core/tools/types.go",
+      "declaration": "Registry.Get",
+      "line": 148,
+      "classification": "LEGACY_UNMEDIATED",
+      "calls": [],
+      "review": "Returns a raw Tool capability.",
+      "anchor_status": "MATCHED"
+    },
+    {
+      "id": "legacy-list",
+      "path": "core/tools/types.go",
+      "declaration": "Registry.List",
+      "line": 157,
+      "classification": "LEGACY_UNMEDIATED",
+      "calls": [],
+      "review": "Returns raw Tool capabilities.",
+      "anchor_status": "MATCHED"
+    },
+    {
+      "id": "legacy-agent",
+      "path": "core/agent/agent.go",
+      "declaration": "agentImpl.Process",
+      "line": 63,
+      "classification": "LEGACY_UNMEDIATED",
+      "calls": [
+        {
+          "callee": "a.messageHandler",
+          "line": 72
+        }
+      ],
+      "review": "Ordinary Agent callback with no mandatory capture or final-effect Guard mediation.",
+      "anchor_status": "MATCHED"
+    },
+    {
+      "id": "legacy-middleware",
+      "path": "core/middleware/types.go",
+      "declaration": "Chain.Execute",
+      "line": 61,
+      "classification": "LEGACY_UNMEDIATED",
+      "calls": [
+        {
+          "callee": "handler",
+          "line": 63
+        }
+      ],
+      "review": "Optional middleware is not a mandatory security boundary.",
+      "anchor_status": "MATCHED"
+    },
+    {
+      "id": "legacy-grpc-unary",
+      "path": "server/grpc/server.go",
+      "declaration": "Server.SendMessage",
+      "line": 222,
+      "classification": "LEGACY_UNMEDIATED",
+      "calls": [
+        {
+          "callee": "s.agent.Process",
+          "line": 234
+        }
+      ],
+      "review": "Unary gRPC invokes the ordinary Agent path.",
+      "anchor_status": "MATCHED"
+    },
+    {
+      "id": "legacy-grpc-stream",
+      "path": "server/grpc/server.go",
+      "declaration": "Server.StreamMessages",
+      "line": 253,
+      "classification": "LEGACY_UNMEDIATED",
+      "calls": [
+        {
+          "callee": "s.agent.Process",
+          "line": 298
+        }
+      ],
+      "review": "Streaming gRPC invokes the ordinary Agent path.",
+      "anchor_status": "MATCHED"
+    },
+    {
+      "id": "legacy-a2a",
+      "path": "adapters/a2a/server.go",
+      "declaration": "messageProcessor.ProcessMessage",
+      "line": 132,
+      "classification": "LEGACY_UNMEDIATED",
+      "calls": [
+        {
+          "callee": "p.handler",
+          "line": 148
+        }
+      ],
+      "review": "Legacy A2A invokes an ordinary message handler; no claim of updated A2A conformance.",
+      "anchor_status": "MATCHED"
+    },
+    {
+      "id": "legacy-cli",
+      "path": "cmd/adk/serve.go",
+      "declaration": "defaultMessageHandler",
+      "line": 337,
+      "classification": "LEGACY_UNMEDIATED",
+      "calls": [
+        {
+          "callee": "msg.Reply",
+          "line": 350
+        }
+      ],
+      "review": "CLI default handler is an ordinary echo callback.",
+      "anchor_status": "MATCHED"
+    },
+    {
+      "id": "legacy-sign",
+      "path": "adapters/sage/adapter.go",
+      "declaration": "Adapter.signMessage",
+      "line": 324,
+      "classification": "LEGACY_UNMEDIATED",
+      "calls": [
+        {
+          "callee": "a.signingManager.SignMessage",
+          "line": 341
+        }
+      ],
+      "review": "Legacy adapter allows absent private signing key; not protected execution authorization.",
+      "anchor_status": "MATCHED"
+    },
+    {
+      "id": "legacy-rfc-name",
+      "path": "adapters/sage/signing.go",
+      "declaration": "SigningManager.SignMessageRFC9421",
+      "line": 249,
+      "classification": "LEGACY_UNMEDIATED",
+      "calls": [
+        {
+          "callee": "ed25519.Sign",
+          "line": 291
+        }
+      ],
+      "review": "Historical helper signs a legacy core format; its name does not establish HTTP RFC 9421 conformance.",
+      "anchor_status": "MATCHED"
+    },
+    {
+      "id": "builder-handler",
+      "path": "builder/builder.go",
+      "declaration": "Builder.OnMessage",
+      "line": 223,
+      "classification": "CONFIGURATION_ONLY",
+      "calls": [],
+      "review": "Registers an ordinary callback, not a mandatory pre-decision Guard hook.",
+      "anchor_status": "MATCHED"
+    },
+    {
+      "id": "builder-start-hook",
+      "path": "builder/builder.go",
+      "declaration": "Builder.BeforeStart",
+      "line": 239,
+      "classification": "CONFIGURATION_ONLY",
+      "calls": [],
+      "review": "Lifecycle hook only; not a per-request security checkpoint.",
+      "anchor_status": "MATCHED"
+    },
+    {
+      "id": "builder-protocol",
+      "path": "builder/builder.go",
+      "declaration": "Builder.buildAgent",
+      "line": 434,
+      "classification": "CONFIGURATION_ONLY",
+      "calls": [
+        {
+          "callee": "b.createA2AServer",
+          "line": 441
+        }
+      ],
+      "review": "A2A construction remains legacy; SAGE and automatic server modes return not-implemented errors.",
+      "anchor_status": "MATCHED"
+    },
+    {
+      "id": "proposal-arguments",
+      "path": "adapters/llm/function_calling.go",
+      "declaration": "FunctionCall.ParsedArguments",
+      "line": 35,
+      "classification": "PROPOSAL_ONLY",
+      "calls": [
+        {
+          "callee": "json.Unmarshal",
+          "line": 37
+        }
+      ],
+      "review": "Parses model arguments without approving or executing a tool.",
+      "anchor_status": "MATCHED"
+    },
+    {
+      "id": "openai-proposal",
+      "path": "adapters/llm/openai.go",
+      "declaration": "OpenAIProvider.CompleteWithTools",
+      "line": 261,
+      "classification": "OUTBOUND_LLM_PROPOSAL",
+      "calls": [
+        {
+          "callee": "p.client.CreateChatCompletion",
+          "line": 318
+        }
+      ],
+      "review": "External LLM request and returned proposal; not Guard-authorized tool execution or protected prompt transport.",
+      "anchor_status": "MATCHED"
+    },
+    {
+      "id": "anthropic-proposal",
+      "path": "adapters/llm/anthropic.go",
+      "declaration": "AnthropicProvider.CompleteWithTools",
+      "line": 235,
+      "classification": "OUTBOUND_LLM_PROPOSAL",
+      "calls": [
+        {
+          "callee": "p.httpClient.Do",
+          "line": 279
+        }
+      ],
+      "review": "External LLM request and returned proposal; not Guard-authorized tool execution.",
+      "anchor_status": "MATCHED"
+    },
+    {
+      "id": "gemini-proposal",
+      "path": "adapters/llm/gemini.go",
+      "declaration": "GeminiProvider.CompleteWithTools",
+      "line": 235,
+      "classification": "OUTBOUND_LLM_PROPOSAL",
+      "calls": [
+        {
+          "callee": "p.httpClient.Do",
+          "line": 285
+        }
+      ],
+      "review": "External LLM request and returned proposal; not Guard-authorized tool execution.",
+      "anchor_status": "MATCHED"
+    },
+    {
+      "id": "approved-open",
+      "path": "core/guardbinding/load.go",
+      "declaration": "Open",
+      "line": 41,
+      "classification": "APPROVED_OPERATION_OPT_IN",
+      "calls": [
+        {
+          "callee": "request.Inputs",
+          "line": 55
+        },
+        {
+          "callee": "g.PolicyCommitment",
+          "line": 62
+        },
+        {
+          "callee": "g.ManifestCommitment",
+          "line": 66
+        },
+        {
+          "callee": "o.read",
+          "line": 107
+        },
+        {
+          "callee": "parseRules",
+          "line": 113
+        },
+        {
+          "callee": "c.Factory.Load",
+          "line": 120
+        },
+        {
+          "callee": "o.check",
+          "line": 121
+        }
+      ],
+      "review": "Independent approved descriptors and owned exact artifact snapshots precede one Factory.Load. Factory remains trusted and must attest actual loaded evaluator/tool/dependencies; no universal loader or isolation is supplied.",
+      "anchor_status": "MATCHED"
+    },
+    {
+      "id": "approved-rules",
+      "path": "core/guardbinding/load.go",
+      "declaration": "parseRules",
+      "line": 126,
+      "classification": "APPROVED_OPERATION_OPT_IN",
+      "calls": [
+        {
+          "callee": "g.Canonicalize",
+          "line": 127
+        },
+        {
+          "callee": "g.PolicyCommitment",
+          "line": 155
+        }
+      ],
+      "review": "Closed local root rules fix recipient, role-bound signing key, tool, exact canonical arguments and lifetime. A trusted application selects appropriate rules; hashes do not prove natural-language equivalence.",
+      "anchor_status": "MATCHED"
+    },
+    {
+      "id": "approved-artifacts",
+      "path": "core/guardbinding/load.go",
+      "declaration": "Operation.read",
+      "line": 160,
+      "classification": "APPROVED_OPERATION_OPT_IN",
+      "calls": [
+        {
+          "callee": "o.root.Lstat",
+          "line": 171
+        },
+        {
+          "callee": "readFile",
+          "line": 176
+        },
+        {
+          "callee": "g.VerifyManifest",
+          "line": 183
+        }
+      ],
+      "review": "Bounded confined regular files are checked against each declared hash. Trusted administration must protect and serialize intermediate paths; this is not concurrent hostile-filesystem isolation.",
+      "anchor_status": "MATCHED"
+    },
+    {
+      "id": "approved-read",
+      "path": "core/guardbinding/load.go",
+      "declaration": "readFile",
+      "line": 190,
+      "classification": "APPROVED_OPERATION_OPT_IN",
+      "calls": [
+        {
+          "callee": "openArtifact",
+          "line": 191
+        },
+        {
+          "callee": "f.Stat",
+          "line": 196
+        },
+        {
+          "callee": "io.LimitReader",
+          "line": 200
+        }
+      ],
+      "review": "The bounded opened artifact is checked as regular before reading. Operating-system support is reviewed separately.",
+      "anchor_status": "MATCHED"
+    },
+    {
+      "id": "approved-freshness",
+      "path": "core/guardbinding/load.go",
+      "declaration": "Operation.check",
+      "line": 206,
+      "classification": "APPROVED_OPERATION_OPT_IN",
+      "calls": [
+        {
+          "callee": "o.request.Inputs",
+          "line": 210
+        },
+        {
+          "callee": "o.retiring.Store",
+          "line": 212
+        },
+        {
+          "callee": "o.read",
+          "line": 216
+        },
+        {
+          "callee": "o.retiring.Store",
+          "line": 218
+        },
+        {
+          "callee": "o.instance.Check",
+          "line": 222
+        },
+        {
+          "callee": "o.retiring.Store",
+          "line": 224
+        },
+        {
+          "callee": "o.read",
+          "line": 230
+        },
+        {
+          "callee": "o.retiring.Store",
+          "line": 232
+        },
+        {
+          "callee": "o.request.Inputs",
+          "line": 236
+        },
+        {
+          "callee": "o.retiring.Store",
+          "line": 238
+        }
+      ],
+      "review": "Original capture and exact files are rechecked before and after the trusted loaded-instance callback. Active integrity failure retires this operation; Check must attest real loaded code, not echo commitments.",
+      "anchor_status": "MATCHED"
+    },
+    {
+      "id": "approved-canonical",
+      "path": "core/guardbinding/load.go",
+      "declaration": "canonicalObject",
+      "line": 244,
+      "classification": "APPROVED_OPERATION_OPT_IN",
+      "calls": [
+        {
+          "callee": "g.Canonicalize",
+          "line": 245
+        },
+        {
+          "callee": "bytes.Equal",
+          "line": 246
+        }
+      ],
+      "review": "Requires exact canonical object bytes for fixed arguments and root intent input.",
+      "anchor_status": "MATCHED"
+    },
+    {
+      "id": "approved-gate",
+      "path": "core/guardbinding/operation.go",
+      "declaration": "Operation.enter",
+      "line": 19,
+      "classification": "APPROVED_OPERATION_OPT_IN",
+      "calls": [
+        {
+          "callee": "o.retiring.Load",
+          "line": 20
+        },
+        {
+          "callee": "ctx.Done",
+          "line": 24
+        },
+        {
+          "callee": "o.retiring.Load",
+          "line": 28
+        }
+      ],
+      "review": "A context-aware shared gate serializes checks and final execution with retirement. Local serialization is not distributed epoch management.",
+      "anchor_status": "MATCHED"
+    },
+    {
+      "id": "approved-bindings",
+      "path": "core/guardbinding/operation.go",
+      "declaration": "Operation.Bindings",
+      "line": 44,
+      "classification": "APPROVED_OPERATION_OPT_IN",
+      "calls": [
+        {
+          "callee": "o.enter",
+          "line": 45
+        },
+        {
+          "callee": "o.request.ID",
+          "line": 58
+        },
+        {
+          "callee": "o.check",
+          "line": 58
+        },
+        {
+          "callee": "o.request.Digest",
+          "line": 61
+        }
+      ],
+      "review": "Returns owned approved descriptors only for the fixed issuer and request after current capture/artifact/instance checks. Wire commitments cannot install mappings.",
+      "anchor_status": "MATCHED"
+    },
+    {
+      "id": "approved-authorize",
+      "path": "core/guardbinding/operation.go",
+      "declaration": "Operation.Authorize",
+      "line": 70,
+      "classification": "APPROVED_OPERATION_OPT_IN",
+      "calls": [
+        {
+          "callee": "o.enter",
+          "line": 71
+        },
+        {
+          "callee": "o.permitted",
+          "line": 76
+        },
+        {
+          "callee": "o.check",
+          "line": 76
+        }
+      ],
+      "review": "Exact issuer/tool/arguments are locally evaluated before current integrity checks. This callback is a policy snapshot, not one-use approval, reservation or dispatch.",
+      "anchor_status": "MATCHED"
+    },
+    {
+      "id": "approved-root-intent",
+      "path": "core/guardbinding/operation.go",
+      "declaration": "Operation.ApproveIntent",
+      "line": 85,
+      "classification": "APPROVED_OPERATION_OPT_IN",
+      "calls": [
+        {
+          "callee": "o.enter",
+          "line": 86
+        },
+        {
+          "callee": "canonicalObject",
+          "line": 91
+        },
+        {
+          "callee": "o.request.ID",
+          "line": 99
+        },
+        {
+          "callee": "o.request.Digest",
+          "line": 99
+        },
+        {
+          "callee": "base64.RawURLEncoding.Strict().DecodeString",
+          "line": 111
+        },
+        {
+          "callee": "o.permitted",
+          "line": 112
+        },
+        {
+          "callee": "o.check",
+          "line": 112
+        }
+      ],
+      "review": "Manually reviewed closed root intent fields, identity, commitments, nonce and lifetime match fixed administration. Parent intents are refused; core retains current authority/time, opaque approval and durable issuance fencing.",
+      "anchor_status": "MATCHED"
+    },
+    {
+      "id": "approved-measurement",
+      "path": "core/guardbinding/operation.go",
+      "declaration": "Operation.Check",
+      "line": 120,
+      "classification": "APPROVED_OPERATION_OPT_IN",
+      "calls": [
+        {
+          "callee": "o.enter",
+          "line": 121
+        },
+        {
+          "callee": "o.check",
+          "line": 129
+        }
+      ],
+      "review": "Fixed manifest/tool identity is checked before capture/artifact/same-instance remeasurement. Actual attestation remains a deployment provider duty.",
+      "anchor_status": "MATCHED"
+    },
+    {
+      "id": "approved-loaded-check",
+      "path": "core/guardbinding/operation.go",
+      "declaration": "loaded.Check",
+      "line": 134,
+      "classification": "APPROVED_OPERATION_OPT_IN",
+      "calls": [
+        {
+          "callee": "l.operation.Check",
+          "line": 135
+        }
+      ],
+      "review": "The private loaded wrapper delegates measurement to the same Operation used by native host Binding.",
+      "anchor_status": "MATCHED"
+    },
+    {
+      "id": "approved-final-effect",
+      "path": "core/guardbinding/operation.go",
+      "declaration": "loaded.Execute",
+      "line": 137,
+      "classification": "APPROVED_OPERATION_OPT_IN",
+      "calls": [
+        {
+          "callee": "o.enter",
+          "line": 139
+        },
+        {
+          "callee": "o.permitted",
+          "line": 150
+        },
+        {
+          "callee": "o.check",
+          "line": 150
+        },
+        {
+          "callee": "o.instance.Execute",
+          "line": 153
+        },
+        {
+          "callee": "active",
+          "line": 154
+        }
+      ],
+      "review": "Only the fixed instance receives a copy of exact arguments after fresh checks under the shared gate. Binding.Tool is a trusted capability; exposing it as unsigned model dispatch is outside the protected path.",
+      "anchor_status": "MATCHED"
+    },
+    {
+      "id": "approved-native-binding",
+      "path": "core/guardbinding/operation.go",
+      "declaration": "Operation.Binding",
+      "line": 163,
+      "classification": "APPROVED_OPERATION_OPT_IN",
+      "calls": [
+        {
+          "callee": "o.enter",
+          "line": 164
+        },
+        {
+          "callee": "o.check",
+          "line": 175
+        }
+      ],
+      "review": "Returns a private wrapper tied to this Operation for trusted native host configuration. Constructing it does not wrap ordinary Agent, Tool Registry, A2A or gRPC routes.",
+      "anchor_status": "MATCHED"
+    },
+    {
+      "id": "approved-retirement",
+      "path": "core/guardbinding/operation.go",
+      "declaration": "Operation.Close",
+      "line": 184,
+      "classification": "APPROVED_OPERATION_OPT_IN",
+      "calls": [
+        {
+          "callee": "o.retiring.Store",
+          "line": 191
+        },
+        {
+          "callee": "ctx.Done",
+          "line": 193
+        },
+        {
+          "callee": "o.root.Close",
+          "line": 201
+        }
+      ],
+      "review": "Refuses new callbacks before waiting for accepted effect cleanup and closing artifact custody. Timeout retains ownership/refusal; administration still owns factory lifetime, durable epochs and distributed retirement.",
+      "anchor_status": "MATCHED"
+    },
+    {
+      "id": "approved-snapshot-artifacts",
+      "path": "core/guardbinding/types.go",
+      "declaration": "Snapshot.Artifacts",
+      "line": 62,
+      "classification": "APPROVED_OPERATION_OPT_IN",
+      "calls": [
+        {
+          "callee": "append",
+          "line": 68
+        }
+      ],
+      "review": "Copies exact owned artifact bytes for a protected Factory. This copy is not an execution or signing token.",
+      "anchor_status": "MATCHED"
+    },
+    {
+      "id": "approved-snapshot-policy",
+      "path": "core/guardbinding/types.go",
+      "declaration": "Snapshot.Policy",
+      "line": 74,
+      "classification": "APPROVED_OPERATION_OPT_IN",
+      "calls": [
+        {
+          "callee": "append",
+          "line": 78
+        }
+      ],
+      "review": "Returns owned canonical policy descriptor bytes, not policy authority.",
+      "anchor_status": "MATCHED"
+    },
+    {
+      "id": "approved-snapshot-manifest",
+      "path": "core/guardbinding/types.go",
+      "declaration": "Snapshot.Manifest",
+      "line": 82,
+      "classification": "APPROVED_OPERATION_OPT_IN",
+      "calls": [
+        {
+          "callee": "append",
+          "line": 86
+        }
+      ],
+      "review": "Returns owned canonical component manifest bytes, not loaded-code attestation.",
+      "anchor_status": "MATCHED"
+    },
+    {
+      "id": "approved-local-file-open",
+      "path": "core/guardbinding/files.go",
+      "declaration": "openArtifact",
+      "line": 11,
+      "classification": "APPROVED_OPERATION_OPT_IN",
+      "calls": [
+        {
+          "callee": "root.OpenFile",
+          "line": 16
+        }
+      ],
+      "review": "Linux/macOS use confined no-follow nonblocking final opens; final descriptor inspection is separate. Intermediate mutations still require trusted serialized administration.",
+      "anchor_status": "MATCHED"
+    },
+    {
+      "id": "approved-other-os",
+      "path": "core/guardbinding/files_unsupported.go",
+      "declaration": "openArtifact",
+      "line": 8,
+      "classification": "APPROVED_OPERATION_OPT_IN",
+      "calls": [],
+      "review": "Other operating systems refuse artifact opening. Parsing mutually exclusive source files does not prove runtime platform selection.",
+      "anchor_status": "MATCHED"
+    }
+  ],
+  "limitations": [
+    "Manual route classifications; AST matching does not prove authorization or reachability.",
+    "All tracked non-test Go files, including examples, generated code and all build tags, are parsed.",
+    "Selected route anchors are not an exhaustive effect graph; other declarations remain unclassified.",
+    "No type resolution, external dependencies, dynamically loaded plugins or reflective dispatch analysis.",
+    "Nested function calls belong to the enclosing declaration; package initializer calls are separate.",
+    "No ADK code, external LLM call, tool callback or deployment is executed by this query.",
+    "Native protection is opt-in and depends on isolated authoritative policy, registry, custody and loader bindings.",
+    "Exact-operation rules are trusted local root configuration; parent-hop policy is separate.",
+    "Factory.Load and Instance.Check remain trusted providers; snapshots and source queries do not attest actual loaded code.",
+    "Binding.Tool remains a trusted native configuration capability, not a model-facing unsigned dispatcher.",
+    "Artifact reading requires protected serialized administration; local gating does not establish OS isolation or durable distributed epochs.",
+    "Linux/macOS and unsupported-platform sources are both parsed; build-tag selection and execution are not observed."
+  ]
+}

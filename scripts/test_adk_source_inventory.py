@@ -42,6 +42,99 @@ class InventoryTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, 'catalog changed'):
                     audit.catalog(path)
 
+    def test_approved_operation_snapshot_is_separate_and_pinned(self):
+        historical = audit.catalog()
+        approved = audit.catalog(snapshot='approved-operation')
+        self.assertEqual(historical['adk_revision'], audit.ADK_REVISION)
+        self.assertEqual(approved['adk_revision'], 'fb98773df57b258c29ff9c355d062158bdf56c0e')
+        self.assertEqual(len(approved['sources']), 169)
+        self.assertEqual(len(approved['routes']), 49)
+        self.assertEqual(approved['host_port_catalog_sha256'], historical['host_port_catalog_sha256'])
+        new = [r for r in approved['routes'] if r['classification'] == 'APPROVED_OPERATION_OPT_IN']
+        self.assertEqual(len(new), 20)
+        self.assertEqual(approved['routes'][:29], historical['routes'])
+        saved = json.loads((audit.ROOT / 'docs/evidence/adk-approved-operation.json').read_text())
+        self.assertEqual(saved['adk_revision'], approved['adk_revision'])
+        self.assertEqual(saved['catalog_sha256'], audit.SNAPSHOTS['approved-operation']['sha256'])
+        self.assertEqual(saved['source_file_count'], 169)
+        self.assertEqual(saved['route_classification_counts']['APPROVED_OPERATION_OPT_IN'], 20)
+        self.assertEqual(saved['routes'], [dict(r, anchor_status='MATCHED') for r in approved['routes']])
+        self.assertEqual(audit.sha((audit.ROOT / 'docs/evidence/adk-source-inventory.json').read_bytes()),
+                         'ebeb724f05757eb4f132b29e8c2931efa2f62078a9a54d3ac2b6819593e6c4ad')
+        with self.assertRaisesRegex(ValueError, 'unknown snapshot'):
+            audit.catalog(snapshot='latest')
+        with self.assertRaisesRegex(ValueError, 'catalog changed'):
+            audit.catalog(audit.CATALOG, snapshot='approved-operation')
+
+    def test_approved_anchor_and_revision_mixing_is_refused(self):
+        suite = audit.catalog(snapshot='approved-operation')
+        files = []
+        for path, digest in sorted(suite['sources'].items()):
+            declarations = [dict(name=r['declaration'], exported=True, line=r['line'],
+                                 end_line=max([r['line']] + [c['line'] for c in r['calls']]),
+                                 calls=copy.deepcopy(r['calls']))
+                            for r in suite['routes'] if r['path'] == path]
+            files.append(dict(path=path, sha256=digest, package='fixture',
+                              declarations=declarations, initializer_calls=[]))
+        inventory = dict(schema_version=1, kind='GO_SYNTAX_INVENTORY', files=files)
+        result = audit.report(inventory, suite)
+        self.assertEqual(result['adk_revision'], suite['adk_revision'])
+        self.assertEqual(result['route_classification_counts']['APPROVED_OPERATION_OPT_IN'], 20)
+        self.assertEqual(result['deployed_host_controls'], {'count': 13, 'status': 'NOT_RUN'})
+        self.assertIsNone(result['selected_host'])
+        self.assertIsNone(result['effect_observations'])
+        self.assertEqual(result['adk_runtime'], 'NOT_RUN')
+        self.assertEqual(result['independent_hop_execution'], 'NOT_RUN')
+        self.assertEqual(result['full_conformance'], 'NOT_ESTABLISHED')
+        for mutation in ('revision', 'normative', 'review', 'classification'):
+            bad = copy.deepcopy(suite)
+            if mutation == 'revision':
+                bad['adk_revision'] = audit.ADK_REVISION
+            elif mutation == 'normative':
+                bad['normative_source_revision'] = '0' * 40
+            elif mutation == 'review':
+                bad['routes'][-1]['review'] = 'Fully certified'
+            else:
+                bad['routes'][-1]['classification'] = 'PASS'
+            with self.subTest(mutation=mutation), self.assertRaises(ValueError):
+                audit.report(inventory, bad)
+        for ident in ('approved-freshness', 'approved-final-effect', 'approved-retirement'):
+            r = next(r for r in suite['routes'] if r['id'] == ident)
+            for mutation in ('missing', 'duplicate'):
+                bad = copy.deepcopy(inventory)
+                d = next(d for f in bad['files'] if f['path'] == r['path']
+                         for d in f['declarations'] if d['name'] == r['declaration'])
+                if mutation == 'missing':
+                    d['calls'].pop()
+                else:
+                    d['calls'].append(copy.deepcopy(d['calls'][-1]))
+                with self.subTest(anchor=ident, mutation=mutation), self.assertRaisesRegex(ValueError, 'call missing'):
+                    audit.report(bad, suite)
+        with self.assertRaises(ValueError):
+            audit.report(inventory, audit.catalog())
+
+    def test_runtime_query_refuses_unreviewed_revision_without_report(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp) / 'source'
+            root.mkdir()
+            (root / 'source.go').write_text('package inert\nfunc Run(){panic("must never execute")}\n')
+            subprocess.run(['git', 'init', '-q'], cwd=root, check=True)
+            subprocess.run(['git', 'add', '.'], cwd=root, check=True)
+            subprocess.run(['git', '-c', 'user.name=Inspector fixture', '-c', 'user.email=fixture@invalid.local',
+                            '-c', 'commit.gpgsign=false', 'commit', '-qm', 'test: retain inert source'],
+                           cwd=root, check=True)
+            for snapshot in ('routes', 'approved-operation'):
+                output = Path(tmp) / (snapshot + '.json')
+                result = subprocess.run(['python3', '-B', str(audit.ROOT / 'scripts/inspect_adk_source_inventory.py'),
+                                         '--snapshot', snapshot, '--adk-root', str(root),
+                                         '--parser', str(self.parser), '--output', str(output)],
+                                        text=True, capture_output=True, timeout=10)
+                with self.subTest(snapshot=snapshot):
+                    self.assertNotEqual(result.returncode, 0)
+                    self.assertEqual(result.stdout, '')
+                    self.assertIn('ADK revision mismatch', result.stderr)
+                    self.assertFalse(output.exists())
+
     def test_anchor_and_ast_refusal(self):
         suite = audit.catalog()
         # Bounded synthetic AST mirrors only reviewed anchors. This unit fixture

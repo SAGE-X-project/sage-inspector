@@ -94,7 +94,7 @@ func calls(n ast.Node, fset *token.FileSet) []call {
 	}
 	return result
 }
-func readSource(root, name string) ([]byte, error) {
+func readSource(root, name string) (data []byte, err error) {
 	if !filepath.IsLocal(name) || filepath.ToSlash(filepath.Clean(name)) != name || strings.Contains(name, "\\") || !strings.HasSuffix(name, ".go") || strings.HasSuffix(name, "_test.go") {
 		return nil, errors.New("invalid production source path")
 	}
@@ -110,12 +110,19 @@ func readSource(root, name string) ([]byte, error) {
 			return nil, errors.New("source must be a bounded regular file without symlinks")
 		}
 	}
-	f, err := os.Open(path)
+	confined, err := os.OpenRoot(root)
 	if err != nil {
 		return nil, err
 	}
-	defer f.Close()
-	data, err := io.ReadAll(io.LimitReader(f, maxFile+1))
+	defer func() { err = errors.Join(err, confined.Close()) }()
+	// Relative reads cannot escape the caller-selected root, even if a path
+	// component changes after the preceding quiescent-source symlink checks.
+	f, err := confined.Open(name)
+	if err != nil {
+		return nil, err
+	}
+	defer func() { err = errors.Join(err, f.Close()) }()
+	data, err = io.ReadAll(io.LimitReader(f, maxFile+1))
 	if err != nil || len(data) > maxFile {
 		return nil, errors.New("source read failed or exceeded limit")
 	}

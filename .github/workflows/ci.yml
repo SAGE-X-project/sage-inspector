@@ -152,6 +152,48 @@ jobs:
             ${{ runner.temp }}/adk-source-inventory.json
             ${{ runner.temp }}/adk-approved-operation.json
 
+  registry-contract-preflight:
+    name: Blockchain Registry source and ABI preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: SAGE-X-project/sage-contracts
+          ref: d9f313b1057d299423d800c846751ed40282a116
+          path: .preflight-contracts
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: SAGE-X-project/sage-spec
+          ref: 1820ab5eafb843e1c13f4c46c34aeeb28d934ac9
+          path: .preflight-spec
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: SAGE-X-project/sage
+          ref: 11b1cd91691de99fdbd734db78dc6755c187b2e9
+          path: .preflight-go
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: SAGE-X-project/sage-adk
+          ref: fb98773df57b258c29ff9c355d062158bdf56c0e
+          path: .preflight-adk
+      - name: Test refusal and reproduce committed source review
+        run: |
+          python3 -B scripts/test_registry_contract_preflight.py
+          python3 -B scripts/inspect_registry_contract_preflight.py \
+            --contracts-root .preflight-contracts --spec-root .preflight-spec \
+            --go-root .preflight-go --adk-root .preflight-adk \
+            --check docs/evidence/registry-contract-preflight.json \
+            --output "${RUNNER_TEMP}/registry-contract-preflight.json"
+      - name: Preserve source preflight report
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: registry-contract-preflight-${{ github.sha }}
+          if-no-files-found: error
+          retention-days: 30
+          path: ${{ runner.temp }}/registry-contract-preflight.json
+
   spec:
     name: Legacy spec vectors
     runs-on: ubuntu-latest

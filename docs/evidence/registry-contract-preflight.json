@@ -1,0 +1,667 @@
+{
+  "schema_version": 1,
+  "kind": "REGISTRY_CONTRACT_SOURCE_PREFLIGHT",
+  "protocol_version": "0.10.0",
+  "catalog_sha256": "a374dc60122b7cce4eeadefcd77e0f826bdefab4ad3ae4286806e3384761a322",
+  "source_query_status": "REVIEWED_SOURCE_MATCHED",
+  "repositories": {
+    "contracts": {
+      "revision": "d9f313b1057d299423d800c846751ed40282a116",
+      "files": {
+        "abi/AgentCardRegistry.json": "bf3e59375be9cf3ea070caee309f7eccbe660ce85440d242ae9a6bb1ca855e8b",
+        "abi/ISageRegistry.json": "19ab1e99ce653bd65968c4094ba10387d7af1d6d10d93d3a496708735b3f602e",
+        "ethereum/contracts/AgentCardRegistry.sol": "7bb47a932850eebfa297c546fb9e8d855e12ab3491d630f8575e0d6bd14ce6cb",
+        "ethereum/contracts/AgentCardStorage.sol": "50cf400a552cc6c9676f3699eb9d698b0f2cc5ee4926f329ff5f2104b3d83f84",
+        "ethereum/contracts/AgentCardVerifyHook.sol": "bdbedadc18b8c984746dfd015fd2f8dd5040ebbb2471cd34b8b3cb1f9f8907a3",
+        "ethereum/contracts/interfaces/ISageRegistry.sol": "7497b17847e733b19136f79c5b002488655d4a13bf410b65d5014b12936ccf9b",
+        "scripts/export-abi.sh": "9feae4365d40c39d5fc1dd8496d74727745d4b62b30eaf6db663e2e30e9848ca"
+      }
+    },
+    "go": {
+      "revision": "11b1cd91691de99fdbd734db78dc6755c187b2e9",
+      "files": {
+        "pkg/agent/registry010/gate.go": "169d8377eda302caac5d6f1d320cdfb40c2be1562c24343e65dcb744b0e7774f",
+        "pkg/agent/registry010/proof.go": "b4ae8b46cfdbffcb2fa669ec1dd859baeb7dbaabc97fdbfbd35f6ef4cf427b76"
+      }
+    },
+    "adk": {
+      "revision": "fb98773df57b258c29ff9c355d062158bdf56c0e",
+      "files": {
+        "core/guardbinding/types.go": "0c0c8bbb0ce471edef70ccb5579fedb5da2fad081062f7af456b96a4b015b9c0",
+        "core/guardbinding/load.go": "649966ab4ba3d875863dc23ea7ee4cd6b06ba3dd02000c051c606437fee92a6e",
+        "core/guardbinding/operation.go": "077f74f1c74856c519b1772598da9d19c687bd4f7fafc7d9ec4cb205bdf2d3c1"
+      }
+    },
+    "spec": {
+      "revision": "1820ab5eafb843e1c13f4c46c34aeeb28d934ac9",
+      "files": {
+        "spec/09-registry.md": "e8572cc037fd0fc84e678be436cc47854c5fd700aacbc141937d79ee03ea6017",
+        "spec/06-did-sage.md": "8e0d5f72fc36d46bd5f8c51446f46cb80b644db1ebcd85039c0a342f33bfe50b",
+        "profiles/agent-mcp-security.md": "0538acbdcfc143d93fb7d99a2a2c09c068fc354388c4e37c7489204305b1913f",
+        "architecture/program-sequence.md": "5852b07ec6eec2e3aad05f00fb31b340fd9eb787584d5cfd3f3aa68c0fe838cd"
+      }
+    }
+  },
+  "reviewed_spans": [
+    {
+      "id": "ed25519-validation",
+      "repository": "contracts",
+      "path": "ethereum/contracts/AgentCardRegistry.sol",
+      "line": 439,
+      "end_line": 442,
+      "sha256": "3b4dee8b0f0b03a268a32f2153c604a6a4192f45bb11e4f30672a92704f8ab80"
+    },
+    {
+      "id": "kem-legacy-endorsement",
+      "repository": "contracts",
+      "path": "ethereum/contracts/AgentCardRegistry.sol",
+      "line": 443,
+      "end_line": 464,
+      "sha256": "ea9fff2172f394b78e54d842208cd812e2149579638a973a1b42d830883263ce"
+    },
+    {
+      "id": "legacy-claim",
+      "repository": "contracts",
+      "path": "ethereum/contracts/AgentCardRegistry.sol",
+      "line": 130,
+      "end_line": 151,
+      "sha256": "79772f8b928632e7758e73bf217ea7fe9c330b6489fe2a95ab1fddd97e525048"
+    },
+    {
+      "id": "activation-state",
+      "repository": "contracts",
+      "path": "ethereum/contracts/AgentCardRegistry.sol",
+      "line": 245,
+      "end_line": 255,
+      "sha256": "a8e8e0b38443738ef75e5d8dc5c822f156a9e9031d353c3a156d291d2aaf9c01"
+    },
+    {
+      "id": "deactivation-state",
+      "repository": "contracts",
+      "path": "ethereum/contracts/AgentCardRegistry.sol",
+      "line": 361,
+      "end_line": 366,
+      "sha256": "70537ba65170ec02d3fae011bc083417c180fd0682d87b8ba309382dbcc6a174"
+    },
+    {
+      "id": "key-addition",
+      "repository": "contracts",
+      "path": "ethereum/contracts/AgentCardRegistry.sol",
+      "line": 265,
+      "end_line": 299,
+      "sha256": "36ff49a655bf2c0e99a0da33622448340cd625e29dd5e266984b9f62cd97ecb6"
+    },
+    {
+      "id": "key-revocation",
+      "repository": "contracts",
+      "path": "ethereum/contracts/AgentCardRegistry.sol",
+      "line": 307,
+      "end_line": 329,
+      "sha256": "d7d782859317eeb92fd8859763fa99c73c8abf47e5ef8bb197b2e2e083c24a78"
+    },
+    {
+      "id": "metadata-version-counter",
+      "repository": "contracts",
+      "path": "ethereum/contracts/AgentCardRegistry.sol",
+      "line": 338,
+      "end_line": 354,
+      "sha256": "250e0ad54dfec1751e4023c1b3e22abe54c86d19f60082814922216551db19db"
+    },
+    {
+      "id": "kem-version-counter",
+      "repository": "contracts",
+      "path": "ethereum/contracts/AgentCardRegistry.sol",
+      "line": 557,
+      "end_line": 578,
+      "sha256": "009b462853c33653789ff803d18285b0e1857b1711963c7ca5fc3f7b880e1dde"
+    },
+    {
+      "id": "endpoint-version-counter",
+      "repository": "contracts",
+      "path": "ethereum/contracts/AgentCardRegistry.sol",
+      "line": 714,
+      "end_line": 739,
+      "sha256": "5c23b08b64fe2b4ca18d7bf27fca55bd7a3023f78b0448f89c921d95f72072fb"
+    },
+    {
+      "id": "key-storage",
+      "repository": "contracts",
+      "path": "ethereum/contracts/AgentCardStorage.sol",
+      "line": 84,
+      "end_line": 91,
+      "sha256": "cd702e820178c4303896de388ee696be4d484ae05e0c1e2b67a1e9a37cac1fef"
+    },
+    {
+      "id": "registry-did-hook",
+      "repository": "contracts",
+      "path": "ethereum/contracts/AgentCardVerifyHook.sol",
+      "line": 148,
+      "end_line": 177,
+      "sha256": "ae24cf8f68c45eb1850367d08c47286c6e6636fddf8b265e2b63f8546a5a731f"
+    }
+  ],
+  "abi_projections": {
+    "AgentCardRegistry": {
+      "getAgent": {
+        "type": "function",
+        "name": "getAgent",
+        "stateMutability": "view",
+        "inputs": [
+          {
+            "name": "agentId",
+            "type": "bytes32"
+          }
+        ],
+        "outputs": [
+          {
+            "name": "",
+            "type": "tuple",
+            "components": [
+              {
+                "name": "did",
+                "type": "string"
+              },
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "description",
+                "type": "string"
+              },
+              {
+                "name": "endpoint",
+                "type": "string"
+              },
+              {
+                "name": "keyHashes",
+                "type": "bytes32[]"
+              },
+              {
+                "name": "capabilities",
+                "type": "string"
+              },
+              {
+                "name": "owner",
+                "type": "address"
+              },
+              {
+                "name": "registeredAt",
+                "type": "uint256"
+              },
+              {
+                "name": "updatedAt",
+                "type": "uint256"
+              },
+              {
+                "name": "active",
+                "type": "bool"
+              },
+              {
+                "name": "chainId",
+                "type": "uint256"
+              },
+              {
+                "name": "kemPublicKey",
+                "type": "bytes"
+              }
+            ]
+          }
+        ]
+      },
+      "getAgentByDID": {
+        "type": "function",
+        "name": "getAgentByDID",
+        "stateMutability": "view",
+        "inputs": [
+          {
+            "name": "did",
+            "type": "string"
+          }
+        ],
+        "outputs": [
+          {
+            "name": "",
+            "type": "tuple",
+            "components": [
+              {
+                "name": "did",
+                "type": "string"
+              },
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "description",
+                "type": "string"
+              },
+              {
+                "name": "endpoint",
+                "type": "string"
+              },
+              {
+                "name": "keyHashes",
+                "type": "bytes32[]"
+              },
+              {
+                "name": "capabilities",
+                "type": "string"
+              },
+              {
+                "name": "owner",
+                "type": "address"
+              },
+              {
+                "name": "registeredAt",
+                "type": "uint256"
+              },
+              {
+                "name": "updatedAt",
+                "type": "uint256"
+              },
+              {
+                "name": "active",
+                "type": "bool"
+              },
+              {
+                "name": "chainId",
+                "type": "uint256"
+              },
+              {
+                "name": "kemPublicKey",
+                "type": "bytes"
+              }
+            ]
+          }
+        ]
+      },
+      "getKey": {
+        "type": "function",
+        "name": "getKey",
+        "stateMutability": "view",
+        "inputs": [
+          {
+            "name": "keyHash",
+            "type": "bytes32"
+          }
+        ],
+        "outputs": [
+          {
+            "name": "",
+            "type": "tuple",
+            "components": [
+              {
+                "name": "keyType",
+                "type": "uint8"
+              },
+              {
+                "name": "keyData",
+                "type": "bytes"
+              },
+              {
+                "name": "signature",
+                "type": "bytes"
+              },
+              {
+                "name": "verified",
+                "type": "bool"
+              },
+              {
+                "name": "registeredAt",
+                "type": "uint256"
+              }
+            ]
+          }
+        ]
+      },
+      "agentNonce": {
+        "type": "function",
+        "name": "agentNonce",
+        "stateMutability": "view",
+        "inputs": [
+          {
+            "name": "",
+            "type": "bytes32"
+          }
+        ],
+        "outputs": [
+          {
+            "name": "",
+            "type": "uint256"
+          }
+        ]
+      },
+      "registerAgentWithParams": {
+        "type": "function",
+        "name": "registerAgentWithParams",
+        "stateMutability": "nonpayable",
+        "inputs": [
+          {
+            "name": "params",
+            "type": "tuple",
+            "components": [
+              {
+                "name": "did",
+                "type": "string"
+              },
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "description",
+                "type": "string"
+              },
+              {
+                "name": "endpoint",
+                "type": "string"
+              },
+              {
+                "name": "capabilities",
+                "type": "string"
+              },
+              {
+                "name": "keys",
+                "type": "bytes[]"
+              },
+              {
+                "name": "keyTypes",
+                "type": "uint8[]"
+              },
+              {
+                "name": "signatures",
+                "type": "bytes[]"
+              },
+              {
+                "name": "salt",
+                "type": "bytes32"
+              }
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "name": "agentId",
+            "type": "bytes32"
+          }
+        ]
+      }
+    },
+    "ISageRegistry": {
+      "getAgent": {
+        "type": "function",
+        "name": "getAgent",
+        "stateMutability": "view",
+        "inputs": [
+          {
+            "name": "agentId",
+            "type": "bytes32"
+          }
+        ],
+        "outputs": [
+          {
+            "name": "",
+            "type": "tuple",
+            "components": [
+              {
+                "name": "did",
+                "type": "string"
+              },
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "description",
+                "type": "string"
+              },
+              {
+                "name": "endpoint",
+                "type": "string"
+              },
+              {
+                "name": "publicKey",
+                "type": "bytes"
+              },
+              {
+                "name": "capabilities",
+                "type": "string"
+              },
+              {
+                "name": "owner",
+                "type": "address"
+              },
+              {
+                "name": "registeredAt",
+                "type": "uint256"
+              },
+              {
+                "name": "updatedAt",
+                "type": "uint256"
+              },
+              {
+                "name": "active",
+                "type": "bool"
+              }
+            ]
+          }
+        ]
+      },
+      "getAgentByDID": {
+        "type": "function",
+        "name": "getAgentByDID",
+        "stateMutability": "view",
+        "inputs": [
+          {
+            "name": "did",
+            "type": "string"
+          }
+        ],
+        "outputs": [
+          {
+            "name": "",
+            "type": "tuple",
+            "components": [
+              {
+                "name": "did",
+                "type": "string"
+              },
+              {
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "name": "description",
+                "type": "string"
+              },
+              {
+                "name": "endpoint",
+                "type": "string"
+              },
+              {
+                "name": "publicKey",
+                "type": "bytes"
+              },
+              {
+                "name": "capabilities",
+                "type": "string"
+              },
+              {
+                "name": "owner",
+                "type": "address"
+              },
+              {
+                "name": "registeredAt",
+                "type": "uint256"
+              },
+              {
+                "name": "updatedAt",
+                "type": "uint256"
+              },
+              {
+                "name": "active",
+                "type": "bool"
+              }
+            ]
+          }
+        ]
+      },
+      "registerAgent": {
+        "type": "function",
+        "name": "registerAgent",
+        "stateMutability": "nonpayable",
+        "inputs": [
+          {
+            "name": "did",
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "type": "string"
+          },
+          {
+            "name": "endpoint",
+            "type": "string"
+          },
+          {
+            "name": "publicKey",
+            "type": "bytes"
+          },
+          {
+            "name": "capabilities",
+            "type": "string"
+          },
+          {
+            "name": "signature",
+            "type": "bytes"
+          }
+        ],
+        "outputs": [
+          {
+            "name": "",
+            "type": "bytes32"
+          }
+        ]
+      }
+    }
+  },
+  "findings": [
+    {
+      "id": "record-and-abi",
+      "normative_rules": [
+        "REG-01",
+        "REG-06"
+      ],
+      "source_spans": [],
+      "status": "MAPPING_REVIEW_REQUIRED",
+      "review": "AgentCardRegistry and ISageRegistry getAgent inputs share names/types but output tuples differ. Neither exported tuple is the closed normative record; a reviewed exact ABI/record mapping is required."
+    },
+    {
+      "id": "named-key-lifecycle",
+      "normative_rules": [
+        "REG-01",
+        "REG-02",
+        "REG-03"
+      ],
+      "source_spans": [
+        "key-storage",
+        "key-revocation"
+      ],
+      "status": "MAPPING_REVIEW_REQUIRED",
+      "review": "Stored keys have numeric keyType, bytes, signature, verified and registeredAt. A hash-indexed verified flag cannot supply named immutable entries, retained tombstones, proof signer identity or approved role mapping on its own. Optional expiry absence is not itself a violation."
+    },
+    {
+      "id": "record-version",
+      "normative_rules": [
+        "REG-03",
+        "REG-05"
+      ],
+      "source_spans": [
+        "key-addition",
+        "key-revocation",
+        "metadata-version-counter",
+        "kem-version-counter",
+        "endpoint-version-counter"
+      ],
+      "status": "MAPPING_REVIEW_REQUIRED",
+      "review": "agentNonce increments on metadata/KEM/endpoint updates but not all lifecycle/key mutations; mutation APIs do not take the normative expected previous record version. It cannot be assumed to be the whole-record version."
+    },
+    {
+      "id": "terminal-state",
+      "normative_rules": [
+        "REG-03"
+      ],
+      "source_spans": [
+        "activation-state",
+        "deactivation-state"
+      ],
+      "status": "MAPPING_REVIEW_REQUIRED",
+      "review": "A single active boolean is used for initial inactivity and deactivation; a reviewed mapping must establish created/active/terminal deactivated state and authenticated transitions, not infer them from the boolean alone."
+    },
+    {
+      "id": "proof-validation",
+      "normative_rules": [
+        "REG-04",
+        "REG-06"
+      ],
+      "source_spans": [
+        "ed25519-validation",
+        "kem-legacy-endorsement"
+      ],
+      "status": "MAPPING_REVIEW_REQUIRED",
+      "review": "The reviewed Ed25519 branch checks signature length only. X25519 uses a separate wallet-domain endorsement. Neither verified=true nor these legacy domains establish the normative named-key challenge/proof; complete independent proof validation is required."
+    },
+    {
+      "id": "claim-and-identity",
+      "normative_rules": [
+        "REG-06"
+      ],
+      "source_spans": [
+        "legacy-claim",
+        "registry-did-hook"
+      ],
+      "status": "MAPPING_REVIEW_REQUIRED",
+      "review": "The candidate uses a keccak/ABI commitment with timestamp windows and a legacy DID hook. The normative profile specifies SHA-256/domain/JCS claim bytes, block windows and canonical locator/agent identity. A reader alone cannot establish write-side compliance."
+    },
+    {
+      "id": "actual-provider-ownership",
+      "normative_rules": [
+        "EXEC-02",
+        "EXEC-06",
+        "REG-05",
+        "REG-06"
+      ],
+      "source_spans": [],
+      "status": "MAPPING_REVIEW_REQUIRED",
+      "review": "The ADK factory/instance ports and core Source contract require protected actual loaded-code/record/proof/finality validation. Source hashes, ABI exports and fixture assertions do not supply a selected loader, custody boundary, validating RPC observer or deployed code identity."
+    }
+  ],
+  "binding_readiness": "REVIEW_REQUIRED",
+  "selected_deployment": null,
+  "selected_host": null,
+  "live_chain_verification": "NOT_RUN",
+  "contract_compilation": "NOT_RUN",
+  "contract_execution": "NOT_RUN",
+  "loaded_instance_attestation": "NOT_RUN",
+  "effect_observations": null,
+  "deployed_host_controls": {
+    "count": 13,
+    "status": "NOT_RUN"
+  },
+  "independent_hop_execution": "NOT_RUN",
+  "full_conformance": "NOT_ESTABLISHED",
+  "limitations": [
+    "Manual bounded source/ABI review, not a complete Solidity semantic or vulnerability audit.",
+    "Committed blobs are read at exact revisions; dirty worktree contents are never inspected or overwritten.",
+    "Exported ABI provenance is pinned; compiler-to-source or deployed-bytecode equivalence is not established.",
+    "Different ABI field names do not require identical wire field names; reviewed semantic mapping remains possible.",
+    "No contract, deployment, inspected loader/tool, RPC or attack-capable bypass program is executed.",
+    "Query success is not connection authorization, implementation conformance or a deployed-host PASS.",
+    "Preserve approved program order: record gaps now; do not silently upgrade contracts, change normative rules or substitute Web authority."
+  ]
+}

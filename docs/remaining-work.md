@@ -230,3 +230,14 @@ is now available; protected actual loaded-code attestation, authoritative
 blockchain Source details, selected host/effects and independent observation
 remain outstanding. All deployed-host controls and independent hop execution
 remain `NOT_RUN`; full conformance remains `NOT_ESTABLISHED`.
+
+The [blockchain connection preflight](registry-contract-preflight.md) records
+seven read/write/provider mapping obligations against the existing
+`sage-contracts` revision `d9f313b1057d299423d800c846751ed40282a116` and the
+same current core/ADK/normative pins. Exact exported ABI tuples, named keys,
+whole-record versions, terminal state, proof/claim domains and actual provider
+ownership require review before a blockchain Source can be connected. Its
+query reads sixteen committed files without executing inspected code and does
+not select a deployment or advance any conformance gate. Preserve the approved
+later contract upgrade stage; do not change it or substitute Web authority to
+make a missing binding appear complete.

@@ -190,6 +190,115 @@ class InventoryTests(unittest.TestCase):
             with self.subTest(snapshot=name), self.assertRaises(ValueError):
                 audit.report(inventory, audit.catalog(snapshot=name))
 
+    def test_sealed_image_snapshot_preserves_history_and_distinguishes_fixture(self):
+        prior = audit.catalog(snapshot='compiled-calculator')
+        suite = audit.catalog(snapshot='sealed-image')
+        self.assertEqual(suite['adk_revision'], '1e70c58305edefdd302dea9b35c4a232f4c3e592')
+        self.assertEqual(len(suite['sources']), 175)
+        self.assertEqual(len(suite['routes']), 74)
+        self.assertEqual(suite['routes'][:59], prior['routes'])
+        self.assertEqual({p: suite['sources'][p] for p in prior['sources']}, prior['sources'])
+        self.assertEqual(set(suite['sources']) - set(prior['sources']), {
+            'core/guardimage/image.go', 'core/guardimage/image_linux.go',
+            'core/guardimage/image_unsupported.go', 'core/guardimage/maps.go',
+            'core/guardimage/testdata/host/main.go'})
+        self.assertEqual(suite['module_files'], prior['module_files'])
+        self.assertEqual(suite['host_port_catalog_sha256'], prior['host_port_catalog_sha256'])
+        self.assertEqual(suite['normative_source_revision'], audit.NORMATIVE_REVISION)
+        historical_hashes = {
+            'adk-source-inventory': 'ebeb724f05757eb4f132b29e8c2931efa2f62078a9a54d3ac2b6819593e6c4ad',
+            'adk-approved-operation': 'b9a2d129cc96ad2be68556e21295629dedc1ebc9d0558c2767f37a247bcad773',
+            'adk-compiled-calculator': '4c26599efb3835a5a883cec93144e4da0ea9089bdf61a42797818e18fdcad784',
+        }
+        for name, digest in historical_hashes.items():
+            self.assertEqual(audit.sha((audit.ROOT / ('docs/evidence/' + name + '.json')).read_bytes()), digest)
+        saved = json.loads((audit.ROOT / 'docs/evidence/adk-sealed-image.json').read_text())
+        self.assertEqual(saved['routes'], [dict(r, anchor_status='MATCHED') for r in suite['routes']])
+        self.assertEqual(saved['catalog_sha256'], audit.SNAPSHOTS['sealed-image']['sha256'])
+        self.assertEqual(saved['source_file_count'], 175)
+        self.assertEqual(saved['route_classification_counts']['SEALED_IMAGE_OPT_IN'], 14)
+        self.assertEqual(saved['route_classification_counts']['RUNTIME_TEST_FIXTURE'], 1)
+        fixture = next(r for r in suite['routes'] if r['id'] == 'image-runtime-fixture')
+        self.assertEqual(fixture['path'], 'core/guardimage/testdata/host/main.go')
+        self.assertEqual(fixture['classification'], 'RUNTIME_TEST_FIXTURE')
+        self.assertIn('no native Guard/admission', fixture['review'])
+        for field, expected in dict(selected_host=None, effect_observations=None,
+                                    host_selection='SELECTION_PENDING', adk_runtime='NOT_RUN',
+                                    independent_hop_execution='NOT_RUN',
+                                    full_conformance='NOT_ESTABLISHED',
+                                    deployed_host_controls={'count': 13, 'status': 'NOT_RUN'}).items():
+            self.assertEqual(saved[field], expected)
+        for boundary in ('private instruction-page', 'worker/exec generation',
+                         'child-to-supervisor', 'guardcalculator.Measurement',
+                         'testdata host main', 'not a sandbox'):
+            self.assertTrue(any(boundary in text for text in saved['limitations']), boundary)
+        for name in ('routes', 'approved-operation', 'compiled-calculator'):
+            with self.subTest(snapshot=name), self.assertRaises(ValueError):
+                audit.catalog(audit.SNAPSHOTS[name]['path'], snapshot='sealed-image')
+            with self.subTest(snapshot=name), self.assertRaises(ValueError):
+                audit.catalog(audit.SNAPSHOTS['sealed-image']['path'], snapshot=name)
+
+    def test_sealed_boundaries_refuse_missing_duplicate_and_forged_evidence(self):
+        suite = audit.catalog(snapshot='sealed-image')
+        # Synthetic anchors exercise report refusals, not execution semantics.
+        inventory = dict(schema_version=1, kind='GO_SYNTAX_INVENTORY', files=[
+            dict(path=path, sha256=digest, package='fixture', initializer_calls=[], declarations=[
+                dict(name=r['declaration'], exported=True, line=r['line'],
+                     end_line=max([r['line']] + [c['line'] for c in r['calls']]),
+                     calls=copy.deepcopy(r['calls']))
+                for r in suite['routes'] if r['path'] == path])
+            for path, digest in sorted(suite['sources'].items())])
+        result = audit.report(inventory, suite)
+        self.assertEqual(result['adk_runtime'], 'NOT_RUN')
+        self.assertEqual(result['full_conformance'], 'NOT_ESTABLISHED')
+        # Every selected new call, including sealed-object rehash before exec,
+        # live pidfd/object/maps appraisal and cleanup, must occur exactly once.
+        for row in suite['routes'][59:]:
+            for mutation in ('missing-declaration', 'duplicate-declaration'):
+                bad = copy.deepcopy(inventory)
+                ds = next(f['declarations'] for f in bad['files'] if f['path'] == row['path'])
+                d = next(d for d in ds if d['name'] == row['declaration'])
+                if mutation == 'missing-declaration':
+                    ds.remove(d)
+                else:
+                    ds.append(copy.deepcopy(d))
+                with self.subTest(row=row['id'], mutation=mutation), self.assertRaises(ValueError):
+                    audit.report(bad, suite)
+            for anchor in row['calls']:
+                for mutation in ('missing-call', 'duplicate-call'):
+                    bad = copy.deepcopy(inventory)
+                    d = next(d for f in bad['files'] if f['path'] == row['path']
+                             for d in f['declarations'] if d['name'] == row['declaration'])
+                    if mutation == 'missing-call':
+                        d['calls'].remove(anchor)
+                    else:
+                        d['calls'].append(copy.deepcopy(anchor))
+                    with self.subTest(row=row['id'], anchor=anchor, mutation=mutation), self.assertRaises(ValueError):
+                        audit.report(bad, suite)
+        for mutation in ('revision', 'normative', 'source', 'module', 'classification', 'review', 'fixture'):
+            bad = copy.deepcopy(suite)
+            if mutation == 'revision':
+                bad['adk_revision'] = audit.SNAPSHOTS['compiled-calculator']['revision']
+            elif mutation == 'normative':
+                bad['normative_source_revision'] = '0' * 40
+            elif mutation == 'source':
+                bad['sources']['core/guardimage/image_linux.go'] = '0' * 64
+            elif mutation == 'module':
+                bad['module_files']['go.mod'] = '0' * 64
+            elif mutation == 'fixture':
+                bad['routes'][-1]['classification'] = 'SEALED_IMAGE_OPT_IN'
+            else:
+                bad['routes'][-2][mutation] = 'PASS'
+            with self.subTest(mutation=mutation), self.assertRaises(ValueError):
+                audit.report(inventory, bad)
+        promoted = copy.deepcopy(inventory)
+        promoted['full_conformance'] = 'PASS'
+        with self.assertRaises(ValueError):
+            audit.report(promoted, suite)
+        for name in ('routes', 'approved-operation', 'compiled-calculator'):
+            with self.subTest(snapshot=name), self.assertRaises(ValueError):
+                audit.report(inventory, audit.catalog(snapshot=name))
+
     def test_runtime_query_refuses_unreviewed_revision_without_report(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp) / 'source'

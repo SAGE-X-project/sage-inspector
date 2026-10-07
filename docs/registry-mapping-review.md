@@ -118,3 +118,10 @@ later stage; the current review preserves those requirements for that work.
 The excluded compromised initial creation/registration remains a later 1.1
 design question, without excusing required later key/message/write checks.
 Historical preflight, source inventory and runtime verdicts are preserved.
+
+The subsequent [candidate provenance observation](registry-candidate-provenance.md)
+identifies the published ABI and source of the unselected Sepolia candidate.
+Its retrieved runtime bytes and current exported ABI agree, but the published
+Registry source differs from the current contract pin. This dated evidence
+narrows the deployment identity question without closing any of the 21 mapping
+requirements, authorizing a connection or promoting historical verdicts.

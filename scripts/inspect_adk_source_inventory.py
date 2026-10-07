@@ -28,11 +28,17 @@ SNAPSHOTS = {
         'sha256': 'c6a1661827803c1160c4cafda92d16434eb30de724e06f791c3957f0fa968098',
         'revision': '1da9d02226bd690f92ccc4198638afc84579a9e8',
     },
+    'sealed-image': {
+        'path': ROOT / 'verification/0.10.0/adk-sealed-image/catalog.json',
+        'sha256': 'aff773749f613ca7202489d623b31317144b90db7abc29eac005395c6e940be9',
+        'revision': '1e70c58305edefdd302dea9b35c4a232f4c3e592',
+    },
 }
 KINDS = {'GUARD_NATIVE_OPT_IN', 'CAPTURE_ONLY', 'PROTECTED_PROVIDER',
          'LEGACY_UNMEDIATED', 'CONFIGURATION_ONLY', 'PROPOSAL_ONLY',
          'OUTBOUND_LLM_PROPOSAL', 'APPROVED_OPERATION_OPT_IN',
-         'COMPILED_CALCULATOR_OPT_IN'}
+         'COMPILED_CALCULATOR_OPT_IN', 'SEALED_IMAGE_OPT_IN',
+         'RUNTIME_TEST_FIXTURE'}
 
 
 def require(condition, message):
@@ -85,7 +91,7 @@ def check_source(root, suite):
                     '-z', '*.go').strip(b'\0'), 'ignored untracked Go source')
     tracked = git(root, 'ls-files', '-z').decode().split('\0')
     paths = sorted(p for p in tracked if p.endswith('.go') and not p.endswith('_test.go'))
-    require(paths == sorted(suite['sources']), 'production source set drift')
+    require(paths == sorted(suite['sources']), 'non-test Go source set drift')
     for name, digest in (suite['sources'] | suite['module_files']).items():
         require(sha(bounded_source(root, name)) == digest, 'source hash drift: ' + name)
     return root, paths
@@ -167,7 +173,7 @@ def report(inventory, suite):
             'Native protection is opt-in and depends on isolated authoritative policy, registry, custody and loader bindings.',
         ],
     }
-    if snapshot in ('approved-operation', 'compiled-calculator'):
+    if snapshot in ('approved-operation', 'compiled-calculator', 'sealed-image'):
         result['limitations'] += [
             'Exact-operation rules are trusted local root configuration; parent-hop policy is separate.',
             'Factory.Load and Instance.Check remain trusted providers; snapshots and source queries do not attest actual loaded code.',
@@ -175,12 +181,22 @@ def report(inventory, suite):
             'Artifact reading requires protected serialized administration; local gating does not establish OS isolation or durable distributed epochs.',
             'Linux/macOS and unsupported-platform sources are both parsed; build-tag selection and execution are not observed.',
         ]
-    if snapshot == 'compiled-calculator':
+    if snapshot in ('compiled-calculator', 'sealed-image'):
         result['limitations'] += [
             'The calculator adapter constructs a fixed statically compiled tool; it does not load code from snapshot artifacts.',
             'Measurement.Check must establish protected verification before host image/dependency loading and retained immutable runtime identity; this query supplies no provider or deployment attestation.',
             'The same private calculator callback is an opt-in trusted capability behind native admission; direct builtin and ordinary dispatch remain unmediated.',
             'ADK unit and local runtime results with fixture Registry/measurement providers remain separate evidence; completed arithmetic can return a domain-error result.',
+        ]
+    if snapshot == 'sealed-image':
+        result['limitations'] += [
+            'The source set includes a harmless testdata host main; its RUNTIME_TEST_FIXTURE route has no native admission and is not a protected production route.',
+            'Sealed-image startup supports native Linux amd64/arm64 static Go executables only; all platform variants are parsed without executing them.',
+            'The caller must independently approve image bytes/digest and isolate administration, kernel/procfs, supervisor and host from untrusted writers; file seals are not a sandbox or isolation proof.',
+            'Executable backing-object identity and proc maps metadata are not live private instruction-page attestation, remote attestation or complete effect mediation.',
+            'Pidfd identifies process lifetime, not logical worker/exec generation; observations are not atomic with child admission and do not exclude transient changes.',
+            'Process.CheckSnapshot appraises the child executable and is not guardcalculator.Measurement for a parent calculator; protected child-to-supervisor binding and final native admission remain outstanding.',
+            'Sealed-image ADK unit and local/CI Linux runtime evidence is separate; this source query runs no ADK host and closes no deployed control or independent-hop gate.',
         ]
     return result
 

@@ -276,3 +276,19 @@ or deployed host/effect evidence. All thirteen deployed controls and independent
 hop execution remain `NOT_RUN`; full conformance remains `NOT_ESTABLISHED`.
 Continue the approved assembly and deployment gates in order, retaining the
 separate later contract upgrade and demo stages.
+
+The [sealed executable source inspection](adk-sealed-image-inspection.md) adds
+an explicit fourth snapshot at `1e70c58305edefdd302dea9b35c4a232f4c3e592`.
+It parses 175 tracked non-test Go files, including one harmless testdata host,
+and matches 74 reviewed boundaries. Fourteen new boundaries cover the bounded
+Linux child supervisor; the test host is separately classified as an unmediated
+runtime fixture. The three preceding catalogs/reports and all Registry review
+pins remain intact. Sealed executable backing-object/proc metadata appraisal
+is available, but it is not instruction-page attestation, a sandbox or a
+measurement provider for a parent calculator. Protected child-to-supervisor
+binding into the same child native gate, worker generation/final admission,
+parent-hop binding, authoritative Source and isolated host/effect observation
+remain outstanding in the existing order. All thirteen deployed controls and
+independent hop execution remain `NOT_RUN`; full conformance remains
+`NOT_ESTABLISHED`. This snapshot selects no production host and does not begin
+the later contract upgrade, demo or normative A2A/DID stages.

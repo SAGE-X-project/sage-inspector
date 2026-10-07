@@ -113,6 +113,83 @@ class InventoryTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             audit.report(inventory, audit.catalog())
 
+    def test_calculator_snapshot_preserves_history_and_scope(self):
+        approved = audit.catalog(snapshot='approved-operation')
+        suite = audit.catalog(snapshot='compiled-calculator')
+        self.assertEqual(suite['adk_revision'], '1da9d02226bd690f92ccc4198638afc84579a9e8')
+        self.assertEqual(suite['routes'][:49], approved['routes'])
+        self.assertEqual(len(suite['routes']), 59)
+        self.assertEqual(len(suite['sources']), 170)
+        self.assertEqual(set(suite['sources']) - set(approved['sources']),
+                         {'core/guardcalculator/calculator.go'})
+        self.assertEqual({p: suite['sources'][p] for p in approved['sources']}, approved['sources'])
+        self.assertEqual(suite['module_files'], approved['module_files'])
+        self.assertEqual(suite['host_port_catalog_sha256'], approved['host_port_catalog_sha256'])
+        self.assertEqual(suite['normative_source_revision'], audit.NORMATIVE_REVISION)
+        self.assertEqual(audit.sha((audit.ROOT / 'docs/evidence/adk-approved-operation.json').read_bytes()),
+                         'b9a2d129cc96ad2be68556e21295629dedc1ebc9d0558c2767f37a247bcad773')
+        saved = json.loads((audit.ROOT / 'docs/evidence/adk-compiled-calculator.json').read_text())
+        self.assertEqual(saved['routes'], [dict(r, anchor_status='MATCHED') for r in suite['routes']])
+        self.assertEqual(saved['catalog_sha256'], audit.SNAPSHOTS['compiled-calculator']['sha256'])
+        self.assertEqual(saved['source_file_count'], 170)
+        self.assertEqual(saved['route_classification_counts']['COMPILED_CALCULATOR_OPT_IN'], 9)
+        self.assertEqual(saved['route_classification_counts']['LEGACY_UNMEDIATED'],
+                         json.loads((audit.ROOT / 'docs/evidence/adk-approved-operation.json').read_text())
+                         ['route_classification_counts']['LEGACY_UNMEDIATED'] + 1)
+        for field, expected in dict(selected_host=None, effect_observations=None,
+                                    host_selection='SELECTION_PENDING', adk_runtime='NOT_RUN',
+                                    independent_hop_execution='NOT_RUN',
+                                    full_conformance='NOT_ESTABLISHED',
+                                    deployed_host_controls={'count': 13, 'status': 'NOT_RUN'}).items():
+            self.assertEqual(saved[field], expected)
+        for name in ('routes', 'approved-operation'):
+            with self.subTest(snapshot=name), self.assertRaisesRegex(ValueError, 'catalog changed'):
+                audit.catalog(audit.SNAPSHOTS[name]['path'], snapshot='compiled-calculator')
+
+    def test_calculator_boundaries_refuse_missing_duplicate_and_forged_evidence(self):
+        suite = audit.catalog(snapshot='compiled-calculator')
+        inventory = dict(schema_version=1, kind='GO_SYNTAX_INVENTORY', files=[
+            dict(path=path, sha256=digest, package='fixture', initializer_calls=[], declarations=[
+                dict(name=r['declaration'], exported=True, line=r['line'],
+                     end_line=max([r['line']] + [c['line'] for c in r['calls']]),
+                     calls=copy.deepcopy(r['calls']))
+                for r in suite['routes'] if r['path'] == path])
+            for path, digest in sorted(suite['sources'].items())])
+        result = audit.report(inventory, suite)
+        self.assertEqual(result['full_conformance'], 'NOT_ESTABLISHED')
+        for ident in ('calculator-load', 'calculator-measurement', 'calculator-instance-check',
+                      'calculator-final-effect', 'calculator-retirement', 'calculator-builtin'):
+            r = next(r for r in suite['routes'] if r['id'] == ident)
+            for mutation in ('missing-call', 'duplicate-call', 'missing-declaration', 'duplicate-declaration'):
+                bad = copy.deepcopy(inventory)
+                declarations = next(f['declarations'] for f in bad['files'] if f['path'] == r['path'])
+                d = next(d for d in declarations if d['name'] == r['declaration'])
+                if mutation == 'missing-call':
+                    d['calls'].pop()
+                elif mutation == 'duplicate-call':
+                    d['calls'].append(copy.deepcopy(d['calls'][-1]))
+                elif mutation == 'missing-declaration':
+                    declarations.remove(d)
+                else:
+                    declarations.append(copy.deepcopy(d))
+                with self.subTest(anchor=ident, mutation=mutation), self.assertRaises(ValueError):
+                    audit.report(bad, suite)
+        for mutation in ('revision', 'normative', 'source', 'classification', 'review'):
+            bad = copy.deepcopy(suite)
+            if mutation == 'revision':
+                bad['adk_revision'] = audit.SNAPSHOTS['approved-operation']['revision']
+            elif mutation == 'normative':
+                bad['normative_source_revision'] = '0' * 40
+            elif mutation == 'source':
+                bad['sources']['core/guardcalculator/calculator.go'] = '0' * 64
+            else:
+                bad['routes'][-1][mutation] = 'PASS'
+            with self.subTest(mutation=mutation), self.assertRaises(ValueError):
+                audit.report(inventory, bad)
+        for name in ('routes', 'approved-operation'):
+            with self.subTest(snapshot=name), self.assertRaises(ValueError):
+                audit.report(inventory, audit.catalog(snapshot=name))
+
     def test_runtime_query_refuses_unreviewed_revision_without_report(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp) / 'source'
@@ -123,7 +200,7 @@ class InventoryTests(unittest.TestCase):
             subprocess.run(['git', '-c', 'user.name=Inspector fixture', '-c', 'user.email=fixture@invalid.local',
                             '-c', 'commit.gpgsign=false', 'commit', '-qm', 'test: retain inert source'],
                            cwd=root, check=True)
-            for snapshot in ('routes', 'approved-operation'):
+            for snapshot in audit.SNAPSHOTS:
                 output = Path(tmp) / (snapshot + '.json')
                 result = subprocess.run(['python3', '-B', str(audit.ROOT / 'scripts/inspect_adk_source_inventory.py'),
                                          '--snapshot', snapshot, '--adk-root', str(root),

@@ -1,0 +1,567 @@
+{
+  "schema_version": 1,
+  "protocol_version": "0.10.0",
+  "preflight_catalog_sha256": "a374dc60122b7cce4eeadefcd77e0f826bdefab4ad3ae4286806e3384761a322",
+  "review_scope": "MANUAL_PINNED_SOURCE_MAPPING_REVIEW",
+  "reviewed_spans": [
+    {
+      "id": "ed25519-validation",
+      "repository": "contracts",
+      "path": "ethereum/contracts/AgentCardRegistry.sol",
+      "line": 439,
+      "end_line": 442,
+      "sha256": "3b4dee8b0f0b03a268a32f2153c604a6a4192f45bb11e4f30672a92704f8ab80"
+    },
+    {
+      "id": "kem-legacy-endorsement",
+      "repository": "contracts",
+      "path": "ethereum/contracts/AgentCardRegistry.sol",
+      "line": 443,
+      "end_line": 464,
+      "sha256": "ea9fff2172f394b78e54d842208cd812e2149579638a973a1b42d830883263ce"
+    },
+    {
+      "id": "legacy-claim",
+      "repository": "contracts",
+      "path": "ethereum/contracts/AgentCardRegistry.sol",
+      "line": 130,
+      "end_line": 151,
+      "sha256": "79772f8b928632e7758e73bf217ea7fe9c330b6489fe2a95ab1fddd97e525048"
+    },
+    {
+      "id": "activation-state",
+      "repository": "contracts",
+      "path": "ethereum/contracts/AgentCardRegistry.sol",
+      "line": 245,
+      "end_line": 255,
+      "sha256": "a8e8e0b38443738ef75e5d8dc5c822f156a9e9031d353c3a156d291d2aaf9c01"
+    },
+    {
+      "id": "deactivation-state",
+      "repository": "contracts",
+      "path": "ethereum/contracts/AgentCardRegistry.sol",
+      "line": 361,
+      "end_line": 366,
+      "sha256": "70537ba65170ec02d3fae011bc083417c180fd0682d87b8ba309382dbcc6a174"
+    },
+    {
+      "id": "key-addition",
+      "repository": "contracts",
+      "path": "ethereum/contracts/AgentCardRegistry.sol",
+      "line": 265,
+      "end_line": 299,
+      "sha256": "36ff49a655bf2c0e99a0da33622448340cd625e29dd5e266984b9f62cd97ecb6"
+    },
+    {
+      "id": "key-revocation",
+      "repository": "contracts",
+      "path": "ethereum/contracts/AgentCardRegistry.sol",
+      "line": 307,
+      "end_line": 329,
+      "sha256": "d7d782859317eeb92fd8859763fa99c73c8abf47e5ef8bb197b2e2e083c24a78"
+    },
+    {
+      "id": "metadata-version-counter",
+      "repository": "contracts",
+      "path": "ethereum/contracts/AgentCardRegistry.sol",
+      "line": 338,
+      "end_line": 354,
+      "sha256": "250e0ad54dfec1751e4023c1b3e22abe54c86d19f60082814922216551db19db"
+    },
+    {
+      "id": "kem-version-counter",
+      "repository": "contracts",
+      "path": "ethereum/contracts/AgentCardRegistry.sol",
+      "line": 557,
+      "end_line": 578,
+      "sha256": "009b462853c33653789ff803d18285b0e1857b1711963c7ca5fc3f7b880e1dde"
+    },
+    {
+      "id": "endpoint-version-counter",
+      "repository": "contracts",
+      "path": "ethereum/contracts/AgentCardRegistry.sol",
+      "line": 714,
+      "end_line": 739,
+      "sha256": "5c23b08b64fe2b4ca18d7bf27fca55bd7a3023f78b0448f89c921d95f72072fb"
+    },
+    {
+      "id": "key-storage",
+      "repository": "contracts",
+      "path": "ethereum/contracts/AgentCardStorage.sol",
+      "line": 84,
+      "end_line": 91,
+      "sha256": "cd702e820178c4303896de388ee696be4d484ae05e0c1e2b67a1e9a37cac1fef"
+    },
+    {
+      "id": "registry-did-hook",
+      "repository": "contracts",
+      "path": "ethereum/contracts/AgentCardVerifyHook.sol",
+      "line": 148,
+      "end_line": 177,
+      "sha256": "ae24cf8f68c45eb1850367d08c47286c6e6636fddf8b265e2b63f8546a5a731f"
+    },
+    {
+      "id": "metadata-layout",
+      "repository": "contracts",
+      "path": "ethereum/contracts/AgentCardStorage.sol",
+      "line": 55,
+      "end_line": 68,
+      "sha256": "8a46bfe53e1e5da762677e5a99ea16d647d16d81ae45c67e9b744364158405ff"
+    },
+    {
+      "id": "key-algorithm-enum",
+      "repository": "contracts",
+      "path": "ethereum/contracts/AgentCardStorage.sol",
+      "line": 25,
+      "end_line": 38,
+      "sha256": "60387eab363bd64e7596c7f3bf6158197224dd4c82db20357ca1dca4ebe9d0d1"
+    },
+    {
+      "id": "controller-or-operator",
+      "repository": "contracts",
+      "path": "ethereum/contracts/AgentCardRegistry.sol",
+      "line": 57,
+      "end_line": 64,
+      "sha256": "86ff1d31f6aefee7a93b5e576e56594230112684c88b14f62a72614e6b3c416c"
+    },
+    {
+      "id": "operator-write",
+      "repository": "contracts",
+      "path": "ethereum/contracts/AgentCardRegistry.sol",
+      "line": 504,
+      "end_line": 530,
+      "sha256": "800e11e07601b01e1c84e51b98cb82248e03b12bb42f718d2e6f1733bdbf0922"
+    },
+    {
+      "id": "registration-create",
+      "repository": "contracts",
+      "path": "ethereum/contracts/AgentCardRegistry.sol",
+      "line": 154,
+      "end_line": 227,
+      "sha256": "f2601edd03b2affe07dc6bbf55aeeeef5a6bfc22347739a5d5394fae4e239c6f"
+    },
+    {
+      "id": "core-source-contract",
+      "repository": "go",
+      "path": "pkg/agent/registry010/gate.go",
+      "line": 33,
+      "end_line": 89,
+      "sha256": "12cbbc1111cd1093bd2658ab1aad90f7a92d59624cbf208b8dc1e1104702c01e"
+    },
+    {
+      "id": "adk-instance-contract",
+      "repository": "adk",
+      "path": "core/guardbinding/types.go",
+      "line": 25,
+      "end_line": 56,
+      "sha256": "8b722883a29ddb5730ac0e2e5a29e7fd4dda1b5788c540074c4982510be6811e"
+    },
+    {
+      "id": "normative-record",
+      "repository": "spec",
+      "path": "spec/09-registry.md",
+      "line": 9,
+      "end_line": 44,
+      "sha256": "a08e9a1a317039051e490913a96bc5255ad8bf0d3f4077f0b4db722fbebb08bf"
+    },
+    {
+      "id": "normative-selection",
+      "repository": "spec",
+      "path": "spec/09-registry.md",
+      "line": 45,
+      "end_line": 54,
+      "sha256": "b66bf0242bc384e539a9e81c72919efec13564c101a93b0d8382c2c043756d60"
+    },
+    {
+      "id": "normative-lifecycle",
+      "repository": "spec",
+      "path": "spec/09-registry.md",
+      "line": 55,
+      "end_line": 85,
+      "sha256": "fc30a9ff1e2b1329aa09e5da02f61f45bb061fa8159403a5889df336c2f0e465"
+    },
+    {
+      "id": "normative-proof",
+      "repository": "spec",
+      "path": "spec/09-registry.md",
+      "line": 86,
+      "end_line": 119,
+      "sha256": "01ea59378b0a90da94d90ffd00e45dca43231d91eda260a44f6a0d2fdc27f190"
+    },
+    {
+      "id": "normative-observation",
+      "repository": "spec",
+      "path": "spec/09-registry.md",
+      "line": 120,
+      "end_line": 148,
+      "sha256": "6737142a975edc808df108a0b75513008ec9621d2c798c26ebaad3f88f40a82d"
+    },
+    {
+      "id": "normative-eip155",
+      "repository": "spec",
+      "path": "spec/09-registry.md",
+      "line": 149,
+      "end_line": 174,
+      "sha256": "ee0642887043ad5e9cf461daa1c87b7b0910e30924d33c803eee5ff2053e29aa"
+    },
+    {
+      "id": "normative-operator",
+      "repository": "spec",
+      "path": "spec/09-registry.md",
+      "line": 235,
+      "end_line": 315,
+      "sha256": "19aa6d773b7ffaf38a511efad46671f298ef64670182fed6536a031dcf4f187a"
+    }
+  ],
+  "record_projection": [
+    {
+      "field": "id",
+      "candidate": "AgentMetadata.did",
+      "status": "NOT_BOUND",
+      "required_mapping": "Canonical DID bound to selected eip155 locator and agent ID; bytes32 storage key is not the DID."
+    },
+    {
+      "field": "controller",
+      "candidate": "AgentMetadata.owner",
+      "status": "NOT_BOUND",
+      "required_mapping": "Lowercase account identifier uniquely bound to authenticated chain principal; not substituted from caller data."
+    },
+    {
+      "field": "keys",
+      "candidate": "keyHashes + getKey",
+      "status": "NOT_BOUND",
+      "required_mapping": "Complete named/proven immutable history, including retained revoked keys; kemPublicKey is not a second authority store."
+    },
+    {
+      "field": "services",
+      "candidate": "endpoint + capabilities",
+      "status": "NOT_BOUND",
+      "required_mapping": "Reviewed bounded named/type/HTTPS array and atomic complete replacement; do not invent names or treat arbitrary capabilities as services."
+    },
+    {
+      "field": "state",
+      "candidate": "active + authoritative lifecycle history",
+      "status": "NOT_BOUND",
+      "required_mapping": "Created and terminal deactivated cannot be inferred from false alone; authenticated write semantics remain required."
+    },
+    {
+      "field": "version",
+      "candidate": "authoritative complete mutation history",
+      "status": "NOT_BOUND",
+      "required_mapping": "agentNonce, registeredAt, updatedAt and block height are not the normative record version."
+    }
+  ],
+  "obligations": [
+    {
+      "id": "record-and-abi",
+      "classification": "READ_MAPPING_REQUIRED",
+      "normative_rules": [
+        "REG-01",
+        "REG-06"
+      ],
+      "source_spans": [
+        "metadata-layout",
+        "normative-record",
+        "normative-eip155"
+      ],
+      "assessment": "Exact ABI decoding and canonical field projection are reader work, but keys, state and version depend on the unresolved write semantics below. Neither exported tuple is a complete normative record.",
+      "required_evidence": [
+        {
+          "id": "deployment-abi",
+          "status": "EVIDENCE_REQUIRED",
+          "requirement": "Bind exact chain/address/code/upgrade identity to ABI tuple order and types; no similarly named interface fallback."
+        },
+        {
+          "id": "complete-record-projection",
+          "status": "EVIDENCE_REQUIRED",
+          "requirement": "Review all six normative fields, canonical identity/controller syntax, key proofs and services; reject missing, extra, aliased or unbounded data."
+        },
+        {
+          "id": "single-state-read",
+          "status": "EVIDENCE_REQUIRED",
+          "requirement": "Read metadata, keys and authoritative historical entries from the same finalized state; do not merge unrelated responses or fetch card endpoints."
+        }
+      ]
+    },
+    {
+      "id": "named-key-lifecycle",
+      "classification": "WRITE_SEMANTICS_REQUIRED",
+      "normative_rules": [
+        "REG-01",
+        "REG-02",
+        "REG-03"
+      ],
+      "source_spans": [
+        "key-storage",
+        "key-algorithm-enum",
+        "key-addition",
+        "key-revocation",
+        "kem-version-counter",
+        "normative-record",
+        "normative-selection",
+        "normative-lifecycle"
+      ],
+      "assessment": "A reviewed numeric-algorithm mapping is possible; immutable canonical names/proof signers and authenticated lifetime history are not supplied by a raw key hash or verified flag. Revocation removes enumeration entries; separate KEM mutation is not the addition of an immutable named entry.",
+      "required_evidence": [
+        {
+          "id": "named-key-history",
+          "status": "EVIDENCE_REQUIRED",
+          "requirement": "Establish immutable names, algorithms, public material/proofs/optional expiry, authoritative retained revoked entries and no name/material reuse."
+        },
+        {
+          "id": "key-write-lifecycle",
+          "status": "EVIDENCE_REQUIRED",
+          "requirement": "Enforce active-only additions, bounded lifetime entries and revocation with atomic deactivation when the last usable signing key is lost, rather than a raw key count."
+        },
+        {
+          "id": "role-and-kem-selection",
+          "status": "EVIDENCE_REQUIRED",
+          "requirement": "Keep message signing and X25519 KEM separate; select the first eligible named KEM entry without mutating or substituting in-flight authority."
+        }
+      ]
+    },
+    {
+      "id": "record-version",
+      "classification": "WRITE_SEMANTICS_REQUIRED",
+      "normative_rules": [
+        "REG-03",
+        "REG-05"
+      ],
+      "source_spans": [
+        "key-addition",
+        "key-revocation",
+        "metadata-version-counter",
+        "kem-version-counter",
+        "endpoint-version-counter",
+        "operator-write",
+        "normative-lifecycle",
+        "normative-operator",
+        "normative-observation"
+      ],
+      "assessment": "The legacy nonce is updated only by selected operations and begins at its storage default; it is not the version starting at one and incrementing once for every atomic record/management mutation. No read projection can impose expected-version authorization on direct writes.",
+      "required_evidence": [
+        {
+          "id": "atomic-expected-version",
+          "status": "EVIDENCE_REQUIRED",
+          "requirement": "Enforce the exact previous canonical version at the authenticated write serialization point; simultaneous commands cannot both commit."
+        },
+        {
+          "id": "all-mutation-version",
+          "status": "EVIDENCE_REQUIRED",
+          "requirement": "Start at one and increment exactly once for every successful key/service/lifecycle/operator mutation; reject overflow and preserve complete old/new state on failure."
+        },
+        {
+          "id": "durable-monotonic-history",
+          "status": "EVIDENCE_REQUIRED",
+          "requirement": "Recover record/grants/history/tombstones together; detect uncertain outcomes and finalized rollback without inventing versions from time or block height."
+        }
+      ]
+    },
+    {
+      "id": "terminal-state",
+      "classification": "WRITE_SEMANTICS_REQUIRED",
+      "normative_rules": [
+        "REG-03"
+      ],
+      "source_spans": [
+        "activation-state",
+        "deactivation-state",
+        "key-addition",
+        "metadata-version-counter",
+        "controller-or-operator",
+        "operator-write",
+        "normative-lifecycle",
+        "normative-operator"
+      ],
+      "assessment": "False conflates created and deactivated. The reviewed activation checks do not authenticate a controller/operator or distinguish terminal deactivation. A blanket operator boolean also lacks normative operation scopes and state-dependent retirement. Reader-side denial alone cannot repair those writes.",
+      "required_evidence": [
+        {
+          "id": "terminal-transitions",
+          "status": "EVIDENCE_REQUIRED",
+          "requirement": "Enforce absent/created/active/terminal-deactivated transitions with authenticated actors, correct usable-signing-key checks and no mutation after deactivation."
+        },
+        {
+          "id": "scoped-operators",
+          "status": "EVIDENCE_REQUIRED",
+          "requirement": "Bind each controller-authorized grant to registry/DID/operator/one eligible scope; enforce exact grant/revoke history and prohibit re-delegation."
+        },
+        {
+          "id": "atomic-grant-retirement",
+          "status": "EVIDENCE_REQUIRED",
+          "requirement": "Retire invalid scopes during state changes and all grants on deactivation in the same mutation/version; expose authenticated read-only inspection history."
+        }
+      ]
+    },
+    {
+      "id": "proof-validation",
+      "classification": "WRITE_SEMANTICS_REQUIRED",
+      "normative_rules": [
+        "REG-04",
+        "REG-06"
+      ],
+      "source_spans": [
+        "ed25519-validation",
+        "kem-legacy-endorsement",
+        "key-storage",
+        "normative-proof",
+        "normative-eip155"
+      ],
+      "assessment": "The writer checks Ed25519 signature length only and uses a wallet-domain X25519 endorsement. The frozen profile requires the complete named-key challenge at both registry mutation and resolver read. Independent read-time verification is necessary but cannot retroactively certify a nonconforming write.",
+      "required_evidence": [
+        {
+          "id": "named-signing-proof",
+          "status": "EVIDENCE_REQUIRED",
+          "requirement": "Verify the complete length-prefixed sage-pop-0.10.0 challenge and exact self-named signing key URL at registry write and resolver read."
+        },
+        {
+          "id": "kem-endorsement-proof",
+          "status": "EVIDENCE_REQUIRED",
+          "requirement": "Verify KEM endorsement with an accepted unexpired signing key at addition; retain the historical signer for read verification without restoring its message authority."
+        },
+        {
+          "id": "algorithm-support",
+          "status": "EVIDENCE_REQUIRED",
+          "requirement": "Cryptographically verify mandatory Ed25519 and explicitly supported optional algorithms; reject unsupported algorithms, malformed values and KEM self-signing before selection."
+        }
+      ]
+    },
+    {
+      "id": "claim-and-identity",
+      "classification": "WRITE_SEMANTICS_REQUIRED",
+      "normative_rules": [
+        "REG-06"
+      ],
+      "source_spans": [
+        "legacy-claim",
+        "registry-did-hook",
+        "registration-create",
+        "normative-eip155",
+        "normative-record"
+      ],
+      "assessment": "The legacy keccak ABI claim omits normative claim fields and uses timestamp windows. A canonical DID reader cannot supply the required domain-separated SHA-256/JCS, controller-scoped block-window claim/reveal authorization and atomic creation semantics.",
+      "required_evidence": [
+        {
+          "id": "canonical-chain-identity",
+          "status": "EVIDENCE_REQUIRED",
+          "requirement": "Bind the canonical eip155 registry locator and agent identifier to the exact deployment/controller; never rewrite a legacy identity silently."
+        },
+        {
+          "id": "complete-claim-bytes",
+          "status": "EVIDENCE_REQUIRED",
+          "requirement": "Authenticate domain-separated SHA-256/JCS commitment over all claim fields, controller/registry scope and canonical salt."
+        },
+        {
+          "id": "atomic-block-reveal",
+          "status": "EVIDENCE_REQUIRED",
+          "requirement": "Require reveal after the commit block within 256 blocks, single atomic consume/create with all proofs and separate authenticated activation."
+        }
+      ]
+    },
+    {
+      "id": "actual-provider-ownership",
+      "classification": "PROVIDER_BINDING_REQUIRED",
+      "normative_rules": [
+        "EXEC-02",
+        "EXEC-06",
+        "REG-05",
+        "REG-06"
+      ],
+      "source_spans": [
+        "core-source-contract",
+        "adk-instance-contract",
+        "normative-observation",
+        "normative-eip155"
+      ],
+      "assessment": "Core Source and ADK Factory/Instance are protected provider contracts, not a selected deployment or attestation implementation. Reviewed hashes and boolean assertions cannot establish actual chain readiness, loaded instance, custody or final effect ownership.",
+      "required_evidence": [
+        {
+          "id": "authoritative-source",
+          "status": "EVIDENCE_REQUIRED",
+          "requirement": "Select chain/RPC/code/ABI/upgrade identity and trusted finality/readiness policy; obtain one finalized-block observation after operation start within five seconds of final authorization."
+        },
+        {
+          "id": "loaded-instance-and-custody",
+          "status": "EVIDENCE_REQUIRED",
+          "requirement": "Select the actual tool/evaluator/dependencies/loader and protected key custody; prove the loaded instance performs the approved operation without an alternate dispatch path."
+        },
+        {
+          "id": "independent-runtime-observation",
+          "status": "EVIDENCE_REQUIRED",
+          "requirement": "Pin the host and independent effect observer and execute safe bounded real bindings; record failures, restart behavior and publication/finality latency without promoting fixtures."
+        }
+      ]
+    }
+  ],
+  "kind": "REGISTRY_MAPPING_SOURCE_REVIEW",
+  "review_sha256": "9307dbfafdc8fba530dc82240874acfc96928e86d9369efb59aaad2b020f3469",
+  "source_query_status": "REVIEWED_SOURCE_MATCHED",
+  "repositories": {
+    "contracts": {
+      "revision": "d9f313b1057d299423d800c846751ed40282a116",
+      "files": {
+        "abi/AgentCardRegistry.json": "bf3e59375be9cf3ea070caee309f7eccbe660ce85440d242ae9a6bb1ca855e8b",
+        "abi/ISageRegistry.json": "19ab1e99ce653bd65968c4094ba10387d7af1d6d10d93d3a496708735b3f602e",
+        "ethereum/contracts/AgentCardRegistry.sol": "7bb47a932850eebfa297c546fb9e8d855e12ab3491d630f8575e0d6bd14ce6cb",
+        "ethereum/contracts/AgentCardStorage.sol": "50cf400a552cc6c9676f3699eb9d698b0f2cc5ee4926f329ff5f2104b3d83f84",
+        "ethereum/contracts/AgentCardVerifyHook.sol": "bdbedadc18b8c984746dfd015fd2f8dd5040ebbb2471cd34b8b3cb1f9f8907a3",
+        "ethereum/contracts/interfaces/ISageRegistry.sol": "7497b17847e733b19136f79c5b002488655d4a13bf410b65d5014b12936ccf9b",
+        "scripts/export-abi.sh": "9feae4365d40c39d5fc1dd8496d74727745d4b62b30eaf6db663e2e30e9848ca"
+      }
+    },
+    "go": {
+      "revision": "11b1cd91691de99fdbd734db78dc6755c187b2e9",
+      "files": {
+        "pkg/agent/registry010/gate.go": "169d8377eda302caac5d6f1d320cdfb40c2be1562c24343e65dcb744b0e7774f",
+        "pkg/agent/registry010/proof.go": "b4ae8b46cfdbffcb2fa669ec1dd859baeb7dbaabc97fdbfbd35f6ef4cf427b76"
+      }
+    },
+    "adk": {
+      "revision": "fb98773df57b258c29ff9c355d062158bdf56c0e",
+      "files": {
+        "core/guardbinding/types.go": "0c0c8bbb0ce471edef70ccb5579fedb5da2fad081062f7af456b96a4b015b9c0",
+        "core/guardbinding/load.go": "649966ab4ba3d875863dc23ea7ee4cd6b06ba3dd02000c051c606437fee92a6e",
+        "core/guardbinding/operation.go": "077f74f1c74856c519b1772598da9d19c687bd4f7fafc7d9ec4cb205bdf2d3c1"
+      }
+    },
+    "spec": {
+      "revision": "1820ab5eafb843e1c13f4c46c34aeeb28d934ac9",
+      "files": {
+        "spec/09-registry.md": "e8572cc037fd0fc84e678be436cc47854c5fd700aacbc141937d79ee03ea6017",
+        "spec/06-did-sage.md": "8e0d5f72fc36d46bd5f8c51446f46cb80b644db1ebcd85039c0a342f33bfe50b",
+        "profiles/agent-mcp-security.md": "0538acbdcfc143d93fb7d99a2a2c09c068fc354388c4e37c7489204305b1913f",
+        "architecture/program-sequence.md": "5852b07ec6eec2e3aad05f00fb31b340fd9eb787584d5cfd3f3aa68c0fe838cd"
+      }
+    }
+  },
+  "classification_counts": {
+    "READ_MAPPING_REQUIRED": 1,
+    "WRITE_SEMANTICS_REQUIRED": 5,
+    "PROVIDER_BINDING_REQUIRED": 1
+  },
+  "required_evidence_count": 21,
+  "mapping_review_status": "SOURCE_REVIEW_COMPLETE",
+  "read_only_projection_sufficient": false,
+  "binding_readiness": "UNRESOLVED",
+  "connection_authorization": "NOT_GRANTED",
+  "selected_deployment": null,
+  "selected_host": null,
+  "live_chain_verification": "NOT_RUN",
+  "contract_compilation": "NOT_RUN",
+  "contract_execution": "NOT_RUN",
+  "loaded_instance_attestation": "NOT_RUN",
+  "effect_observations": null,
+  "deployed_host_controls": {
+    "count": 13,
+    "status": "NOT_RUN"
+  },
+  "independent_hop_execution": "NOT_RUN",
+  "full_conformance": "NOT_ESTABLISHED",
+  "limitations": [
+    "Bounded manual source conclusions are reproduced by hashes, not inferred by a Solidity semantic analyzer.",
+    "All six projection candidates and all required evidence remain unbound; source-query success closes no deployment or host control.",
+    "The reviewed contract revision cannot be assumed compatible through a reader-only field projection.",
+    "No claim about an unspecified deployed address, future complete binding or contract compiler equivalence is established.",
+    "No inspected contract, tool, loader, RPC or attack-capable program executes.",
+    "Later contract upgrades and separate normative design work retain the approved program order."
+  ]
+}

@@ -88,3 +88,9 @@ actual loaded-instance attestation, thirteen deployed host controls and
 independent hop execution remain `NOT_RUN`; full conformance remains
 `NOT_ESTABLISHED`. Historical evidence and the [remaining-work
 register](remaining-work.md) keep their existing statuses and order.
+
+The [subsequent mapping review](registry-mapping-review.md) classifies all
+seven obligations into reader, writer and provider responsibilities, with
+21 evidence requirements and six unbound record projections. It preserves
+this preflight catalog/report unchanged and does not select a deployment or
+establish a conforming connection.

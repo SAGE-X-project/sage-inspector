@@ -253,3 +253,14 @@ does not close deployment gates: no actual chain/host is selected, thirteen
 host controls and independent hop execution remain `NOT_RUN`, and full
 conformance remains `NOT_ESTABLISHED`. Preserve the nine gates and later
 contract upgrade order above.
+
+The [Sepolia candidate provenance observation](registry-candidate-provenance.md)
+adds a dated read-only diagnostic for the unselected README candidate. Its
+RPC-returned code equals the two runtime bytecode fields published by Sourcify;
+the published ABI equals the pinned 64-entry ABI. Four of five compared
+production source files equal the current contract pin, while the Registry
+file matches an older blob and differs by one KEM initialization line. These
+are retrieved-record comparisons, not independent recompilation, trusted
+finality, complete deployed-source equivalence or SAGE conformance. No Source
+or host is selected, no mapping evidence is closed, and all ordered gates,
+historical reports and later contract upgrade requirements remain intact.

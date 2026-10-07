@@ -1,0 +1,153 @@
+{
+  "kind": "UNSELECTED_REGISTRY_CANDIDATE_PROVENANCE_OBSERVATION",
+  "recorded_at_utc": "2026-10-07T05:04:11.624370+00:00",
+  "candidate": {
+    "chain_id": "11155111",
+    "registry_address": "0xc7ecf7ad6ee71cb0d94f0eb00f46f1ddf432a808",
+    "rpc_endpoint": "https://ethereum-sepolia-rpc.publicnode.com",
+    "rpc_observed_at_utc": "2026-10-07T04:33:52.401633+00:00",
+    "rpc_declared_finalized_block": {
+      "hash": "0x9c09dc2cbf37b2b0e199b14153969f75d0c1afdf1ae3fe863bec1fa6750bf8ee",
+      "height": "11860536"
+    },
+    "rpc_runtime_code_bytes": 20762,
+    "rpc_runtime_code_sha256": "6781830872f71f12873c60b063f6507814a74932f99f3f6c5bf1a431af89edc5"
+  },
+  "rpc_response_hashes": {
+    "eth_chainId": "e45416df4ab7338a4d3bb6bb75e584a2e7898a60a011e0bd4e8e21a4266f71dd",
+    "eth_getBlockByNumber": "fb4e0cb42932721d997cd042300892ac62909e31e7764d9fe59c8d37387a8929",
+    "eth_getCode": "71ca877466390fbb2d337d37d5a3ef60726828bb096a9a17e95b810671f3647f"
+  },
+  "published_verification": {
+    "url": "https://sourcify.dev/server/v2/contract/11155111/0xC7eCF7Ad6ee71CB0d94f0eb00F46f1DDf432a808?fields=all",
+    "response_bytes": 973269,
+    "response_sha256": "4fcc91139f8495e5733a6e572821145f877109abb294d438292e602480ff843a",
+    "reported_verified_at": "2025-11-03T01:03:30Z",
+    "reported_match": "exact_match",
+    "reported_creation_match": "exact_match",
+    "reported_runtime_match": "exact_match",
+    "reported_deployment": {
+      "transactionHash": "0x21c59016cb1ca117da6800556b5ba025ce12df0e8efdbc3d344e2f70a5b6f68b",
+      "blockNumber": "9548142",
+      "transactionIndex": "46",
+      "deployer": "0x9f6D4f5dFAcf340B5Ba0b8768aEf5144bb685Ddc"
+    },
+    "reported_proxy_resolution": {
+      "isProxy": false,
+      "proxyType": null,
+      "implementations": []
+    },
+    "reported_compiler": "0.8.20+commit.a1b79de6",
+    "reported_target": "project/contracts/AgentCardRegistry.sol:AgentCardRegistry",
+    "reported_compiler_settings": {
+      "optimizer_enabled": true,
+      "optimizer_runs": 200,
+      "via_ir": false,
+      "evm_version": "shanghai",
+      "metadata_bytecode_hash": "ipfs"
+    },
+    "reported_openzeppelin_source_version": "5.4.0"
+  },
+  "direct_byte_comparisons": [
+    {
+      "sourcify_field": "runtimeBytecode.onchainBytecode",
+      "bytes": 20762,
+      "sha256": "6781830872f71f12873c60b063f6507814a74932f99f3f6c5bf1a431af89edc5",
+      "matches_rpc_returned_bytes": true
+    },
+    {
+      "sourcify_field": "runtimeBytecode.recompiledBytecode",
+      "bytes": 20762,
+      "sha256": "6781830872f71f12873c60b063f6507814a74932f99f3f6c5bf1a431af89edc5",
+      "matches_rpc_returned_bytes": true
+    }
+  ],
+  "abi_comparison": {
+    "repository_revision": "d9f313b1057d299423d800c846751ed40282a116",
+    "repository_path": "abi/AgentCardRegistry.json",
+    "repository_blob_sha256": "bf3e59375be9cf3ea070caee309f7eccbe660ce85440d242ae9a6bb1ca855e8b",
+    "comparison": "Parsed JSON equality, including entry order and all tuple fields; sorted-key compact UTF-8 encoding only for content hash.",
+    "canonical_json_sha256": "75bac30b4ae9d8ebb2b5a52623b25096848e638594ef31cf01b8906f63674e1e",
+    "published_entry_count": 64,
+    "pinned_entry_count": 64,
+    "parsed_json_equal": true
+  },
+  "source_comparison": {
+    "pinned_repository_revision": "d9f313b1057d299423d800c846751ed40282a116",
+    "older_repository_revision": "4010cf41bb87f259b833e691b272cbaa4138d502",
+    "scope": "Exactly five named production source files, UTF-8 content bytes. No claim that the complete source dependency graph or repository revision was deployed.",
+    "files": [
+      {
+        "published_path": "project/contracts/AgentCardRegistry.sol",
+        "repository_path": "ethereum/contracts/AgentCardRegistry.sol",
+        "published_utf8_sha256": "d0bd32e7dc807af9dcdd2a658b31bf71b3450730f980aa96a339971f6a089817",
+        "pinned_blob_sha256": "7bb47a932850eebfa297c546fb9e8d855e12ab3491d630f8575e0d6bd14ce6cb",
+        "matches_pinned_blob": false,
+        "matches_older_blob": true
+      },
+      {
+        "published_path": "project/contracts/AgentCardStorage.sol",
+        "repository_path": "ethereum/contracts/AgentCardStorage.sol",
+        "published_utf8_sha256": "50cf400a552cc6c9676f3699eb9d698b0f2cc5ee4926f329ff5f2104b3d83f84",
+        "pinned_blob_sha256": "50cf400a552cc6c9676f3699eb9d698b0f2cc5ee4926f329ff5f2104b3d83f84",
+        "matches_pinned_blob": true,
+        "matches_older_blob": true
+      },
+      {
+        "published_path": "project/contracts/AgentCardVerifyHook.sol",
+        "repository_path": "ethereum/contracts/AgentCardVerifyHook.sol",
+        "published_utf8_sha256": "bdbedadc18b8c984746dfd015fd2f8dd5040ebbb2471cd34b8b3cb1f9f8907a3",
+        "pinned_blob_sha256": "bdbedadc18b8c984746dfd015fd2f8dd5040ebbb2471cd34b8b3cb1f9f8907a3",
+        "matches_pinned_blob": true,
+        "matches_older_blob": true
+      },
+      {
+        "published_path": "project/contracts/interfaces/ISageRegistry.sol",
+        "repository_path": "ethereum/contracts/interfaces/ISageRegistry.sol",
+        "published_utf8_sha256": "7497b17847e733b19136f79c5b002488655d4a13bf410b65d5014b12936ccf9b",
+        "pinned_blob_sha256": "7497b17847e733b19136f79c5b002488655d4a13bf410b65d5014b12936ccf9b",
+        "matches_pinned_blob": true,
+        "matches_older_blob": true
+      },
+      {
+        "published_path": "project/contracts/interfaces/IRegistryHook.sol",
+        "repository_path": "ethereum/contracts/interfaces/IRegistryHook.sol",
+        "published_utf8_sha256": "ffffd50876604566a89cec3883d8a41b11036331d4749f7ae1e5c3f2c0319cf0",
+        "pinned_blob_sha256": "ffffd50876604566a89cec3883d8a41b11036331d4749f7ae1e5c3f2c0319cf0",
+        "matches_pinned_blob": true,
+        "matches_older_blob": true
+      }
+    ],
+    "registry_delta": {
+      "published_line": 168,
+      "pinned_line": 168,
+      "published": "        bytes memory kemKey;  // X25519 KEM public key",
+      "pinned": "        bytes memory kemKey = new bytes(0);  // X25519 KEM public key; stays empty when none is supplied"
+    },
+    "pinned_openzeppelin_package_range": "^5.6.1"
+  },
+  "runtime_cbor_observation": {
+    "length_bytes": 51,
+    "solc_release": "0.8.20",
+    "ipfs_cid_v0": "QmbHFCP1FHwz9AjfdEZ1WALJRhU4VLRUY6Z352qr4rDAJn",
+    "cid_content_verification": "NOT_RUN",
+    "scope": "Trailer reference and release bytes only; not source-equivalence evidence or a raw metadata SHA-256 check."
+  },
+  "local_recompilation": "NOT_RUN",
+  "complete_pinned_source_runtime_equivalence": "NOT_ESTABLISHED",
+  "selected_deployment": null,
+  "selected_host": null,
+  "rpc_trust": "NOT_SELECTED",
+  "finality_verification": "NOT_RUN",
+  "record_and_key_proofs": "NOT_RUN",
+  "authenticated_write_semantics": "NOT_RUN",
+  "contract_execution": "NOT_RUN",
+  "transactions_submitted": 0,
+  "authority_granted": false,
+  "deployed_host_control_count": 13,
+  "deployed_host_controls": "NOT_RUN",
+  "independent_hop_execution": "NOT_RUN",
+  "full_conformance": "NOT_ESTABLISHED",
+  "raw_input_retention": "Original RPC request/response files and Sourcify response were retained in the investigation temporary directory; they are not embedded in this repository. This report is an observation record, not a self-contained replay fixture or signed attestation.",
+  "scope": "Read-only HTTPS retrieval, RPC declarations and offline byte/JSON/Git-blob comparisons. Published verification claims are attributed to Sourcify. No downloaded source, Hardhat configuration, tool, EVM bytecode or contract was executed."
+}

@@ -264,3 +264,15 @@ are retrieved-record comparisons, not independent recompilation, trusted
 finality, complete deployed-source equivalence or SAGE conformance. No Source
 or host is selected, no mapping evidence is closed, and all ordered gates,
 historical reports and later contract upgrade requirements remain intact.
+
+The [compiled calculator source inspection](adk-compiled-calculator-inspection.md)
+adds a third explicit ADK snapshot at `1da9d02226bd690f92ccc4198638afc84579a9e8`.
+Its 170 production files and 59 reviewed boundaries include mandatory measurement,
+closed calculator configuration, same-instance compiled arithmetic and retirement.
+Direct builtin use remains unmediated. The previous two source reports and
+Registry mapping pins stay intact. Source matching supplies no protected
+pre-load/runtime measurement provider, authoritative blockchain Source binding
+or deployed host/effect evidence. All thirteen deployed controls and independent
+hop execution remain `NOT_RUN`; full conformance remains `NOT_ESTABLISHED`.
+Continue the approved assembly and deployment gates in order, retaining the
+separate later contract upgrade and demo stages.

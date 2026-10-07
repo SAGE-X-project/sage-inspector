@@ -23,10 +23,16 @@ SNAPSHOTS = {
         'sha256': '5d342fc196073de169b2ebe349ead6c3032da1d5fbb119a6d7f1803d21c1b399',
         'revision': 'fb98773df57b258c29ff9c355d062158bdf56c0e',
     },
+    'compiled-calculator': {
+        'path': ROOT / 'verification/0.10.0/adk-compiled-calculator/catalog.json',
+        'sha256': 'c6a1661827803c1160c4cafda92d16434eb30de724e06f791c3957f0fa968098',
+        'revision': '1da9d02226bd690f92ccc4198638afc84579a9e8',
+    },
 }
 KINDS = {'GUARD_NATIVE_OPT_IN', 'CAPTURE_ONLY', 'PROTECTED_PROVIDER',
          'LEGACY_UNMEDIATED', 'CONFIGURATION_ONLY', 'PROPOSAL_ONLY',
-         'OUTBOUND_LLM_PROPOSAL', 'APPROVED_OPERATION_OPT_IN'}
+         'OUTBOUND_LLM_PROPOSAL', 'APPROVED_OPERATION_OPT_IN',
+         'COMPILED_CALCULATOR_OPT_IN'}
 
 
 def require(condition, message):
@@ -161,13 +167,20 @@ def report(inventory, suite):
             'Native protection is opt-in and depends on isolated authoritative policy, registry, custody and loader bindings.',
         ],
     }
-    if snapshot == 'approved-operation':
+    if snapshot in ('approved-operation', 'compiled-calculator'):
         result['limitations'] += [
             'Exact-operation rules are trusted local root configuration; parent-hop policy is separate.',
             'Factory.Load and Instance.Check remain trusted providers; snapshots and source queries do not attest actual loaded code.',
             'Binding.Tool remains a trusted native configuration capability, not a model-facing unsigned dispatcher.',
             'Artifact reading requires protected serialized administration; local gating does not establish OS isolation or durable distributed epochs.',
             'Linux/macOS and unsupported-platform sources are both parsed; build-tag selection and execution are not observed.',
+        ]
+    if snapshot == 'compiled-calculator':
+        result['limitations'] += [
+            'The calculator adapter constructs a fixed statically compiled tool; it does not load code from snapshot artifacts.',
+            'Measurement.Check must establish protected verification before host image/dependency loading and retained immutable runtime identity; this query supplies no provider or deployment attestation.',
+            'The same private calculator callback is an opt-in trusted capability behind native admission; direct builtin and ordinary dispatch remain unmediated.',
+            'ADK unit and local runtime results with fixture Registry/measurement providers remain separate evidence; completed arithmetic can return a domain-error result.',
         ]
     return result
 

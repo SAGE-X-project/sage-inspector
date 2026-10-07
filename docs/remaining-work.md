@@ -241,3 +241,15 @@ query reads sixteen committed files without executing inspected code and does
 not select a deployment or advance any conformance gate. Preserve the approved
 later contract upgrade stage; do not change it or substitute Web authority to
 make a missing binding appear complete.
+
+The subsequent [Registry mapping review](registry-mapping-review.md) completes
+bounded manual review of all seven source obligations on the same pins. It
+records one reader mapping area, five write-semantics areas and one actual
+provider area with 21 required evidence items. All six public-record
+projections remain unbound, and reader-only conversion is insufficient.
+Operator scopes/history and terminal state are explicitly included; no
+contract upgrade or normative edit is performed. Source review completion
+does not close deployment gates: no actual chain/host is selected, thirteen
+host controls and independent hop execution remain `NOT_RUN`, and full
+conformance remains `NOT_ESTABLISHED`. Preserve the nine gates and later
+contract upgrade order above.

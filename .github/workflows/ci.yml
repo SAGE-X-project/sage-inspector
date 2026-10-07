@@ -186,13 +186,25 @@ jobs:
             --go-root .preflight-go --adk-root .preflight-adk \
             --check docs/evidence/registry-contract-preflight.json \
             --output "${RUNNER_TEMP}/registry-contract-preflight.json"
-      - name: Preserve source preflight report
+      - name: Test mapping classification and reproduce reviewed obligations
+        run: |
+          python3 -B scripts/test_registry_mapping_review.py \
+            --contracts-root .preflight-contracts --spec-root .preflight-spec \
+            --go-root .preflight-go --adk-root .preflight-adk
+          python3 -B scripts/inspect_registry_mapping_review.py \
+            --contracts-root .preflight-contracts --spec-root .preflight-spec \
+            --go-root .preflight-go --adk-root .preflight-adk \
+            --check docs/evidence/registry-mapping-review.json \
+            --output "${RUNNER_TEMP}/registry-mapping-review.json"
+      - name: Preserve source preflight and mapping review reports
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: registry-contract-preflight-${{ github.sha }}
           if-no-files-found: error
           retention-days: 30
-          path: ${{ runner.temp }}/registry-contract-preflight.json
+          path: |
+            ${{ runner.temp }}/registry-contract-preflight.json
+            ${{ runner.temp }}/registry-mapping-review.json
 
   spec:
     name: Legacy spec vectors

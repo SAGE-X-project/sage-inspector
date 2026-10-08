@@ -169,8 +169,11 @@ jobs:
         env:
           ADK_SYNTAX_PARSER: ${{ runner.temp }}/adk-source-inventory
           ADK_APPROVED_HOP_ROOT: .sage-adk-approved-hop
+          ADK_PREPARATION_ROOT: .sage-adk-approved-hop
         run: |
           python3 -B scripts/test_adk_source_inventory.py
+          python3 -B scripts/test_adk_host_preparation.py
+          python3 -B scripts/inspect_adk_host_preparation.py --adk-root .sage-adk-approved-hop --check docs/evidence/adk-host-preparation.json --output "${RUNNER_TEMP}/adk-host-preparation.json"
           python3 -B scripts/inspect_adk_source_inventory.py --adk-root .sage-adk --parser "${RUNNER_TEMP}/adk-source-inventory" --check docs/evidence/adk-source-inventory.json --output "${RUNNER_TEMP}/adk-source-inventory.json"
           python3 -B scripts/inspect_adk_source_inventory.py --snapshot approved-operation --adk-root .sage-adk-approved-operation --parser "${RUNNER_TEMP}/adk-source-inventory" --check docs/evidence/adk-approved-operation.json --output "${RUNNER_TEMP}/adk-approved-operation.json"
           python3 -B scripts/inspect_adk_source_inventory.py --snapshot compiled-calculator --adk-root .sage-adk-compiled-calculator --parser "${RUNNER_TEMP}/adk-source-inventory" --check docs/evidence/adk-compiled-calculator.json --output "${RUNNER_TEMP}/adk-compiled-calculator.json"
@@ -190,6 +193,7 @@ jobs:
             ${{ runner.temp }}/adk-compiled-calculator.json
             ${{ runner.temp }}/adk-sealed-image.json
             ${{ runner.temp }}/adk-child-measurement.json
+            ${{ runner.temp }}/adk-host-preparation.json
             ${{ runner.temp }}/adk-admitted-hop.json
             ${{ runner.temp }}/adk-approved-hop.json
 

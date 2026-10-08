@@ -1,0 +1,178 @@
+{
+  "schema_version": 1,
+  "adk_revision": "57f37e1c870d7bf1c5c6fdbd60efa1e62a6fcb6e",
+  "normative_source_revision": "1820ab5eafb843e1c13f4c46c34aeeb28d934ac9",
+  "host_controls_sha256": "48c3e90a9c177182a8378591a5eb89b0f7a0471dcd3455a5a5c768e08fabf871",
+  "source_anchors": [
+    {
+      "path": "core/capture/host.go",
+      "anchor": "func (h *Host) Capture(",
+      "sha256": "812b28cb0bd7227bbd17a91f49902fce227ff010a609c58c08b1c1f104231a86",
+      "classification": "LIBRARY_PORT"
+    },
+    {
+      "path": "core/guardbinding/operation.go",
+      "anchor": "func (o *Operation) Authorize(",
+      "sha256": "b6d968188d9e5172a8b2fbd0e3c4111a8209ec84eeef7e3e479021eca85a9624",
+      "classification": "LIBRARY_PORT"
+    },
+    {
+      "path": "core/guardservices/signing.go",
+      "anchor": "func (b *signingBinding) fresh(",
+      "sha256": "bdf90d59113c2a1d50996a4cd5bb6970afcf258ea5e9c786dafe0deb40aff3cc",
+      "classification": "LIBRARY_PORT"
+    },
+    {
+      "path": "core/guardcalculator/calculator.go",
+      "anchor": "type Measurement interface {",
+      "sha256": "348a02327f545b4c1a4ff61aa6ab4058f12c75933f177541f50d341072249fc0",
+      "classification": "LIBRARY_PORT"
+    },
+    {
+      "path": "core/guardservices/backend.go",
+      "anchor": "type Ed25519Backend interface {",
+      "sha256": "b42d1d82c132d608875f7e590d52d6104b3e9528a6bc45e5ef5b3f61de1cd94e",
+      "classification": "LIBRARY_PORT"
+    },
+    {
+      "path": "core/toolhost/host.go",
+      "anchor": "func (h *Host) Serve(",
+      "sha256": "7ca3ca7dff0c6c7c815d0a932d2a95d6609981a1116bdb4add8631276bbdcce5",
+      "classification": "LIBRARY_PORT"
+    },
+    {
+      "path": "core/toolhost/host.go",
+      "anchor": "func Open(",
+      "sha256": "7ca3ca7dff0c6c7c815d0a932d2a95d6609981a1116bdb4add8631276bbdcce5",
+      "classification": "LIBRARY_PORT"
+    },
+    {
+      "path": "core/toolhost/executor.go",
+      "anchor": "func (e *executor) Run(",
+      "sha256": "9b2a51d4f1b43fefe4a05dc0151c64ecfdbf8c1d7efebeca4a2b88d03196ac85",
+      "classification": "LIBRARY_PORT"
+    },
+    {
+      "path": "core/capture/mcp.go",
+      "anchor": "func (r *Request) OpenMCPClient(",
+      "sha256": "57e5bd7084af3314486cbac42daa4488021a992b0f6d85ff7a1e80bb4fc05467",
+      "classification": "LIBRARY_PORT"
+    },
+    {
+      "path": "core/guardchannel/channel.go",
+      "anchor": "type Measurement struct {",
+      "sha256": "e6aa8744af55b12ef6f1cec35f8dea9ae6e0565b7486fcd89c82331bf231e3a1",
+      "classification": "LIBRARY_PORT"
+    },
+    {
+      "path": "core/guardchannel/testdata/native/providers.go",
+      "anchor": "type fixtureSource struct{",
+      "sha256": "4f8cd627eafb316df8f5ade52577e1a0d0e033a00f4491170e0ddd5a2674a522",
+      "classification": "FIXTURE_ONLY"
+    },
+    {
+      "path": "cmd/adk/serve.go",
+      "anchor": "func defaultMessageHandler()",
+      "sha256": "7eb56f9fd9e8b3ddb87701e72cb4b2d38ed0242e942a5c77732d6c072f8193bc",
+      "classification": "SEPARATE_DEFAULT_ROUTE"
+    },
+    {
+      "path": "core/guardservices/clock.go",
+      "anchor": "func NewSystemClock()",
+      "sha256": "b20ab8ce283f530e55416a544e54126f34c4263c9304855e25b28c6771d03342",
+      "classification": "LIBRARY_PORT"
+    }
+  ],
+  "assembly_order": [
+    "CaptureStore",
+    "PolicyAuthorizer",
+    "IdentityAndReadiness",
+    "MeasuredComponent",
+    "IntentSigner",
+    "TransportOwner",
+    "AdmissionLedger",
+    "EffectOwner",
+    "ResultConsumer"
+  ],
+  "planned_effect": {
+    "tool": "calculator",
+    "arguments": {
+      "operation": "add",
+      "a": 2,
+      "b": 3
+    },
+    "purpose": "BOUNDED_HOST_QUALIFICATION",
+    "carriage": "PRIVATE_LENGTH_FRAMED_NATIVE_MCP",
+    "launch_platforms": [
+      "linux/amd64",
+      "linux/arm64"
+    ],
+    "binding_status": "NOT_CONFIGURED"
+  },
+  "excluded_routes": [
+    "ordinary-agent-callback",
+    "ordinary-tool-registry",
+    "default-adk-cli-handler",
+    "a2a",
+    "grpc",
+    "http-mcp",
+    "stdio-mcp",
+    "arbitrary-plugin-tools"
+  ],
+  "provider_requirements": [
+    {
+      "port": "CaptureStore",
+      "status": "NOT_BOUND",
+      "required_evidence": "Protected original storage, ownership, retention and rollback policy.",
+      "source_path": "core/capture/host.go"
+    },
+    {
+      "port": "PolicyAuthorizer",
+      "status": "NOT_BOUND",
+      "required_evidence": "Independent approved rules, policy epoch and immutable evaluator configuration.",
+      "source_path": "core/guardbinding/operation.go"
+    },
+    {
+      "port": "IdentityAndReadiness",
+      "status": "NOT_BOUND",
+      "required_evidence": "Authoritative blockchain Source; exact finalized records, proven keys, readiness and ABI mapping.",
+      "source_path": "core/guardservices/signing.go"
+    },
+    {
+      "port": "MeasuredComponent",
+      "status": "NOT_BOUND",
+      "required_evidence": "Protected loaded runtime/dependencies and actual child isolation; digest echoes are insufficient.",
+      "source_path": "core/guardcalculator/calculator.go"
+    },
+    {
+      "port": "IntentSigner",
+      "status": "NOT_BOUND",
+      "required_evidence": "Actual immutable signing custody isolated from model/plugin capabilities.",
+      "source_path": "core/guardservices/backend.go"
+    },
+    {
+      "port": "TransportOwner",
+      "status": "NOT_BOUND",
+      "required_evidence": "Exclusive authenticated native endpoints, finite bounds and shared monotonic origin.",
+      "source_path": "core/toolhost/host.go"
+    },
+    {
+      "port": "AdmissionLedger",
+      "status": "NOT_BOUND",
+      "required_evidence": "Protected durable ledger scope, recovery ownership and reservation/close ordering.",
+      "source_path": "core/toolhost/host.go"
+    },
+    {
+      "port": "EffectOwner",
+      "status": "NOT_BOUND",
+      "required_evidence": "The same approved private instance at the final admitted effect gate.",
+      "source_path": "core/toolhost/executor.go"
+    },
+    {
+      "port": "ResultConsumer",
+      "status": "NOT_BOUND",
+      "required_evidence": "Protected captured-client handoff and fresh authenticated terminal result consumption.",
+      "source_path": "core/capture/mcp.go"
+    }
+  ]
+}

@@ -144,6 +144,19 @@ conformance statuses are unchanged. Ordinary CLI/Agent/Tool Registry and other
 carriages remain outside this opt-in host plan; actual trusted providers and
 independent deployment observations are the next work in the approved order.
 
+The 2026-10-09 [separate-account host qualification](adk-host-qualification.md)
+runs the assembled ADK hosts at `ccc053c898ac83d741c7f667efe48c964f6b7532` with
+Go core `7e8a0790d57ae709f8efee237db94bd4995d65ee` on a Linux arm64 runner. Two
+signer processes, a receiver without the caller's original, a caller and a test
+operator run under five accounts; the approved `2+3` call is verified, unapproved
+arguments are refused by the caller's policy and no wall-clock step occurs.
+`SEPARATE_ACCOUNT_QUALIFICATION_OBSERVED` covers that run only. Its Registry
+Source and calculator measurement are synthetic, so IdentityAndReadiness and
+MeasuredComponent remain `NOT_BOUND`; the KEM key stays in the receiver process
+and the accounts share one kernel. The thirteen deployed host controls remain
+`NOT_RUN`, all 21 Registry mapping items stay open and full conformance remains
+`NOT_ESTABLISHED`.
+
 ## Ordered remaining gates
 
 1. **Freeze and reconcile the 0.10.0 normative snapshot.** The coordinated

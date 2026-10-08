@@ -1,0 +1,54 @@
+name: ADK separate-account host qualification
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  qualification:
+    name: Observe pinned ADK hosts under separate Linux accounts
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: SAGE-X-project/sage-adk
+          ref: ccc053c898ac83d741c7f667efe48c964f6b7532
+          path: .sage-adk
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        with:
+          go-version: '1.26.8'
+          cache: false
+      - name: Fetch pinned public dependencies
+        env:
+          GOWORK: 'off'
+          GOFLAGS: '-mod=readonly'
+        run: cd .sage-adk && go mod download
+      - name: Prepare Python evidence checker
+        run: |
+          python3 -m venv "${RUNNER_TEMP}/qual-venv"
+          "${RUNNER_TEMP}/qual-venv/bin/pip" install 'cryptography==50.0.0'
+      - name: Check saved evidence and refusal units
+        run: |
+          if [ -f docs/evidence/adk-host-qualification.json ]; then
+            "${RUNNER_TEMP}/qual-venv/bin/python" -B scripts/inspect_adk_host_qualification.py
+            "${RUNNER_TEMP}/qual-venv/bin/python" -B scripts/test_adk_host_qualification.py
+          fi
+      - name: Observe a fresh separate-account qualification
+        run: |
+          "${RUNNER_TEMP}/qual-venv/bin/python" -B scripts/inspect_adk_host_qualification.py \
+            --adk-root .sage-adk --output "${RUNNER_TEMP}/adk-host-qualification.json"
+      - name: Preserve the observation
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: adk-host-qualification-${{ github.sha }}
+          if-no-files-found: ignore
+          retention-days: 30
+          path: ${{ runner.temp }}/adk-host-qualification.json

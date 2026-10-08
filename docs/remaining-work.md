@@ -106,6 +106,18 @@ uses real signed native exchanges; the independent full outer-handshake oracle
 remains `NOT_RUN`. This report supplies bounded local hop evidence while
 preserving the prior issuance-only report and every deployment/full-case gate.
 
+The 2026-10-08 [pinned ADK test execution observation](adk-runtime-observation.md)
+adds fresh race-enabled execution at ADK
+`57f37e1c870d7bf1c5c6fdbd60efa1e62a6fcb6e` with the public Go core module at
+`f1a840bbc9c717564bd035e19c73f437a61e4a00`. Its three reviewed groups execute
+56 top-level tests and 257 leaf tests, including 25 safe native runtime fixtures.
+`PINNED_ADK_TESTS_PASSED` closes this selected test-execution observation only.
+Native hop bindings remain co-located with synthetic measurement/Registry
+providers; this is not an independent protocol oracle or a deployed host.
+All seven source snapshots and the separate core hop observation are preserved.
+The actual Registry/host choices, 21 mapping requirements, thirteen deployed
+controls, full-case and release gates below remain in their approved order.
+
 Within approved program stage 5, the next work is selection and pinning of an
 exact Agent/MCP host and its protected capture, policy, authoritative registry,
 key custody, immutable loader and actual effect services, then deployment

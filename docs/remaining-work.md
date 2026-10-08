@@ -132,6 +132,18 @@ broader gate below. No host is
 selected, all thirteen deployed-host controls remain `NOT_RUN`, full
 conformance remains `NOT_ESTABLISHED`, and demo work stays in its later stage.
 
+The 2026-10-08 [ADK host preparation](adk-host-preparation.md) now fixes the
+first integration target at ADK `57f37e1c870d7bf1c5c6fdbd60efa1e62a6fcb6e`
+and records one exact harmless calculator qualification effect over the native
+owner. Its query checks the complete 444-file source pin and thirteen reviewed
+anchors, preserving all nine required provider bindings as `NOT_BOUND`. This
+is an assembly preparation, not a selected executable/configuration or an
+execution grant. Every existing deployed host control remains `NOT_RUN`, all
+21 Registry mapping evidence items remain open, and complete-case/INS-11/full
+conformance statuses are unchanged. Ordinary CLI/Agent/Tool Registry and other
+carriages remain outside this opt-in host plan; actual trusted providers and
+independent deployment observations are the next work in the approved order.
+
 ## Ordered remaining gates
 
 1. **Freeze and reconcile the 0.10.0 normative snapshot.** The coordinated

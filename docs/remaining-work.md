@@ -325,3 +325,20 @@ order. Query runtime, thirteen deployed controls and independent hop execution
 remain `NOT_RUN`; full conformance remains `NOT_ESTABLISHED`. Neither this query
 nor ADK's separate fixture-based one-core runtime tests close deployment gates
 or begin later contract, demo or normative upgrade stages.
+
+The [approved downstream operation inspection](adk-approved-hop-inspection.md)
+adds the seventh separate snapshot at ADK
+`57f37e1c870d7bf1c5c6fdbd60efa1e62a6fcb6e` and Go core dependency
+`f1a840bbc9c717564bd035e19c73f437a61e4a00`. It matches 122 ADK boundaries
+across 183 source files and seven ordered-clock/liveness core boundaries across
+244 source files. Six historical catalogs/reports remain unchanged. Separate
+`OpenHop` now binds actual retained parent to independently approved local
+policy/artifacts and immutable loader; roots retain null-parent approval.
+Core timer/protocol sampling shares ordered local-clock history while final
+current-key/time/liveness gates remain required. Separate safe same-core
+runtime evidence uses co-located bindings and synthetic providers. Continue
+authoritative blockchain Source and selected protected host/providers, then
+independent effect/deployment observation in the approved order. Query core/ADK
+runtime, all thirteen deployed controls and independent hop remain `NOT_RUN`;
+full conformance remains `NOT_ESTABLISHED`. Later contract, demo and normative
+upgrade stages are not started by this source review.

@@ -7,6 +7,11 @@
 - Apply these rules to squash commit titles and bodies as well.
 - Merge pull requests only with squash merge. After merging, delete the work branch locally and remotely, then update local main to match remote main.
 
+# Pull request review requests
+
+- Never request a code review from SAGE Core Team (`SAGE-X-project/sage-core-dev`), manually or automatically, for any pull request.
+- Check CODEOWNERS, Dependabot and workflow assignments before PR creation or readiness. Do not add this team as a reviewer or send it review requests.
+
 # Current verification scope
 
 - Implement and run both scenario-based unit tests and runtime tests for changed behavior. Use safe local CLI, IPC, real cryptographic exchanges, and bounded test processes. Exclude attack-capable vulnerability reproduction and host-bypass code; this is not a blanket exclusion of runtime testing.

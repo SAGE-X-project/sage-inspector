@@ -546,15 +546,148 @@ class InventoryTests(unittest.TestCase):
                            cwd=root, check=True)
             for snapshot in audit.SNAPSHOTS:
                 output = Path(tmp) / (snapshot + '.json')
+                core_args = ['--go-root', str(root)] if snapshot == 'approved-hop' else []
                 result = subprocess.run(['python3', '-B', str(audit.ROOT / 'scripts/inspect_adk_source_inventory.py'),
                                          '--snapshot', snapshot, '--adk-root', str(root),
-                                         '--parser', str(self.parser), '--output', str(output)],
+                                         '--parser', str(self.parser), '--output', str(output)] + core_args,
                                         text=True, capture_output=True, timeout=10)
                 with self.subTest(snapshot=snapshot):
                     self.assertNotEqual(result.returncode, 0)
                     self.assertEqual(result.stdout, '')
                     self.assertIn('ADK revision mismatch', result.stderr)
                     self.assertFalse(output.exists())
+
+    @staticmethod
+    def synthetic(suite):
+        # Refusal-only AST fixture; it cannot establish runtime semantics.
+        return dict(schema_version=1, kind='GO_SYNTAX_INVENTORY', files=[
+            dict(path=p, sha256=digest, package='fixture', initializer_calls=[], declarations=[
+                dict(name=r['declaration'], exported=True, line=r['line'],
+                     end_line=max([r['line']] + [c['line'] for c in r['calls']]),
+                     calls=copy.deepcopy(r['calls']))
+                for r in suite['routes'] if r['path'] == p])
+            for p, digest in sorted(suite['sources'].items())])
+
+    def test_approved_hop_pins_both_sources_and_preserves_history(self):
+        suite = audit.catalog(snapshot='approved-hop')
+        prior = audit.catalog(snapshot='admitted-hop')
+        saved = json.loads((audit.ROOT / 'docs/evidence/adk-approved-hop.json').read_text())
+        self.assertEqual(suite['adk_revision'], '57f37e1c870d7bf1c5c6fdbd60efa1e62a6fcb6e')
+        self.assertEqual(suite['go_core']['revision'], 'f1a840bbc9c717564bd035e19c73f437a61e4a00')
+        self.assertEqual(suite['go_core']['module_version'], 'v1.5.3-0.20261008045438-f1a840bbc9c7')
+        self.assertEqual(set(suite['sources']), set(prior['sources']))
+        self.assertEqual({p for p in suite['sources'] if suite['sources'][p] != prior['sources'][p]},
+                         {'core/guardbinding/doc.go', 'core/guardbinding/load.go',
+                          'core/guardbinding/operation.go', 'core/guardbinding/types.go',
+                          'core/guardcalculator/calculator.go'})
+        self.assertEqual(suite['normative_source_revision'], audit.NORMATIVE_REVISION)
+        self.assertEqual(suite['host_port_catalog_sha256'], prior['host_port_catalog_sha256'])
+        self.assertEqual(saved['source_file_count'], 183)
+        self.assertEqual(saved['declaration_count'], 1251)
+        self.assertEqual(saved['syntactic_call_count'], 6113)
+        self.assertEqual(len(saved['routes']), 122)
+        core = saved['go_core_dependency']
+        self.assertEqual(core['source_file_count'], 244)
+        self.assertEqual(core['declaration_count'], 2025)
+        self.assertEqual(len(core['routes']), 7)
+        self.assertEqual(core['runtime'], 'NOT_RUN')
+        self.assertEqual(saved['routes'], [dict(r, anchor_status='MATCHED') for r in suite['routes']])
+        self.assertEqual(core['routes'], [dict(r, anchor_status='MATCHED') for r in suite['go_core']['routes']])
+        for field, expected in dict(selected_host=None, effect_observations=None,
+                                    host_selection='SELECTION_PENDING', adk_runtime='NOT_RUN',
+                                    independent_hop_execution='NOT_RUN', full_conformance='NOT_ESTABLISHED',
+                                    deployed_host_controls={'count': 13, 'status': 'NOT_RUN'}).items():
+            self.assertEqual(saved[field], expected)
+        changed = {'core/guardbinding/load.go', 'core/guardbinding/operation.go', 'core/guardbinding/types.go'}
+        self.assertEqual([r for r in suite['routes'] if r['path'] not in changed],
+                         [r for r in prior['routes'] if r['path'] not in changed])
+        self.assertEqual(saved['route_classification_counts']['RUNTIME_TEST_FIXTURE'], 8)
+        for name, pinned in audit.SNAPSHOTS.items():
+            if name == 'approved-hop':
+                continue
+            self.assertEqual(audit.sha(pinned['path'].read_bytes()), pinned['sha256'])
+            report_name = 'adk-source-inventory' if name == 'routes' else 'adk-' + name
+            historical_reports = {'adk-source-inventory': 'ebeb724f05757eb4f132b29e8c2931efa2f62078a9a54d3ac2b6819593e6c4ad', 'adk-approved-operation': 'b9a2d129cc96ad2be68556e21295629dedc1ebc9d0558c2767f37a247bcad773', 'adk-compiled-calculator': '4c26599efb3835a5a883cec93144e4da0ea9089bdf61a42797818e18fdcad784', 'adk-sealed-image': 'e51bd20258e8b0f64da6017584c06b5161686971fb29873e409f82bcb84c750e', 'adk-child-measurement': '6ef70d942ad21b7030a5eedc8275cb1cd688e647a2bd6892df0007be4040601e', 'adk-admitted-hop': '6e8106e144100cd96f1226426776207214d476de494b22636aee6f84693666a6'}
+            self.assertEqual(audit.sha((audit.ROOT / ('docs/evidence/' + report_name + '.json')).read_bytes()),
+                             historical_reports[report_name])
+        for boundary in ('OpenHop', 'before loading', 'co-located', 'serialized local clock',
+                         'remote host', 'not independent cross-core'):
+            self.assertTrue(any(boundary in text for text in saved['limitations']), boundary)
+
+    def test_approved_hop_refuses_missing_core_and_drift_on_both_sides(self):
+        suite = audit.catalog(snapshot='approved-hop')
+        inv, core = self.synthetic(suite), self.synthetic(suite['go_core'])
+        result = audit.report(inv, suite, core)
+        self.assertEqual(result['full_conformance'], 'NOT_ESTABLISHED')
+        with self.assertRaisesRegex(ValueError, 'requires pinned Go core'):
+            audit.report(inv, suite)
+        rows = [r for r in suite['routes'] if r['path'].startswith('core/guardbinding/')]
+        for side, inventory, selected in [('adk', inv, rows), ('core', core, suite['go_core']['routes'])]:
+            for row in selected:
+                for mutation in ['missing-declaration', 'duplicate-declaration'] + [
+                        (kind, anchor) for anchor in row['calls'] for kind in ('missing-call', 'duplicate-call')]:
+                    bad = copy.deepcopy(inventory)
+                    ds = next(f['declarations'] for f in bad['files'] if f['path'] == row['path'])
+                    d = next(d for d in ds if d['name'] == row['declaration'])
+                    if mutation == 'missing-declaration':
+                        ds.remove(d)
+                    elif mutation == 'duplicate-declaration':
+                        ds.append(copy.deepcopy(d))
+                    elif mutation[0] == 'missing-call':
+                        d['calls'].remove(mutation[1])
+                    else:
+                        d['calls'].append(copy.deepcopy(mutation[1]))
+                    with self.subTest(side=side, row=row['id'], mutation=mutation), self.assertRaises(ValueError):
+                        audit.report(bad if side == 'adk' else inv, suite, bad if side == 'core' else core)
+            for mutation in ('missing-file', 'extra-file', 'hash', 'promotion'):
+                bad = copy.deepcopy(inventory)
+                if mutation == 'missing-file':
+                    bad['files'].pop()
+                elif mutation == 'extra-file':
+                    bad['files'].append(copy.deepcopy(bad['files'][0]))
+                elif mutation == 'hash':
+                    bad['files'][0]['sha256'] = '0' * 64
+                else:
+                    bad['full_conformance'] = 'PASS'
+                with self.subTest(side=side, mutation=mutation), self.assertRaises(ValueError):
+                    audit.report(bad if side == 'adk' else inv, suite, bad if side == 'core' else core)
+        for field in ('revision', 'module_version', 'module_files', 'sources', 'routes'):
+            bad = copy.deepcopy(suite)
+            bad['go_core'][field] = 'unreviewed'
+            with self.subTest(core_field=field), self.assertRaises(ValueError):
+                audit.report(inv, bad, core)
+        for name in audit.SNAPSHOTS:
+            if name != 'approved-hop':
+                with self.subTest(snapshot=name), self.assertRaises(ValueError):
+                    audit.report(inv, audit.catalog(snapshot=name), core)
+
+    def test_runtime_cli_refuses_missing_or_mixed_core_without_output(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            output = Path(tmp) / 'report.json'
+            common = ['python3', '-B', str(audit.ROOT / 'scripts/inspect_adk_source_inventory.py'),
+                      '--adk-root', tmp, '--parser', str(self.parser), '--output', str(output)]
+            for args in (['--snapshot', 'approved-hop'], ['--snapshot', 'routes', '--go-root', tmp]):
+                denied = subprocess.run(common + args, text=True, capture_output=True, timeout=10)
+                self.assertNotEqual(denied.returncode, 0)
+                self.assertIn('approved-hop requires --go-root', denied.stderr)
+                self.assertFalse(output.exists())
+
+    def test_runtime_cli_refuses_wrong_core_revision_without_output(self):
+        root = os.environ.get('ADK_APPROVED_HOP_ROOT')
+        if root is None:
+            self.skipTest('exact ADK checkout supplied by source-query CI')
+        with tempfile.TemporaryDirectory() as tmp:
+            output = Path(tmp) / 'report.json'
+            # Actual clean ADK passes first; the same checkout is not the Go
+            # dependency and must fail before any inspected code executes.
+            denied = subprocess.run([
+                'python3', '-B', str(audit.ROOT / 'scripts/inspect_adk_source_inventory.py'),
+                '--snapshot', 'approved-hop', '--adk-root', root, '--go-root', root,
+                '--parser', str(self.parser), '--output', str(output)],
+                text=True, capture_output=True, timeout=15)
+            self.assertNotEqual(denied.returncode, 0)
+            self.assertIn('Go core revision mismatch', denied.stderr)
+            self.assertFalse(output.exists())
 
     def test_anchor_and_ast_refusal(self):
         suite = audit.catalog()
@@ -617,6 +750,7 @@ class InventoryTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             (root / 'source.go').write_text('package inert\n')
+            (root / 'go.mod').write_text('module inert\nrequire (\n github.com/sage-x-project/sage v0.0.1\n)\n')
             (root / '.gitignore').write_text('ignored.go\n')
             subprocess.run(['git', 'init', '-q'], cwd=root, check=True)
             subprocess.run(['git', 'add', '.'], cwd=root, check=True)
@@ -625,6 +759,14 @@ class InventoryTests(unittest.TestCase):
             suite = dict(adk_revision=audit.git(root, 'rev-parse', 'HEAD').decode().strip(),
                          sources={'source.go': audit.sha((root / 'source.go').read_bytes())}, module_files={})
             self.assertEqual(audit.check_source(root, suite)[1], ['source.go'])
+            core = dict(revision=suite['adk_revision'], sources=suite['sources'], module_files={})
+            self.assertEqual(audit.check_source(root, core, core=True)[1], ['source.go'])
+            dependency = dict(suite, go_core={'module_version': 'v0.0.1'})
+            self.assertEqual(audit.check_source(root, dependency)[1], ['source.go'])
+            with self.assertRaisesRegex(ValueError, 'dependency mismatch'):
+                audit.check_source(root, dict(suite, go_core={'module_version': 'v0.0.2'}))
+            with self.assertRaisesRegex(ValueError, 'Go core revision mismatch'):
+                audit.check_source(root, dict(core, revision='0' * 40), core=True)
             wrong = dict(suite, adk_revision='0' * 40)
             with self.assertRaisesRegex(ValueError, 'revision mismatch'):
                 audit.check_source(root, wrong)
@@ -633,6 +775,8 @@ class InventoryTests(unittest.TestCase):
                 (root / name).write_text('package changed\n')
                 with self.assertRaises(ValueError):
                     audit.check_source(root, suite)
+                with self.assertRaises(ValueError):
+                    audit.check_source(root, core, core=True)
                 if old is None:
                     (root / name).unlink()
                 else:
@@ -640,6 +784,8 @@ class InventoryTests(unittest.TestCase):
             drift = dict(suite, sources={'source.go': '0' * 64})
             with self.assertRaisesRegex(ValueError, 'hash drift'):
                 audit.check_source(root, drift)
+            with self.assertRaisesRegex(ValueError, 'hash drift'):
+                audit.check_source(root, dict(core, sources=drift['sources']), core=True)
 
 
 if __name__ == '__main__':

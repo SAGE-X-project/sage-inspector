@@ -1,0 +1,3456 @@
+{
+  "schema_version": 1,
+  "protocol_version": "0.10.0",
+  "normative_source_revision": "1820ab5eafb843e1c13f4c46c34aeeb28d934ac9",
+  "adk_revision": "57f37e1c870d7bf1c5c6fdbd60efa1e62a6fcb6e",
+  "host_port_catalog_sha256": "48c3e90a9c177182a8378591a5eb89b0f7a0471dcd3455a5a5c768e08fabf871",
+  "sources": {
+    "adapters/a2a/adapter.go": "4491132d2f32cabb92e74f19b7f2ce11c1a72b36aeca7fd73c36206e4e7665eb",
+    "adapters/a2a/client.go": "62050bb2ccc46e415c45cf89ddeddd17bc60303eebe90558aff7f27d43952492",
+    "adapters/a2a/converter.go": "984ff8b1c3e9ffd4b424abd7d9bef069936358984a3c51096e58141b5c0a68c4",
+    "adapters/a2a/doc.go": "268cb094c8a17e67f4a186437da9a154e6c01fe030841f0d6c1a0d4fabf39a0d",
+    "adapters/a2a/server.go": "7ce83887c1c2bb3fe84f168b85199e0e2f4828ffac721dd5ea337f6843237b0b",
+    "adapters/llm/anthropic.go": "6cf5b195c7201972cc339d95a20f221795ab30bcdb927b86e27115f10c20fb1a",
+    "adapters/llm/doc.go": "191926cf478b867c5a863bf528cbace6e06bc9d02b894c7eb2ea12f04ce6b22e",
+    "adapters/llm/function_calling.go": "daf954341fded20acc764a03e1fd84ce6e45e614e8b5c4d8df5969262ec01913",
+    "adapters/llm/gemini.go": "9193386a1600144fb1390f36e7c66147bdf9062857ae5c677966c7f1241098d3",
+    "adapters/llm/mock.go": "23d456922e2be9f24dd0d5faba1cb0bb6c0c457c81c33b833fe319a9e8f3a4db",
+    "adapters/llm/openai.go": "ff2459a15d539665c8fc3c4192e8e5c062a897602061e87c97342744c169d44f",
+    "adapters/llm/registry.go": "5f48d2b30ff1c8e687a669e8fbae706fe88c0328665b26b81a8da3d47a62826f",
+    "adapters/llm/token_counter.go": "d02dbeb129aa66fbcc0c7b7bdd1fcea795b6580779cd379f110df3c0a8bb4c54",
+    "adapters/llm/types.go": "a1fb8f8cc61e93e5af404fb9c67d2e97d68698c1e029a6904a91b31435196ecd",
+    "adapters/sage/adapter.go": "b9222df08d3dd26e3a02d53a486a89f7001746217aed53066ce4513a3eae3670",
+    "adapters/sage/config.go": "21c1311b4c64779ee5e330a707d9667936ff6fa0278fa98c1a2d9dc9a387557c",
+    "adapters/sage/configmodel/config.go": "e5a596c0d3fc34f21affa21c453e6fa1b9685dc16594235c45ff44d1fb75524c",
+    "adapters/sage/did.go": "49b69e4bf9374fb5cca8c8e8df8fda383b356517bf531a05616b18b044e3aa59",
+    "adapters/sage/doc.go": "de313aa196f0eba71787c5bde29ad56323fe5670da80e93df3c26f535c50ecb7",
+    "adapters/sage/encryption.go": "ad974ce483968070f398f25582f42d0895fa79dbe693b85d7cdf4fbbe6cf2dad",
+    "adapters/sage/handshake.go": "9d787d387dfa3ed37696e2db28a37ec9163d640f13e95552591f19847996e185",
+    "adapters/sage/keys.go": "1f4f6e61917d66db9c0a141673a8c8d9cd90af44ecd569e9bee6b07a5b8c897a",
+    "adapters/sage/network.go": "d87afcad2d51f7756be5bc8fdcf74ca472e4dada405b24aa40dd2b5e2f255f80",
+    "adapters/sage/session.go": "636895b5e4ad07bb11b4be3208d1a9e8590a195c6375b32c9fe2b85ac9078a90",
+    "adapters/sage/signing.go": "d84bb313fa27703f7537ef8c1aff91dec68d2ca03ac2804ead207c8b80274fd8",
+    "adapters/sage/transport.go": "e0fc92921075f5b5db0c48dc618835a2deeea3624f357252f0c9a8388c9dda28",
+    "adapters/sage/types.go": "0a94152b5029dc9cf17868c0a75a2296456b68a7ed2c9acd403984eb3e4a1d02",
+    "builder/builder.go": "5234272e822baadfa29df8971c46a0dcbf72e99c452f1029ea7e68e627185b99",
+    "builder/doc.go": "3c85858ab5b41dae59c6bda50aa2392c745301c2f967473e337ce705cc3922fd",
+    "builder/validator.go": "28fa87332354e3ddad988f3ff18d3b43dc6d34357fe78d49470e3c6ae402f1cc",
+    "cache/cache.go": "e9998ff976854b460b647a29e88672756f2acf0d74a92944a77d68076af496f4",
+    "cache/memory_cache.go": "8a40f2c49d7cccec567b3eb7c5172942775c22465e7b36ed4b548b17462ac08b",
+    "client/client.go": "4adc03945449f745cee374f57dcf60d264027cef28c0a2e717bd06e89033cbad",
+    "client/doc.go": "1a76268e329a1fc28762fd2a76590e89f0684f0cbed704ee8372ce479697fdf1",
+    "client/grpc_client.go": "9c73913876a4c432359837d4ce88c1f2a80ff3f54513dd3ba849b550b167cce7",
+    "client/grpc_stream.go": "842c20574b95ede7360b1ef70f418f14f261f48851b94bfd404c15a9036e15b7",
+    "client/options.go": "3bf686fdaef16f000eab4944a0a8646f9668cfe3f2fd4f67d6b6239495ba34ca",
+    "client/stream.go": "8430a29db6a359ba6dd833583c62cd29d1a21884a4da401687e55b9295ccf5e6",
+    "cmd/adk/generate.go": "0e307f4cc3d55af151205d68992d1bbcc7c5545940a9ff5257b383fa678cc535",
+    "cmd/adk/init.go": "90793e6106cfce63976df0109ea9a1288974de94b723cd6adaf583cacaf98730",
+    "cmd/adk/main.go": "6ba9fffb9a6188fe020f7bd9d5b0fd9029bd8902ee51aca0d631fa4f2bbbf43b",
+    "cmd/adk/root.go": "7a4aeadc4a3fe2902dfbb6bc2771def793d504d69c768859f6e07de1d565b487",
+    "cmd/adk/serve.go": "7eb56f9fd9e8b3ddb87701e72cb4b2d38ed0242e942a5c77732d6c072f8193bc",
+    "cmd/adk/version.go": "5a78d40e911e4f28c2f19a83f16589253f481a7f34a253456248f89a9c09b23f",
+    "config/config.go": "c53bbf8af7eb1bb8f91241e2960fa7a198eb82937ecddc8615c4d273350e65d6",
+    "config/doc.go": "cbc5a3e81c72f2da744c04ad7095ab99ae6a50c47f4b4e1c10177d5ad4b25060",
+    "config/loader.go": "f53526c890b8377ecbc2c9feb10e9513837ce7ca60833b16b2e0915466a7d6fd",
+    "config/validation.go": "3b83b77bfb57bc69f8799334b5a33794497e7c12595d3f67e1dc115d442f01ed",
+    "core/agent/agent.go": "03339172582a948802baa95b02b6c761d30501c05428af55f5eed3f79455971e",
+    "core/agent/builder.go": "828497222a97b4eb3f911dcff3b51376f863d1baf956aed329aa8147067acaa9",
+    "core/agent/doc.go": "0328dfcb98b8a1232df6740c4e6097301f473e027f62f578687a31fb506d4be8",
+    "core/agent/message.go": "2d376e1cbcc0b4459e8fcfb319b90f9815f7e9696df3fa770dcb9dfd4b04c317",
+    "core/agent/options.go": "01323149ecef1baa52f3432207300acc4c283d5e457635f038c88f201363c145",
+    "core/agent/original.go": "539692e02e64b95ad8faba9e5235a2ba3a03dc9e4c8e450e1f88de6d46f9b4a2",
+    "core/agent/types.go": "a305953e0d4cf4931f657d9f920fa5f483f63c73aa2bf3a39c237b43afa8d4e7",
+    "core/capture/doc.go": "cce628806bf62243428d3477d001be3ee969fc0db7c4f81e34d5383b38bb82c6",
+    "core/capture/file_store.go": "77ba97d0f486f50cc3cd8be5278808f623457650a8bcb1b3cad6c18c3ec94533",
+    "core/capture/file_store_unsupported.go": "39952f4b48b060c84263bd30412430f89157b292e81fff3fc62750f9533874a5",
+    "core/capture/hop.go": "6d76884b5bfb654ce5ad1d6fefc2af11520d099fc7fe2ab7918c8b218f67c2cf",
+    "core/capture/host.go": "812b28cb0bd7227bbd17a91f49902fce227ff010a609c58c08b1c1f104231a86",
+    "core/capture/mcp.go": "57e5bd7084af3314486cbac42daa4488021a992b0f6d85ff7a1e80bb4fc05467",
+    "core/capture/policy.go": "f55be0f8f1e6a6c88ba2290e59982250d7634857c5bed4cac9562e2e83b2b573",
+    "core/capture/request.go": "3533c6e447464986b93567d674d97cb992ddab443ef4b001c795084b79759e2b",
+    "core/capture/store.go": "029d14fdd4cd56da5c90648ea4bd0da5fcf6a0256550fd2b614e28f30d39414d",
+    "core/guardbinding/doc.go": "addcc8df38d7b6ba8d720983df6cf05a3349778d32cacc135c9c5ef8f0ffa039",
+    "core/guardbinding/files.go": "d57962069e4e4876c3c07fbbbd8991aeddc34ad9bc49930b344183f573e40911",
+    "core/guardbinding/files_unsupported.go": "95bcd25b46b5f0e83ffd8baed7a6f964b08aa9d908933aa9e6ac035a068b17d8",
+    "core/guardbinding/load.go": "c2e45a7da72f2aa209e099d9569c84f17944757d277356296286c7f4f5ddf124",
+    "core/guardbinding/operation.go": "b6d968188d9e5172a8b2fbd0e3c4111a8209ec84eeef7e3e479021eca85a9624",
+    "core/guardbinding/types.go": "217899f322d63f851db2fcf47312338396c238a8d61b835a16418bd3b0ddf446",
+    "core/guardcalculator/calculator.go": "348a02327f545b4c1a4ff61aa6ab4058f12c75933f177541f50d341072249fc0",
+    "core/guardchannel/channel.go": "e6aa8744af55b12ef6f1cec35f8dea9ae6e0565b7486fcd89c82331bf231e3a1",
+    "core/guardchannel/socket_linux.go": "fe27d11cef31f1d7f6c177901e88b0d3bd69108f73e89ddfd5dad2a31ed5eef9",
+    "core/guardchannel/socket_unsupported.go": "93b54c6208c248f79488a6193a44b60bd43cd4051c779f060d97ca6f9c8f9e30",
+    "core/guardchannel/testdata/native/exchange.go": "ab7dfdec07b4f9a3ae91b9f6b5e4b88362a5b4fd85f3541b3973ed18a43c6548",
+    "core/guardchannel/testdata/native/main.go": "5fe633e49495633815b8002286b65b18c15d3eab275aa953aadd257d1aa2d990",
+    "core/guardchannel/testdata/native/providers.go": "4f8cd627eafb316df8f5ade52577e1a0d0e033a00f4491170e0ddd5a2674a522",
+    "core/guardchannel/testdata/native/trace.go": "13439add9396de85366ef477084e463234b722697cdbce4b3e4f68eabfc37bbb",
+    "core/guardimage/image.go": "001c7bc449848478a240f449db0d671090b8f0ec89c9efb3c375b206743da6c7",
+    "core/guardimage/image_linux.go": "febdcef95aea33af231884848c5185a402c5c6de46da88f7873a8612154084ec",
+    "core/guardimage/image_unsupported.go": "6a9621530a37cd29caeabb284e8d0c8286f1e3ccbab289f1d83c7edfb22a2229",
+    "core/guardimage/maps.go": "3fcd65fd4e8a5305ed1df16beb1311ee4e99b34c6f2b1a822120027ed08e4562",
+    "core/guardimage/testdata/host/main.go": "dfc1266bf9a77a6c727dfa24cf6845936c6b58d625ee3ca06f1a0a4a34d40f80",
+    "core/guardservices/backend.go": "b42d1d82c132d608875f7e590d52d6104b3e9528a6bc45e5ef5b3f61de1cd94e",
+    "core/guardservices/clock.go": "b20ab8ce283f530e55416a544e54126f34c4263c9304855e25b28c6771d03342",
+    "core/guardservices/doc.go": "c6e1b91aa313f2f7aca6b35a49e9deb7fe1a6e28b99eddb9f94600fbc2080613",
+    "core/guardservices/intent.go": "0a9df2e5e181ec87717ca6360787b28f7554716abbfda4f5905e998ea568c1e5",
+    "core/guardservices/result.go": "3b216544e3b8e948c81d698e6c69c6ceffb0949d812c21ad8d0545788bf43b9a",
+    "core/guardservices/signing.go": "bdf90d59113c2a1d50996a4cd5bb6970afcf258ea5e9c786dafe0deb40aff3cc",
+    "core/message/doc.go": "5c0bc9c135e966b0a7e53ebffa557bef29f0ffece291d759597958b065a67824",
+    "core/message/router.go": "154c48db8e074361282440bf453e715f1052fbef93d55c54b4a8bb14d3173310",
+    "core/middleware/builtin.go": "e72eaffe5205123f819de973809cf2f70dacf855ae93c88af971debe852c53bf",
+    "core/middleware/doc.go": "6f7afc7c60e1d6a7467bf17d6ea14bb5719944e9f7dcda76e706abfd93186f26",
+    "core/middleware/types.go": "615190940b3080314e76795efa5f261588c6c2024adea035ae3063d0a1ba67a0",
+    "core/protocol/adapter.go": "c958d52d47e0d932d85def5e834eaaaaa61ede8a9e5aa33db93fb753ac6b617d",
+    "core/protocol/doc.go": "ce983666ad9960840868ecd0f256493a8ebc1331b1577eef51d43c1194eba738",
+    "core/protocol/selector.go": "6605cf4d0d54ec93ed2da04a0259207d50e0d3b58f371b2c2f8f7c435e17d2b7",
+    "core/resilience/bulkhead.go": "273fad916c8be9d7952c36a5fa00fee7919e3155ba3415ab7cdb5d4601b146f5",
+    "core/resilience/circuit_breaker.go": "f59fa6609b4e1d5dc2ad075d3fdb01fd00840339604ecd6244eccc1c2650afe8",
+    "core/resilience/doc.go": "afb0b5f96c004e5d1c31fd61656e3eb2f18ac334cad2fd86052abb9fcb447b5e",
+    "core/resilience/errors.go": "32f19ed96109b45e2be9d2d21f4b3cea5fdda37fb83d388528db055f9887d469",
+    "core/resilience/retry.go": "38f41cbee163e26eb1142a4b7d486236f0ee131e5c399a755061dae31add775f",
+    "core/resilience/timeout.go": "9ec77848ded0d20f36c38fe1279e0633e40e4bacc4ae4d2227887982a8a169df",
+    "core/resilience/types.go": "52b43d7c680e789fa0e5eac804d459bf33ab01b4456600e33c35435b6dae9521",
+    "core/state/doc.go": "a0d14e02d910fd84a13695e587eeae79f40636f325d9f8b0df1da4a40e969f01",
+    "core/state/errors.go": "5ccf8ac28c04acfc3dba407e5cc58fd8ffcd8628494b49472a2817ae8e97c230",
+    "core/state/memory.go": "28467801a07520de46ad49c15bcfe7d5cae4451e2303f52d7c16f3e9184ee761",
+    "core/state/types.go": "4c1b33a72f5e9c9757a7568e6b8e0207a3a51b37dad6236065894d3fb941cd34",
+    "core/toolhost/binding.go": "1711f57f85a8a2867e3a4ef7899cc1464007791b794b9eb63c7902901662a1de",
+    "core/toolhost/doc.go": "8dc5292e0055a302127f1eea3bdf6d327186d9d562c95532cc009e8fae9d3bf9",
+    "core/toolhost/executor.go": "9b2a51d4f1b43fefe4a05dc0151c64ecfdbf8c1d7efebeca4a2b88d03196ac85",
+    "core/toolhost/host.go": "7ca3ca7dff0c6c7c815d0a932d2a95d6609981a1116bdb4add8631276bbdcce5",
+    "core/tools/builtin.go": "c7745258932fed7776b1ba00d78549e847bdb6046e6e8bdcb0aa3f0e36c74747",
+    "core/tools/doc.go": "7c2383b6bdff48cb4ab312a9e40e49bb5a81b0157cf3ec385028494268a2357f",
+    "core/tools/errors.go": "f28f9dd555410af326323df31998b7f1c138924d01e562592c62125235120f4b",
+    "core/tools/types.go": "cf4a3e0695803b2382372437afd24007e922a94e482306aa0f94cb16af3f4ba7",
+    "examples/anthropic-agent/main.go": "8a5f5c7c5f6d89d3089bb2ddbbd0d70a1639f48c770acbd051b95719c0a5f04a",
+    "examples/function-calling/main.go": "13a63ee478bde41c462f9c0694f489e9f13c5ffe946015c72a245652c85d13ae",
+    "examples/gemini-agent/main.go": "84f40a8680ff712342380e6be59629a2ac615146147bf8761871dfa3509d7c82",
+    "examples/key-generation/main.go": "2e0c1ea9a0d6453f7bbb518bafb9a45ab0d9f038a60c184d8b420e5d9e87714d",
+    "examples/middleware-agent/main.go": "70a504b3b78be5a2902bc0a2bd8ffedc0c845b409e94513ad1f18be357f789af",
+    "examples/multi-agent-chat/main.go": "321fd851a8a6403d9c8e0cbb4d88322df47dda3959b73ac404036266cdbeebcb",
+    "examples/multi-tenant/main.go": "c2424b80b5022b5a6764eed9ff2891688d86d024b2d94cf1f520ded2d0ce814d",
+    "examples/observability/main.go": "d747c679f751ba08d3408fba61907b26b774283a2606da455fba52fdc1c6f755",
+    "examples/postgres-storage/main.go": "8e360cb9366b052576fdcae161e9ae5512d7d35cd53cb1b2a8b55016b8415423",
+    "examples/rate-limiting/main.go": "3c9266f702cc2ef70ca75d22511ddb6b83a3750ca7fbcc704ad3b819d4cdda16",
+    "examples/redis-storage/main.go": "2d4b75b9417511c360139878b663474c2a66629857e6655330d9e2710b6c2c21",
+    "examples/sage-agent/main.go": "24327caf83152dbb06196e92dff9eb8257dfc35cdf70a55a916dc9efe0c9e5fd",
+    "examples/sage-enabled-agent/main.go": "18b737ab14fc31de5869b9c8ca3b77620d0f7d10ede612e3ca695a1981293b3d",
+    "examples/simple-agent/client.go": "907d36d71f295cb15ba9ea476998960a001666316dd7279229ea10bba6c893e1",
+    "examples/simple-agent/main.go": "b17ba7e4c9a876b35dc83470f882dddb0140cd12919bb681c06feee337cb045a",
+    "examples/simple-agent/minimal.go": "e1e6fe03f9c4301771e481f8c56eb60be90e1a510d26cadbda74564e2311541a",
+    "examples/stateful-agent/main.go": "627d27e5d05077a2751f8bcf932222a4318b10daca72811dc48f7f1c29587203",
+    "examples/streaming-agent/main.go": "75ef3705a131ee382f44399a7f9d3df3c700557608d4f5fe2e5ea5fd49b4f415",
+    "examples/tools-agent/main.go": "ae71f4580b5b4f691c93075580f68e65873c21046a9bea7662eb38579d347ff4",
+    "observability/config.go": "d69ab981aba63f2608d87d39a6a1350a2ff706ba7f35d67c9ffc9929651dd168",
+    "observability/doc.go": "1bae01328c82de1c102292afb596b4eca3bd43af680b55708eeda347772cc4ec",
+    "observability/health/checker.go": "89e7104304327abd23eb45d928f5b4e94af439f2d6dde21e4751efad0c053553",
+    "observability/health/doc.go": "638f4399db85917891e302e106a6a2748d38a0350f0790b9548e9176540da0a7",
+    "observability/health/handler.go": "e64db9b4d443664c61472c297008db55c703e3ce90563e61075e16d206e7d3c7",
+    "observability/health/liveness.go": "8530db81e8018cb28753a004bb7f8ca7180145ea9052722a18f0d1f8cc0a75c9",
+    "observability/health/readiness.go": "46a5088a505bb3dc48704699217b052f3c856ecb417b942b0f5285c1c9cdaaee",
+    "observability/health/startup.go": "3fed0dfb6c591ca664c51093655db5ecc4757f5a130fd7cafef5b0ececa6c33d",
+    "observability/integration.go": "5bcd62d16fdfa18612e351622e844c276ace158a20385bc9df294df94d39655c",
+    "observability/logging/context.go": "6e10db611056a7c1a707f4e104dafe0c2154fcc60481b98b9b47aff0f6327847",
+    "observability/logging/doc.go": "f3b19ef1fac8aec8494118cbea845087027ad9835ebbee34f60560d6146d3163",
+    "observability/logging/logger.go": "2b36184284048840c8ade2f1c7063c2214b0540f7d73911ca8656f14839ed85c",
+    "observability/logging/structured.go": "ffcc51830f1001506d29e30372c96a3d13d7417fedc1f86f9ff99844aaf5b10d",
+    "observability/metrics/agent.go": "1889df6ee0025faea943c7ff952d704413295ebe26171a66bd4897964e01cfe4",
+    "observability/metrics/collector.go": "8034f0138e07c632eb7861f516e97a5179336d0d49b12669a45b994726cd7b52",
+    "observability/metrics/doc.go": "bf044feb45d2a55593bd6fcdfb9ec6a7b0eddc65804fc9e1229e66102bd5d318",
+    "observability/metrics/llm.go": "48728a0112b86aca35670414ec5f79a3fab3f330fdf1dedde53f3fe5ef548ee3",
+    "observability/metrics/prometheus.go": "c96b906f515e3bcac4777e5d8db0579ba5ef1b589c31bd8c840a6ea3c3ddf71e",
+    "observability/middleware.go": "0ac887d7a76d7acb45187c4ec9860d499198d3bb86ec95b87a1f506cb7e24ee7",
+    "observability/tracing/tracing.go": "335c3b6c20f6093610202fc9048983aefea5bd492c819e60eed1a03e4c658956",
+    "pkg/errors/doc.go": "7b0b5307867160ff40fcd7f3e8ebd91b6e693ead2ddaeae58b37592279669821",
+    "pkg/errors/errors.go": "6f70b844fddf3e63cd6ebfd98801ce8246f1cd9da05f94c765655824c0b9a19a",
+    "pkg/errors/internal.go": "af4645e1618772e8aa1eedf05cfa42237e894ef14785241324d33dbea1fedf63",
+    "pkg/errors/llm.go": "354648ced346b0b98cd34d05ee794d83ec5aba3b38bec92ee457db7d42002015",
+    "pkg/errors/network.go": "8c09be371399f612ca2b0a16ba89a58af869ba57ad03f9dc4aae44fe945c4c6b",
+    "pkg/errors/protocol.go": "21c042080ca171f5914999813a315947dc48ea8c6ad1ee233725ef4ccf7a3452",
+    "pkg/errors/security.go": "856f7a041d041e0d32427ab1355036e849ef9606ac1567142a1f76866315f6c0",
+    "pkg/errors/storage.go": "02e0ef9a8aa61a6bf6571bf33c317bea52a4e48112a7129c99c58e2d48a1eb5a",
+    "pkg/errors/validation.go": "37e6a722f003f504e396c0ba5f722dcd5d67f49cbbf2c0b3ae664e910fd26eb7",
+    "pkg/types/doc.go": "1427d530bc61c9471a6154846dfdaf6c48246ca1c2d80d7494c8c3ce8dd25f70",
+    "pkg/types/helpers.go": "43e6ad2c4ffe011ba92ba48204a51265efc84f5c2a014418a127027281922258",
+    "pkg/types/message.go": "5cdb316d5ac9a41f9cd0808443a154c97015d738efd8f2b2271579f7594bcdb2",
+    "pkg/types/security.go": "195ed383bb80417f315b68f66b3b93f01adc40db8d18b02e68a401fc5b779491",
+    "pkg/types/task.go": "7dbc267173528c6ab8b0e9d748de341874e3bd7853e2ad1c452b22f5ae6656d7",
+    "proto/pb/agent.pb.go": "063b968f1eefe03c8b2ee8b947021a03cdc77c662b7cbeaac88a649123718d82",
+    "proto/pb/agent_grpc.pb.go": "72fbcbfd7f84fc370412b6f65245a989d42a66aa2bd1f50d6489559633715116",
+    "ratelimit/distributed.go": "9c718b2a70c6512b8ebc3bb4233ca336c630b7abcb117b3e69e1d545c4a65540",
+    "ratelimit/middleware.go": "2e1f1a03003fcf9f1c32894897d854b793eb781a108326950e957e71b612687b",
+    "ratelimit/ratelimit.go": "99d7c6fd0af7033bfa1c20b6be73552eb08f7f202f8873a403667c872a081b1d",
+    "ratelimit/sliding_window.go": "3b2b5d63e561150d1685b6973ad438f135395c4b939c75190b6632066cde014e",
+    "ratelimit/token_bucket.go": "104a041a770f4f6d62812741bed62c7c979257e04d74e4c63ac9ae55e383bfe8",
+    "server/grpc/converter.go": "bb8516ff771becd2f5a6bea0caea8d261044cd0432555de38c22fc46f1036c87",
+    "server/grpc/server.go": "aa3d8496504418abe4a032ac1abd263976f221f08bf856a25ae059b65c095a1f",
+    "storage/doc.go": "2291e016a518beddc2df044a8da0f2f345d82fe238f333c97f0292c9b50213a2",
+    "storage/memory.go": "57fcdda774d6d4b2204ae924375b6fa4a935ab869d5d5304436cf5e846c3ddb2",
+    "storage/postgres.go": "50d01f995bae9df8969005fcd7481fca62daa3a38fd44245a440daac4fcfdebd",
+    "storage/redis.go": "a990dbcec51b3a05154b8f7977f1088ff27f66a120bca29709892fcb445ecfad",
+    "storage/types.go": "17e5525a50fbc83f605a4568dc529705bb0bfe1b9a56753a7a61a1b154b8d5cd"
+  },
+  "module_files": {
+    "go.mod": "e0036dc416a384e045549655a038ecbc7074a46c804db28711465fbb78cee108",
+    "go.sum": "f5c7a61978ab5944b0bdab28b7390c9ae2aa980c8d35568dd0241d51c3d42514"
+  },
+  "routes": [
+    {
+      "id": "native-effect",
+      "path": "core/toolhost/executor.go",
+      "declaration": "executor.Run",
+      "line": 69,
+      "classification": "GUARD_NATIVE_OPT_IN",
+      "calls": [
+        {
+          "callee": "admission.Authorized",
+          "line": 81
+        },
+        {
+          "callee": "admission.Authorized",
+          "line": 92
+        },
+        {
+          "callee": "g.VerifyIntent",
+          "line": 84
+        },
+        {
+          "callee": "e.Check",
+          "line": 92
+        },
+        {
+          "callee": "b.Tool.Execute",
+          "line": 97
+        }
+      ],
+      "review": "Native admitted invocation is rechecked before the same fixed loaded instance executes; loader, policy and provider isolation remain host obligations."
+    },
+    {
+      "id": "native-owner",
+      "path": "core/toolhost/host.go",
+      "declaration": "Open",
+      "line": 35,
+      "classification": "GUARD_NATIVE_OPT_IN",
+      "calls": [
+        {
+          "callee": "g.OpenMCPHost",
+          "line": 43
+        }
+      ],
+      "review": "Fixed native length-framed MCP owner; does not wrap ordinary Agent callbacks, A2A, HTTP or stdio."
+    },
+    {
+      "id": "native-connect",
+      "path": "core/toolhost/host.go",
+      "declaration": "Host.Connect",
+      "line": 52,
+      "classification": "GUARD_NATIVE_OPT_IN",
+      "calls": [
+        {
+          "callee": "h.native.Connect",
+          "line": 56
+        }
+      ],
+      "review": "Trusted handler owns the native connection; not a model-facing capability."
+    },
+    {
+      "id": "native-serve",
+      "path": "core/toolhost/host.go",
+      "declaration": "Host.Serve",
+      "line": 61,
+      "classification": "GUARD_NATIVE_OPT_IN",
+      "calls": [
+        {
+          "callee": "h.native.Serve",
+          "line": 65
+        }
+      ],
+      "review": "Bounded native accept loop with fixed providers and loaded instances."
+    },
+    {
+      "id": "capture-original",
+      "path": "core/agent/original.go",
+      "declaration": "ProcessOriginal",
+      "line": 21,
+      "classification": "CAPTURE_ONLY",
+      "calls": [
+        {
+          "callee": "host.Capture",
+          "line": 31
+        },
+        {
+          "callee": "request.Inputs",
+          "line": 35
+        },
+        {
+          "callee": "request.Inputs",
+          "line": 46
+        },
+        {
+          "callee": "a.Process",
+          "line": 49
+        }
+      ],
+      "review": "Durable original capture precedes decode and callback, but callback effects are not mediated."
+    },
+    {
+      "id": "capture-issuer",
+      "path": "core/capture/request.go",
+      "declaration": "Request.NewIntentIssuer",
+      "line": 62,
+      "classification": "PROTECTED_PROVIDER",
+      "calls": [
+        {
+          "callee": "g.NewIntentIssuer",
+          "line": 79
+        }
+      ],
+      "review": "Protected retained-input issuer adapter; requires independently authoritative policy, measurement and custody."
+    },
+    {
+      "id": "capture-transfer",
+      "path": "core/capture/mcp.go",
+      "declaration": "Request.OpenMCPClient",
+      "line": 15,
+      "classification": "PROTECTED_PROVIDER",
+      "calls": [
+        {
+          "callee": "connection.OpenRootClient",
+          "line": 28
+        }
+      ],
+      "review": "Reopens an existing issued journal under native ownership; host must serialize close/reopen and retain fencing."
+    },
+    {
+      "id": "intent-custody",
+      "path": "core/guardservices/intent.go",
+      "declaration": "IntentSigner.Sign",
+      "line": 26,
+      "classification": "PROTECTED_PROVIDER",
+      "calls": [
+        {
+          "callee": "s.binding.sign",
+          "line": 30
+        }
+      ],
+      "review": "Current role-bound key custody for the intent domain; not approval, complete message validation or fencing."
+    },
+    {
+      "id": "result-custody",
+      "path": "core/guardservices/result.go",
+      "declaration": "ResultSigner.Sign",
+      "line": 65,
+      "classification": "PROTECTED_PROVIDER",
+      "calls": [
+        {
+          "callee": "s.binding.sign",
+          "line": 69
+        }
+      ],
+      "review": "Current role-bound result custody; not execution authorization or proof of a real deployment."
+    },
+    {
+      "id": "clock",
+      "path": "core/guardservices/clock.go",
+      "declaration": "SystemClock.Sample",
+      "line": 31,
+      "classification": "PROTECTED_PROVIDER",
+      "calls": [],
+      "review": "Local process clock adapter; not external time attestation."
+    },
+    {
+      "id": "legacy-registry",
+      "path": "core/tools/types.go",
+      "declaration": "Registry.Execute",
+      "line": 177,
+      "classification": "LEGACY_UNMEDIATED",
+      "calls": [
+        {
+          "callee": "tool.Execute",
+          "line": 182
+        }
+      ],
+      "review": "Ordinary map-based tool dispatch does not pass through the native Guard owner."
+    },
+    {
+      "id": "legacy-tool",
+      "path": "core/tools/types.go",
+      "declaration": "FunctionTool.Execute",
+      "line": 107,
+      "classification": "LEGACY_UNMEDIATED",
+      "calls": [
+        {
+          "callee": "t.execute",
+          "line": 108
+        }
+      ],
+      "review": "Raw callback capability; keep unavailable to untrusted routes in a protected host."
+    },
+    {
+      "id": "legacy-get",
+      "path": "core/tools/types.go",
+      "declaration": "Registry.Get",
+      "line": 148,
+      "classification": "LEGACY_UNMEDIATED",
+      "calls": [],
+      "review": "Returns a raw Tool capability."
+    },
+    {
+      "id": "legacy-list",
+      "path": "core/tools/types.go",
+      "declaration": "Registry.List",
+      "line": 157,
+      "classification": "LEGACY_UNMEDIATED",
+      "calls": [],
+      "review": "Returns raw Tool capabilities."
+    },
+    {
+      "id": "legacy-agent",
+      "path": "core/agent/agent.go",
+      "declaration": "agentImpl.Process",
+      "line": 63,
+      "classification": "LEGACY_UNMEDIATED",
+      "calls": [
+        {
+          "callee": "a.messageHandler",
+          "line": 72
+        }
+      ],
+      "review": "Ordinary Agent callback with no mandatory capture or final-effect Guard mediation."
+    },
+    {
+      "id": "legacy-middleware",
+      "path": "core/middleware/types.go",
+      "declaration": "Chain.Execute",
+      "line": 61,
+      "classification": "LEGACY_UNMEDIATED",
+      "calls": [
+        {
+          "callee": "handler",
+          "line": 63
+        }
+      ],
+      "review": "Optional middleware is not a mandatory security boundary."
+    },
+    {
+      "id": "legacy-grpc-unary",
+      "path": "server/grpc/server.go",
+      "declaration": "Server.SendMessage",
+      "line": 222,
+      "classification": "LEGACY_UNMEDIATED",
+      "calls": [
+        {
+          "callee": "s.agent.Process",
+          "line": 234
+        }
+      ],
+      "review": "Unary gRPC invokes the ordinary Agent path."
+    },
+    {
+      "id": "legacy-grpc-stream",
+      "path": "server/grpc/server.go",
+      "declaration": "Server.StreamMessages",
+      "line": 253,
+      "classification": "LEGACY_UNMEDIATED",
+      "calls": [
+        {
+          "callee": "s.agent.Process",
+          "line": 298
+        }
+      ],
+      "review": "Streaming gRPC invokes the ordinary Agent path."
+    },
+    {
+      "id": "legacy-a2a",
+      "path": "adapters/a2a/server.go",
+      "declaration": "messageProcessor.ProcessMessage",
+      "line": 132,
+      "classification": "LEGACY_UNMEDIATED",
+      "calls": [
+        {
+          "callee": "p.handler",
+          "line": 148
+        }
+      ],
+      "review": "Legacy A2A invokes an ordinary message handler; no claim of updated A2A conformance."
+    },
+    {
+      "id": "legacy-cli",
+      "path": "cmd/adk/serve.go",
+      "declaration": "defaultMessageHandler",
+      "line": 337,
+      "classification": "LEGACY_UNMEDIATED",
+      "calls": [
+        {
+          "callee": "msg.Reply",
+          "line": 350
+        }
+      ],
+      "review": "CLI default handler is an ordinary echo callback."
+    },
+    {
+      "id": "legacy-sign",
+      "path": "adapters/sage/adapter.go",
+      "declaration": "Adapter.signMessage",
+      "line": 324,
+      "classification": "LEGACY_UNMEDIATED",
+      "calls": [
+        {
+          "callee": "a.signingManager.SignMessage",
+          "line": 341
+        }
+      ],
+      "review": "Legacy adapter allows absent private signing key; not protected execution authorization."
+    },
+    {
+      "id": "legacy-rfc-name",
+      "path": "adapters/sage/signing.go",
+      "declaration": "SigningManager.SignMessageRFC9421",
+      "line": 249,
+      "classification": "LEGACY_UNMEDIATED",
+      "calls": [
+        {
+          "callee": "ed25519.Sign",
+          "line": 291
+        }
+      ],
+      "review": "Historical helper signs a legacy core format; its name does not establish HTTP RFC 9421 conformance."
+    },
+    {
+      "id": "builder-handler",
+      "path": "builder/builder.go",
+      "declaration": "Builder.OnMessage",
+      "line": 223,
+      "classification": "CONFIGURATION_ONLY",
+      "calls": [],
+      "review": "Registers an ordinary callback, not a mandatory pre-decision Guard hook."
+    },
+    {
+      "id": "builder-start-hook",
+      "path": "builder/builder.go",
+      "declaration": "Builder.BeforeStart",
+      "line": 239,
+      "classification": "CONFIGURATION_ONLY",
+      "calls": [],
+      "review": "Lifecycle hook only; not a per-request security checkpoint."
+    },
+    {
+      "id": "builder-protocol",
+      "path": "builder/builder.go",
+      "declaration": "Builder.buildAgent",
+      "line": 434,
+      "classification": "CONFIGURATION_ONLY",
+      "calls": [
+        {
+          "callee": "b.createA2AServer",
+          "line": 441
+        }
+      ],
+      "review": "A2A construction remains legacy; SAGE and automatic server modes return not-implemented errors."
+    },
+    {
+      "id": "proposal-arguments",
+      "path": "adapters/llm/function_calling.go",
+      "declaration": "FunctionCall.ParsedArguments",
+      "line": 35,
+      "classification": "PROPOSAL_ONLY",
+      "calls": [
+        {
+          "callee": "json.Unmarshal",
+          "line": 37
+        }
+      ],
+      "review": "Parses model arguments without approving or executing a tool."
+    },
+    {
+      "id": "openai-proposal",
+      "path": "adapters/llm/openai.go",
+      "declaration": "OpenAIProvider.CompleteWithTools",
+      "line": 261,
+      "classification": "OUTBOUND_LLM_PROPOSAL",
+      "calls": [
+        {
+          "callee": "p.client.CreateChatCompletion",
+          "line": 318
+        }
+      ],
+      "review": "External LLM request and returned proposal; not Guard-authorized tool execution or protected prompt transport."
+    },
+    {
+      "id": "anthropic-proposal",
+      "path": "adapters/llm/anthropic.go",
+      "declaration": "AnthropicProvider.CompleteWithTools",
+      "line": 235,
+      "classification": "OUTBOUND_LLM_PROPOSAL",
+      "calls": [
+        {
+          "callee": "p.httpClient.Do",
+          "line": 279
+        }
+      ],
+      "review": "External LLM request and returned proposal; not Guard-authorized tool execution."
+    },
+    {
+      "id": "gemini-proposal",
+      "path": "adapters/llm/gemini.go",
+      "declaration": "GeminiProvider.CompleteWithTools",
+      "line": 235,
+      "classification": "OUTBOUND_LLM_PROPOSAL",
+      "calls": [
+        {
+          "callee": "p.httpClient.Do",
+          "line": 285
+        }
+      ],
+      "review": "External LLM request and returned proposal; not Guard-authorized tool execution."
+    },
+    {
+      "id": "approved-open",
+      "path": "core/guardbinding/load.go",
+      "declaration": "Open",
+      "line": 41,
+      "classification": "APPROVED_OPERATION_OPT_IN",
+      "calls": [
+        {
+          "callee": "open",
+          "line": 42
+        }
+      ],
+      "review": "Public root-only entry passes empty parent/issuer to private loader; typed nil and all capture/artifact checks remain in open. Root approval still requires null parent."
+    },
+    {
+      "id": "approved-rules",
+      "path": "core/guardbinding/load.go",
+      "declaration": "parseRules",
+      "line": 159,
+      "classification": "APPROVED_OPERATION_OPT_IN",
+      "calls": [
+        {
+          "callee": "g.Canonicalize",
+          "line": 160
+        },
+        {
+          "callee": "g.PolicyCommitment",
+          "line": 188
+        }
+      ],
+      "review": "Closed independent local rules fix recipient, role-bound signing key, tool, exact canonical arguments and lifetime. A trusted application selects appropriate rules; hashes do not prove natural-language equivalence."
+    },
+    {
+      "id": "approved-artifacts",
+      "path": "core/guardbinding/load.go",
+      "declaration": "Operation.read",
+      "line": 193,
+      "classification": "APPROVED_OPERATION_OPT_IN",
+      "calls": [
+        {
+          "callee": "o.root.Lstat",
+          "line": 204
+        },
+        {
+          "callee": "readFile",
+          "line": 209
+        },
+        {
+          "callee": "g.VerifyManifest",
+          "line": 216
+        }
+      ],
+      "review": "Bounded confined regular files are checked against each declared hash. Trusted administration must protect and serialize intermediate paths; this is not concurrent hostile-filesystem isolation."
+    },
+    {
+      "id": "approved-read",
+      "path": "core/guardbinding/load.go",
+      "declaration": "readFile",
+      "line": 223,
+      "classification": "APPROVED_OPERATION_OPT_IN",
+      "calls": [
+        {
+          "callee": "openArtifact",
+          "line": 224
+        },
+        {
+          "callee": "f.Stat",
+          "line": 229
+        },
+        {
+          "callee": "io.LimitReader",
+          "line": 233
+        }
+      ],
+      "review": "The bounded opened artifact is checked as regular before reading. Operating-system support is reviewed separately."
+    },
+    {
+      "id": "approved-freshness",
+      "path": "core/guardbinding/load.go",
+      "declaration": "Operation.check",
+      "line": 239,
+      "classification": "APPROVED_OPERATION_OPT_IN",
+      "calls": [
+        {
+          "callee": "o.request.Inputs",
+          "line": 243
+        },
+        {
+          "callee": "o.retiring.Store",
+          "line": 245
+        },
+        {
+          "callee": "o.read",
+          "line": 249
+        },
+        {
+          "callee": "o.retiring.Store",
+          "line": 251
+        },
+        {
+          "callee": "o.instance.Check",
+          "line": 255
+        },
+        {
+          "callee": "o.retiring.Store",
+          "line": 257
+        },
+        {
+          "callee": "o.read",
+          "line": 263
+        },
+        {
+          "callee": "o.retiring.Store",
+          "line": 265
+        },
+        {
+          "callee": "o.request.Inputs",
+          "line": 269
+        },
+        {
+          "callee": "o.retiring.Store",
+          "line": 271
+        }
+      ],
+      "review": "Original capture and exact files are rechecked before and after the trusted loaded-instance callback. Active integrity failure retires this operation; Check must attest real loaded code, not echo commitments."
+    },
+    {
+      "id": "approved-canonical",
+      "path": "core/guardbinding/load.go",
+      "declaration": "canonicalObject",
+      "line": 277,
+      "classification": "APPROVED_OPERATION_OPT_IN",
+      "calls": [
+        {
+          "callee": "g.Canonicalize",
+          "line": 278
+        },
+        {
+          "callee": "bytes.Equal",
+          "line": 279
+        }
+      ],
+      "review": "Requires exact canonical object bytes for fixed arguments and root or hop intent input."
+    },
+    {
+      "id": "approved-gate",
+      "path": "core/guardbinding/operation.go",
+      "declaration": "Operation.enter",
+      "line": 19,
+      "classification": "APPROVED_OPERATION_OPT_IN",
+      "calls": [
+        {
+          "callee": "o.retiring.Load",
+          "line": 20
+        },
+        {
+          "callee": "ctx.Done",
+          "line": 24
+        },
+        {
+          "callee": "o.retiring.Load",
+          "line": 28
+        }
+      ],
+      "review": "A context-aware shared gate serializes checks and final execution with retirement. Local serialization is not distributed epoch management."
+    },
+    {
+      "id": "approved-bindings",
+      "path": "core/guardbinding/operation.go",
+      "declaration": "Operation.Bindings",
+      "line": 44,
+      "classification": "APPROVED_OPERATION_OPT_IN",
+      "calls": [
+        {
+          "callee": "o.enter",
+          "line": 45
+        },
+        {
+          "callee": "o.request.ID",
+          "line": 58
+        },
+        {
+          "callee": "o.check",
+          "line": 58
+        },
+        {
+          "callee": "o.request.Digest",
+          "line": 61
+        }
+      ],
+      "review": "Returns owned approved descriptors only for the fixed issuer and request after current capture/artifact/instance checks. Wire commitments cannot install mappings."
+    },
+    {
+      "id": "approved-authorize",
+      "path": "core/guardbinding/operation.go",
+      "declaration": "Operation.Authorize",
+      "line": 70,
+      "classification": "APPROVED_OPERATION_OPT_IN",
+      "calls": [
+        {
+          "callee": "o.enter",
+          "line": 71
+        },
+        {
+          "callee": "o.permitted",
+          "line": 76
+        },
+        {
+          "callee": "o.check",
+          "line": 76
+        }
+      ],
+      "review": "Exact issuer/tool/arguments are locally evaluated before current integrity checks. This callback is a policy snapshot, not one-use approval, reservation or dispatch."
+    },
+    {
+      "id": "approved-intent",
+      "path": "core/guardbinding/operation.go",
+      "declaration": "Operation.ApproveIntent",
+      "line": 85,
+      "classification": "APPROVED_OPERATION_OPT_IN",
+      "calls": [
+        {
+          "callee": "o.enter",
+          "line": 86
+        },
+        {
+          "callee": "canonicalObject",
+          "line": 91
+        },
+        {
+          "callee": "o.request.ID",
+          "line": 99
+        },
+        {
+          "callee": "o.request.Digest",
+          "line": 99
+        },
+        {
+          "callee": "base64.RawURLEncoding.Strict().DecodeString",
+          "line": 111
+        },
+        {
+          "callee": "o.permitted",
+          "line": 112
+        },
+        {
+          "callee": "o.check",
+          "line": 112
+        },
+        {
+          "callee": "o.parentMatches",
+          "line": 112
+        }
+      ],
+      "review": "Closed seventeen-field canonical intent matches independent own identity, key, original, policy/component commitments, profile, exact arguments and lifetime. parentMatches requires null for root or exact retained parent and distinct child ID for hop. Core retains current authority/time, one-use approval and durable issuance fencing."
+    },
+    {
+      "id": "approved-measurement",
+      "path": "core/guardbinding/operation.go",
+      "declaration": "Operation.Check",
+      "line": 128,
+      "classification": "APPROVED_OPERATION_OPT_IN",
+      "calls": [
+        {
+          "callee": "o.enter",
+          "line": 129
+        },
+        {
+          "callee": "o.check",
+          "line": 137
+        }
+      ],
+      "review": "Fixed manifest/tool identity is checked before capture/artifact/same-instance remeasurement. Actual attestation remains a deployment provider duty."
+    },
+    {
+      "id": "approved-loaded-check",
+      "path": "core/guardbinding/operation.go",
+      "declaration": "loaded.Check",
+      "line": 142,
+      "classification": "APPROVED_OPERATION_OPT_IN",
+      "calls": [
+        {
+          "callee": "l.operation.Check",
+          "line": 143
+        }
+      ],
+      "review": "The private loaded wrapper delegates measurement to the same Operation used by native host Binding."
+    },
+    {
+      "id": "approved-final-effect",
+      "path": "core/guardbinding/operation.go",
+      "declaration": "loaded.Execute",
+      "line": 145,
+      "classification": "APPROVED_OPERATION_OPT_IN",
+      "calls": [
+        {
+          "callee": "o.enter",
+          "line": 147
+        },
+        {
+          "callee": "o.permitted",
+          "line": 158
+        },
+        {
+          "callee": "o.check",
+          "line": 158
+        },
+        {
+          "callee": "o.instance.Execute",
+          "line": 161
+        },
+        {
+          "callee": "active",
+          "line": 162
+        }
+      ],
+      "review": "Only the fixed instance receives a copy of exact arguments after fresh checks under the shared gate. Binding.Tool is a trusted capability; exposing it as unsigned model dispatch is outside the protected path."
+    },
+    {
+      "id": "approved-native-binding",
+      "path": "core/guardbinding/operation.go",
+      "declaration": "Operation.Binding",
+      "line": 171,
+      "classification": "APPROVED_OPERATION_OPT_IN",
+      "calls": [
+        {
+          "callee": "o.enter",
+          "line": 172
+        },
+        {
+          "callee": "o.check",
+          "line": 183
+        }
+      ],
+      "review": "Returns a private wrapper tied to this Operation for trusted native host configuration. Constructing it does not wrap ordinary Agent, Tool Registry, A2A or gRPC routes."
+    },
+    {
+      "id": "approved-retirement",
+      "path": "core/guardbinding/operation.go",
+      "declaration": "Operation.Close",
+      "line": 192,
+      "classification": "APPROVED_OPERATION_OPT_IN",
+      "calls": [
+        {
+          "callee": "o.retiring.Store",
+          "line": 199
+        },
+        {
+          "callee": "ctx.Done",
+          "line": 201
+        },
+        {
+          "callee": "o.root.Close",
+          "line": 209
+        }
+      ],
+      "review": "Refuses new callbacks before waiting for accepted effect cleanup and closing artifact custody. Timeout retains ownership/refusal; administration still owns factory lifetime, durable epochs and distributed retirement."
+    },
+    {
+      "id": "approved-snapshot-artifacts",
+      "path": "core/guardbinding/types.go",
+      "declaration": "Snapshot.Artifacts",
+      "line": 61,
+      "classification": "APPROVED_OPERATION_OPT_IN",
+      "calls": [
+        {
+          "callee": "append",
+          "line": 67
+        }
+      ],
+      "review": "Copies exact owned artifact bytes for a protected Factory. This copy is not an execution or signing token."
+    },
+    {
+      "id": "approved-snapshot-policy",
+      "path": "core/guardbinding/types.go",
+      "declaration": "Snapshot.Policy",
+      "line": 73,
+      "classification": "APPROVED_OPERATION_OPT_IN",
+      "calls": [
+        {
+          "callee": "append",
+          "line": 77
+        }
+      ],
+      "review": "Returns owned canonical policy descriptor bytes, not policy authority."
+    },
+    {
+      "id": "approved-snapshot-manifest",
+      "path": "core/guardbinding/types.go",
+      "declaration": "Snapshot.Manifest",
+      "line": 81,
+      "classification": "APPROVED_OPERATION_OPT_IN",
+      "calls": [
+        {
+          "callee": "append",
+          "line": 85
+        }
+      ],
+      "review": "Returns owned canonical component manifest bytes, not loaded-code attestation."
+    },
+    {
+      "id": "approved-local-file-open",
+      "path": "core/guardbinding/files.go",
+      "declaration": "openArtifact",
+      "line": 11,
+      "classification": "APPROVED_OPERATION_OPT_IN",
+      "calls": [
+        {
+          "callee": "root.OpenFile",
+          "line": 16
+        }
+      ],
+      "review": "Linux/macOS use confined no-follow nonblocking final opens; final descriptor inspection is separate. Intermediate mutations still require trusted serialized administration."
+    },
+    {
+      "id": "approved-other-os",
+      "path": "core/guardbinding/files_unsupported.go",
+      "declaration": "openArtifact",
+      "line": 8,
+      "classification": "APPROVED_OPERATION_OPT_IN",
+      "calls": [],
+      "review": "Other operating systems refuse artifact opening. Parsing mutually exclusive source files does not prove runtime platform selection."
+    },
+    {
+      "id": "calculator-gate",
+      "path": "core/guardcalculator/calculator.go",
+      "declaration": "enter",
+      "line": 89,
+      "classification": "COMPILED_CALCULATOR_OPT_IN",
+      "calls": [
+        {
+          "callee": "active",
+          "line": 90
+        },
+        {
+          "callee": "ctx.Done",
+          "line": 94
+        },
+        {
+          "callee": "active",
+          "line": 98
+        }
+      ],
+      "review": "Cancellation is checked around the shared gate; provider bounds and cancellation remain trusted obligations."
+    },
+    {
+      "id": "calculator-factory",
+      "path": "core/guardcalculator/calculator.go",
+      "declaration": "NewFactory",
+      "line": 106,
+      "classification": "COMPILED_CALCULATOR_OPT_IN",
+      "calls": [
+        {
+          "callee": "absent",
+          "line": 107
+        },
+        {
+          "callee": "gate",
+          "line": 110
+        }
+      ],
+      "review": "Absent or typed-nil measurement and instance limits outside 1..1024 are refused; protected configuration must select the provider."
+    },
+    {
+      "id": "calculator-load",
+      "path": "core/guardcalculator/calculator.go",
+      "declaration": "Factory.Load",
+      "line": 117,
+      "classification": "COMPILED_CALCULATOR_OPT_IN",
+      "calls": [
+        {
+          "callee": "g.PolicyCommitment",
+          "line": 134
+        },
+        {
+          "callee": "g.ManifestCommitment",
+          "line": 138
+        },
+        {
+          "callee": "snapshot.Artifacts",
+          "line": 157
+        },
+        {
+          "callee": "g.VerifyManifest",
+          "line": 158
+        },
+        {
+          "callee": "parseConfiguration",
+          "line": 167
+        },
+        {
+          "callee": "json.Unmarshal",
+          "line": 179
+        },
+        {
+          "callee": "f.measurement.Check",
+          "line": 193
+        },
+        {
+          "callee": "tools.CalculatorTool",
+          "line": 196
+        }
+      ],
+      "review": "Reviewed control flow covers configuration and named image in component/evaluator descriptors, mandatory measurement before fixed compiled tool construction and bounded private ownership. No snapshot code is loaded. Measurement must prove protected pre-load verification and retained immutable runtime identity; the call is not attestation."
+    },
+    {
+      "id": "calculator-component-artifacts",
+      "path": "core/guardcalculator/calculator.go",
+      "declaration": "componentArtifacts",
+      "line": 201,
+      "classification": "COMPILED_CALCULATOR_OPT_IN",
+      "calls": [
+        {
+          "callee": "append",
+          "line": 208
+        }
+      ],
+      "review": "Selects component manifest paths from owned snapshot artifacts; exact bytes are verified by Factory.Load."
+    },
+    {
+      "id": "calculator-configuration",
+      "path": "core/guardcalculator/calculator.go",
+      "declaration": "parseConfiguration",
+      "line": 215,
+      "classification": "COMPILED_CALCULATOR_OPT_IN",
+      "calls": [
+        {
+          "callee": "g.Canonicalize",
+          "line": 216
+        },
+        {
+          "callee": "json.Unmarshal",
+          "line": 221
+        },
+        {
+          "callee": "math.IsNaN",
+          "line": 230
+        },
+        {
+          "callee": "math.IsInf",
+          "line": 230
+        }
+      ],
+      "review": "Closed five-field configuration fixes version, tool, image path, sorted unique arithmetic operations and finite positive operand bound. Image path is descriptor data, not a dynamic load request."
+    },
+    {
+      "id": "calculator-measurement",
+      "path": "core/guardcalculator/calculator.go",
+      "declaration": "instance.checked",
+      "line": 244,
+      "classification": "COMPILED_CALCULATOR_OPT_IN",
+      "calls": [
+        {
+          "callee": "i.measurement.Check",
+          "line": 245
+        },
+        {
+          "callee": "active",
+          "line": 245
+        },
+        {
+          "callee": "i.retiring.Store",
+          "line": 246
+        }
+      ],
+      "review": "Actual runtime measurement is mandatory; retirement is rechecked after the callback and failed checks retire the private instance. No concrete measurement provider is supplied here."
+    },
+    {
+      "id": "calculator-instance-check",
+      "path": "core/guardcalculator/calculator.go",
+      "declaration": "instance.Check",
+      "line": 254,
+      "classification": "COMPILED_CALCULATOR_OPT_IN",
+      "calls": [
+        {
+          "callee": "enter",
+          "line": 255
+        },
+        {
+          "callee": "recover",
+          "line": 260
+        },
+        {
+          "callee": "i.retiring.Store",
+          "line": 261
+        },
+        {
+          "callee": "i.checked",
+          "line": 268
+        }
+      ],
+      "review": "Exact policy/component commitments and calculator identity precede runtime measurement under the instance gate; panics refuse and retire."
+    },
+    {
+      "id": "calculator-final-effect",
+      "path": "core/guardcalculator/calculator.go",
+      "declaration": "instance.Execute",
+      "line": 274,
+      "classification": "COMPILED_CALCULATOR_OPT_IN",
+      "calls": [
+        {
+          "callee": "enter",
+          "line": 275
+        },
+        {
+          "callee": "recover",
+          "line": 280
+        },
+        {
+          "callee": "g.Canonicalize",
+          "line": 286
+        },
+        {
+          "callee": "bytes.Equal",
+          "line": 287
+        },
+        {
+          "callee": "json.Unmarshal",
+          "line": 291
+        },
+        {
+          "callee": "sort.SearchStrings",
+          "line": 299
+        },
+        {
+          "callee": "i.checked",
+          "line": 303
+        },
+        {
+          "callee": "i.tool.Execute",
+          "line": 306
+        },
+        {
+          "callee": "json.Marshal",
+          "line": 311
+        },
+        {
+          "callee": "g.Canonicalize",
+          "line": 316
+        }
+      ],
+      "review": "Canonical closed operation/a/b arguments and configured finite bounds precede repeated measurement and the same private tool callback; output is canonicalized. This trusted Instance capability must stay behind guardbinding and native admission, not a model-facing unsigned dispatcher."
+    },
+    {
+      "id": "calculator-retirement",
+      "path": "core/guardcalculator/calculator.go",
+      "declaration": "Factory.Close",
+      "line": 326,
+      "classification": "COMPILED_CALCULATOR_OPT_IN",
+      "calls": [
+        {
+          "callee": "f.retiring.Store",
+          "line": 330
+        },
+        {
+          "callee": "enter",
+          "line": 331
+        },
+        {
+          "callee": "i.retiring.Store",
+          "line": 336
+        },
+        {
+          "callee": "enter",
+          "line": 339
+        }
+      ],
+      "review": "Retirement refuses new work and waits for accepted bounded callbacks before clearing tool/snapshot ownership. Cancelled cleanup retains ownership for retry; blocked providers require their own bounds."
+    },
+    {
+      "id": "calculator-builtin",
+      "path": "core/tools/builtin.go",
+      "declaration": "CalculatorTool",
+      "line": 27,
+      "classification": "LEGACY_UNMEDIATED",
+      "calls": [
+        {
+          "callee": "NewFunctionTool",
+          "line": 28
+        },
+        {
+          "callee": "ErrorResultWithMessage",
+          "line": 76
+        },
+        {
+          "callee": "SuccessResult",
+          "line": 83
+        }
+      ],
+      "review": "Existing compiled arithmetic constructor is used by the opt-in private adapter. Direct use remains unmediated; division by zero is a domain-error result and completed execution does not imply domain success."
+    },
+    {
+      "id": "image-context",
+      "path": "core/guardimage/image.go",
+      "declaration": "active",
+      "line": 72,
+      "classification": "SEALED_IMAGE_OPT_IN",
+      "calls": [
+        {
+          "callee": "ctx.Err",
+          "line": 72
+        }
+      ],
+      "review": "Nil or cancelled contexts refuse operations. Context checks are local bounds, not host attestation."
+    },
+    {
+      "id": "image-gate",
+      "path": "core/guardimage/image.go",
+      "declaration": "acquire",
+      "line": 73,
+      "classification": "SEALED_IMAGE_OPT_IN",
+      "calls": [
+        {
+          "callee": "active",
+          "line": 74
+        },
+        {
+          "callee": "ctx.Done",
+          "line": 78
+        },
+        {
+          "callee": "active",
+          "line": 82
+        }
+      ],
+      "review": "Context-aware shared gate serializes appraisal and cleanup. Cancellation restores acquired gate ownership; this is not cross-process effect mediation."
+    },
+    {
+      "id": "image-start",
+      "path": "core/guardimage/image.go",
+      "declaration": "Start",
+      "line": 92,
+      "classification": "SEALED_IMAGE_OPT_IN",
+      "calls": [
+        {
+          "callee": "active",
+          "line": 93
+        },
+        {
+          "callee": "approved",
+          "line": 99
+        },
+        {
+          "callee": "start",
+          "line": 103
+        }
+      ],
+      "review": "Native Linux amd64/arm64 restriction and owned byte approval precede platform start; success retains one private backend. Creating it does not select a deployed host."
+    },
+    {
+      "id": "image-owned-approval",
+      "path": "core/guardimage/image.go",
+      "declaration": "approved",
+      "line": 112,
+      "classification": "SEALED_IMAGE_OPT_IN",
+      "calls": [
+        {
+          "callee": "append",
+          "line": 116
+        },
+        {
+          "callee": "sha256.Sum256",
+          "line": 117
+        },
+        {
+          "callee": "hex.EncodeToString",
+          "line": 118
+        },
+        {
+          "callee": "staticGo",
+          "line": 121
+        }
+      ],
+      "review": "Explicit bounded image input is copied and compared with an independently approved digest before static executable profile validation. Caller-supplied baseline needs protected administration."
+    },
+    {
+      "id": "image-static-profile",
+      "path": "core/guardimage/image.go",
+      "declaration": "staticGo",
+      "line": 127,
+      "classification": "SEALED_IMAGE_OPT_IN",
+      "calls": [
+        {
+          "callee": "elf.NewFile",
+          "line": 128
+        },
+        {
+          "callee": "f.Close",
+          "line": 132
+        },
+        {
+          "callee": "buildinfo.Read",
+          "line": 159
+        }
+      ],
+      "review": "Bounded native ELF executable with file-backed entry, no interpreter/dynamic segment, executable stack or writable executable load; Go metadata restricts native static build settings. Metadata is not build provenance or semantic mapping proof."
+    },
+    {
+      "id": "image-observe",
+      "path": "core/guardimage/image.go",
+      "declaration": "Process.Observe",
+      "line": 180,
+      "classification": "SEALED_IMAGE_OPT_IN",
+      "calls": [
+        {
+          "callee": "p.retired.Load",
+          "line": 181
+        },
+        {
+          "callee": "acquire",
+          "line": 181
+        },
+        {
+          "callee": "p.driver.observe",
+          "line": 188
+        },
+        {
+          "callee": "p.retired.Load",
+          "line": 189
+        },
+        {
+          "callee": "active",
+          "line": 189
+        },
+        {
+          "callee": "p.retired.Store",
+          "line": 190
+        }
+      ],
+      "review": "Serialized fresh backend observation must agree with retained digest, positive PID and native architecture. Failure, cancellation or concurrent retirement refuses and permanently retires appraisal."
+    },
+    {
+      "id": "image-snapshot",
+      "path": "core/guardimage/image.go",
+      "declaration": "Process.CheckSnapshot",
+      "line": 200,
+      "classification": "SEALED_IMAGE_OPT_IN",
+      "calls": [
+        {
+          "callee": "snapshot.Policy",
+          "line": 204
+        },
+        {
+          "callee": "snapshot.Manifest",
+          "line": 204
+        },
+        {
+          "callee": "g.PolicyCommitment",
+          "line": 205
+        },
+        {
+          "callee": "g.ManifestCommitment",
+          "line": 208
+        },
+        {
+          "callee": "snapshot.Artifacts",
+          "line": 226
+        },
+        {
+          "callee": "g.VerifyManifest",
+          "line": 238
+        },
+        {
+          "callee": "p.Observe",
+          "line": 245
+        }
+      ],
+      "review": "Both locally approved policy artifact and component descriptors must contain the exact image digest and verified owned bytes before fresh observation. This appraises a child, grants no admission, and cannot measure a parent calculator or implement parent-hop policy."
+    },
+    {
+      "id": "image-retirement",
+      "path": "core/guardimage/image.go",
+      "declaration": "Process.Close",
+      "line": 253,
+      "classification": "SEALED_IMAGE_OPT_IN",
+      "calls": [
+        {
+          "callee": "p.retired.Store",
+          "line": 257
+        },
+        {
+          "callee": "acquire",
+          "line": 258
+        },
+        {
+          "callee": "p.driver.close",
+          "line": 265
+        }
+      ],
+      "review": "Appraisal retires before serialized child cleanup. Failed or cancelled cleanup retains backend ownership for retry; retire native work and preserve uncertain effect completions before termination."
+    },
+    {
+      "id": "image-linux-seal-exec",
+      "path": "core/guardimage/image_linux.go",
+      "declaration": "start",
+      "line": 32,
+      "classification": "SEALED_IMAGE_OPT_IN",
+      "calls": [
+        {
+          "callee": "unix.MemfdCreate",
+          "line": 36
+        },
+        {
+          "callee": "file.Write",
+          "line": 47
+        },
+        {
+          "callee": "unix.Fchmod",
+          "line": 50
+        },
+        {
+          "callee": "unix.FcntlInt",
+          "line": 53
+        },
+        {
+          "callee": "unix.Fstat",
+          "line": 57
+        },
+        {
+          "callee": "unix.FcntlInt",
+          "line": 60
+        },
+        {
+          "callee": "sha256.New",
+          "line": 67
+        },
+        {
+          "callee": "io.Copy",
+          "line": 68
+        },
+        {
+          "callee": "hex.EncodeToString",
+          "line": 69
+        },
+        {
+          "callee": "exec.Command",
+          "line": 79
+        },
+        {
+          "callee": "cmd.Start",
+          "line": 95
+        },
+        {
+          "callee": "cmd.Wait",
+          "line": 102
+        },
+        {
+          "callee": "cmd.Process.Kill",
+          "line": 104
+        },
+        {
+          "callee": "unix.Close",
+          "line": 107
+        }
+      ],
+      "review": "Same memfd is written, made executable, sealed and rehashed before descriptor-based exec with empty environment and mandatory pidfd. Child wait and failed startup cleanup retain ownership; no mutable-path or PID-only fallback. Constants, descriptor assignments and comparison conditions are reviewed source hashed here, not proven by call matching."
+    },
+    {
+      "id": "image-linux-liveness",
+      "path": "core/guardimage/image_linux.go",
+      "declaration": "linuxProcess.live",
+      "line": 115,
+      "classification": "SEALED_IMAGE_OPT_IN",
+      "calls": [
+        {
+          "callee": "pidfdLive",
+          "line": 116
+        }
+      ],
+      "review": "Delegates to bounded zero-timeout polling of the retained owned pidfd. Only EINTR retries, at most three times; exit readiness, invalid descriptor, other error or persistent interruption refuses. Process lifetime is not logical worker/exec generation."
+    },
+    {
+      "id": "image-linux-live-object",
+      "path": "core/guardimage/image_linux.go",
+      "declaration": "linuxProcess.observe",
+      "line": 137,
+      "classification": "SEALED_IMAGE_OPT_IN",
+      "calls": [
+        {
+          "callee": "p.live",
+          "line": 138
+        },
+        {
+          "callee": "unix.Open",
+          "line": 141
+        },
+        {
+          "callee": "unix.FcntlInt",
+          "line": 148
+        },
+        {
+          "callee": "unix.Fstat",
+          "line": 149
+        },
+        {
+          "callee": "file.Read",
+          "line": 159
+        },
+        {
+          "callee": "hex.EncodeToString",
+          "line": 174
+        },
+        {
+          "callee": "os.Open",
+          "line": 177
+        },
+        {
+          "callee": "io.ReadAll",
+          "line": 181
+        },
+        {
+          "callee": "validMaps",
+          "line": 183
+        },
+        {
+          "callee": "p.live",
+          "line": 183
+        }
+      ],
+      "review": "Live proc executable must match retained device/inode/size/seals and bounded content hash. Bounded proc maps reject writable or foreign executable mappings; liveness is checked again. Not instruction-page attestation, atomic admission or exclusion of transient changes."
+    },
+    {
+      "id": "image-linux-cleanup",
+      "path": "core/guardimage/image_linux.go",
+      "declaration": "linuxProcess.close",
+      "line": 189,
+      "classification": "SEALED_IMAGE_OPT_IN",
+      "calls": [
+        {
+          "callee": "active",
+          "line": 190
+        },
+        {
+          "callee": "p.live",
+          "line": 193
+        },
+        {
+          "callee": "unix.PidfdSendSignal",
+          "line": 194
+        },
+        {
+          "callee": "ctx.Done",
+          "line": 200
+        },
+        {
+          "callee": "p.image.Close",
+          "line": 204
+        },
+        {
+          "callee": "unix.Close",
+          "line": 208
+        }
+      ],
+      "review": "Terminates only the retained owned child through pidfd, waits for reap, then closes owned image and pidfd. Cancellation leaves resources for retry; successful cleanup is not rollback proof."
+    },
+    {
+      "id": "image-mapping-profile",
+      "path": "core/guardimage/maps.go",
+      "declaration": "validMaps",
+      "line": 12,
+      "classification": "SEALED_IMAGE_OPT_IN",
+      "calls": [
+        {
+          "callee": "bufio.NewScanner",
+          "line": 13
+        },
+        {
+          "callee": "strings.Fields",
+          "line": 16
+        },
+        {
+          "callee": "strconv.ParseUint",
+          "line": 37
+        },
+        {
+          "callee": "strconv.ParseUint",
+          "line": 38
+        },
+        {
+          "callee": "strconv.ParseUint",
+          "line": 39
+        },
+        {
+          "callee": "scanner.Err",
+          "line": 55
+        }
+      ],
+      "review": "Parses executable mapping permissions and device/inode, permits only the sealed object plus named zero-inode kernel mappings, and requires an image mapping. Maps metadata does not inspect private instruction pages or prove complete isolation."
+    },
+    {
+      "id": "image-unsupported",
+      "path": "core/guardimage/image_unsupported.go",
+      "declaration": "start",
+      "line": 8,
+      "classification": "SEALED_IMAGE_OPT_IN",
+      "calls": [],
+      "review": "Unsupported platforms return ErrUnsupported without launching an executable or synthetic fallback. All build-tag variants are parsed, not executed by this query."
+    },
+    {
+      "id": "image-runtime-fixture",
+      "path": "core/guardimage/testdata/host/main.go",
+      "declaration": "main",
+      "line": 15,
+      "classification": "RUNTIME_TEST_FIXTURE",
+      "calls": [
+        {
+          "callee": "input.Text",
+          "line": 19
+        },
+        {
+          "callee": "tools.CalculatorTool",
+          "line": 22
+        },
+        {
+          "callee": "tools.CalculatorTool().Execute",
+          "line": 22
+        },
+        {
+          "callee": "json.NewEncoder().Encode",
+          "line": 23
+        }
+      ],
+      "review": "Harmless runtime fixture accepts only a literal calculate command and fixed addition. It has no native Guard/admission and remains an unmediated test fixture, not a protected production route."
+    },
+    {
+      "id": "channel-local-presence",
+      "path": "core/guardchannel/channel.go",
+      "declaration": "absent",
+      "line": 92,
+      "classification": "CHILD_MEASUREMENT_OPT_IN",
+      "calls": [
+        {
+          "callee": "reflect.ValueOf",
+          "line": 96
+        },
+        {
+          "callee": "r.IsNil",
+          "line": 99
+        }
+      ],
+      "review": "Rejects nil and typed-nil mandatory local assurance providers; presence is not evidence of provider integrity."
+    },
+    {
+      "id": "channel-bounded-entry",
+      "path": "core/guardchannel/channel.go",
+      "declaration": "enter",
+      "line": 104,
+      "classification": "CHILD_MEASUREMENT_OPT_IN",
+      "calls": [
+        {
+          "callee": "active",
+          "line": 105
+        },
+        {
+          "callee": "ctx.Done",
+          "line": 109
+        },
+        {
+          "callee": "active",
+          "line": 113
+        }
+      ],
+      "review": "Context-aware serialized gate entry checks cancellation again after acquisition. Child Check creates its deadline before waiting; pre-entry refusal issues no request."
+    },
+    {
+      "id": "channel-commitments",
+      "path": "core/guardchannel/channel.go",
+      "declaration": "commitments",
+      "line": 127,
+      "classification": "CHILD_MEASUREMENT_OPT_IN",
+      "calls": [
+        {
+          "callee": "g.PolicyCommitment",
+          "line": 128
+        },
+        {
+          "callee": "g.ManifestCommitment",
+          "line": 132
+        },
+        {
+          "callee": "digest",
+          "line": 136
+        },
+        {
+          "callee": "digest",
+          "line": 140
+        }
+      ],
+      "review": "Uses core policy and component commitment validation and exact lowercase 32-byte digests. Commitments bind independently administered baselines, not model-selected approval."
+    },
+    {
+      "id": "channel-approved-baseline",
+      "path": "core/guardchannel/channel.go",
+      "declaration": "approved",
+      "line": 143,
+      "classification": "CHILD_MEASUREMENT_OPT_IN",
+      "calls": [
+        {
+          "callee": "validTimeout",
+          "line": 145
+        },
+        {
+          "callee": "commitments",
+          "line": 148
+        },
+        {
+          "callee": "bytes.Equal",
+          "line": 163
+        },
+        {
+          "callee": "g.VerifyManifest",
+          "line": 198
+        },
+        {
+          "callee": "rand.Read",
+          "line": 206
+        }
+      ],
+      "review": "Refuses caller channel replacement; finite descriptor/artifact/check/time bounds; copies exact unique artifact union; both descriptors cover the same independently approved image bytes/digest. Random nonzero connection generation is private, not worker generation or authority."
+    },
+    {
+      "id": "channel-owned-start",
+      "path": "core/guardchannel/channel.go",
+      "declaration": "Start",
+      "line": 215,
+      "classification": "CHILD_MEASUREMENT_OPT_IN",
+      "calls": [
+        {
+          "callee": "approved",
+          "line": 219
+        },
+        {
+          "callee": "context.WithTimeout",
+          "line": 223
+        },
+        {
+          "callee": "launch",
+          "line": 224
+        },
+        {
+          "callee": "s.serve",
+          "line": 231
+        }
+      ],
+      "review": "Approves baseline before bounded sealed launch, owns private endpoint/child and starts observer. Return establishes cleanup ownership, not successful bootstrap or native admission. Lifetime persists until explicit Close."
+    },
+    {
+      "id": "channel-fresh-supervision",
+      "path": "core/guardchannel/channel.go",
+      "declaration": "Supervisor.serve",
+      "line": 234,
+      "classification": "CHILD_MEASUREMENT_OPT_IN",
+      "calls": [
+        {
+          "callee": "s.endpoint.close",
+          "line": 235
+        },
+        {
+          "callee": "s.process.Observe",
+          "line": 237
+        },
+        {
+          "callee": "s.endpoint.bindPeer",
+          "line": 239
+        },
+        {
+          "callee": "s.endpoint.send",
+          "line": 242
+        },
+        {
+          "callee": "s.endpoint.receive",
+          "line": 250
+        },
+        {
+          "callee": "s.process.Observe",
+          "line": 259
+        },
+        {
+          "callee": "s.endpoint.send",
+          "line": 265
+        }
+      ],
+      "review": "Fresh bootstrap observation binds child PID once; requests must equal next sequence, generation and both commitments; each bounded response follows fresh same-child observation. Finite budget and any failure retire the endpoint, retaining child cleanup ownership. Idle receive is cancellation-aware, not a cached approval or per-request deadline."
+    },
+    {
+      "id": "channel-open-child",
+      "path": "core/guardchannel/channel.go",
+      "declaration": "OpenChild",
+      "line": 284,
+      "classification": "CHILD_MEASUREMENT_OPT_IN",
+      "calls": [
+        {
+          "callee": "absent",
+          "line": 285
+        },
+        {
+          "callee": "validTimeout",
+          "line": 285
+        },
+        {
+          "callee": "file.Close",
+          "line": 287
+        },
+        {
+          "callee": "child",
+          "line": 291
+        },
+        {
+          "callee": "establish",
+          "line": 295
+        }
+      ],
+      "review": "Takes inherited descriptor ownership, requires non-nil protected child-local provider and finite timeout, closes on error. Channel cannot replace loaded-code/isolation assurance."
+    },
+    {
+      "id": "channel-bootstrap",
+      "path": "core/guardchannel/channel.go",
+      "declaration": "establish",
+      "line": 297,
+      "classification": "CHILD_MEASUREMENT_OPT_IN",
+      "calls": [
+        {
+          "callee": "context.WithTimeout",
+          "line": 298
+        },
+        {
+          "callee": "ep.receive",
+          "line": 300
+        },
+        {
+          "callee": "ep.close",
+          "line": 302
+        }
+      ],
+      "review": "Bounded credential-checked bootstrap requires exact kind, sequence zero and nonzero generation/commitments; invalid bootstrap closes owned endpoint."
+    },
+    {
+      "id": "channel-child-measurement",
+      "path": "core/guardchannel/channel.go",
+      "declaration": "Measurement.Check",
+      "line": 311,
+      "classification": "CHILD_MEASUREMENT_OPT_IN",
+      "calls": [
+        {
+          "callee": "context.WithTimeout",
+          "line": 315
+        },
+        {
+          "callee": "enter",
+          "line": 317
+        },
+        {
+          "callee": "recover",
+          "line": 322
+        },
+        {
+          "callee": "commitments",
+          "line": 331
+        },
+        {
+          "callee": "m.local.Check",
+          "line": 335
+        },
+        {
+          "callee": "m.endpoint.send",
+          "line": 342
+        },
+        {
+          "callee": "m.endpoint.receive",
+          "line": 345
+        }
+      ],
+      "review": "Shared finite deadline covers gate, exact child snapshot and mandatory local assurance, then next fresh request/ack. Panic, mismatch or exchange failure permanently retires; no cached result or fallback. Protected callback must honor cancellation. Observation and final native admission are not atomic."
+    },
+    {
+      "id": "channel-child-retirement",
+      "path": "core/guardchannel/channel.go",
+      "declaration": "Measurement.Close",
+      "line": 355,
+      "classification": "CHILD_MEASUREMENT_OPT_IN",
+      "calls": [
+        {
+          "callee": "m.retired.Store",
+          "line": 359
+        },
+        {
+          "callee": "enter",
+          "line": 360
+        },
+        {
+          "callee": "m.endpoint.close",
+          "line": 367
+        }
+      ],
+      "review": "Retires new checks immediately, serializes behind accepted bounded providers, closes owned endpoint; cancelled cleanup retains ownership for retry. Drain native effects separately."
+    },
+    {
+      "id": "channel-supervisor-retirement",
+      "path": "core/guardchannel/channel.go",
+      "declaration": "Supervisor.Close",
+      "line": 376,
+      "classification": "CHILD_MEASUREMENT_OPT_IN",
+      "calls": [
+        {
+          "callee": "s.retired.Store",
+          "line": 380
+        },
+        {
+          "callee": "s.cancel",
+          "line": 382
+        },
+        {
+          "callee": "enter",
+          "line": 384
+        },
+        {
+          "callee": "ctx.Done",
+          "line": 393
+        },
+        {
+          "callee": "s.endpoint.close",
+          "line": 396
+        },
+        {
+          "callee": "s.process.Close",
+          "line": 399
+        }
+      ],
+      "review": "Retires and cancels observer, waits for its exit, closes private endpoint and cleans only owned child. Cancellation preserves cleanup ownership. Parent shutdown cannot atomically revoke an acknowledgement with an accepted effect; cleanup is not rollback."
+    },
+    {
+      "id": "channel-fixed-record",
+      "path": "core/guardchannel/channel.go",
+      "declaration": "encode",
+      "line": 405,
+      "classification": "CHILD_MEASUREMENT_OPT_IN",
+      "calls": [
+        {
+          "callee": "binary.BigEndian.PutUint64",
+          "line": 410
+        }
+      ],
+      "review": "Private 112-byte record contains kind/magic, connection generation, sequence and exact policy/component commitments. Carries no request payload, signer, authority or transferable admission token."
+    },
+    {
+      "id": "channel-closed-record",
+      "path": "core/guardchannel/channel.go",
+      "declaration": "decode",
+      "line": 415,
+      "classification": "CHILD_MEASUREMENT_OPT_IN",
+      "calls": [
+        {
+          "callee": "len",
+          "line": 417
+        },
+        {
+          "callee": "binary.BigEndian.Uint64",
+          "line": 422
+        }
+      ],
+      "review": "Exact record length, magic and B/Q/A kind only; phase-specific sequence/generation/commitment validation is performed by bootstrap, supervisor and child Check."
+    },
+    {
+      "id": "channel-linux-launch",
+      "path": "core/guardchannel/socket_linux.go",
+      "declaration": "launch",
+      "line": 22,
+      "classification": "CHILD_MEASUREMENT_OPT_IN",
+      "calls": [
+        {
+          "callee": "unix.Socketpair",
+          "line": 23
+        },
+        {
+          "callee": "child.Close",
+          "line": 29
+        },
+        {
+          "callee": "parent.Close",
+          "line": 33
+        },
+        {
+          "callee": "unix.SetsockoptInt",
+          "line": 37
+        },
+        {
+          "callee": "image.Start",
+          "line": 42
+        }
+      ],
+      "review": "Exclusive AF_UNIX SOCK_SEQPACKET/CLOEXEC pair, SO_PASSCRED on both ends, own child socket inherited at fd 4; no listener/path or caller socket substitution. Closes parent on failure and local child endpoint after launch."
+    },
+    {
+      "id": "channel-linux-child-descriptor",
+      "path": "core/guardchannel/socket_linux.go",
+      "declaration": "child",
+      "line": 50,
+      "classification": "CHILD_MEASUREMENT_OPT_IN",
+      "calls": [
+        {
+          "callee": "file.Close",
+          "line": 54
+        },
+        {
+          "callee": "file.Fd",
+          "line": 57
+        },
+        {
+          "callee": "os.Getppid",
+          "line": 57
+        },
+        {
+          "callee": "unix.GetsockoptInt",
+          "line": 61
+        },
+        {
+          "callee": "unix.GetsockoptInt",
+          "line": 65
+        },
+        {
+          "callee": "unix.SetsockoptInt",
+          "line": 69
+        },
+        {
+          "callee": "unix.FcntlInt",
+          "line": 72
+        },
+        {
+          "callee": "unix.FcntlInt",
+          "line": 76
+        },
+        {
+          "callee": "unix.FcntlInt",
+          "line": 79
+        },
+        {
+          "callee": "os.Getppid",
+          "line": 84
+        }
+      ],
+      "review": "Requires fd 4, live parent identity, Unix sequenced-packet socket, per-message credentials and set/rechecked CLOEXEC. Captures real parent PID/UID/GID, not socket creation-time peer identity. Deployment must prevent handle theft and privileged credential impersonation."
+    },
+    {
+      "id": "channel-linux-peer-binding",
+      "path": "core/guardchannel/socket_linux.go",
+      "declaration": "socket.bindPeer",
+      "line": 86,
+      "classification": "CHILD_MEASUREMENT_OPT_IN",
+      "calls": [
+        {
+          "callee": "int64",
+          "line": 87
+        }
+      ],
+      "review": "Binds positive int32 child PID exactly once after retained-process observation; refuses replacement. PID is not logical MCP worker or exec generation."
+    },
+    {
+      "id": "channel-linux-bounded-wait",
+      "path": "core/guardchannel/socket_linux.go",
+      "declaration": "socket.wait",
+      "line": 93,
+      "classification": "CHILD_MEASUREMENT_OPT_IN",
+      "calls": [
+        {
+          "callee": "active",
+          "line": 94
+        },
+        {
+          "callee": "active",
+          "line": 98
+        },
+        {
+          "callee": "unix.Poll",
+          "line": 99
+        },
+        {
+          "callee": "errors.Is",
+          "line": 100
+        }
+      ],
+      "review": "Ten-millisecond polling honors context and accepts requested readiness/hangup for subsequent IO validation. EINTR retries only while context remains active; other events/errors refuse. Idle supervisor ownership ends through explicit cancellation."
+    },
+    {
+      "id": "channel-linux-send",
+      "path": "core/guardchannel/socket_linux.go",
+      "declaration": "socket.send",
+      "line": 115,
+      "classification": "CHILD_MEASUREMENT_OPT_IN",
+      "calls": [
+        {
+          "callee": "encode",
+          "line": 116
+        },
+        {
+          "callee": "s.wait",
+          "line": 118
+        },
+        {
+          "callee": "unix.SendmsgN",
+          "line": 121
+        }
+      ],
+      "review": "Nonblocking no-SIGPIPE full-record send; EAGAIN/EINTR retry under context, partial record or other failure refuses. No signing or tool dispatch."
+    },
+    {
+      "id": "channel-linux-sender-credentials",
+      "path": "core/guardchannel/socket_linux.go",
+      "declaration": "socket.authenticate",
+      "line": 135,
+      "classification": "CHILD_MEASUREMENT_OPT_IN",
+      "calls": [
+        {
+          "callee": "unix.ParseSocketControlMessage",
+          "line": 136
+        },
+        {
+          "callee": "unix.ParseUnixCredentials",
+          "line": 145
+        },
+        {
+          "callee": "unix.ParseUnixRights",
+          "line": 149
+        },
+        {
+          "callee": "unix.Close",
+          "line": 152
+        }
+      ],
+      "review": "Requires exactly one kernel-checked SCM_CREDENTIALS matching bound sender PID and real UID/GID; foreign, missing, duplicate or other controls refuse. Closes every parsed unsolicited SCM_RIGHTS descriptor before refusal. Requires isolated custody and protection from privileged impersonation."
+    },
+    {
+      "id": "channel-linux-receive",
+      "path": "core/guardchannel/socket_linux.go",
+      "declaration": "socket.receive",
+      "line": 165,
+      "classification": "CHILD_MEASUREMENT_OPT_IN",
+      "calls": [
+        {
+          "callee": "s.wait",
+          "line": 171
+        },
+        {
+          "callee": "unix.Recvmsg",
+          "line": 174
+        },
+        {
+          "callee": "s.authenticate",
+          "line": 181
+        },
+        {
+          "callee": "decode",
+          "line": 185
+        }
+      ],
+      "review": "Fixed-size nonblocking recv with CLOEXEC ancillary descriptors, bounded credentials/253-rights buffer, exact payload length and no payload/control truncation. Authenticate and dispose unexpected handles before decode; retry only EINTR/EAGAIN under context."
+    },
+    {
+      "id": "channel-linux-endpoint-close",
+      "path": "core/guardchannel/socket_linux.go",
+      "declaration": "socket.close",
+      "line": 189,
+      "classification": "CHILD_MEASUREMENT_OPT_IN",
+      "calls": [
+        {
+          "callee": "s.file.Close",
+          "line": 193
+        }
+      ],
+      "review": "Closes own socket and clears file; sequencing and ownership are handled by supervisor/child gates, not a shared model capability."
+    },
+    {
+      "id": "channel-unsupported-launch",
+      "path": "core/guardchannel/socket_unsupported.go",
+      "declaration": "launch",
+      "line": 12,
+      "classification": "CHILD_MEASUREMENT_OPT_IN",
+      "calls": [],
+      "review": "Unsupported platforms return ErrUnsupported, with no child or synthetic measurement fallback."
+    },
+    {
+      "id": "channel-unsupported-child",
+      "path": "core/guardchannel/socket_unsupported.go",
+      "declaration": "child",
+      "line": 15,
+      "classification": "CHILD_MEASUREMENT_OPT_IN",
+      "calls": [
+        {
+          "callee": "file.Close",
+          "line": 15
+        }
+      ],
+      "review": "Unsupported child initialization closes supplied file and returns ErrUnsupported; no replacement assurance."
+    },
+    {
+      "id": "image-interrupted-pidfd-poll",
+      "path": "core/guardimage/image_linux.go",
+      "declaration": "pidfdLive",
+      "line": 122,
+      "classification": "SEALED_IMAGE_OPT_IN",
+      "calls": [
+        {
+          "callee": "poll",
+          "line": 128
+        },
+        {
+          "callee": "errors.Is",
+          "line": 129
+        }
+      ],
+      "review": "At most three zero-timeout polls on the same owned nonnegative pidfd; retry only EINTR with fresh readiness fields. Readiness, other errors and exhausted interruptions refuse. Not worker-generation or admission evidence."
+    },
+    {
+      "id": "channel-runtime-local-fixture",
+      "path": "core/guardchannel/testdata/native/main.go",
+      "declaration": "fixtureLocalAssurance.Check",
+      "line": 22,
+      "classification": "RUNTIME_TEST_FIXTURE",
+      "calls": [
+        {
+          "callee": "ctx.Err",
+          "line": 25
+        },
+        {
+          "callee": "f.calls.Add",
+          "line": 28
+        }
+      ],
+      "review": "Synthetic local-assurance fixture checks context/presence and counts calls; does not attest loaded private instruction pages, OS isolation or production deployment."
+    },
+    {
+      "id": "channel-runtime-measurement-delegate",
+      "path": "core/guardchannel/testdata/native/main.go",
+      "declaration": "checkedFixture.Check",
+      "line": 37,
+      "classification": "RUNTIME_TEST_FIXTURE",
+      "calls": [
+        {
+          "callee": "f.inner.Check",
+          "line": 38
+        }
+      ],
+      "review": "Fixture delegates to actual channel measurement and emits only nonsecret refusal diagnostics; fixture local assurance remains synthetic."
+    },
+    {
+      "id": "channel-runtime-child-fixture",
+      "path": "core/guardchannel/testdata/native/main.go",
+      "declaration": "main",
+      "line": 44,
+      "classification": "RUNTIME_TEST_FIXTURE",
+      "calls": [
+        {
+          "callee": "channel.OpenChild",
+          "line": 47
+        },
+        {
+          "callee": "measured.Close",
+          "line": 56
+        },
+        {
+          "callee": "input.Text",
+          "line": 65
+        },
+        {
+          "callee": "testing.Main",
+          "line": 68
+        },
+        {
+          "callee": "runNativeFixture",
+          "line": 69
+        }
+      ],
+      "review": "Fixed safe sealed-child fixture takes actual fd 4 channel with synthetic local assurance, accepts only literal run and fixed 2+3, and checks verified result 5. Not a selected host or deployment attestation."
+    },
+    {
+      "id": "channel-runtime-native-exchange",
+      "path": "core/guardchannel/testdata/native/exchange.go",
+      "declaration": "runNativeFixture",
+      "line": 26,
+      "classification": "RUNTIME_TEST_FIXTURE",
+      "calls": [
+        {
+          "callee": "calc.NewFactory",
+          "line": 88
+        },
+        {
+          "callee": "b.Open",
+          "line": 98
+        },
+        {
+          "callee": "receiverOperation.Binding",
+          "line": 111
+        },
+        {
+          "callee": "toolhost.Open",
+          "line": 124
+        },
+        {
+          "callee": "request.NewIntentIssuer",
+          "line": 151
+        },
+        {
+          "callee": "net.Listen",
+          "line": 187
+        },
+        {
+          "callee": "client.Connect",
+          "line": 209
+        },
+        {
+          "callee": "c.Exchange",
+          "line": 219
+        },
+        {
+          "callee": "delivery.FirstTerminal",
+          "line": 260
+        },
+        {
+          "callee": "toolhost.Open",
+          "line": 289
+        }
+      ],
+      "review": "Fixed calculator fixture connects actual same-child measurement/factory/private binding to native authenticated encrypted loopback, durable reservations and signed verified terminal delivery. Ephemeral keys, fixture Registry and synthetic Local are test-only; finite test clock/worker bounds do not alter core admission. No independent deployment or parent-hop execution."
+    },
+    {
+      "id": "channel-runtime-registry-fixture",
+      "path": "core/guardchannel/testdata/native/providers.go",
+      "declaration": "fixtureSource.Read",
+      "line": 54,
+      "classification": "RUNTIME_TEST_FIXTURE",
+      "calls": [
+        {
+          "callee": "key.Public",
+          "line": 66
+        },
+        {
+          "callee": "ecdh.X25519().NewPrivateKey",
+          "line": 68
+        },
+        {
+          "callee": "e.clock.Now",
+          "line": 74
+        }
+      ],
+      "review": "Synthesized local Registry snapshot with ephemeral accepted signing/KEM keys and ready/finality flags; explicitly a test provider, not authoritative blockchain Source or observed finality."
+    },
+    {
+      "id": "channel-runtime-check-delegate",
+      "path": "core/guardchannel/testdata/native/trace.go",
+      "declaration": "observedTool.Check",
+      "line": 36,
+      "classification": "RUNTIME_TEST_FIXTURE",
+      "calls": [
+        {
+          "callee": "t.inner.Check",
+          "line": 37
+        }
+      ],
+      "review": "Nonsecret test diagnostics delegate every final measurement check unchanged; no production attestation."
+    },
+    {
+      "id": "channel-runtime-effect-delegate",
+      "path": "core/guardchannel/testdata/native/trace.go",
+      "declaration": "observedTool.Execute",
+      "line": 43,
+      "classification": "RUNTIME_TEST_FIXTURE",
+      "calls": [
+        {
+          "callee": "t.inner.Execute",
+          "line": 44
+        }
+      ],
+      "review": "Nonsecret fixture diagnostics delegate the same bound effect unchanged; native admission remains responsible for execution. Not a model dispatcher or deployed-host observation."
+    },
+    {
+      "id": "hop-local-id",
+      "path": "core/capture/hop.go",
+      "declaration": "HopRequest.ID",
+      "line": 39,
+      "classification": "CAPTURE_ONLY",
+      "calls": [
+        {
+          "callee": "r.request.ID",
+          "line": 43
+        }
+      ],
+      "review": "Returns local capture metadata only; no upstream admission or signing authority is exported. Nil returns empty metadata."
+    },
+    {
+      "id": "hop-local-digest",
+      "path": "core/capture/hop.go",
+      "declaration": "HopRequest.Digest",
+      "line": 45,
+      "classification": "CAPTURE_ONLY",
+      "calls": [
+        {
+          "callee": "r.request.Digest",
+          "line": 49
+        }
+      ],
+      "review": "Returns retained local commitment metadata only; matching a digest does not authorize downstream work."
+    },
+    {
+      "id": "hop-parent-metadata",
+      "path": "core/capture/hop.go",
+      "declaration": "HopRequest.ParentCallID",
+      "line": 53,
+      "classification": "CAPTURE_ONLY",
+      "calls": [],
+      "review": "Returns causal parent call metadata only; it is not a transferable parent admission or inherited permission."
+    },
+    {
+      "id": "hop-retained-parent",
+      "path": "core/capture/hop.go",
+      "declaration": "hop",
+      "line": 60,
+      "classification": "ADMITTED_HOP_OPT_IN",
+      "calls": [
+        {
+          "callee": "s.Invocation.ParentAdmission",
+          "line": 61
+        },
+        {
+          "callee": "s.Invocation.CanonicalIntent",
+          "line": 64
+        },
+        {
+          "callee": "json.Unmarshal",
+          "line": 74
+        }
+      ],
+      "review": "Requires actual native Invocation, current parent admission and non-nil upstream authority/policy. Copies bounded canonical inbound envelope and extracts causal IDs; extraction alone is not verification. Local recipient is protected configuration. Whole-file hash covers mandatory-provider and size conditions; repeated same-line calls are not unique selected anchors."
+    },
+    {
+      "id": "hop-current-upstream",
+      "path": "core/capture/hop.go",
+      "declaration": "HopRequest.check",
+      "line": 80,
+      "classification": "ADMITTED_HOP_OPT_IN",
+      "calls": [
+        {
+          "callee": "active",
+          "line": 81
+        },
+        {
+          "callee": "r.retired.Load",
+          "line": 81
+        },
+        {
+          "callee": "recover",
+          "line": 85
+        },
+        {
+          "callee": "r.retired.Store",
+          "line": 89
+        },
+        {
+          "callee": "admission.Authorized",
+          "line": 96
+        },
+        {
+          "callee": "g.VerifyIntent",
+          "line": 99
+        },
+        {
+          "callee": "v.Canonical",
+          "line": 100
+        },
+        {
+          "callee": "v.Digest",
+          "line": 100
+        },
+        {
+          "callee": "r.invocation.IntentDigest",
+          "line": 100
+        },
+        {
+          "callee": "r.invocation.CanonicalIntent",
+          "line": 101
+        },
+        {
+          "callee": "admission.Authorized",
+          "line": 101
+        },
+        {
+          "callee": "active",
+          "line": 101
+        }
+      ],
+      "review": "Checks current native parent before and after fresh upstream verification with independently configured local recipient/authority/policy. Exact inbound bytes and Invocation digest must agree. Provider panic or observed verification/admission failure permanently retires; pre-entry cancellation refuses. No permission is inherited from the parent."
+    },
+    {
+      "id": "hop-fresh-capture",
+      "path": "core/capture/hop.go",
+      "declaration": "Host.CaptureHop",
+      "line": 110,
+      "classification": "ADMITTED_HOP_OPT_IN",
+      "calls": [
+        {
+          "callee": "recover",
+          "line": 112
+        },
+        {
+          "callee": "hop",
+          "line": 117
+        },
+        {
+          "callee": "r.check",
+          "line": 118
+        },
+        {
+          "callee": "h.Capture",
+          "line": 121
+        },
+        {
+          "callee": "r.request.ID",
+          "line": 122
+        },
+        {
+          "callee": "r.Inputs",
+          "line": 125
+        }
+      ],
+      "review": "Verifies actual live parent before exact durable local capture and rechecks after readback. Fresh local capture ID must differ from upstream ID. Failed storage or parent loss returns no capability; persisted history is retained and must not be automatically retried with a new ID."
+    },
+    {
+      "id": "hop-checkpoint-restore",
+      "path": "core/capture/hop.go",
+      "declaration": "Host.RestoreHop",
+      "line": 134,
+      "classification": "ADMITTED_HOP_OPT_IN",
+      "calls": [
+        {
+          "callee": "recover",
+          "line": 136
+        },
+        {
+          "callee": "hop",
+          "line": 141
+        },
+        {
+          "callee": "r.check",
+          "line": 142
+        },
+        {
+          "callee": "h.Restore",
+          "line": 145
+        },
+        {
+          "callee": "r.Inputs",
+          "line": 149
+        }
+      ],
+      "review": "Protected ID/digest checkpoint restores existing local original only while the same actual parent is currently admitted and exact inbound readback agrees. Upstream ID is refused. Storage cannot revive completed or UNKNOWN parent, and ordinary restart supplies no live parent admission."
+    },
+    {
+      "id": "hop-exact-readback",
+      "path": "core/capture/hop.go",
+      "declaration": "HopRequest.Inputs",
+      "line": 157,
+      "classification": "ADMITTED_HOP_OPT_IN",
+      "calls": [
+        {
+          "callee": "r.check",
+          "line": 158
+        },
+        {
+          "callee": "recover",
+          "line": 162
+        },
+        {
+          "callee": "r.retired.Store",
+          "line": 167
+        },
+        {
+          "callee": "r.request.Inputs",
+          "line": 170
+        },
+        {
+          "callee": "len",
+          "line": 171
+        },
+        {
+          "callee": "bytes.Equal",
+          "line": 171
+        },
+        {
+          "callee": "r.ID",
+          "line": 171
+        },
+        {
+          "callee": "r.check",
+          "line": 171
+        }
+      ],
+      "review": "Fresh upstream/native-parent checks surround durable readback. Exactly one original must equal authenticated inbound bytes, with distinct local ID. Inconsistency, readback/provider failure or panic retires permanently; no cached authority or reconstructed original is supplied."
+    },
+    {
+      "id": "hop-own-issuance",
+      "path": "core/capture/hop.go",
+      "declaration": "HopRequest.NewIntentIssuer",
+      "line": 180,
+      "classification": "ADMITTED_HOP_OPT_IN",
+      "calls": [
+        {
+          "callee": "r.Inputs",
+          "line": 181
+        },
+        {
+          "callee": "g.NewRootCapture",
+          "line": 188
+        },
+        {
+          "callee": "r.ID",
+          "line": 188
+        },
+        {
+          "callee": "g.NewHopIntentIssuer",
+          "line": 195
+        },
+        {
+          "callee": "r.invocation.ParentAdmission",
+          "line": 195
+        }
+      ],
+      "review": "Own issuer must equal configured local recipient and all mandatory downstream providers must be present. Constructs fresh local capture and wraps independent downstream client/issuance policy and signer with retained-input checks. Native hop issuer receives exact inbound and real parent, retaining core one-use approval/fencing. No upstream permission, signer or loaded-runtime approval is inherited."
+    },
+    {
+      "id": "hop-existing-journal-handoff",
+      "path": "core/capture/hop.go",
+      "declaration": "HopRequest.OpenMCPClient",
+      "line": 201,
+      "classification": "ADMITTED_HOP_OPT_IN",
+      "calls": [
+        {
+          "callee": "r.Inputs",
+          "line": 202
+        },
+        {
+          "callee": "c.OpenHopClient",
+          "line": 209
+        },
+        {
+          "callee": "append",
+          "line": 209
+        }
+      ],
+      "review": "Rechecks retained original/live parent and wraps independent downstream policy before native authenticated handoff. Calls OpenHopClient with create=false, exact copied signed intent and actual parent Invocation; requires already issued successfully closed journal. Missing history is refused, never recreated. Path/fence/bytes and connection/provider custody remain protected responsibilities."
+    },
+    {
+      "id": "retained-policy-bindings",
+      "path": "core/capture/policy.go",
+      "declaration": "boundPolicy.Bindings",
+      "line": 20,
+      "classification": "PROTECTED_PROVIDER",
+      "calls": [
+        {
+          "callee": "p.request.ID",
+          "line": 21
+        },
+        {
+          "callee": "p.request.Inputs",
+          "line": 24
+        },
+        {
+          "callee": "p.delegate.Bindings",
+          "line": 27
+        },
+        {
+          "callee": "p.request.Inputs",
+          "line": 31
+        },
+        {
+          "callee": "p.request.Digest",
+          "line": 31
+        }
+      ],
+      "review": "Private retainedInput supports root Request and HopRequest without exporting a raw admission. Requires exact local ID and input checks before/after independent policy bindings; returned commitment must equal retained digest. Whole-file hash covers interface and comparison conditions."
+    },
+    {
+      "id": "retained-policy-authorization",
+      "path": "core/capture/policy.go",
+      "declaration": "boundPolicy.Authorize",
+      "line": 36,
+      "classification": "PROTECTED_PROVIDER",
+      "calls": [
+        {
+          "callee": "p.request.Inputs",
+          "line": 37
+        },
+        {
+          "callee": "p.delegate.Authorize",
+          "line": 40
+        },
+        {
+          "callee": "p.request.Inputs",
+          "line": 43
+        }
+      ],
+      "review": "Checks retained original before and after independent downstream policy authorization; a HopRequest also rechecks live parent/current upstream. No automatic approval or inherited root authority."
+    },
+    {
+      "id": "retained-issuance-approval",
+      "path": "core/capture/policy.go",
+      "declaration": "boundIssuancePolicy.ApproveIntent",
+      "line": 52,
+      "classification": "PROTECTED_PROVIDER",
+      "calls": [
+        {
+          "callee": "p.request.Inputs",
+          "line": 53
+        },
+        {
+          "callee": "p.delegate.ApproveIntent",
+          "line": 56
+        },
+        {
+          "callee": "p.request.Inputs",
+          "line": 59
+        }
+      ],
+      "review": "Checks retained original around independent exact intent approval. Capture agreement is required alongside own policy; it does not replace approval or native reservation/fencing."
+    },
+    {
+      "id": "retained-signing-boundary",
+      "path": "core/capture/policy.go",
+      "declaration": "boundSigner.Sign",
+      "line": 68,
+      "classification": "PROTECTED_PROVIDER",
+      "calls": [
+        {
+          "callee": "s.request.Inputs",
+          "line": 69
+        },
+        {
+          "callee": "s.delegate.Sign",
+          "line": 72
+        }
+      ],
+      "review": "Checks retained original and, for hop capture, current parent/upstream before protected own signer delegation. Signer remains independently isolated custody; wrapper alone does not attest signer implementation or establish an atomic cross-provider transaction."
+    },
+    {
+      "id": "approved-hop-open",
+      "path": "core/guardbinding/load.go",
+      "declaration": "OpenHop",
+      "line": 50,
+      "classification": "APPROVED_OPERATION_OPT_IN",
+      "calls": [
+        {
+          "callee": "active",
+          "line": 51
+        },
+        {
+          "callee": "request.Inputs",
+          "line": 54
+        },
+        {
+          "callee": "json.Unmarshal",
+          "line": 64
+        },
+        {
+          "callee": "uuid.MatchString",
+          "line": 65
+        },
+        {
+          "callee": "open",
+          "line": 68
+        },
+        {
+          "callee": "request.ParentCallID",
+          "line": 68
+        }
+      ],
+      "review": "Requires concrete retained HopRequest with fresh native parent/upstream verification and one exact inbound original. Authenticated inbound recipient must equal independently approved local policy issuer; actual inbound call ID equals retained UUID parent. No inherited permission, reconstructed admission or arbitrary external original provider."
+    },
+    {
+      "id": "approved-load",
+      "path": "core/guardbinding/load.go",
+      "declaration": "open",
+      "line": 71,
+      "classification": "APPROVED_OPERATION_OPT_IN",
+      "calls": [
+        {
+          "callee": "recover",
+          "line": 74
+        },
+        {
+          "callee": "root.Close",
+          "line": 79
+        },
+        {
+          "callee": "active",
+          "line": 82
+        },
+        {
+          "callee": "request.Inputs",
+          "line": 85
+        },
+        {
+          "callee": "g.Canonicalize",
+          "line": 88
+        },
+        {
+          "callee": "g.PolicyCommitment",
+          "line": 92
+        },
+        {
+          "callee": "g.ManifestCommitment",
+          "line": 96
+        },
+        {
+          "callee": "jcs.Canonicalize",
+          "line": 100
+        },
+        {
+          "callee": "append",
+          "line": 115
+        },
+        {
+          "callee": "os.OpenRoot",
+          "line": 127
+        },
+        {
+          "callee": "make",
+          "line": 131
+        },
+        {
+          "callee": "append",
+          "line": 134
+        },
+        {
+          "callee": "sort.Slice",
+          "line": 136
+        },
+        {
+          "callee": "o.read",
+          "line": 137
+        },
+        {
+          "callee": "parseRules",
+          "line": 143
+        },
+        {
+          "callee": "request.Inputs",
+          "line": 150
+        },
+        {
+          "callee": "c.Factory.Load",
+          "line": 153
+        },
+        {
+          "callee": "absent",
+          "line": 154
+        },
+        {
+          "callee": "o.check",
+          "line": 154
+        }
+      ],
+      "review": "Private shared loader requires capture and protected independent descriptors, issuer equality before file/Factory access, bounded exact approved artifacts and rules. Rechecks retained capture immediately before one Factory.Load and after loaded-instance appraisal. Factory receives only owned Snapshot, not Invocation, admission, capture or signing custody. Isolation/actual loaded identity remain provider obligations."
+    },
+    {
+      "id": "approved-parent-match",
+      "path": "core/guardbinding/operation.go",
+      "declaration": "Operation.parentMatches",
+      "line": 118,
+      "classification": "APPROVED_OPERATION_OPT_IN",
+      "calls": [
+        {
+          "callee": "bytes.Equal",
+          "line": 120
+        },
+        {
+          "callee": "json.Unmarshal",
+          "line": 123
+        }
+      ],
+      "review": "Root requires exact JSON null. Hop requires exact retained string parent ID and child call ID different from parent; no null, different parent or self-parent fallback. Causal ID is not inherited authorization."
+    }
+  ],
+  "go_core": {
+    "repository": "sage",
+    "revision": "f1a840bbc9c717564bd035e19c73f437a61e4a00",
+    "module_version": "v1.5.3-0.20261008045438-f1a840bbc9c7",
+    "sources": {
+      "cmd/sage-crypto/address.go": "9ca27c2af354f353dda12b2808d54287c4dc48bf3d0ab5e6f1c06b18a7ebfaee",
+      "cmd/sage-crypto/generate.go": "12d5e1fb1ed2f16ab6d4b4f553d63ec5a077130a84e66313312ca85a6f54713c",
+      "cmd/sage-crypto/list.go": "b8fbd0624c402a74cba191711578989891d8111f16568c822530992d09a43aea",
+      "cmd/sage-crypto/main.go": "f92f30d0afa3f82a3fae8509840e1fa1cd89bebf269be351a25649592f1c8c64",
+      "cmd/sage-crypto/rotate.go": "4706dd9ddce719c8d1800705e16a17170e81a8837ccc8f50d8a1b6b05a1adeda",
+      "cmd/sage-crypto/sign.go": "d95411e089bc995780ec47546d1c4efb770e91877560e5de71a845edd58ba7a8",
+      "cmd/sage-crypto/verify.go": "48ee3281609c7ee6917f2b0dd25b62fcc6aec3628b54038d41333541d9468de0",
+      "cmd/sage-did/activate.go": "6de80152ce114e3302efaffa766f5877f850c5cb38e72be4c773950a81f70088",
+      "cmd/sage-did/card.go": "90f3ddafb7ac54c9a98e9aa362c19f7dbfd644e85f7a7eb912275b16ec1827eb",
+      "cmd/sage-did/commit.go": "3fb9bd4f7e77e973f5d2db9ced71d5d17dd5cb011f58d19611f67894e47735f3",
+      "cmd/sage-did/deactivate.go": "5f47f8ca9dcf49cc82c323c9dcaf19533f0b4b915776a3d4c3777e3794d6d568",
+      "cmd/sage-did/debug.go": "cfbf14b825fe3e7e3b85e58f1b6f6d040049513ff9bf64871159c1934f3dfa4a",
+      "cmd/sage-did/helpers.go": "36437f478db6e0dcc9be68c2a04ccd2cea8fc8dfcb5baa955edbd49b09a762c3",
+      "cmd/sage-did/key.go": "1bba95d216a843470b622bd2096fb558387160f92268c8b003010b4fb5e1170c",
+      "cmd/sage-did/list.go": "b87d00095ac30e93bbe3005892b911e5d2c19ac86245fc980d19cefb0eabb255",
+      "cmd/sage-did/main.go": "484e4142a306f6d5e697cc48ebdbb551046f8fea4a75c2e709a7c7c1cfa4d78a",
+      "cmd/sage-did/register.go": "077bdab24f370c3db1fe15551082291b496dc7b31b68dfe89360201a0436bdb2",
+      "cmd/sage-did/resolve.go": "14a868e80d6399c33566249bbbf8842c6fc69d93d18bf619540b9e19425cce16",
+      "cmd/sage-did/update.go": "e48592061bda7253c45c9d00a9bc17965664795c163d69b59030deecea918f24",
+      "cmd/sage-did/verify.go": "274f9f457434b0b0b26048c1f169c2505d937e2138a04e160a36bd8809b83a62",
+      "cmd/sage-vectors/main.go": "b5f2aeded15f4e5956a3a5f4261a3742e9bdf7729571f37d84fdf71e3af647ea",
+      "cmd/sage-verify/main.go": "c49245a8925fe6ab6f7ee7f375855e6b2517a95ea4e2c7ae1808c6ff7fc99738",
+      "examples/a2a-integration/01-register-agent/main.go": "4f3bc70463f4f9a12bffacc2582d7e542a70d3f3a0f8961251a2f200798b65e5",
+      "examples/a2a-integration/02-generate-card/main.go": "3a28ca6379bb8e7715e000c9ed91b3a66abf155efecf634ce67208b13fba710c",
+      "examples/a2a-integration/03-exchange-cards/main.go": "9b082e0bae390e8684ed689f08d74377cdde7d3b21ad5ef0081bc4e1a95ca7dc",
+      "examples/a2a-integration/04-secure-message/main.go": "9105b7a2ba62f5ab31857f8747af3492badffb89a29f5dab61b51ec343c96663",
+      "examples/agent-initialization/main.go": "d085f8bc06636ca66a1f77a8dca6f08132cddd39b58dbb2d91c35a150f1ab350",
+      "examples/mcp-integration/basic-demo/main.go": "3fa80efbcc300120650b7b3ed74845e83f70a740ec825d8d18f0e0dba7d37831",
+      "examples/mcp-integration/basic-tool/calculator_tool.go": "adc1bc48086c7d0e0fe77e92c12d966b6fa67cf0190b8582994f6653c3ea8cf6",
+      "examples/mcp-integration/basic-tool/main.go": "e16dc6ee0986366fcc82dc7e3de53b6e23370c125b2abd4f71d3c226f05b3533",
+      "examples/mcp-integration/client/main.go": "597282e621a7b8b557555c73b3862142f837d2e20a8d244e0c45c856bd1087de",
+      "examples/mcp-integration/client/sage_client.go": "b19521a1c4784c2a906562f36a65c52a57b4876cb0bf18e21112d70640a1af00",
+      "examples/mcp-integration/simple-standalone/main.go": "02c897ecd1ef2a5aa836215aa1b8dc86a5055b884835fbbdc9c1c7054c60ab3a",
+      "examples/mcp-integration/vulnerable-vs-secure/attacker/main.go": "9e521898fbb4f47faedba09ac008fa08d4a510145f597a988b9cc8562acb838b",
+      "examples/mcp-integration/vulnerable-vs-secure/secure-chat/main.go": "3c40d4fe1555f9881033134aff53990813e4ac3900d114828e4e5ff67785e978",
+      "examples/mcp-integration/vulnerable-vs-secure/vulnerable-chat/main.go": "0e4049114d1b7e511b222590aea11cdaefbb1d8ad691a23bd8c2b4d09c323bbb",
+      "examples/metrics-demo/main.go": "acd76583b5e26eba2ee37cc3950552e8678f3ef6298a8709ffc0e52f5b56a90f",
+      "examples/registry-envelope010/main.go": "b28bc186df65069a0949d5dee4b457ebf0f08a346e572b4d6047bd1a893cdd1b",
+      "examples/registry-media010/main.go": "efc80465ecc89870e9c054c564e3ef450151f6d41c939591df65e9e7a71cf34e",
+      "examples/registry-record-proofs010/main.go": "2326d28dd877251ed0a2678de284b1e6b94b6db330b1076ddfdf212d92b07d8f",
+      "examples/registry-record-shape010/main.go": "a4f3c07ece57bc914283292949c4bd8e9865a421843d07b30e6559719d6aedd0",
+      "examples/registry-web-admin-mtls010/main.go": "06015bdf17e1f7b72e360fb45c7796ca3a3f5fee96d898b92e8b184bb3ed5e27",
+      "examples/registry-web-http-record010/main.go": "1aff0ec88fe67631a72790a52132e31cab0bd8f69f80ebc25e8f834fd13d6ed2",
+      "examples/registry-web-origin-policy010/main.go": "b8d86de3062b46793b506bcd8b5e658e1857d2284cc4a33aea21a5a4dd9d76a9",
+      "examples/registry-web-public-binding010/main.go": "2a90f66032dba274ba153131a774ab5e2768050ec8355e809c4b2a0b32638244",
+      "examples/registry-web-public-journal010/main.go": "5b6890b015962ad4501957187bb7c77e1bfdbba6245a0f383c152f9b114f8039",
+      "examples/registry-web-tls-origin010/main.go": "3a106ac7f810c3590a799c548c04ebad39505463046eed090aadd839dc2feb41",
+      "examples/registry-web-transition010/main.go": "928931d5c17b3dd3a2dae7b7bca9b97434ee1c75179961fcee56bfc90a839f25",
+      "examples/simple-agent-init/main.go": "0091c55362a371e5031c3f98e0da2001677acb0e26c4cfb4f8ae4e71eab44565",
+      "internal/app/register.go": "acd78957d31a776da9f9aa1477b434e2454e287a22ea666588021f948bd701e8",
+      "internal/cli/keyfile.go": "9273184576fa90fc9112ba29fe23d562d419248bb5076a9e36689b521b835d77",
+      "internal/config/blockchain.go": "a06e727a2d6e109da1a056b0620a7154ab09884304c00c70c0b9d5c697b247dd",
+      "internal/config/config.go": "62bfabf5dde401e77bcf9ae6517ee59d7b994af374b08b5383a5e1a5f7f0a9d5",
+      "internal/config/deployment_loader.go": "3cc4bbdd6e05f588049b1e9cdddeaf6b0a6524cdae0f594c3aa398d9af7916ba",
+      "internal/config/env.go": "12872ada261514b608aa8b5817787c87f28356deb238d0273e69b6f5e2c4ffec",
+      "internal/config/loader.go": "05e5905572416ddb3579a75dbdbd66e358748f8c011f779e6b93bd81c2c4fa44",
+      "internal/config/validator.go": "5c4b3d685fa43bf2dfe125548601aabea9826d567a04af042ef2dba8c4380ae3",
+      "internal/session_creator.go": "db25baac5847f4972ade73cec32ee228642a40d9b24a282cfb55a505335a7435",
+      "internal/testutil/environment.go": "864eeb9693c3f29120eafa236c1092025df170e85ee99e24d818e22f6855af53",
+      "internal/testutil/helpers.go": "7b41bb4f3bd46b54205d68ee95db1eed65e78917859ebd9ae2e2d66e965dd0e8",
+      "pkg/agent/core/core.go": "2a6710edaf05915a5d677c039f9f6c32f7a0b1e5e0f0f19f1fd5d1ee81a2cf78",
+      "pkg/agent/core/message/nonce/manager.go": "25ba7ff6e5166e84b7a205b1f2348be9d11115355e8327f5e084a5f76ed2f681",
+      "pkg/agent/core/message/types.go": "0b45c9afaf968a5d55ed02fc02169d8248a514bd3551eb482174b24f05ddc842",
+      "pkg/agent/core/rfc9421/body_integrity.go": "84c1042d421a8c93a758683dc925e3252a02c27d32da986131f00efc9b5fd61b",
+      "pkg/agent/core/rfc9421/canonicalizer.go": "8074029de39e518acc762cf439792fc01c257b66ed6512ce3206767d41af29cd",
+      "pkg/agent/core/rfc9421/message_builder.go": "93d32c2a3db3bc4a38211d02ccd13b4401285a51fb581f048650b7cffcfb5574",
+      "pkg/agent/core/rfc9421/parser.go": "d4e4e486f04242a28f61d23913ea18f59c4a7a69623b2faae50f138b25c23771",
+      "pkg/agent/core/rfc9421/response_signer.go": "c155fcbe390a0f100c654d352a4631c980ac1082275a26824ad4c6ee4d1ec976",
+      "pkg/agent/core/rfc9421/types.go": "bec47deea1598e4cee392a35c7e752186aa4c250d817244d9f0735768f195570",
+      "pkg/agent/core/rfc9421/verifier.go": "39b042f7c745dec735dc64f432a7b4400d1a775b3660f4b21ecf82e6cf164db0",
+      "pkg/agent/core/rfc9421/verifier_http.go": "667382f15ba9bd814cbf589f6a7d15e2bfbb172c46c2e9e149c0809027d62582",
+      "pkg/agent/core/verification_service.go": "89a1dfe506925fb865a59a9f3a1fc2bce499b1d2dbe202c26f45c82761f784b0",
+      "pkg/agent/crypto/algorithm_registry.go": "bc6acb8e6c42cdbe1207a1dd1e0d1901573d138a732445e261c058420995904c",
+      "pkg/agent/crypto/chain/ethereum/provider.go": "73758d64b8d0d9d00405b06c87e6721948d50782b1752fb4de6257f5eaaa0049",
+      "pkg/agent/crypto/chain/key_mapper.go": "62e3d597a42be9daae58d0ba5f76426ed621cf4c9179146758c6a3a8a60c31bd",
+      "pkg/agent/crypto/chain/presets.go": "09cccdb50e799ee24529e5910477dd9e3186ae79a6ad8bc85e2efed5f8431aee",
+      "pkg/agent/crypto/chain/registry.go": "bf3f06bd59d4aee96d7b96710a2521b0e135a211c435735eef8fc29b946edef8",
+      "pkg/agent/crypto/chain/solana/provider.go": "cb6810af8089bfb4ad01f9446e718467dad5e8bc03244e4722ee1cfb7fdd8ae7",
+      "pkg/agent/crypto/chain/types.go": "10869f4efb3ae6213b94810094a9c96e3816290a9685d564c2a421c7743eddd5",
+      "pkg/agent/crypto/chain/utils.go": "17ac862d47010b791fe7d9c887406c28147def2b8b3c11d23ada304057722082",
+      "pkg/agent/crypto/crypto.go": "d3313d9c0dcf838ffe5de62b94d1da17114380be565e0275c7da5df0a2fed9f7",
+      "pkg/agent/crypto/formats/jwk.go": "7168a91e7f3334336247b2d4c75f2c593eba027484f8c86fad8ae14c93672749",
+      "pkg/agent/crypto/formats/pem.go": "d6d6da489234d02cf190eacb2ba356f80b988e14d715fe6041d6e28a2d821c8e",
+      "pkg/agent/crypto/jcs/jcs.go": "eec04584b40cb5a6bf0994cd79821fc59c90022cf4d581a5e5d965cb9a60f762",
+      "pkg/agent/crypto/keys/constructors.go": "44d2cf163d8a7152c5d5e80de49bff2c749193b43668909ad8949d715cb08428",
+      "pkg/agent/crypto/keys/ecdsa_encoding.go": "500a3cefb8b50faddc8207474ccc79a128b93851270eea961d82cbd3abaaa695",
+      "pkg/agent/crypto/keys/ed25519.go": "d1938738487089f999fc34cbea2797c943aec662246ce844c271be0b35f34dd2",
+      "pkg/agent/crypto/keys/keyid.go": "4ceb983955025854f8351cbb050343b5a21afcfe0f752a29b8098dfa68082dd3",
+      "pkg/agent/crypto/keys/p256.go": "165965b561d73d53c7a0f38338a4e90d885242bddd29f4df728ad2f91da2579c",
+      "pkg/agent/crypto/keys/rs256.go": "608c9492501cfb4332c91da058e0ffeb23395b2a6101335e731c066a2a5deb97",
+      "pkg/agent/crypto/keys/secp256k1.go": "ebfbad2a03adff246ed0d509ee9c12466ef50b767cace78f28a859ab46751f0e",
+      "pkg/agent/crypto/keys/secp256k1_keccak.go": "0bfda8312481fefb6bcbe908f73e4bdf6535705211e93031ce7630776a58e0c5",
+      "pkg/agent/crypto/keys/verify.go": "23e3abebe2a3d2875e21a9883aad5a465221bf85f63039b57a7d249660f4ac73",
+      "pkg/agent/crypto/keys/x25519.go": "95aba9bdf8bc98ce826d8500d3a8bfa1ef04b916471be4fe68589c74bc7eae14",
+      "pkg/agent/crypto/rotation/rotator.go": "c628d17b1fb6394f5dbfeeacf38ba09384bb942bfd03fb5dd8c7ada60203d219",
+      "pkg/agent/crypto/storage/file.go": "7797cdd3818953a8427698ede4b0b914207864ef4a77a771a9dabc0eabafd61c",
+      "pkg/agent/crypto/storage/memory.go": "6088ec0c80f2a8e095bceb52e9e15708ef9adc39ad026a5476d5e2e63d92ebec",
+      "pkg/agent/crypto/types.go": "8965bb7323677233c96d79f3af520d3114560f156dc3f19e72e633e4c8aeebd0",
+      "pkg/agent/crypto/vault/secure_storage.go": "587a15bb6df4c2f76f3a4d085b2f3a2f4955e2515d9286fb4be5484ffbdfb858",
+      "pkg/agent/crypto/wrappers.go": "6846502a6e889ed34d5ad52ec7d1ad70367c553c9e612e378e574ba4bca50bc0",
+      "pkg/agent/did/a2a.go": "db63bb9f074efcd9d712a4d601fac1dd500a7ae5eaadc03d0ca3e2291eea82d7",
+      "pkg/agent/did/a2a_proof.go": "fcd6075850732c9f85c407a19a44b37498db7cff35fa9456027561c388e01e2d",
+      "pkg/agent/did/did.go": "9eddc5e9bf7225e99db6ae1df0578df0571e8228c4e7e737b2bc657be830c0b1",
+      "pkg/agent/did/ethereum/abi.go": "b225876c1bff4a1de656f5f87c49e5348443a9139b2f62ed5eda9595a4353f88",
+      "pkg/agent/did/ethereum/agentcard_client.go": "8c20798934c80a518f556b645e5cd2abfbbe0f55b92bc89d739a97db6a718b29",
+      "pkg/agent/did/ethereum/chainclient.go": "d17d2ec1496bf3cfcf6efa181362e465f28b7f3720e4ef5459dfc4ddb990bfc7",
+      "pkg/agent/did/ethereum/client.go": "735814abdd0a8588994b2f3e317703a0162e014645beb2cae7b1b940fe9bb484",
+      "pkg/agent/did/ethereum/key_policy.go": "796efae907df6655e8b605641b250065d5e839da6809a62e4259d39a5566b713",
+      "pkg/agent/did/factory.go": "eaaa47181d79114af1e1262a75d8309bf2dbab3a1b52153a23fdbdd816ad98b5",
+      "pkg/agent/did/key_proof.go": "352de9660ac8ed4f65d08122ae10d49c8171af2fba2f99c708422e35241f2423",
+      "pkg/agent/did/manager.go": "428a134366e8e454dfd573eead15d7800466844b3ffe843947420c258c87f724",
+      "pkg/agent/did/registry.go": "98cc7bc3380c784b3f297fad2c42b7a81458282292eb3f0bc501fcdc4a1d7d72",
+      "pkg/agent/did/resolver.go": "98029b5a48ab073b28c55f65d8d5ff2a9c2818dc31988190446619a00bd03068",
+      "pkg/agent/did/solana/client.go": "598d550028fc1b13783ac39335f0a20cef2ed257f2d0b31d30c4f30149ae3e40",
+      "pkg/agent/did/solana/resolver.go": "2486ddd8b8a6dbd760015b505ddf378c7f4b2c0c5d4399cebc53177963dfc6b4",
+      "pkg/agent/did/strict010.go": "3d6b9b7ebf0428284679c0470eacf52a43d229ce29e570cfa9a4d95dc9cee2b4",
+      "pkg/agent/did/types.go": "59e0bea502fbde60434992864d44644dafbe9b43061e2e0d1df52ed443873e04",
+      "pkg/agent/did/types_v4.go": "d68e5f05187e640ef604de9be06bad8a17958f9962c46b2fcd488bdda528bb04",
+      "pkg/agent/did/utils.go": "0df8092ee1eda9e6e711c277e2d8dfc41876d30c4df7260447d80f84a35693e7",
+      "pkg/agent/did/verification.go": "192a5bff737ac457571a4869ad5768feb7d4db6a7fa77dbb851cb7f91d8d2153",
+      "pkg/agent/execution010/ledger.go": "e2373fad7959823841782659ac3af11b201c4ab9ed0247a6a7f1c3a8589d6d3d",
+      "pkg/agent/guard010/client.go": "c5101f228c2e0ba17aacbc79f5010c6b5697b450075bf3e070d4d6368b304676",
+      "pkg/agent/guard010/commitment.go": "74ce20c5097ada6c3ed1b732452daf40ca8a4bac5fa14fc578f78286334c0486",
+      "pkg/agent/guard010/dispatch.go": "52b1d9f126ccb76a8af465ca20698690ff2431a624a6bd49a8a8a2bbdd6eefcd",
+      "pkg/agent/guard010/issuance.go": "e0537b5418eca3e10bb98db5858636e659811ba759ec8d698199ee6f5b555032",
+      "pkg/agent/guard010/json.go": "d92529d21b23adb43436d890ce7c3829a73ebfcdb8cc528108cc78de94e6e442",
+      "pkg/agent/guard010/ledger.go": "957e27e791ac34d2e7a20ae4d7262a8677806317e67c71fc19b110314409019b",
+      "pkg/agent/guard010/mcp.go": "96bec863f4e18aacaae16f18eecfe5bbb75e28a7a175556c054dfd40c8db4094",
+      "pkg/agent/guard010/mcp_admission.go": "fd4df3e247c1278445e925b4f57fae3870cb1f6466cb1752ad845ed7fddcc7d9",
+      "pkg/agent/guard010/mcp_connection.go": "52a18eefa3218304d8d3ec2b36962ab86572b839aa9bf90db7a2a04b894f0dff",
+      "pkg/agent/guard010/mcp_host.go": "3107a4ca72cdc85bed8876cd90f7c7ce5caf863175c8424847ca0c35a5c00217",
+      "pkg/agent/guard010/mcp_owned_client.go": "600a9d7ee31bb17d730ab016d32069998a8b1bf73d1a5a257ca0828520390619",
+      "pkg/agent/guard010/mcp_owner.go": "f4d376555edfca44b799cc52b3b9a08e9ed6940a4fc227bb9e38f15dc7a1ba37",
+      "pkg/agent/guard010/mcp_protected_reply.go": "781c2273d4775bf4615d2b6a6828d6210da5931a18781c4732b99d4819f89303",
+      "pkg/agent/guard010/mcp_public.go": "f3c495302c730349dd89f461b4a19236a36b734a8c60ffdf0c2caa6d0a47bf6d",
+      "pkg/agent/guard010/mcp_root_capture.go": "abfb4f152ce1bb0ed7535418c61d0c1e41004402485a39c9d6216dd7b8350399",
+      "pkg/agent/guard010/mcp_rpc.go": "8e48f15940001e59a4e61d55b9404f65d5a2bf0836634780fb1f6fcd5147c315",
+      "pkg/agent/guard010/mcp_session.go": "d2cf452012be1825c1618f1f762ca34fdbab4055312b3c741bf535048089113b",
+      "pkg/agent/guard010/mcp_setup.go": "0cfac5cf2180bb8cec1de7f4171db3645bcd4c93fc5b1f688ab9b58a381708e2",
+      "pkg/agent/guard010/mcp_setup_session.go": "3ab9fac40fd087e7f882bab0971a94197ae6305b2188cf3fc9252df7a57e2e97",
+      "pkg/agent/guard010/mcp_stream.go": "5cbfa5d1330fb2d2ca8af327fdb21d61f165ffb8c0325e26fe479eb3ab41f452",
+      "pkg/agent/guard010/registry.go": "d6ac914001f74e61406dc64cf1d94dce35a2c6a457894bd97e071e8f4c724a47",
+      "pkg/agent/guard010/results.go": "5e7e8d60d5baa4e6db2a150fdcc4502900653b52c4a741e7a8f126925a4b8c65",
+      "pkg/agent/guard010/verify.go": "04b1c09f18a54c004d31bbdde1db95af757e815877344981b1b50797c189df60",
+      "pkg/agent/handshake/client.go": "fd8a1b279fcab5f6dacd739cc5aa5d8cd5288a4cd6a59c524917ec9979a4966d",
+      "pkg/agent/handshake/doc.go": "19b76b1d121488d5f29d218c69f7cc43a8e3a798835cb606b009a5e08c2a684a",
+      "pkg/agent/handshake/server.go": "f7d9c1d341450c2591f8cb63780acebffcec383f4aa13a9c99c74c81e327a70e",
+      "pkg/agent/handshake/types.go": "e00e4749cc5423ba514a140a32ebf79ec29ec242c91ffcf04ead5ebfd7acca4a",
+      "pkg/agent/handshake/utils.go": "8dfabe36b42e59de9e0dadcf85fa1a41e6f362a1b37a8d8eeb0e77ec7f898b06",
+      "pkg/agent/hpke/client.go": "e353d7cd66f4d8cb5f2f07a398321fb0f56868de5f5b6a1df3d2efd2b18d9b8c",
+      "pkg/agent/hpke/common.go": "a06d1b25ed57a1d870f6d388578eafba1d5915209c8cb184ec057cb5cb2a668b",
+      "pkg/agent/hpke/completion010.go": "6187913bce164d56189957f051faae49abd500000cc4eb3a0232d3be94cc2e1f",
+      "pkg/agent/hpke/derivation010.go": "5c2c52dba929b875bfb383afbd9109a04a0887061859c5e2abac56e717d07c74",
+      "pkg/agent/hpke/http010.go": "9b39f644714592df8b873542ab67e105db97c6ff725e6f7700abc04168bede90",
+      "pkg/agent/hpke/http_framing010.go": "4639cddfaa4d7cb4112ba1a9630893cfb64a31c41e3ca0d1136ed27d49c8da6c",
+      "pkg/agent/hpke/http_handshake010.go": "23d58e628fb8932b43706fec654cdf15a2d0ad91a6b34301bad03a8f7475cb0d",
+      "pkg/agent/hpke/owner010.go": "d7bac0f177358f4d11643f07273e94a1747396c71d929e3f14cdcc091f0762e0",
+      "pkg/agent/hpke/record010.go": "5de17705ced985977d4c80d72a07bf328b3f86a3f33e16fabbe390f3f72a8e6b",
+      "pkg/agent/hpke/replay_journal010.go": "7499fb708823537f4f5741ec37f04fe5a8a81e33a393fef9f0a8a6610bef1a44",
+      "pkg/agent/hpke/response010.go": "8933776ec0bf094f8d28dc2462200d7c97d9e908d740a19bfacb7c9b61e17089",
+      "pkg/agent/hpke/schedule010.go": "2736a299a992c24c53f3ef92e6dca918c83b22185897bb0680414e2b9593c4f5",
+      "pkg/agent/hpke/server.go": "939db45ea22e76f7701e964c4cbb7785ab61cd989fe08f0ac2d742716cd4b7b3",
+      "pkg/agent/hpke/signature_verifier.go": "92024a55ffd5f5aef070557d5c1b1c998985eeb629707b4e387117096c05ed13",
+      "pkg/agent/hpke/types.go": "168b4fdd7b4d283ff8692b99268ceca2b21d211412f7b409c98b87e47de3aa54",
+      "pkg/agent/registry010/gate.go": "169d8377eda302caac5d6f1d320cdfb40c2be1562c24343e65dcb744b0e7774f",
+      "pkg/agent/registry010/journal.go": "c0364c4ad6daf421691107036653a72c9ceb3f71a6684874f0b044a2f47680cd",
+      "pkg/agent/registry010/proof.go": "b4ae8b46cfdbffcb2fa669ec1dd859baeb7dbaabc97fdbfbd35f6ef4cf427b76",
+      "pkg/agent/registry010/web_admin_mtls010.go": "bee39ab89abd4779e44a10fbcf110e7b9111d1ca345791160b2e4d3e94094677",
+      "pkg/agent/registry010/web_envelope010.go": "56911b2a3d37f78360be6573609674e89361b4a1795937d7490ce7853e1acf42",
+      "pkg/agent/registry010/web_http_record010.go": "4e965fc73c6514a06d1ba55584e9453216ee95aa78a48214b8432234e8700097",
+      "pkg/agent/registry010/web_media010.go": "a88d1a4498438374859ab6ab1401aa432083dd6ffaa830e8aa95e86a2b091cd1",
+      "pkg/agent/registry010/web_operator010.go": "a321ab2ce6a76f986da6131c54717ff6fdc5f3e4e9129edff1f793044a563f77",
+      "pkg/agent/registry010/web_origin_policy010.go": "415511b231a9e15a834673efd02143a425f85f493f127ac25d51546c5d307f14",
+      "pkg/agent/registry010/web_public_binding010.go": "3751266723ec8b63ef054f23f414d9c924911f730f18194cd2c14cb6548ba47f",
+      "pkg/agent/registry010/web_public_journal010.go": "21fa85ed16e7755ebb611ec2fa56235cc30fb631e4ea9ba26bf62c89c8da1782",
+      "pkg/agent/registry010/web_record_proofs010.go": "a2e0c706b6c8dd1a1b22f1263b1fd7f5aeffa7d21d503f64a46484b35bb5aec3",
+      "pkg/agent/registry010/web_record_shape010.go": "9332d12a0601b5dc35b95b7138d762e00e635fed2383a54a14604cc88ea813f3",
+      "pkg/agent/registry010/web_tls_origin010.go": "d3732904a8e35a798808f96c9db8efbbd47c5b30ca9f8c2d70b1de1a86e9613c",
+      "pkg/agent/registry010/web_transition010.go": "8cb477d0118df82cd206414bfbb88ca58b978ff82bd66109eec1eb6bcec2db8f",
+      "pkg/agent/registry010/web_write_admission010.go": "066916ebd09c332ba4ed3cc31657b8abf657251c38ce0c8f9744f0c3d99a1d76",
+      "pkg/agent/registry010/web_write_journal010.go": "7f3ed68a17ec0b9c10990ccd20dd4d70369179d0047f8bb1afc8bba4fa47bf65",
+      "pkg/agent/registry010/web_write_transaction010.go": "46919d19d08b2d931db534cdae9d6dbea5fac25f0f86da01b75bc4be05def1c2",
+      "pkg/agent/session/manager.go": "cbeb706bd3b3c2bf2ac83a9ef0c478e8c5addd3c680ffe5d199461b2a3dd2d4f",
+      "pkg/agent/session/metrics.go": "83a32012770e4391fa10038dedf08db4f4ed2d6fdc491eddf6cc94e1a446ea04",
+      "pkg/agent/session/nonce.go": "a8be3a93cb1344d452230f398f63ea9046bedd2db81a2455c93e35a635792675",
+      "pkg/agent/session/record010.go": "381c8f5ae641f47e0c3e3f419fc391d198c957480d1ca62a9304f67fd60512b9",
+      "pkg/agent/session/replay.go": "f16b7305be46f82b780d828dd83133b5748baf887613ee64eadf5ae74bc80249",
+      "pkg/agent/session/session.go": "ba0cc9cfe24c8874d348bf6a5106b1a9dc811a526f3750f002b8256005f240b9",
+      "pkg/agent/session/types.go": "dfad68b7bcf6b42a65128d437ab03d7b9473629e4b9f601cd19d435f2f1ff18e",
+      "pkg/agent/transport/http/client.go": "a1e51dcf9a226d9e17262388d2a4645c8980db0c78bce7770263ba3251c16c2c",
+      "pkg/agent/transport/http/register.go": "67214a647f59ca60bf9cf9807c5abd9733193b6b99c53dae3e3376ee01bd6175",
+      "pkg/agent/transport/http/server.go": "6d5880c927dce58a9d828aaa4c66b48d5a54239291d758eed9434923b1ca4122",
+      "pkg/agent/transport/interface.go": "fe837f74fa62d2d87f85e8e6b5f89baa9adc7c745e42641bc492bd89f703dc62",
+      "pkg/agent/transport/mock.go": "216171f72aba0f6805585c031ba7bdf4cbb4c81430d8f5c4f55b06ef91e07ea6",
+      "pkg/agent/transport/selector.go": "aff9ed9f8e8d338491897d4e8274f4c6114f5e39180f0bf0fffe522505b94a55",
+      "pkg/agent/transport/websocket/client.go": "a331e6e5844e10288f44a4b56c0e564859776e69c253a1644f46a9df04d37be3",
+      "pkg/agent/transport/websocket/register.go": "ad42bb347026616425e06aed30cc1bd14f98ee9b53fa203103f2fcf92cfd1f98",
+      "pkg/agent/transport/websocket/server.go": "18a53f15937ca9d6dcd086d00d2e562fa511b41b9f7a7ddfec58e4164e9c4269",
+      "pkg/agent/transport/wire.go": "5e8851a488fa3ac0b660e38e79596c037c7683e23beb860b7d245b60a412e1fd",
+      "pkg/blockchain/ethereum/contracts/agentcardregistry/AgentCardRegistry.go": "d60d1d639117c7b92d19358296b08ba53cc94aa6553e8aa9e00f6594a5355ace",
+      "pkg/blockchain/ethereum/contracts/agentcardregistry/AgentCardStorage.go": "866a8949071b14dd00d0bb92bbd59c0eb09ae0a8b041e9197c534d2725432c3b",
+      "pkg/blockchain/ethereum/contracts/agentcardregistry/IRegistryHook.go": "4653763c1ad1b992c2b678443bcd4cc63211638727494c9b2fd99102224d0360",
+      "pkg/blockchain/ethereum/provider.go": "959c7d77930fadb6de10a6e76fef8f11a027c27505cfb4846eb2585116af30f0",
+      "pkg/health/blockchain.go": "469f0eceef2ee3be65c6f7d809539202d5a6fea9ed6fc9eb706607f06023c00e",
+      "pkg/health/checker.go": "54da0127dcfea6b0a4992b5608fa1d19c456c6a6a5010424f2fb839234f28418",
+      "pkg/health/disk_unix.go": "9f2261eb3a3612f31397f608e90712b976dcca5cde319c6b4c857530c1fb2a61",
+      "pkg/health/disk_windows.go": "99a988677c8855900c64ed3086b9df76d241d81e7c53d13ed5ca71ca66cae270",
+      "pkg/health/server.go": "6ee7d33c139bd87d7caccdae8db85dad7a1811a67db97f2e94c3624ffd30b2af",
+      "pkg/health/system.go": "01aef852a043133b8f07d48398f3d9d88c06952be91dd74fe5088a505e199dd5",
+      "pkg/health/types.go": "4f77e587a58cfb6d236b76a8a21f78ec1b6181bc245e06d7303dd8093968a2f9",
+      "pkg/oidc/auth0/auth0.go": "65a96709f71682cd8dad25bdc5dc29a4e907c49ecb9ef4fb9b9776f3d32b485b",
+      "pkg/oidc/types.go": "30e718292499819706efe6004c8c559ddf11b91aee0bbd3b34a498346edac142",
+      "pkg/storage/interface.go": "b62e208f1a4acc47c0b4ef3082f4940f7bde0c30605944e1fd431d021be86e50",
+      "pkg/storage/memory/dids.go": "f457d4cade6031a379dfaa7f86e63b40faa63b2f207d3d2a63bf5eba74d6ce72",
+      "pkg/storage/memory/nonces.go": "bb6212b4c40888fa50ab2320cf3fec7304d990db43682fbd65fb3deb96ab0c18",
+      "pkg/storage/memory/store.go": "48a57b8c3efa3844cb53274ca303015759e775ec2c589493644318865fbb673b",
+      "pkg/storage/postgres/dids.go": "7691500efa13948f7fbbf4784e3cf51269934882fedc26b9bb2f644fe0a5a9a8",
+      "pkg/storage/postgres/nonces.go": "392bdf9aec4ee543ca767eb508333284a4f95d76209654638e85063c3610dfc5",
+      "pkg/storage/postgres/sessions.go": "520c9997fee1817cfbcde764ba843493f9ba89be746dee93b8611a20adef1863",
+      "pkg/storage/postgres/store.go": "93dd3018e7175af5ece0c4207b547df8ade39e25af5b35baea0f7cb9ff3bba81",
+      "pkg/storage/storagetest/conformance.go": "eb22b5fc65920ced4e9e8b3ea63dea3c94c9ba3eaa1d91eacecafe5b5eb46a56",
+      "pkg/storage/types.go": "3818cd277d1c8222184d0914ef422870324893cef2e802333fb37ef9f2a6fe33",
+      "pkg/telemetry/doc.go": "401582ead12152231304bf34f41f2dca5f314b3568248d687c5e41ca8e8b54a4",
+      "pkg/telemetry/logger/logger.go": "8d3e8977bbb538576bebe67633bbb18791e017c0f6640adcda6711f19d59a629",
+      "pkg/telemetry/metrics/collector.go": "7ee275f75e7a0107e342992f9ff2323601a2693f2dc69f3b97de2dd56c9fdd03",
+      "pkg/telemetry/metrics/crypto.go": "08c585f8d4b605ce0712cfd30e4cdc67de221c72ecd9c564496cdf107f16a936",
+      "pkg/telemetry/metrics/handshake.go": "b7df5fed197ee7aedd50358603ad9f663f4ef8f4883da222dcfc0d51ed422426",
+      "pkg/telemetry/metrics/message.go": "e4da26b2d1c254ad12e7f1a5553819c596a6941e572bfdd8dafb2a6705a015de",
+      "pkg/telemetry/metrics/registry.go": "42d8d5177eefc80988adaf3d7815029b641cdb3ae2ef90b8dc2239f1f1a2f7cc",
+      "pkg/telemetry/metrics/server.go": "da5b6976b74a7a4254c50bfbb60eeb2ef9964a2b91f234498d3b9d591581bca5",
+      "pkg/telemetry/metrics/session.go": "22b7ee1e1eb8eb8960844db99a1b4457a0fadb41744b4f31ab4cf241a2d30018",
+      "pkg/telemetry/metrics/session_adapter.go": "afe1c1e9f7439b60c5f516b8a3c11e2e26b7255b509d7be1f8776cba0acbb9e7",
+      "pkg/telemetry/metrics/snapshot_handler.go": "fa4de4b99c4619b3988c61692418ae491655cbb86ae9ba09db04bef63fbf395f",
+      "pkg/vectors/crypto.go": "63a44ec8a2d208be0286218a56d0e15d7ae707aad0c94c3e4762f34273236443",
+      "pkg/vectors/did.go": "b6efd86f2855ab6943f344565ab4f6019304d92596a5419fdfbe10655ac2dad1",
+      "pkg/vectors/helpers.go": "1483265dbedc367c6e2dd1096801ed678b11fedb08eea9527acf9398983a4750",
+      "pkg/vectors/hpke.go": "bb1bf947ac9ece3c5e3959ffc3357562f1d59efb2b1bafce3da9269b81593be0",
+      "pkg/vectors/rfc9421.go": "f617909dddcc99cc9d4141f089803e1abb70b69f9bea98dbaaa4b9f54de85906",
+      "pkg/vectors/session.go": "3f72a7d53c2965638f2eeecf5d6801ccf11bd01c542576d76456706c6873b3b7",
+      "pkg/vectors/vectors.go": "30132fc633e593b635d3b6ce1da83259c75f72444090c372995efd152997e7aa",
+      "pkg/version/version.go": "4350855feafbed0219d7fec998a08f7e5e2bafd430f2e57e230ffa92601fbc34",
+      "tests/integration/test_helper.go": "c5afd74ce126b1aa36b3fe96e113280160650c7e1571ee0a87aedc3804d1451b",
+      "tools/analyze/analyze.go": "8602d20c6be54f7d9a099049ceefe85b264b12b48e4c1c2f8856467c8d3c9ba0",
+      "tools/codegraph/main.go": "ab9e50c1f3e04d9fde8091cb1e74e55792e3491ca3f38ca66c37c11b7a6908a5"
+    },
+    "module_files": {
+      "go.mod": "c23a68976d75c786fff32e062e6c5b670a6a3959ec3580ff0b2a09cbf1e45536",
+      "go.sum": "eef9fb09a9ef609fc2d7146d4a7970eb05ca34c3bf4461a8d138dace063836d8"
+    },
+    "routes": [
+      {
+        "id": "core-protocol-clock",
+        "path": "pkg/agent/hpke/completion010.go",
+        "declaration": "CompletionEndpoint010.sample",
+        "line": 68,
+        "classification": "PROTECTED_PROVIDER",
+        "calls": [
+          {
+            "callee": "e.sampleLocal010",
+            "line": 72
+          }
+        ],
+        "review": "Protocol path checks signing-key length under endpoint mutex and delegates to the same ordered local sampler used by native timer."
+      },
+      {
+        "id": "core-ordered-clock",
+        "path": "pkg/agent/hpke/completion010.go",
+        "declaration": "CompletionEndpoint010.sampleLocal010",
+        "line": 78,
+        "classification": "PROTECTED_PROVIDER",
+        "calls": [
+          {
+            "callee": "e.clockMu.Lock",
+            "line": 79
+          },
+          {
+            "callee": "e.clockMu.Unlock",
+            "line": 80
+          },
+          {
+            "callee": "e.retired.Load",
+            "line": 81
+          },
+          {
+            "callee": "e.clock.Now",
+            "line": 84
+          },
+          {
+            "callee": "e.retired.Load",
+            "line": 85
+          }
+        ],
+        "review": "clockMu spans only bounded provisioned local Clock.Now and shared last-stamp comparison/publication. Checks retirement before/after sample, finite nonnegative stamps, monotonic/UTC rollback. Never spans Registry, storage, cryptography or signing-key cleanup; local sampling is not external attestation."
+      },
+      {
+        "id": "core-native-timer",
+        "path": "pkg/agent/hpke/owner010.go",
+        "declaration": "NonHTTPOwner010.LocalNow",
+        "line": 71,
+        "classification": "PROTECTED_PROVIDER",
+        "calls": [
+          {
+            "callee": "recover",
+            "line": 73
+          },
+          {
+            "callee": "s.lifetime.checked.Load",
+            "line": 85
+          },
+          {
+            "callee": "s.lifetime.active.Load",
+            "line": 85
+          },
+          {
+            "callee": "s.lifetime.wall.Load",
+            "line": 85
+          },
+          {
+            "callee": "s.lifetime.confirmed.Load",
+            "line": 86
+          },
+          {
+            "callee": "s.endpoint.sampleLocal010",
+            "line": 87
+          },
+          {
+            "callee": "s.unavailable010",
+            "line": 88
+          },
+          {
+            "callee": "s.endpoint.retired.Load",
+            "line": 88
+          },
+          {
+            "callee": "pinnedLive010",
+            "line": 88
+          },
+          {
+            "callee": "pendingLive010",
+            "line": 88
+          }
+        ],
+        "review": "Snapshots atomic validated/activity/confirmation bounds before ordered sample so later legitimate publication does not retroactively invalidate it. Still refuses unavailable/retired sessions, actual rollback, lifetime/idle/pending expiry, current pinned-key expiry and duration overflow. No signing-secret read or Registry lookup."
+      },
+      {
+        "id": "core-start-liveness",
+        "path": "pkg/agent/hpke/record010.go",
+        "declaration": "AuthenticatedCompletion010.recordLive",
+        "line": 25,
+        "classification": "PROTECTED_PROVIDER",
+        "calls": [
+          {
+            "callee": "s.unavailable010",
+            "line": 29
+          },
+          {
+            "callee": "pendingLive010",
+            "line": 29
+          }
+        ],
+        "review": "Valid protocol start is checked against owned session creation/activity and pending/lifetime bounds, not a later timer sample. Final gates resample; this relaxation of false rollback detection does not authorize stale publication."
+      },
+      {
+        "id": "core-final-record-gate",
+        "path": "pkg/agent/hpke/record010.go",
+        "declaration": "AuthenticatedCompletion010.recordGate",
+        "line": 34,
+        "classification": "PROTECTED_PROVIDER",
+        "calls": [
+          {
+            "callee": "s.endpoint.sample",
+            "line": 35
+          },
+          {
+            "callee": "s.recordLive",
+            "line": 36
+          },
+          {
+            "callee": "pinnedLive010",
+            "line": 36
+          },
+          {
+            "callee": "s.destroy",
+            "line": 37
+          }
+        ],
+        "review": "Fresh shared ordered sample checks record liveness, five-second validation budget, envelope expiry and pinned key expiry before final publication; failure destroys session."
+      },
+      {
+        "id": "core-current-check",
+        "path": "pkg/agent/hpke/completion010.go",
+        "declaration": "AuthenticatedCompletion010.checkCurrent010",
+        "line": 452,
+        "classification": "PROTECTED_PROVIDER",
+        "calls": [
+          {
+            "callee": "e.sample",
+            "line": 454
+          },
+          {
+            "callee": "s.recordLive",
+            "line": 455
+          },
+          {
+            "callee": "e.current",
+            "line": 455
+          },
+          {
+            "callee": "s.destroy",
+            "line": 456
+          },
+          {
+            "callee": "e.sample",
+            "line": 459
+          },
+          {
+            "callee": "pinnedLive010",
+            "line": 460
+          },
+          {
+            "callee": "s.recordLive",
+            "line": 460
+          },
+          {
+            "callee": "s.destroy",
+            "line": 461
+          },
+          {
+            "callee": "s.lifetime.wall.Store",
+            "line": 464
+          },
+          {
+            "callee": "s.lifetime.checked.Store",
+            "line": 465
+          }
+        ],
+        "review": "Samples start, checks record liveness and revalidates both Registry participants. Fresh ordered end sample checks five-second validation budget, pinned-key expiry and session liveness before publishing wall/checked stamps. Native timer is not a substitute for current Registry validation."
+      },
+      {
+        "id": "core-native-observe",
+        "path": "pkg/agent/hpke/owner010.go",
+        "declaration": "NonHTTPOwner010.Observe",
+        "line": 131,
+        "classification": "PROTECTED_PROVIDER",
+        "calls": [
+          {
+            "callee": "ctx.Err",
+            "line": 132
+          },
+          {
+            "callee": "s.endpoint.mu.Lock",
+            "line": 136
+          },
+          {
+            "callee": "s.endpoint.mu.Unlock",
+            "line": 137
+          },
+          {
+            "callee": "s.checkCurrent010",
+            "line": 138
+          }
+        ],
+        "review": "Own endpoint mutex surrounds fresh current validation; returns bounded diagnostic validation-start timing only, never portable authorization or execution permission."
+      }
+    ]
+  }
+}

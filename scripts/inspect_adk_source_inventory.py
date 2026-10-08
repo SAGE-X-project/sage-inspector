@@ -38,12 +38,17 @@ SNAPSHOTS = {
         'sha256': '1c5c06a75d155eddae96922664876c26b0793bd0e8958f085997ffb1dc8af44f',
         'revision': '7eb69a8ef41ac5a36b01090411c14b833a5513ff',
     },
+    'admitted-hop': {
+        'path': ROOT / 'verification/0.10.0/adk-admitted-hop/catalog.json',
+        'sha256': '11cc875ff71f88c3a531ff84aaed7d9c02cdb0e0a406d8e550b7fadfadb9dd61',
+        'revision': 'e2653847e7d75507e1561e36baebcf321ca3307c',
+    },
 }
 KINDS = {'GUARD_NATIVE_OPT_IN', 'CAPTURE_ONLY', 'PROTECTED_PROVIDER',
          'LEGACY_UNMEDIATED', 'CONFIGURATION_ONLY', 'PROPOSAL_ONLY',
          'OUTBOUND_LLM_PROPOSAL', 'APPROVED_OPERATION_OPT_IN',
          'COMPILED_CALCULATOR_OPT_IN', 'SEALED_IMAGE_OPT_IN',
-         'CHILD_MEASUREMENT_OPT_IN',
+         'CHILD_MEASUREMENT_OPT_IN', 'ADMITTED_HOP_OPT_IN',
          'RUNTIME_TEST_FIXTURE'}
 
 
@@ -179,7 +184,7 @@ def report(inventory, suite):
             'Native protection is opt-in and depends on isolated authoritative policy, registry, custody and loader bindings.',
         ],
     }
-    if snapshot in ('approved-operation', 'compiled-calculator', 'sealed-image', 'child-measurement'):
+    if snapshot in ('approved-operation', 'compiled-calculator', 'sealed-image', 'child-measurement', 'admitted-hop'):
         result['limitations'] += [
             'Exact-operation rules are trusted local root configuration; parent-hop policy is separate.',
             'Factory.Load and Instance.Check remain trusted providers; snapshots and source queries do not attest actual loaded code.',
@@ -187,7 +192,7 @@ def report(inventory, suite):
             'Artifact reading requires protected serialized administration; local gating does not establish OS isolation or durable distributed epochs.',
             'Linux/macOS and unsupported-platform sources are both parsed; build-tag selection and execution are not observed.',
         ]
-    if snapshot in ('compiled-calculator', 'sealed-image', 'child-measurement'):
+    if snapshot in ('compiled-calculator', 'sealed-image', 'child-measurement', 'admitted-hop'):
         result['limitations'] += [
             'The calculator adapter constructs a fixed statically compiled tool; it does not load code from snapshot artifacts.',
             'Measurement.Check must establish protected verification before host image/dependency loading and retained immutable runtime identity; this query supplies no provider or deployment attestation.',
@@ -204,7 +209,7 @@ def report(inventory, suite):
             'Process.CheckSnapshot appraises the child executable and is not guardcalculator.Measurement for a parent calculator; protected child-to-supervisor binding and final native admission remain outstanding.',
             'Sealed-image ADK unit and local/CI Linux runtime evidence is separate; this source query runs no ADK host and closes no deployed control or independent-hop gate.',
         ]
-    if snapshot == 'child-measurement':
+    if snapshot in ('child-measurement', 'admitted-hop'):
         result['limitations'] += [
             'Private child measurement connects same-child executable observations to mandatory Local assurance and opt-in native admission; this query observes no deployment or runtime.',
             'Successful Supervisor.Start establishes resource ownership, not successful bootstrap or authorization; failed bootstrap retains child cleanup ownership.',
@@ -216,7 +221,18 @@ def report(inventory, suite):
             'Retire and drain native effects before cleanup; cancellation retains ownership for retry, emergency termination can leave uncertain journal completions and cleanup proves no rollback.',
             'The fixed native calculator testdata uses actual IPC and native encrypted loopback but synthetic Local assurance and Registry providers; all fixture routes remain RUNTIME_TEST_FIXTURE, not production bindings.',
             'ADK unit and Linux runtime/CI results are separate evidence; this Inspector query executes only its trusted parser and closes no deployed control or independent-hop gate.',
-            'Parent-hop assembly, authoritative blockchain Source, selected protected host configuration and independent effect/deployment observations remain outstanding in the approved order.',
+        ]
+    if snapshot == 'child-measurement':
+        result['limitations'].append(
+            'Parent-hop assembly, authoritative blockchain Source, selected protected host configuration and independent effect/deployment observations remain outstanding in the approved order.')
+    if snapshot == 'admitted-hop':
+        result['limitations'] += [
+            'Retained hop capture rechecks actual native parent and current upstream around durable readback; local ID is fresh and parent_call_id is causal metadata, not inherited permission.',
+            'Own downstream policy, signer, loaded-runtime measurement and provider isolation remain independently required; retained-input wrappers do not establish atomic cross-provider authorization.',
+            'Native OpenHopClient uses create=false for an already issued successfully closed protected journal; exact path/fence/bytes custody is required and missing history is never recreated.',
+            'RestoreHop requires the same actually live parent; protected storage cannot resurrect a finished or UNKNOWN parent and ordinary restart supplies no native admission.',
+            'guardbinding.Open remains root-only; concrete independently approved hop-operation/loader assembly, authoritative blockchain Source, selected protected host/providers and independent effect/deployment observations remain outstanding in the approved order.',
+            'ADK safe hop unit and loopback runtime tests use fixture Registry/policy/measurement and one Go core; they are separate evidence, not independent cross-core hop or deployment conformance.',
         ]
     return result
 

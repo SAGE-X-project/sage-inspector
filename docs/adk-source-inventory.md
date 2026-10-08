@@ -90,3 +90,7 @@ binding code with 49 reviewed anchors across 169 files. This historical query,
 catalog and report remain unchanged, including their default CLI selection and
 all deployment limitations. The new query does not attest a loaded provider or
 select a Registry/host deployment.
+
+The fifth [supervised child measurement snapshot](adk-child-measurement-inspection.md)
+retains this historical query and separately checks the new private same-child
+measurement channel. Its source matches do not close deployment obligations.

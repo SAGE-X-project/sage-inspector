@@ -1,0 +1,1207 @@
+// External, loopback-only, inert fixture. No deployed registry or general tool.
+use ed25519_dalek::{Signer, SigningKey};
+use sage_crypto_core::hpke::completion010::{CompletionEndpoint010, ReplayJournal010};
+use sage_crypto_core::{guard010 as g, registry010 as r};
+use serde_json::{json, Value};
+use sha2::{Digest, Sha256};
+use std::{
+    fs,
+    net::{TcpListener, TcpStream},
+    path::{Path, PathBuf},
+    sync::{
+        atomic::{AtomicI64, Ordering},
+        Arc, Mutex,
+    },
+    thread,
+    time::{Duration, Instant},
+};
+const ALICE: &str = "did:sage:web:agent.example:alice";
+const BOB: &str = "did:sage:web:agent.example:bob";
+const REQUEST: &str = "00000000-0000-4000-8000-000000000002";
+const INSTANCE: &[u8] = b"inert-exact-read-v1";
+fn need(value: bool) -> g::Result<()> {
+    if value {
+        Ok(())
+    } else {
+        Err(g::Invalid)
+    }
+}
+fn bytes(v: &Value) -> Vec<u8> {
+    serde_json::to_vec(v).unwrap()
+}
+fn hash(b: &[u8]) -> String {
+    hex::encode(Sha256::digest(b))
+}
+#[derive(Clone)]
+struct Clock(Arc<AtomicI64>);
+impl r::Clock for Clock {
+    fn now(&mut self) -> sage_crypto_core::error::Result<r::Stamp> {
+        let m = self.0.load(Ordering::SeqCst);
+        Ok(r::Stamp {
+            mono_ms: m,
+            unix: 100 + m / 1000,
+        })
+    }
+}
+impl g::ClientClock for Clock {
+    fn sample(&mut self) -> g::Result<(i64, i64)> {
+        let m = self.0.load(Ordering::SeqCst);
+        Ok((100000 + m, m))
+    }
+}
+struct Source(Clock);
+impl r::Source for Source {
+    fn read(&mut self, did: &str) -> sage_crypto_core::error::Result<r::Snapshot> {
+        if did != ALICE && did != BOB {
+            return Err(sage_crypto_core::error::Error::InvalidInput(
+                "fixture identity".into(),
+            ));
+        }
+        let n = if did == BOB { 2 } else { 1 };
+        let mut keys = vec![r::Key {
+            name: "signing-1".into(),
+            alg: "ed25519".into(),
+            material: hex::encode(SigningKey::from_bytes(&[n; 32]).verifying_key().to_bytes()),
+            state: "accepted".into(),
+            expires: None,
+        }];
+        if did == BOB || did == ALICE {
+            keys.insert(
+                0,
+                r::Key {
+                    name: "kem-1".into(),
+                    alg: "x25519".into(),
+                    material: hex::encode(x25519_dalek::x25519(
+                        [if did == ALICE { 4 } else { 3 }; 32],
+                        x25519_dalek::X25519_BASEPOINT_BYTES,
+                    )),
+                    state: "accepted".into(),
+                    expires: None,
+                },
+            );
+        }
+        Ok(r::Snapshot {
+            source: "external-fixture".into(),
+            registry: "web:agent.example".into(),
+            network: "local".into(),
+            did: did.into(),
+            version: "1".into(),
+            state: "active".into(),
+            digest: "a".repeat(64),
+            ready: true,
+            validated: true,
+            finalized: true,
+            conflicting: false,
+            acquired_ms: self.0 .0.load(Ordering::SeqCst),
+            block_hash: String::new(),
+            keys_block_hash: String::new(),
+            keys,
+        })
+    }
+}
+fn config() -> r::Config {
+    r::Config {
+        source: "external-fixture".into(),
+        registry: "web:agent.example".into(),
+        network: "local".into(),
+        blockchain: false,
+    }
+}
+fn authority(root: &Path, mode: &str, name: &str, did: &str, c: &Clock) -> g::RegistryAuthority {
+    let gate = r::SendGate::new_send(
+        config(),
+        Box::new(Source(c.clone())),
+        Box::new(c.clone()),
+        Box::new(r::Journal::open(&root.join(format!("{mode}-{name}")), true).unwrap()),
+    )
+    .unwrap();
+    g::RegistryAuthority::new(gate, did, &format!("{did}#signing-1")).unwrap()
+}
+fn manifest() -> Vec<u8> {
+    bytes(&json!({"version":"0.10.0","files":[{"path":"component.bin","sha256":hash(INSTANCE)}]}))
+}
+fn policy() -> Vec<u8> {
+    bytes(
+        &json!({"version":"0.10.0","issuer":ALICE,"epoch":"00000000-0000-4000-8000-000000000001","engine":"external-consumer-fixture/1","artifacts":serde_json::from_slice::<Value>(&manifest()).unwrap()}),
+    )
+}
+struct Policy;
+impl g::IntentPolicy for Policy {
+    fn bindings(&mut self, i: &str, id: &str) -> g::Result<g::Bindings> {
+        need(i == ALICE && id == REQUEST)?;
+        Ok(g::Bindings {
+            original: g::original_commitment(&[b"trusted root input".to_vec()])?,
+            policy: policy(),
+            manifest: manifest(),
+        })
+    }
+    fn authorize(&mut self, i: &str, tool: &str, args: &[u8]) -> g::Result<()> {
+        need(i == ALICE && tool == "read" && args == br#"{"path":"public.txt"}"#)
+    }
+}
+impl g::IssuancePolicy for Policy {
+    fn approve_intent(&mut self, raw: &[u8]) -> g::Result<()> {
+        let i: Value = serde_json::from_slice(raw).map_err(|_| g::Invalid)?;
+        need(
+            i["issuer"] == ALICE
+                && i["recipient"] == BOB
+                && i["request_id"] == REQUEST
+                && i["tool"] == "read"
+                && i["arguments"] == json!({"path":"public.txt"}),
+        )
+    }
+}
+struct Loaded {
+    material: Vec<u8>,
+    effects: AtomicI64,
+    child: Option<ChildEnvironment>,
+}
+impl Loaded {
+    fn check(&self, m: &str, t: &str) -> g::Result<()> {
+        need(t == "read" && m == g::manifest_commitment(&manifest())? && self.material == INSTANCE)
+    }
+}
+struct Measurement(Arc<Loaded>);
+impl g::IntentMeasurement for Measurement {
+    fn check(&mut self, m: &str, t: &str) -> g::Result<()> {
+        self.0.check(m, t)
+    }
+}
+impl g::MCPExecutor for Loaded {
+    fn check(&self, m: &str, t: &str) -> g::Result<()> {
+        self.check(m, t)
+    }
+    fn run(&self, i: &g::Invocation, c: &g::MCPCancellation) -> g::Result<Vec<u8>> {
+        need(!c.cancelled() && i.arguments() == br#"{"path":"public.txt"}"#)?;
+        self.check(i.manifest_digest(), "read")?;
+        self.effects.fetch_add(1, Ordering::SeqCst);
+        if let Some(child) = &self.child {
+            child.issue(i)?;
+            let success = child
+                .record
+                .lock()
+                .map_err(|_| g::Invalid)?
+                .as_ref()
+                .ok_or(g::Invalid)?["status"]
+                == "completed";
+            return Ok(expected_root_output(success));
+        }
+        Ok(br#"{"ok":true}"#.to_vec())
+    }
+}
+struct NoSend;
+impl g::ClientSender for NoSend {
+    fn commit(&mut self, _: &str, _: &[u8]) -> g::Result<()> {
+        Err(g::Invalid)
+    }
+}
+struct IntentSigner {
+    root: PathBuf,
+    calls: Arc<AtomicI64>,
+    body: Arc<Mutex<Vec<u8>>>,
+    fail: bool,
+}
+impl g::IntentSigner for IntentSigner {
+    fn sign(&mut self, key: &str, msg: &[u8]) -> g::Result<Vec<u8>> {
+        let domain = b"sage-execution-intent|0.10.0\0";
+        need(key == format!("{ALICE}#signing-1") && msg.starts_with(domain))?;
+        let marker = fs::read(self.root.join("client-journal.issuance")).map_err(|_| g::Invalid)?;
+        need(
+            marker
+                == format!(
+                    "sage-intent-issuance|0.10.0\n{}\n",
+                    hash(&msg[domain.len()..])
+                )
+                .as_bytes(),
+        )?;
+        *self.body.lock().map_err(|_| g::Invalid)? = msg[domain.len()..].to_vec();
+        self.calls.fetch_add(1, Ordering::SeqCst);
+        need(!self.fail)?;
+        Ok(SigningKey::from_bytes(&[1; 32])
+            .sign(msg)
+            .to_bytes()
+            .to_vec())
+    }
+}
+struct ResultSigner(Clock);
+impl g::Authority for ResultSigner {
+    fn now(&mut self) -> g::Result<i64> {
+        Ok(100 + self.0 .0.load(Ordering::SeqCst) / 1000)
+    }
+    fn active_key(&mut self, i: &str, k: &str) -> g::Result<[u8; 32]> {
+        need(i == BOB && k == format!("{BOB}#signing-1"))?;
+        Ok(SigningKey::from_bytes(&[2; 32]).verifying_key().to_bytes())
+    }
+}
+impl g::ResultSigner for ResultSigner {
+    fn key_id(&mut self) -> g::Result<String> {
+        Ok(format!("{BOB}#signing-1"))
+    }
+    fn sign(&mut self, k: &str, b: &[u8]) -> g::Result<Vec<u8>> {
+        need(k == format!("{BOB}#signing-1"))?;
+        Ok(SigningKey::from_bytes(&[2; 32]).sign(b).to_bytes().to_vec())
+    }
+}
+struct Handler {
+    root: PathBuf,
+    mode: String,
+    scenario: String,
+    c: Clock,
+    loaded: Arc<Loaded>,
+    signs: Arc<AtomicI64>,
+    body: Arc<Mutex<Vec<u8>>>,
+    completed: bool,
+    before: Vec<u8>,
+    stage: String,
+    owned_capture: String,
+    consumed_output: Vec<u8>,
+    prepare_denied: Arc<Mutex<bool>>,
+}
+impl g::MCPConnectionHandler for Handler {
+    fn endpoint(&mut self) -> g::Result<CompletionEndpoint010> {
+        let registry = r::Gate::new(
+            config(),
+            Box::new(Source(self.c.clone())),
+            Box::new(self.c.clone()),
+            Box::new(
+                r::Journal::open(
+                    &self.root.join(format!("{}-endpoint-registry", self.mode)),
+                    true,
+                )
+                .map_err(|_| g::Invalid)?,
+            ),
+        )
+        .map_err(|_| g::Invalid)?;
+        let replay = ReplayJournal010::open(
+            &self.root.join(format!("{}-endpoint-replay", self.mode)),
+            self.mode == "client",
+            Box::new(self.c.clone()),
+        )
+        .map_err(|_| g::Invalid)?;
+        let client = self.mode == "client";
+        let did = if client { ALICE } else { BOB };
+        let kem = if client { vec![] } else { vec![3; 32] };
+        let endpoint = CompletionEndpoint010::new(
+            did,
+            &format!("{did}#signing-1"),
+            &[if client { 1 } else { 2 }; 32],
+            &kem,
+            registry,
+            Box::new(self.c.clone()),
+            Box::new(replay),
+        )
+        .map_err(|_| g::Invalid)?;
+        self.c.0.store(360000, Ordering::SeqCst);
+        Ok(endpoint)
+    }
+    fn prepare(&mut self) -> g::Result<()> {
+        if self.mode == "server" && self.scenario == "readiness-denied" {
+            *self.prepare_denied.lock().map_err(|_| g::Invalid)? = true;
+            return Err(g::Invalid);
+        };
+        Ok(())
+    }
+    fn handle(&mut self, connection: &mut g::MCPConnection<'_>) -> g::Result<()> {
+        if self.mode == "server" {
+            while connection
+                .serve_one(&mut ResultSigner(self.c.clone()))
+                .is_ok()
+            {}
+            return Ok(());
+        }
+        self.stage = "capture".into();
+        let capture = g::RootCapture::new(&[b"trusted root input".to_vec()], REQUEST)?;
+        let loaded = if self.scenario == "measurement-denied" {
+            Arc::new(Loaded {
+                material: b"changed fixture".to_vec(),
+                effects: AtomicI64::new(0),
+                child: None,
+            })
+        } else {
+            self.loaded.clone()
+        };
+        let services = g::IssuerServices {
+            client: g::ClientServices {
+                intent_authority: Box::new(authority(
+                    &self.root,
+                    &self.mode,
+                    "issuer-intent",
+                    ALICE,
+                    &self.c,
+                )),
+                result_authority: Box::new(authority(
+                    &self.root,
+                    &self.mode,
+                    "issuer-result",
+                    BOB,
+                    &self.c,
+                )),
+                policy: Box::new(Policy),
+                clock: Box::new(self.c.clone()),
+                sender: Box::new(NoSend),
+                expected_issuer: ALICE.into(),
+                expected_recipient: BOB.into(),
+            },
+            policy: Box::new(Policy),
+            signer: Box::new(IntentSigner {
+                root: self.root.clone(),
+                calls: self.signs.clone(),
+                body: self.body.clone(),
+                fail: self.scenario == "signing-denied",
+            }),
+            measurement: Box::new(Measurement(loaded)),
+            key_id: format!("{ALICE}#signing-1"),
+        };
+        let mut issuer = g::IntentIssuer::new(capture, services)?;
+        let args = if self.scenario == "policy-denied" {
+            br#"{"path":"other.txt"}"#.to_vec()
+        } else {
+            br#"{"path":"public.txt"}"#.to_vec()
+        };
+        self.stage = "authorizing".into();
+        let mut token = issuer.authorize(g::IntentProposal {
+            tool: "read".into(),
+            arguments: args,
+            lifetime_seconds: 300,
+        })?;
+        let path = self.root.join("client-journal");
+        self.stage = "issuing".into();
+        let durable = issuer.issue(&path, &mut token)?;
+        let raw = durable.journaled_intent()?;
+        durable.close()?;
+        issuer.retire()?;
+        self.before = fs::read(&path).map_err(|_| g::Invalid)?;
+        let capture = g::RootCapture::new(
+            &[if self.scenario == "capture-denied" {
+                b"changed root".to_vec()
+            } else {
+                b"trusted root input".to_vec()
+            }],
+            REQUEST,
+        )?;
+        self.owned_capture = g::original_commitment(&[if self.scenario == "capture-denied" {
+            b"changed root".to_vec()
+        } else {
+            b"trusted root input".to_vec()
+        }])?;
+        self.stage = "opening".into();
+        connection.open_root_client(
+            &path,
+            false,
+            &raw,
+            g::MCPClientServices {
+                intent_authority: authority(&self.root, &self.mode, "owned-intent", ALICE, &self.c),
+                result_authority: authority(&self.root, &self.mode, "owned-result", BOB, &self.c),
+                policy: Box::new(Policy),
+                clock: Box::new(self.c.clone()),
+            },
+            capture,
+        )?;
+        self.stage = "exchanging".into();
+        for _ in 0..20 {
+            thread::sleep(Duration::from_millis(20));
+            self.c.0.fetch_add(1000, Ordering::SeqCst);
+            let d = connection.exchange()?;
+            if d.status() == "completed" {
+                need(
+                    d.first_terminal()
+                        && d.output()
+                            == expected_root_output(
+                                std::env::var("SAGE_HOP_SCENARIO").map_err(|_| g::Invalid)?
+                                    == "allowed",
+                            ),
+                )?;
+                self.stage = "completed".into();
+                self.consumed_output = d.output().to_vec();
+                self.completed = true;
+                return Ok(());
+            }
+        }
+        Err(g::Invalid)
+    }
+}
+fn read(path: &Path) -> String {
+    if !path.exists() {
+        String::new()
+    } else {
+        hex::encode(fs::read(path).unwrap())
+    }
+}
+
+// Actual admitted parent issuance and separate protected downstream exchange.
+const CHILD_REQUEST: &str = "00000000-0000-4000-8000-000000000011";
+#[derive(Clone)]
+struct ChildPolicy(Vec<u8>);
+fn child_descriptor() -> Vec<u8> {
+    bytes(
+        &json!({"version":"0.10.0","issuer":BOB,"epoch":"00000000-0000-4000-8000-000000000012","engine":"external-hop-fixture/1","artifacts":serde_json::from_slice::<Value>(&manifest()).unwrap()}),
+    )
+}
+impl g::IntentPolicy for ChildPolicy {
+    fn bindings(&mut self, i: &str, id: &str) -> g::Result<g::Bindings> {
+        need(i == BOB && id == CHILD_REQUEST)?;
+        Ok(g::Bindings {
+            original: g::original_commitment(&[self.0.clone()])?,
+            policy: child_descriptor(),
+            manifest: manifest(),
+        })
+    }
+    fn authorize(&mut self, i: &str, tool: &str, args: &[u8]) -> g::Result<()> {
+        need(i == BOB && tool == "read" && args == br#"{"path":"public.txt"}"#)
+    }
+}
+impl g::IssuancePolicy for ChildPolicy {
+    fn approve_intent(&mut self, raw: &[u8]) -> g::Result<()> {
+        let v: Value = serde_json::from_slice(raw).map_err(|_| g::Invalid)?;
+        let parent: Value = serde_json::from_slice(&self.0).map_err(|_| g::Invalid)?;
+        need(
+            v.as_object().ok_or(g::Invalid)?.len() == 17
+                && v["issuer"] == BOB
+                && v["recipient"] == ALICE
+                && v["request_id"] == CHILD_REQUEST
+                && v["parent_call_id"] == parent["intent"]["call_id"]
+                && v["tool"] == "read"
+                && v["arguments"] == json!({"path":"public.txt"}),
+        )
+    }
+}
+struct ChildSigner {
+    path: PathBuf,
+    calls: Arc<AtomicI64>,
+    body: Arc<Mutex<Vec<u8>>>,
+    fail: bool,
+}
+impl g::IntentSigner for ChildSigner {
+    fn sign(&mut self, kid: &str, msg: &[u8]) -> g::Result<Vec<u8>> {
+        let domain = b"sage-execution-intent|0.10.0\0";
+        need(kid == format!("{BOB}#signing-1") && msg.starts_with(domain))?;
+        let marker = fs::read(&self.path).map_err(|_| g::Invalid)?;
+        need(
+            marker
+                == format!(
+                    "sage-intent-issuance|0.10.0\n{}\n",
+                    hash(&msg[domain.len()..])
+                )
+                .as_bytes(),
+        )?;
+        *self.body.lock().map_err(|_| g::Invalid)? = msg[domain.len()..].to_vec();
+        self.calls.fetch_add(1, Ordering::SeqCst);
+        need(!self.fail)?;
+        Ok(SigningKey::from_bytes(&[2; 32])
+            .sign(msg)
+            .to_bytes()
+            .to_vec())
+    }
+}
+struct ChildEnvironment {
+    root: PathBuf,
+    c: Clock,
+    record: Mutex<Option<Value>>,
+    parent: Mutex<Option<Box<dyn g::HopParent + Send>>>,
+}
+impl ChildEnvironment {
+    fn issue(&self, i: &g::Invocation) -> g::Result<()> {
+        let scenario = std::env::var("SAGE_HOP_SCENARIO").map_err(|_| g::Invalid)?;
+        need(
+            [
+                "allowed",
+                "policy-denied",
+                "measurement-denied",
+                "signing-denied",
+                "leaf-readiness-denied",
+            ]
+            .contains(&scenario.as_str()),
+        )?;
+        let incoming = i.canonical_intent().to_vec();
+        let mut parent = i.parent_admission().ok_or(g::Invalid)?;
+        parent.authorized(&incoming)?;
+        *self.parent.lock().map_err(|_| g::Invalid)? = Some(parent);
+        let path = self.root.join("child-journal");
+        let capture = g::RootCapture::new(&[incoming.clone()], CHILD_REQUEST)?;
+        let p = ChildPolicy(incoming.clone());
+        let signs = Arc::new(AtomicI64::new(0));
+        let body = Arc::new(Mutex::new(vec![]));
+        let measurement = Arc::new(Loaded {
+            material: if scenario == "measurement-denied" {
+                b"unavailable fixture".to_vec()
+            } else {
+                INSTANCE.to_vec()
+            },
+            effects: AtomicI64::new(0),
+            child: None,
+        });
+        let services = g::IssuerServices {
+            client: g::ClientServices {
+                intent_authority: Box::new(authority(
+                    &self.root,
+                    "server",
+                    "child-intent",
+                    BOB,
+                    &self.c,
+                )),
+                result_authority: Box::new(authority(
+                    &self.root,
+                    "server",
+                    "child-result",
+                    ALICE,
+                    &self.c,
+                )),
+                policy: Box::new(p.clone()),
+                clock: Box::new(self.c.clone()),
+                sender: Box::new(NoSend),
+                expected_issuer: BOB.into(),
+                expected_recipient: ALICE.into(),
+            },
+            policy: Box::new(p),
+            signer: Box::new(ChildSigner {
+                path: self.root.join("child-journal.issuance"),
+                calls: signs.clone(),
+                body: body.clone(),
+                fail: scenario == "signing-denied",
+            }),
+            measurement: Box::new(Measurement(measurement)),
+            key_id: format!("{BOB}#signing-1"),
+        };
+        let mut issuer = g::IntentIssuer::new_hop(
+            capture,
+            services,
+            &incoming,
+            g::HopServices {
+                authority: Box::new(authority(
+                    &self.root,
+                    "server",
+                    "child-upstream",
+                    ALICE,
+                    &self.c,
+                )),
+                policy: Box::new(Policy),
+                parent: i.parent_admission().ok_or(g::Invalid)?,
+            },
+        )?;
+        let args = if scenario == "policy-denied" {
+            br#"{"path":"other.txt"}"#.to_vec()
+        } else {
+            br#"{"path":"public.txt"}"#.to_vec()
+        };
+        let mut stage = "authorizing";
+        let mut raw = vec![];
+        let mut reused = Value::Null;
+        let outcome = match issuer.authorize(g::IntentProposal {
+            tool: "read".into(),
+            arguments: args,
+            lifetime_seconds: 300,
+        }) {
+            Err(e) => Err(e),
+            Ok(mut token) => {
+                stage = "issuing";
+                let result = match issuer.issue(&path, &mut token) {
+                    Err(e) => Err(e),
+                    Ok(client) => {
+                        raw = client.journaled_intent()?;
+                        client.close()?;
+                        stage = "issued";
+                        Ok(())
+                    }
+                };
+                let again = issuer.issue(&path, &mut token);
+                reused = json!(again.is_err());
+                if let Ok(client) = again {
+                    client.close()?;
+                }
+                result
+            }
+        };
+        need((scenario == "allowed" || scenario == "leaf-readiness-denied") == outcome.is_ok())?;
+        issuer.retire()?;
+        let before = read(&path);
+        let mut ticks = 0;
+        let mut deliveries = 0;
+        let mut output = vec![];
+        let mut connection = "NOT_ATTEMPTED";
+        let mut status = if outcome.is_ok() { "issued" } else { "denied" };
+        if outcome.is_ok() {
+            fs::write(self.root.join("parent-context"), &incoming).map_err(|_| g::Invalid)?;
+            let observed = self.execute(i, &raw)?;
+            ticks = observed.0;
+            deliveries = observed.1;
+            output = observed.2;
+            need((scenario == "leaf-readiness-denied") == !observed.3)?;
+            if observed.3 {
+                connection = "COMPLETED";
+                stage = "completed";
+                status = "completed";
+            } else {
+                connection = "DENIED";
+                stage = "connecting";
+                status = "denied";
+            }
+        }
+        *self.record.lock().map_err(|_| g::Invalid)? = Some(
+            json!({"status":status,"stage":stage,"sign_calls":signs.load(Ordering::SeqCst),"issuance_body_hex":hex::encode(&*body.lock().map_err(|_|g::Invalid)?),"incoming_hex":hex::encode(&incoming),"journal_hex":read(&path),"fence_hex":read(&self.root.join("child-journal.issuance")),"signed_intent_hex":hex::encode(&raw),"token_reuse_denied":reused,"before_transfer_hex":before,"ticks":ticks,"delivery_count":deliveries,"delivery_output_hex":hex::encode(&output),"connection_status":connection}),
+        );
+        Ok(())
+    }
+}
+
+fn expected_root_output(allowed: bool) -> Vec<u8> {
+    if allowed {
+        bytes(&json!({"child_status":"completed","output":{"ok":true}}))
+    } else {
+        bytes(&json!({"child_status":"denied","output":null}))
+    }
+}
+fn bounds() -> g::MCPHostBounds {
+    g::MCPHostBounds {
+        capacity: 2,
+        preparations: 2,
+        clients: 2,
+        owners: 4,
+        workers: 1,
+        request: Duration::from_secs(30),
+        claim: Duration::from_secs(10),
+        worker: Duration::from_secs(25),
+        client: Duration::from_secs(20),
+        tick: Duration::from_millis(1),
+    }
+}
+fn registry(root: &Path, name: &str, c: &Clock) -> r::Gate {
+    r::Gate::new(
+        config(),
+        Box::new(Source(c.clone())),
+        Box::new(c.clone()),
+        Box::new(r::Journal::open(&root.join(name), true).unwrap()),
+    )
+    .unwrap()
+}
+fn dial(path: &Path) -> g::Result<TcpStream> {
+    let address: std::net::SocketAddr = fs::read_to_string(path)
+        .map_err(|_| g::Invalid)?
+        .parse()
+        .map_err(|_| g::Invalid)?;
+    need(
+        address.ip() == std::net::IpAddr::V4(std::net::Ipv4Addr::LOCALHOST) && address.port() != 0,
+    )?;
+    TcpStream::connect_timeout(&address, Duration::from_secs(1)).map_err(|_| g::Invalid)
+}
+struct ChildHandler<'a> {
+    root: PathBuf,
+    c: Clock,
+    parent: &'a g::Invocation,
+    raw: Vec<u8>,
+    ticks: i64,
+    deliveries: i64,
+    output: Vec<u8>,
+}
+impl g::MCPConnectionHandler for ChildHandler<'_> {
+    fn endpoint(&mut self) -> g::Result<CompletionEndpoint010> {
+        let replay = ReplayJournal010::open(
+            &self.root.join("child-endpoint-replay"),
+            false,
+            Box::new(self.c.clone()),
+        )
+        .map_err(|_| g::Invalid)?;
+        CompletionEndpoint010::new(
+            BOB,
+            &format!("{BOB}#signing-1"),
+            &[2; 32],
+            &[],
+            registry(&self.root, "child-endpoint-registry", &self.c),
+            Box::new(self.c.clone()),
+            Box::new(replay),
+        )
+        .map_err(|_| g::Invalid)
+    }
+    fn prepare(&mut self) -> g::Result<()> {
+        Ok(())
+    }
+    fn handle(&mut self, connection: &mut g::MCPConnection<'_>) -> g::Result<()> {
+        connection.open_hop_client(
+            &self.root.join("child-journal"),
+            false,
+            &self.raw,
+            g::MCPClientServices {
+                intent_authority: authority(
+                    &self.root,
+                    "server",
+                    "owned-child-intent",
+                    BOB,
+                    &self.c,
+                ),
+                result_authority: authority(
+                    &self.root,
+                    "server",
+                    "owned-child-result",
+                    ALICE,
+                    &self.c,
+                ),
+                policy: Box::new(ChildPolicy(self.parent.canonical_intent().to_vec())),
+                clock: Box::new(self.c.clone()),
+            },
+            g::MCPHopServices {
+                parent: self.parent,
+                authority: Box::new(authority(
+                    &self.root,
+                    "server",
+                    "owned-child-upstream",
+                    ALICE,
+                    &self.c,
+                )),
+                policy: Box::new(Policy),
+            },
+        )?;
+        for _ in 0..10 {
+            thread::sleep(Duration::from_millis(20));
+            self.c.0.fetch_add(1000, Ordering::SeqCst);
+            self.ticks += 1;
+            let d = connection.exchange()?;
+            if d.status() == "completed" {
+                need(d.first_terminal() && d.output() == br#"{"ok":true}"#)?;
+                self.deliveries += 1;
+                self.output = d.output().to_vec();
+                return Ok(());
+            }
+        }
+        Err(g::Invalid)
+    }
+}
+impl ChildEnvironment {
+    fn execute(&self, parent: &g::Invocation, raw: &[u8]) -> g::Result<(i64, i64, Vec<u8>, bool)> {
+        let host = g::MCPHost::open(
+            &self.root.join("child-host-gate"),
+            true,
+            BOB,
+            g::MCPHostServices {
+                intent_authority: authority(
+                    &self.root,
+                    "server",
+                    "child-host-intent",
+                    ALICE,
+                    &self.c,
+                ),
+                result_authority: authority(
+                    &self.root,
+                    "server",
+                    "child-host-result",
+                    BOB,
+                    &self.c,
+                ),
+                policy: Box::new(Policy),
+                executor: Arc::new(Loaded {
+                    material: INSTANCE.to_vec(),
+                    effects: AtomicI64::new(0),
+                    child: None,
+                }),
+                signers: vec![Box::new(ResultSigner(self.c.clone()))],
+                clock: Box::new(self.c.clone()),
+            },
+            bounds(),
+        )?;
+        let mut handler = ChildHandler {
+            root: self.root.clone(),
+            c: self.c.clone(),
+            parent,
+            raw: raw.to_vec(),
+            ticks: 0,
+            deliveries: 0,
+            output: vec![],
+        };
+        let tcp = dial(&self.root.join("leaf-address"))?;
+        let outcome = host.connect(
+            tcp,
+            &g::MCPConnectionConfig {
+                role: g::MCPRole::Initiator {
+                    recipient: ALICE.into(),
+                    key: format!("{ALICE}#signing-1"),
+                },
+                name: "bounded child".into(),
+                version: "1".into(),
+                ttl_seconds: 300,
+                timeout: Duration::from_secs(3),
+            },
+            &mut handler,
+        );
+        need(host.close(Duration::from_secs(3))?)?;
+        Ok((
+            handler.ticks,
+            handler.deliveries,
+            handler.output,
+            outcome.is_ok(),
+        ))
+    }
+}
+struct LeafPolicy {
+    root: PathBuf,
+    upstream: g::RegistryAuthority,
+    observed: Arc<Mutex<Vec<u8>>>,
+}
+impl g::IntentPolicy for LeafPolicy {
+    fn bindings(&mut self, i: &str, id: &str) -> g::Result<g::Bindings> {
+        let incoming = fs::read(self.root.join("parent-context")).map_err(|_| g::Invalid)?;
+        g::verify_intent(&incoming, BOB, &mut self.upstream, &mut Policy)?;
+        *self.observed.lock().map_err(|_| g::Invalid)? = incoming.clone();
+        ChildPolicy(incoming).bindings(i, id)
+    }
+    fn authorize(&mut self, i: &str, t: &str, a: &[u8]) -> g::Result<()> {
+        g::IntentPolicy::authorize(&mut ChildPolicy(vec![]), i, t, a)
+    }
+}
+struct LeafSigner(Clock);
+impl g::Authority for LeafSigner {
+    fn now(&mut self) -> g::Result<i64> {
+        Ok(100 + self.0 .0.load(Ordering::SeqCst) / 1000)
+    }
+    fn active_key(&mut self, i: &str, k: &str) -> g::Result<[u8; 32]> {
+        need(i == ALICE && k == format!("{ALICE}#signing-1"))?;
+        Ok(SigningKey::from_bytes(&[1; 32]).verifying_key().to_bytes())
+    }
+}
+impl g::ResultSigner for LeafSigner {
+    fn key_id(&mut self) -> g::Result<String> {
+        Ok(format!("{ALICE}#signing-1"))
+    }
+    fn sign(&mut self, k: &str, b: &[u8]) -> g::Result<Vec<u8>> {
+        need(k == format!("{ALICE}#signing-1"))?;
+        Ok(SigningKey::from_bytes(&[1; 32]).sign(b).to_bytes().to_vec())
+    }
+}
+struct LeafHandler {
+    root: PathBuf,
+    c: Clock,
+    connections: Arc<AtomicI64>,
+    prepare_denied: Arc<Mutex<bool>>,
+}
+impl g::MCPConnectionHandler for LeafHandler {
+    fn endpoint(&mut self) -> g::Result<CompletionEndpoint010> {
+        self.connections.fetch_add(1, Ordering::SeqCst);
+        let replay = ReplayJournal010::open(
+            &self.root.join("leaf-endpoint-replay"),
+            true,
+            Box::new(self.c.clone()),
+        )
+        .map_err(|_| g::Invalid)?;
+        let e = CompletionEndpoint010::new(
+            ALICE,
+            &format!("{ALICE}#signing-1"),
+            &[1; 32],
+            &[4; 32],
+            registry(&self.root, "leaf-endpoint-registry", &self.c),
+            Box::new(self.c.clone()),
+            Box::new(replay),
+        )
+        .map_err(|_| g::Invalid)?;
+        self.c.0.store(360000, Ordering::SeqCst);
+        Ok(e)
+    }
+    fn prepare(&mut self) -> g::Result<()> {
+        if std::env::var("SAGE_HOP_SCENARIO").map_err(|_| g::Invalid)? == "leaf-readiness-denied" {
+            *self.prepare_denied.lock().map_err(|_| g::Invalid)? = true;
+            return Err(g::Invalid);
+        };
+        Ok(())
+    }
+    fn handle(&mut self, c: &mut g::MCPConnection<'_>) -> g::Result<()> {
+        while c.serve_one(&mut LeafSigner(self.c.clone())).is_ok() {}
+        Ok(())
+    }
+}
+fn run_leaf(root: &Path, c: Clock) {
+    let observed = Arc::new(Mutex::new(vec![]));
+    let connects = Arc::new(AtomicI64::new(0));
+    let denied = Arc::new(Mutex::new(false));
+    let loaded = Arc::new(Loaded {
+        material: INSTANCE.to_vec(),
+        effects: AtomicI64::new(0),
+        child: None,
+    });
+    let host = g::MCPHost::open(
+        &root.join("leaf-gate"),
+        true,
+        ALICE,
+        g::MCPHostServices {
+            intent_authority: authority(root, "leaf", "intent", BOB, &c),
+            result_authority: authority(root, "leaf", "result", ALICE, &c),
+            policy: Box::new(LeafPolicy {
+                root: root.to_path_buf(),
+                upstream: authority(root, "leaf", "upstream", ALICE, &c),
+                observed: observed.clone(),
+            }),
+            executor: loaded.clone(),
+            signers: vec![Box::new(LeafSigner(c.clone()))],
+            clock: Box::new(c.clone()),
+        },
+        bounds(),
+    )
+    .unwrap();
+    let tcp = TcpListener::bind("127.0.0.1:0").unwrap();
+    fs::write(
+        root.join("leaf-address"),
+        tcp.local_addr().unwrap().to_string(),
+    )
+    .unwrap();
+    let listener = host
+        .serve(
+            tcp,
+            g::MCPConnectionConfig {
+                role: g::MCPRole::Responder,
+                name: "inert leaf".into(),
+                version: "1".into(),
+                ttl_seconds: 300,
+                timeout: Duration::from_secs(3),
+            },
+            vec![Box::new(LeafHandler {
+                root: root.to_path_buf(),
+                c,
+                connections: connects.clone(),
+                prepare_denied: denied.clone(),
+            })],
+        )
+        .unwrap();
+    let end = Instant::now() + Duration::from_secs(25);
+    while !root.join("finished").exists() {
+        assert!(Instant::now() < end);
+        thread::sleep(Duration::from_millis(10))
+    }
+    assert!(listener.close(Duration::from_secs(3)).unwrap());
+    assert!(host.close(Duration::from_secs(3)).unwrap());
+    fs::write(root.join("leaf.json"),bytes(&json!({"mode":"leaf","status":"stopped","effects":loaded.effects.load(Ordering::SeqCst),"ledger_hex":read(&root.join("leaf-gate")),"prepare_denied":*denied.lock().unwrap(),"connections":connects.load(Ordering::SeqCst),"observed_parent_hex":hex::encode(&*observed.lock().unwrap())}))).unwrap();
+    println!("EXTERNAL_MCP_CONSUMER")
+}
+fn warmup(root: &Path, c: &Clock) -> Value {
+    use std::{cell::RefCell, rc::Rc};
+    let names = [
+        "bootstrap-root-peer",
+        "server-endpoint-replay",
+        "child-endpoint-replay",
+        "bootstrap-child-peer",
+    ];
+    let dids = [ALICE, BOB, BOB, ALICE];
+    let seeds = [1, 2, 2, 1];
+    let kems = [0, 3, 0, 4];
+    let stores: Vec<_> = names
+        .iter()
+        .map(|name| {
+            Rc::new(RefCell::new(
+                ReplayJournal010::open(&root.join(name), true, Box::new(c.clone())).unwrap(),
+            ))
+        })
+        .collect();
+    let mut endpoints: Vec<_> = (0..4)
+        .map(|n| {
+            CompletionEndpoint010::new(
+                dids[n],
+                &format!("{}#signing-1", dids[n]),
+                &[seeds[n]; 32],
+                &if kems[n] == 0 {
+                    vec![]
+                } else {
+                    vec![kems[n]; 32]
+                },
+                registry(root, &format!("{}-registry", names[n]), c),
+                Box::new(c.clone()),
+                Box::new(stores[n].clone()),
+            )
+            .unwrap()
+        })
+        .collect();
+    c.0.store(360000, Ordering::SeqCst);
+    let mut record = json!({});
+    for n in [0, 2] {
+        let (mut pending, request) = endpoints[n]
+            .start(dids[n + 1], &format!("{}#signing-1", dids[n + 1]), 300)
+            .unwrap();
+        let (mut receiver, response) = endpoints[n + 1].respond(&request, 300).unwrap();
+        let mut sender = pending.complete(&mut endpoints[n], &response).unwrap();
+        sender.close();
+        receiver.close();
+        let prefix = if n == 0 { "root" } else { "child" };
+        record[format!("{prefix}_request_hex")] = json!(hex::encode(request));
+        record[format!("{prefix}_response_hex")] = json!(hex::encode(response));
+    }
+    for n in 0..4 {
+        endpoints[n].close();
+        stores[n].borrow_mut().close().unwrap();
+    }
+    record["root_replay_hex"] = json!(read(&root.join("server-endpoint-replay")));
+    record["child_replay_hex"] = json!(read(&root.join("child-endpoint-replay")));
+    record
+}
+
+fn main() {
+    let root = PathBuf::from(std::env::var("SAGE_CONSUMER_ROOT").unwrap());
+    let mode = std::env::var("SAGE_CONSUMER_MODE").unwrap();
+    let scenario = std::env::var("SAGE_CONSUMER_SCENARIO").unwrap();
+    assert!(["client", "server", "leaf"].contains(&mode.as_str()));
+    assert!([
+        "allowed",
+        "policy-denied",
+        "measurement-denied",
+        "capture-denied",
+        "readiness-denied",
+        "signing-denied"
+    ]
+    .contains(&scenario.as_str()));
+    let c = Clock(Arc::new(AtomicI64::new(0)));
+    if mode == "leaf" {
+        run_leaf(&root, c);
+        return;
+    }
+    let bootstrap = if mode == "server" {
+        Some(warmup(&root, &c))
+    } else {
+        None
+    };
+    let loaded = Arc::new(Loaded {
+        material: INSTANCE.to_vec(),
+        effects: AtomicI64::new(0),
+        child: if mode == "server" {
+            Some(ChildEnvironment {
+                root: root.clone(),
+                c: c.clone(),
+                record: Mutex::new(None),
+                parent: Mutex::new(None),
+            })
+        } else {
+            None
+        },
+    });
+    let signs = Arc::new(AtomicI64::new(0));
+    let body = Arc::new(Mutex::new(Vec::new()));
+    let prepare_denied = Arc::new(Mutex::new(false));
+    let ledger = root.join(format!("{mode}-gate"));
+    let host = g::MCPHost::open(
+        &ledger,
+        true,
+        BOB,
+        g::MCPHostServices {
+            intent_authority: authority(&root, &mode, "host-intent", ALICE, &c),
+            result_authority: authority(&root, &mode, "host-result", BOB, &c),
+            policy: Box::new(Policy),
+            executor: loaded.clone(),
+            signers: vec![Box::new(ResultSigner(c.clone()))],
+            clock: Box::new(c.clone()),
+        },
+        g::MCPHostBounds {
+            capacity: 2,
+            preparations: 2,
+            clients: 2,
+            owners: 4,
+            workers: 1,
+            request: Duration::from_secs(30),
+            claim: Duration::from_secs(10),
+            worker: Duration::from_secs(25),
+            client: Duration::from_secs(20),
+            tick: Duration::from_millis(1),
+        },
+    )
+    .unwrap();
+    let mut handler = Handler {
+        root: root.clone(),
+        mode: mode.clone(),
+        scenario: scenario.clone(),
+        c: c.clone(),
+        loaded: loaded.clone(),
+        signs: signs.clone(),
+        body: body.clone(),
+        completed: false,
+        before: vec![],
+        stage: String::new(),
+        owned_capture: String::new(),
+        consumed_output: vec![],
+        prepare_denied: prepare_denied.clone(),
+    };
+    let cfg = g::MCPConnectionConfig {
+        role: if mode == "client" {
+            g::MCPRole::Initiator {
+                recipient: BOB.into(),
+                key: format!("{BOB}#signing-1"),
+            }
+        } else {
+            g::MCPRole::Responder
+        },
+        name: "external fixture".into(),
+        version: "1".into(),
+        ttl_seconds: 300,
+        timeout: Duration::from_secs(3),
+    };
+    let mut status = "completed";
+    if mode == "server" {
+        let tcp = TcpListener::bind("127.0.0.1:0").unwrap();
+        fs::write(root.join("address"), tcp.local_addr().unwrap().to_string()).unwrap();
+        let listener = host.serve(tcp, cfg, vec![Box::new(handler)]).unwrap();
+        let end = Instant::now() + Duration::from_secs(15);
+        while !root.join("finished").exists() {
+            assert!(Instant::now() < end);
+            thread::sleep(Duration::from_millis(10))
+        }
+        assert!(listener.close(Duration::from_secs(3)).unwrap());
+        handler = Handler {
+            root: root.clone(),
+            mode: mode.clone(),
+            scenario,
+            c,
+            loaded: loaded.clone(),
+            signs: signs.clone(),
+            body: body.clone(),
+            completed: false,
+            before: vec![],
+            stage: String::new(),
+            owned_capture: String::new(),
+            consumed_output: vec![],
+            prepare_denied: prepare_denied.clone(),
+        };
+    } else {
+        let address: std::net::SocketAddr = fs::read_to_string(root.join("address"))
+            .unwrap()
+            .parse()
+            .unwrap();
+        assert_eq!(
+            address.ip(),
+            std::net::IpAddr::V4(std::net::Ipv4Addr::LOCALHOST)
+        );
+        assert_ne!(address.port(), 0);
+        let tcp = TcpStream::connect_timeout(&address, Duration::from_secs(1)).unwrap();
+        let outcome = host.connect(tcp, &cfg, &mut handler);
+        if scenario == "allowed" {
+            outcome.unwrap();
+            assert!(handler.completed)
+        } else {
+            assert!(outcome.is_err() && !handler.completed);
+            status = "denied"
+        };
+        fs::write(root.join("finished"), b"done").unwrap()
+    }
+    assert!(host.close(Duration::from_secs(3)).unwrap());
+    let mut record = json!({"mode":mode,"status":status,"effects":loaded.effects.load(Ordering::SeqCst),"ledger_hex":read(&ledger),"prepare_denied":*prepare_denied.lock().unwrap()});
+    if mode == "server" {
+        let child = loaded.child.as_ref().unwrap();
+        let mut value = child
+            .record
+            .lock()
+            .unwrap()
+            .take()
+            .expect("admitted child observation");
+        let incoming = hex::decode(value["incoming_hex"].as_str().unwrap()).unwrap();
+        value["parent_after_finish_denied"] = json!(child
+            .parent
+            .lock()
+            .unwrap()
+            .as_mut()
+            .unwrap()
+            .authorized(&incoming)
+            .is_err());
+        record["child"] = value;
+        record["bootstrap"] = bootstrap.unwrap();
+    }
+    if mode == "client" {
+        record["consumed_output_hex"] = json!(hex::encode(&handler.consumed_output));
+        record["journal_hex"] = json!(read(&root.join("client-journal")));
+        record["fence_hex"] = json!(read(&root.join("client-journal.issuance")));
+        record["before_transfer_hex"] = json!(hex::encode(&handler.before));
+        record["stage"] = json!(handler.stage);
+        record["owned_capture_digest"] = json!(handler.owned_capture);
+        record["sign_calls"] = json!(signs.load(Ordering::SeqCst));
+        record["issuance_body_hex"] = json!(hex::encode(&*body.lock().unwrap()))
+    };
+    fs::write(root.join(format!("{mode}.json")), bytes(&record)).unwrap();
+    println!("EXTERNAL_MCP_CONSUMER")
+}

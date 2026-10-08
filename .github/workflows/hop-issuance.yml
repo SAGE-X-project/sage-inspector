@@ -1,0 +1,57 @@
+name: Admitted hop issuance binding
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  consumer:
+    name: Independent admitted-worker child issuance
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: SAGE-X-project/sage
+          ref: 1aaee98258e72aeeaba5a8c49fc9908b41ff29cd
+          path: .sage-go
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: SAGE-X-project/rs-sage-core
+          ref: cf3edb86a04e8ca0141b252c85e002c1f49bf9eb
+          path: .sage-rust
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        with:
+          go-version: '1.26.8'
+          cache: false
+      - uses: dtolnay/rust-toolchain@7e38f4b43b4db5c8dd498af069a4f6196df1d067
+        with:
+          toolchain: '1.88.0'
+      - name: Fetch public dependencies
+        run: |
+          (cd .sage-go && go mod download)
+          cp verification/0.10.0/intent-issuance/Cargo.lock .sage-rust/Cargo.lock
+          cargo fetch --locked --manifest-path .sage-rust/Cargo.toml
+          python3 -m venv "${RUNNER_TEMP}/hop-venv"
+          "${RUNNER_TEMP}/hop-venv/bin/pip" install 'cryptography==50.0.0'
+      - name: Verify saved evidence and rejection units
+        run: |
+          "${RUNNER_TEMP}/hop-venv/bin/python" -B scripts/inspect_hop_issuance.py
+          "${RUNNER_TEMP}/hop-venv/bin/python" -B scripts/test_hop_issuance.py
+      - name: Build external public consumers and observe inert localhost exchanges
+        run: |
+          "${RUNNER_TEMP}/hop-venv/bin/python" -B scripts/inspect_hop_issuance.py \
+            --go-root .sage-go --rust-root .sage-rust \
+            --output "${RUNNER_TEMP}/hop-issuance.json"
+      - name: Preserve independent consumer evidence
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: hop-issuance-${{ github.sha }}
+          if-no-files-found: error
+          retention-days: 30
+          path: ${{ runner.temp }}/hop-issuance.json

@@ -85,6 +85,16 @@ are independently checked as `ROOT_EXTERNAL_CONSUMER_BOUND`. Registry,
 clock, key custody and loaded component binding remain local fixtures;
 this is not production loader or deployment evidence.
 
+The 2026-10-08 [admitted-worker child issuance observation](evidence/hop-issuance.md)
+pins Go `1aaee98258e72aeeaba5a8c49fc9908b41ff29cd` and Rust
+`cf3edb86a04e8ca0141b252c85e002c1f49bf9eb`. Four same-core/cross-core
+root exchanges and six own-provider refusals independently bind exact native
+parent admission to B's protected child issuance. Its child journal has no
+transmission or result; `HOP_ISSUANCE_BOUND` does not close independent full
+hop execution, Registry/host selection, the thirteen deployed controls or any
+complete normative case. The previous source inspections and runtime artifacts
+retain their original bytes and verdicts.
+
 Within approved program stage 5, the next work is selection and pinning of an
 exact Agent/MCP host and its protected capture, policy, authoritative registry,
 key custody, immutable loader and actual effect services, then deployment

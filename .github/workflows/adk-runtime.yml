@@ -1,0 +1,52 @@
+name: Pinned ADK runtime observation
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  runtime:
+    name: Observe reviewed ADK library and native tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: SAGE-X-project/sage-adk
+          ref: 57f37e1c870d7bf1c5c6fdbd60efa1e62a6fcb6e
+          path: .sage-adk
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        with:
+          go-version: '1.26.8'
+          cache: false
+      - name: Fetch pinned public dependencies
+        env:
+          GOWORK: 'off'
+          GOFLAGS: '-mod=readonly'
+        run: |
+          (cd .sage-adk && go mod download)
+          (cd .sage-adk/verification/library-consumer && go mod download)
+      - name: Prepare Python evidence checker
+        run: |
+          python3 -m venv "${RUNNER_TEMP}/adk-venv"
+          "${RUNNER_TEMP}/adk-venv/bin/pip" install 'cryptography==50.0.0'
+      - name: Check saved test evidence and refusal units
+        run: |
+          "${RUNNER_TEMP}/adk-venv/bin/python" -B scripts/inspect_adk_runtime.py
+          "${RUNNER_TEMP}/adk-venv/bin/python" -B scripts/test_adk_runtime.py
+      - name: Observe fresh reviewed units and native localhost scenarios
+        run: |
+          "${RUNNER_TEMP}/adk-venv/bin/python" -B scripts/inspect_adk_runtime.py \
+            --adk-root .sage-adk --output "${RUNNER_TEMP}/adk-runtime.json"
+      - name: Preserve pinned runtime observation
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: adk-runtime-${{ github.sha }}
+          if-no-files-found: error
+          retention-days: 30
+          path: ${{ runner.temp }}/adk-runtime.json

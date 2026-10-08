@@ -292,3 +292,20 @@ remain outstanding in the existing order. All thirteen deployed controls and
 independent hop execution remain `NOT_RUN`; full conformance remains
 `NOT_ESTABLISHED`. This snapshot selects no production host and does not begin
 the later contract upgrade, demo or normative A2A/DID stages.
+
+The [supervised child measurement source inspection](adk-child-measurement-inspection.md)
+adds the fifth explicit ADK snapshot at
+`7eb69a8ef41ac5a36b01090411c14b833a5513ff`. It parses 182 tracked non-test Go
+files and matches 105 reviewed boundaries, including 23 private child-measurement
+boundaries, bounded interrupted pidfd polling and seven separately classified
+native runtime fixture boundaries. The first 59 route rows and all four previous
+catalogs/reports are preserved; changed image rows are re-reviewed at the new pin.
+The same-child supervisor connection to compiled calculator/native admission is
+available as a library integration. Production child-local loaded-runtime/isolation
+assurance remains mandatory and unbound; the IPC generation is not logical worker
+or exec generation, observations are not atomic with admission and shutdown is not
+rollback. Continue parent-hop assembly, authoritative Source and selected protected
+host/providers, then independent effect/deployment observations in the existing
+order. All thirteen deployed controls and independent hop execution remain
+`NOT_RUN`, full conformance remains `NOT_ESTABLISHED`, and no later contract,
+demo or normative A2A/DID stage is started by this source review.

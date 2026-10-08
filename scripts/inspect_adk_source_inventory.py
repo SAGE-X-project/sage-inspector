@@ -33,11 +33,17 @@ SNAPSHOTS = {
         'sha256': 'aff773749f613ca7202489d623b31317144b90db7abc29eac005395c6e940be9',
         'revision': '1e70c58305edefdd302dea9b35c4a232f4c3e592',
     },
+    'child-measurement': {
+        'path': ROOT / 'verification/0.10.0/adk-child-measurement/catalog.json',
+        'sha256': '1c5c06a75d155eddae96922664876c26b0793bd0e8958f085997ffb1dc8af44f',
+        'revision': '7eb69a8ef41ac5a36b01090411c14b833a5513ff',
+    },
 }
 KINDS = {'GUARD_NATIVE_OPT_IN', 'CAPTURE_ONLY', 'PROTECTED_PROVIDER',
          'LEGACY_UNMEDIATED', 'CONFIGURATION_ONLY', 'PROPOSAL_ONLY',
          'OUTBOUND_LLM_PROPOSAL', 'APPROVED_OPERATION_OPT_IN',
          'COMPILED_CALCULATOR_OPT_IN', 'SEALED_IMAGE_OPT_IN',
+         'CHILD_MEASUREMENT_OPT_IN',
          'RUNTIME_TEST_FIXTURE'}
 
 
@@ -173,7 +179,7 @@ def report(inventory, suite):
             'Native protection is opt-in and depends on isolated authoritative policy, registry, custody and loader bindings.',
         ],
     }
-    if snapshot in ('approved-operation', 'compiled-calculator', 'sealed-image'):
+    if snapshot in ('approved-operation', 'compiled-calculator', 'sealed-image', 'child-measurement'):
         result['limitations'] += [
             'Exact-operation rules are trusted local root configuration; parent-hop policy is separate.',
             'Factory.Load and Instance.Check remain trusted providers; snapshots and source queries do not attest actual loaded code.',
@@ -181,7 +187,7 @@ def report(inventory, suite):
             'Artifact reading requires protected serialized administration; local gating does not establish OS isolation or durable distributed epochs.',
             'Linux/macOS and unsupported-platform sources are both parsed; build-tag selection and execution are not observed.',
         ]
-    if snapshot in ('compiled-calculator', 'sealed-image'):
+    if snapshot in ('compiled-calculator', 'sealed-image', 'child-measurement'):
         result['limitations'] += [
             'The calculator adapter constructs a fixed statically compiled tool; it does not load code from snapshot artifacts.',
             'Measurement.Check must establish protected verification before host image/dependency loading and retained immutable runtime identity; this query supplies no provider or deployment attestation.',
@@ -197,6 +203,20 @@ def report(inventory, suite):
             'Pidfd identifies process lifetime, not logical worker/exec generation; observations are not atomic with child admission and do not exclude transient changes.',
             'Process.CheckSnapshot appraises the child executable and is not guardcalculator.Measurement for a parent calculator; protected child-to-supervisor binding and final native admission remain outstanding.',
             'Sealed-image ADK unit and local/CI Linux runtime evidence is separate; this source query runs no ADK host and closes no deployed control or independent-hop gate.',
+        ]
+    if snapshot == 'child-measurement':
+        result['limitations'] += [
+            'Private child measurement connects same-child executable observations to mandatory Local assurance and opt-in native admission; this query observes no deployment or runtime.',
+            'Successful Supervisor.Start establishes resource ownership, not successful bootstrap or authorization; failed bootstrap retains child cleanup ownership.',
+            'Native Linux amd64/arm64 sealed static Go startup and private sequenced-packet credentials are source-reviewed; unsupported platform variants are also parsed.',
+            'Independently approved image/policy/artifact baselines, isolated administration and protected socket custody remain deployment requirements, including protection from privileged credential impersonation.',
+            'Mandatory child-local loaded-code and isolation assurance is not supplied by the channel; backing-object/proc maps are not private instruction-page attestation, a sandbox, remote attestation or complete effect mediation.',
+            'Fresh connection generation, sequence and pidfd process lifetime do not prove logical MCP worker/exec generation; native admission retains its own reservation and final gate.',
+            'Observation and later child admission are not an atomic cross-process transaction and do not exclude transient changes; parent shutdown does not atomically revoke an acknowledged accepted effect.',
+            'Retire and drain native effects before cleanup; cancellation retains ownership for retry, emergency termination can leave uncertain journal completions and cleanup proves no rollback.',
+            'The fixed native calculator testdata uses actual IPC and native encrypted loopback but synthetic Local assurance and Registry providers; all fixture routes remain RUNTIME_TEST_FIXTURE, not production bindings.',
+            'ADK unit and Linux runtime/CI results are separate evidence; this Inspector query executes only its trusted parser and closes no deployed control or independent-hop gate.',
+            'Parent-hop assembly, authoritative blockchain Source, selected protected host configuration and independent effect/deployment observations remain outstanding in the approved order.',
         ]
     return result
 

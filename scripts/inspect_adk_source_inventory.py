@@ -43,6 +43,11 @@ SNAPSHOTS = {
         'sha256': '11cc875ff71f88c3a531ff84aaed7d9c02cdb0e0a406d8e550b7fadfadb9dd61',
         'revision': 'e2653847e7d75507e1561e36baebcf321ca3307c',
     },
+    'approved-hop': {
+        'path': ROOT / 'verification/0.10.0/adk-approved-hop/catalog.json',
+        'sha256': '89cfe89d3937052d64f846874d26fc33cb276047e9b9a0ed363dbe292fbe5ca2',
+        'revision': '57f37e1c870d7bf1c5c6fdbd60efa1e62a6fcb6e',
+    },
 }
 KINDS = {'GUARD_NATIVE_OPT_IN', 'CAPTURE_ONLY', 'PROTECTED_PROVIDER',
          'LEGACY_UNMEDIATED', 'CONFIGURATION_ONLY', 'PROPOSAL_ONLY',
@@ -90,13 +95,15 @@ def bounded_source(root, name):
     return path.read_bytes()
 
 
-def check_source(root, suite):
+def check_source(root, suite, *, core=False):
     root = Path(root).resolve(strict=True)
     require(git(root, 'rev-parse', '--show-toplevel').decode().strip() == str(root),
             'source root must be the Git checkout root')
-    require(git(root, 'rev-parse', 'HEAD').decode().strip() == suite['adk_revision'],
-            'ADK revision mismatch')
+    require(git(root, 'rev-parse', 'HEAD').decode().strip() ==
+            suite['revision' if core else 'adk_revision'],
+            'Go core revision mismatch' if core else 'ADK revision mismatch')
     require(not git(root, 'status', '--porcelain', '--untracked-files=all').strip(),
+            'Go core source is dirty or contains untracked files' if core else
             'ADK source is dirty or contains untracked files')
     require(not git(root, 'ls-files', '--others', '--ignored', '--exclude-standard',
                     '-z', '*.go').strip(b'\0'), 'ignored untracked Go source')
@@ -105,6 +112,10 @@ def check_source(root, suite):
     require(paths == sorted(suite['sources']), 'non-test Go source set drift')
     for name, digest in (suite['sources'] | suite['module_files']).items():
         require(sha(bounded_source(root, name)) == digest, 'source hash drift: ' + name)
+    if not core and 'go_core' in suite:
+        dependency = ['github.com/sage-x-project/sage', suite['go_core']['module_version']]
+        require(dependency in [line.split() for line in bounded_source(root, 'go.mod').decode().splitlines()],
+                'ADK Go core dependency mismatch')
     return root, paths
 
 
@@ -134,15 +145,9 @@ def validate_inventory(inventory, suite):
     return {f['path']: f for f in files}
 
 
-def report(inventory, suite):
-    snapshots = [name for name, pinned in SNAPSHOTS.items()
-                 if suite.get('adk_revision') == pinned['revision']]
-    require(len(snapshots) == 1, 'unreviewed source revision')
-    snapshot = snapshots[0]
-    require(suite == catalog(snapshot=snapshot), 'reviewed catalog changed')
-    files = validate_inventory(inventory, suite)
+def matched_routes(files, rows):
     routes = []
-    for row in suite['routes']:
+    for row in rows:
         require(row['classification'] in KINDS, 'unknown route classification')
         declarations = [d for d in files[row['path']]['declarations']
                         if d['name'] == row['declaration'] and d['line'] == row['line']]
@@ -151,6 +156,17 @@ def report(inventory, suite):
             require(declarations[0]['calls'].count(anchor) == 1,
                     'reviewed syntactic call missing: ' + row['id'])
         routes.append(dict(row, anchor_status='MATCHED'))
+    return routes
+
+
+def report(inventory, suite, go_inventory=None):
+    snapshots = [name for name, pinned in SNAPSHOTS.items()
+                 if suite.get('adk_revision') == pinned['revision']]
+    require(len(snapshots) == 1, 'unreviewed source revision')
+    snapshot = snapshots[0]
+    require(suite == catalog(snapshot=snapshot), 'reviewed catalog changed')
+    files = validate_inventory(inventory, suite)
+    routes = matched_routes(files, suite['routes'])
     result = {
         'schema_version': 1,
         'kind': 'ADK_SOURCE_ROUTE_INVENTORY',
@@ -184,15 +200,16 @@ def report(inventory, suite):
             'Native protection is opt-in and depends on isolated authoritative policy, registry, custody and loader bindings.',
         ],
     }
-    if snapshot in ('approved-operation', 'compiled-calculator', 'sealed-image', 'child-measurement', 'admitted-hop'):
+    if snapshot in ('approved-operation', 'compiled-calculator', 'sealed-image', 'child-measurement', 'admitted-hop', 'approved-hop'):
         result['limitations'] += [
-            'Exact-operation rules are trusted local root configuration; parent-hop policy is separate.',
+            ('Exact-operation rules are trusted local root configuration; parent-hop policy is separate.' if snapshot != 'approved-hop' else
+             'Exact-operation rules are independently approved local configuration; upstream permission is not inherited.'),
             'Factory.Load and Instance.Check remain trusted providers; snapshots and source queries do not attest actual loaded code.',
             'Binding.Tool remains a trusted native configuration capability, not a model-facing unsigned dispatcher.',
             'Artifact reading requires protected serialized administration; local gating does not establish OS isolation or durable distributed epochs.',
             'Linux/macOS and unsupported-platform sources are both parsed; build-tag selection and execution are not observed.',
         ]
-    if snapshot in ('compiled-calculator', 'sealed-image', 'child-measurement', 'admitted-hop'):
+    if snapshot in ('compiled-calculator', 'sealed-image', 'child-measurement', 'admitted-hop', 'approved-hop'):
         result['limitations'] += [
             'The calculator adapter constructs a fixed statically compiled tool; it does not load code from snapshot artifacts.',
             'Measurement.Check must establish protected verification before host image/dependency loading and retained immutable runtime identity; this query supplies no provider or deployment attestation.',
@@ -209,7 +226,7 @@ def report(inventory, suite):
             'Process.CheckSnapshot appraises the child executable and is not guardcalculator.Measurement for a parent calculator; protected child-to-supervisor binding and final native admission remain outstanding.',
             'Sealed-image ADK unit and local/CI Linux runtime evidence is separate; this source query runs no ADK host and closes no deployed control or independent-hop gate.',
         ]
-    if snapshot in ('child-measurement', 'admitted-hop'):
+    if snapshot in ('child-measurement', 'admitted-hop', 'approved-hop'):
         result['limitations'] += [
             'Private child measurement connects same-child executable observations to mandatory Local assurance and opt-in native admission; this query observes no deployment or runtime.',
             'Successful Supervisor.Start establishes resource ownership, not successful bootstrap or authorization; failed bootstrap retains child cleanup ownership.',
@@ -225,21 +242,48 @@ def report(inventory, suite):
     if snapshot == 'child-measurement':
         result['limitations'].append(
             'Parent-hop assembly, authoritative blockchain Source, selected protected host configuration and independent effect/deployment observations remain outstanding in the approved order.')
-    if snapshot == 'admitted-hop':
+    if snapshot in ('admitted-hop', 'approved-hop'):
         result['limitations'] += [
             'Retained hop capture rechecks actual native parent and current upstream around durable readback; local ID is fresh and parent_call_id is causal metadata, not inherited permission.',
             'Own downstream policy, signer, loaded-runtime measurement and provider isolation remain independently required; retained-input wrappers do not establish atomic cross-provider authorization.',
             'Native OpenHopClient uses create=false for an already issued successfully closed protected journal; exact path/fence/bytes custody is required and missing history is never recreated.',
             'RestoreHop requires the same actually live parent; protected storage cannot resurrect a finished or UNKNOWN parent and ordinary restart supplies no native admission.',
-            'guardbinding.Open remains root-only; concrete independently approved hop-operation/loader assembly, authoritative blockchain Source, selected protected host/providers and independent effect/deployment observations remain outstanding in the approved order.',
+            ('guardbinding.Open remains root-only; concrete independently approved hop-operation/loader assembly, authoritative blockchain Source, selected protected host/providers and independent effect/deployment observations remain outstanding in the approved order.' if snapshot == 'admitted-hop' else
+             'guardbinding.Open remains root-only; separate OpenHop connects retained actual parent to independently approved own policy/artifacts and immutable loader. Authoritative blockchain Source, selected protected host/providers and independent effect/deployment observations remain outstanding in the approved order.'),
             'ADK safe hop unit and loopback runtime tests use fixture Registry/policy/measurement and one Go core; they are separate evidence, not independent cross-core hop or deployment conformance.',
         ]
+    if snapshot == 'approved-hop':
+        require(go_inventory is not None, 'approved hop requires pinned Go core inventory')
+        core = suite['go_core']
+        core_files = validate_inventory(go_inventory, core)
+        result['go_core_dependency'] = {
+            'repository': core['repository'], 'revision': core['revision'],
+            'module_version': core['module_version'],
+            'module_files': core['module_files'],
+            'query_status': 'AST_QUERY_EXECUTED',
+            'source_file_count': len(core_files),
+            'declaration_count': sum(len(f['declarations']) for f in core_files.values()),
+            'syntactic_call_count': sum(len(f['initializer_calls']) +
+                                       sum(len(d['calls']) for d in f['declarations'])
+                                       for f in core_files.values()),
+            'runtime': 'NOT_RUN',
+            'routes': matched_routes(core_files, core['routes']),
+        }
+        result['limitations'] += [
+            'OpenHop binds authenticated inbound recipient to own policy issuer before loading; parent_call_id is exact causal metadata and the child ID must differ. No permission or signing custody is inherited.',
+            'Private loader rechecks retained input immediately before Factory.Load; later own policy, measurement and effect checks use the same immutable instance. There is no atomic cross-provider transaction or attestation of a remote host.',
+            'Pinned Go core source shares one serialized local clock history for native timer and protocol checks; later legitimate progress does not invalidate an earlier start and final gates still resample current keys/time. Source anchors do not prove concurrency semantics or deployment timing.',
+            'Safe ADK approved-hop runtime uses co-located issuance/receiver bindings, ephemeral registered keys, durable journals and real compiled arithmetic with synthetic Registry/measurement; separate runtime evidence is not independent cross-core or deployed-host conformance.',
+        ]
+    else:
+        require(go_inventory is None, 'historical snapshot refuses mixed Go core inventory')
     return result
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--adk-root', type=Path, required=True)
+    parser.add_argument('--go-root', type=Path, help='required exact clean Go core checkout for approved-hop only')
     parser.add_argument('--parser', type=Path, required=True, help='trusted Inspector-built AST CLI')
     parser.add_argument('--snapshot', choices=sorted(SNAPSHOTS), default='routes',
                         help='exact reviewed source revision; historical routes remain the default')
@@ -247,12 +291,23 @@ def main():
     parser.add_argument('--check', type=Path, help='require exact saved report equality')
     args = parser.parse_args()
     suite = catalog(snapshot=args.snapshot)
+    require((args.snapshot == 'approved-hop') == (args.go_root is not None),
+            'approved-hop requires --go-root; historical snapshots refuse it')
     root, paths = check_source(args.adk_root, suite)
     result = subprocess.run([str(args.parser.resolve(strict=True)), '--root', str(root)],
                             input=json.dumps(paths), text=True, capture_output=True, timeout=60)
     require(result.returncode == 0, 'AST query failed: ' + result.stderr[:1000])
     require(len(result.stdout) <= 32 << 20, 'AST report too large')
-    output = report(json.loads(result.stdout), suite)
+    go_inventory = None
+    if args.go_root is not None:
+        core_root, core_paths = check_source(args.go_root, suite['go_core'], core=True)
+        core_result = subprocess.run([str(args.parser.resolve(strict=True)), '--root', str(core_root)],
+                                     input=json.dumps(core_paths), text=True, capture_output=True, timeout=60)
+        require(core_result.returncode == 0, 'Go core AST query failed: ' + core_result.stderr[:1000])
+        require(len(core_result.stdout) <= 32 << 20, 'Go core AST report too large')
+        go_inventory = json.loads(core_result.stdout)
+        check_source(core_root, suite['go_core'], core=True)
+    output = report(json.loads(result.stdout), suite, go_inventory)
     check_source(root, suite)
     if args.check:
         require(output == json.loads(args.check.read_text()), 'saved source report drift')

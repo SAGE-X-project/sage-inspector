@@ -100,3 +100,8 @@ adds a separate exact revision for retained inbound originals, fresh local IDs,
 current native parent/upstream rechecks, independent own issuance and existing
 journal handoff. The five preceding catalogs/reports remain intact; the query
 runs no ADK code and does not establish deployed or independent-hop conformance.
+
+The seventh [approved downstream operation inspection](adk-approved-hop-inspection.md)
+checks both the updated ADK and its exact Go core dependency. It preserves all
+six earlier catalogs/reports and separates current source matches from actual
+runtime and deployment evidence.

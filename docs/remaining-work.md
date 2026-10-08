@@ -95,6 +95,17 @@ hop execution, Registry/host selection, the thirteen deployed controls or any
 complete normative case. The previous source inspections and runtime artifacts
 retain their original bytes and verdicts.
 
+The 2026-10-08 [native protected hop execution observation](evidence/hop-execution.md)
+adds actual three-process A-to-B-to-A exchanges at those same core pins. All
+eight Go/Rust combinations and eight ordinary refusal observations bind child
+transmission, one inert leaf execution, signed child-result consumption and
+signed completion/denial output back to the root Client. Its verdict is
+`LOCAL_NATIVE_HOP_EXECUTION_BOUND`. Registry, custody, component, clock and shared
+parent-context acquisition remain explicit local fixtures. Bootstrap recovery
+uses real signed native exchanges; the independent full outer-handshake oracle
+remains `NOT_RUN`. This report supplies bounded local hop evidence while
+preserving the prior issuance-only report and every deployment/full-case gate.
+
 Within approved program stage 5, the next work is selection and pinning of an
 exact Agent/MCP host and its protected capture, policy, authoritative registry,
 key custody, immutable loader and actual effect services, then deployment
@@ -103,8 +114,8 @@ compares current ADK, gateway and Registry candidates and records the dependency
 capture, dispatch and provider preparation needed before a host can be inspected.
 It recommends ADK as the Agent integration candidate but makes no selection;
 the first host and authoritative Registry deployment are still decisions.
-Independent hop execution remains `NOT_RUN` and must be bound
-separately; root-only consumer evidence does not close it. Preserve every
+Deployed independent hop execution remains `NOT_RUN` and must be bound
+separately; the bounded local hop observation does not close it. Preserve every
 broader gate below. No host is
 selected, all thirteen deployed-host controls remain `NOT_RUN`, full
 conformance remains `NOT_ESTABLISHED`, and demo work stays in its later stage.

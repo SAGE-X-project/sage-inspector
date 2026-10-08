@@ -309,3 +309,19 @@ host/providers, then independent effect/deployment observations in the existing
 order. All thirteen deployed controls and independent hop execution remain
 `NOT_RUN`, full conformance remains `NOT_ESTABLISHED`, and no later contract,
 demo or normative A2A/DID stage is started by this source review.
+
+The [admitted downstream capture inspection](adk-admitted-hop-inspection.md)
+adds the sixth explicit ADK snapshot at
+`e2653847e7d75507e1561e36baebcf321ca3307c`. It parses 183 tracked non-test Go
+files and matches 119 boundaries, preserving all five historical catalogs/reports
+and their 105 route rows. Seven new hop boundaries, three metadata-only rows and
+four retained policy/signing wrappers distinguish current actual parent checks,
+fresh local original, independent own policy/signing and native existing-journal
+handoff with no history recreation. Library capture/issuer/handoff is available;
+`guardbinding.Open` remains root-only. Continue concrete independently approved
+hop-operation/loader assembly, then authoritative Source and selected protected
+host/providers, then independent effect/deployment observations in the existing
+order. Query runtime, thirteen deployed controls and independent hop execution
+remain `NOT_RUN`; full conformance remains `NOT_ESTABLISHED`. Neither this query
+nor ADK's separate fixture-based one-core runtime tests close deployment gates
+or begin later contract, demo or normative upgrade stages.

@@ -142,6 +142,11 @@ jobs:
           repository: SAGE-X-project/sage-adk
           ref: 7eb69a8ef41ac5a36b01090411c14b833a5513ff
           path: .sage-adk-child-measurement
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: SAGE-X-project/sage-adk
+          ref: e2653847e7d75507e1561e36baebcf321ca3307c
+          path: .sage-adk-admitted-hop
       - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
         with:
           go-version-file: go.mod
@@ -160,6 +165,7 @@ jobs:
           python3 -B scripts/inspect_adk_source_inventory.py --snapshot compiled-calculator --adk-root .sage-adk-compiled-calculator --parser "${RUNNER_TEMP}/adk-source-inventory" --check docs/evidence/adk-compiled-calculator.json --output "${RUNNER_TEMP}/adk-compiled-calculator.json"
           python3 -B scripts/inspect_adk_source_inventory.py --snapshot sealed-image --adk-root .sage-adk-sealed-image --parser "${RUNNER_TEMP}/adk-source-inventory" --check docs/evidence/adk-sealed-image.json --output "${RUNNER_TEMP}/adk-sealed-image.json"
           python3 -B scripts/inspect_adk_source_inventory.py --snapshot child-measurement --adk-root .sage-adk-child-measurement --parser "${RUNNER_TEMP}/adk-source-inventory" --check docs/evidence/adk-child-measurement.json --output "${RUNNER_TEMP}/adk-child-measurement.json"
+          python3 -B scripts/inspect_adk_source_inventory.py --snapshot admitted-hop --adk-root .sage-adk-admitted-hop --parser "${RUNNER_TEMP}/adk-source-inventory" --check docs/evidence/adk-admitted-hop.json --output "${RUNNER_TEMP}/adk-admitted-hop.json"
       - name: Preserve source query report
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
@@ -172,6 +178,7 @@ jobs:
             ${{ runner.temp }}/adk-compiled-calculator.json
             ${{ runner.temp }}/adk-sealed-image.json
             ${{ runner.temp }}/adk-child-measurement.json
+            ${{ runner.temp }}/adk-admitted-hop.json
 
   registry-contract-preflight:
     name: Blockchain Registry source and ABI preflight

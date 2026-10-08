@@ -422,6 +422,118 @@ class InventoryTests(unittest.TestCase):
                 with self.subTest(snapshot=name), self.assertRaises(ValueError):
                     audit.report(inventory, audit.catalog(snapshot=name))
 
+    def test_admitted_hop_preserves_history_and_deployment_scope(self):
+        prior = audit.catalog(snapshot='child-measurement')
+        suite = audit.catalog(snapshot='admitted-hop')
+        self.assertEqual(suite['adk_revision'], 'e2653847e7d75507e1561e36baebcf321ca3307c')
+        self.assertEqual(len(suite['sources']), 183)
+        self.assertEqual(len(suite['routes']), 119)
+        self.assertEqual(suite['routes'][:105], prior['routes'])
+        self.assertEqual(set(suite['sources']) - set(prior['sources']), {'core/capture/hop.go'})
+        self.assertEqual(set(prior['sources']) - set(suite['sources']), set())
+        self.assertEqual({p for p in prior['sources'] if suite['sources'][p] != prior['sources'][p]},
+                         {'core/capture/policy.go'})
+        self.assertEqual(suite['module_files'], prior['module_files'])
+        self.assertEqual(suite['host_port_catalog_sha256'], prior['host_port_catalog_sha256'])
+        self.assertEqual(suite['normative_source_revision'], audit.NORMATIVE_REVISION)
+        hashes = {'adk-approved-operation': 'b9a2d129cc96ad2be68556e21295629dedc1ebc9d0558c2767f37a247bcad773', 'adk-child-measurement': '6ef70d942ad21b7030a5eedc8275cb1cd688e647a2bd6892df0007be4040601e', 'adk-compiled-calculator': '4c26599efb3835a5a883cec93144e4da0ea9089bdf61a42797818e18fdcad784', 'adk-source-inventory': 'ebeb724f05757eb4f132b29e8c2931efa2f62078a9a54d3ac2b6819593e6c4ad', 'adk-sealed-image': 'e51bd20258e8b0f64da6017584c06b5161686971fb29873e409f82bcb84c750e'}
+        for name, digest in hashes.items():
+            self.assertEqual(audit.sha((audit.ROOT / ('docs/evidence/' + name + '.json')).read_bytes()), digest)
+        saved = json.loads((audit.ROOT / 'docs/evidence/adk-admitted-hop.json').read_text())
+        self.assertEqual(saved['routes'], [dict(r, anchor_status='MATCHED') for r in suite['routes']])
+        self.assertEqual(saved['catalog_sha256'], audit.SNAPSHOTS['admitted-hop']['sha256'])
+        self.assertEqual(saved['source_file_count'], 183)
+        self.assertEqual(saved['declaration_count'], 1248)
+        self.assertEqual(saved['syntactic_call_count'], 6099)
+        self.assertEqual(saved['route_classification_counts']['ADMITTED_HOP_OPT_IN'], 7)
+        self.assertEqual(saved['route_classification_counts']['RUNTIME_TEST_FIXTURE'], 8)
+        self.assertEqual(saved['route_classification_counts']['CHILD_MEASUREMENT_OPT_IN'], 23)
+        for row in suite['routes']:
+            self.assertFalse(row['path'].endswith('_test.go'))
+            if '/testdata/' in row['path']:
+                self.assertEqual(row['classification'], 'RUNTIME_TEST_FIXTURE')
+        for field, expected in dict(selected_host=None, effect_observations=None,
+                                    host_selection='SELECTION_PENDING', adk_runtime='NOT_RUN',
+                                    independent_hop_execution='NOT_RUN', full_conformance='NOT_ESTABLISHED',
+                                    deployed_host_controls={'count': 13, 'status': 'NOT_RUN'}).items():
+            self.assertEqual(saved[field], expected)
+        for boundary in ('current upstream', 'causal metadata', 'create=false', 'UNKNOWN parent',
+                         'root-only', 'independently approved hop-operation', 'one Go core',
+                         'private instruction-page', 'not an atomic'):
+            self.assertTrue(any(boundary in text for text in saved['limitations']), boundary)
+        for name in audit.SNAPSHOTS:
+            if name == 'admitted-hop':
+                continue
+            with self.subTest(snapshot=name), self.assertRaises(ValueError):
+                audit.catalog(audit.SNAPSHOTS[name]['path'], snapshot='admitted-hop')
+            with self.subTest(snapshot=name), self.assertRaises(ValueError):
+                audit.catalog(audit.SNAPSHOTS['admitted-hop']['path'], snapshot=name)
+
+    def test_admitted_hop_refuses_missing_duplicate_and_forged_evidence(self):
+        suite = audit.catalog(snapshot='admitted-hop')
+        # Synthetic AST tests refusal; no parent admission or host is executed.
+        inventory = dict(schema_version=1, kind='GO_SYNTAX_INVENTORY', files=[
+            dict(path=path, sha256=digest, package='fixture', initializer_calls=[], declarations=[
+                dict(name=r['declaration'], exported=True, line=r['line'],
+                     end_line=max([r['line']] + [c['line'] for c in r['calls']]),
+                     calls=copy.deepcopy(r['calls']))
+                for r in suite['routes'] if r['path'] == path])
+            for path, digest in sorted(suite['sources'].items())])
+        result = audit.report(inventory, suite)
+        self.assertEqual(result['independent_hop_execution'], 'NOT_RUN')
+        self.assertEqual(result['full_conformance'], 'NOT_ESTABLISHED')
+        for row in suite['routes'][105:]:
+            for mutation in ('missing-declaration', 'duplicate-declaration'):
+                bad = copy.deepcopy(inventory)
+                ds = next(f['declarations'] for f in bad['files'] if f['path'] == row['path'])
+                d = next(d for d in ds if d['name'] == row['declaration'])
+                if mutation == 'missing-declaration':
+                    ds.remove(d)
+                else:
+                    ds.append(copy.deepcopy(d))
+                with self.subTest(row=row['id'], mutation=mutation), self.assertRaises(ValueError):
+                    audit.report(bad, suite)
+            for anchor in row['calls']:
+                for mutation in ('missing-call', 'duplicate-call'):
+                    bad = copy.deepcopy(inventory)
+                    d = next(d for f in bad['files'] if f['path'] == row['path']
+                             for d in f['declarations'] if d['name'] == row['declaration'])
+                    if mutation == 'missing-call':
+                        d['calls'].remove(anchor)
+                    else:
+                        d['calls'].append(copy.deepcopy(anchor))
+                    with self.subTest(row=row['id'], anchor=anchor, mutation=mutation), self.assertRaises(ValueError):
+                        audit.report(bad, suite)
+        for mutation in ('revision', 'normative', 'source', 'module', 'classification', 'review', 'fixture'):
+            bad = copy.deepcopy(suite)
+            if mutation == 'revision':
+                bad['adk_revision'] = audit.SNAPSHOTS['child-measurement']['revision']
+            elif mutation == 'normative':
+                bad['normative_source_revision'] = '0' * 40
+            elif mutation == 'source':
+                bad['sources']['core/capture/hop.go'] = '0' * 64
+            elif mutation == 'module':
+                bad['module_files']['go.mod'] = '0' * 64
+            elif mutation == 'fixture':
+                next(r for r in bad['routes'] if '/testdata/' in r['path'])['classification'] = 'ADMITTED_HOP_OPT_IN'
+            else:
+                bad['routes'][-1][mutation] = 'PASS'
+            with self.subTest(mutation=mutation), self.assertRaises(ValueError):
+                audit.report(inventory, bad)
+        for path in ('core/capture/hop.go', 'core/capture/policy.go'):
+            bad = copy.deepcopy(inventory)
+            next(f for f in bad['files'] if f['path'] == path)['sha256'] = '0' * 64
+            with self.subTest(path=path), self.assertRaises(ValueError):
+                audit.report(bad, suite)
+        promoted = copy.deepcopy(inventory)
+        promoted['full_conformance'] = 'PASS'
+        with self.assertRaises(ValueError):
+            audit.report(promoted, suite)
+        for name in audit.SNAPSHOTS:
+            if name != 'admitted-hop':
+                with self.subTest(snapshot=name), self.assertRaises(ValueError):
+                    audit.report(inventory, audit.catalog(snapshot=name))
+
     def test_runtime_query_refuses_unreviewed_revision_without_report(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp) / 'source'

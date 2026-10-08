@@ -94,3 +94,9 @@ select a Registry/host deployment.
 The fifth [supervised child measurement snapshot](adk-child-measurement-inspection.md)
 retains this historical query and separately checks the new private same-child
 measurement channel. Its source matches do not close deployment obligations.
+
+The sixth [admitted downstream capture inspection](adk-admitted-hop-inspection.md)
+adds a separate exact revision for retained inbound originals, fresh local IDs,
+current native parent/upstream rechecks, independent own issuance and existing
+journal handoff. The five preceding catalogs/reports remain intact; the query
+runs no ADK code and does not establish deployed or independent-hop conformance.

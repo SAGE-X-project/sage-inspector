@@ -15,6 +15,12 @@ unchanged source hashes. They report `NOT_RUN` without a versioned host;
 matching bounded records remain `PARTIAL`. This inventory does not close the
 later core, real Agent/MCP host, Registry Source or INS-11 gates below.
 
+2026-10-09 addendum: the [ADK host unsupported boundaries](adk-host-unsupported-boundaries.md)
+consolidate what the separate-account `sage-adk` host integration and the
+0.10.0 primitive observations of both cores leave unsupported or unbound,
+including the reason for each of the 415 design-baseline parent cases that
+remain `NOT_RUN`. It changes no verdict and closes none of the gates below.
+
 2026-10-03 first-stage closure: the
 [design/Inspector tooling verdict](first-stage-completion.md) is
 `TOOLING_READY` at `sage-spec`

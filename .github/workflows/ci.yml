@@ -1662,7 +1662,8 @@ jobs:
           RUSTUP_TOOLCHAIN: 1.88.0
         run: |
           go build -o "${RUNNER_TEMP}/sage-conformance-record010" ./cmd/sage-conformance
-          (cd adapters/go && go build -o "${RUNNER_TEMP}/sage-go-record010" .)
+          (cd adapters/go && go test -race . && go build -o "${RUNNER_TEMP}/sage-go-record010" .)
+          cargo test --locked --manifest-path adapters/rust/Cargo.toml --target-dir "${RUNNER_TEMP}/record010-rust" --bin sage-inspector-rust-adapter
           cargo build --locked --manifest-path adapters/rust/Cargo.toml --target-dir "${RUNNER_TEMP}/record010-rust" \
             --bin sage-inspector-rust-adapter --bin completion010 --bin execution010 \
             --bin guard_client010 --bin guard_dispatch010 --bin guard_ledger010 \

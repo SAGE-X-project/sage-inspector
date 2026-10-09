@@ -54,6 +54,18 @@ adopted in the spec. The historical 481- and 489-case catalogs and their
 revision-bound evidence remain untouched. New implementation observations
 must be captured at the new revision; old PASSes do not transfer.
 
+The [design-baseline runner](../scripts/run_design_baseline_cases.py) replays
+the runtime fixture contracts whose input is a primitive operation through the
+primitive bridge with the core adapter profile `primitive-foundation-010`.
+That profile reaches 0.10.0 entry points only: strict canonical JSON
+(`guard010`), the transcript-bound HPKE combiner and, when the adapter is built
+with the `strictdid010` Go tag or Cargo feature, the strict 0.10.0 DID parser.
+Operations whose only core implementation is a legacy API (legacy record
+sessions, legacy sequence sessions, legacy key proof-of-possession and the
+general X25519 primitive) report `UNSUPPORTED` instead of reaching it. The
+default `primitive-foundation` profile keeps its historical behavior for older
+evidence. Host-case and evidence-review fixtures stay `NOT_RUN` in this runner.
+
 This closure permits the planned stage 2–3 library and Agent-client
 integration analysis. The complete Go/Rust refactor, selected Agent-host and
 Registry Source deployments, all case execution, public problem-type URIs,

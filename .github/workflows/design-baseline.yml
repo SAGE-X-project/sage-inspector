@@ -28,6 +28,7 @@ jobs:
         run: |
           python3 -B scripts/test_design_baseline_catalog.py
           python3 -B scripts/test_design_baseline_evidence.py
+          python3 -B scripts/test_run_design_baseline_cases.py
           python3 -B scripts/design_baseline_catalog.py --spec-root ../sage-spec --report "${RUNNER_TEMP}/design-baseline-catalog.json"
           python3 -B scripts/design_baseline_evidence.py --output "${RUNNER_TEMP}/design-baseline-evidence.json"
       - name: Preserve the exact no-subject report

@@ -14,6 +14,7 @@ import (
 
 	"github.com/sage-x-project/sage/pkg/agent/crypto/jcs"
 	"github.com/sage-x-project/sage/pkg/agent/crypto/keys"
+	"github.com/sage-x-project/sage/pkg/agent/guard010"
 )
 
 func run(r io.Reader, w io.Writer) error {
@@ -34,12 +35,23 @@ func run(r io.Reader, w io.Writer) error {
 	if d.Decode(&extra) != io.EOF {
 		return fmt.Errorf("trailing input")
 	}
-	if q.Schema != 1 || q.Version != "0.10.0" || q.Profile != "primitive-foundation" || q.Case == "" {
+	if q.Schema != 1 || q.Version != "0.10.0" || q.Case == "" ||
+		(q.Profile != "primitive-foundation" && q.Profile != profile010) {
 		return fmt.Errorf("invalid request")
 	}
 	verdict := "UNSUPPORTED"
 	output := map[string]any{}
-	if q.Operation == "json.syntax" || q.Operation == "jcs.canonicalize" {
+	if q.Profile == profile010 {
+		if routed, ok := route010(q.Operation); ok {
+			// The 0.10.0 profile never reaches a legacy entry point.
+			if routed == "" {
+				return writeResponse(w, q.Case, verdict, output)
+			}
+			q.Operation = routed
+		}
+	}
+	if strings.TrimSuffix(q.Operation, ".guard010") == "json.syntax" ||
+		strings.TrimSuffix(q.Operation, ".guard010") == "jcs.canonicalize" {
 		var in struct {
 			Document string `json:"document_hex"`
 		}
@@ -50,11 +62,15 @@ func run(r io.Reader, w io.Writer) error {
 		if e != nil {
 			return e
 		}
-		canonical, e := jcs.Canonicalize(b)
+		canonicalize := jcs.Canonicalize
+		if strings.HasSuffix(q.Operation, ".guard010") {
+			canonicalize = guard010.Canonicalize
+		}
+		canonical, e := canonicalize(b)
 		verdict = "REJECT"
 		if e == nil {
 			verdict = "ACCEPT"
-			if q.Operation == "json.syntax" {
+			if strings.HasPrefix(q.Operation, "json.syntax") {
 				output["valid"] = true
 			} else {
 				output["canonical_hex"] = hex.EncodeToString(canonical)
@@ -124,7 +140,7 @@ func run(r io.Reader, w io.Writer) error {
 			return e
 		}
 	}
-	if q.Operation == "sage.did.validate" || q.Operation == "sage.registry.pop.verify" {
+	if q.Operation == "sage.did.validate" || q.Operation == "sage.did.validate010" || q.Operation == "sage.registry.pop.verify" {
 		var e error
 		verdict, output, e = registryObserve(q.Operation, q.Input)
 		if e != nil {
@@ -171,7 +187,11 @@ func run(r io.Reader, w io.Writer) error {
 			return e
 		}
 	}
-	return json.NewEncoder(w).Encode(map[string]any{"schema_version": 1, "case_id": q.Case, "verdict": verdict, "output": output})
+	return writeResponse(w, q.Case, verdict, output)
+}
+
+func writeResponse(w io.Writer, id, verdict string, output map[string]any) error {
+	return json.NewEncoder(w).Encode(map[string]any{"schema_version": 1, "case_id": id, "verdict": verdict, "output": output})
 }
 func main() {
 	if e := run(os.Stdin, os.Stdout); e != nil {

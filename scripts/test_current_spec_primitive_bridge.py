@@ -45,6 +45,30 @@ class PrimitiveBridgeTests(unittest.TestCase):
         self.assertEqual(proc.returncode, 0, proc.stderr)
         self.assertEqual(json.loads(proc.stdout), response)
 
+    def test_core_profile_is_forwarded_and_restricted(self):
+        self.core.write_text(
+            '#!/usr/bin/env python3\nimport json,sys\n'
+            'request=json.load(sys.stdin)\n'
+            "assert request['profile']=='primitive-foundation-010'\n"
+            "print(json.dumps({'schema_version':1,'case_id':request['case_id'],"
+            "'verdict':'REJECT','output':{}}))\n")
+        self.core.chmod(0o755)
+        response = bridge.observe(json.dumps(self.request).encode(), self.core,
+                                  'primitive-foundation-010')
+        self.assertEqual(response['actual']['verdict'], 'REJECT')
+        env = dict(os.environ, SAGE_CORE_ADAPTER=str(self.core),
+                   SAGE_CORE_PROFILE='primitive-foundation-010')
+        proc = subprocess.run([sys.executable, '-B', str(Path(bridge.__file__))],
+                              input=json.dumps(self.request), capture_output=True,
+                              text=True, env=env, timeout=10)
+        self.assertEqual(proc.returncode, 0, proc.stderr)
+        env['SAGE_CORE_PROFILE'] = 'legacy-anything'
+        proc = subprocess.run([sys.executable, '-B', str(Path(bridge.__file__))],
+                              input=json.dumps(self.request), capture_output=True,
+                              text=True, env=env, timeout=10)
+        self.assertEqual(proc.returncode, 2)
+        self.assertIn('SAGE_CORE_PROFILE', proc.stderr)
+
     def test_wrong_core_case_identity_is_rejected(self):
         self.make_core(wrong_id=True)
         with self.assertRaisesRegex(ValueError, 'core adapter response identity'):

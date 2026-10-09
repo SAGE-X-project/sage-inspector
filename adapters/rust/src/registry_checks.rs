@@ -13,6 +13,8 @@ pub fn observe(
     let id = field("did")?;
     let valid = if op == "sage.did.validate" {
         did::validate_did(id)
+    } else if op == "sage.did.validate010" {
+        parse_did_010(id)
     } else {
         if field("alg")? != "ed25519" {
             return Ok(("UNSUPPORTED", json!({})));
@@ -31,4 +33,14 @@ pub fn observe(
     } else {
         ("REJECT", json!({}))
     })
+}
+
+#[cfg(feature = "strictdid010")]
+fn parse_did_010(id: &str) -> bool {
+    did::parse_did_010(id).is_ok()
+}
+
+#[cfg(not(feature = "strictdid010"))]
+fn parse_did_010(_: &str) -> bool {
+    false
 }

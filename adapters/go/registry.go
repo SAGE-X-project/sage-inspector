@@ -27,6 +27,8 @@ func registryObserve(op string, raw json.RawMessage) (string, map[string]any, er
 	}
 	if op == "sage.did.validate" {
 		e = did.ValidateDID(id)
+	} else if op == "sage.did.validate010" {
+		e = parseDID010(id)
 	} else {
 		alg, err := field("alg")
 		if err != nil {

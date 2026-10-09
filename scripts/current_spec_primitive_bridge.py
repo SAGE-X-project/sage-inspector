@@ -12,9 +12,13 @@ from current_spec_catalog import catalog, load, require
 from current_spec_evidence import validate_outcome
 
 
-def invoke_core(adapter, ident, operation, inp):
+PROFILES = ('primitive-foundation', 'primitive-foundation-010')
+
+
+def invoke_core(adapter, ident, operation, inp, profile='primitive-foundation'):
+    require(profile in PROFILES, 'core adapter profile')
     core_request = {'schema_version': 1, 'protocol_version': '0.10.0',
-                    'profile': 'primitive-foundation', 'case_id': ident,
+                    'profile': profile, 'case_id': ident,
                     'operation': operation, 'input': inp}
     proc = subprocess.run([str(adapter)], input=json.dumps(core_request,
                            separators=(',', ':')).encode(), capture_output=True,
@@ -31,7 +35,10 @@ def invoke_core(adapter, ident, operation, inp):
     return response
 
 
-def observe(raw, adapter):
+def observe(raw, adapter, profile='primitive-foundation'):
+    def core(ident, operation, inp):
+        return invoke_core(adapter, ident, operation, inp, profile)
+
     request = load(raw)
     spec_revision = catalog()[0]['spec_revision']
     require(type(request) is dict and set(request) == {'schema_version',
@@ -56,8 +63,8 @@ def observe(raw, adapter):
                     ('request_hex', 'response_hex', 'public_key_hex')) and
                 type(fields['body_repeat']) is int and fields['body_repeat'] == 1,
                 'HTTP MSG-01 primitive input')
-        base = invoke_core(adapter, ident + '-base', 'rfc9421.base', fields)
-        digest = invoke_core(adapter, ident + '-digest', 'sage.content-digest', fields)
+        base = core(ident + '-base', 'rfc9421.base', fields)
+        digest = core(ident + '-digest', 'sage.content-digest', fields)
         if 'UNSUPPORTED' in (base['verdict'], digest['verdict']):
             actual = {'verdict': 'UNSUPPORTED',
                       'reason': 'Core adapter does not expose the HTTP base and digest primitives.'}
@@ -83,9 +90,9 @@ def observe(raw, adapter):
                     set(pair[name]) == {'document_hex'} and
                     type(pair[name]['document_hex']) is str for name in pair),
                 'JCS order pair input')
-        left = invoke_core(adapter, ident + '-left',
+        left = core(ident + '-left',
                            'jcs.canonicalize', pair['left'])
-        right = invoke_core(adapter, ident + '-right',
+        right = core(ident + '-right',
                             'jcs.canonicalize', pair['right'])
         if 'UNSUPPORTED' in (left['verdict'], right['verdict']):
             actual = {'verdict': 'UNSUPPORTED',
@@ -105,9 +112,9 @@ def observe(raw, adapter):
         require(set(pair) == {'control', 'candidate'} and
                 all(type(pair[name]) is dict for name in pair),
                 'guard integer pair input')
-        control = invoke_core(adapter, ident + '-control',
+        control = core(ident + '-control',
                               'sage.guard.intent.verify', pair['control'])
-        candidate = invoke_core(adapter, ident + '-candidate',
+        candidate = core(ident + '-candidate',
                                 'sage.guard.intent.verify', pair['candidate'])
         if 'UNSUPPORTED' in (control['verdict'], candidate['verdict']):
             actual = {'verdict': 'UNSUPPORTED',
@@ -130,9 +137,9 @@ def observe(raw, adapter):
                      'sage.guard.policy.commit')
         field = ('original_digest' if inp['operation'] == 'guard.original.pair'
                  else 'policy_digest')
-        control = invoke_core(adapter, ident + '-control', primitive,
+        control = core(ident + '-control', primitive,
                               pair['control'])
-        candidate = invoke_core(adapter, ident + '-candidate', primitive,
+        candidate = core(ident + '-candidate', primitive,
                                 pair['candidate'])
         if 'UNSUPPORTED' in (control['verdict'], candidate['verdict']):
             actual = {'verdict': 'UNSUPPORTED',
@@ -161,9 +168,9 @@ def observe(raw, adapter):
                     type(pair[name]['did']) is str and
                     len(pair[name]['did'].encode()) <= 1024
                     for name in pair), 'DID boundary pair input')
-        control = invoke_core(adapter, ident + '-control',
+        control = core(ident + '-control',
                               'sage.did.validate', pair['control'])
-        candidate = invoke_core(adapter, ident + '-candidate',
+        candidate = core(ident + '-candidate',
                                 'sage.did.validate', pair['candidate'])
         if 'UNSUPPORTED' in (control['verdict'], candidate['verdict']):
             actual = {'verdict': 'UNSUPPORTED',
@@ -185,7 +192,7 @@ def observe(raw, adapter):
         for direction in ('c2s', 's2c'):
             core_input = dict(fields, direction=direction,
                               caller_aad_hex='', plaintext={'byte': 0, 'length': 0})
-            results[direction] = invoke_core(adapter, ident + '-' + direction,
+            results[direction] = core(ident + '-' + direction,
                                             'sage.session.record010.export', core_input)
         if any(row['verdict'] == 'UNSUPPORTED' for row in results.values()):
             actual = {'verdict': 'UNSUPPORTED',
@@ -221,7 +228,7 @@ def observe(raw, adapter):
                     case['id'] not in seen,
                     'session record boundary case identity')
             seen.add(case['id'])
-            response = invoke_core(adapter, ident + '-' + case['id'],
+            response = core(ident + '-' + case['id'],
                                    'sage.session.record010.open',
                                    {key: value for key, value in case.items()
                                     if key != 'id'})
@@ -250,9 +257,9 @@ def observe(raw, adapter):
         require(set(pair) == {'short', 'oversized'} and
                 all(type(pair[name]) is dict for name in pair),
                 'record bounds pair input')
-        short = invoke_core(adapter, ident + '-short',
+        short = core(ident + '-short',
                             'sage.session.record010.open', pair['short'])
-        oversized = invoke_core(adapter, ident + '-oversized',
+        oversized = core(ident + '-oversized',
                                 'sage.session.record010.seal', pair['oversized'])
         if 'UNSUPPORTED' in (short['verdict'], oversized['verdict']):
             actual = {'verdict': 'UNSUPPORTED',
@@ -269,9 +276,9 @@ def observe(raw, adapter):
         require(set(pair) == {'open', 'seal'} and
                 all(type(pair[name]) is dict for name in pair),
                 'record AAD pair input')
-        opened = invoke_core(adapter, ident + '-open',
+        opened = core(ident + '-open',
                              'sage.session.record010.open', pair['open'])
-        sealed = invoke_core(adapter, ident + '-seal',
+        sealed = core(ident + '-seal',
                              'sage.session.record010.seal', pair['seal'])
         if 'UNSUPPORTED' in (opened['verdict'], sealed['verdict']):
             actual = {'verdict': 'UNSUPPORTED',
@@ -285,7 +292,7 @@ def observe(raw, adapter):
                       'effects': {}}
         validate_outcome(actual)
         return {'schema_version': 1, 'id': ident, 'track': 'runtime', 'actual': actual}
-    response = invoke_core(adapter, ident, inp['operation'], inp['input'])
+    response = core(ident, inp['operation'], inp['input'])
     if response['verdict'] == 'UNSUPPORTED':
         actual = {'verdict': 'UNSUPPORTED',
                   'reason': 'Core primitive adapter does not expose this operation.'}
@@ -302,7 +309,9 @@ def main():
         require(path and Path(path).is_absolute(), 'absolute SAGE_CORE_ADAPTER required')
         raw = sys.stdin.buffer.read(4 * 1024 * 1024 + 1)
         require(len(raw) <= 4 * 1024 * 1024, 'case request too large')
-        response = observe(raw, Path(path))
+        profile = os.environ.get('SAGE_CORE_PROFILE', 'primitive-foundation')
+        require(profile in PROFILES, 'SAGE_CORE_PROFILE must name a known profile')
+        response = observe(raw, Path(path), profile)
         print(json.dumps(response, separators=(',', ':')))
     except (ValueError, KeyError, TypeError, OSError, subprocess.SubprocessError,
             json.JSONDecodeError) as error:

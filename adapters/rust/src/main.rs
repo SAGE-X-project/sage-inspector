@@ -5,6 +5,7 @@ mod http_checks;
 mod parallel_checks;
 mod record010_checks;
 mod registry_checks;
+mod route010;
 mod sequence_checks;
 mod session_checks;
 use sage_crypto_core::crypto::{KeyType, PublicKey, Signature, Verifier};
@@ -27,15 +28,26 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
     if bytes.len() > 4 << 20 {
         return Err("oversized request".into());
     }
-    let q: Request = serde_json::from_slice(&bytes)?;
+    let mut q: Request = serde_json::from_slice(&bytes)?;
     if q.schema_version != 1
         || q.protocol_version != "0.10.0"
-        || q.profile != "primitive-foundation"
+        || (q.profile != "primitive-foundation" && q.profile != route010::PROFILE)
         || q.case_id.is_empty()
     {
         return Err("invalid request".into());
     }
-    let (verdict, output) = if q.operation.starts_with("sage.guard.") {
+    let mut unsupported = route010::internal(&q.operation);
+    if !unsupported && q.profile == route010::PROFILE {
+        // The 0.10.0 profile never reaches a legacy entry point.
+        match route010::route(&q.operation) {
+            Some(Some(routed)) => q.operation = routed.to_string(),
+            Some(None) => unsupported = true,
+            None => {}
+        }
+    }
+    let (verdict, output) = if unsupported {
+        ("UNSUPPORTED", json!({}))
+    } else if q.operation.starts_with("sage.guard.") {
         guard_checks::observe(&q.operation, q.input)?
     } else if [
         "legacy.session.export-sequence",
@@ -81,7 +93,13 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
     .contains(&q.operation.as_str())
     {
         session_checks::observe(&q.operation, q.input)?
-    } else if ["sage.did.validate", "sage.registry.pop.verify"].contains(&q.operation.as_str()) {
+    } else if [
+        "sage.did.validate",
+        "sage.did.validate010",
+        "sage.registry.pop.verify",
+    ]
+    .contains(&q.operation.as_str())
+    {
         registry_checks::observe(&q.operation, q.input)?
     } else if q.operation == "sha256" {
         let data = hex::decode(
@@ -94,23 +112,32 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
             "ACCEPT",
             json!({"sha256_hex":sage_crypto_core::hpke::sha256_hash_hex(&data)}),
         )
-    } else if q.operation == "json.syntax" || q.operation == "jcs.canonicalize" {
+    } else if ["json.syntax", "jcs.canonicalize"].contains(
+        &q.operation
+            .strip_suffix(".guard010")
+            .unwrap_or(&q.operation),
+    ) {
         let data = hex::decode(
             q.input
                 .get("document_hex")
                 .and_then(Value::as_str)
                 .ok_or("missing document_hex")?,
         )?;
-        match sage_crypto_core::jcs::canonicalize(&data) {
-            Ok(value) => (
+        let canonical = if q.operation.ends_with(".guard010") {
+            sage_crypto_core::guard010::canonicalize(&data).ok()
+        } else {
+            sage_crypto_core::jcs::canonicalize(&data).ok()
+        };
+        match canonical {
+            Some(value) => (
                 "ACCEPT",
-                if q.operation == "json.syntax" {
+                if q.operation.starts_with("json.syntax") {
                     json!({"valid":true})
                 } else {
                     json!({"canonical_hex":hex::encode(value)})
                 },
             ),
-            Err(_) => ("REJECT", json!({})),
+            None => ("REJECT", json!({})),
         }
     } else if q.operation == "signature.verify" {
         let field = |name| {

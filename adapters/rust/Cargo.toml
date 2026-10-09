@@ -4,6 +4,8 @@ version = "0.1.0"
 edition = "2021"
 [features]
 liveweb010 = []
+# Requires a core that exposes the 0.10.0 strict DID parser.
+strictdid010 = []
 [dependencies]
 sage_crypto_core = { path = "../../../rs-sage-core" }
 serde = { version = "1.0", features = ["derive"] }

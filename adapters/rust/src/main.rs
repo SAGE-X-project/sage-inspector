@@ -36,8 +36,8 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
     {
         return Err("invalid request".into());
     }
-    let mut unsupported = false;
-    if q.profile == route010::PROFILE {
+    let mut unsupported = route010::internal(&q.operation);
+    if !unsupported && q.profile == route010::PROFILE {
         // The 0.10.0 profile never reaches a legacy entry point.
         match route010::route(&q.operation) {
             Some(Some(routed)) => q.operation = routed.to_string(),
@@ -112,9 +112,11 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
             "ACCEPT",
             json!({"sha256_hex":sage_crypto_core::hpke::sha256_hash_hex(&data)}),
         )
-    } else if ["json.syntax", "jcs.canonicalize"]
-        .contains(&q.operation.trim_end_matches(".guard010"))
-    {
+    } else if ["json.syntax", "jcs.canonicalize"].contains(
+        &q.operation
+            .strip_suffix(".guard010")
+            .unwrap_or(&q.operation),
+    ) {
         let data = hex::decode(
             q.input
                 .get("document_hex")

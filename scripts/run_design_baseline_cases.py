@@ -6,6 +6,7 @@ fixture through an explicit bridge whose core adapter runs with the
 APIs and legacy-only operations report UNSUPPORTED. Observations use the
 design-baseline schema; `design_baseline_evidence.py` assesses them. These
 contracts are partial, so a matching outcome is PARTIAL, never PASS.
+Operations that neither the bridge nor the generic adapters handle stay NOT_RUN.
 """
 
 import argparse
@@ -23,9 +24,31 @@ from design_baseline_catalog import PROFILES, SPEC_REVISION, verify as verify_ca
 
 CORE_PROFILE = 'primitive-foundation-010'
 OBSERVER = 'SAGE-X-project/sage-inspector'
-# Fixtures whose input is not a primitive operation; other bridges observe
-# them, and they stay NOT_RUN here.
-NON_PRIMITIVE = ('sage.spec.host_case', 'sage.evidence.review')
+BRIDGE = ROOT / 'scripts/current_spec_primitive_bridge.py'
+# The bridge imports these modules; they are hashed with it.
+BRIDGE_MODULES = ('current_spec_catalog.py', 'current_spec_evidence.py')
+# Fixture operations that the primitive bridge composes or the generic Go and
+# Rust adapters dispatch. Other operations belong to other bridges and stay
+# NOT_RUN, so an Inspector coverage gap is never reported as a subject verdict.
+# sage.http.verify is excluded because both adapters answer it UNSUPPORTED
+# without calling the core.
+ROUTED_OPERATIONS = frozenset((
+    'guard.integer_pair', 'guard.original.pair', 'guard.policy.pair',
+    'http.msg01.primitives', 'jcs.canonicalize', 'jcs.order_pair', 'json.syntax',
+    'legacy.session.export-sequence', 'legacy.session.receive-sequence',
+    'rfc9180.export', 'rfc9421.archived.verify', 'rfc9421.base',
+    'sage.content-digest', 'sage.did.boundary.pair', 'sage.did.validate',
+    'sage.guard.intent.verify', 'sage.guard.json.bounds',
+    'sage.guard.manifest.verify', 'sage.guard.mcp.verify',
+    'sage.guard.original.commit', 'sage.guard.policy.commit',
+    'sage.guard.result.verify', 'sage.hpke.combine', 'sage.hpke.schedule010.ack',
+    'sage.hpke.schedule010.combine', 'sage.hpke.schedule010.verify',
+    'sage.registry.pop.verify', 'sage.session.record.aad.pair',
+    'sage.session.record.boundary.probe', 'sage.session.record.bounds.pair',
+    'sage.session.record.export', 'sage.session.record.open',
+    'sage.session.record.seal', 'sage.session.record010.export',
+    'sage.session.record010.open', 'sage.session.record010.seal',
+    'sage.session.sid.project', 'sha256', 'signature.verify', 'x25519.exchange'))
 
 
 def canonical(value):
@@ -37,7 +60,7 @@ def select(contracts, selected, fixture_revision):
     rows = [row for row in contracts if row['contract_kind'] ==
             'prior-independent-fixture' and row['track'] == 'runtime' and
             row['source_fixture_spec_revision'] == fixture_revision and
-            row['source_operation'] not in NON_PRIMITIVE]
+            row['source_operation'] in ROUTED_OPERATIONS]
     if selected is not None:
         requested = set(selected)
         require(requested and all(type(ident) is str and ident for ident in requested),
@@ -97,7 +120,8 @@ def run(root, adapter, repository, revision, subject_executable, output,
     require(type(repository) is str and repository and repository != OBSERVER,
             'subject repository')
     require(re.fullmatch('[0-9a-f]{40}', revision) is not None, 'subject revision')
-    require(adapter.is_file() and not adapter.is_symlink(), 'adapter executable path')
+    require(adapter.is_file() and not adapter.is_symlink() and
+            adapter.resolve() == BRIDGE.resolve(), 'adapter must be the repository bridge')
     require(subject_executable.is_file() and not subject_executable.is_symlink(),
             'subject executable path')
     configured = os.environ.get('SAGE_CORE_ADAPTER')
@@ -105,21 +129,37 @@ def run(root, adapter, repository, revision, subject_executable, output,
             'observed subject adapter differs from pinned executable')
     require(not output.exists() and not output.resolve().is_relative_to(root.resolve()),
             'new output directory outside repository required')
+    observed = [Path(__file__).resolve(), adapter] + [
+        adapter.parent / name for name in BRIDGE_MODULES]
     if runner_revision is None:
         runner_revision = subprocess.check_output(
             ['git', 'rev-parse', 'HEAD'], cwd=root, text=True, timeout=10).strip()
+        dirty = subprocess.check_output(
+            ['git', 'status', '--porcelain', '--'] + [str(path) for path in observed],
+            cwd=root, text=True, timeout=10).strip()
+        require(not dirty, 'runner or bridge differs from the runner revision')
     require(re.fullmatch('[0-9a-f]{40}', runner_revision) is not None, 'runner revision')
     subject = {'repository': repository, 'revision': revision,
                'executable_sha256': sha(subject_executable.read_bytes())}
     output.mkdir(parents=True)
+    try:
+        return capture(root, adapter, rows, subject, subject_executable, output,
+                       observed, runner_revision, timeout)
+    except BaseException:
+        shutil.rmtree(output)
+        raise
+
+
+def capture(root, adapter, rows, subject, subject_executable, output, observed,
+            runner_revision, timeout):
     (output / 'runner').mkdir()
     artifacts = []
-    for source_path in (Path(__file__), adapter):
+    for source_path in observed:
         target = output / 'runner' / source_path.name
         shutil.copyfile(source_path, target)
         artifacts.append({'path': 'runner/' + source_path.name,
                           'sha256': sha(target.read_bytes())})
-    runner_sha256, adapter_sha256 = (item['sha256'] for item in artifacts)
+    runner_sha256, adapter_sha256 = artifacts[0]['sha256'], artifacts[1]['sha256']
     observer = {'repository': OBSERVER, 'revision': runner_revision,
                 'artifact_sha256': runner_sha256}
     observations = []
@@ -139,8 +179,9 @@ def run(root, adapter, repository, revision, subject_executable, output,
         observations.append({'id': row['id'], 'track': 'runtime', 'path': path,
                              'sha256': sha(raw)})
     require(sha(subject_executable.read_bytes()) == subject['executable_sha256'] and
-            sha(adapter.read_bytes()) == adapter_sha256,
-            'subject or adapter executable changed during run')
+            all(sha(path.read_bytes()) == item['sha256']
+                for path, item in zip(observed, artifacts)),
+            'subject, runner or bridge changed during run')
     manifest = {'schema_version': 1, 'protocol_version': '0.10.0',
                 'spec_revision': SPEC_REVISION, 'subject': subject,
                 'runner_revision': runner_revision, 'runner_sha256': runner_sha256,

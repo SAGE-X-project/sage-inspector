@@ -41,6 +41,9 @@ func run(r io.Reader, w io.Writer) error {
 	}
 	verdict := "UNSUPPORTED"
 	output := map[string]any{}
+	if internal010(q.Operation) {
+		return writeResponse(w, q.Case, verdict, output)
+	}
 	if q.Profile == profile010 {
 		if routed, ok := route010(q.Operation); ok {
 			// The 0.10.0 profile never reaches a legacy entry point.

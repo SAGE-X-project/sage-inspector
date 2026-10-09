@@ -23,18 +23,24 @@ class DesignBaselineRunnerTests(unittest.TestCase):
         self.subject.write_bytes(b'pinned core adapter build\n')
         self.output = self.base / 'out'
 
-    def bridge(self, outcomes):
-        # Fake bridge: asserts the 0.10.0 profile and answers per case.
+    def bridge(self, outcomes, extra=''):
+        # Fake bridge pinned in place of the repository bridge: asserts the
+        # 0.10.0 profile and answers per case.
         path = self.base / 'bridge.py'
         path.write_text(
             '#!/usr/bin/env python3\nimport json,os,sys\n'
             "assert os.environ['SAGE_CORE_PROFILE']=='primitive-foundation-010'\n"
             'request=json.load(sys.stdin)\n'
-            "assert 'expected' not in request\n"
+            "assert 'expected' not in request\n" + extra +
             'outcomes=' + json.dumps(outcomes) + '\n'
             "print(json.dumps({'schema_version':1,'id':request['id'],"
             "'track':'runtime','actual':outcomes[request['id']]}))\n")
         path.chmod(0o755)
+        for name in runner.BRIDGE_MODULES:
+            (self.base / name).write_text('# bridge dependency ' + name + '\n')
+        patcher = mock.patch.object(runner, 'BRIDGE', path)
+        patcher.start()
+        self.addCleanup(patcher.stop)
         return path
 
     def run_cases(self, outcomes, cases=CASES, **kwargs):
@@ -50,8 +56,10 @@ class DesignBaselineRunnerTests(unittest.TestCase):
                     'HPKE-03-P': {'verdict': 'REJECT', 'output': {}, 'effects': {}}}
         manifest = self.run_cases(expected)
         self.assertEqual([row['id'] for row in manifest['observations']], sorted(CASES))
-        self.assertEqual(manifest['artifacts'][0]['path'],
-                         'runner/run_design_baseline_cases.py')
+        self.assertEqual([item['path'] for item in manifest['artifacts']],
+                         ['runner/run_design_baseline_cases.py', 'runner/bridge.py',
+                          'runner/current_spec_catalog.py',
+                          'runner/current_spec_evidence.py'])
         observation = load((self.output / 'JCS-01-N01-runtime.json').read_bytes())
         self.assertEqual(observation['environment'], 'local-process')
         self.assertEqual(observation['facts']['independent_observer'],
@@ -68,6 +76,46 @@ class DesignBaselineRunnerTests(unittest.TestCase):
         self.assertEqual(status['JCS-01-P', 'runtime'], 'UNSUPPORTED')
         self.assertEqual(status['HPKE-03-P', 'runtime'], 'FAIL')
         self.assertEqual(report['counts']['PASS'], 0)
+
+    def test_unpinned_bridge_is_refused(self):
+        other = self.base / 'other-bridge.py'
+        other.write_text('#!/usr/bin/env python3\n')
+        other.chmod(0o755)
+        self.bridge({})
+        with mock.patch.dict(os.environ, {'SAGE_CORE_ADAPTER': str(self.subject)}):
+            with self.assertRaisesRegex(ValueError, 'repository bridge'):
+                runner.run(ROOT, other, 'SAGE-X-project/sage', 'a' * 40,
+                           self.subject, self.output, selected=CASES[:1],
+                           runner_revision='c' * 40)
+        self.assertFalse(self.output.exists())
+
+    def test_invalid_response_removes_partial_output(self):
+        outcomes = {'JCS-01-N01': {'verdict': 'MAYBE', 'output': {}, 'effects': {}}}
+        with self.assertRaises(ValueError):
+            self.run_cases(outcomes, cases=['JCS-01-N01'])
+        self.assertFalse(self.output.exists())
+
+    def test_subject_changed_during_run_is_refused(self):
+        outcomes = {'JCS-01-N01': {'verdict': 'REJECT', 'output': {}, 'effects': {}}}
+        swap = ("open(os.environ['SAGE_CORE_ADAPTER'],'ab').write(b'x')\n")
+        env = {'SAGE_CORE_ADAPTER': str(self.subject)}
+        with mock.patch.dict(os.environ, env):
+            with self.assertRaisesRegex(ValueError, 'changed during run'):
+                runner.run(ROOT, self.bridge(outcomes, swap), 'SAGE-X-project/sage',
+                           'a' * 40, self.subject, self.output,
+                           selected=['JCS-01-N01'], runner_revision='c' * 40)
+        self.assertFalse(self.output.exists())
+
+    def test_source_fixture_drift_is_refused(self):
+        real = runner.sha
+        drifted = lambda raw: '0' * 64 if raw.startswith(b'{') and b'JCS-01-N01' in raw else real(raw)
+        with mock.patch.object(runner, 'sha', drifted):
+            with self.assertRaisesRegex(ValueError, 'source fixture drift'):
+                self.run_cases({}, cases=['JCS-01-N01'])
+
+    def test_unrouted_operations_are_not_selected(self):
+        with self.assertRaisesRegex(ValueError, 'one or more selected cases'):
+            self.run_cases({}, cases=['CARD-01-P'])
 
     def test_host_case_fixtures_are_not_selected(self):
         with self.assertRaisesRegex(ValueError, 'one or more selected cases'):

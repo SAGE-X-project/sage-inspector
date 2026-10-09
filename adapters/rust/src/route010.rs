@@ -31,9 +31,15 @@ pub fn route(op: &str) -> Option<Option<&'static str>> {
     }
 }
 
+/// Names that only `route` may produce; a request that names one directly is
+/// UNSUPPORTED in every profile.
+pub fn internal(op: &str) -> bool {
+    op.ends_with(".guard010") || op == "sage.did.validate010"
+}
+
 #[cfg(test)]
 mod tests {
-    use super::route;
+    use super::{internal, route};
 
     #[test]
     fn historical_operations_route_to_010_entry_points() {
@@ -47,6 +53,14 @@ mod tests {
             Some(Some("sage.hpke.schedule010.combine"))
         );
         assert_eq!(route("sage.http.verify"), None);
+    }
+
+    #[test]
+    fn internal_names_are_not_requestable() {
+        assert!(internal("jcs.canonicalize.guard010"));
+        assert!(internal("json.syntax.guard010.guard010"));
+        assert!(internal("sage.did.validate010"));
+        assert!(!internal("sage.did.validate"));
     }
 
     #[test]

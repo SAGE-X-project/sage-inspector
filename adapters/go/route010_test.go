@@ -51,7 +51,7 @@ func TestProfile010UsesTranscriptBoundCombiner(t *testing.T) {
 func TestProfile010NeverReachesLegacyOnlyOperations(t *testing.T) {
 	for _, op := range []string{"sage.session.record.open", "sage.session.record.seal",
 		"sage.session.record.export", "legacy.session.export-sequence",
-		"legacy.session.receive-sequence", "sage.registry.pop.verify"} {
+		"legacy.session.receive-sequence", "sage.registry.pop.verify", "x25519.exchange"} {
 		// Empty input would make the legacy path fail, so UNSUPPORTED proves it was not reached.
 		if v, _ := call(t, profile010, op, `{}`); v != "UNSUPPORTED" {
 			t.Fatalf("%s: %s", op, v)
@@ -67,6 +67,16 @@ func TestProfile010DIDRouteFollowsBuildTag(t *testing.T) {
 	}
 	if v != want {
 		t.Fatalf("strict DID route: got %s want %s", v, want)
+	}
+}
+
+func TestInternalNamesAreNotRequestable(t *testing.T) {
+	for _, profile := range []string{"primitive-foundation", profile010} {
+		for _, op := range []string{"jcs.canonicalize.guard010", "json.syntax.guard010.guard010", "sage.did.validate010"} {
+			if v, _ := call(t, profile, op, `{"document_hex":"7b7d","did":"did:sage:web:a.example:x"}`); v != "UNSUPPORTED" {
+				t.Fatalf("%s %s: %s", profile, op, v)
+			}
+		}
 	}
 }
 

@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: SAGE-X-project/sage-adk
-          ref: ccc053c898ac83d741c7f667efe48c964f6b7532
+          ref: 8111a00c964c9db3c7be4580fbe5308d4f8505b5
           path: .sage-adk
       - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
         with:
@@ -36,7 +36,8 @@ jobs:
           "${RUNNER_TEMP}/qual-venv/bin/pip" install 'cryptography==50.0.0'
       - name: Check saved evidence and refusal units
         run: |
-          if [ -f docs/evidence/adk-host-qualification.json ]; then
+          "${RUNNER_TEMP}/qual-venv/bin/python" -B scripts/inspect_adk_host_qualification.py --revision ccc053c898ac83d741c7f667efe48c964f6b7532
+          if [ -f docs/evidence/adk-host-qualification-kem-custody.json ]; then
             "${RUNNER_TEMP}/qual-venv/bin/python" -B scripts/inspect_adk_host_qualification.py
             "${RUNNER_TEMP}/qual-venv/bin/python" -B scripts/test_adk_host_qualification.py
           fi

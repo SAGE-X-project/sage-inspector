@@ -14,8 +14,12 @@ import inspect_adk_host_qualification as audit
 
 
 class HostQualificationTests(unittest.TestCase):
+    """Run against the latest pinned observation; subclasses cover earlier ones."""
+    REVISION = audit.LATEST
+
     def setUp(self):
-        self.report = audit.strict_json(audit.REPORT.read_bytes())
+        self.profile = audit.PROFILES[self.REVISION]
+        self.report = audit.strict_json(self.profile['report'].read_bytes())
         self.lines = bytes.fromhex(self.report['log_hex']).decode().split('\n')[:-1]
 
     def with_lines(self, lines):
@@ -32,10 +36,11 @@ class HostQualificationTests(unittest.TestCase):
     def test_saved_observation(self):
         summary = audit.check_report(self.report)
         self.assertEqual(summary['status'], 'SEPARATE_ACCOUNT_QUALIFICATION_OBSERVED')
-        self.assertEqual(summary['isolation_checks'], 3)
+        self.assertEqual(summary['isolation_checks'], self.profile['isolation_checks'])
+        self.assertEqual(self.report['adk_revision'], self.REVISION)
 
     def test_scope_and_provenance_never_promote(self):
-        for key in audit.SCOPE:
+        for key in self.profile['scope']:
             report = copy.deepcopy(self.report)
             report['scope'][key] = 'PASS'
             with self.subTest(key=key):
@@ -92,18 +97,32 @@ class HostQualificationTests(unittest.TestCase):
         report['log_hex'] = report['log_hex'][:-2]
         self.refused(report)
 
+    def test_profiles_do_not_accept_each_other(self):
+        for revision, profile in audit.PROFILES.items():
+            if revision == self.REVISION:
+                continue
+            report = copy.deepcopy(self.report)
+            report['adk_revision'] = revision
+            with self.subTest(revision=revision):
+                self.refused(report)
+
     def test_cli_refuses_output_without_fresh_run_and_never_overwrites(self):
         script = Path(audit.__file__)
         done = subprocess.run([sys.executable, '-B', str(script), '--output', '/tmp/x.json'],
                               capture_output=True, text=True)
         self.assertNotEqual(done.returncode, 0)
-        done = subprocess.run([sys.executable, '-B', str(script)], capture_output=True, text=True)
+        done = subprocess.run([sys.executable, '-B', str(script), '--revision', self.REVISION],
+                              capture_output=True, text=True)
         self.assertEqual(done.returncode, 0, done.stderr)
         with tempfile.TemporaryDirectory() as temp:
             missing = Path(temp) / 'none'
             done = subprocess.run([sys.executable, '-B', str(script), '--adk-root', str(missing)],
                                   capture_output=True, text=True)
             self.assertNotEqual(done.returncode, 0)
+
+
+class FirstHostQualificationTests(HostQualificationTests):
+    REVISION = 'ccc053c898ac83d741c7f667efe48c964f6b7532'
 
 
 if __name__ == '__main__':

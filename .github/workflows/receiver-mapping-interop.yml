@@ -1,0 +1,59 @@
+name: Receiver mapping MCP interop
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  receiver-mapping:
+    name: Go and Rust receivers verifying by provisioned mapping
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: SAGE-X-project/sage
+          ref: e6c40f4bddb457702810c1058eaf863bd31293ec
+          path: .sage-go
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: SAGE-X-project/rs-sage-core
+          ref: 4f691b3526063e74c4408bef9abfa998cbaf4c0d
+          path: .sage-rust
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        with:
+          go-version: '1.26.8'
+          cache: false
+      - uses: dtolnay/rust-toolchain@7e38f4b43b4db5c8dd498af069a4f6196df1d067
+        with:
+          toolchain: '1.88.0'
+      - name: Fetch public dependencies
+        run: |
+          (cd .sage-go && go mod download)
+          cp verification/0.10.0/receiver-mapping-interop/Cargo.lock .sage-rust/Cargo.lock
+          cargo fetch --locked --manifest-path .sage-rust/Cargo.toml
+          python3 -m venv "${RUNNER_TEMP}/receiver-mapping-venv"
+          "${RUNNER_TEMP}/receiver-mapping-venv/bin/pip" install 'cryptography==50.0.0'
+      - name: Verify saved evidence and rejection units
+        run: |
+          if [ -f docs/evidence/receiver-mapping-interop.json ]; then
+            "${RUNNER_TEMP}/receiver-mapping-venv/bin/python" -B scripts/inspect_receiver_mapping_interop.py
+            "${RUNNER_TEMP}/receiver-mapping-venv/bin/python" -B scripts/test_receiver_mapping_interop.py
+          fi
+      - name: Observe four native exchanges with mapping receivers
+        run: |
+          "${RUNNER_TEMP}/receiver-mapping-venv/bin/python" -B scripts/inspect_receiver_mapping_interop.py \
+            --go-root .sage-go --rust-root .sage-rust \
+            --output "${RUNNER_TEMP}/receiver-mapping-interop.json"
+      - name: Preserve receiver mapping evidence
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: receiver-mapping-interop-${{ github.sha }}
+          if-no-files-found: ignore
+          retention-days: 30
+          path: ${{ runner.temp }}/receiver-mapping-interop.json

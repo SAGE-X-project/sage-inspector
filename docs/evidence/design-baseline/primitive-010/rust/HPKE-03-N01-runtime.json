@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "spec_revision": "85fee1830b2bc0d2420557df40796ae83073de12",
+  "id": "HPKE-03-N01",
+  "track": "runtime",
+  "source_fixture_sha256": "9ff721e316b1b5e51d16486b6cd1f783e0c6638eb255cae5fd4dfdf385408e7e",
+  "subject": {
+    "repository": "SAGE-X-project/rs-sage-core",
+    "revision": "9294d17c3de54f36a239ee2318891b719a749631",
+    "executable_sha256": "09208d1736848303d6e171d99aa537a5f4bffa7d0011bef575060005abb5c9a0"
+  },
+  "actual": {
+    "verdict": "UNSUPPORTED",
+    "reason": "Core primitive adapter does not expose this operation."
+  },
+  "facts": {},
+  "environment": "local-process"
+}

@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "spec_revision": "85fee1830b2bc0d2420557df40796ae83073de12",
+  "id": "JCS-02-N01",
+  "track": "runtime",
+  "source_fixture_sha256": "f2b7062ef3ff5ffe290f7c39c8ddca768ef0a25dadc2d08faa13b14c845fd6e1",
+  "subject": {
+    "repository": "SAGE-X-project/sage",
+    "revision": "6971de244ed87e0803f256d1616e22044d68afa8",
+    "executable_sha256": "67808268f0a471d37c8705e2c6768af4bf133466d017fdda0714a709ba79f823"
+  },
+  "actual": {
+    "verdict": "REJECT",
+    "output": {
+      "control_verdict": "ACCEPT",
+      "control_output": {
+        "valid": true
+      },
+      "candidate_output": {}
+    },
+    "effects": {}
+  },
+  "facts": {
+    "subject_revision": "6971de244ed87e0803f256d1616e22044d68afa8",
+    "executable_sha256": "67808268f0a471d37c8705e2c6768af4bf133466d017fdda0714a709ba79f823",
+    "input_sha256": "2ef1ac315680cdc5807f51808735da05494fc1877c8bff6106a19a2799929e0b",
+    "actual_verdict": "REJECT",
+    "actual_output": {
+      "control_verdict": "ACCEPT",
+      "control_output": {
+        "valid": true
+      },
+      "candidate_output": {}
+    },
+    "effect_counts": {},
+    "independent_observer": {
+      "repository": "SAGE-X-project/sage-inspector",
+      "revision": "c033b42cfbb1774a99223bf36935c507659c3c58",
+      "artifact_sha256": "af2262e8ea637e126a5b45f6d89698ba466a4a0d45e95a36cace068bd8868cac"
+    }
+  },
+  "environment": "local-process"
+}

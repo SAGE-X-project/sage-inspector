@@ -33,6 +33,21 @@ is still running afterwards and stops on SIGTERM. A continuous wall-clock
 observation over the whole run must report no backward step, because the host
 clock refuses any regression.
 
+## Signer-held KEM key observation
+
+A second, separate observation pins ADK `8111a00c964c9db3c7be4580fbe5308d4f8505b5`
+with Go core `c0bac1cb5c6ef7acdbdedcb89dc47c394b473705`
+(`v1.5.3-0.20261009000821-c0bac1cb5c6e`) and is saved as
+[adk-host-qualification-kem-custody.json](evidence/adk-host-qualification-kem-custody.json).
+Signer B also holds Bob's X25519 KEM key with the `kem` role, and the receiver
+uses `NewProtectedCompletionEndpoint010`, so the receiver process holds neither a
+signing nor a KEM private key. A fourth isolation check confirms the receiver
+account cannot read that KEM key. The signer returns one X25519 shared value per
+handshake, which lets the receiver derive that handshake's secrets; this protects
+the long-term key, not the sessions of a compromised receiver. All other scope
+items and limits below apply unchanged. The first report keeps its own revision,
+line set and `RECEIVER_HOST_PROCESS` KEM scope.
+
 ## Scope and limits
 
 `SEPARATE_ACCOUNT_QUALIFICATION_OBSERVED` covers only this run. The Registry
@@ -56,6 +71,7 @@ Saved-evidence checks run anywhere:
 
 ```sh
 python3 -B scripts/inspect_adk_host_qualification.py
+python3 -B scripts/inspect_adk_host_qualification.py --revision ccc053c898ac83d741c7f667efe48c964f6b7532
 python3 -B scripts/test_adk_host_qualification.py
 ```
 
@@ -65,7 +81,8 @@ minutes:
 
 ```sh
 python3 -B scripts/inspect_adk_host_qualification.py \
-  --adk-root /path/to/sage-adk --output /tmp/new-adk-host-qualification.json
+  --adk-root /path/to/sage-adk --revision 8111a00c964c9db3c7be4580fbe5308d4f8505b5 \
+  --output /tmp/new-adk-host-qualification.json
 ```
 
 The [workflow](../.github/workflows/adk-host-qualification.yml) checks the saved

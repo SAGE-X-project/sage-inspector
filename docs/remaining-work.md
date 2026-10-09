@@ -160,6 +160,13 @@ A later observation at ADK `8111a00c964c9db3c7be4580fbe5308d4f8505b5` keeps the
 receiver's X25519 KEM key in a signer process as well, so the receiver holds no
 private key; it adds a fourth isolation check and changes no other status.
 
+The [receiver mapping interop observation](receiver-mapping-interop.md) runs four
+Go/Rust native MCP exchanges at Go `e6c40f4bddb457702810c1058eaf863bd31293ec` and
+Rust `4f691b3526063e74c4408bef9abfa998cbaf4c0d` in which the receiver verifies
+through its provisioned `(issuer, policy_digest)` mapping and holds no usable
+original. `RECEIVER_MAPPING_MCP_TCP_INTEROP` covers those exchanges with local
+fixtures only; deployed host controls stay `NOT_RUN`.
+
 ## Ordered remaining gates
 
 1. **Freeze and reconcile the 0.10.0 normative snapshot.** The coordinated

@@ -4,8 +4,8 @@ This register consolidates what the `sage-adk` host integration and the two
 cores do not yet support or bind, after the separate-account qualification and
 the 0.10.0 primitive observations. The frozen SAGE 0.10.0 source is
 `1820ab5eafb843e1c13f4c46c34aeeb28d934ac9`. Revisions: ADK
-`8111a00c964c9db3c7be4580fbe5308d4f8505b5` (Go core module
-`c0bac1cb5c6ef7acdbdedcb89dc47c394b473705`), Go core
+`c660003025038ce086a22fbd3cc56152917f88a0` (Go core module
+`6971de244ed87e0803f256d1616e22044d68afa8`), Go core
 `6971de244ed87e0803f256d1616e22044d68afa8`, Rust core
 `9294d17c3de54f36a239ee2318891b719a749631`. It adds no verdict: every status
 below comes from the linked observation or source, and items without an
@@ -21,7 +21,7 @@ observation stay `NOT_BOUND` or `NOT_RUN`. The
 | IdentityAndReadiness | None. | `NOT_BOUND`. The Registry Source is a local JSON file whose readiness flags are asserted. No blockchain Source exists in either core or ADK, and the 21 Registry mapping items stay open. |
 | MeasuredComponent | None. | `NOT_BOUND`. The calculator measurement accepts any snapshot; no Local provider binds the loaded runtime or its isolation. |
 | IntentSigner | A separate signer process under another account serves signatures over a Unix socket after a peer-credential check ([qualification](adk-host-qualification.md)). | All accounts share one kernel. This is not hardware custody, attestation or sandboxing. |
-| TransportOwner | Signer processes hold the Ed25519 and X25519 KEM keys; the receiver holds neither ([KEM custody report](evidence/adk-host-qualification-kem-custody.json)). | The signer returns one X25519 shared value per handshake, so a compromised receiver can derive that session's secrets; custody protects the long-term key only. The cores now offer an initiator-only host (`OpenMCPClientHost`, `MCPHost::open_client`) that opens no receiver services, but ADK's caller still opens a full host because its pinned core predates it. |
+| TransportOwner | Signer processes hold the Ed25519 and X25519 KEM keys; the receiver holds neither ([KEM custody report](evidence/adk-host-qualification-kem-custody.json)). | The signer returns one X25519 shared value per handshake, so a compromised receiver can derive that session's secrets; custody protects the long-term key only. Since ADK `c660003` the caller opens an initiator-only core host and signs no results ([initiator-only report](evidence/adk-host-qualification-initiator-only.json)); the receiver still opens a full host by design. |
 | AdmissionLedger | The native ledger runs in per-account state directories; ADK recovery tests cover restart paths. | A protected storage location, its owning account and an operational recovery procedure are not selected. |
 | EffectOwner | The executor re-verifies admission and intent before the compiled `2+3` calculator runs. | No selected production host executable or effect exists beyond the inert calculator. |
 | ResultConsumer | The caller verifies the signed result (`{"output":5,"success":true}`). | A protected Client checkpoint location and original Client ownership outside the qualification run are not selected. |

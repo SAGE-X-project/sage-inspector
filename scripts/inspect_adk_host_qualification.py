@@ -38,6 +38,7 @@ BASE_SCOPE = {'effect': 'COMPILED_CALCULATOR_TWO_PLUS_THREE',
          'deployed_host_controls': 'NOT_RUN', 'deployed_registry': 'NOT_RUN',
          'full_conformance': 'NOT_ESTABLISHED'}
 KEM_SCOPE = dict(BASE_SCOPE, kem_custody='SEPARATE_ACCOUNT_SIGNER_PROCESS')
+CLIENT_SCOPE = dict(KEM_SCOPE, caller_host='INITIATOR_ONLY_CORE_HOST')
 MAX_LOG = 64 * 1024
 HEX64 = '[0-9a-f]{64}'
 # Every line the run must contain, in order. Values captured from one line are
@@ -85,8 +86,13 @@ PROFILES = {
         'go_module': 'v1.5.3-0.20261009000821-c0bac1cb5c6e',
         'report': ROOT / 'docs/evidence/adk-host-qualification-kem-custody.json',
         'patterns': PATTERNS, 'scope': KEM_SCOPE, 'isolation_checks': 4},
+    'c660003025038ce086a22fbd3cc56152917f88a0': {
+        'go_revision': '6971de244ed87e0803f256d1616e22044d68afa8',
+        'go_module': 'v1.5.3-0.20261009025910-6971de244ed8',
+        'report': ROOT / 'docs/evidence/adk-host-qualification-initiator-only.json',
+        'patterns': PATTERNS, 'scope': CLIENT_SCOPE, 'isolation_checks': 4},
 }
-LATEST = '8111a00c964c9db3c7be4580fbe5308d4f8505b5'
+LATEST = 'c660003025038ce086a22fbd3cc56152917f88a0'
 REPORT = PROFILES[LATEST]['report']
 SCOPE = PROFILES[LATEST]['scope']
 

@@ -125,5 +125,9 @@ class FirstHostQualificationTests(HostQualificationTests):
     REVISION = 'ccc053c898ac83d741c7f667efe48c964f6b7532'
 
 
+class KEMCustodyHostQualificationTests(HostQualificationTests):
+    REVISION = '8111a00c964c9db3c7be4580fbe5308d4f8505b5'
+
+
 if __name__ == '__main__':
     unittest.main()

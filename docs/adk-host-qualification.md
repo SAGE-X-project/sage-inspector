@@ -48,6 +48,19 @@ the long-term key, not the sessions of a compromised receiver. All other scope
 items and limits below apply unchanged. The first report keeps its own revision,
 line set and `RECEIVER_HOST_PROCESS` KEM scope.
 
+## Initiator-only caller observation
+
+A third observation pins ADK `c660003025038ce086a22fbd3cc56152917f88a0` with Go
+core `6971de244ed87e0803f256d1616e22044d68afa8`
+(`v1.5.3-0.20261009025910-6971de244ed8`) and is saved as
+[adk-host-qualification-initiator-only.json](evidence/adk-host-qualification-initiator-only.json).
+The caller opens an initiator-only core host (`OpenMCPClientHost`) for its call
+instead of a full host with an unused admission gate, ledger, executor, policy
+and result signer, so it signs no results and signer A serves only the intent
+and transport roles. KEM custody, isolation checks, expected lines and every
+other scope item match the signer-held KEM key observation; the earlier reports
+keep their own revisions and scope.
+
 ## Scope and limits
 
 `SEPARATE_ACCOUNT_QUALIFICATION_OBSERVED` covers only this run. The Registry
@@ -81,7 +94,7 @@ minutes:
 
 ```sh
 python3 -B scripts/inspect_adk_host_qualification.py \
-  --adk-root /path/to/sage-adk --revision 8111a00c964c9db3c7be4580fbe5308d4f8505b5 \
+  --adk-root /path/to/sage-adk --revision c660003025038ce086a22fbd3cc56152917f88a0 \
   --output /tmp/new-adk-host-qualification.json
 ```
 

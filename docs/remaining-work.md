@@ -156,6 +156,9 @@ MeasuredComponent remain `NOT_BOUND`; the KEM key stays in the receiver process
 and the accounts share one kernel. The thirteen deployed host controls remain
 `NOT_RUN`, all 21 Registry mapping items stay open and full conformance remains
 `NOT_ESTABLISHED`.
+A later observation at ADK `8111a00c964c9db3c7be4580fbe5308d4f8505b5` keeps the
+receiver's X25519 KEM key in a signer process as well, so the receiver holds no
+private key; it adds a fourth isolation check and changes no other status.
 
 ## Ordered remaining gates
 

@@ -64,7 +64,9 @@ Operations whose only core implementation is a legacy API (legacy record
 sessions, legacy sequence sessions, legacy key proof-of-possession and the
 general X25519 primitive) report `UNSUPPORTED` instead of reaching it. The
 default `primitive-foundation` profile keeps its historical behavior for older
-evidence. Host-case and evidence-review fixtures stay `NOT_RUN` in this runner.
+evidence. The runner pins the repository bridge and selects only operations
+that the bridge or the generic adapters route; the rest stay `NOT_RUN`, so an
+Inspector coverage gap is never reported as a subject result.
 
 This closure permits the planned stage 2–3 library and Agent-client
 integration analysis. The complete Go/Rust refactor, selected Agent-host and

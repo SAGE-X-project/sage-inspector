@@ -267,7 +267,9 @@ def observe_expired_management(binary, core_binary, directory, config_path, conf
     expired_config['create'] = True
     trimmed = copy.deepcopy(record)
     trimmed['keys'] = trimmed['keys'][:2]
-    expiry = int(time.time()) + 20
+    # The record, grant and Go core read must all complete before this expiry.
+    # Slow shared runners have exceeded a 20-second window.
+    expiry = int(time.time()) + 60
     trimmed['keys'][0]['expires'] = expiry
     process, ready = start(binary, config_path, expired_config)
     try:
@@ -283,6 +285,10 @@ def observe_expired_management(binary, core_binary, directory, config_path, conf
                                scope='add-key'), controller) == 204,
                 'pre-expiry grant failed')
         before_read = core_registry_read(core_binary, ready, certs)
+        # A read that finished after expiry says nothing about the core; refuse
+        # the run instead of reporting a core rejection.
+        require(time.time() < expiry,
+                'pre-expiry window ended before the Go core Registry read finished')
         require(before_read == 'RECORD_ACCEPT',
                 f'Go core rejected the valid pre-expiry Registry read: {before_read}')
         time.sleep(max(0, expiry + 1 - time.time()))

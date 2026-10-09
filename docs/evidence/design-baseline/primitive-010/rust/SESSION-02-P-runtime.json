@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "spec_revision": "85fee1830b2bc0d2420557df40796ae83073de12",
+  "id": "SESSION-02-P",
+  "track": "runtime",
+  "source_fixture_sha256": "ebcff0b04e2b67121135042cf010f20b16d7ced939ca8bcbd4e943c91066c5c2",
+  "subject": {
+    "repository": "SAGE-X-project/rs-sage-core",
+    "revision": "9294d17c3de54f36a239ee2318891b719a749631",
+    "executable_sha256": "09208d1736848303d6e171d99aa537a5f4bffa7d0011bef575060005abb5c9a0"
+  },
+  "actual": {
+    "verdict": "ACCEPT",
+    "output": {
+      "opened": {
+        "c2s-open-255": "7075626c69632073657373696f6e207265636f7264",
+        "c2s-open-256": "7075626c69632073657373696f6e207265636f7264",
+        "c2s-open-999": "7075626c69632073657373696f6e207265636f7264",
+        "s2c-open-255": "7075626c69632073657373696f6e207265636f7264",
+        "s2c-open-256": "7075626c69632073657373696f6e207265636f7264",
+        "s2c-open-999": "7075626c69632073657373696f6e207265636f7264"
+      }
+    },
+    "effects": {}
+  },
+  "facts": {
+    "subject_revision": "9294d17c3de54f36a239ee2318891b719a749631",
+    "executable_sha256": "09208d1736848303d6e171d99aa537a5f4bffa7d0011bef575060005abb5c9a0",
+    "input_sha256": "41c5237c22cdd44ee8e261d9170a1c527b0c37e26f8f9500270a0860c82cd85c",
+    "actual_verdict": "ACCEPT",
+    "actual_output": {
+      "opened": {
+        "c2s-open-255": "7075626c69632073657373696f6e207265636f7264",
+        "c2s-open-256": "7075626c69632073657373696f6e207265636f7264",
+        "c2s-open-999": "7075626c69632073657373696f6e207265636f7264",
+        "s2c-open-255": "7075626c69632073657373696f6e207265636f7264",
+        "s2c-open-256": "7075626c69632073657373696f6e207265636f7264",
+        "s2c-open-999": "7075626c69632073657373696f6e207265636f7264"
+      }
+    },
+    "effect_counts": {},
+    "independent_observer": {
+      "repository": "SAGE-X-project/sage-inspector",
+      "revision": "c033b42cfbb1774a99223bf36935c507659c3c58",
+      "artifact_sha256": "af2262e8ea637e126a5b45f6d89698ba466a4a0d45e95a36cace068bd8868cac"
+    }
+  },
+  "environment": "local-process"
+}

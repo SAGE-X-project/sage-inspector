@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "spec_revision": "85fee1830b2bc0d2420557df40796ae83073de12",
+  "id": "CST-02-02",
+  "track": "runtime",
+  "source_fixture_sha256": "f58379b6606a4df83bfc6611c3333607afdff37c1d04ba319578268d05d39ddf",
+  "subject": {
+    "repository": "SAGE-X-project/rs-sage-core",
+    "revision": "9294d17c3de54f36a239ee2318891b719a749631",
+    "executable_sha256": "09208d1736848303d6e171d99aa537a5f4bffa7d0011bef575060005abb5c9a0"
+  },
+  "actual": {
+    "verdict": "ACCEPT",
+    "output": {
+      "control_digest": "c18bd407ee9574cea71d0e03556893ab65008e11cd45f554b5d750fed5c69263",
+      "candidate_digest": "a96b5f31b50b261e62abb790bcf49290161a2ee63b7e4a47f782f1836863147d"
+    },
+    "effects": {}
+  },
+  "facts": {
+    "subject_revision": "9294d17c3de54f36a239ee2318891b719a749631",
+    "executable_sha256": "09208d1736848303d6e171d99aa537a5f4bffa7d0011bef575060005abb5c9a0",
+    "input_sha256": "dc578b9fe91cbb0f06a9bd3c9e7afce0285adae0da099234629d4f7b69a44901",
+    "actual_verdict": "ACCEPT",
+    "actual_output": {
+      "control_digest": "c18bd407ee9574cea71d0e03556893ab65008e11cd45f554b5d750fed5c69263",
+      "candidate_digest": "a96b5f31b50b261e62abb790bcf49290161a2ee63b7e4a47f782f1836863147d"
+    },
+    "effect_counts": {},
+    "independent_observer": {
+      "repository": "SAGE-X-project/sage-inspector",
+      "revision": "c033b42cfbb1774a99223bf36935c507659c3c58",
+      "artifact_sha256": "af2262e8ea637e126a5b45f6d89698ba466a4a0d45e95a36cace068bd8868cac"
+    }
+  },
+  "environment": "local-process"
+}

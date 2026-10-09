@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "spec_revision": "85fee1830b2bc0d2420557df40796ae83073de12",
+  "id": "EXEC-08-N06",
+  "track": "runtime",
+  "source_fixture_sha256": "8253c53c2a71b4b3344600ac59d20f31d488fe3a896582aad791d0217f10b133",
+  "subject": {
+    "repository": "SAGE-X-project/rs-sage-core",
+    "revision": "9294d17c3de54f36a239ee2318891b719a749631",
+    "executable_sha256": "09208d1736848303d6e171d99aa537a5f4bffa7d0011bef575060005abb5c9a0"
+  },
+  "actual": {
+    "verdict": "REJECT",
+    "output": {},
+    "effects": {}
+  },
+  "facts": {
+    "subject_revision": "9294d17c3de54f36a239ee2318891b719a749631",
+    "executable_sha256": "09208d1736848303d6e171d99aa537a5f4bffa7d0011bef575060005abb5c9a0",
+    "input_sha256": "dd2b27fda9405f8d1e12cacc49867b851258d08dc4f790d5dea1230d5d553bf0",
+    "actual_verdict": "REJECT",
+    "actual_output": {},
+    "effect_counts": {},
+    "independent_observer": {
+      "repository": "SAGE-X-project/sage-inspector",
+      "revision": "c033b42cfbb1774a99223bf36935c507659c3c58",
+      "artifact_sha256": "af2262e8ea637e126a5b45f6d89698ba466a4a0d45e95a36cace068bd8868cac"
+    }
+  },
+  "environment": "local-process"
+}

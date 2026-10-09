@@ -68,6 +68,17 @@ evidence. The runner pins the repository bridge and selects only operations
 that the bridge or the generic adapters route; the rest stay `NOT_RUN`, so an
 Inspector coverage gap is never reported as a subject result.
 
+[Saved observations](evidence/design-baseline/primitive-010/) of Go
+`6971de2` and Rust `9294d17`, captured by that runner at `c033b42` with the
+strict DID path built in, report 74 runtime observations per core: 73
+`PARTIAL`, 1 `UNSUPPORTED` (HPKE-03-N01, no standalone 0.10.0 X25519
+exchange) and 415 `NOT_RUN` parent cases, with identical Go and Rust case
+statuses. [The checker](../scripts/check_design_baseline_primitive_evidence.py)
+re-assesses them, and CI rebuilds both adapters against the pinned cores with
+a [pinned Rust lock](../verification/0.10.0/design-baseline-primitive-010/Cargo.lock),
+re-runs the cases and compares every outcome. This is bounded local-process
+evidence for partial fixture contracts, not full-case or conformance evidence.
+
 This closure permits the planned stage 2–3 library and Agent-client
 integration analysis. The complete Go/Rust refactor, selected Agent-host and
 Registry Source deployments, all case execution, public problem-type URIs,

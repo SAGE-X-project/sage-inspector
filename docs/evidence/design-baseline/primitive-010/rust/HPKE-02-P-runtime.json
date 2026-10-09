@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "spec_revision": "85fee1830b2bc0d2420557df40796ae83073de12",
+  "id": "HPKE-02-P",
+  "track": "runtime",
+  "source_fixture_sha256": "c1f94aa69ed57b8f79824f19bc39f58fca0e4c5e39801ccc9fedbc8ac8c03484",
+  "subject": {
+    "repository": "SAGE-X-project/rs-sage-core",
+    "revision": "9294d17c3de54f36a239ee2318891b719a749631",
+    "executable_sha256": "09208d1736848303d6e171d99aa537a5f4bffa7d0011bef575060005abb5c9a0"
+  },
+  "actual": {
+    "verdict": "ACCEPT",
+    "output": {
+      "exporter_hex": "a8de62cfb50aae8058d494a86b9420a9a04fbb5f19c4b25bda7c4cf251aa882c"
+    },
+    "effects": {}
+  },
+  "facts": {
+    "subject_revision": "9294d17c3de54f36a239ee2318891b719a749631",
+    "executable_sha256": "09208d1736848303d6e171d99aa537a5f4bffa7d0011bef575060005abb5c9a0",
+    "input_sha256": "04f6bdd85fd95d19c531990b852b4b5974697c6e232d52218b116742bf793d2e",
+    "actual_verdict": "ACCEPT",
+    "actual_output": {
+      "exporter_hex": "a8de62cfb50aae8058d494a86b9420a9a04fbb5f19c4b25bda7c4cf251aa882c"
+    },
+    "effect_counts": {},
+    "independent_observer": {
+      "repository": "SAGE-X-project/sage-inspector",
+      "revision": "c033b42cfbb1774a99223bf36935c507659c3c58",
+      "artifact_sha256": "af2262e8ea637e126a5b45f6d89698ba466a4a0d45e95a36cace068bd8868cac"
+    }
+  },
+  "environment": "local-process"
+}

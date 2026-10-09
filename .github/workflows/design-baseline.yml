@@ -41,3 +41,51 @@ jobs:
           path: |
             ${{ runner.temp }}/design-baseline-catalog.json
             ${{ runner.temp }}/design-baseline-evidence.json
+
+  primitive-010:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          path: sage-inspector
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: SAGE-X-project/sage
+          ref: 6971de244ed87e0803f256d1616e22044d68afa8
+          path: sage
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: SAGE-X-project/rs-sage-core
+          ref: 9294d17c3de54f36a239ee2318891b719a749631
+          path: rs-sage-core
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
+        with:
+          go-version-file: sage-inspector/go.mod
+          cache-dependency-path: sage-inspector/adapters/go/go.sum
+      - name: Install Rust
+        run: rustup toolchain install 1.88.0 --profile minimal
+      - name: Build strict 0.10.0 adapters against the pinned cores
+        working-directory: sage-inspector
+        env:
+          RUSTUP_TOOLCHAIN: 1.88.0
+        run: |
+          cp verification/0.10.0/design-baseline-primitive-010/Cargo.lock adapters/rust/Cargo.lock
+          (cd adapters/go && go test -race -tags strictdid010 . && go build -tags strictdid010 -trimpath -o "${RUNNER_TEMP}/go-010" .)
+          cargo test --locked --features strictdid010 --manifest-path adapters/rust/Cargo.toml --target-dir "${RUNNER_TEMP}/rust-010" --bin sage-inspector-rust-adapter
+          cargo build --locked --features strictdid010 --manifest-path adapters/rust/Cargo.toml --target-dir "${RUNNER_TEMP}/rust-010" --bin sage-inspector-rust-adapter
+      - name: Re-run and compare with saved observations
+        working-directory: sage-inspector
+        run: |
+          python3 -B scripts/test_check_design_baseline_primitive_evidence.py
+          SAGE_CORE_ADAPTER="${RUNNER_TEMP}/go-010" python3 -B scripts/run_design_baseline_cases.py --adapter scripts/current_spec_primitive_bridge.py --repository SAGE-X-project/sage --revision 6971de244ed87e0803f256d1616e22044d68afa8 --subject-executable "${RUNNER_TEMP}/go-010" --output "${RUNNER_TEMP}/primitive-010/go"
+          SAGE_CORE_ADAPTER="${RUNNER_TEMP}/rust-010/debug/sage-inspector-rust-adapter" python3 -B scripts/run_design_baseline_cases.py --adapter scripts/current_spec_primitive_bridge.py --repository SAGE-X-project/rs-sage-core --revision 9294d17c3de54f36a239ee2318891b719a749631 --subject-executable "${RUNNER_TEMP}/rust-010/debug/sage-inspector-rust-adapter" --output "${RUNNER_TEMP}/primitive-010/rust"
+          python3 -B scripts/check_design_baseline_primitive_evidence.py --rerun go "${RUNNER_TEMP}/primitive-010/go" --rerun rust "${RUNNER_TEMP}/primitive-010/rust"
+      - name: Preserve the re-run observations
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: design-baseline-primitive-010-${{ github.sha }}
+          if-no-files-found: ignore
+          retention-days: 30
+          path: ${{ runner.temp }}/primitive-010/

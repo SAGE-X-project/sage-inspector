@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "spec_revision": "85fee1830b2bc0d2420557df40796ae83073de12",
+  "id": "SESSION-01-P",
+  "track": "runtime",
+  "source_fixture_sha256": "ab85bc0ff498bb990e75fbbc56ed64ffa886c96d9a4e7621d7e1ec6debf3c4a0",
+  "subject": {
+    "repository": "SAGE-X-project/sage",
+    "revision": "6971de244ed87e0803f256d1616e22044d68afa8",
+    "executable_sha256": "67808268f0a471d37c8705e2c6768af4bf133466d017fdda0714a709ba79f823"
+  },
+  "actual": {
+    "verdict": "ACCEPT",
+    "output": {
+      "c2s_sid": "7_DwdcM8kMwneSBrBd-9Yg",
+      "s2c_sid": "7_DwdcM8kMwneSBrBd-9Yg"
+    },
+    "effects": {}
+  },
+  "facts": {
+    "subject_revision": "6971de244ed87e0803f256d1616e22044d68afa8",
+    "executable_sha256": "67808268f0a471d37c8705e2c6768af4bf133466d017fdda0714a709ba79f823",
+    "input_sha256": "f64aad28adb12dad984a30e7f11b3aef1f7d2675e4eb85ab2c63aedc08c378c3",
+    "actual_verdict": "ACCEPT",
+    "actual_output": {
+      "c2s_sid": "7_DwdcM8kMwneSBrBd-9Yg",
+      "s2c_sid": "7_DwdcM8kMwneSBrBd-9Yg"
+    },
+    "effect_counts": {},
+    "independent_observer": {
+      "repository": "SAGE-X-project/sage-inspector",
+      "revision": "c033b42cfbb1774a99223bf36935c507659c3c58",
+      "artifact_sha256": "af2262e8ea637e126a5b45f6d89698ba466a4a0d45e95a36cace068bd8868cac"
+    }
+  },
+  "environment": "local-process"
+}

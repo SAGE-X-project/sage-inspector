@@ -21,6 +21,12 @@ consolidate what the separate-account `sage-adk` host integration and the
 including the reason for each of the 415 design-baseline parent cases that
 remain `NOT_RUN`. It changes no verdict and closes none of the gates below.
 
+2026-10-10 addendum: the [core refactoring and ADK host integration verdict](core-host-integration-verdict.md)
+is `BOUNDED_CORE_HOST_INTEGRATION` at Go core `4e4ca2c`, Rust core `2ee96e9`
+and ADK `c7890e1`. IdentityAndReadiness and MeasuredComponent stay `NOT_BOUND`,
+deployed controls stay `NOT_RUN` and full conformance stays
+`NOT_ESTABLISHED`; it closes none of the gates below.
+
 2026-10-03 first-stage closure: the
 [design/Inspector tooling verdict](first-stage-completion.md) is
 `TOOLING_READY` at `sage-spec`

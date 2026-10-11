@@ -1,0 +1,1022 @@
+{
+  "adk_module": "v0.0.0-20261010085535-c7890e1ba443",
+  "binary_sha256": "1e8a163febd71d6ec9c240fb7faec96883e41032118c49fc82d172cbbf963630",
+  "compare": "scenario      baseline                                                     sage\nnormal        accepted, 10 transfers, no harm                              accepted, 10 transfers, no harm\ntamper-args   accepted, 1 transfers, HARMED (2)                            refused, 0 transfers, no harm\nreplay        accepted, resend answered 2 frames, 2 transfers, HARMED (1)  accepted, resend answered 0 frames, 1 transfers, no harm\nunapproved    accepted, 1 transfers, HARMED (1)                            refused, 0 transfers, no harm\nforge-result  accepted, 1 transfers, HARMED (1)                            refused, 1 transfers (ran, but the agent did not accept the result), no harm\n\nbaseline normal latency: median 1.11 ms, min 0.87 ms, max 1.85 ms over 10 calls\nsage normal latency: median 1158.53 ms, min 1153.70 ms, max 1195.01 ms over 10 calls\nsage setup: 366.3 s in total, of which 365.1 s waiting out the replay quarantine\n\nThe SAGE run uses a synthetic Registry Source and an accept-all measurement on one account; it is not a conformance verdict.\n",
+  "compiler": "go version go1.26.8 linux/arm64",
+  "core_module": "v1.5.3-0.20261009164347-40809355bd4d",
+  "demo_revision": "c7e64adf486f394b2c9bdbefc4d95a83a742a831",
+  "kernel": "6.17.0-1022-azure",
+  "kind": "demo-comparison",
+  "normative_source_revision": "1820ab5eafb843e1c13f4c46c34aeeb28d934ac9",
+  "protocol_version": "0.10.0",
+  "runs": [
+    {
+      "accepted": true,
+      "as_expected": true,
+      "calls": [
+        {
+          "elapsed_ms": 1.85,
+          "result": {
+            "balance": 990,
+            "transfer_id": "t-000001"
+          }
+        },
+        {
+          "elapsed_ms": 1.37,
+          "result": {
+            "balance": 980,
+            "transfer_id": "t-000002"
+          }
+        },
+        {
+          "elapsed_ms": 1.07,
+          "result": {
+            "balance": 970,
+            "transfer_id": "t-000003"
+          }
+        },
+        {
+          "elapsed_ms": 0.95,
+          "result": {
+            "balance": 960,
+            "transfer_id": "t-000004"
+          }
+        },
+        {
+          "elapsed_ms": 0.87,
+          "result": {
+            "balance": 950,
+            "transfer_id": "t-000005"
+          }
+        },
+        {
+          "elapsed_ms": 1.01,
+          "result": {
+            "balance": 940,
+            "transfer_id": "t-000006"
+          }
+        },
+        {
+          "elapsed_ms": 1.52,
+          "result": {
+            "balance": 930,
+            "transfer_id": "t-000007"
+          }
+        },
+        {
+          "elapsed_ms": 1.06,
+          "result": {
+            "balance": 920,
+            "transfer_id": "t-000008"
+          }
+        },
+        {
+          "elapsed_ms": 1.22,
+          "result": {
+            "balance": 910,
+            "transfer_id": "t-000009"
+          }
+        },
+        {
+          "elapsed_ms": 1.11,
+          "result": {
+            "balance": 900,
+            "transfer_id": "t-000010"
+          }
+        }
+      ],
+      "expected": {
+        "accepted": true,
+        "harmed": false
+      },
+      "fault_changed": [],
+      "harms": [],
+      "latency": {
+        "max_ms": 1.85,
+        "median_ms": 1.11,
+        "min_ms": 0.87
+      },
+      "ledger": [
+        {
+          "amount": 10,
+          "currency": "DEMO",
+          "id": "t-000001",
+          "to": "did:sage:web:agent.example:carol"
+        },
+        {
+          "amount": 10,
+          "currency": "DEMO",
+          "id": "t-000002",
+          "to": "did:sage:web:agent.example:carol"
+        },
+        {
+          "amount": 10,
+          "currency": "DEMO",
+          "id": "t-000003",
+          "to": "did:sage:web:agent.example:carol"
+        },
+        {
+          "amount": 10,
+          "currency": "DEMO",
+          "id": "t-000004",
+          "to": "did:sage:web:agent.example:carol"
+        },
+        {
+          "amount": 10,
+          "currency": "DEMO",
+          "id": "t-000005",
+          "to": "did:sage:web:agent.example:carol"
+        },
+        {
+          "amount": 10,
+          "currency": "DEMO",
+          "id": "t-000006",
+          "to": "did:sage:web:agent.example:carol"
+        },
+        {
+          "amount": 10,
+          "currency": "DEMO",
+          "id": "t-000007",
+          "to": "did:sage:web:agent.example:carol"
+        },
+        {
+          "amount": 10,
+          "currency": "DEMO",
+          "id": "t-000008",
+          "to": "did:sage:web:agent.example:carol"
+        },
+        {
+          "amount": 10,
+          "currency": "DEMO",
+          "id": "t-000009",
+          "to": "did:sage:web:agent.example:carol"
+        },
+        {
+          "amount": 10,
+          "currency": "DEMO",
+          "id": "t-000010",
+          "to": "did:sage:web:agent.example:carol"
+        }
+      ],
+      "mismatches": [],
+      "mode": "baseline",
+      "name": "baseline-normal-20261011T053738.672148842Z",
+      "notes": [
+        "Unprotected MCP JSON-RPC over loopback TCP; the agent cannot check who answered or whether bytes changed."
+      ],
+      "relay_frames": [
+        {
+          "requests": 3,
+          "responses": 2
+        },
+        {
+          "requests": 3,
+          "responses": 2
+        },
+        {
+          "requests": 3,
+          "responses": 2
+        },
+        {
+          "requests": 3,
+          "responses": 2
+        },
+        {
+          "requests": 3,
+          "responses": 2
+        },
+        {
+          "requests": 3,
+          "responses": 2
+        },
+        {
+          "requests": 3,
+          "responses": 2
+        },
+        {
+          "requests": 3,
+          "responses": 2
+        },
+        {
+          "requests": 3,
+          "responses": 2
+        },
+        {
+          "requests": 3,
+          "responses": 2
+        }
+      ],
+      "requested": {
+        "amount": 10,
+        "currency": "DEMO",
+        "to": "did:sage:web:agent.example:carol"
+      },
+      "revisions": {
+        "adk": "v0.0.0-20261010085535-c7890e1ba443",
+        "core": "v1.5.3-0.20261009164347-40809355bd4d",
+        "demo": "c7e64adf486f394b2c9bdbefc4d95a83a742a831",
+        "go": "go1.26.8",
+        "spec": "1820ab5eafb843e1c13f4c46c34aeeb28d934ac9"
+      },
+      "scenario": "normal",
+      "started": "2026-10-11T05:37:38.672171945Z"
+    },
+    {
+      "accepted": true,
+      "as_expected": true,
+      "calls": [
+        {
+          "elapsed_ms": 2.07,
+          "result": {
+            "balance": 10,
+            "transfer_id": "t-000001"
+          }
+        }
+      ],
+      "expected": {
+        "accepted": true,
+        "harmed": true
+      },
+      "fault_changed": [
+        {
+          "direction": "request",
+          "index": 2
+        }
+      ],
+      "harms": [
+        "t-000001: transferred 990 to did:sage:web:agent.example:mallory, which the agent did not ask for",
+        "t-000001: transferred 990 to did:sage:web:agent.example:mallory, outside the approved operation"
+      ],
+      "latency": {
+        "max_ms": 2.07,
+        "median_ms": 2.07,
+        "min_ms": 2.07
+      },
+      "ledger": [
+        {
+          "amount": 990,
+          "currency": "DEMO",
+          "id": "t-000001",
+          "to": "did:sage:web:agent.example:mallory"
+        }
+      ],
+      "mismatches": [],
+      "mode": "baseline",
+      "name": "baseline-tamper-args-20261011T053738.694630524Z",
+      "notes": [
+        "Unprotected MCP JSON-RPC over loopback TCP; the agent cannot check who answered or whether bytes changed."
+      ],
+      "relay_frames": [
+        {
+          "requests": 3,
+          "responses": 2
+        }
+      ],
+      "requested": {
+        "amount": 10,
+        "currency": "DEMO",
+        "to": "did:sage:web:agent.example:carol"
+      },
+      "revisions": {
+        "adk": "v0.0.0-20261010085535-c7890e1ba443",
+        "core": "v1.5.3-0.20261009164347-40809355bd4d",
+        "demo": "c7e64adf486f394b2c9bdbefc4d95a83a742a831",
+        "go": "go1.26.8",
+        "spec": "1820ab5eafb843e1c13f4c46c34aeeb28d934ac9"
+      },
+      "scenario": "tamper-args",
+      "started": "2026-10-11T05:37:38.69465653Z"
+    },
+    {
+      "accepted": true,
+      "as_expected": true,
+      "calls": [
+        {
+          "elapsed_ms": 1.8,
+          "result": {
+            "balance": 990,
+            "transfer_id": "t-000001"
+          }
+        }
+      ],
+      "expected": {
+        "accepted": true,
+        "harmed": true
+      },
+      "fault_changed": [],
+      "harms": [
+        "the ledger holds 2 transfers for 1 agent calls"
+      ],
+      "latency": {
+        "max_ms": 1.8,
+        "median_ms": 1.8,
+        "min_ms": 1.8
+      },
+      "ledger": [
+        {
+          "amount": 10,
+          "currency": "DEMO",
+          "id": "t-000001",
+          "to": "did:sage:web:agent.example:carol"
+        },
+        {
+          "amount": 10,
+          "currency": "DEMO",
+          "id": "t-000002",
+          "to": "did:sage:web:agent.example:carol"
+        }
+      ],
+      "mismatches": [],
+      "mode": "baseline",
+      "name": "baseline-replay-20261011T053738.706878167Z",
+      "notes": [
+        "Unprotected MCP JSON-RPC over loopback TCP; the agent cannot check who answered or whether bytes changed."
+      ],
+      "relay_frames": [
+        {
+          "requests": 3,
+          "responses": 2
+        }
+      ],
+      "replay": {
+        "answered_frames": 2
+      },
+      "requested": {
+        "amount": 10,
+        "currency": "DEMO",
+        "to": "did:sage:web:agent.example:carol"
+      },
+      "revisions": {
+        "adk": "v0.0.0-20261010085535-c7890e1ba443",
+        "core": "v1.5.3-0.20261009164347-40809355bd4d",
+        "demo": "c7e64adf486f394b2c9bdbefc4d95a83a742a831",
+        "go": "go1.26.8",
+        "spec": "1820ab5eafb843e1c13f4c46c34aeeb28d934ac9"
+      },
+      "scenario": "replay",
+      "started": "2026-10-11T05:37:38.706896397Z"
+    },
+    {
+      "accepted": true,
+      "as_expected": true,
+      "calls": [
+        {
+          "elapsed_ms": 7.32,
+          "result": {
+            "balance": 10,
+            "transfer_id": "t-000001"
+          }
+        }
+      ],
+      "expected": {
+        "accepted": true,
+        "harmed": true
+      },
+      "fault_changed": [],
+      "harms": [
+        "t-000001: transferred 990 to did:sage:web:agent.example:mallory, outside the approved operation"
+      ],
+      "latency": {
+        "max_ms": 7.32,
+        "median_ms": 7.32,
+        "min_ms": 7.32
+      },
+      "ledger": [
+        {
+          "amount": 990,
+          "currency": "DEMO",
+          "id": "t-000001",
+          "to": "did:sage:web:agent.example:mallory"
+        }
+      ],
+      "mismatches": [],
+      "mode": "baseline",
+      "name": "baseline-unapproved-20261011T053741.719579867Z",
+      "notes": [
+        "Unprotected MCP JSON-RPC over loopback TCP; the agent cannot check who answered or whether bytes changed."
+      ],
+      "relay_frames": [
+        {
+          "requests": 3,
+          "responses": 2
+        }
+      ],
+      "requested": {
+        "amount": 990,
+        "currency": "DEMO",
+        "to": "did:sage:web:agent.example:mallory"
+      },
+      "revisions": {
+        "adk": "v0.0.0-20261010085535-c7890e1ba443",
+        "core": "v1.5.3-0.20261009164347-40809355bd4d",
+        "demo": "c7e64adf486f394b2c9bdbefc4d95a83a742a831",
+        "go": "go1.26.8",
+        "spec": "1820ab5eafb843e1c13f4c46c34aeeb28d934ac9"
+      },
+      "scenario": "unapproved",
+      "started": "2026-10-11T05:37:41.719600114Z"
+    },
+    {
+      "accepted": true,
+      "as_expected": true,
+      "calls": [
+        {
+          "elapsed_ms": 1.74,
+          "result": {
+            "balance": 1000,
+            "transfer_id": "t-000999"
+          }
+        }
+      ],
+      "expected": {
+        "accepted": true,
+        "harmed": true
+      },
+      "fault_changed": [
+        {
+          "direction": "response",
+          "index": 1
+        }
+      ],
+      "harms": [
+        "call 1: the agent accepted {\"balance\":1000,\"transfer_id\":\"t-000999\"}, which matches no ledger state after its transfer"
+      ],
+      "latency": {
+        "max_ms": 1.74,
+        "median_ms": 1.74,
+        "min_ms": 1.74
+      },
+      "ledger": [
+        {
+          "amount": 10,
+          "currency": "DEMO",
+          "id": "t-000001",
+          "to": "did:sage:web:agent.example:carol"
+        }
+      ],
+      "mismatches": [],
+      "mode": "baseline",
+      "name": "baseline-forge-result-20261011T053741.736477427Z",
+      "notes": [
+        "Unprotected MCP JSON-RPC over loopback TCP; the agent cannot check who answered or whether bytes changed."
+      ],
+      "relay_frames": [
+        {
+          "requests": 3,
+          "responses": 2
+        }
+      ],
+      "requested": {
+        "amount": 10,
+        "currency": "DEMO",
+        "to": "did:sage:web:agent.example:carol"
+      },
+      "revisions": {
+        "adk": "v0.0.0-20261010085535-c7890e1ba443",
+        "core": "v1.5.3-0.20261009164347-40809355bd4d",
+        "demo": "c7e64adf486f394b2c9bdbefc4d95a83a742a831",
+        "go": "go1.26.8",
+        "spec": "1820ab5eafb843e1c13f4c46c34aeeb28d934ac9"
+      },
+      "scenario": "forge-result",
+      "started": "2026-10-11T05:37:41.736499418Z"
+    },
+    {
+      "accepted": true,
+      "as_expected": true,
+      "calls": [
+        {
+          "elapsed_ms": 1158.05,
+          "result": {
+            "balance": 990,
+            "transfer_id": "t-000001"
+          }
+        },
+        {
+          "elapsed_ms": 1153.7,
+          "result": {
+            "balance": 980,
+            "transfer_id": "t-000002"
+          }
+        },
+        {
+          "elapsed_ms": 1156.49,
+          "result": {
+            "balance": 970,
+            "transfer_id": "t-000003"
+          }
+        },
+        {
+          "elapsed_ms": 1158.53,
+          "result": {
+            "balance": 960,
+            "transfer_id": "t-000004"
+          }
+        },
+        {
+          "elapsed_ms": 1195.01,
+          "result": {
+            "balance": 950,
+            "transfer_id": "t-000005"
+          }
+        },
+        {
+          "elapsed_ms": 1164.36,
+          "result": {
+            "balance": 940,
+            "transfer_id": "t-000006"
+          }
+        },
+        {
+          "elapsed_ms": 1157.13,
+          "result": {
+            "balance": 930,
+            "transfer_id": "t-000007"
+          }
+        },
+        {
+          "elapsed_ms": 1169.96,
+          "result": {
+            "balance": 920,
+            "transfer_id": "t-000008"
+          }
+        },
+        {
+          "elapsed_ms": 1159.55,
+          "result": {
+            "balance": 910,
+            "transfer_id": "t-000009"
+          }
+        },
+        {
+          "elapsed_ms": 1154.71,
+          "result": {
+            "balance": 900,
+            "transfer_id": "t-000010"
+          }
+        }
+      ],
+      "expected": {
+        "accepted": true,
+        "harmed": false
+      },
+      "fault_changed": [],
+      "harms": [],
+      "latency": {
+        "max_ms": 1195.01,
+        "median_ms": 1158.53,
+        "min_ms": 1153.7
+      },
+      "ledger": [
+        {
+          "amount": 10,
+          "currency": "DEMO",
+          "id": "t-000001",
+          "to": "did:sage:web:agent.example:carol"
+        },
+        {
+          "amount": 10,
+          "currency": "DEMO",
+          "id": "t-000002",
+          "to": "did:sage:web:agent.example:carol"
+        },
+        {
+          "amount": 10,
+          "currency": "DEMO",
+          "id": "t-000003",
+          "to": "did:sage:web:agent.example:carol"
+        },
+        {
+          "amount": 10,
+          "currency": "DEMO",
+          "id": "t-000004",
+          "to": "did:sage:web:agent.example:carol"
+        },
+        {
+          "amount": 10,
+          "currency": "DEMO",
+          "id": "t-000005",
+          "to": "did:sage:web:agent.example:carol"
+        },
+        {
+          "amount": 10,
+          "currency": "DEMO",
+          "id": "t-000006",
+          "to": "did:sage:web:agent.example:carol"
+        },
+        {
+          "amount": 10,
+          "currency": "DEMO",
+          "id": "t-000007",
+          "to": "did:sage:web:agent.example:carol"
+        },
+        {
+          "amount": 10,
+          "currency": "DEMO",
+          "id": "t-000008",
+          "to": "did:sage:web:agent.example:carol"
+        },
+        {
+          "amount": 10,
+          "currency": "DEMO",
+          "id": "t-000009",
+          "to": "did:sage:web:agent.example:carol"
+        },
+        {
+          "amount": 10,
+          "currency": "DEMO",
+          "id": "t-000010",
+          "to": "did:sage:web:agent.example:carol"
+        }
+      ],
+      "mismatches": [],
+      "mode": "sage",
+      "name": "sage-normal-20261011T053741.747479183Z",
+      "notes": [
+        "The Registry Source is a local file whose readiness flags are asserted; it observes no chain.",
+        "The tool measurement accepts any snapshot.",
+        "All processes run as one account on one kernel.",
+        "The host returns one error code for every refusal; the report does not claim a refusal stage.",
+        "A demo run is not a conformance verdict or deployment evidence."
+      ],
+      "relay_frames": [
+        {
+          "requests": 6,
+          "responses": 6
+        },
+        {
+          "requests": 6,
+          "responses": 6
+        },
+        {
+          "requests": 6,
+          "responses": 6
+        },
+        {
+          "requests": 6,
+          "responses": 6
+        },
+        {
+          "requests": 6,
+          "responses": 6
+        },
+        {
+          "requests": 6,
+          "responses": 6
+        },
+        {
+          "requests": 6,
+          "responses": 6
+        },
+        {
+          "requests": 6,
+          "responses": 6
+        },
+        {
+          "requests": 6,
+          "responses": 6
+        },
+        {
+          "requests": 6,
+          "responses": 6
+        }
+      ],
+      "requested": {
+        "amount": 10,
+        "currency": "DEMO",
+        "to": "did:sage:web:agent.example:carol"
+      },
+      "revisions": {
+        "adk": "v0.0.0-20261010085535-c7890e1ba443",
+        "core": "v1.5.3-0.20261009164347-40809355bd4d",
+        "demo": "c7e64adf486f394b2c9bdbefc4d95a83a742a831",
+        "go": "go1.26.8",
+        "spec": "1820ab5eafb843e1c13f4c46c34aeeb28d934ac9"
+      },
+      "scenario": "normal",
+      "started": "2026-10-11T05:37:41.74749467Z"
+    },
+    {
+      "accepted": false,
+      "as_expected": true,
+      "calls": [
+        {
+          "elapsed_ms": 33.96,
+          "error": "[security] GUARD_HOST_DENIED: guarded host assembly denied"
+        }
+      ],
+      "expected": {
+        "accepted": false,
+        "harmed": false
+      },
+      "fault_changed": [
+        {
+          "direction": "request",
+          "index": 4
+        }
+      ],
+      "harms": [],
+      "latency": {
+        "max_ms": 33.96,
+        "median_ms": 33.96,
+        "min_ms": 33.96
+      },
+      "ledger": [],
+      "mismatches": [],
+      "mode": "sage",
+      "name": "sage-tamper-args-20261011T053753.398800685Z",
+      "notes": [
+        "The Registry Source is a local file whose readiness flags are asserted; it observes no chain.",
+        "The tool measurement accepts any snapshot.",
+        "All processes run as one account on one kernel.",
+        "The host returns one error code for every refusal; the report does not claim a refusal stage.",
+        "A demo run is not a conformance verdict or deployment evidence."
+      ],
+      "relay_frames": [
+        {
+          "requests": 5,
+          "responses": 4
+        }
+      ],
+      "requested": {
+        "amount": 10,
+        "currency": "DEMO",
+        "to": "did:sage:web:agent.example:carol"
+      },
+      "revisions": {
+        "adk": "v0.0.0-20261010085535-c7890e1ba443",
+        "core": "v1.5.3-0.20261009164347-40809355bd4d",
+        "demo": "c7e64adf486f394b2c9bdbefc4d95a83a742a831",
+        "go": "go1.26.8",
+        "spec": "1820ab5eafb843e1c13f4c46c34aeeb28d934ac9"
+      },
+      "scenario": "tamper-args",
+      "started": "2026-10-11T05:37:53.398819676Z"
+    },
+    {
+      "accepted": true,
+      "as_expected": true,
+      "calls": [
+        {
+          "elapsed_ms": 1166.82,
+          "result": {
+            "balance": 990,
+            "transfer_id": "t-000001"
+          }
+        }
+      ],
+      "expected": {
+        "accepted": true,
+        "harmed": false
+      },
+      "fault_changed": [],
+      "harms": [],
+      "latency": {
+        "max_ms": 1166.82,
+        "median_ms": 1166.82,
+        "min_ms": 1166.82
+      },
+      "ledger": [
+        {
+          "amount": 10,
+          "currency": "DEMO",
+          "id": "t-000001",
+          "to": "did:sage:web:agent.example:carol"
+        }
+      ],
+      "mismatches": [],
+      "mode": "sage",
+      "name": "sage-replay-20261011T053753.459166078Z",
+      "notes": [
+        "The Registry Source is a local file whose readiness flags are asserted; it observes no chain.",
+        "The tool measurement accepts any snapshot.",
+        "All processes run as one account on one kernel.",
+        "The host returns one error code for every refusal; the report does not claim a refusal stage.",
+        "A demo run is not a conformance verdict or deployment evidence."
+      ],
+      "relay_frames": [
+        {
+          "requests": 6,
+          "responses": 6
+        }
+      ],
+      "replay": {
+        "answered_frames": 0
+      },
+      "requested": {
+        "amount": 10,
+        "currency": "DEMO",
+        "to": "did:sage:web:agent.example:carol"
+      },
+      "revisions": {
+        "adk": "v0.0.0-20261010085535-c7890e1ba443",
+        "core": "v1.5.3-0.20261009164347-40809355bd4d",
+        "demo": "c7e64adf486f394b2c9bdbefc4d95a83a742a831",
+        "go": "go1.26.8",
+        "spec": "1820ab5eafb843e1c13f4c46c34aeeb28d934ac9"
+      },
+      "scenario": "replay",
+      "started": "2026-10-11T05:37:53.459186332Z"
+    },
+    {
+      "accepted": false,
+      "as_expected": true,
+      "calls": [
+        {
+          "elapsed_ms": 3,
+          "error": "[security] GUARD_HOST_DENIED: guarded host assembly denied"
+        }
+      ],
+      "expected": {
+        "accepted": false,
+        "harmed": false
+      },
+      "fault_changed": [],
+      "harms": [],
+      "latency": {
+        "max_ms": 3,
+        "median_ms": 3,
+        "min_ms": 3
+      },
+      "ledger": [],
+      "mismatches": [],
+      "mode": "sage",
+      "name": "sage-unapproved-20261011T053754.653659543Z",
+      "notes": [
+        "The Registry Source is a local file whose readiness flags are asserted; it observes no chain.",
+        "The tool measurement accepts any snapshot.",
+        "All processes run as one account on one kernel.",
+        "The host returns one error code for every refusal; the report does not claim a refusal stage.",
+        "A demo run is not a conformance verdict or deployment evidence."
+      ],
+      "relay_frames": [
+        {
+          "requests": 0,
+          "responses": 0
+        }
+      ],
+      "requested": {
+        "amount": 990,
+        "currency": "DEMO",
+        "to": "did:sage:web:agent.example:mallory"
+      },
+      "revisions": {
+        "adk": "v0.0.0-20261010085535-c7890e1ba443",
+        "core": "v1.5.3-0.20261009164347-40809355bd4d",
+        "demo": "c7e64adf486f394b2c9bdbefc4d95a83a742a831",
+        "go": "go1.26.8",
+        "spec": "1820ab5eafb843e1c13f4c46c34aeeb28d934ac9"
+      },
+      "scenario": "unapproved",
+      "started": "2026-10-11T05:37:54.653678365Z"
+    },
+    {
+      "accepted": false,
+      "as_expected": true,
+      "calls": [
+        {
+          "elapsed_ms": 43.31,
+          "error": "[security] GUARD_HOST_DENIED: guarded host assembly denied"
+        }
+      ],
+      "expected": {
+        "accepted": false,
+        "harmed": false
+      },
+      "fault_changed": [
+        {
+          "direction": "response",
+          "index": 4
+        }
+      ],
+      "harms": [],
+      "latency": {
+        "max_ms": 43.31,
+        "median_ms": 43.31,
+        "min_ms": 43.31
+      },
+      "ledger": [
+        {
+          "amount": 10,
+          "currency": "DEMO",
+          "id": "t-000001",
+          "to": "did:sage:web:agent.example:carol"
+        }
+      ],
+      "mismatches": [],
+      "mode": "sage",
+      "name": "sage-forge-result-20261011T053754.680191959Z",
+      "notes": [
+        "The Registry Source is a local file whose readiness flags are asserted; it observes no chain.",
+        "The tool measurement accepts any snapshot.",
+        "All processes run as one account on one kernel.",
+        "The host returns one error code for every refusal; the report does not claim a refusal stage.",
+        "A demo run is not a conformance verdict or deployment evidence."
+      ],
+      "relay_frames": [
+        {
+          "requests": 5,
+          "responses": 5
+        }
+      ],
+      "requested": {
+        "amount": 10,
+        "currency": "DEMO",
+        "to": "did:sage:web:agent.example:carol"
+      },
+      "revisions": {
+        "adk": "v0.0.0-20261010085535-c7890e1ba443",
+        "core": "v1.5.3-0.20261009164347-40809355bd4d",
+        "demo": "c7e64adf486f394b2c9bdbefc4d95a83a742a831",
+        "go": "go1.26.8",
+        "spec": "1820ab5eafb843e1c13f4c46c34aeeb28d934ac9"
+      },
+      "scenario": "forge-result",
+      "started": "2026-10-11T05:37:54.680212477Z"
+    }
+  ],
+  "schema_version": 1,
+  "scope": {
+    "baseline": "UNPROTECTED_MCP_JSON_RPC_LOOPBACK_TCP",
+    "deployed_host_controls": "NOT_RUN",
+    "faults": "DEMO_RELAY_ON_LOOPBACK_ONLY",
+    "full_conformance": "NOT_ESTABLISHED",
+    "measurement": "ACCEPT_ALL_FIXTURE",
+    "policy_approval": "EPHEMERAL_DEMO_OPERATOR_KEY",
+    "processes": "SEPARATE_PROCESSES_ONE_ACCOUNT_ONE_KERNEL",
+    "protected": "ADK_GUARDHOST_PRIVATE_NATIVE_MCP_LOOPBACK_TCP",
+    "provider_bindings": "IDENTITY_AND_MEASUREMENT_NOT_BOUND",
+    "refusal_stage": "NOT_DISTINGUISHED_BY_HOST_ERROR",
+    "registry": "SYNTHETIC_FILE_SOURCE",
+    "signing_custody": "SIGNER_PROCESSES_SAME_ACCOUNT",
+    "universal_security_claim": "NONE",
+    "workload": "SCRIPTED_AGENT_MOCK_TRANSFER"
+  },
+  "setup": {
+    "accepted": true,
+    "as_expected": true,
+    "calls": [
+      {
+        "elapsed_ms": 1162.94,
+        "result": {
+          "balance": 990,
+          "transfer_id": "t-000001"
+        }
+      }
+    ],
+    "expected": {
+      "accepted": true,
+      "harmed": false
+    },
+    "fault_changed": [],
+    "harms": [],
+    "latency": {
+      "max_ms": 1162.94,
+      "median_ms": 1162.94,
+      "min_ms": 1162.94
+    },
+    "ledger": [
+      {
+        "amount": 10,
+        "currency": "DEMO",
+        "id": "t-000001",
+        "to": "did:sage:web:agent.example:carol"
+      }
+    ],
+    "mismatches": [],
+    "mode": "sage",
+    "name": "setup",
+    "notes": [
+      "The Registry Source is a local file whose readiness flags are asserted; it observes no chain.",
+      "The tool measurement accepts any snapshot.",
+      "All processes run as one account on one kernel.",
+      "The host returns one error code for every refusal; the report does not claim a refusal stage.",
+      "A demo run is not a conformance verdict or deployment evidence."
+    ],
+    "relay_frames": [
+      {
+        "requests": 6,
+        "responses": 6
+      }
+    ],
+    "requested": {
+      "amount": 10,
+      "currency": "DEMO",
+      "to": "did:sage:web:agent.example:carol"
+    },
+    "revisions": {
+      "adk": "v0.0.0-20261010085535-c7890e1ba443",
+      "core": "v1.5.3-0.20261009164347-40809355bd4d",
+      "demo": "c7e64adf486f394b2c9bdbefc4d95a83a742a831",
+      "go": "go1.26.8",
+      "spec": "1820ab5eafb843e1c13f4c46c34aeeb28d934ac9"
+    },
+    "scenario": "normal",
+    "setup": {
+      "quarantine_wait_ms": 365080.88,
+      "total_ms": 366310.99
+    },
+    "started": "2026-10-11T05:31:32.393835681Z"
+  },
+  "status": "BOUNDED_DEMO_COMPARISON_OBSERVED"
+}

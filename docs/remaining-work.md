@@ -21,6 +21,13 @@ consolidate what the separate-account `sage-adk` host integration and the
 including the reason for each of the 415 design-baseline parent cases that
 remain `NOT_RUN`. It changes no verdict and closes none of the gates below.
 
+2026-10-11 addendum: the [demo comparison verdict](demo-comparison-verdict.md)
+is `BOUNDED_DEMO_COMPARISON` at `sage-demo` `c7e64ad`, with the ADK and core
+revisions of the integration verdict. Without SAGE every injected fault harmed
+the run; with SAGE none did. The Registry Source and measurement stay
+synthetic, the demo runs as one account, deployed controls stay `NOT_RUN` and
+full conformance stays `NOT_ESTABLISHED`; it closes none of the gates below.
+
 2026-10-10 addendum: the [core refactoring and ADK host integration verdict](core-host-integration-verdict.md)
 is `BOUNDED_CORE_HOST_INTEGRATION` at Go core `4e4ca2c`, Rust core `2ee96e9`
 and ADK `c7890e1`. IdentityAndReadiness and MeasuredComponent stay `NOT_BOUND`,

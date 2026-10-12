@@ -82,3 +82,82 @@ jobs:
             ${{ runner.temp }}/a2a-did-inventory.json
             ${{ runner.temp }}/a2a-card-native.json
             ${{ runner.temp }}/a2a-card-coverage.out
+
+  call-observation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          path: sage-inspector
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: SAGE-X-project/sage-spec
+          ref: 06b50e177ccd22bce7d70fd80c2d7f822ae3fd3b
+          path: sage-spec
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
+        with:
+          go-version: '1.26.8'
+          cache-dependency-path: |
+            sage-inspector/adapters/a2a-call/go.sum
+            sage-inspector/adapters/a2a-card/go.sum
+      - name: Verify inventory and closed observation contracts
+        working-directory: sage-inspector
+        run: |
+          python3 -B scripts/a2a_did_catalog.py --spec-root ../sage-spec --output "${RUNNER_TEMP}/a2a-call-inventory.json"
+          python3 -B scripts/test_a2a_call_observation.py
+      - name: Download and verify both pinned observer modules
+        working-directory: sage-inspector
+        env:
+          GOTOOLCHAIN: local
+          GOWORK: 'off'
+        run: |
+          (cd adapters/a2a-card && go mod download && go mod verify)
+          (cd adapters/a2a-call && go mod download && go mod verify)
+      - name: Test request policy and owned TLS fixture boundaries
+        working-directory: sage-inspector/adapters/a2a-call
+        env:
+          GOTOOLCHAIN: local
+          GOWORK: 'off'
+        run: |
+          go vet -mod=readonly ./...
+          go test -mod=readonly -race -coverprofile="${RUNNER_TEMP}/a2a-call-coverage.out" ./...
+          go tool cover -func="${RUNNER_TEMP}/a2a-call-coverage.out"
+          go tool cover -func="${RUNNER_TEMP}/a2a-call-coverage.out" | awk '/^total:/ { if ($3 + 0 < 90) exit 1; seen=1 } END { if (!seen) exit 1 }'
+      - name: Observe new native policy processes and fresh card processes
+        working-directory: sage-inspector
+        run: |
+          python3 -B scripts/test_a2a_call_process.py
+          python3 -B scripts/a2a_call_observation.py --native --include-cards --output "${RUNNER_TEMP}/a2a-call-native.json"
+      - name: Check new Python observation statement-line coverage
+        working-directory: sage-inspector
+        run: |
+          python3 - <<'PYTHON'
+          import ast, sys, trace, unittest
+          from pathlib import Path
+          sys.path.insert(0, 'scripts')
+          tracer = trace.Trace(count=True, trace=False)
+          def run():
+              names = ('test_a2a_call_observation', 'test_a2a_call_process')
+              suite = unittest.TestSuite(unittest.defaultTestLoader.loadTestsFromName(n) for n in names)
+              if not unittest.TextTestRunner().run(suite).wasSuccessful():
+                  raise SystemExit(1)
+          tracer.runfunc(run)
+          path = Path('scripts/a2a_call_observation.py').resolve()
+          statements = {n.lineno for n in ast.walk(ast.parse(path.read_text())) if isinstance(n, ast.stmt)}
+          hits = {line for (file, line), count in tracer.results().counts.items() if Path(file).resolve() == path and count}
+          print(path.name, len(statements & hits), len(statements), 'executed statement lines')
+          if not statements or len(statements & hits) / len(statements) < 0.90:
+              raise SystemExit(1)
+          PYTHON
+      - name: Preserve partial observations and unsupported ingress contracts
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: a2a-call-inspection-${{ github.sha }}
+          if-no-files-found: error
+          retention-days: 30
+          path: |
+            ${{ runner.temp }}/a2a-call-inventory.json
+            ${{ runner.temp }}/a2a-call-native.json
+            ${{ runner.temp }}/a2a-call-coverage.out

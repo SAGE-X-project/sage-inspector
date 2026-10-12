@@ -1,0 +1,1803 @@
+{
+  "schema_version": 1,
+  "spec_revision": "06b50e177ccd22bce7d70fd80c2d7f822ae3fd3b",
+  "adk_revision": "904fa9cbe3c4c2dcdabee67b2afd7c9e4b75cf14",
+  "scope": "fixture-owner-library-only",
+  "cases": [
+    {
+      "id": "a2ab-01-jsonrpc-in-payload",
+      "coverage_notes": "Only public library decisions with a fixture Source/owner; signed carriage, actual Registry readiness, deployment and effect authorization are unobserved.",
+      "execution": "policy",
+      "scope": "fixture-owner-library-only",
+      "coverage": "partial",
+      "input": {
+        "api": "client",
+        "payload": " {\"jsonrpc\":\"2.0\", \"id\":\"one\", \"method\":\"SendMessage\",\"params\":{\"message\":{\"messageId\":\"request\",\"role\":\"ROLE_USER\",\"parts\":[{\"text\":\"hello\"}]}}} ",
+        "metadata": {
+          "a2a_version": "1.0",
+          "a2a_extensions": "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+        },
+        "recipient": "did:sage:web:agents.example.com:billing-bot",
+        "card": "{\"capabilities\":{\"extensions\":[{\"params\":{\"did\":\"did:sage:web:agents.example.com:billing-bot\",\"expires\":105,\"issued\":100,\"recordVersion\":\"3\",\"sageVersion\":\"0.10.0\"},\"required\":true,\"uri\":\"https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension\"}]},\"defaultInputModes\":[\"application/json\"],\"defaultOutputModes\":[\"application/json\"],\"description\":\"\",\"name\":\"billing\",\"signatures\":[{\"protected\":\"eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZGlkOnNhZ2U6d2ViOmFnZW50cy5leGFtcGxlLmNvbTpiaWxsaW5nLWJvdCNzaWduIiwidHlwIjoic2FnZS1hMmEtY2FyZCtqd3MifQ\",\"signature\":\"EuMhGEdfskss7rbJcbYoDvFlleu0eSIQUmtiFDapeH70Duin7hA2w4lhD4Z8BkufgPGDyrRbHbnRYX5qcpEmCQ\"}],\"skills\":[{\"description\":\"\",\"id\":\"billing\",\"name\":\"billing\",\"tags\":[\"billing\"]}],\"supportedInterfaces\":[{\"protocolBinding\":\"https://sage-x-project.github.io/sage-spec/a2a/0.10.0/binding\",\"protocolVersion\":\"1.0\",\"url\":\"https://agents.example.com/a2a\"}],\"version\":\"1\"}",
+        "key_hex": "3b6a27bcceb6a42d62a3a8d02a6f0d73653215771de243a63ac048a18b59da29",
+        "tenant_route": "did:sage:web:agents.example.com:billing-bot",
+        "header_version": "",
+        "source_error": false,
+        "client_card_invalid": false,
+        "response_sender": "did:sage:web:agents.example.com:billing-bot",
+        "reply": " {\"jsonrpc\":\"2.0\", \"id\":\"one\",\"result\":{\"fixture\":\"inert-ack\"}} "
+      },
+      "expected": {
+        "direct": {
+          "errors": [
+            ""
+          ],
+          "replies_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c22726573756c74223a7b2266697874757265223a22696e6572742d61636b227d7d20"
+          ],
+          "dispatch_count": 1,
+          "owner_calls": 1,
+          "final_checks": 1,
+          "payloads_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c20226d6574686f64223a2253656e644d657373616765222c22706172616d73223a7b226d657373616765223a7b226d6573736167654964223a2272657175657374222c22726f6c65223a22524f4c455f55534552222c227061727473223a5b7b2274657874223a2268656c6c6f227d5d7d7d7d20"
+          ],
+          "handler_payloads_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c20226d6574686f64223a2253656e644d657373616765222c22706172616d73223a7b226d657373616765223a7b226d6573736167654964223a2272657175657374222c22726f6c65223a22524f4c455f55534552222c227061727473223a5b7b2274657874223a2268656c6c6f227d5d7d7d7d20"
+          ],
+          "targets": [
+            "https://agents.example.com/a2a"
+          ],
+          "recipients": [
+            "did:sage:web:agents.example.com:billing-bot"
+          ],
+          "versions": [
+            "1.0"
+          ],
+          "extensions": [
+            "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+          ],
+          "http_statuses": [],
+          "fixture_headers": []
+        },
+        "tls": {
+          "errors": [
+            ""
+          ],
+          "replies_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c22726573756c74223a7b2266697874757265223a22696e6572742d61636b227d7d20"
+          ],
+          "dispatch_count": 1,
+          "owner_calls": 1,
+          "final_checks": 1,
+          "payloads_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c20226d6574686f64223a2253656e644d657373616765222c22706172616d73223a7b226d657373616765223a7b226d6573736167654964223a2272657175657374222c22726f6c65223a22524f4c455f55534552222c227061727473223a5b7b2274657874223a2268656c6c6f227d5d7d7d7d20"
+          ],
+          "handler_payloads_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c20226d6574686f64223a2253656e644d657373616765222c22706172616d73223a7b226d657373616765223a7b226d6573736167654964223a2272657175657374222c22726f6c65223a22524f4c455f55534552222c227061727473223a5b7b2274657874223a2268656c6c6f227d5d7d7d7d20"
+          ],
+          "targets": [
+            "https://agents.example.com/a2a"
+          ],
+          "recipients": [
+            "did:sage:web:agents.example.com:billing-bot"
+          ],
+          "versions": [
+            "1.0"
+          ],
+          "extensions": [
+            "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+          ],
+          "http_statuses": [
+            200
+          ],
+          "fixture_headers": [
+            ""
+          ]
+        }
+      }
+    },
+    {
+      "id": "a2ab-01-bare-jsonrpc-body",
+      "execution": "unsupported",
+      "reason": "No production chapter 03/08 HTTP ingress is configured.",
+      "input": null,
+      "expected": null
+    },
+    {
+      "id": "a2ab-01-batch-payload",
+      "coverage_notes": "Only public library decisions with a fixture Source/owner; signed carriage, actual Registry readiness, deployment and effect authorization are unobserved.",
+      "execution": "policy",
+      "scope": "fixture-owner-library-only",
+      "coverage": "partial",
+      "input": {
+        "api": "server",
+        "payload": "[ {\"jsonrpc\":\"2.0\", \"id\":\"one\", \"method\":\"SendMessage\",\"params\":{\"message\":{\"messageId\":\"request\",\"role\":\"ROLE_USER\",\"parts\":[{\"text\":\"hello\"}]}}} , {\"jsonrpc\":\"2.0\", \"id\":\"one\", \"method\":\"SendMessage\",\"params\":{\"message\":{\"messageId\":\"request\",\"role\":\"ROLE_USER\",\"parts\":[{\"text\":\"hello\"}]}}} ]",
+        "metadata": {
+          "a2a_version": "1.0",
+          "a2a_extensions": "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+        },
+        "recipient": "did:sage:web:agents.example.com:billing-bot",
+        "card": "{\"capabilities\":{\"extensions\":[{\"params\":{\"did\":\"did:sage:web:agents.example.com:billing-bot\",\"expires\":105,\"issued\":100,\"recordVersion\":\"3\",\"sageVersion\":\"0.10.0\"},\"required\":true,\"uri\":\"https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension\"}]},\"defaultInputModes\":[\"application/json\"],\"defaultOutputModes\":[\"application/json\"],\"description\":\"\",\"name\":\"billing\",\"signatures\":[{\"protected\":\"eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZGlkOnNhZ2U6d2ViOmFnZW50cy5leGFtcGxlLmNvbTpiaWxsaW5nLWJvdCNzaWduIiwidHlwIjoic2FnZS1hMmEtY2FyZCtqd3MifQ\",\"signature\":\"EuMhGEdfskss7rbJcbYoDvFlleu0eSIQUmtiFDapeH70Duin7hA2w4lhD4Z8BkufgPGDyrRbHbnRYX5qcpEmCQ\"}],\"skills\":[{\"description\":\"\",\"id\":\"billing\",\"name\":\"billing\",\"tags\":[\"billing\"]}],\"supportedInterfaces\":[{\"protocolBinding\":\"https://sage-x-project.github.io/sage-spec/a2a/0.10.0/binding\",\"protocolVersion\":\"1.0\",\"url\":\"https://agents.example.com/a2a\"}],\"version\":\"1\"}",
+        "key_hex": "3b6a27bcceb6a42d62a3a8d02a6f0d73653215771de243a63ac048a18b59da29",
+        "tenant_route": "did:sage:web:agents.example.com:billing-bot",
+        "header_version": "",
+        "source_error": false,
+        "client_card_invalid": false,
+        "response_sender": "did:sage:web:agents.example.com:billing-bot",
+        "reply": " {\"jsonrpc\":\"2.0\", \"id\":\"one\",\"result\":{\"fixture\":\"inert-ack\"}} "
+      },
+      "expected": {
+        "direct": {
+          "errors": [
+            "authentication failed"
+          ],
+          "replies_hex": [
+            ""
+          ],
+          "dispatch_count": 0,
+          "owner_calls": 0,
+          "final_checks": 0,
+          "payloads_hex": [
+            "5b207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c20226d6574686f64223a2253656e644d657373616765222c22706172616d73223a7b226d657373616765223a7b226d6573736167654964223a2272657175657374222c22726f6c65223a22524f4c455f55534552222c227061727473223a5b7b2274657874223a2268656c6c6f227d5d7d7d7d202c207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c20226d6574686f64223a2253656e644d657373616765222c22706172616d73223a7b226d657373616765223a7b226d6573736167654964223a2272657175657374222c22726f6c65223a22524f4c455f55534552222c227061727473223a5b7b2274657874223a2268656c6c6f227d5d7d7d7d205d"
+          ],
+          "handler_payloads_hex": [],
+          "targets": [
+            "https://agents.example.com/a2a"
+          ],
+          "recipients": [
+            "did:sage:web:agents.example.com:billing-bot"
+          ],
+          "versions": [
+            "1.0"
+          ],
+          "extensions": [
+            "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+          ],
+          "http_statuses": [],
+          "fixture_headers": []
+        },
+        "tls": {
+          "errors": [
+            "authentication failed"
+          ],
+          "replies_hex": [
+            ""
+          ],
+          "dispatch_count": 0,
+          "owner_calls": 0,
+          "final_checks": 0,
+          "payloads_hex": [
+            "5b207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c20226d6574686f64223a2253656e644d657373616765222c22706172616d73223a7b226d657373616765223a7b226d6573736167654964223a2272657175657374222c22726f6c65223a22524f4c455f55534552222c227061727473223a5b7b2274657874223a2268656c6c6f227d5d7d7d7d202c207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c20226d6574686f64223a2253656e644d657373616765222c22706172616d73223a7b226d657373616765223a7b226d6573736167654964223a2272657175657374222c22726f6c65223a22524f4c455f55534552222c227061727473223a5b7b2274657874223a2268656c6c6f227d5d7d7d7d205d"
+          ],
+          "handler_payloads_hex": [],
+          "targets": [
+            "https://agents.example.com/a2a"
+          ],
+          "recipients": [
+            "did:sage:web:agents.example.com:billing-bot"
+          ],
+          "versions": [
+            "1.0"
+          ],
+          "extensions": [
+            "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+          ],
+          "http_statuses": [
+            403
+          ],
+          "fixture_headers": [
+            ""
+          ]
+        }
+      }
+    },
+    {
+      "id": "a2ab-01-streaming-method",
+      "coverage_notes": "Only public library decisions with a fixture Source/owner; signed carriage, actual Registry readiness, deployment and effect authorization are unobserved.",
+      "execution": "policy",
+      "scope": "fixture-owner-library-only",
+      "coverage": "partial",
+      "input": {
+        "api": "server",
+        "payload": "{\"jsonrpc\":\"2.0\",\"id\":\"one\",\"method\":\"SendStreamingMessage\",\"params\":{}}",
+        "metadata": {
+          "a2a_version": "1.0",
+          "a2a_extensions": "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+        },
+        "recipient": "did:sage:web:agents.example.com:billing-bot",
+        "card": "{\"capabilities\":{\"extensions\":[{\"params\":{\"did\":\"did:sage:web:agents.example.com:billing-bot\",\"expires\":105,\"issued\":100,\"recordVersion\":\"3\",\"sageVersion\":\"0.10.0\"},\"required\":true,\"uri\":\"https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension\"}]},\"defaultInputModes\":[\"application/json\"],\"defaultOutputModes\":[\"application/json\"],\"description\":\"\",\"name\":\"billing\",\"signatures\":[{\"protected\":\"eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZGlkOnNhZ2U6d2ViOmFnZW50cy5leGFtcGxlLmNvbTpiaWxsaW5nLWJvdCNzaWduIiwidHlwIjoic2FnZS1hMmEtY2FyZCtqd3MifQ\",\"signature\":\"EuMhGEdfskss7rbJcbYoDvFlleu0eSIQUmtiFDapeH70Duin7hA2w4lhD4Z8BkufgPGDyrRbHbnRYX5qcpEmCQ\"}],\"skills\":[{\"description\":\"\",\"id\":\"billing\",\"name\":\"billing\",\"tags\":[\"billing\"]}],\"supportedInterfaces\":[{\"protocolBinding\":\"https://sage-x-project.github.io/sage-spec/a2a/0.10.0/binding\",\"protocolVersion\":\"1.0\",\"url\":\"https://agents.example.com/a2a\"}],\"version\":\"1\"}",
+        "key_hex": "3b6a27bcceb6a42d62a3a8d02a6f0d73653215771de243a63ac048a18b59da29",
+        "tenant_route": "did:sage:web:agents.example.com:billing-bot",
+        "header_version": "",
+        "source_error": false,
+        "client_card_invalid": false,
+        "response_sender": "did:sage:web:agents.example.com:billing-bot",
+        "reply": " {\"jsonrpc\":\"2.0\", \"id\":\"one\",\"result\":{\"fixture\":\"inert-ack\"}} "
+      },
+      "expected": {
+        "direct": {
+          "errors": [
+            ""
+          ],
+          "replies_hex": [
+            "7b226572726f72223a7b22636f6465223a2d33323030342c226d657373616765223a22556e737570706f72746564206f7065726174696f6e227d2c226964223a226f6e65222c226a736f6e727063223a22322e30227d"
+          ],
+          "dispatch_count": 0,
+          "owner_calls": 0,
+          "final_checks": 0,
+          "payloads_hex": [
+            "7b226a736f6e727063223a22322e30222c226964223a226f6e65222c226d6574686f64223a2253656e6453747265616d696e674d657373616765222c22706172616d73223a7b7d7d"
+          ],
+          "handler_payloads_hex": [],
+          "targets": [
+            "https://agents.example.com/a2a"
+          ],
+          "recipients": [
+            "did:sage:web:agents.example.com:billing-bot"
+          ],
+          "versions": [
+            "1.0"
+          ],
+          "extensions": [
+            "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+          ],
+          "http_statuses": [],
+          "fixture_headers": []
+        },
+        "tls": {
+          "errors": [
+            ""
+          ],
+          "replies_hex": [
+            "7b226572726f72223a7b22636f6465223a2d33323030342c226d657373616765223a22556e737570706f72746564206f7065726174696f6e227d2c226964223a226f6e65222c226a736f6e727063223a22322e30227d"
+          ],
+          "dispatch_count": 0,
+          "owner_calls": 0,
+          "final_checks": 0,
+          "payloads_hex": [
+            "7b226a736f6e727063223a22322e30222c226964223a226f6e65222c226d6574686f64223a2253656e6453747265616d696e674d657373616765222c22706172616d73223a7b7d7d"
+          ],
+          "handler_payloads_hex": [],
+          "targets": [
+            "https://agents.example.com/a2a"
+          ],
+          "recipients": [
+            "did:sage:web:agents.example.com:billing-bot"
+          ],
+          "versions": [
+            "1.0"
+          ],
+          "extensions": [
+            "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+          ],
+          "http_statuses": [
+            200
+          ],
+          "fixture_headers": [
+            ""
+          ]
+        }
+      }
+    },
+    {
+      "id": "a2ab-01-header-parameters-ignored",
+      "coverage_notes": "Only public library decisions with a fixture Source/owner; signed carriage, actual Registry readiness, deployment and effect authorization are unobserved. The hint is ignored by the owned fixture; production header/envelope signature behavior is unobserved.",
+      "execution": "policy",
+      "scope": "fixture-owner-library-only",
+      "coverage": "partial",
+      "input": {
+        "api": "client",
+        "payload": " {\"jsonrpc\":\"2.0\", \"id\":\"one\", \"method\":\"SendMessage\",\"params\":{\"message\":{\"messageId\":\"request\",\"role\":\"ROLE_USER\",\"parts\":[{\"text\":\"hello\"}]}}} ",
+        "metadata": {
+          "a2a_version": "1.0",
+          "a2a_extensions": "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+        },
+        "recipient": "did:sage:web:agents.example.com:billing-bot",
+        "card": "{\"capabilities\":{\"extensions\":[{\"params\":{\"did\":\"did:sage:web:agents.example.com:billing-bot\",\"expires\":105,\"issued\":100,\"recordVersion\":\"3\",\"sageVersion\":\"0.10.0\"},\"required\":true,\"uri\":\"https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension\"}]},\"defaultInputModes\":[\"application/json\"],\"defaultOutputModes\":[\"application/json\"],\"description\":\"\",\"name\":\"billing\",\"signatures\":[{\"protected\":\"eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZGlkOnNhZ2U6d2ViOmFnZW50cy5leGFtcGxlLmNvbTpiaWxsaW5nLWJvdCNzaWduIiwidHlwIjoic2FnZS1hMmEtY2FyZCtqd3MifQ\",\"signature\":\"EuMhGEdfskss7rbJcbYoDvFlleu0eSIQUmtiFDapeH70Duin7hA2w4lhD4Z8BkufgPGDyrRbHbnRYX5qcpEmCQ\"}],\"skills\":[{\"description\":\"\",\"id\":\"billing\",\"name\":\"billing\",\"tags\":[\"billing\"]}],\"supportedInterfaces\":[{\"protocolBinding\":\"https://sage-x-project.github.io/sage-spec/a2a/0.10.0/binding\",\"protocolVersion\":\"1.0\",\"url\":\"https://agents.example.com/a2a\"}],\"version\":\"1\"}",
+        "key_hex": "3b6a27bcceb6a42d62a3a8d02a6f0d73653215771de243a63ac048a18b59da29",
+        "tenant_route": "did:sage:web:agents.example.com:billing-bot",
+        "header_version": "0.3",
+        "source_error": false,
+        "client_card_invalid": false,
+        "response_sender": "did:sage:web:agents.example.com:billing-bot",
+        "reply": " {\"jsonrpc\":\"2.0\", \"id\":\"one\",\"result\":{\"fixture\":\"inert-ack\"}} "
+      },
+      "expected": {
+        "direct": {
+          "errors": [
+            ""
+          ],
+          "replies_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c22726573756c74223a7b2266697874757265223a22696e6572742d61636b227d7d20"
+          ],
+          "dispatch_count": 1,
+          "owner_calls": 1,
+          "final_checks": 1,
+          "payloads_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c20226d6574686f64223a2253656e644d657373616765222c22706172616d73223a7b226d657373616765223a7b226d6573736167654964223a2272657175657374222c22726f6c65223a22524f4c455f55534552222c227061727473223a5b7b2274657874223a2268656c6c6f227d5d7d7d7d20"
+          ],
+          "handler_payloads_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c20226d6574686f64223a2253656e644d657373616765222c22706172616d73223a7b226d657373616765223a7b226d6573736167654964223a2272657175657374222c22726f6c65223a22524f4c455f55534552222c227061727473223a5b7b2274657874223a2268656c6c6f227d5d7d7d7d20"
+          ],
+          "targets": [
+            "https://agents.example.com/a2a"
+          ],
+          "recipients": [
+            "did:sage:web:agents.example.com:billing-bot"
+          ],
+          "versions": [
+            "1.0"
+          ],
+          "extensions": [
+            "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+          ],
+          "http_statuses": [],
+          "fixture_headers": []
+        },
+        "tls": {
+          "errors": [
+            ""
+          ],
+          "replies_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c22726573756c74223a7b2266697874757265223a22696e6572742d61636b227d7d20"
+          ],
+          "dispatch_count": 1,
+          "owner_calls": 1,
+          "final_checks": 1,
+          "payloads_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c20226d6574686f64223a2253656e644d657373616765222c22706172616d73223a7b226d657373616765223a7b226d6573736167654964223a2272657175657374222c22726f6c65223a22524f4c455f55534552222c227061727473223a5b7b2274657874223a2268656c6c6f227d5d7d7d7d20"
+          ],
+          "handler_payloads_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c20226d6574686f64223a2253656e644d657373616765222c22706172616d73223a7b226d657373616765223a7b226d6573736167654964223a2272657175657374222c22726f6c65223a22524f4c455f55534552222c227061727473223a5b7b2274657874223a2268656c6c6f227d5d7d7d7d20"
+          ],
+          "targets": [
+            "https://agents.example.com/a2a"
+          ],
+          "recipients": [
+            "did:sage:web:agents.example.com:billing-bot"
+          ],
+          "versions": [
+            "1.0"
+          ],
+          "extensions": [
+            "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+          ],
+          "http_statuses": [
+            200
+          ],
+          "fixture_headers": [
+            "0.3"
+          ]
+        }
+      }
+    },
+    {
+      "id": "a2ab-01-a2a-error-in-data",
+      "coverage_notes": "Only public library decisions with a fixture Source/owner; signed carriage, actual Registry readiness, deployment and effect authorization are unobserved. Exact JSON-RPC error bytes and nil library error are observed; the chapter08 success flag is unobserved.",
+      "execution": "policy",
+      "scope": "fixture-owner-library-only",
+      "coverage": "partial",
+      "input": {
+        "api": "client",
+        "payload": " {\"jsonrpc\":\"2.0\", \"id\":\"one\",\"method\":\"GetTask\",\"params\":{\"id\":\"missing\"}} ",
+        "metadata": {
+          "a2a_version": "1.0",
+          "a2a_extensions": "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+        },
+        "recipient": "did:sage:web:agents.example.com:billing-bot",
+        "card": "{\"capabilities\":{\"extensions\":[{\"params\":{\"did\":\"did:sage:web:agents.example.com:billing-bot\",\"expires\":105,\"issued\":100,\"recordVersion\":\"3\",\"sageVersion\":\"0.10.0\"},\"required\":true,\"uri\":\"https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension\"}]},\"defaultInputModes\":[\"application/json\"],\"defaultOutputModes\":[\"application/json\"],\"description\":\"\",\"name\":\"billing\",\"signatures\":[{\"protected\":\"eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZGlkOnNhZ2U6d2ViOmFnZW50cy5leGFtcGxlLmNvbTpiaWxsaW5nLWJvdCNzaWduIiwidHlwIjoic2FnZS1hMmEtY2FyZCtqd3MifQ\",\"signature\":\"EuMhGEdfskss7rbJcbYoDvFlleu0eSIQUmtiFDapeH70Duin7hA2w4lhD4Z8BkufgPGDyrRbHbnRYX5qcpEmCQ\"}],\"skills\":[{\"description\":\"\",\"id\":\"billing\",\"name\":\"billing\",\"tags\":[\"billing\"]}],\"supportedInterfaces\":[{\"protocolBinding\":\"https://sage-x-project.github.io/sage-spec/a2a/0.10.0/binding\",\"protocolVersion\":\"1.0\",\"url\":\"https://agents.example.com/a2a\"}],\"version\":\"1\"}",
+        "key_hex": "3b6a27bcceb6a42d62a3a8d02a6f0d73653215771de243a63ac048a18b59da29",
+        "tenant_route": "did:sage:web:agents.example.com:billing-bot",
+        "header_version": "",
+        "source_error": false,
+        "client_card_invalid": false,
+        "response_sender": "did:sage:web:agents.example.com:billing-bot",
+        "reply": " {\"jsonrpc\":\"2.0\", \"id\":\"one\", \"error\":{\"code\":-32001,\"message\":\"Task not found\"}} "
+      },
+      "expected": {
+        "direct": {
+          "errors": [
+            ""
+          ],
+          "replies_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c20226572726f72223a7b22636f6465223a2d33323030312c226d657373616765223a225461736b206e6f7420666f756e64227d7d20"
+          ],
+          "dispatch_count": 1,
+          "owner_calls": 1,
+          "final_checks": 1,
+          "payloads_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c226d6574686f64223a224765745461736b222c22706172616d73223a7b226964223a226d697373696e67227d7d20"
+          ],
+          "handler_payloads_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c226d6574686f64223a224765745461736b222c22706172616d73223a7b226964223a226d697373696e67227d7d20"
+          ],
+          "targets": [
+            "https://agents.example.com/a2a"
+          ],
+          "recipients": [
+            "did:sage:web:agents.example.com:billing-bot"
+          ],
+          "versions": [
+            "1.0"
+          ],
+          "extensions": [
+            "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+          ],
+          "http_statuses": [],
+          "fixture_headers": []
+        },
+        "tls": {
+          "errors": [
+            ""
+          ],
+          "replies_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c20226572726f72223a7b22636f6465223a2d33323030312c226d657373616765223a225461736b206e6f7420666f756e64227d7d20"
+          ],
+          "dispatch_count": 1,
+          "owner_calls": 1,
+          "final_checks": 1,
+          "payloads_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c226d6574686f64223a224765745461736b222c22706172616d73223a7b226964223a226d697373696e67227d7d20"
+          ],
+          "handler_payloads_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c226d6574686f64223a224765745461736b222c22706172616d73223a7b226964223a226d697373696e67227d7d20"
+          ],
+          "targets": [
+            "https://agents.example.com/a2a"
+          ],
+          "recipients": [
+            "did:sage:web:agents.example.com:billing-bot"
+          ],
+          "versions": [
+            "1.0"
+          ],
+          "extensions": [
+            "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+          ],
+          "http_statuses": [
+            200
+          ],
+          "fixture_headers": [
+            ""
+          ]
+        }
+      }
+    },
+    {
+      "id": "a2ab-02-version-1-0",
+      "coverage_notes": "Only public library decisions with a fixture Source/owner; signed carriage, actual Registry readiness, deployment and effect authorization are unobserved.",
+      "execution": "policy",
+      "scope": "fixture-owner-library-only",
+      "coverage": "partial",
+      "input": {
+        "api": "server",
+        "payload": " {\"jsonrpc\":\"2.0\", \"id\":\"one\", \"method\":\"SendMessage\",\"params\":{\"message\":{\"messageId\":\"request\",\"role\":\"ROLE_USER\",\"parts\":[{\"text\":\"hello\"}]}}} ",
+        "metadata": {
+          "a2a_version": "1.0",
+          "a2a_extensions": "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+        },
+        "recipient": "did:sage:web:agents.example.com:billing-bot",
+        "card": "{\"capabilities\":{\"extensions\":[{\"params\":{\"did\":\"did:sage:web:agents.example.com:billing-bot\",\"expires\":105,\"issued\":100,\"recordVersion\":\"3\",\"sageVersion\":\"0.10.0\"},\"required\":true,\"uri\":\"https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension\"}]},\"defaultInputModes\":[\"application/json\"],\"defaultOutputModes\":[\"application/json\"],\"description\":\"\",\"name\":\"billing\",\"signatures\":[{\"protected\":\"eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZGlkOnNhZ2U6d2ViOmFnZW50cy5leGFtcGxlLmNvbTpiaWxsaW5nLWJvdCNzaWduIiwidHlwIjoic2FnZS1hMmEtY2FyZCtqd3MifQ\",\"signature\":\"EuMhGEdfskss7rbJcbYoDvFlleu0eSIQUmtiFDapeH70Duin7hA2w4lhD4Z8BkufgPGDyrRbHbnRYX5qcpEmCQ\"}],\"skills\":[{\"description\":\"\",\"id\":\"billing\",\"name\":\"billing\",\"tags\":[\"billing\"]}],\"supportedInterfaces\":[{\"protocolBinding\":\"https://sage-x-project.github.io/sage-spec/a2a/0.10.0/binding\",\"protocolVersion\":\"1.0\",\"url\":\"https://agents.example.com/a2a\"}],\"version\":\"1\"}",
+        "key_hex": "3b6a27bcceb6a42d62a3a8d02a6f0d73653215771de243a63ac048a18b59da29",
+        "tenant_route": "did:sage:web:agents.example.com:billing-bot",
+        "header_version": "",
+        "source_error": false,
+        "client_card_invalid": false,
+        "response_sender": "did:sage:web:agents.example.com:billing-bot",
+        "reply": " {\"jsonrpc\":\"2.0\", \"id\":\"one\",\"result\":{\"fixture\":\"inert-ack\"}} "
+      },
+      "expected": {
+        "direct": {
+          "errors": [
+            ""
+          ],
+          "replies_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c22726573756c74223a7b2266697874757265223a22696e6572742d61636b227d7d20"
+          ],
+          "dispatch_count": 1,
+          "owner_calls": 0,
+          "final_checks": 0,
+          "payloads_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c20226d6574686f64223a2253656e644d657373616765222c22706172616d73223a7b226d657373616765223a7b226d6573736167654964223a2272657175657374222c22726f6c65223a22524f4c455f55534552222c227061727473223a5b7b2274657874223a2268656c6c6f227d5d7d7d7d20"
+          ],
+          "handler_payloads_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c20226d6574686f64223a2253656e644d657373616765222c22706172616d73223a7b226d657373616765223a7b226d6573736167654964223a2272657175657374222c22726f6c65223a22524f4c455f55534552222c227061727473223a5b7b2274657874223a2268656c6c6f227d5d7d7d7d20"
+          ],
+          "targets": [
+            "https://agents.example.com/a2a"
+          ],
+          "recipients": [
+            "did:sage:web:agents.example.com:billing-bot"
+          ],
+          "versions": [
+            "1.0"
+          ],
+          "extensions": [
+            "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+          ],
+          "http_statuses": [],
+          "fixture_headers": []
+        },
+        "tls": {
+          "errors": [
+            ""
+          ],
+          "replies_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c22726573756c74223a7b2266697874757265223a22696e6572742d61636b227d7d20"
+          ],
+          "dispatch_count": 1,
+          "owner_calls": 0,
+          "final_checks": 0,
+          "payloads_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c20226d6574686f64223a2253656e644d657373616765222c22706172616d73223a7b226d657373616765223a7b226d6573736167654964223a2272657175657374222c22726f6c65223a22524f4c455f55534552222c227061727473223a5b7b2274657874223a2268656c6c6f227d5d7d7d7d20"
+          ],
+          "handler_payloads_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c20226d6574686f64223a2253656e644d657373616765222c22706172616d73223a7b226d657373616765223a7b226d6573736167654964223a2272657175657374222c22726f6c65223a22524f4c455f55534552222c227061727473223a5b7b2274657874223a2268656c6c6f227d5d7d7d7d20"
+          ],
+          "targets": [
+            "https://agents.example.com/a2a"
+          ],
+          "recipients": [
+            "did:sage:web:agents.example.com:billing-bot"
+          ],
+          "versions": [
+            "1.0"
+          ],
+          "extensions": [
+            "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+          ],
+          "http_statuses": [
+            200
+          ],
+          "fixture_headers": [
+            ""
+          ]
+        }
+      }
+    },
+    {
+      "id": "a2ab-02-version-absent",
+      "coverage_notes": "Only public library decisions with a fixture Source/owner; signed carriage, actual Registry readiness, deployment and effect authorization are unobserved.",
+      "execution": "policy",
+      "scope": "fixture-owner-library-only",
+      "coverage": "partial",
+      "input": {
+        "api": "server",
+        "payload": " {\"jsonrpc\":\"2.0\", \"id\":\"one\", \"method\":\"SendMessage\",\"params\":{\"message\":{\"messageId\":\"request\",\"role\":\"ROLE_USER\",\"parts\":[{\"text\":\"hello\"}]}}} ",
+        "metadata": {
+          "a2a_extensions": "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+        },
+        "recipient": "did:sage:web:agents.example.com:billing-bot",
+        "card": "{\"capabilities\":{\"extensions\":[{\"params\":{\"did\":\"did:sage:web:agents.example.com:billing-bot\",\"expires\":105,\"issued\":100,\"recordVersion\":\"3\",\"sageVersion\":\"0.10.0\"},\"required\":true,\"uri\":\"https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension\"}]},\"defaultInputModes\":[\"application/json\"],\"defaultOutputModes\":[\"application/json\"],\"description\":\"\",\"name\":\"billing\",\"signatures\":[{\"protected\":\"eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZGlkOnNhZ2U6d2ViOmFnZW50cy5leGFtcGxlLmNvbTpiaWxsaW5nLWJvdCNzaWduIiwidHlwIjoic2FnZS1hMmEtY2FyZCtqd3MifQ\",\"signature\":\"EuMhGEdfskss7rbJcbYoDvFlleu0eSIQUmtiFDapeH70Duin7hA2w4lhD4Z8BkufgPGDyrRbHbnRYX5qcpEmCQ\"}],\"skills\":[{\"description\":\"\",\"id\":\"billing\",\"name\":\"billing\",\"tags\":[\"billing\"]}],\"supportedInterfaces\":[{\"protocolBinding\":\"https://sage-x-project.github.io/sage-spec/a2a/0.10.0/binding\",\"protocolVersion\":\"1.0\",\"url\":\"https://agents.example.com/a2a\"}],\"version\":\"1\"}",
+        "key_hex": "3b6a27bcceb6a42d62a3a8d02a6f0d73653215771de243a63ac048a18b59da29",
+        "tenant_route": "did:sage:web:agents.example.com:billing-bot",
+        "header_version": "",
+        "source_error": false,
+        "client_card_invalid": false,
+        "response_sender": "did:sage:web:agents.example.com:billing-bot",
+        "reply": " {\"jsonrpc\":\"2.0\", \"id\":\"one\",\"result\":{\"fixture\":\"inert-ack\"}} "
+      },
+      "expected": {
+        "direct": {
+          "errors": [
+            "authentication failed"
+          ],
+          "replies_hex": [
+            ""
+          ],
+          "dispatch_count": 0,
+          "owner_calls": 0,
+          "final_checks": 0,
+          "payloads_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c20226d6574686f64223a2253656e644d657373616765222c22706172616d73223a7b226d657373616765223a7b226d6573736167654964223a2272657175657374222c22726f6c65223a22524f4c455f55534552222c227061727473223a5b7b2274657874223a2268656c6c6f227d5d7d7d7d20"
+          ],
+          "handler_payloads_hex": [],
+          "targets": [
+            "https://agents.example.com/a2a"
+          ],
+          "recipients": [
+            "did:sage:web:agents.example.com:billing-bot"
+          ],
+          "versions": [
+            ""
+          ],
+          "extensions": [
+            "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+          ],
+          "http_statuses": [],
+          "fixture_headers": []
+        },
+        "tls": {
+          "errors": [
+            "authentication failed"
+          ],
+          "replies_hex": [
+            ""
+          ],
+          "dispatch_count": 0,
+          "owner_calls": 0,
+          "final_checks": 0,
+          "payloads_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c20226d6574686f64223a2253656e644d657373616765222c22706172616d73223a7b226d657373616765223a7b226d6573736167654964223a2272657175657374222c22726f6c65223a22524f4c455f55534552222c227061727473223a5b7b2274657874223a2268656c6c6f227d5d7d7d7d20"
+          ],
+          "handler_payloads_hex": [],
+          "targets": [
+            "https://agents.example.com/a2a"
+          ],
+          "recipients": [
+            "did:sage:web:agents.example.com:billing-bot"
+          ],
+          "versions": [
+            ""
+          ],
+          "extensions": [
+            "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+          ],
+          "http_statuses": [
+            403
+          ],
+          "fixture_headers": [
+            ""
+          ]
+        }
+      }
+    },
+    {
+      "id": "a2ab-02-version-0-3",
+      "coverage_notes": "Only public library decisions with a fixture Source/owner; signed carriage, actual Registry readiness, deployment and effect authorization are unobserved.",
+      "execution": "policy",
+      "scope": "fixture-owner-library-only",
+      "coverage": "partial",
+      "input": {
+        "api": "server",
+        "payload": " {\"jsonrpc\":\"2.0\", \"id\":\"one\", \"method\":\"SendMessage\",\"params\":{\"message\":{\"messageId\":\"request\",\"role\":\"ROLE_USER\",\"parts\":[{\"text\":\"hello\"}]}}} ",
+        "metadata": {
+          "a2a_version": "0.3",
+          "a2a_extensions": "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+        },
+        "recipient": "did:sage:web:agents.example.com:billing-bot",
+        "card": "{\"capabilities\":{\"extensions\":[{\"params\":{\"did\":\"did:sage:web:agents.example.com:billing-bot\",\"expires\":105,\"issued\":100,\"recordVersion\":\"3\",\"sageVersion\":\"0.10.0\"},\"required\":true,\"uri\":\"https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension\"}]},\"defaultInputModes\":[\"application/json\"],\"defaultOutputModes\":[\"application/json\"],\"description\":\"\",\"name\":\"billing\",\"signatures\":[{\"protected\":\"eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZGlkOnNhZ2U6d2ViOmFnZW50cy5leGFtcGxlLmNvbTpiaWxsaW5nLWJvdCNzaWduIiwidHlwIjoic2FnZS1hMmEtY2FyZCtqd3MifQ\",\"signature\":\"EuMhGEdfskss7rbJcbYoDvFlleu0eSIQUmtiFDapeH70Duin7hA2w4lhD4Z8BkufgPGDyrRbHbnRYX5qcpEmCQ\"}],\"skills\":[{\"description\":\"\",\"id\":\"billing\",\"name\":\"billing\",\"tags\":[\"billing\"]}],\"supportedInterfaces\":[{\"protocolBinding\":\"https://sage-x-project.github.io/sage-spec/a2a/0.10.0/binding\",\"protocolVersion\":\"1.0\",\"url\":\"https://agents.example.com/a2a\"}],\"version\":\"1\"}",
+        "key_hex": "3b6a27bcceb6a42d62a3a8d02a6f0d73653215771de243a63ac048a18b59da29",
+        "tenant_route": "did:sage:web:agents.example.com:billing-bot",
+        "header_version": "1.0",
+        "source_error": false,
+        "client_card_invalid": false,
+        "response_sender": "did:sage:web:agents.example.com:billing-bot",
+        "reply": " {\"jsonrpc\":\"2.0\", \"id\":\"one\",\"result\":{\"fixture\":\"inert-ack\"}} "
+      },
+      "expected": {
+        "direct": {
+          "errors": [
+            "authentication failed"
+          ],
+          "replies_hex": [
+            ""
+          ],
+          "dispatch_count": 0,
+          "owner_calls": 0,
+          "final_checks": 0,
+          "payloads_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c20226d6574686f64223a2253656e644d657373616765222c22706172616d73223a7b226d657373616765223a7b226d6573736167654964223a2272657175657374222c22726f6c65223a22524f4c455f55534552222c227061727473223a5b7b2274657874223a2268656c6c6f227d5d7d7d7d20"
+          ],
+          "handler_payloads_hex": [],
+          "targets": [
+            "https://agents.example.com/a2a"
+          ],
+          "recipients": [
+            "did:sage:web:agents.example.com:billing-bot"
+          ],
+          "versions": [
+            "0.3"
+          ],
+          "extensions": [
+            "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+          ],
+          "http_statuses": [],
+          "fixture_headers": []
+        },
+        "tls": {
+          "errors": [
+            "authentication failed"
+          ],
+          "replies_hex": [
+            ""
+          ],
+          "dispatch_count": 0,
+          "owner_calls": 0,
+          "final_checks": 0,
+          "payloads_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c20226d6574686f64223a2253656e644d657373616765222c22706172616d73223a7b226d657373616765223a7b226d6573736167654964223a2272657175657374222c22726f6c65223a22524f4c455f55534552222c227061727473223a5b7b2274657874223a2268656c6c6f227d5d7d7d7d20"
+          ],
+          "handler_payloads_hex": [],
+          "targets": [
+            "https://agents.example.com/a2a"
+          ],
+          "recipients": [
+            "did:sage:web:agents.example.com:billing-bot"
+          ],
+          "versions": [
+            "0.3"
+          ],
+          "extensions": [
+            "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+          ],
+          "http_statuses": [
+            403
+          ],
+          "fixture_headers": [
+            "1.0"
+          ]
+        }
+      }
+    },
+    {
+      "id": "a2ab-02-version-patch",
+      "coverage_notes": "Only public library decisions with a fixture Source/owner; signed carriage, actual Registry readiness, deployment and effect authorization are unobserved.",
+      "execution": "policy",
+      "scope": "fixture-owner-library-only",
+      "coverage": "partial",
+      "input": {
+        "api": "server",
+        "payload": " {\"jsonrpc\":\"2.0\", \"id\":\"one\", \"method\":\"SendMessage\",\"params\":{\"message\":{\"messageId\":\"request\",\"role\":\"ROLE_USER\",\"parts\":[{\"text\":\"hello\"}]}}} ",
+        "metadata": {
+          "a2a_version": "1.0.1",
+          "a2a_extensions": "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+        },
+        "recipient": "did:sage:web:agents.example.com:billing-bot",
+        "card": "{\"capabilities\":{\"extensions\":[{\"params\":{\"did\":\"did:sage:web:agents.example.com:billing-bot\",\"expires\":105,\"issued\":100,\"recordVersion\":\"3\",\"sageVersion\":\"0.10.0\"},\"required\":true,\"uri\":\"https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension\"}]},\"defaultInputModes\":[\"application/json\"],\"defaultOutputModes\":[\"application/json\"],\"description\":\"\",\"name\":\"billing\",\"signatures\":[{\"protected\":\"eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZGlkOnNhZ2U6d2ViOmFnZW50cy5leGFtcGxlLmNvbTpiaWxsaW5nLWJvdCNzaWduIiwidHlwIjoic2FnZS1hMmEtY2FyZCtqd3MifQ\",\"signature\":\"EuMhGEdfskss7rbJcbYoDvFlleu0eSIQUmtiFDapeH70Duin7hA2w4lhD4Z8BkufgPGDyrRbHbnRYX5qcpEmCQ\"}],\"skills\":[{\"description\":\"\",\"id\":\"billing\",\"name\":\"billing\",\"tags\":[\"billing\"]}],\"supportedInterfaces\":[{\"protocolBinding\":\"https://sage-x-project.github.io/sage-spec/a2a/0.10.0/binding\",\"protocolVersion\":\"1.0\",\"url\":\"https://agents.example.com/a2a\"}],\"version\":\"1\"}",
+        "key_hex": "3b6a27bcceb6a42d62a3a8d02a6f0d73653215771de243a63ac048a18b59da29",
+        "tenant_route": "did:sage:web:agents.example.com:billing-bot",
+        "header_version": "",
+        "source_error": false,
+        "client_card_invalid": false,
+        "response_sender": "did:sage:web:agents.example.com:billing-bot",
+        "reply": " {\"jsonrpc\":\"2.0\", \"id\":\"one\",\"result\":{\"fixture\":\"inert-ack\"}} "
+      },
+      "expected": {
+        "direct": {
+          "errors": [
+            "authentication failed"
+          ],
+          "replies_hex": [
+            ""
+          ],
+          "dispatch_count": 0,
+          "owner_calls": 0,
+          "final_checks": 0,
+          "payloads_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c20226d6574686f64223a2253656e644d657373616765222c22706172616d73223a7b226d657373616765223a7b226d6573736167654964223a2272657175657374222c22726f6c65223a22524f4c455f55534552222c227061727473223a5b7b2274657874223a2268656c6c6f227d5d7d7d7d20"
+          ],
+          "handler_payloads_hex": [],
+          "targets": [
+            "https://agents.example.com/a2a"
+          ],
+          "recipients": [
+            "did:sage:web:agents.example.com:billing-bot"
+          ],
+          "versions": [
+            "1.0.1"
+          ],
+          "extensions": [
+            "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+          ],
+          "http_statuses": [],
+          "fixture_headers": []
+        },
+        "tls": {
+          "errors": [
+            "authentication failed"
+          ],
+          "replies_hex": [
+            ""
+          ],
+          "dispatch_count": 0,
+          "owner_calls": 0,
+          "final_checks": 0,
+          "payloads_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c20226d6574686f64223a2253656e644d657373616765222c22706172616d73223a7b226d657373616765223a7b226d6573736167654964223a2272657175657374222c22726f6c65223a22524f4c455f55534552222c227061727473223a5b7b2274657874223a2268656c6c6f227d5d7d7d7d20"
+          ],
+          "handler_payloads_hex": [],
+          "targets": [
+            "https://agents.example.com/a2a"
+          ],
+          "recipients": [
+            "did:sage:web:agents.example.com:billing-bot"
+          ],
+          "versions": [
+            "1.0.1"
+          ],
+          "extensions": [
+            "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+          ],
+          "http_statuses": [
+            403
+          ],
+          "fixture_headers": [
+            ""
+          ]
+        }
+      }
+    },
+    {
+      "id": "a2ab-02-version-empty",
+      "coverage_notes": "Only public library decisions with a fixture Source/owner; signed carriage, actual Registry readiness, deployment and effect authorization are unobserved.",
+      "execution": "policy",
+      "scope": "fixture-owner-library-only",
+      "coverage": "partial",
+      "input": {
+        "api": "server",
+        "payload": " {\"jsonrpc\":\"2.0\", \"id\":\"one\", \"method\":\"SendMessage\",\"params\":{\"message\":{\"messageId\":\"request\",\"role\":\"ROLE_USER\",\"parts\":[{\"text\":\"hello\"}]}}} ",
+        "metadata": {
+          "a2a_version": "",
+          "a2a_extensions": "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+        },
+        "recipient": "did:sage:web:agents.example.com:billing-bot",
+        "card": "{\"capabilities\":{\"extensions\":[{\"params\":{\"did\":\"did:sage:web:agents.example.com:billing-bot\",\"expires\":105,\"issued\":100,\"recordVersion\":\"3\",\"sageVersion\":\"0.10.0\"},\"required\":true,\"uri\":\"https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension\"}]},\"defaultInputModes\":[\"application/json\"],\"defaultOutputModes\":[\"application/json\"],\"description\":\"\",\"name\":\"billing\",\"signatures\":[{\"protected\":\"eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZGlkOnNhZ2U6d2ViOmFnZW50cy5leGFtcGxlLmNvbTpiaWxsaW5nLWJvdCNzaWduIiwidHlwIjoic2FnZS1hMmEtY2FyZCtqd3MifQ\",\"signature\":\"EuMhGEdfskss7rbJcbYoDvFlleu0eSIQUmtiFDapeH70Duin7hA2w4lhD4Z8BkufgPGDyrRbHbnRYX5qcpEmCQ\"}],\"skills\":[{\"description\":\"\",\"id\":\"billing\",\"name\":\"billing\",\"tags\":[\"billing\"]}],\"supportedInterfaces\":[{\"protocolBinding\":\"https://sage-x-project.github.io/sage-spec/a2a/0.10.0/binding\",\"protocolVersion\":\"1.0\",\"url\":\"https://agents.example.com/a2a\"}],\"version\":\"1\"}",
+        "key_hex": "3b6a27bcceb6a42d62a3a8d02a6f0d73653215771de243a63ac048a18b59da29",
+        "tenant_route": "did:sage:web:agents.example.com:billing-bot",
+        "header_version": "",
+        "source_error": false,
+        "client_card_invalid": false,
+        "response_sender": "did:sage:web:agents.example.com:billing-bot",
+        "reply": " {\"jsonrpc\":\"2.0\", \"id\":\"one\",\"result\":{\"fixture\":\"inert-ack\"}} "
+      },
+      "expected": {
+        "direct": {
+          "errors": [
+            "authentication failed"
+          ],
+          "replies_hex": [
+            ""
+          ],
+          "dispatch_count": 0,
+          "owner_calls": 0,
+          "final_checks": 0,
+          "payloads_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c20226d6574686f64223a2253656e644d657373616765222c22706172616d73223a7b226d657373616765223a7b226d6573736167654964223a2272657175657374222c22726f6c65223a22524f4c455f55534552222c227061727473223a5b7b2274657874223a2268656c6c6f227d5d7d7d7d20"
+          ],
+          "handler_payloads_hex": [],
+          "targets": [
+            "https://agents.example.com/a2a"
+          ],
+          "recipients": [
+            "did:sage:web:agents.example.com:billing-bot"
+          ],
+          "versions": [
+            ""
+          ],
+          "extensions": [
+            "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+          ],
+          "http_statuses": [],
+          "fixture_headers": []
+        },
+        "tls": {
+          "errors": [
+            "authentication failed"
+          ],
+          "replies_hex": [
+            ""
+          ],
+          "dispatch_count": 0,
+          "owner_calls": 0,
+          "final_checks": 0,
+          "payloads_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c20226d6574686f64223a2253656e644d657373616765222c22706172616d73223a7b226d657373616765223a7b226d6573736167654964223a2272657175657374222c22726f6c65223a22524f4c455f55534552222c227061727473223a5b7b2274657874223a2268656c6c6f227d5d7d7d7d20"
+          ],
+          "handler_payloads_hex": [],
+          "targets": [
+            "https://agents.example.com/a2a"
+          ],
+          "recipients": [
+            "did:sage:web:agents.example.com:billing-bot"
+          ],
+          "versions": [
+            ""
+          ],
+          "extensions": [
+            "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+          ],
+          "http_statuses": [
+            403
+          ],
+          "fixture_headers": [
+            ""
+          ]
+        }
+      }
+    },
+    {
+      "id": "a2ab-03-not-activated",
+      "coverage_notes": "Only public library decisions with a fixture Source/owner; signed carriage, actual Registry readiness, deployment and effect authorization are unobserved.",
+      "execution": "policy",
+      "scope": "fixture-owner-library-only",
+      "coverage": "partial",
+      "input": {
+        "api": "server",
+        "payload": " {\"jsonrpc\":\"2.0\", \"id\":\"one\", \"method\":\"SendMessage\",\"params\":{\"message\":{\"messageId\":\"request\",\"role\":\"ROLE_USER\",\"parts\":[{\"text\":\"hello\"}]}}} ",
+        "metadata": {
+          "a2a_version": "1.0"
+        },
+        "recipient": "did:sage:web:agents.example.com:billing-bot",
+        "card": "{\"capabilities\":{\"extensions\":[{\"params\":{\"did\":\"did:sage:web:agents.example.com:billing-bot\",\"expires\":105,\"issued\":100,\"recordVersion\":\"3\",\"sageVersion\":\"0.10.0\"},\"required\":true,\"uri\":\"https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension\"}]},\"defaultInputModes\":[\"application/json\"],\"defaultOutputModes\":[\"application/json\"],\"description\":\"\",\"name\":\"billing\",\"signatures\":[{\"protected\":\"eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZGlkOnNhZ2U6d2ViOmFnZW50cy5leGFtcGxlLmNvbTpiaWxsaW5nLWJvdCNzaWduIiwidHlwIjoic2FnZS1hMmEtY2FyZCtqd3MifQ\",\"signature\":\"EuMhGEdfskss7rbJcbYoDvFlleu0eSIQUmtiFDapeH70Duin7hA2w4lhD4Z8BkufgPGDyrRbHbnRYX5qcpEmCQ\"}],\"skills\":[{\"description\":\"\",\"id\":\"billing\",\"name\":\"billing\",\"tags\":[\"billing\"]}],\"supportedInterfaces\":[{\"protocolBinding\":\"https://sage-x-project.github.io/sage-spec/a2a/0.10.0/binding\",\"protocolVersion\":\"1.0\",\"url\":\"https://agents.example.com/a2a\"}],\"version\":\"1\"}",
+        "key_hex": "3b6a27bcceb6a42d62a3a8d02a6f0d73653215771de243a63ac048a18b59da29",
+        "tenant_route": "did:sage:web:agents.example.com:billing-bot",
+        "header_version": "",
+        "source_error": false,
+        "client_card_invalid": false,
+        "response_sender": "did:sage:web:agents.example.com:billing-bot",
+        "reply": " {\"jsonrpc\":\"2.0\", \"id\":\"one\",\"result\":{\"fixture\":\"inert-ack\"}} "
+      },
+      "expected": {
+        "direct": {
+          "errors": [
+            "authentication failed"
+          ],
+          "replies_hex": [
+            ""
+          ],
+          "dispatch_count": 0,
+          "owner_calls": 0,
+          "final_checks": 0,
+          "payloads_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c20226d6574686f64223a2253656e644d657373616765222c22706172616d73223a7b226d657373616765223a7b226d6573736167654964223a2272657175657374222c22726f6c65223a22524f4c455f55534552222c227061727473223a5b7b2274657874223a2268656c6c6f227d5d7d7d7d20"
+          ],
+          "handler_payloads_hex": [],
+          "targets": [
+            "https://agents.example.com/a2a"
+          ],
+          "recipients": [
+            "did:sage:web:agents.example.com:billing-bot"
+          ],
+          "versions": [
+            "1.0"
+          ],
+          "extensions": [
+            ""
+          ],
+          "http_statuses": [],
+          "fixture_headers": []
+        },
+        "tls": {
+          "errors": [
+            "authentication failed"
+          ],
+          "replies_hex": [
+            ""
+          ],
+          "dispatch_count": 0,
+          "owner_calls": 0,
+          "final_checks": 0,
+          "payloads_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c20226d6574686f64223a2253656e644d657373616765222c22706172616d73223a7b226d657373616765223a7b226d6573736167654964223a2272657175657374222c22726f6c65223a22524f4c455f55534552222c227061727473223a5b7b2274657874223a2268656c6c6f227d5d7d7d7d20"
+          ],
+          "handler_payloads_hex": [],
+          "targets": [
+            "https://agents.example.com/a2a"
+          ],
+          "recipients": [
+            "did:sage:web:agents.example.com:billing-bot"
+          ],
+          "versions": [
+            "1.0"
+          ],
+          "extensions": [
+            ""
+          ],
+          "http_statuses": [
+            403
+          ],
+          "fixture_headers": [
+            ""
+          ]
+        }
+      }
+    },
+    {
+      "id": "a2ab-03-activated-twice",
+      "coverage_notes": "Only public library decisions with a fixture Source/owner; signed carriage, actual Registry readiness, deployment and effect authorization are unobserved.",
+      "execution": "policy",
+      "scope": "fixture-owner-library-only",
+      "coverage": "partial",
+      "input": {
+        "api": "server",
+        "payload": " {\"jsonrpc\":\"2.0\", \"id\":\"one\", \"method\":\"SendMessage\",\"params\":{\"message\":{\"messageId\":\"request\",\"role\":\"ROLE_USER\",\"parts\":[{\"text\":\"hello\"}]}}} ",
+        "metadata": {
+          "a2a_version": "1.0",
+          "a2a_extensions": "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension,https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+        },
+        "recipient": "did:sage:web:agents.example.com:billing-bot",
+        "card": "{\"capabilities\":{\"extensions\":[{\"params\":{\"did\":\"did:sage:web:agents.example.com:billing-bot\",\"expires\":105,\"issued\":100,\"recordVersion\":\"3\",\"sageVersion\":\"0.10.0\"},\"required\":true,\"uri\":\"https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension\"}]},\"defaultInputModes\":[\"application/json\"],\"defaultOutputModes\":[\"application/json\"],\"description\":\"\",\"name\":\"billing\",\"signatures\":[{\"protected\":\"eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZGlkOnNhZ2U6d2ViOmFnZW50cy5leGFtcGxlLmNvbTpiaWxsaW5nLWJvdCNzaWduIiwidHlwIjoic2FnZS1hMmEtY2FyZCtqd3MifQ\",\"signature\":\"EuMhGEdfskss7rbJcbYoDvFlleu0eSIQUmtiFDapeH70Duin7hA2w4lhD4Z8BkufgPGDyrRbHbnRYX5qcpEmCQ\"}],\"skills\":[{\"description\":\"\",\"id\":\"billing\",\"name\":\"billing\",\"tags\":[\"billing\"]}],\"supportedInterfaces\":[{\"protocolBinding\":\"https://sage-x-project.github.io/sage-spec/a2a/0.10.0/binding\",\"protocolVersion\":\"1.0\",\"url\":\"https://agents.example.com/a2a\"}],\"version\":\"1\"}",
+        "key_hex": "3b6a27bcceb6a42d62a3a8d02a6f0d73653215771de243a63ac048a18b59da29",
+        "tenant_route": "did:sage:web:agents.example.com:billing-bot",
+        "header_version": "",
+        "source_error": false,
+        "client_card_invalid": false,
+        "response_sender": "did:sage:web:agents.example.com:billing-bot",
+        "reply": " {\"jsonrpc\":\"2.0\", \"id\":\"one\",\"result\":{\"fixture\":\"inert-ack\"}} "
+      },
+      "expected": {
+        "direct": {
+          "errors": [
+            "authentication failed"
+          ],
+          "replies_hex": [
+            ""
+          ],
+          "dispatch_count": 0,
+          "owner_calls": 0,
+          "final_checks": 0,
+          "payloads_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c20226d6574686f64223a2253656e644d657373616765222c22706172616d73223a7b226d657373616765223a7b226d6573736167654964223a2272657175657374222c22726f6c65223a22524f4c455f55534552222c227061727473223a5b7b2274657874223a2268656c6c6f227d5d7d7d7d20"
+          ],
+          "handler_payloads_hex": [],
+          "targets": [
+            "https://agents.example.com/a2a"
+          ],
+          "recipients": [
+            "did:sage:web:agents.example.com:billing-bot"
+          ],
+          "versions": [
+            "1.0"
+          ],
+          "extensions": [
+            "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension,https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+          ],
+          "http_statuses": [],
+          "fixture_headers": []
+        },
+        "tls": {
+          "errors": [
+            "authentication failed"
+          ],
+          "replies_hex": [
+            ""
+          ],
+          "dispatch_count": 0,
+          "owner_calls": 0,
+          "final_checks": 0,
+          "payloads_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c20226d6574686f64223a2253656e644d657373616765222c22706172616d73223a7b226d657373616765223a7b226d6573736167654964223a2272657175657374222c22726f6c65223a22524f4c455f55534552222c227061727473223a5b7b2274657874223a2268656c6c6f227d5d7d7d7d20"
+          ],
+          "handler_payloads_hex": [],
+          "targets": [
+            "https://agents.example.com/a2a"
+          ],
+          "recipients": [
+            "did:sage:web:agents.example.com:billing-bot"
+          ],
+          "versions": [
+            "1.0"
+          ],
+          "extensions": [
+            "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension,https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+          ],
+          "http_statuses": [
+            403
+          ],
+          "fixture_headers": [
+            ""
+          ]
+        }
+      }
+    },
+    {
+      "id": "a2ab-04-server-grpc-downgrade",
+      "execution": "unsupported",
+      "reason": "No deployed alternate-binding listener can be inspected.",
+      "input": null,
+      "expected": null
+    },
+    {
+      "id": "a2ab-04-server-0-3-downgrade",
+      "execution": "unsupported",
+      "reason": "No deployed legacy/unsigned ingress can be inspected.",
+      "input": null,
+      "expected": null
+    },
+    {
+      "id": "a2ab-06-recipient-mismatch",
+      "coverage_notes": "Only public library decisions with a fixture Source/owner; signed carriage, actual Registry readiness, deployment and effect authorization are unobserved.",
+      "execution": "policy",
+      "scope": "fixture-owner-library-only",
+      "coverage": "partial",
+      "input": {
+        "api": "server",
+        "payload": " {\"jsonrpc\":\"2.0\", \"id\":\"one\", \"method\":\"SendMessage\",\"params\":{\"message\":{\"messageId\":\"request\",\"role\":\"ROLE_USER\",\"parts\":[{\"text\":\"hello\"}]}}} ",
+        "metadata": {
+          "a2a_version": "1.0",
+          "a2a_extensions": "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+        },
+        "recipient": "did:sage:web:agents.example.com:other",
+        "card": "{\"capabilities\":{\"extensions\":[{\"params\":{\"did\":\"did:sage:web:agents.example.com:billing-bot\",\"expires\":105,\"issued\":100,\"recordVersion\":\"3\",\"sageVersion\":\"0.10.0\"},\"required\":true,\"uri\":\"https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension\"}]},\"defaultInputModes\":[\"application/json\"],\"defaultOutputModes\":[\"application/json\"],\"description\":\"\",\"name\":\"billing\",\"signatures\":[{\"protected\":\"eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZGlkOnNhZ2U6d2ViOmFnZW50cy5leGFtcGxlLmNvbTpiaWxsaW5nLWJvdCNzaWduIiwidHlwIjoic2FnZS1hMmEtY2FyZCtqd3MifQ\",\"signature\":\"EuMhGEdfskss7rbJcbYoDvFlleu0eSIQUmtiFDapeH70Duin7hA2w4lhD4Z8BkufgPGDyrRbHbnRYX5qcpEmCQ\"}],\"skills\":[{\"description\":\"\",\"id\":\"billing\",\"name\":\"billing\",\"tags\":[\"billing\"]}],\"supportedInterfaces\":[{\"protocolBinding\":\"https://sage-x-project.github.io/sage-spec/a2a/0.10.0/binding\",\"protocolVersion\":\"1.0\",\"url\":\"https://agents.example.com/a2a\"}],\"version\":\"1\"}",
+        "key_hex": "3b6a27bcceb6a42d62a3a8d02a6f0d73653215771de243a63ac048a18b59da29",
+        "tenant_route": "did:sage:web:agents.example.com:billing-bot",
+        "header_version": "",
+        "source_error": false,
+        "client_card_invalid": false,
+        "response_sender": "did:sage:web:agents.example.com:billing-bot",
+        "reply": " {\"jsonrpc\":\"2.0\", \"id\":\"one\",\"result\":{\"fixture\":\"inert-ack\"}} "
+      },
+      "expected": {
+        "direct": {
+          "errors": [
+            "authentication failed"
+          ],
+          "replies_hex": [
+            ""
+          ],
+          "dispatch_count": 0,
+          "owner_calls": 0,
+          "final_checks": 0,
+          "payloads_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c20226d6574686f64223a2253656e644d657373616765222c22706172616d73223a7b226d657373616765223a7b226d6573736167654964223a2272657175657374222c22726f6c65223a22524f4c455f55534552222c227061727473223a5b7b2274657874223a2268656c6c6f227d5d7d7d7d20"
+          ],
+          "handler_payloads_hex": [],
+          "targets": [
+            "https://agents.example.com/a2a"
+          ],
+          "recipients": [
+            "did:sage:web:agents.example.com:other"
+          ],
+          "versions": [
+            "1.0"
+          ],
+          "extensions": [
+            "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+          ],
+          "http_statuses": [],
+          "fixture_headers": []
+        },
+        "tls": {
+          "errors": [
+            "authentication failed"
+          ],
+          "replies_hex": [
+            ""
+          ],
+          "dispatch_count": 0,
+          "owner_calls": 0,
+          "final_checks": 0,
+          "payloads_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c20226d6574686f64223a2253656e644d657373616765222c22706172616d73223a7b226d657373616765223a7b226d6573736167654964223a2272657175657374222c22726f6c65223a22524f4c455f55534552222c227061727473223a5b7b2274657874223a2268656c6c6f227d5d7d7d7d20"
+          ],
+          "handler_payloads_hex": [],
+          "targets": [
+            "https://agents.example.com/a2a"
+          ],
+          "recipients": [
+            "did:sage:web:agents.example.com:other"
+          ],
+          "versions": [
+            "1.0"
+          ],
+          "extensions": [
+            "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+          ],
+          "http_statuses": [
+            403
+          ],
+          "fixture_headers": [
+            ""
+          ]
+        }
+      }
+    },
+    {
+      "id": "a2ab-06-tenant-elsewhere",
+      "coverage_notes": "Only public library decisions with a fixture Source/owner; signed carriage, actual Registry readiness, deployment and effect authorization are unobserved.",
+      "execution": "policy",
+      "scope": "fixture-owner-library-only",
+      "coverage": "partial",
+      "input": {
+        "api": "server",
+        "payload": "{\"id\":\"one\",\"jsonrpc\":\"2.0\",\"method\":\"SendMessage\",\"params\":{\"message\":{\"messageId\":\"request\",\"parts\":[{\"text\":\"hello\"}],\"role\":\"ROLE_USER\"},\"tenant\":\"billing\"}}",
+        "metadata": {
+          "a2a_version": "1.0",
+          "a2a_extensions": "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+        },
+        "recipient": "did:sage:web:agents.example.com:billing-bot",
+        "card": "{\"capabilities\":{\"extensions\":[{\"params\":{\"did\":\"did:sage:web:agents.example.com:billing-bot\",\"expires\":105,\"issued\":100,\"recordVersion\":\"3\",\"sageVersion\":\"0.10.0\"},\"required\":true,\"uri\":\"https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension\"}]},\"defaultInputModes\":[\"application/json\"],\"defaultOutputModes\":[\"application/json\"],\"description\":\"\",\"name\":\"billing\",\"signatures\":[{\"protected\":\"eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZGlkOnNhZ2U6d2ViOmFnZW50cy5leGFtcGxlLmNvbTpiaWxsaW5nLWJvdCNzaWduIiwidHlwIjoic2FnZS1hMmEtY2FyZCtqd3MifQ\",\"signature\":\"Yl_gfn634VKUI8rTLL6d3RyOMNq4vYdTwIokytyymjy1UhdoiLQGaYBQqr_Q4a436GDy3L0AYQeiSR1BAgwQAA\"}],\"skills\":[{\"description\":\"\",\"id\":\"billing\",\"name\":\"billing\",\"tags\":[\"billing\"]}],\"supportedInterfaces\":[{\"protocolBinding\":\"https://sage-x-project.github.io/sage-spec/a2a/0.10.0/binding\",\"protocolVersion\":\"1.0\",\"tenant\":\"billing\",\"url\":\"https://agents.example.com/a2a\"}],\"version\":\"1\"}",
+        "key_hex": "3b6a27bcceb6a42d62a3a8d02a6f0d73653215771de243a63ac048a18b59da29",
+        "tenant_route": "did:sage:web:agents.example.com:other",
+        "header_version": "",
+        "source_error": false,
+        "client_card_invalid": false,
+        "response_sender": "did:sage:web:agents.example.com:billing-bot",
+        "reply": " {\"jsonrpc\":\"2.0\", \"id\":\"one\",\"result\":{\"fixture\":\"inert-ack\"}} "
+      },
+      "expected": {
+        "direct": {
+          "errors": [
+            "authentication failed"
+          ],
+          "replies_hex": [
+            ""
+          ],
+          "dispatch_count": 0,
+          "owner_calls": 0,
+          "final_checks": 0,
+          "payloads_hex": [
+            "7b226964223a226f6e65222c226a736f6e727063223a22322e30222c226d6574686f64223a2253656e644d657373616765222c22706172616d73223a7b226d657373616765223a7b226d6573736167654964223a2272657175657374222c227061727473223a5b7b2274657874223a2268656c6c6f227d5d2c22726f6c65223a22524f4c455f55534552227d2c2274656e616e74223a2262696c6c696e67227d7d"
+          ],
+          "handler_payloads_hex": [],
+          "targets": [
+            "https://agents.example.com/a2a"
+          ],
+          "recipients": [
+            "did:sage:web:agents.example.com:billing-bot"
+          ],
+          "versions": [
+            "1.0"
+          ],
+          "extensions": [
+            "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+          ],
+          "http_statuses": [],
+          "fixture_headers": []
+        },
+        "tls": {
+          "errors": [
+            "authentication failed"
+          ],
+          "replies_hex": [
+            ""
+          ],
+          "dispatch_count": 0,
+          "owner_calls": 0,
+          "final_checks": 0,
+          "payloads_hex": [
+            "7b226964223a226f6e65222c226a736f6e727063223a22322e30222c226d6574686f64223a2253656e644d657373616765222c22706172616d73223a7b226d657373616765223a7b226d6573736167654964223a2272657175657374222c227061727473223a5b7b2274657874223a2268656c6c6f227d5d2c22726f6c65223a22524f4c455f55534552227d2c2274656e616e74223a2262696c6c696e67227d7d"
+          ],
+          "handler_payloads_hex": [],
+          "targets": [
+            "https://agents.example.com/a2a"
+          ],
+          "recipients": [
+            "did:sage:web:agents.example.com:billing-bot"
+          ],
+          "versions": [
+            "1.0"
+          ],
+          "extensions": [
+            "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+          ],
+          "http_statuses": [
+            403
+          ],
+          "fixture_headers": [
+            ""
+          ]
+        }
+      }
+    },
+    {
+      "id": "a2ab-06-response-wrong-signer",
+      "coverage_notes": "Only public library decisions with a fixture Source/owner; signed carriage, actual Registry readiness, deployment and effect authorization are unobserved. This observes a wrong Sender in the trusted-owner result, not a cryptographic response signature.",
+      "execution": "policy",
+      "scope": "fixture-owner-library-only",
+      "coverage": "partial",
+      "input": {
+        "api": "client",
+        "payload": " {\"jsonrpc\":\"2.0\", \"id\":\"one\", \"method\":\"SendMessage\",\"params\":{\"message\":{\"messageId\":\"request\",\"role\":\"ROLE_USER\",\"parts\":[{\"text\":\"hello\"}]}}} ",
+        "metadata": {
+          "a2a_version": "1.0",
+          "a2a_extensions": "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+        },
+        "recipient": "did:sage:web:agents.example.com:billing-bot",
+        "card": "{\"capabilities\":{\"extensions\":[{\"params\":{\"did\":\"did:sage:web:agents.example.com:billing-bot\",\"expires\":105,\"issued\":100,\"recordVersion\":\"3\",\"sageVersion\":\"0.10.0\"},\"required\":true,\"uri\":\"https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension\"}]},\"defaultInputModes\":[\"application/json\"],\"defaultOutputModes\":[\"application/json\"],\"description\":\"\",\"name\":\"billing\",\"signatures\":[{\"protected\":\"eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZGlkOnNhZ2U6d2ViOmFnZW50cy5leGFtcGxlLmNvbTpiaWxsaW5nLWJvdCNzaWduIiwidHlwIjoic2FnZS1hMmEtY2FyZCtqd3MifQ\",\"signature\":\"EuMhGEdfskss7rbJcbYoDvFlleu0eSIQUmtiFDapeH70Duin7hA2w4lhD4Z8BkufgPGDyrRbHbnRYX5qcpEmCQ\"}],\"skills\":[{\"description\":\"\",\"id\":\"billing\",\"name\":\"billing\",\"tags\":[\"billing\"]}],\"supportedInterfaces\":[{\"protocolBinding\":\"https://sage-x-project.github.io/sage-spec/a2a/0.10.0/binding\",\"protocolVersion\":\"1.0\",\"url\":\"https://agents.example.com/a2a\"}],\"version\":\"1\"}",
+        "key_hex": "3b6a27bcceb6a42d62a3a8d02a6f0d73653215771de243a63ac048a18b59da29",
+        "tenant_route": "did:sage:web:agents.example.com:billing-bot",
+        "header_version": "",
+        "source_error": false,
+        "client_card_invalid": false,
+        "response_sender": "did:sage:web:agents.example.com:other",
+        "reply": " {\"jsonrpc\":\"2.0\", \"id\":\"one\",\"result\":{\"fixture\":\"inert-ack\"}} "
+      },
+      "expected": {
+        "direct": {
+          "errors": [
+            "authentication failed"
+          ],
+          "replies_hex": [
+            ""
+          ],
+          "dispatch_count": 1,
+          "owner_calls": 1,
+          "final_checks": 1,
+          "payloads_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c20226d6574686f64223a2253656e644d657373616765222c22706172616d73223a7b226d657373616765223a7b226d6573736167654964223a2272657175657374222c22726f6c65223a22524f4c455f55534552222c227061727473223a5b7b2274657874223a2268656c6c6f227d5d7d7d7d20"
+          ],
+          "handler_payloads_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c20226d6574686f64223a2253656e644d657373616765222c22706172616d73223a7b226d657373616765223a7b226d6573736167654964223a2272657175657374222c22726f6c65223a22524f4c455f55534552222c227061727473223a5b7b2274657874223a2268656c6c6f227d5d7d7d7d20"
+          ],
+          "targets": [
+            "https://agents.example.com/a2a"
+          ],
+          "recipients": [
+            "did:sage:web:agents.example.com:billing-bot"
+          ],
+          "versions": [
+            "1.0"
+          ],
+          "extensions": [
+            "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+          ],
+          "http_statuses": [],
+          "fixture_headers": []
+        },
+        "tls": {
+          "errors": [
+            "authentication failed"
+          ],
+          "replies_hex": [
+            ""
+          ],
+          "dispatch_count": 1,
+          "owner_calls": 1,
+          "final_checks": 1,
+          "payloads_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c20226d6574686f64223a2253656e644d657373616765222c22706172616d73223a7b226d657373616765223a7b226d6573736167654964223a2272657175657374222c22726f6c65223a22524f4c455f55534552222c227061727473223a5b7b2274657874223a2268656c6c6f227d5d7d7d7d20"
+          ],
+          "handler_payloads_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c20226d6574686f64223a2253656e644d657373616765222c22706172616d73223a7b226d657373616765223a7b226d6573736167654964223a2272657175657374222c22726f6c65223a22524f4c455f55534552222c227061727473223a5b7b2274657874223a2268656c6c6f227d5d7d7d7d20"
+          ],
+          "targets": [
+            "https://agents.example.com/a2a"
+          ],
+          "recipients": [
+            "did:sage:web:agents.example.com:billing-bot"
+          ],
+          "versions": [
+            "1.0"
+          ],
+          "extensions": [
+            "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+          ],
+          "http_statuses": [
+            200
+          ],
+          "fixture_headers": [
+            ""
+          ]
+        }
+      }
+    },
+    {
+      "id": "a2ab-07-abort-no-retry",
+      "coverage_notes": "Only public library decisions with a fixture Source/owner; signed carriage, actual Registry readiness, deployment and effect authorization are unobserved.",
+      "execution": "policy",
+      "scope": "fixture-owner-library-only",
+      "coverage": "partial",
+      "input": {
+        "api": "client",
+        "payload": " {\"jsonrpc\":\"2.0\", \"id\":\"one\", \"method\":\"SendMessage\",\"params\":{\"message\":{\"messageId\":\"request\",\"role\":\"ROLE_USER\",\"parts\":[{\"text\":\"hello\"}]}}} ",
+        "metadata": {
+          "a2a_version": "1.0",
+          "a2a_extensions": "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+        },
+        "recipient": "did:sage:web:agents.example.com:billing-bot",
+        "card": "{\"capabilities\":{\"extensions\":[{\"params\":{\"did\":\"did:sage:web:agents.example.com:billing-bot\",\"expires\":105,\"issued\":100,\"recordVersion\":\"3\",\"sageVersion\":\"0.10.0\"},\"required\":true,\"uri\":\"https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension\"}]},\"defaultInputModes\":[\"application/json\"],\"defaultOutputModes\":[\"application/json\"],\"description\":\"\",\"name\":\"billing\",\"signatures\":[{\"protected\":\"eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZGlkOnNhZ2U6d2ViOmFnZW50cy5leGFtcGxlLmNvbTpiaWxsaW5nLWJvdCNzaWduIiwidHlwIjoic2FnZS1hMmEtY2FyZCtqd3MifQ\",\"signature\":\"EuMhGEdfskss7rbJcbYoDvFlleu0eSIQUmtiFDapeH70Duin7hA2w4lhD4Z8BkufgPGDyrRbHbnRYX5qcpEmCQ\"}],\"skills\":[{\"description\":\"\",\"id\":\"billing\",\"name\":\"billing\",\"tags\":[\"billing\"]}],\"supportedInterfaces\":[{\"protocolBinding\":\"https://sage-x-project.github.io/sage-spec/a2a/0.10.0/binding\",\"protocolVersion\":\"1.0\",\"url\":\"https://agents.example.com/a2a\"}],\"version\":\"1\"}",
+        "key_hex": "3b6a27bcceb6a42d62a3a8d02a6f0d73653215771de243a63ac048a18b59da29",
+        "tenant_route": "did:sage:web:agents.example.com:billing-bot",
+        "header_version": "",
+        "source_error": false,
+        "client_card_invalid": true,
+        "response_sender": "did:sage:web:agents.example.com:billing-bot",
+        "reply": " {\"jsonrpc\":\"2.0\", \"id\":\"one\",\"result\":{\"fixture\":\"inert-ack\"}} "
+      },
+      "expected": {
+        "direct": {
+          "errors": [
+            "authentication failed"
+          ],
+          "replies_hex": [
+            ""
+          ],
+          "dispatch_count": 0,
+          "owner_calls": 0,
+          "final_checks": 0,
+          "payloads_hex": [],
+          "handler_payloads_hex": [],
+          "targets": [],
+          "recipients": [],
+          "versions": [],
+          "extensions": [],
+          "http_statuses": [],
+          "fixture_headers": []
+        },
+        "tls": {
+          "errors": [
+            "authentication failed"
+          ],
+          "replies_hex": [
+            ""
+          ],
+          "dispatch_count": 0,
+          "owner_calls": 0,
+          "final_checks": 0,
+          "payloads_hex": [],
+          "handler_payloads_hex": [],
+          "targets": [],
+          "recipients": [],
+          "versions": [],
+          "extensions": [],
+          "http_statuses": [],
+          "fixture_headers": []
+        }
+      }
+    },
+    {
+      "id": "a2ab-07-no-standard-binding-retry",
+      "coverage_notes": "Only public library decisions with a fixture Source/owner; signed carriage, actual Registry readiness, deployment and effect authorization are unobserved. The server rejects the request carrying metadata1.0 because its fresh fixture Source fails. This observes terminal client failure, not version-negotiation-specific rejection or alternate listeners.",
+      "execution": "policy",
+      "scope": "fixture-owner-library-only",
+      "coverage": "partial",
+      "input": {
+        "api": "client",
+        "payload": " {\"jsonrpc\":\"2.0\", \"id\":\"one\", \"method\":\"SendMessage\",\"params\":{\"message\":{\"messageId\":\"request\",\"role\":\"ROLE_USER\",\"parts\":[{\"text\":\"hello\"}]}}} ",
+        "metadata": {
+          "a2a_version": "1.0",
+          "a2a_extensions": "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+        },
+        "recipient": "did:sage:web:agents.example.com:billing-bot",
+        "card": "{\"capabilities\":{\"extensions\":[{\"params\":{\"did\":\"did:sage:web:agents.example.com:billing-bot\",\"expires\":105,\"issued\":100,\"recordVersion\":\"3\",\"sageVersion\":\"0.10.0\"},\"required\":true,\"uri\":\"https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension\"}]},\"defaultInputModes\":[\"application/json\"],\"defaultOutputModes\":[\"application/json\"],\"description\":\"\",\"name\":\"billing\",\"signatures\":[{\"protected\":\"eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZGlkOnNhZ2U6d2ViOmFnZW50cy5leGFtcGxlLmNvbTpiaWxsaW5nLWJvdCNzaWduIiwidHlwIjoic2FnZS1hMmEtY2FyZCtqd3MifQ\",\"signature\":\"EuMhGEdfskss7rbJcbYoDvFlleu0eSIQUmtiFDapeH70Duin7hA2w4lhD4Z8BkufgPGDyrRbHbnRYX5qcpEmCQ\"}],\"skills\":[{\"description\":\"\",\"id\":\"billing\",\"name\":\"billing\",\"tags\":[\"billing\"]}],\"supportedInterfaces\":[{\"protocolBinding\":\"https://sage-x-project.github.io/sage-spec/a2a/0.10.0/binding\",\"protocolVersion\":\"1.0\",\"url\":\"https://agents.example.com/a2a\"}],\"version\":\"1\"}",
+        "key_hex": "3b6a27bcceb6a42d62a3a8d02a6f0d73653215771de243a63ac048a18b59da29",
+        "tenant_route": "did:sage:web:agents.example.com:billing-bot",
+        "header_version": "",
+        "source_error": true,
+        "client_card_invalid": false,
+        "response_sender": "did:sage:web:agents.example.com:billing-bot",
+        "reply": " {\"jsonrpc\":\"2.0\", \"id\":\"one\",\"result\":{\"fixture\":\"inert-ack\"}} "
+      },
+      "expected": {
+        "direct": {
+          "errors": [
+            "authentication failed"
+          ],
+          "replies_hex": [
+            ""
+          ],
+          "dispatch_count": 0,
+          "owner_calls": 1,
+          "final_checks": 1,
+          "payloads_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c20226d6574686f64223a2253656e644d657373616765222c22706172616d73223a7b226d657373616765223a7b226d6573736167654964223a2272657175657374222c22726f6c65223a22524f4c455f55534552222c227061727473223a5b7b2274657874223a2268656c6c6f227d5d7d7d7d20"
+          ],
+          "handler_payloads_hex": [],
+          "targets": [
+            "https://agents.example.com/a2a"
+          ],
+          "recipients": [
+            "did:sage:web:agents.example.com:billing-bot"
+          ],
+          "versions": [
+            "1.0"
+          ],
+          "extensions": [
+            "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+          ],
+          "http_statuses": [],
+          "fixture_headers": []
+        },
+        "tls": {
+          "errors": [
+            "authentication failed"
+          ],
+          "replies_hex": [
+            ""
+          ],
+          "dispatch_count": 0,
+          "owner_calls": 1,
+          "final_checks": 1,
+          "payloads_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c20226d6574686f64223a2253656e644d657373616765222c22706172616d73223a7b226d657373616765223a7b226d6573736167654964223a2272657175657374222c22726f6c65223a22524f4c455f55534552222c227061727473223a5b7b2274657874223a2268656c6c6f227d5d7d7d7d20"
+          ],
+          "handler_payloads_hex": [],
+          "targets": [
+            "https://agents.example.com/a2a"
+          ],
+          "recipients": [
+            "did:sage:web:agents.example.com:billing-bot"
+          ],
+          "versions": [
+            "1.0"
+          ],
+          "extensions": [
+            "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+          ],
+          "http_statuses": [
+            403
+          ],
+          "fixture_headers": [
+            ""
+          ]
+        }
+      }
+    },
+    {
+      "id": "a2ab-07-no-version-retry",
+      "coverage_notes": "Only public library decisions with a fixture Source/owner; signed carriage, actual Registry readiness, deployment and effect authorization are unobserved. The server rejects the request carrying metadata1.0 because its fresh fixture Source fails. This observes terminal client failure, not version-negotiation-specific rejection or alternate listeners.",
+      "execution": "policy",
+      "scope": "fixture-owner-library-only",
+      "coverage": "partial",
+      "input": {
+        "api": "client",
+        "payload": " {\"jsonrpc\":\"2.0\", \"id\":\"one\", \"method\":\"SendMessage\",\"params\":{\"message\":{\"messageId\":\"request\",\"role\":\"ROLE_USER\",\"parts\":[{\"text\":\"hello\"}]}}} ",
+        "metadata": {
+          "a2a_version": "1.0",
+          "a2a_extensions": "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+        },
+        "recipient": "did:sage:web:agents.example.com:billing-bot",
+        "card": "{\"capabilities\":{\"extensions\":[{\"params\":{\"did\":\"did:sage:web:agents.example.com:billing-bot\",\"expires\":105,\"issued\":100,\"recordVersion\":\"3\",\"sageVersion\":\"0.10.0\"},\"required\":true,\"uri\":\"https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension\"}]},\"defaultInputModes\":[\"application/json\"],\"defaultOutputModes\":[\"application/json\"],\"description\":\"\",\"name\":\"billing\",\"signatures\":[{\"protected\":\"eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZGlkOnNhZ2U6d2ViOmFnZW50cy5leGFtcGxlLmNvbTpiaWxsaW5nLWJvdCNzaWduIiwidHlwIjoic2FnZS1hMmEtY2FyZCtqd3MifQ\",\"signature\":\"EuMhGEdfskss7rbJcbYoDvFlleu0eSIQUmtiFDapeH70Duin7hA2w4lhD4Z8BkufgPGDyrRbHbnRYX5qcpEmCQ\"}],\"skills\":[{\"description\":\"\",\"id\":\"billing\",\"name\":\"billing\",\"tags\":[\"billing\"]}],\"supportedInterfaces\":[{\"protocolBinding\":\"https://sage-x-project.github.io/sage-spec/a2a/0.10.0/binding\",\"protocolVersion\":\"1.0\",\"url\":\"https://agents.example.com/a2a\"}],\"version\":\"1\"}",
+        "key_hex": "3b6a27bcceb6a42d62a3a8d02a6f0d73653215771de243a63ac048a18b59da29",
+        "tenant_route": "did:sage:web:agents.example.com:billing-bot",
+        "header_version": "",
+        "source_error": true,
+        "client_card_invalid": false,
+        "response_sender": "did:sage:web:agents.example.com:billing-bot",
+        "reply": " {\"jsonrpc\":\"2.0\", \"id\":\"one\",\"result\":{\"fixture\":\"inert-ack\"}} "
+      },
+      "expected": {
+        "direct": {
+          "errors": [
+            "authentication failed"
+          ],
+          "replies_hex": [
+            ""
+          ],
+          "dispatch_count": 0,
+          "owner_calls": 1,
+          "final_checks": 1,
+          "payloads_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c20226d6574686f64223a2253656e644d657373616765222c22706172616d73223a7b226d657373616765223a7b226d6573736167654964223a2272657175657374222c22726f6c65223a22524f4c455f55534552222c227061727473223a5b7b2274657874223a2268656c6c6f227d5d7d7d7d20"
+          ],
+          "handler_payloads_hex": [],
+          "targets": [
+            "https://agents.example.com/a2a"
+          ],
+          "recipients": [
+            "did:sage:web:agents.example.com:billing-bot"
+          ],
+          "versions": [
+            "1.0"
+          ],
+          "extensions": [
+            "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+          ],
+          "http_statuses": [],
+          "fixture_headers": []
+        },
+        "tls": {
+          "errors": [
+            "authentication failed"
+          ],
+          "replies_hex": [
+            ""
+          ],
+          "dispatch_count": 0,
+          "owner_calls": 1,
+          "final_checks": 1,
+          "payloads_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c20226d6574686f64223a2253656e644d657373616765222c22706172616d73223a7b226d657373616765223a7b226d6573736167654964223a2272657175657374222c22726f6c65223a22524f4c455f55534552222c227061727473223a5b7b2274657874223a2268656c6c6f227d5d7d7d7d20"
+          ],
+          "handler_payloads_hex": [],
+          "targets": [
+            "https://agents.example.com/a2a"
+          ],
+          "recipients": [
+            "did:sage:web:agents.example.com:billing-bot"
+          ],
+          "versions": [
+            "1.0"
+          ],
+          "extensions": [
+            "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+          ],
+          "http_statuses": [
+            403
+          ],
+          "fixture_headers": [
+            ""
+          ]
+        }
+      }
+    },
+    {
+      "id": "a2ab-07-uniform-error",
+      "coverage_notes": "Only public library decisions with a fixture Source/owner; signed carriage, actual Registry readiness, deployment and effect authorization are unobserved.",
+      "execution": "policy",
+      "scope": "fixture-owner-library-only",
+      "coverage": "partial",
+      "input": {
+        "api": "uniform",
+        "payload": " {\"jsonrpc\":\"2.0\", \"id\":\"one\", \"method\":\"SendMessage\",\"params\":{\"message\":{\"messageId\":\"request\",\"role\":\"ROLE_USER\",\"parts\":[{\"text\":\"hello\"}]}}} ",
+        "metadata": {
+          "a2a_version": "1.0",
+          "a2a_extensions": "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+        },
+        "recipient": "did:sage:web:agents.example.com:billing-bot",
+        "card": "{\"capabilities\":{\"extensions\":[{\"params\":{\"did\":\"did:sage:web:agents.example.com:billing-bot\",\"expires\":105,\"issued\":100,\"recordVersion\":\"3\",\"sageVersion\":\"0.10.0\"},\"required\":true,\"uri\":\"https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension\"}]},\"defaultInputModes\":[\"application/json\"],\"defaultOutputModes\":[\"application/json\"],\"description\":\"\",\"name\":\"billing\",\"signatures\":[{\"protected\":\"eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZGlkOnNhZ2U6d2ViOmFnZW50cy5leGFtcGxlLmNvbTpiaWxsaW5nLWJvdCNzaWduIiwidHlwIjoic2FnZS1hMmEtY2FyZCtqd3MifQ\",\"signature\":\"EuMhGEdfskss7rbJcbYoDvFlleu0eSIQUmtiFDapeH70Duin7hA2w4lhD4Z8BkufgPGDyrRbHbnRYX5qcpEmCQ\"}],\"skills\":[{\"description\":\"\",\"id\":\"billing\",\"name\":\"billing\",\"tags\":[\"billing\"]}],\"supportedInterfaces\":[{\"protocolBinding\":\"https://sage-x-project.github.io/sage-spec/a2a/0.10.0/binding\",\"protocolVersion\":\"1.0\",\"url\":\"https://agents.example.com/a2a\"}],\"version\":\"1\"}",
+        "key_hex": "3b6a27bcceb6a42d62a3a8d02a6f0d73653215771de243a63ac048a18b59da29",
+        "tenant_route": "did:sage:web:agents.example.com:billing-bot",
+        "header_version": "",
+        "source_error": false,
+        "client_card_invalid": false,
+        "response_sender": "did:sage:web:agents.example.com:billing-bot",
+        "reply": " {\"jsonrpc\":\"2.0\", \"id\":\"one\",\"result\":{\"fixture\":\"inert-ack\"}} "
+      },
+      "expected": {
+        "direct": {
+          "errors": [
+            "authentication failed",
+            "authentication failed"
+          ],
+          "replies_hex": [
+            "",
+            ""
+          ],
+          "dispatch_count": 0,
+          "owner_calls": 0,
+          "final_checks": 0,
+          "payloads_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c20226d6574686f64223a2253656e644d657373616765222c22706172616d73223a7b226d657373616765223a7b226d6573736167654964223a2272657175657374222c22726f6c65223a22524f4c455f55534552222c227061727473223a5b7b2274657874223a2268656c6c6f227d5d7d7d7d20",
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c20226d6574686f64223a2253656e644d657373616765222c22706172616d73223a7b226d657373616765223a7b226d6573736167654964223a2272657175657374222c22726f6c65223a22524f4c455f55534552222c227061727473223a5b7b2274657874223a2268656c6c6f227d5d7d7d7d20"
+          ],
+          "handler_payloads_hex": [],
+          "targets": [
+            "https://agents.example.com/a2a",
+            "https://agents.example.com/a2a"
+          ],
+          "recipients": [
+            "did:sage:web:agents.example.com:billing-bot",
+            "did:sage:web:agents.example.com:other"
+          ],
+          "versions": [
+            "",
+            "1.0"
+          ],
+          "extensions": [
+            "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension",
+            "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+          ],
+          "http_statuses": [],
+          "fixture_headers": []
+        },
+        "tls": {
+          "errors": [
+            "authentication failed",
+            "authentication failed"
+          ],
+          "replies_hex": [
+            "",
+            ""
+          ],
+          "dispatch_count": 0,
+          "owner_calls": 0,
+          "final_checks": 0,
+          "payloads_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c20226d6574686f64223a2253656e644d657373616765222c22706172616d73223a7b226d657373616765223a7b226d6573736167654964223a2272657175657374222c22726f6c65223a22524f4c455f55534552222c227061727473223a5b7b2274657874223a2268656c6c6f227d5d7d7d7d20",
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c20226d6574686f64223a2253656e644d657373616765222c22706172616d73223a7b226d657373616765223a7b226d6573736167654964223a2272657175657374222c22726f6c65223a22524f4c455f55534552222c227061727473223a5b7b2274657874223a2268656c6c6f227d5d7d7d7d20"
+          ],
+          "handler_payloads_hex": [],
+          "targets": [
+            "https://agents.example.com/a2a",
+            "https://agents.example.com/a2a"
+          ],
+          "recipients": [
+            "did:sage:web:agents.example.com:billing-bot",
+            "did:sage:web:agents.example.com:other"
+          ],
+          "versions": [
+            "",
+            "1.0"
+          ],
+          "extensions": [
+            "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension",
+            "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+          ],
+          "http_statuses": [
+            403,
+            403
+          ],
+          "fixture_headers": [
+            "",
+            ""
+          ]
+        }
+      }
+    },
+    {
+      "id": "a2ab-07-success-no-fallback",
+      "coverage_notes": "Only public library decisions with a fixture Source/owner; signed carriage, actual Registry readiness, deployment and effect authorization are unobserved.",
+      "execution": "policy",
+      "scope": "fixture-owner-library-only",
+      "coverage": "partial",
+      "input": {
+        "api": "client",
+        "payload": " {\"jsonrpc\":\"2.0\", \"id\":\"one\", \"method\":\"SendMessage\",\"params\":{\"message\":{\"messageId\":\"request\",\"role\":\"ROLE_USER\",\"parts\":[{\"text\":\"hello\"}]}}} ",
+        "metadata": {
+          "a2a_version": "1.0",
+          "a2a_extensions": "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+        },
+        "recipient": "did:sage:web:agents.example.com:billing-bot",
+        "card": "{\"capabilities\":{\"extensions\":[{\"params\":{\"did\":\"did:sage:web:agents.example.com:billing-bot\",\"expires\":105,\"issued\":100,\"recordVersion\":\"3\",\"sageVersion\":\"0.10.0\"},\"required\":true,\"uri\":\"https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension\"}]},\"defaultInputModes\":[\"application/json\"],\"defaultOutputModes\":[\"application/json\"],\"description\":\"\",\"name\":\"billing\",\"signatures\":[{\"protected\":\"eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZGlkOnNhZ2U6d2ViOmFnZW50cy5leGFtcGxlLmNvbTpiaWxsaW5nLWJvdCNzaWduIiwidHlwIjoic2FnZS1hMmEtY2FyZCtqd3MifQ\",\"signature\":\"EuMhGEdfskss7rbJcbYoDvFlleu0eSIQUmtiFDapeH70Duin7hA2w4lhD4Z8BkufgPGDyrRbHbnRYX5qcpEmCQ\"}],\"skills\":[{\"description\":\"\",\"id\":\"billing\",\"name\":\"billing\",\"tags\":[\"billing\"]}],\"supportedInterfaces\":[{\"protocolBinding\":\"https://sage-x-project.github.io/sage-spec/a2a/0.10.0/binding\",\"protocolVersion\":\"1.0\",\"url\":\"https://agents.example.com/a2a\"}],\"version\":\"1\"}",
+        "key_hex": "3b6a27bcceb6a42d62a3a8d02a6f0d73653215771de243a63ac048a18b59da29",
+        "tenant_route": "did:sage:web:agents.example.com:billing-bot",
+        "header_version": "",
+        "source_error": false,
+        "client_card_invalid": false,
+        "response_sender": "did:sage:web:agents.example.com:billing-bot",
+        "reply": " {\"jsonrpc\":\"2.0\", \"id\":\"one\",\"result\":{\"fixture\":\"inert-ack\"}} "
+      },
+      "expected": {
+        "direct": {
+          "errors": [
+            ""
+          ],
+          "replies_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c22726573756c74223a7b2266697874757265223a22696e6572742d61636b227d7d20"
+          ],
+          "dispatch_count": 1,
+          "owner_calls": 1,
+          "final_checks": 1,
+          "payloads_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c20226d6574686f64223a2253656e644d657373616765222c22706172616d73223a7b226d657373616765223a7b226d6573736167654964223a2272657175657374222c22726f6c65223a22524f4c455f55534552222c227061727473223a5b7b2274657874223a2268656c6c6f227d5d7d7d7d20"
+          ],
+          "handler_payloads_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c20226d6574686f64223a2253656e644d657373616765222c22706172616d73223a7b226d657373616765223a7b226d6573736167654964223a2272657175657374222c22726f6c65223a22524f4c455f55534552222c227061727473223a5b7b2274657874223a2268656c6c6f227d5d7d7d7d20"
+          ],
+          "targets": [
+            "https://agents.example.com/a2a"
+          ],
+          "recipients": [
+            "did:sage:web:agents.example.com:billing-bot"
+          ],
+          "versions": [
+            "1.0"
+          ],
+          "extensions": [
+            "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+          ],
+          "http_statuses": [],
+          "fixture_headers": []
+        },
+        "tls": {
+          "errors": [
+            ""
+          ],
+          "replies_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c22726573756c74223a7b2266697874757265223a22696e6572742d61636b227d7d20"
+          ],
+          "dispatch_count": 1,
+          "owner_calls": 1,
+          "final_checks": 1,
+          "payloads_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c20226d6574686f64223a2253656e644d657373616765222c22706172616d73223a7b226d657373616765223a7b226d6573736167654964223a2272657175657374222c22726f6c65223a22524f4c455f55534552222c227061727473223a5b7b2274657874223a2268656c6c6f227d5d7d7d7d20"
+          ],
+          "handler_payloads_hex": [
+            "207b226a736f6e727063223a22322e30222c20226964223a226f6e65222c20226d6574686f64223a2253656e644d657373616765222c22706172616d73223a7b226d657373616765223a7b226d6573736167654964223a2272657175657374222c22726f6c65223a22524f4c455f55534552222c227061727473223a5b7b2274657874223a2268656c6c6f227d5d7d7d7d20"
+          ],
+          "targets": [
+            "https://agents.example.com/a2a"
+          ],
+          "recipients": [
+            "did:sage:web:agents.example.com:billing-bot"
+          ],
+          "versions": [
+            "1.0"
+          ],
+          "extensions": [
+            "https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension"
+          ],
+          "http_statuses": [
+            200
+          ],
+          "fixture_headers": [
+            ""
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -87,6 +87,13 @@ def observer_sources(root):
             ('scripts/a2a_card_observation.py','scripts/a2a_did_catalog.py','scripts/current_spec_catalog.py')}
 
 
+def compiler_inputs(go,directory,env):
+    package=load(execute([go,'list','-json','.'],directory,env).stdout)
+    require(package.get('GoFiles')==['main.go'] and not package.get('CgoFiles')
+            and not package.get('SFiles') and not package.get('SysoFiles'), 'unexpected compiler inputs')
+    return {p.name:sha(p.read_bytes()) for p in directory.iterdir() if p.name in ('main.go','go.mod','go.sum')}
+
+
 def run_native(go,root=ROOT):
     observer=observer_sources(root)
     directory=root/'adapters/a2a-card'
@@ -95,10 +102,7 @@ def run_native(go,root=ROOT):
     require(bool(re.fullmatch(r'go version go1\.26\.8 (darwin|linux)/(arm64|amd64)',compiler)),
             'required Go compiler')
     modules=module_info(go,directory,env)
-    package=load(execute([go,'list','-json','.'],directory,env).stdout)
-    require(package.get('GoFiles')==['main.go'] and not package.get('CgoFiles')
-            and not package.get('SFiles') and not package.get('SysoFiles'), 'unexpected compiler inputs')
-    source={p.name:sha(p.read_bytes()) for p in directory.iterdir() if p.name in ('main.go','go.mod','go.sum')}
+    source=compiler_inputs(go,directory,env)
     require(set(source)=={'main.go','go.mod','go.sum'},'complete adapter source')
     observations=[];raw_trace=[]
     with tempfile.TemporaryDirectory(prefix='sage-card-inspection-') as temporary:
@@ -113,7 +117,7 @@ def run_native(go,root=ROOT):
             observations.append({'id':c['id'],'input_sha256':sha(raw),'actual':actual})
             raw_trace.append({'id':c['id'],'stdout_hex':done.stdout.hex(),'stdout_sha256':sha(done.stdout)})
         require(digest==sha(binary.read_bytes()),'adapter executable changed')
-    require(source=={p.name:sha(p.read_bytes()) for p in directory.iterdir() if p.name in source}
+    require(source==compiler_inputs(go,directory,env)
             and modules==module_info(go,directory,env),'build inputs changed')
     report=assess(observations,root)
     require(observer==observer_sources(root),'observer source changed')

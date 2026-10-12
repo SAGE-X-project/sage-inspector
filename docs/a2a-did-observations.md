@@ -69,9 +69,9 @@ historical observation workflows or general Inspector tests.
 
 ## Remaining work in the approved order
 
-The Inspector extension is still in progress. Next are the remaining 23 A2AB
-request/response-policy and transport cases, 28 DIDP projection/resolution cases,
-and two TABLE-08 cases. Bind independent expectations to actual ADK/Go/Rust
+The Inspector extension is still in progress. The remaining 23 A2AB call
+contracts now have [policy observations and explicit unsupported ingress](a2a-call-observations.md).
+Next are 28 DIDP projection/resolution cases and two TABLE-08 cases. Bind independent expectations to actual ADK/Go/Rust
 subjects and inspect advanced/sage separately with did-inspector's DID Core 1.0
 and DID 1.1 profiles. HTTP/envelope/replay evidence requires a real supporting
 adapter and must remain unsupported or not run until it exists. A local library

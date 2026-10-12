@@ -1,0 +1,1952 @@
+{
+  "schema_version": 1,
+  "spec_revision": "06b50e177ccd22bce7d70fd80c2d7f822ae3fd3b",
+  "subject_revision": "2ef282b40ccf",
+  "scope": "did-projection-resolution-fixture-source",
+  "cases": [
+    {
+      "id": "didp-01-core-1-0-unchanged",
+      "rule_id": "DIDP-01",
+      "execution": "native",
+      "coverage": "partial",
+      "input": {
+        "interface": "sage-api",
+        "did": "did:sage:web:registry.example:agent-1",
+        "accepts": [
+          "application/did+json"
+        ],
+        "state": "active",
+        "keys": [
+          {
+            "name": "agree",
+            "algorithm": "x25519",
+            "material_hex": "0900000000000000000000000000000000000000000000000000000000000000",
+            "state": "accepted"
+          },
+          {
+            "name": "sign",
+            "algorithm": "ed25519",
+            "material_hex": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
+            "state": "accepted"
+          }
+        ],
+        "source_error": "",
+        "fail_did11": false
+      },
+      "expected": {
+        "source_calls": 1,
+        "network_attempts": 0,
+        "responses": [
+          {
+            "status": 200,
+            "content_type": "application/did+json",
+            "sage_code": "",
+            "problem_type": "",
+            "body": {
+              "id": "did:sage:web:registry.example:agent-1",
+              "verificationMethod": [
+                {
+                  "id": "did:sage:web:registry.example:agent-1#agree",
+                  "type": "JsonWebKey2020",
+                  "controller": "did:sage:web:registry.example:agent-1",
+                  "publicKeyJwk": {
+                    "kty": "OKP",
+                    "crv": "X25519",
+                    "x": "CQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                },
+                {
+                  "id": "did:sage:web:registry.example:agent-1#sign",
+                  "type": "JsonWebKey2020",
+                  "controller": "did:sage:web:registry.example:agent-1",
+                  "publicKeyJwk": {
+                    "kty": "OKP",
+                    "crv": "Ed25519",
+                    "x": "11qYAYKxCrfVS_7TyWQHOg7hcvPapiMlrwIaaPcHURo"
+                  }
+                }
+              ],
+              "authentication": [
+                "did:sage:web:registry.example:agent-1#sign"
+              ],
+              "assertionMethod": [
+                "did:sage:web:registry.example:agent-1#sign"
+              ],
+              "keyAgreement": [
+                "did:sage:web:registry.example:agent-1#agree"
+              ],
+              "service": [
+                {
+                  "id": "did:sage:web:registry.example:agent-1#a2a",
+                  "type": "A2AInterface",
+                  "serviceEndpoint": "https://agent.example/a2a"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "coverage_notes": [
+        "Fixture Source supplies prevalidated public record data; no registry proof, freshness, custody or deployment is certified.",
+        "SAGE Respond API is observed; HTTP status is the API problem status, not a production HTTP binding."
+      ]
+    },
+    {
+      "id": "didp-01-did-1-1-shape",
+      "rule_id": "DIDP-01",
+      "execution": "native",
+      "coverage": "partial",
+      "input": {
+        "interface": "sage-api",
+        "did": "did:sage:web:registry.example:agent-1",
+        "accepts": [
+          "application/did"
+        ],
+        "state": "active",
+        "keys": [
+          {
+            "name": "agree",
+            "algorithm": "x25519",
+            "material_hex": "0900000000000000000000000000000000000000000000000000000000000000",
+            "state": "accepted"
+          },
+          {
+            "name": "sign",
+            "algorithm": "ed25519",
+            "material_hex": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
+            "state": "accepted"
+          }
+        ],
+        "source_error": "",
+        "fail_did11": false
+      },
+      "expected": {
+        "source_calls": 1,
+        "network_attempts": 0,
+        "responses": [
+          {
+            "status": 200,
+            "content_type": "application/did",
+            "sage_code": "",
+            "problem_type": "",
+            "body": {
+              "@context": "https://www.w3.org/ns/did/v1.1",
+              "id": "did:sage:web:registry.example:agent-1",
+              "verificationMethod": [
+                {
+                  "id": "did:sage:web:registry.example:agent-1#agree",
+                  "type": "JsonWebKey",
+                  "controller": "did:sage:web:registry.example:agent-1",
+                  "publicKeyJwk": {
+                    "kty": "OKP",
+                    "crv": "X25519",
+                    "x": "CQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                },
+                {
+                  "id": "did:sage:web:registry.example:agent-1#sign",
+                  "type": "JsonWebKey",
+                  "controller": "did:sage:web:registry.example:agent-1",
+                  "publicKeyJwk": {
+                    "kty": "OKP",
+                    "crv": "Ed25519",
+                    "x": "11qYAYKxCrfVS_7TyWQHOg7hcvPapiMlrwIaaPcHURo"
+                  }
+                }
+              ],
+              "authentication": [
+                "did:sage:web:registry.example:agent-1#sign"
+              ],
+              "assertionMethod": [
+                "did:sage:web:registry.example:agent-1#sign"
+              ],
+              "keyAgreement": [
+                "did:sage:web:registry.example:agent-1#agree"
+              ],
+              "service": [
+                {
+                  "id": "did:sage:web:registry.example:agent-1#a2a",
+                  "type": "A2AInterface",
+                  "serviceEndpoint": "https://agent.example/a2a"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "coverage_notes": [
+        "Fixture Source supplies prevalidated public record data; no registry proof, freshness, custody or deployment is certified.",
+        "SAGE Respond API is observed; HTTP status is the API problem status, not a production HTTP binding."
+      ]
+    },
+    {
+      "id": "didp-01-no-multikey",
+      "rule_id": "DIDP-01",
+      "execution": "native",
+      "coverage": "partial",
+      "input": {
+        "interface": "sage-api",
+        "did": "did:sage:web:registry.example:agent-1",
+        "accepts": [
+          "application/did"
+        ],
+        "state": "active",
+        "keys": [
+          {
+            "name": "agree",
+            "algorithm": "x25519",
+            "material_hex": "0900000000000000000000000000000000000000000000000000000000000000",
+            "state": "accepted"
+          },
+          {
+            "name": "sign",
+            "algorithm": "ed25519",
+            "material_hex": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
+            "state": "accepted"
+          }
+        ],
+        "source_error": "",
+        "fail_did11": false
+      },
+      "expected": {
+        "source_calls": 1,
+        "network_attempts": 0,
+        "responses": [
+          {
+            "status": 200,
+            "content_type": "application/did",
+            "sage_code": "",
+            "problem_type": "",
+            "body": {
+              "@context": "https://www.w3.org/ns/did/v1.1",
+              "id": "did:sage:web:registry.example:agent-1",
+              "verificationMethod": [
+                {
+                  "id": "did:sage:web:registry.example:agent-1#agree",
+                  "type": "JsonWebKey",
+                  "controller": "did:sage:web:registry.example:agent-1",
+                  "publicKeyJwk": {
+                    "kty": "OKP",
+                    "crv": "X25519",
+                    "x": "CQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                },
+                {
+                  "id": "did:sage:web:registry.example:agent-1#sign",
+                  "type": "JsonWebKey",
+                  "controller": "did:sage:web:registry.example:agent-1",
+                  "publicKeyJwk": {
+                    "kty": "OKP",
+                    "crv": "Ed25519",
+                    "x": "11qYAYKxCrfVS_7TyWQHOg7hcvPapiMlrwIaaPcHURo"
+                  }
+                }
+              ],
+              "authentication": [
+                "did:sage:web:registry.example:agent-1#sign"
+              ],
+              "assertionMethod": [
+                "did:sage:web:registry.example:agent-1#sign"
+              ],
+              "keyAgreement": [
+                "did:sage:web:registry.example:agent-1#agree"
+              ],
+              "service": [
+                {
+                  "id": "did:sage:web:registry.example:agent-1#a2a",
+                  "type": "A2AInterface",
+                  "serviceEndpoint": "https://agent.example/a2a"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "coverage_notes": [
+        "Fixture Source supplies prevalidated public record data; no registry proof, freshness, custody or deployment is certified.",
+        "SAGE Respond API is observed; HTTP status is the API problem status, not a production HTTP binding."
+      ]
+    },
+    {
+      "id": "didp-01-jwk-members",
+      "rule_id": "DIDP-01",
+      "execution": "native",
+      "coverage": "partial",
+      "input": {
+        "interface": "sage-api",
+        "did": "did:sage:web:registry.example:agent-1",
+        "accepts": [
+          "application/did+json",
+          "application/did"
+        ],
+        "state": "active",
+        "keys": [
+          {
+            "name": "sign",
+            "algorithm": "ecdsa-p256-sha256",
+            "material_hex": "046b17d1f2e12c4247f8bce6e563a440f277037d812deb33a0f4a13945d898c2964fe342e2fe1a7f9b8ee7eb4a7c0f9e162bce33576b315ececbb6406837bf51f5",
+            "state": "accepted"
+          }
+        ],
+        "source_error": "",
+        "fail_did11": false
+      },
+      "expected": {
+        "source_calls": 2,
+        "network_attempts": 0,
+        "responses": [
+          {
+            "status": 200,
+            "content_type": "application/did+json",
+            "sage_code": "",
+            "problem_type": "",
+            "body": {
+              "id": "did:sage:web:registry.example:agent-1",
+              "verificationMethod": [
+                {
+                  "id": "did:sage:web:registry.example:agent-1#sign",
+                  "type": "JsonWebKey2020",
+                  "controller": "did:sage:web:registry.example:agent-1",
+                  "publicKeyJwk": {
+                    "kty": "EC",
+                    "crv": "P-256",
+                    "x": "axfR8uEsQkf4vOblY6RA8ncDfYEt6zOg9KE5RdiYwpY",
+                    "y": "T-NC4v4af5uO5-tKfA-eFivOM1drMV7Oy7ZAaDe_UfU"
+                  }
+                }
+              ],
+              "authentication": [
+                "did:sage:web:registry.example:agent-1#sign"
+              ],
+              "assertionMethod": [
+                "did:sage:web:registry.example:agent-1#sign"
+              ],
+              "service": [
+                {
+                  "id": "did:sage:web:registry.example:agent-1#a2a",
+                  "type": "A2AInterface",
+                  "serviceEndpoint": "https://agent.example/a2a"
+                }
+              ]
+            }
+          },
+          {
+            "status": 200,
+            "content_type": "application/did",
+            "sage_code": "",
+            "problem_type": "",
+            "body": {
+              "@context": "https://www.w3.org/ns/did/v1.1",
+              "id": "did:sage:web:registry.example:agent-1",
+              "verificationMethod": [
+                {
+                  "id": "did:sage:web:registry.example:agent-1#sign",
+                  "type": "JsonWebKey",
+                  "controller": "did:sage:web:registry.example:agent-1",
+                  "publicKeyJwk": {
+                    "kty": "EC",
+                    "crv": "P-256",
+                    "x": "axfR8uEsQkf4vOblY6RA8ncDfYEt6zOg9KE5RdiYwpY",
+                    "y": "T-NC4v4af5uO5-tKfA-eFivOM1drMV7Oy7ZAaDe_UfU"
+                  }
+                }
+              ],
+              "authentication": [
+                "did:sage:web:registry.example:agent-1#sign"
+              ],
+              "assertionMethod": [
+                "did:sage:web:registry.example:agent-1#sign"
+              ],
+              "service": [
+                {
+                  "id": "did:sage:web:registry.example:agent-1#a2a",
+                  "type": "A2AInterface",
+                  "serviceEndpoint": "https://agent.example/a2a"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "coverage_notes": [
+        "Fixture Source supplies prevalidated public record data; no registry proof, freshness, custody or deployment is certified.",
+        "SAGE Respond API is observed; HTTP status is the API problem status, not a production HTTP binding.",
+        "Two separate calls read the same fixed fixture record; single-observation dual-request atomicity is not exercised."
+      ]
+    },
+    {
+      "id": "didp-01-no-empty-relationship",
+      "rule_id": "DIDP-01",
+      "execution": "native",
+      "coverage": "partial",
+      "input": {
+        "interface": "sage-api",
+        "did": "did:sage:web:registry.example:agent-1",
+        "accepts": [
+          "application/did+json",
+          "application/did"
+        ],
+        "state": "active",
+        "keys": [
+          {
+            "name": "sign",
+            "algorithm": "ed25519",
+            "material_hex": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
+            "state": "accepted"
+          }
+        ],
+        "source_error": "",
+        "fail_did11": false
+      },
+      "expected": {
+        "source_calls": 2,
+        "network_attempts": 0,
+        "responses": [
+          {
+            "status": 200,
+            "content_type": "application/did+json",
+            "sage_code": "",
+            "problem_type": "",
+            "body": {
+              "id": "did:sage:web:registry.example:agent-1",
+              "verificationMethod": [
+                {
+                  "id": "did:sage:web:registry.example:agent-1#sign",
+                  "type": "JsonWebKey2020",
+                  "controller": "did:sage:web:registry.example:agent-1",
+                  "publicKeyJwk": {
+                    "kty": "OKP",
+                    "crv": "Ed25519",
+                    "x": "11qYAYKxCrfVS_7TyWQHOg7hcvPapiMlrwIaaPcHURo"
+                  }
+                }
+              ],
+              "authentication": [
+                "did:sage:web:registry.example:agent-1#sign"
+              ],
+              "assertionMethod": [
+                "did:sage:web:registry.example:agent-1#sign"
+              ],
+              "service": [
+                {
+                  "id": "did:sage:web:registry.example:agent-1#a2a",
+                  "type": "A2AInterface",
+                  "serviceEndpoint": "https://agent.example/a2a"
+                }
+              ]
+            }
+          },
+          {
+            "status": 200,
+            "content_type": "application/did",
+            "sage_code": "",
+            "problem_type": "",
+            "body": {
+              "@context": "https://www.w3.org/ns/did/v1.1",
+              "id": "did:sage:web:registry.example:agent-1",
+              "verificationMethod": [
+                {
+                  "id": "did:sage:web:registry.example:agent-1#sign",
+                  "type": "JsonWebKey",
+                  "controller": "did:sage:web:registry.example:agent-1",
+                  "publicKeyJwk": {
+                    "kty": "OKP",
+                    "crv": "Ed25519",
+                    "x": "11qYAYKxCrfVS_7TyWQHOg7hcvPapiMlrwIaaPcHURo"
+                  }
+                }
+              ],
+              "authentication": [
+                "did:sage:web:registry.example:agent-1#sign"
+              ],
+              "assertionMethod": [
+                "did:sage:web:registry.example:agent-1#sign"
+              ],
+              "service": [
+                {
+                  "id": "did:sage:web:registry.example:agent-1#a2a",
+                  "type": "A2AInterface",
+                  "serviceEndpoint": "https://agent.example/a2a"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "coverage_notes": [
+        "Fixture Source supplies prevalidated public record data; no registry proof, freshness, custody or deployment is certified.",
+        "SAGE Respond API is observed; HTTP status is the API problem status, not a production HTTP binding.",
+        "Two separate calls read the same fixed fixture record; single-observation dual-request atomicity is not exercised."
+      ]
+    },
+    {
+      "id": "didp-01-context-offline",
+      "rule_id": "DIDP-01",
+      "execution": "native",
+      "coverage": "partial",
+      "input": {
+        "interface": "sage-api",
+        "did": "did:sage:web:registry.example:agent-1",
+        "accepts": [
+          "application/did"
+        ],
+        "state": "active",
+        "keys": [
+          {
+            "name": "agree",
+            "algorithm": "x25519",
+            "material_hex": "0900000000000000000000000000000000000000000000000000000000000000",
+            "state": "accepted"
+          },
+          {
+            "name": "sign",
+            "algorithm": "ed25519",
+            "material_hex": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
+            "state": "accepted"
+          }
+        ],
+        "source_error": "",
+        "fail_did11": false
+      },
+      "expected": {
+        "source_calls": 1,
+        "network_attempts": 0,
+        "responses": [
+          {
+            "status": 200,
+            "content_type": "application/did",
+            "sage_code": "",
+            "problem_type": "",
+            "body": {
+              "@context": "https://www.w3.org/ns/did/v1.1",
+              "id": "did:sage:web:registry.example:agent-1",
+              "verificationMethod": [
+                {
+                  "id": "did:sage:web:registry.example:agent-1#agree",
+                  "type": "JsonWebKey",
+                  "controller": "did:sage:web:registry.example:agent-1",
+                  "publicKeyJwk": {
+                    "kty": "OKP",
+                    "crv": "X25519",
+                    "x": "CQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                },
+                {
+                  "id": "did:sage:web:registry.example:agent-1#sign",
+                  "type": "JsonWebKey",
+                  "controller": "did:sage:web:registry.example:agent-1",
+                  "publicKeyJwk": {
+                    "kty": "OKP",
+                    "crv": "Ed25519",
+                    "x": "11qYAYKxCrfVS_7TyWQHOg7hcvPapiMlrwIaaPcHURo"
+                  }
+                }
+              ],
+              "authentication": [
+                "did:sage:web:registry.example:agent-1#sign"
+              ],
+              "assertionMethod": [
+                "did:sage:web:registry.example:agent-1#sign"
+              ],
+              "keyAgreement": [
+                "did:sage:web:registry.example:agent-1#agree"
+              ],
+              "service": [
+                {
+                  "id": "did:sage:web:registry.example:agent-1#a2a",
+                  "type": "A2AInterface",
+                  "serviceEndpoint": "https://agent.example/a2a"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "coverage_notes": [
+        "Fixture Source supplies prevalidated public record data; no registry proof, freshness, custody or deployment is certified.",
+        "SAGE Respond API is observed; HTTP status is the API problem status, not a production HTTP binding.",
+        "Default HTTP transport attempts are denied and counted inside the process; this is not an OS-wide no-network assurance."
+      ]
+    },
+    {
+      "id": "didp-01-invalid-record",
+      "rule_id": "DIDP-01",
+      "execution": "native",
+      "coverage": "partial",
+      "input": {
+        "interface": "sage-api",
+        "did": "did:sage:web:registry.example:agent-1",
+        "accepts": [
+          "application/did+json",
+          "application/did"
+        ],
+        "state": "active",
+        "keys": [
+          {
+            "name": "agree",
+            "algorithm": "x25519",
+            "material_hex": "0900000000000000000000000000000000000000000000000000000000000000",
+            "state": "accepted"
+          },
+          {
+            "name": "sign",
+            "algorithm": "ed25519",
+            "material_hex": "01",
+            "state": "accepted"
+          }
+        ],
+        "source_error": "",
+        "fail_did11": false
+      },
+      "expected": {
+        "source_calls": 2,
+        "network_attempts": 0,
+        "responses": [
+          {
+            "status": 502,
+            "content_type": "",
+            "sage_code": "record.invalid",
+            "problem_type": "https://sage-x-project.github.io/sage-spec/errors/record.invalid",
+            "body": null
+          },
+          {
+            "status": 502,
+            "content_type": "",
+            "sage_code": "record.invalid",
+            "problem_type": "https://sage-x-project.github.io/sage-spec/errors/record.invalid",
+            "body": null
+          }
+        ]
+      },
+      "coverage_notes": [
+        "Fixture Source supplies prevalidated public record data; no registry proof, freshness, custody or deployment is certified.",
+        "SAGE Respond API is observed; HTTP status is the API problem status, not a production HTTP binding.",
+        "Two separate calls read the same fixed fixture record; single-observation dual-request atomicity is not exercised."
+      ]
+    },
+    {
+      "id": "didp-02-select-1-1",
+      "rule_id": "DIDP-02",
+      "execution": "native",
+      "coverage": "partial",
+      "input": {
+        "interface": "sage-api",
+        "did": "did:sage:web:registry.example:agent-1",
+        "accepts": [
+          "application/did"
+        ],
+        "state": "active",
+        "keys": [
+          {
+            "name": "agree",
+            "algorithm": "x25519",
+            "material_hex": "0900000000000000000000000000000000000000000000000000000000000000",
+            "state": "accepted"
+          },
+          {
+            "name": "sign",
+            "algorithm": "ed25519",
+            "material_hex": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
+            "state": "accepted"
+          }
+        ],
+        "source_error": "",
+        "fail_did11": false
+      },
+      "expected": {
+        "source_calls": 1,
+        "network_attempts": 0,
+        "responses": [
+          {
+            "status": 200,
+            "content_type": "application/did",
+            "sage_code": "",
+            "problem_type": "",
+            "body": {
+              "@context": "https://www.w3.org/ns/did/v1.1",
+              "id": "did:sage:web:registry.example:agent-1",
+              "verificationMethod": [
+                {
+                  "id": "did:sage:web:registry.example:agent-1#agree",
+                  "type": "JsonWebKey",
+                  "controller": "did:sage:web:registry.example:agent-1",
+                  "publicKeyJwk": {
+                    "kty": "OKP",
+                    "crv": "X25519",
+                    "x": "CQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                },
+                {
+                  "id": "did:sage:web:registry.example:agent-1#sign",
+                  "type": "JsonWebKey",
+                  "controller": "did:sage:web:registry.example:agent-1",
+                  "publicKeyJwk": {
+                    "kty": "OKP",
+                    "crv": "Ed25519",
+                    "x": "11qYAYKxCrfVS_7TyWQHOg7hcvPapiMlrwIaaPcHURo"
+                  }
+                }
+              ],
+              "authentication": [
+                "did:sage:web:registry.example:agent-1#sign"
+              ],
+              "assertionMethod": [
+                "did:sage:web:registry.example:agent-1#sign"
+              ],
+              "keyAgreement": [
+                "did:sage:web:registry.example:agent-1#agree"
+              ],
+              "service": [
+                {
+                  "id": "did:sage:web:registry.example:agent-1#a2a",
+                  "type": "A2AInterface",
+                  "serviceEndpoint": "https://agent.example/a2a"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "coverage_notes": [
+        "Fixture Source supplies prevalidated public record data; no registry proof, freshness, custody or deployment is certified.",
+        "SAGE Respond API is observed; HTTP status is the API problem status, not a production HTTP binding."
+      ]
+    },
+    {
+      "id": "didp-02-default-1-0",
+      "rule_id": "DIDP-02",
+      "execution": "native",
+      "coverage": "partial",
+      "input": {
+        "interface": "sage-api",
+        "did": "did:sage:web:registry.example:agent-1",
+        "accepts": [
+          ""
+        ],
+        "state": "active",
+        "keys": [
+          {
+            "name": "agree",
+            "algorithm": "x25519",
+            "material_hex": "0900000000000000000000000000000000000000000000000000000000000000",
+            "state": "accepted"
+          },
+          {
+            "name": "sign",
+            "algorithm": "ed25519",
+            "material_hex": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
+            "state": "accepted"
+          }
+        ],
+        "source_error": "",
+        "fail_did11": false
+      },
+      "expected": {
+        "source_calls": 1,
+        "network_attempts": 0,
+        "responses": [
+          {
+            "status": 200,
+            "content_type": "application/did+json",
+            "sage_code": "",
+            "problem_type": "",
+            "body": {
+              "id": "did:sage:web:registry.example:agent-1",
+              "verificationMethod": [
+                {
+                  "id": "did:sage:web:registry.example:agent-1#agree",
+                  "type": "JsonWebKey2020",
+                  "controller": "did:sage:web:registry.example:agent-1",
+                  "publicKeyJwk": {
+                    "kty": "OKP",
+                    "crv": "X25519",
+                    "x": "CQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                },
+                {
+                  "id": "did:sage:web:registry.example:agent-1#sign",
+                  "type": "JsonWebKey2020",
+                  "controller": "did:sage:web:registry.example:agent-1",
+                  "publicKeyJwk": {
+                    "kty": "OKP",
+                    "crv": "Ed25519",
+                    "x": "11qYAYKxCrfVS_7TyWQHOg7hcvPapiMlrwIaaPcHURo"
+                  }
+                }
+              ],
+              "authentication": [
+                "did:sage:web:registry.example:agent-1#sign"
+              ],
+              "assertionMethod": [
+                "did:sage:web:registry.example:agent-1#sign"
+              ],
+              "keyAgreement": [
+                "did:sage:web:registry.example:agent-1#agree"
+              ],
+              "service": [
+                {
+                  "id": "did:sage:web:registry.example:agent-1#a2a",
+                  "type": "A2AInterface",
+                  "serviceEndpoint": "https://agent.example/a2a"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "coverage_notes": [
+        "Fixture Source supplies prevalidated public record data; no registry proof, freshness, custody or deployment is certified.",
+        "SAGE Respond API is observed; HTTP status is the API problem status, not a production HTTP binding."
+      ]
+    },
+    {
+      "id": "didp-02-wildcard",
+      "rule_id": "DIDP-02",
+      "execution": "native",
+      "coverage": "partial",
+      "input": {
+        "interface": "sage-api",
+        "did": "did:sage:web:registry.example:agent-1",
+        "accepts": [
+          "*/*"
+        ],
+        "state": "active",
+        "keys": [
+          {
+            "name": "agree",
+            "algorithm": "x25519",
+            "material_hex": "0900000000000000000000000000000000000000000000000000000000000000",
+            "state": "accepted"
+          },
+          {
+            "name": "sign",
+            "algorithm": "ed25519",
+            "material_hex": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
+            "state": "accepted"
+          }
+        ],
+        "source_error": "",
+        "fail_did11": false
+      },
+      "expected": {
+        "source_calls": 1,
+        "network_attempts": 0,
+        "responses": [
+          {
+            "status": 200,
+            "content_type": "application/did+json",
+            "sage_code": "",
+            "problem_type": "",
+            "body": {
+              "id": "did:sage:web:registry.example:agent-1",
+              "verificationMethod": [
+                {
+                  "id": "did:sage:web:registry.example:agent-1#agree",
+                  "type": "JsonWebKey2020",
+                  "controller": "did:sage:web:registry.example:agent-1",
+                  "publicKeyJwk": {
+                    "kty": "OKP",
+                    "crv": "X25519",
+                    "x": "CQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                },
+                {
+                  "id": "did:sage:web:registry.example:agent-1#sign",
+                  "type": "JsonWebKey2020",
+                  "controller": "did:sage:web:registry.example:agent-1",
+                  "publicKeyJwk": {
+                    "kty": "OKP",
+                    "crv": "Ed25519",
+                    "x": "11qYAYKxCrfVS_7TyWQHOg7hcvPapiMlrwIaaPcHURo"
+                  }
+                }
+              ],
+              "authentication": [
+                "did:sage:web:registry.example:agent-1#sign"
+              ],
+              "assertionMethod": [
+                "did:sage:web:registry.example:agent-1#sign"
+              ],
+              "keyAgreement": [
+                "did:sage:web:registry.example:agent-1#agree"
+              ],
+              "service": [
+                {
+                  "id": "did:sage:web:registry.example:agent-1#a2a",
+                  "type": "A2AInterface",
+                  "serviceEndpoint": "https://agent.example/a2a"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "coverage_notes": [
+        "Fixture Source supplies prevalidated public record data; no registry proof, freshness, custody or deployment is certified.",
+        "SAGE Respond API is observed; HTTP status is the API problem status, not a production HTTP binding."
+      ]
+    },
+    {
+      "id": "didp-02-json-envelope",
+      "rule_id": "DIDP-02",
+      "execution": "native",
+      "coverage": "partial",
+      "input": {
+        "interface": "sage-api",
+        "did": "did:sage:web:registry.example:agent-1",
+        "accepts": [
+          "application/json"
+        ],
+        "state": "active",
+        "keys": [
+          {
+            "name": "agree",
+            "algorithm": "x25519",
+            "material_hex": "0900000000000000000000000000000000000000000000000000000000000000",
+            "state": "accepted"
+          },
+          {
+            "name": "sign",
+            "algorithm": "ed25519",
+            "material_hex": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
+            "state": "accepted"
+          }
+        ],
+        "source_error": "",
+        "fail_did11": false
+      },
+      "expected": {
+        "source_calls": 1,
+        "network_attempts": 0,
+        "responses": [
+          {
+            "status": 200,
+            "content_type": "application/json",
+            "sage_code": "",
+            "problem_type": "",
+            "body": {
+              "didDocument": {
+                "id": "did:sage:web:registry.example:agent-1",
+                "verificationMethod": [
+                  {
+                    "id": "did:sage:web:registry.example:agent-1#agree",
+                    "type": "JsonWebKey2020",
+                    "controller": "did:sage:web:registry.example:agent-1",
+                    "publicKeyJwk": {
+                      "kty": "OKP",
+                      "crv": "X25519",
+                      "x": "CQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                    }
+                  },
+                  {
+                    "id": "did:sage:web:registry.example:agent-1#sign",
+                    "type": "JsonWebKey2020",
+                    "controller": "did:sage:web:registry.example:agent-1",
+                    "publicKeyJwk": {
+                      "kty": "OKP",
+                      "crv": "Ed25519",
+                      "x": "11qYAYKxCrfVS_7TyWQHOg7hcvPapiMlrwIaaPcHURo"
+                    }
+                  }
+                ],
+                "authentication": [
+                  "did:sage:web:registry.example:agent-1#sign"
+                ],
+                "assertionMethod": [
+                  "did:sage:web:registry.example:agent-1#sign"
+                ],
+                "keyAgreement": [
+                  "did:sage:web:registry.example:agent-1#agree"
+                ],
+                "service": [
+                  {
+                    "id": "did:sage:web:registry.example:agent-1#a2a",
+                    "type": "A2AInterface",
+                    "serviceEndpoint": "https://agent.example/a2a"
+                  }
+                ]
+              },
+              "didDocumentMetadata": {
+                "deactivated": false,
+                "versionId": "7",
+                "sage": {
+                  "state": "active",
+                  "controller": "controller-1",
+                  "source": "fixture-web-registry",
+                  "observedTime": 1800000000,
+                  "observedAt": 1799999000
+                }
+              },
+              "didResolutionMetadata": {
+                "contentType": "application/did+json"
+              }
+            }
+          }
+        ]
+      },
+      "coverage_notes": [
+        "Fixture Source supplies prevalidated public record data; no registry proof, freshness, custody or deployment is certified.",
+        "SAGE Respond API is observed; HTTP status is the API problem status, not a production HTTP binding."
+      ]
+    },
+    {
+      "id": "didp-02-json-ld-rejected",
+      "rule_id": "DIDP-02",
+      "execution": "native",
+      "coverage": "partial",
+      "input": {
+        "interface": "sage-api",
+        "did": "did:sage:web:registry.example:agent-1",
+        "accepts": [
+          "application/did+ld+json"
+        ],
+        "state": "active",
+        "keys": [
+          {
+            "name": "agree",
+            "algorithm": "x25519",
+            "material_hex": "0900000000000000000000000000000000000000000000000000000000000000",
+            "state": "accepted"
+          },
+          {
+            "name": "sign",
+            "algorithm": "ed25519",
+            "material_hex": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
+            "state": "accepted"
+          }
+        ],
+        "source_error": "",
+        "fail_did11": false
+      },
+      "expected": {
+        "source_calls": 0,
+        "network_attempts": 0,
+        "responses": [
+          {
+            "status": 406,
+            "content_type": "",
+            "sage_code": "representation.unsupported",
+            "problem_type": "https://sage-x-project.github.io/sage-spec/errors/representation.unsupported",
+            "body": null
+          }
+        ]
+      },
+      "coverage_notes": [
+        "Fixture Source supplies prevalidated public record data; no registry proof, freshness, custody or deployment is certified.",
+        "SAGE Respond API is observed; HTTP status is the API problem status, not a production HTTP binding."
+      ]
+    },
+    {
+      "id": "didp-02-did-resolution-rejected",
+      "rule_id": "DIDP-02",
+      "execution": "native",
+      "coverage": "partial",
+      "input": {
+        "interface": "sage-api",
+        "did": "did:sage:web:registry.example:agent-1",
+        "accepts": [
+          "application/did-resolution"
+        ],
+        "state": "active",
+        "keys": [
+          {
+            "name": "agree",
+            "algorithm": "x25519",
+            "material_hex": "0900000000000000000000000000000000000000000000000000000000000000",
+            "state": "accepted"
+          },
+          {
+            "name": "sign",
+            "algorithm": "ed25519",
+            "material_hex": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
+            "state": "accepted"
+          }
+        ],
+        "source_error": "",
+        "fail_did11": false
+      },
+      "expected": {
+        "source_calls": 0,
+        "network_attempts": 0,
+        "responses": [
+          {
+            "status": 406,
+            "content_type": "",
+            "sage_code": "representation.unsupported",
+            "problem_type": "https://sage-x-project.github.io/sage-spec/errors/representation.unsupported",
+            "body": null
+          }
+        ]
+      },
+      "coverage_notes": [
+        "Fixture Source supplies prevalidated public record data; no registry proof, freshness, custody or deployment is certified.",
+        "SAGE Respond API is observed; HTTP status is the API problem status, not a production HTTP binding."
+      ]
+    },
+    {
+      "id": "didp-02-q-list-rejected",
+      "rule_id": "DIDP-02",
+      "execution": "native",
+      "coverage": "partial",
+      "input": {
+        "interface": "sage-api",
+        "did": "did:sage:web:registry.example:agent-1",
+        "accepts": [
+          "application/did;q=0.9, application/did+json"
+        ],
+        "state": "active",
+        "keys": [
+          {
+            "name": "agree",
+            "algorithm": "x25519",
+            "material_hex": "0900000000000000000000000000000000000000000000000000000000000000",
+            "state": "accepted"
+          },
+          {
+            "name": "sign",
+            "algorithm": "ed25519",
+            "material_hex": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
+            "state": "accepted"
+          }
+        ],
+        "source_error": "",
+        "fail_did11": false
+      },
+      "expected": {
+        "source_calls": 0,
+        "network_attempts": 0,
+        "responses": [
+          {
+            "status": 406,
+            "content_type": "",
+            "sage_code": "representation.unsupported",
+            "problem_type": "https://sage-x-project.github.io/sage-spec/errors/representation.unsupported",
+            "body": null
+          }
+        ]
+      },
+      "coverage_notes": [
+        "Fixture Source supplies prevalidated public record data; no registry proof, freshness, custody or deployment is certified.",
+        "SAGE Respond API is observed; HTTP status is the API problem status, not a production HTTP binding."
+      ]
+    },
+    {
+      "id": "didp-02-no-fallback",
+      "rule_id": "DIDP-02",
+      "execution": "native",
+      "coverage": "partial",
+      "input": {
+        "interface": "sage-api",
+        "did": "did:sage:web:registry.example:agent-1",
+        "accepts": [
+          "application/did"
+        ],
+        "state": "active",
+        "keys": [
+          {
+            "name": "agree",
+            "algorithm": "x25519",
+            "material_hex": "0900000000000000000000000000000000000000000000000000000000000000",
+            "state": "accepted"
+          },
+          {
+            "name": "sign",
+            "algorithm": "ed25519",
+            "material_hex": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
+            "state": "accepted"
+          }
+        ],
+        "source_error": "",
+        "fail_did11": true
+      },
+      "expected": {
+        "source_calls": 1,
+        "network_attempts": 0,
+        "responses": [
+          {
+            "status": 502,
+            "content_type": "",
+            "sage_code": "record.invalid",
+            "problem_type": "https://sage-x-project.github.io/sage-spec/errors/record.invalid",
+            "body": null
+          }
+        ]
+      },
+      "coverage_notes": [
+        "Fixture Source supplies prevalidated public record data; no registry proof, freshness, custody or deployment is certified.",
+        "SAGE Respond API is observed; HTTP status is the API problem status, not a production HTTP binding."
+      ]
+    },
+    {
+      "id": "didp-02-did-resolution-interface",
+      "rule_id": "DIDP-02",
+      "execution": "native",
+      "coverage": "partial",
+      "input": {
+        "interface": "did-resolution-tls",
+        "did": "did:sage:web:registry.example:agent-1",
+        "accepts": [
+          "application/did;q=0.9, application/did+json"
+        ],
+        "state": "active",
+        "keys": [
+          {
+            "name": "agree",
+            "algorithm": "x25519",
+            "material_hex": "0900000000000000000000000000000000000000000000000000000000000000",
+            "state": "accepted"
+          },
+          {
+            "name": "sign",
+            "algorithm": "ed25519",
+            "material_hex": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
+            "state": "accepted"
+          }
+        ],
+        "source_error": "",
+        "fail_did11": false
+      },
+      "expected": {
+        "source_calls": 1,
+        "network_attempts": 0,
+        "responses": [
+          {
+            "status": 200,
+            "content_type": "application/did+json",
+            "sage_code": "",
+            "problem_type": "",
+            "body": {
+              "id": "did:sage:web:registry.example:agent-1",
+              "verificationMethod": [
+                {
+                  "id": "did:sage:web:registry.example:agent-1#agree",
+                  "type": "JsonWebKey2020",
+                  "controller": "did:sage:web:registry.example:agent-1",
+                  "publicKeyJwk": {
+                    "kty": "OKP",
+                    "crv": "X25519",
+                    "x": "CQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                },
+                {
+                  "id": "did:sage:web:registry.example:agent-1#sign",
+                  "type": "JsonWebKey2020",
+                  "controller": "did:sage:web:registry.example:agent-1",
+                  "publicKeyJwk": {
+                    "kty": "OKP",
+                    "crv": "Ed25519",
+                    "x": "11qYAYKxCrfVS_7TyWQHOg7hcvPapiMlrwIaaPcHURo"
+                  }
+                }
+              ],
+              "authentication": [
+                "did:sage:web:registry.example:agent-1#sign"
+              ],
+              "assertionMethod": [
+                "did:sage:web:registry.example:agent-1#sign"
+              ],
+              "keyAgreement": [
+                "did:sage:web:registry.example:agent-1#agree"
+              ],
+              "service": [
+                {
+                  "id": "did:sage:web:registry.example:agent-1#a2a",
+                  "type": "A2AInterface",
+                  "serviceEndpoint": "https://agent.example/a2a"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "coverage_notes": [
+        "Fixture Source supplies prevalidated public record data; no registry proof, freshness, custody or deployment is certified."
+      ]
+    },
+    {
+      "id": "didp-03-equivalent-members",
+      "rule_id": "DIDP-03",
+      "execution": "native",
+      "coverage": "partial",
+      "input": {
+        "interface": "sage-api",
+        "did": "did:sage:web:registry.example:agent-1",
+        "accepts": [
+          "application/did+json",
+          "application/did"
+        ],
+        "state": "active",
+        "keys": [
+          {
+            "name": "agree",
+            "algorithm": "x25519",
+            "material_hex": "0900000000000000000000000000000000000000000000000000000000000000",
+            "state": "accepted"
+          },
+          {
+            "name": "sign",
+            "algorithm": "ed25519",
+            "material_hex": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
+            "state": "accepted"
+          },
+          {
+            "name": "z-revoked",
+            "algorithm": "ecdsa-p256-sha256",
+            "material_hex": "046b17d1f2e12c4247f8bce6e563a440f277037d812deb33a0f4a13945d898c2964fe342e2fe1a7f9b8ee7eb4a7c0f9e162bce33576b315ececbb6406837bf51f5",
+            "state": "revoked"
+          }
+        ],
+        "source_error": "",
+        "fail_did11": false
+      },
+      "expected": {
+        "source_calls": 2,
+        "network_attempts": 0,
+        "responses": [
+          {
+            "status": 200,
+            "content_type": "application/did+json",
+            "sage_code": "",
+            "problem_type": "",
+            "body": {
+              "id": "did:sage:web:registry.example:agent-1",
+              "verificationMethod": [
+                {
+                  "id": "did:sage:web:registry.example:agent-1#agree",
+                  "type": "JsonWebKey2020",
+                  "controller": "did:sage:web:registry.example:agent-1",
+                  "publicKeyJwk": {
+                    "kty": "OKP",
+                    "crv": "X25519",
+                    "x": "CQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                },
+                {
+                  "id": "did:sage:web:registry.example:agent-1#sign",
+                  "type": "JsonWebKey2020",
+                  "controller": "did:sage:web:registry.example:agent-1",
+                  "publicKeyJwk": {
+                    "kty": "OKP",
+                    "crv": "Ed25519",
+                    "x": "11qYAYKxCrfVS_7TyWQHOg7hcvPapiMlrwIaaPcHURo"
+                  }
+                }
+              ],
+              "authentication": [
+                "did:sage:web:registry.example:agent-1#sign"
+              ],
+              "assertionMethod": [
+                "did:sage:web:registry.example:agent-1#sign"
+              ],
+              "keyAgreement": [
+                "did:sage:web:registry.example:agent-1#agree"
+              ],
+              "service": [
+                {
+                  "id": "did:sage:web:registry.example:agent-1#a2a",
+                  "type": "A2AInterface",
+                  "serviceEndpoint": "https://agent.example/a2a"
+                }
+              ]
+            }
+          },
+          {
+            "status": 200,
+            "content_type": "application/did",
+            "sage_code": "",
+            "problem_type": "",
+            "body": {
+              "@context": "https://www.w3.org/ns/did/v1.1",
+              "id": "did:sage:web:registry.example:agent-1",
+              "verificationMethod": [
+                {
+                  "id": "did:sage:web:registry.example:agent-1#agree",
+                  "type": "JsonWebKey",
+                  "controller": "did:sage:web:registry.example:agent-1",
+                  "publicKeyJwk": {
+                    "kty": "OKP",
+                    "crv": "X25519",
+                    "x": "CQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                },
+                {
+                  "id": "did:sage:web:registry.example:agent-1#sign",
+                  "type": "JsonWebKey",
+                  "controller": "did:sage:web:registry.example:agent-1",
+                  "publicKeyJwk": {
+                    "kty": "OKP",
+                    "crv": "Ed25519",
+                    "x": "11qYAYKxCrfVS_7TyWQHOg7hcvPapiMlrwIaaPcHURo"
+                  }
+                }
+              ],
+              "authentication": [
+                "did:sage:web:registry.example:agent-1#sign"
+              ],
+              "assertionMethod": [
+                "did:sage:web:registry.example:agent-1#sign"
+              ],
+              "keyAgreement": [
+                "did:sage:web:registry.example:agent-1#agree"
+              ],
+              "service": [
+                {
+                  "id": "did:sage:web:registry.example:agent-1#a2a",
+                  "type": "A2AInterface",
+                  "serviceEndpoint": "https://agent.example/a2a"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "coverage_notes": [
+        "Fixture Source supplies prevalidated public record data; no registry proof, freshness, custody or deployment is certified.",
+        "SAGE Respond API is observed; HTTP status is the API problem status, not a production HTTP binding.",
+        "Two separate calls read the same fixed fixture record; single-observation dual-request atomicity is not exercised."
+      ]
+    },
+    {
+      "id": "didp-03-two-observations",
+      "rule_id": "DIDP-03",
+      "execution": "unsupported",
+      "coverage": "unsupported",
+      "input": null,
+      "expected": null,
+      "coverage_notes": [
+        "Fixture Source supplies prevalidated public record data; no registry proof, freshness, custody or deployment is certified."
+      ],
+      "reason": "The pinned subject has no dual-projection operation with a changing Source. Two separate Respond calls cannot establish one-observation atomicity."
+    },
+    {
+      "id": "didp-03-deactivated",
+      "rule_id": "DIDP-03",
+      "execution": "native",
+      "coverage": "partial",
+      "input": {
+        "interface": "sage-api",
+        "did": "did:sage:web:registry.example:agent-1",
+        "accepts": [
+          "application/did+json",
+          "application/did"
+        ],
+        "state": "deactivated",
+        "keys": [
+          {
+            "name": "agree",
+            "algorithm": "x25519",
+            "material_hex": "0900000000000000000000000000000000000000000000000000000000000000",
+            "state": "accepted"
+          },
+          {
+            "name": "sign",
+            "algorithm": "ed25519",
+            "material_hex": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
+            "state": "accepted"
+          }
+        ],
+        "source_error": "",
+        "fail_did11": false
+      },
+      "expected": {
+        "source_calls": 2,
+        "network_attempts": 0,
+        "responses": [
+          {
+            "status": 200,
+            "content_type": "application/did+json",
+            "sage_code": "",
+            "problem_type": "",
+            "body": {
+              "id": "did:sage:web:registry.example:agent-1",
+              "verificationMethod": [],
+              "service": [
+                {
+                  "id": "did:sage:web:registry.example:agent-1#a2a",
+                  "type": "A2AInterface",
+                  "serviceEndpoint": "https://agent.example/a2a"
+                }
+              ]
+            }
+          },
+          {
+            "status": 200,
+            "content_type": "application/did",
+            "sage_code": "",
+            "problem_type": "",
+            "body": {
+              "@context": "https://www.w3.org/ns/did/v1.1",
+              "id": "did:sage:web:registry.example:agent-1",
+              "verificationMethod": [],
+              "service": [
+                {
+                  "id": "did:sage:web:registry.example:agent-1#a2a",
+                  "type": "A2AInterface",
+                  "serviceEndpoint": "https://agent.example/a2a"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "coverage_notes": [
+        "Fixture Source supplies prevalidated public record data; no registry proof, freshness, custody or deployment is certified.",
+        "SAGE Respond API is observed; HTTP status is the API problem status, not a production HTTP binding.",
+        "Two separate calls read the same fixed fixture record; single-observation dual-request atomicity is not exercised."
+      ]
+    },
+    {
+      "id": "didp-04-peer-document-ignored",
+      "rule_id": "DIDP-04",
+      "execution": "unsupported",
+      "coverage": "unsupported",
+      "input": null,
+      "expected": null,
+      "coverage_notes": [
+        "Fixture Source supplies prevalidated public record data; no registry proof, freshness, custody or deployment is certified."
+      ],
+      "reason": "This projection/resolution subject has no protected-message verifier accepting a peer-supplied document. No rejection is inferred from projection."
+    },
+    {
+      "id": "didp-04-no-alias-members",
+      "rule_id": "DIDP-04",
+      "execution": "native",
+      "coverage": "partial",
+      "input": {
+        "interface": "sage-api",
+        "did": "did:sage:web:registry.example:agent-1",
+        "accepts": [
+          "application/did+json",
+          "application/did"
+        ],
+        "state": "active",
+        "keys": [
+          {
+            "name": "agree",
+            "algorithm": "x25519",
+            "material_hex": "0900000000000000000000000000000000000000000000000000000000000000",
+            "state": "accepted"
+          },
+          {
+            "name": "sign",
+            "algorithm": "ed25519",
+            "material_hex": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
+            "state": "accepted"
+          }
+        ],
+        "source_error": "",
+        "fail_did11": false
+      },
+      "expected": {
+        "source_calls": 2,
+        "network_attempts": 0,
+        "responses": [
+          {
+            "status": 200,
+            "content_type": "application/did+json",
+            "sage_code": "",
+            "problem_type": "",
+            "body": {
+              "id": "did:sage:web:registry.example:agent-1",
+              "verificationMethod": [
+                {
+                  "id": "did:sage:web:registry.example:agent-1#agree",
+                  "type": "JsonWebKey2020",
+                  "controller": "did:sage:web:registry.example:agent-1",
+                  "publicKeyJwk": {
+                    "kty": "OKP",
+                    "crv": "X25519",
+                    "x": "CQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                },
+                {
+                  "id": "did:sage:web:registry.example:agent-1#sign",
+                  "type": "JsonWebKey2020",
+                  "controller": "did:sage:web:registry.example:agent-1",
+                  "publicKeyJwk": {
+                    "kty": "OKP",
+                    "crv": "Ed25519",
+                    "x": "11qYAYKxCrfVS_7TyWQHOg7hcvPapiMlrwIaaPcHURo"
+                  }
+                }
+              ],
+              "authentication": [
+                "did:sage:web:registry.example:agent-1#sign"
+              ],
+              "assertionMethod": [
+                "did:sage:web:registry.example:agent-1#sign"
+              ],
+              "keyAgreement": [
+                "did:sage:web:registry.example:agent-1#agree"
+              ],
+              "service": [
+                {
+                  "id": "did:sage:web:registry.example:agent-1#a2a",
+                  "type": "A2AInterface",
+                  "serviceEndpoint": "https://agent.example/a2a"
+                }
+              ]
+            }
+          },
+          {
+            "status": 200,
+            "content_type": "application/did",
+            "sage_code": "",
+            "problem_type": "",
+            "body": {
+              "@context": "https://www.w3.org/ns/did/v1.1",
+              "id": "did:sage:web:registry.example:agent-1",
+              "verificationMethod": [
+                {
+                  "id": "did:sage:web:registry.example:agent-1#agree",
+                  "type": "JsonWebKey",
+                  "controller": "did:sage:web:registry.example:agent-1",
+                  "publicKeyJwk": {
+                    "kty": "OKP",
+                    "crv": "X25519",
+                    "x": "CQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                  }
+                },
+                {
+                  "id": "did:sage:web:registry.example:agent-1#sign",
+                  "type": "JsonWebKey",
+                  "controller": "did:sage:web:registry.example:agent-1",
+                  "publicKeyJwk": {
+                    "kty": "OKP",
+                    "crv": "Ed25519",
+                    "x": "11qYAYKxCrfVS_7TyWQHOg7hcvPapiMlrwIaaPcHURo"
+                  }
+                }
+              ],
+              "authentication": [
+                "did:sage:web:registry.example:agent-1#sign"
+              ],
+              "assertionMethod": [
+                "did:sage:web:registry.example:agent-1#sign"
+              ],
+              "keyAgreement": [
+                "did:sage:web:registry.example:agent-1#agree"
+              ],
+              "service": [
+                {
+                  "id": "did:sage:web:registry.example:agent-1#a2a",
+                  "type": "A2AInterface",
+                  "serviceEndpoint": "https://agent.example/a2a"
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "coverage_notes": [
+        "Fixture Source supplies prevalidated public record data; no registry proof, freshness, custody or deployment is certified.",
+        "SAGE Respond API is observed; HTTP status is the API problem status, not a production HTTP binding.",
+        "Two separate calls read the same fixed fixture record; single-observation dual-request atomicity is not exercised."
+      ]
+    },
+    {
+      "id": "didp-04-received-alias",
+      "rule_id": "DIDP-04",
+      "execution": "unsupported",
+      "coverage": "unsupported",
+      "input": null,
+      "expected": null,
+      "coverage_notes": [
+        "Fixture Source supplies prevalidated public record data; no registry proof, freshness, custody or deployment is certified."
+      ],
+      "reason": "This projection/resolution subject has no protected-message verifier accepting a received alias. Exact projection members are not authorization evidence."
+    },
+    {
+      "id": "didp-05-malformed",
+      "rule_id": "DIDP-05",
+      "execution": "native",
+      "coverage": "partial",
+      "input": {
+        "interface": "did-resolution-tls",
+        "did": "did:SAGE:web:registry.example:agent-1",
+        "accepts": [
+          "application/did"
+        ],
+        "state": "active",
+        "keys": [
+          {
+            "name": "agree",
+            "algorithm": "x25519",
+            "material_hex": "0900000000000000000000000000000000000000000000000000000000000000",
+            "state": "accepted"
+          },
+          {
+            "name": "sign",
+            "algorithm": "ed25519",
+            "material_hex": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
+            "state": "accepted"
+          }
+        ],
+        "source_error": "",
+        "fail_did11": false
+      },
+      "expected": {
+        "source_calls": 0,
+        "network_attempts": 0,
+        "responses": [
+          {
+            "status": 400,
+            "content_type": "application/problem+json",
+            "sage_code": "id.malformed",
+            "problem_type": "https://www.w3.org/ns/did#INVALID_DID",
+            "body": null
+          }
+        ]
+      },
+      "coverage_notes": [
+        "Fixture Source supplies prevalidated public record data; no registry proof, freshness, custody or deployment is certified."
+      ]
+    },
+    {
+      "id": "didp-05-not-found",
+      "rule_id": "DIDP-05",
+      "execution": "native",
+      "coverage": "partial",
+      "input": {
+        "interface": "did-resolution-tls",
+        "did": "did:sage:web:registry.example:agent-1",
+        "accepts": [
+          "application/did"
+        ],
+        "state": "active",
+        "keys": [
+          {
+            "name": "agree",
+            "algorithm": "x25519",
+            "material_hex": "0900000000000000000000000000000000000000000000000000000000000000",
+            "state": "accepted"
+          },
+          {
+            "name": "sign",
+            "algorithm": "ed25519",
+            "material_hex": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
+            "state": "accepted"
+          }
+        ],
+        "source_error": "record.not-found",
+        "fail_did11": false
+      },
+      "expected": {
+        "source_calls": 1,
+        "network_attempts": 0,
+        "responses": [
+          {
+            "status": 404,
+            "content_type": "application/problem+json",
+            "sage_code": "record.not-found",
+            "problem_type": "https://www.w3.org/ns/did#NOT_FOUND",
+            "body": null
+          }
+        ]
+      },
+      "coverage_notes": [
+        "Fixture Source supplies prevalidated public record data; no registry proof, freshness, custody or deployment is certified."
+      ]
+    },
+    {
+      "id": "didp-05-stale-not-absent",
+      "rule_id": "DIDP-05",
+      "execution": "native",
+      "coverage": "partial",
+      "input": {
+        "interface": "did-resolution-tls",
+        "did": "did:sage:web:registry.example:agent-1",
+        "accepts": [
+          "application/did"
+        ],
+        "state": "active",
+        "keys": [
+          {
+            "name": "agree",
+            "algorithm": "x25519",
+            "material_hex": "0900000000000000000000000000000000000000000000000000000000000000",
+            "state": "accepted"
+          },
+          {
+            "name": "sign",
+            "algorithm": "ed25519",
+            "material_hex": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
+            "state": "accepted"
+          }
+        ],
+        "source_error": "record.stale",
+        "fail_did11": false
+      },
+      "expected": {
+        "source_calls": 1,
+        "network_attempts": 0,
+        "responses": [
+          {
+            "status": 500,
+            "content_type": "application/problem+json",
+            "sage_code": "record.stale",
+            "problem_type": "https://www.w3.org/ns/did#INTERNAL_ERROR",
+            "body": null
+          }
+        ]
+      },
+      "coverage_notes": [
+        "Fixture Source supplies prevalidated public record data; no registry proof, freshness, custody or deployment is certified."
+      ]
+    },
+    {
+      "id": "didp-05-unknown-kind",
+      "rule_id": "DIDP-05",
+      "execution": "native",
+      "coverage": "partial",
+      "input": {
+        "interface": "did-resolution-tls",
+        "did": "did:sage:future:registry:agent-1",
+        "accepts": [
+          "application/did"
+        ],
+        "state": "active",
+        "keys": [
+          {
+            "name": "agree",
+            "algorithm": "x25519",
+            "material_hex": "0900000000000000000000000000000000000000000000000000000000000000",
+            "state": "accepted"
+          },
+          {
+            "name": "sign",
+            "algorithm": "ed25519",
+            "material_hex": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
+            "state": "accepted"
+          }
+        ],
+        "source_error": "id.unknown-kind",
+        "fail_did11": false
+      },
+      "expected": {
+        "source_calls": 1,
+        "network_attempts": 0,
+        "responses": [
+          {
+            "status": 501,
+            "content_type": "application/problem+json",
+            "sage_code": "id.unknown-kind",
+            "problem_type": "https://www.w3.org/ns/did#METHOD_NOT_SUPPORTED",
+            "body": null
+          }
+        ]
+      },
+      "coverage_notes": [
+        "Fixture Source supplies prevalidated public record data; no registry proof, freshness, custody or deployment is certified.",
+        "The fixture Source reports the unsupported registry kind; this observes error mapping, not a production kind parser."
+      ]
+    },
+    {
+      "id": "didp-05-unsupported-accept",
+      "rule_id": "DIDP-05",
+      "execution": "native",
+      "coverage": "partial",
+      "input": {
+        "interface": "did-resolution-tls",
+        "did": "did:sage:web:registry.example:agent-1",
+        "accepts": [
+          "text/html"
+        ],
+        "state": "active",
+        "keys": [
+          {
+            "name": "agree",
+            "algorithm": "x25519",
+            "material_hex": "0900000000000000000000000000000000000000000000000000000000000000",
+            "state": "accepted"
+          },
+          {
+            "name": "sign",
+            "algorithm": "ed25519",
+            "material_hex": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
+            "state": "accepted"
+          }
+        ],
+        "source_error": "",
+        "fail_did11": false
+      },
+      "expected": {
+        "source_calls": 0,
+        "network_attempts": 0,
+        "responses": [
+          {
+            "status": 501,
+            "content_type": "application/problem+json",
+            "sage_code": "representation.unsupported",
+            "problem_type": "https://www.w3.org/ns/did#FEATURE_NOT_SUPPORTED",
+            "body": null
+          }
+        ]
+      },
+      "coverage_notes": [
+        "Fixture Source supplies prevalidated public record data; no registry proof, freshness, custody or deployment is certified.",
+        "The standard resolver rejects Accept before the SAGE driver is called; sageCode is not emitted by the pinned subject. This expected profile gap is recorded as FAIL."
+      ]
+    },
+    {
+      "id": "didp-05-deactivated",
+      "rule_id": "DIDP-05",
+      "execution": "native",
+      "coverage": "partial",
+      "input": {
+        "interface": "did-resolution-tls",
+        "did": "did:sage:web:registry.example:agent-1",
+        "accepts": [
+          "application/did"
+        ],
+        "state": "deactivated",
+        "keys": [
+          {
+            "name": "agree",
+            "algorithm": "x25519",
+            "material_hex": "0900000000000000000000000000000000000000000000000000000000000000",
+            "state": "accepted"
+          },
+          {
+            "name": "sign",
+            "algorithm": "ed25519",
+            "material_hex": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
+            "state": "accepted"
+          }
+        ],
+        "source_error": "",
+        "fail_did11": false
+      },
+      "expected": {
+        "source_calls": 1,
+        "network_attempts": 0,
+        "responses": [
+          {
+            "status": 410,
+            "content_type": "application/did-resolution",
+            "sage_code": "",
+            "problem_type": "",
+            "body": {
+              "didDocument": null,
+              "didDocumentMetadata": {
+                "deactivated": true,
+                "versionId": "7",
+                "sage": {
+                  "state": "deactivated",
+                  "controller": "controller-1",
+                  "source": "fixture-web-registry",
+                  "observedTime": 1800000000,
+                  "observedAt": 1799999000
+                }
+              },
+              "didResolutionMetadata": {}
+            }
+          }
+        ]
+      },
+      "coverage_notes": [
+        "Fixture Source supplies prevalidated public record data; no registry proof, freshness, custody or deployment is certified."
+      ]
+    }
+  ]
+}

@@ -1,0 +1,93 @@
+import json,base64,copy,hashlib
+from pathlib import Path
+root=Path('INSPECTOR_ROOT')
+did='did:sage:web:registry.example:agent-1'
+ed='d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a'
+x='09'+'00'*31
+p='046b17d1f2e12c4247f8bce6e563a440f277037d812deb33a0f4a13945d898c2964fe342e2fe1a7f9b8ee7eb4a7c0f9e162bce33576b315ececbb6406837bf51f5'
+key=lambda n,a,m,s='accepted':dict(name=n,algorithm=a,material_hex=m,state=s)
+keys=[key('agree','x25519',x),key('sign','ed25519',ed)]
+b64=lambda b:base64.urlsafe_b64encode(b).decode().rstrip('=')
+def document(inp,mt):
+ d={}
+ if mt=='application/did':d['@context']='https://www.w3.org/ns/did/v1.1'
+ d['id']=did;d['verificationMethod']=[];sign=[];agree=[]
+ for k in inp['keys']:
+  if inp['state']!='active' or k['state']!='accepted':continue
+  a=k['algorithm'];raw=bytes.fromhex(k['material_hex'])
+  if a=='ecdsa-p256-sha256':jwk=dict(kty='EC',crv='P-256',x=b64(raw[1:33]),y=b64(raw[33:]))
+  else:jwk=dict(kty='OKP',crv='X25519' if a=='x25519' else 'Ed25519',x=b64(raw))
+  kid=did+'#'+k['name']
+  d['verificationMethod'].append(dict(id=kid,type='JsonWebKey' if mt=='application/did' else 'JsonWebKey2020',controller=did,publicKeyJwk=jwk))
+  (agree if a=='x25519' else sign).append(kid)
+ if sign:d['authentication']=sign;d['assertionMethod']=sign
+ if agree:d['keyAgreement']=agree
+ d['service']=[dict(id=did+'#a2a',type='A2AInterface',serviceEndpoint='https://agent.example/a2a')]
+ return d
+md=dict(deactivated=False,versionId='7',sage=dict(state='active',controller='controller-1',source='fixture-web-registry',observedTime=1800000000,observedAt=1799999000))
+base=dict(interface='sage-api',did=did,accepts=['application/did'],state='active',keys=keys,source_error='',fail_did11=False)
+unsupported={
+'didp-03-two-observations':'The pinned subject has no dual-projection operation with a changing Source. Two separate Respond calls cannot establish one-observation atomicity.',
+'didp-04-peer-document-ignored':'This projection/resolution subject has no protected-message verifier accepting a peer-supplied document. No rejection is inferred from projection.',
+'didp-04-received-alias':'This projection/resolution subject has no protected-message verifier accepting a received alias. Exact projection members are not authorization evidence.'}
+cases=[]
+trace=json.loads((root/'verification/0.10.0/a2a-did/traceability.json').read_text())
+for c in trace['cases']:
+ if not c['rule_id'].startswith('DIDP'):continue
+ id=c['id'];inp=copy.deepcopy(base)
+ notes=['Fixture Source supplies prevalidated public record data; no registry proof, freshness, custody or deployment is certified.']
+ row=dict(id=id,rule_id=c['rule_id'],execution='native',coverage='partial',input=inp,expected=None,coverage_notes=notes)
+ if id in unsupported:
+  row.update(execution='unsupported',input=None,coverage='unsupported',reason=unsupported[id]);cases.append(row);continue
+ if id in ('didp-01-core-1-0-unchanged','didp-02-default-1-0','didp-02-wildcard','didp-02-json-envelope'):
+  inp['accepts']=[{'didp-01-core-1-0-unchanged':'application/did+json','didp-02-default-1-0':'','didp-02-wildcard':'*/*','didp-02-json-envelope':'application/json'}[id]]
+ if id=='didp-01-jwk-members':inp['keys']=[key('sign','ecdsa-p256-sha256',p)]
+ if id in ('didp-01-jwk-members','didp-01-no-empty-relationship','didp-03-equivalent-members','didp-03-deactivated','didp-04-no-alias-members','didp-01-invalid-record'):
+  inp['accepts']=['application/did+json','application/did']
+ if id=='didp-01-no-empty-relationship':inp['keys']=inp['keys'][1:]
+ if id=='didp-03-equivalent-members':inp['keys'].append(key('z-revoked','ecdsa-p256-sha256',p,'revoked'))
+ if id in ('didp-03-deactivated','didp-05-deactivated'):inp['state']='deactivated'
+ if id=='didp-01-invalid-record':inp['keys'][1]['material_hex']='01'
+ if id=='didp-02-no-fallback':inp['fail_did11']=True
+ rejects={'didp-02-json-ld-rejected':'application/did+ld+json','didp-02-did-resolution-rejected':'application/did-resolution','didp-02-q-list-rejected':'application/did;q=0.9, application/did+json'}
+ if id in rejects:inp['accepts']=[rejects[id]]
+ if id=='didp-02-did-resolution-interface':inp.update(interface='did-resolution-tls',accepts=['application/did;q=0.9, application/did+json'])
+ if id.startswith('didp-05-'):inp['interface']='did-resolution-tls'
+ if id=='didp-05-malformed':inp['did']='did:SAGE:web:registry.example:agent-1'
+ if id=='didp-05-not-found':inp['source_error']='record.not-found'
+ if id=='didp-05-stale-not-absent':inp['source_error']='record.stale'
+ if id=='didp-05-unknown-kind':inp['did']='did:sage:future:registry:agent-1';inp['source_error']='id.unknown-kind'
+ if id=='didp-05-unsupported-accept':inp['accepts']=['text/html']
+ rows=[];calls=0
+ for accept in inp['accepts']:
+  code='';ptype='';status=200;mt=accept if accept=='application/did' else 'application/did+json';body=None
+  if inp['interface']=='sage-api':
+   notes.append('SAGE Respond API is observed; HTTP status is the API problem status, not a production HTTP binding.')
+   if id in rejects:code='representation.unsupported';status=406
+   else:
+    calls+=1
+    if id in ('didp-01-invalid-record','didp-02-no-fallback'):code='record.invalid';status=502
+    else:
+     body=document(inp,mt)
+     if accept=='application/json':
+      mt='application/json';meta=copy.deepcopy(md);meta['deactivated']=inp['state']=='deactivated';meta['sage']['state']=inp['state']
+      body=dict(didDocument=body,didDocumentMetadata=meta,didResolutionMetadata=dict(contentType='application/did+json'))
+   if code:ptype='https://sage-x-project.github.io/sage-spec/errors/'+code;mt=''
+  else:
+   errors={'didp-05-malformed':('id.malformed','INVALID_DID',400,0),'didp-05-not-found':('record.not-found','NOT_FOUND',404,1),'didp-05-stale-not-absent':('record.stale','INTERNAL_ERROR',500,1),'didp-05-unknown-kind':('id.unknown-kind','METHOD_NOT_SUPPORTED',501,1),'didp-05-unsupported-accept':('representation.unsupported','FEATURE_NOT_SUPPORTED',501,0)}
+   if id in errors:
+    code,typ,status,calls=errors[id];ptype='https://www.w3.org/ns/did#'+typ;mt='application/problem+json'
+   elif id=='didp-05-deactivated':
+    calls=1;status=410;mt='application/did-resolution';meta=copy.deepcopy(md);meta['deactivated']=True;meta['sage']['state']='deactivated';body=dict(didDocument=None,didDocumentMetadata=meta,didResolutionMetadata={})
+   else: calls=1;mt='application/did+json';body=document(inp,mt)
+  rows.append(dict(status=status,content_type=mt,sage_code=code,problem_type=ptype,body=body))
+ row['expected']=dict(source_calls=calls,network_attempts=0,responses=rows)
+ if len(inp['accepts'])==2:notes.append('Two separate calls read the same fixed fixture record; single-observation dual-request atomicity is not exercised.')
+ if id=='didp-01-context-offline':notes.append('Default HTTP transport attempts are denied and counted inside the process; this is not an OS-wide no-network assurance.')
+ if id=='didp-05-unsupported-accept':notes.append('The standard resolver rejects Accept before the SAGE driver is called; sageCode is not emitted by the pinned subject. This expected profile gap is recorded as FAIL.')
+
+ if id=='didp-05-unknown-kind':notes.append('The fixture Source reports the unsupported registry kind; this observes error mapping, not a production kind parser.')
+ row['coverage_notes']=list(dict.fromkeys(notes));cases.append(row)
+suite=dict(schema_version=1,spec_revision='06b50e177ccd22bce7d70fd80c2d7f822ae3fd3b',subject_revision='2ef282b40ccf',scope='did-projection-resolution-fixture-source',cases=cases)
+raw=(json.dumps(suite,indent=2)+'\n').encode();path=root/'vectors/0.10.0/did-profile-observations.json';path.write_bytes(raw)
+print(hashlib.sha256(raw).hexdigest())

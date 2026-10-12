@@ -1,0 +1,72 @@
+import json,base64,copy,hashlib
+from pathlib import Path
+from cryptography.hazmat.primitives.asymmetric import ed25519
+root=Path('/path/to/sage-inspector')
+trace=json.loads((root/'verification/0.10.0/a2a-did/traceability.json').read_text())
+card_suite=json.loads((root/'vectors/0.10.0/a2a-card-observations.json').read_text())
+seen={x['id'] for x in card_suite['cases']}
+base=next(x['input'] for x in card_suite['cases'] if x['id']=='a2ab-05-ed25519-valid')
+DID=base['expected_peer'];URL=base['record']['service_urls'][0]
+EXT='https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension'
+meta={'a2a_version':'1.0','a2a_extensions':EXT}
+def canon(v):return json.dumps(v,sort_keys=True,separators=(',',':'),ensure_ascii=True).encode()
+def b64(v):return base64.urlsafe_b64encode(v).rstrip(b'=').decode()
+card=json.loads(base['card']);del card['signatures'];card['supportedInterfaces'][0]['tenant']='billing'
+header=b64(canon({'alg':'Ed25519','kid':DID+'#sign','typ':'sage-a2a-card+jws'}))
+card['signatures']=[{'protected':header,'signature':b64(ed25519.Ed25519PrivateKey.from_private_bytes(bytes(32)).sign((header+'.'+b64(canon(card))).encode()))}]
+tenant_card=canon(card).decode()
+send=' {"jsonrpc":"2.0", "id":"one", "method":"SendMessage","params":{"message":{"messageId":"request","role":"ROLE_USER","parts":[{"text":"hello"}]}}} '
+get=' {"jsonrpc":"2.0", "id":"one","method":"GetTask","params":{"id":"missing"}} '
+reply=' {"jsonrpc":"2.0", "id":"one","result":{"fixture":"inert-ack"}} '
+task_error=' {"jsonrpc":"2.0", "id":"one", "error":{"code":-32001,"message":"Task not found"}} '
+unsupported={'a2ab-01-bare-jsonrpc-body':'No production chapter 03/08 HTTP ingress is configured.', 'a2ab-04-server-grpc-downgrade':'No deployed alternate-binding listener can be inspected.', 'a2ab-04-server-0-3-downgrade':'No deployed legacy/unsigned ingress can be inspected.'}
+rows=[]
+for c in trace['cases']:
+ id=c['id']
+ if not c['rule_id'].startswith('A2AB') or id in seen:continue
+ if id in unsupported:
+  rows.append({'id':id,'execution':'unsupported','reason':unsupported[id],'input':None,'expected':None});continue
+ input={'api':'server','payload':send,'metadata':copy.deepcopy(meta),'recipient':DID,'card':base['card'],'key_hex':base['record']['key_hex'],'tenant_route':DID,'header_version':'','source_error':False,'client_card_invalid':False,'response_sender':DID,'reply':reply}
+ rejection=False;rpcerror=False;uniform=False
+ if id=='a2ab-01-jsonrpc-in-payload':input['api']='client'
+ elif id=='a2ab-01-batch-payload':input['payload']='['+send+','+send+']';rejection=True
+ elif id=='a2ab-01-streaming-method':
+  input['payload']='{"jsonrpc":"2.0","id":"one","method":"SendStreamingMessage","params":{}}';rpcerror=True
+ elif id=='a2ab-01-header-parameters-ignored':input['api']='client';input['header_version']='0.3'
+ elif id=='a2ab-01-a2a-error-in-data':input['api']='client';input['payload']=get;input['reply']=task_error
+ elif id=='a2ab-02-version-absent':del input['metadata']['a2a_version'];rejection=True
+ elif id=='a2ab-02-version-0-3':input['metadata']['a2a_version']='0.3';input['header_version']='1.0';rejection=True
+ elif id=='a2ab-02-version-patch':input['metadata']['a2a_version']='1.0.1';rejection=True
+ elif id=='a2ab-02-version-empty':input['metadata']['a2a_version']='';rejection=True
+ elif id=='a2ab-03-not-activated':del input['metadata']['a2a_extensions'];rejection=True
+ elif id=='a2ab-03-activated-twice':input['metadata']['a2a_extensions']=EXT+','+EXT;rejection=True
+ elif id=='a2ab-06-recipient-mismatch':input['recipient']=DID.replace('billing-bot','other');rejection=True
+ elif id=='a2ab-06-tenant-elsewhere':
+  input['card']=tenant_card;obj=json.loads(send);obj['params']['tenant']='billing';input['payload']=canon(obj).decode();input['tenant_route']=DID.replace('billing-bot','other');rejection=True
+ elif id=='a2ab-06-response-wrong-signer':input['api']='client';input['response_sender']=DID.replace('billing-bot','other')
+ elif id=='a2ab-07-abort-no-retry':input['api']='client';input['client_card_invalid']=True
+ elif id in ('a2ab-07-no-standard-binding-retry','a2ab-07-no-version-retry'):input['api']='client';input['source_error']=True;rejection=True
+ elif id=='a2ab-07-uniform-error':input['api']='uniform';uniform=True
+ elif id=='a2ab-07-success-no-fallback':input['api']='client'
+ output={'errors':[],'replies_hex':[],'dispatch_count':0,'owner_calls':0,'final_checks':0,'payloads_hex':[],'handler_payloads_hex':[],'targets':[],'recipients':[],'versions':[],'extensions':[],'http_statuses':[],'fixture_headers':[]}
+ invalid_client=input['client_card_invalid'];bad_sender=id=='a2ab-06-response-wrong-signer'
+ output['owner_calls']=int(input['api']=='client' and not invalid_client);output['final_checks']=output['owner_calls']
+ output['dispatch_count']=int(not (rejection or rpcerror or invalid_client or uniform))
+ output['errors']=['authentication failed'] if rejection or invalid_client or bad_sender else ['']
+ response=canon({'error':{'code':-32004,'message':'Unsupported operation'},'id':'one','jsonrpc':'2.0'}).decode() if rpcerror else input['reply']
+ output['replies_hex']=['' if rejection or invalid_client or bad_sender else response.encode().hex()]
+ if not invalid_client:
+  output['payloads_hex']=[input['payload'].encode().hex()];output['targets']=[URL];output['recipients']=[input['recipient']];output['versions']=[input['metadata'].get('a2a_version','')];output['extensions']=[input['metadata'].get('a2a_extensions','')]
+ if output['dispatch_count']:output['handler_payloads_hex']=[input['payload'].encode().hex()]
+ if uniform:
+  output.update(errors=['authentication failed']*2,replies_hex=['']*2,payloads_hex=[send.encode().hex()]*2,targets=[URL]*2,recipients=[DID,DID.replace('billing-bot','other')],versions=['','1.0'],extensions=[EXT]*2)
+ tls=copy.deepcopy(output);tls['fixture_headers']=[input['header_version']]*(2 if uniform else (0 if invalid_client else 1));tls['http_statuses']=[403 if rejection or uniform else 200]*(2 if uniform else (0 if invalid_client else 1))
+ notes='Only public library decisions with a fixture Source/owner; signed carriage, actual Registry readiness, deployment and effect authorization are unobserved.'
+ if id in ('a2ab-07-no-standard-binding-retry','a2ab-07-no-version-retry'):notes+=' The server rejects the request carrying metadata1.0 because its fresh fixture Source fails. This observes terminal client failure, not version-negotiation-specific rejection or alternate listeners.'
+ elif id=='a2ab-06-response-wrong-signer':notes+=' This observes a wrong Sender in the trusted-owner result, not a cryptographic response signature.'
+ elif id=='a2ab-01-header-parameters-ignored':notes+=' The hint is ignored by the owned fixture; production header/envelope signature behavior is unobserved.'
+ elif id=='a2ab-01-a2a-error-in-data':notes+=' Exact JSON-RPC error bytes and nil library error are observed; the chapter08 success flag is unobserved.'
+ rows.append({'id':id,'coverage_notes':notes,'execution':'policy','scope':'fixture-owner-library-only','coverage':'partial','input':input,'expected':{'direct':output,'tls':tls}})
+result={'schema_version':1,'spec_revision':trace.get('spec_revision','06b50e177ccd22bce7d70fd80c2d7f822ae3fd3b'),'adk_revision':card_suite['subject_revision'],'scope':'fixture-owner-library-only','cases':rows}
+p=root/'vectors/0.10.0/a2a-call-observations.json';p.write_text(json.dumps(result,indent=2)+'\n')
+print('Contracts',len(rows),'policy',sum(x['execution']=='policy' for x in rows),'unsupported',len(unsupported),'sha',hashlib.sha256(p.read_bytes()).hexdigest())

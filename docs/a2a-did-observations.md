@@ -71,7 +71,7 @@ historical observation workflows or general Inspector tests.
 
 The Inspector extension is still in progress. The remaining 23 A2AB call
 contracts now have [policy observations and explicit unsupported ingress](a2a-call-observations.md).
-The 28 DIDP projection/resolution contracts are connected separately in `did-profile-observations.md`: 23 PARTIAL, two FAIL findings and three UNSUPPORTED cases. Next are two TABLE-08 cases. Bind independent expectations to actual ADK/Go/Rust
+The 28 DIDP projection/resolution contracts are connected separately in `did-profile-observations.md`: 23 PARTIAL, two FAIL findings and three UNSUPPORTED cases. The two TABLE-08 service-type contracts are connected in `a2a-service-type-observations.md`. Next is independent did-inspector coverage. Bind independent expectations to actual ADK/Go/Rust
 subjects and inspect advanced/sage separately with did-inspector's DID Core 1.0
 and DID 1.1 profiles. HTTP/envelope/replay evidence requires a real supporting
 adapter and must remain unsupported or not run until it exists. A local library

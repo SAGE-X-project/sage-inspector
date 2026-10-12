@@ -109,3 +109,49 @@ func TestCardSizeHasOtherwiseValidControl(t *testing.T) {
 	}
 	t.Fatal("size case missing")
 }
+
+func TestExactRegistryServiceType(t *testing.T) {
+	raw, e := os.ReadFile("../../vectors/0.10.0/a2a-service-type-observations.json")
+	if e != nil {
+		t.Fatal(e)
+	}
+	var suite struct {
+		Cases []struct {
+			ID       string
+			Input    input
+			Expected output
+		}
+	}
+	if e = json.Unmarshal(raw, &suite); e != nil {
+		t.Fatal(e)
+	}
+	if len(suite.Cases) != 2 {
+		t.Fatal("TABLE fixture count")
+	}
+	for _, c := range suite.Cases {
+		t.Run(c.ID, func(t *testing.T) {
+			got, e := observe(c.Input)
+			if e != nil {
+				t.Fatal(e)
+			}
+			actual, _ := json.Marshal(got)
+			want, _ := json.Marshal(c.Expected)
+			if !bytes.Equal(actual, want) {
+				t.Fatalf("actual %s expected %s", actual, want)
+			}
+		})
+	}
+	for _, kind := range []string{"A2AINTERFACE", "A2AInterface ", "", "OtherType"} {
+		in := suite.Cases[0].Input
+		in.Record.ServiceTypes = []string{kind}
+		got, e := observe(in)
+		if e != nil || got.Accepted {
+			t.Fatalf("type %q accepted: %v %+v", kind, e, got)
+		}
+	}
+	in := suite.Cases[0].Input
+	in.Record.ServiceTypes = []string{"A2AInterface", "a2ainterface"}
+	if _, e = observe(in); e == nil {
+		t.Fatal("mismatched type count")
+	}
+}

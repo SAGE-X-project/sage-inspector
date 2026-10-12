@@ -1,0 +1,15 @@
+import copy,hashlib,json
+from pathlib import Path
+root=Path('INSPECTOR_ROOT')
+raw=(root/'vectors/0.10.0/a2a-card-observations.json').read_bytes()
+assert hashlib.sha256(raw).hexdigest()=='ff9d09ab9134aa134acff8ffd96466e38126ef0ee5ca320abc32dcc8be4d1448'
+base=next(c for c in json.loads(raw)['cases'] if c['id']=='a2ab-03-declared')
+rows=[]
+for id,kind in [('TABLE-08-P','A2AInterface'),('TABLE-08-N01','a2ainterface')]:
+    inp=copy.deepcopy(base['input']);inp['record']['service_types']=[kind]
+    expected=copy.deepcopy(base['expected']) if id=='TABLE-08-P' else dict(accepted=False,error='authentication failed',did='',version='',interfaces=[])
+    rows.append(dict(id=id,rule_id='TABLE-08',coverage='partial',scope='card-service-type-library-only',input=inp,expected=expected,coverage_notes=['The identical independently signed card is valid in the positive control; only the configured fixture service type changes.','Fixture Source and clock do not establish registry trust, production transport or deployed assurance.']))
+suite=dict(schema_version=1,spec_revision='06b50e177ccd22bce7d70fd80c2d7f822ae3fd3b',subject_revision='904fa9cbe3c4c2dcdabee67b2afd7c9e4b75cf14',scope='card-service-type-library-only',construction=dict(card_fixture_sha256=hashlib.sha256(raw).hexdigest(),card_fixture_id='a2ab-03-declared'),cases=rows)
+out=(json.dumps(suite,indent=2)+'\n').encode()
+assert hashlib.sha256(out).hexdigest()=='b032684c4a14a421b0232a76a5bfb7eb87186cb76626f1c61d85cd30cf287848'
+(root/'vectors/0.10.0/a2a-service-type-observations.json').write_bytes(out)

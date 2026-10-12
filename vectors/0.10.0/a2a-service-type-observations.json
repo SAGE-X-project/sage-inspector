@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "spec_revision": "06b50e177ccd22bce7d70fd80c2d7f822ae3fd3b",
+  "subject_revision": "904fa9cbe3c4c2dcdabee67b2afd7c9e4b75cf14",
+  "scope": "card-service-type-library-only",
+  "construction": {
+    "card_fixture_sha256": "ff9d09ab9134aa134acff8ffd96466e38126ef0ee5ca320abc32dcc8be4d1448",
+    "card_fixture_id": "a2ab-03-declared"
+  },
+  "cases": [
+    {
+      "id": "TABLE-08-P",
+      "rule_id": "TABLE-08",
+      "coverage": "partial",
+      "scope": "card-service-type-library-only",
+      "input": {
+        "card": "{\"capabilities\":{\"extensions\":[{\"params\":{\"did\":\"did:sage:web:agents.example.com:billing-bot\",\"expires\":105,\"issued\":100,\"recordVersion\":\"3\",\"sageVersion\":\"0.10.0\"},\"required\":true,\"uri\":\"https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension\"}]},\"defaultInputModes\":[\"application/json\"],\"defaultOutputModes\":[\"application/json\"],\"description\":\"\",\"name\":\"billing\",\"signatures\":[{\"protected\":\"eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZGlkOnNhZ2U6d2ViOmFnZW50cy5leGFtcGxlLmNvbTpiaWxsaW5nLWJvdCNzaWduIiwidHlwIjoic2FnZS1hMmEtY2FyZCtqd3MifQ\",\"signature\":\"EuMhGEdfskss7rbJcbYoDvFlleu0eSIQUmtiFDapeH70Duin7hA2w4lhD4Z8BkufgPGDyrRbHbnRYX5qcpEmCQ\"}],\"skills\":[{\"description\":\"\",\"id\":\"billing\",\"name\":\"billing\",\"tags\":[\"billing\"]}],\"supportedInterfaces\":[{\"protocolBinding\":\"https://sage-x-project.github.io/sage-spec/a2a/0.10.0/binding\",\"protocolVersion\":\"1.0\",\"url\":\"https://agents.example.com/a2a\"}],\"version\":\"1\"}",
+        "expected_peer": "did:sage:web:agents.example.com:billing-bot",
+        "record": {
+          "did": "did:sage:web:agents.example.com:billing-bot",
+          "controller": "fixture-operator",
+          "state": "active",
+          "version": "3",
+          "key_name": "sign",
+          "key_alg": "ed25519",
+          "key_state": "accepted",
+          "key_hex": "3b6a27bcceb6a42d62a3a8d02a6f0d73653215771de243a63ac048a18b59da29",
+          "service_urls": [
+            "https://agents.example.com/a2a"
+          ],
+          "service_types": [
+            "A2AInterface"
+          ]
+        }
+      },
+      "expected": {
+        "accepted": true,
+        "error": "",
+        "did": "did:sage:web:agents.example.com:billing-bot",
+        "version": "3",
+        "interfaces": [
+          "https://agents.example.com/a2a"
+        ]
+      },
+      "coverage_notes": [
+        "The identical independently signed card is valid in the positive control; only the configured fixture service type changes.",
+        "Fixture Source and clock do not establish registry trust, production transport or deployed assurance."
+      ]
+    },
+    {
+      "id": "TABLE-08-N01",
+      "rule_id": "TABLE-08",
+      "coverage": "partial",
+      "scope": "card-service-type-library-only",
+      "input": {
+        "card": "{\"capabilities\":{\"extensions\":[{\"params\":{\"did\":\"did:sage:web:agents.example.com:billing-bot\",\"expires\":105,\"issued\":100,\"recordVersion\":\"3\",\"sageVersion\":\"0.10.0\"},\"required\":true,\"uri\":\"https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension\"}]},\"defaultInputModes\":[\"application/json\"],\"defaultOutputModes\":[\"application/json\"],\"description\":\"\",\"name\":\"billing\",\"signatures\":[{\"protected\":\"eyJhbGciOiJFZDI1NTE5Iiwia2lkIjoiZGlkOnNhZ2U6d2ViOmFnZW50cy5leGFtcGxlLmNvbTpiaWxsaW5nLWJvdCNzaWduIiwidHlwIjoic2FnZS1hMmEtY2FyZCtqd3MifQ\",\"signature\":\"EuMhGEdfskss7rbJcbYoDvFlleu0eSIQUmtiFDapeH70Duin7hA2w4lhD4Z8BkufgPGDyrRbHbnRYX5qcpEmCQ\"}],\"skills\":[{\"description\":\"\",\"id\":\"billing\",\"name\":\"billing\",\"tags\":[\"billing\"]}],\"supportedInterfaces\":[{\"protocolBinding\":\"https://sage-x-project.github.io/sage-spec/a2a/0.10.0/binding\",\"protocolVersion\":\"1.0\",\"url\":\"https://agents.example.com/a2a\"}],\"version\":\"1\"}",
+        "expected_peer": "did:sage:web:agents.example.com:billing-bot",
+        "record": {
+          "did": "did:sage:web:agents.example.com:billing-bot",
+          "controller": "fixture-operator",
+          "state": "active",
+          "version": "3",
+          "key_name": "sign",
+          "key_alg": "ed25519",
+          "key_state": "accepted",
+          "key_hex": "3b6a27bcceb6a42d62a3a8d02a6f0d73653215771de243a63ac048a18b59da29",
+          "service_urls": [
+            "https://agents.example.com/a2a"
+          ],
+          "service_types": [
+            "a2ainterface"
+          ]
+        }
+      },
+      "expected": {
+        "accepted": false,
+        "error": "authentication failed",
+        "did": "",
+        "version": "",
+        "interfaces": []
+      },
+      "coverage_notes": [
+        "The identical independently signed card is valid in the positive control; only the configured fixture service type changes.",
+        "Fixture Source and clock do not establish registry trust, production transport or deployed assurance."
+      ]
+    }
+  ]
+}

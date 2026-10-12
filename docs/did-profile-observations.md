@@ -94,5 +94,5 @@ python3 -B scripts/did_profile_observation.py --native --output /tmp/did-profile
 
 The last command writes the report and exits nonzero for the two known findings.
 Use `--record-known-gap` only to preserve the documented pinned findings in CI.
-Next in the approved inspection sequence are the two TABLE-08 cases and separate
-did-inspector coverage of the advanced/sage subject and the DID 1.0/1.1 judgment.
+The two TABLE-08 cases are connected separately in `a2a-service-type-observations.md`.
+Next in the approved inspection sequence is separate did-inspector coverage of the advanced/sage subject and the DID 1.0/1.1 judgment.

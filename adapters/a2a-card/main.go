@@ -24,15 +24,16 @@ type input struct {
 	Record       recordInput `json:"record"`
 }
 type recordInput struct {
-	DID         string   `json:"did"`
-	Controller  string   `json:"controller"`
-	State       string   `json:"state"`
-	Version     string   `json:"version"`
-	KeyName     string   `json:"key_name"`
-	KeyAlg      string   `json:"key_alg"`
-	KeyState    string   `json:"key_state"`
-	KeyHex      string   `json:"key_hex"`
-	ServiceURLs []string `json:"service_urls"`
+	DID          string   `json:"did"`
+	Controller   string   `json:"controller"`
+	State        string   `json:"state"`
+	Version      string   `json:"version"`
+	KeyName      string   `json:"key_name"`
+	KeyAlg       string   `json:"key_alg"`
+	KeyState     string   `json:"key_state"`
+	KeyHex       string   `json:"key_hex"`
+	ServiceURLs  []string `json:"service_urls"`
+	ServiceTypes []string `json:"service_types,omitempty"`
 }
 type output struct {
 	Accepted   bool     `json:"accepted"`
@@ -65,8 +66,15 @@ func observe(in input) (output, error) {
 	r := sage.Record{DID: d, Controller: in.Record.Controller, State: sage.State(in.Record.State), Version: in.Record.Version,
 		Keys:        []sage.Key{{Name: in.Record.KeyName, Alg: in.Record.KeyAlg, Material: material, State: sage.KeyState(in.Record.KeyState)}},
 		Observation: sage.Observation{Issued: &issued, Source: "inspector-public-fixture", Time: 101}}
+	if len(in.Record.ServiceTypes) > 0 && len(in.Record.ServiceTypes) != len(in.Record.ServiceURLs) {
+		return out, errors.New("service type count")
+	}
 	for i, u := range in.Record.ServiceURLs {
-		r.Services = append(r.Services, sage.Service{Name: fmt.Sprintf("a2a%d", i), Type: "A2AInterface", URI: u})
+		kind := "A2AInterface"
+		if len(in.Record.ServiceTypes) > 0 {
+			kind = in.Record.ServiceTypes[i]
+		}
+		r.Services = append(r.Services, sage.Service{Name: fmt.Sprintf("a2a%d", i), Type: kind, URI: u})
 	}
 	v, e := a2abinding.NewVerifier(a2abinding.VerifierConfig{Source: fixtureSource{r}, Clock: fixtureClock{}, ExpectedPeer: in.ExpectedPeer})
 	if e != nil {

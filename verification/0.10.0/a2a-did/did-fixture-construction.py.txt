@@ -85,7 +85,7 @@ for c in trace['cases']:
  if len(inp['accepts'])==2:notes.append('Two separate calls read the same fixed fixture record; single-observation dual-request atomicity is not exercised.')
  if id=='didp-01-context-offline':notes.append('Default HTTP transport attempts are denied and counted inside the process; this is not an OS-wide no-network assurance.')
  if id=='didp-05-unsupported-accept':notes.append('The standard resolver rejects Accept before the SAGE driver is called; sageCode is not emitted by the pinned subject. This expected profile gap is recorded as FAIL.')
- 
+
  if id=='didp-05-unknown-kind':notes.append('The fixture Source reports the unsupported registry kind; this observes error mapping, not a production kind parser.')
  row['coverage_notes']=list(dict.fromkeys(notes));cases.append(row)
 suite=dict(schema_version=1,spec_revision='06b50e177ccd22bce7d70fd80c2d7f822ae3fd3b',subject_revision='2ef282b40ccf',scope='did-projection-resolution-fixture-source',cases=cases)

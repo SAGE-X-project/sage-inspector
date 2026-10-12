@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "protocol_version": "0.10.0",
+  "spec_revision": "06b50e177ccd22bce7d70fd80c2d7f822ae3fd3b",
+  "source_sha256": {
+    "PROCESS.md": "6a75f8ee4d60503fe6c521ef3844825f18d1bfbfdb1156670ec55fc49be28b4a",
+    "charter.md": "0c22ccfe49011c09967ccab993135b663599e2f05da4040383f1f24542cef2cd",
+    "profiles/a2a-1.0-binding.md": "c4c7f263ea3e9ff122277976f0bebf4357c418956256c33fbbb28570b8a67b4d",
+    "profiles/agent-mcp-security.md": "0538acbdcfc143d93fb7d99a2a2c09c068fc354388c4e37c7489204305b1913f",
+    "profiles/non-http-mcp-security.md": "9c7851d095208c975792565266e481c120ef754ae8eb9529c62b53bf12a1d4fa",
+    "profiles/non-http-mcp-tool.json": "c3edd622a7c90baa028118f63af42a91f354fe7202070ef91a4bd349e4048204",
+    "spec/00-overview.md": "8655cddfa23979cb12432f83831e58ee2b6e240b5f1f92b84594d7084eaeb3f0",
+    "spec/01-crypto.md": "35463137986ae692593cb12a3654085270f3337acea3aa3d7efcdde8cea78a0a",
+    "spec/02-jcs.md": "4d4b202c8ddb5eb00c47a8e8056813a589834526e2174c023fb005a484eb3d94",
+    "spec/03-rfc9421.md": "b28d567cbf3f7a6a256c73fd35696865b5c0ebdc814de57624b90df082d49407",
+    "spec/04-hpke.md": "1420818451ce8363a16e391647dbaca8ec2f06efa56b6507027a4e17f399fdd6",
+    "spec/05-session.md": "8a45b8bdd3b6bfc399a94c420b2161b8f16db5c6b29ed2e85584a6282b17cce5",
+    "spec/06-did-sage.md": "fa7e180a37971ec382968d826857a3c4735f2a5f476c939d7aaf48349cea5691",
+    "spec/07-a2a.md": "5ded622fdaf67342d5c6b4327da0f5787bfe9df2dc58b233cdfb500ffc96b042",
+    "spec/08-transport.md": "e11e8200d67ee913fcd1a47781c6d31a353556c9dfd4e4ce0a88dbe97e10bba6",
+    "spec/09-registry.md": "e8572cc037fd0fc84e678be436cc47854c5fd700aacbc141937d79ee03ea6017",
+    "spec/10-resolution.md": "78fdf5fc998b92b0ce262a2509b1595458ff8a083cc4e8570c50efcd2e7270bd",
+    "spec/11-registries.md": "aaf8e68a1af957fd079ff56d89636b792930e8e0202b3d09a084164005589513",
+    "verification/standards-clause-audit.md": "007426363bb387f80cf1b611f55cb4bbe652d2232d849979a0753515d77145c6",
+    "verification/traceability.json": "cb7f06207a3fd88bac403760153fece9b41f3348260bc2599e2b1bc2d05dccce"
+  },
+  "historical_case_map_sha256": "e6ca5e402c43379eb12e58dd00c91a80ca218f175956cd6bec923c454a9026b3",
+  "counts": {
+    "requirements": 45,
+    "rules": 104,
+    "cases": 583,
+    "mandatory_subscenarios": 26,
+    "historical_cases": 386,
+    "additional_cases": 197
+  },
+  "status": "INVENTORY_ONLY"
+}

@@ -1,5 +1,9 @@
 # Current 0.10.0 specification coverage
 
+The separately adopted [A2A/DID inventory and card observations](a2a-did-observations.md)
+track the later `06b50e1` revision with 583 cases. This page and its historical
+observations retain their original revision and are not transferred to it.
+
 This page records the earlier, revision-bound 481-case inventory and its
 observations. The [latest 489-case inventory](latest-spec-inventory.md) tracks
 the newer specification revision; results here are not transferred to it.

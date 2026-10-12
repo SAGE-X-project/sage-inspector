@@ -1,0 +1,86 @@
+"""Offline public fixtures: ASCII/integer JCS subset and independent JWS signing.
+All private scalars/seeds are published test values, never deployment keys.
+"""
+import json,copy,base64,hashlib
+from pathlib import Path
+from cryptography.hazmat.primitives.asymmetric import ed25519,ec
+from cryptography.hazmat.primitives.serialization import Encoding,PublicFormat
+root=Path('/path/to/sage-inspector')
+trace=json.loads(Path('/path/to/pinned/sage-spec/verification/traceability.json').read_text())
+DID='did:sage:web:agents.example.com:billing-bot';URL='https://agents.example.com/a2a'
+BIND='https://sage-x-project.github.io/sage-spec/a2a/0.10.0/binding';EXT='https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension'
+def enc(b):return base64.urlsafe_b64encode(b).rstrip(b'=').decode()
+def canonical(v):return json.dumps(v,ensure_ascii=True,sort_keys=True,separators=(',',':')).encode()
+ed=ed25519.Ed25519PrivateKey.from_private_bytes(bytes(32))
+ec_key=ec.derive_private_key(1,ec.SECP256R1());pub=ec_key.public_key().public_bytes(Encoding.X962,PublicFormat.UncompressedPoint)
+order=0xffffffff00000000ffffffffffffffffbce6faada7179e84f3b9cac2fc632551
+# Fixed public test scalar/nonce only; mathematical signature construction is
+# independent of the ADK, Go crypto and the subject's canonicalizer.
+def p256sign(data):
+ r=ec.derive_private_key(7,ec.SECP256R1()).public_key().public_numbers().x%order
+ s=(pow(7,-1,order)*(int.from_bytes(hashlib.sha256(data).digest(),'big')+r))%order
+ s=min(s,order-s)
+ return r.to_bytes(32,'big')+s.to_bytes(32,'big')
+def sign(card,header,alg='ed',header_raw=None):
+ protected=enc(header_raw or canonical(header));payload=enc(canonical(card));data=(protected+'.'+payload).encode()
+ return {'protected':protected,'signature':enc(ed.sign(data) if alg=='ed' else p256sign(data))}
+base={'name':'billing','description':'','version':'1','supportedInterfaces':[{'url':URL,'protocolBinding':BIND,'protocolVersion':'1.0'}], 'capabilities':{'extensions':[{'uri':EXT,'required':True,'params':{'sageVersion':'0.10.0','did':DID,'recordVersion':'3','issued':100,'expires':105}}]},'defaultInputModes':['application/json'],'defaultOutputModes':['application/json'],'skills':[{'id':'billing','name':'billing','description':'','tags':['billing']}]}
+fixturecases=[]
+for case in trace['cases']:
+ ident=case['id'];suffix=ident.split('-',2)[-1]
+ if case['rule_id'] not in ('A2AB-03','A2AB-04','A2AB-05','A2AB-06'):continue
+ if suffix in ['not-activated','activated-twice','server-grpc-downgrade','server-0-3-downgrade','recipient-mismatch','tenant-elsewhere','response-wrong-signer']:continue
+ card=copy.deepcopy(base);p=card['capabilities']['extensions'][0]['params'];ext=card['capabilities']['extensions'][0]
+ record={'did':DID,'controller':'fixture-operator','state':'active','version':'3','key_name':'sign','key_alg':'ed25519','key_state':'accepted','key_hex':ed.public_key().public_bytes(Encoding.Raw,PublicFormat.Raw).hex(),'service_urls':[URL]}
+ header={'alg':'Ed25519','kid':DID+'#sign','typ':'sage-a2a-card+jws'};alg='ed';rawheader=None;expected_peer=DID
+ if suffix=='required-false':ext['required']=False
+ elif suffix=='two-entries':
+  other=copy.deepcopy(ext);other['params']['did']=DID.replace('billing-bot','other');card['capabilities']['extensions'].append(other)
+ elif suffix=='numeric-record-version':p['recordVersion']=7
+ elif suffix=='wrong-sage-version':p['sageVersion']='0.11.0'
+ elif suffix=='lifetime-too-long':p['expires']=86501
+ elif suffix=='only-sage-interfaces':
+  card['supportedInterfaces'].append({'url':URL+'/second','protocolBinding':BIND,'protocolVersion':'1.0'});record['service_urls'].append(URL+'/second')
+ elif suffix=='grpc-listed':card['supportedInterfaces'].append({'url':URL+'/grpc','protocolBinding':'GRPC','protocolVersion':'1.0'})
+ elif suffix=='streaming-capability':card['capabilities']['streaming']=True
+ elif suffix=='extended-card':card['capabilities']['extendedAgentCard']=True
+ elif suffix in ('p256-low-s','p256-high-s'):
+  alg='ec';header['alg']='ES256';record['key_alg']='ecdsa-p256-sha256';record['key_hex']=pub.hex()
+ elif suffix=='eddsa-polymorphic':header['alg']='EdDSA'
+ elif suffix=='jku-present':header['jku']='https://fixture.invalid/key'
+ elif suffix=='crit-present':header.update(crit=['b64'],b64=False)
+ elif suffix=='duplicate-header-member':rawheader=('{"alg":"Ed25519","kid":"'+DID+'#sign","kid":"'+DID+'#other","typ":"sage-a2a-card+jws"}').encode()
+ elif suffix=='relative-kid':header['kid']='key-1'
+ elif suffix=='kid-no-fragment':header['kid']=DID
+ elif suffix=='kid-x25519':header['kid']=DID+'#kem';record.update(key_name='kem',key_alg='x25519',key_hex='09'+'00'*31)
+ elif suffix=='kid-other-did':header['kid']=DID.replace('billing-bot','other')+'#sign'
+ elif suffix=='expected-peer-mismatch':expected_peer=DID.replace('billing-bot','other')
+ elif suffix=='revoked-key':record['key_state']='revoked'
+ elif suffix=='deactivated-record':record['state']='deactivated'
+ elif suffix=='record-version-old':p['recordVersion']='2'
+ elif suffix=='record-version-ahead':p['recordVersion']='4'
+ elif suffix=='expired-card':p['expires']=101
+ elif suffix=='secp256k1-key':
+  record.update(key_alg='sage-secp256k1-keccak256',key_hex=ec.derive_private_key(1,ec.SECP256K1()).public_key().public_bytes(Encoding.X962,PublicFormat.UncompressedPoint).hex());header['alg']='ES256K'
+ elif suffix=='no-service':record['service_urls']=[]
+ elif suffix=='trailing-slash':record['service_urls']=[URL+'/']
+ elif suffix=='host-case':card['supportedInterfaces'][0]['url']=URL.replace('agents.example.com','AGENTS.example.com')
+ elif suffix=='default-port':card['supportedInterfaces'][0]['url']=URL.replace('agents.example.com','agents.example.com:443')
+ entry=sign(card,header,alg,rawheader);card['signatures']=[entry]
+ if suffix=='p256-high-s':
+  b=base64.urlsafe_b64decode(entry['signature']+'==');s=int.from_bytes(b[32:],'big');entry['signature']=enc(b[:32]+(order-s).to_bytes(32,'big'))
+ elif suffix=='unprotected-header':entry['header']={'kid':DID+'#other'}
+ elif suffix=='two-sage-signatures':card['signatures'].append(copy.deepcopy(entry))
+ elif suffix=='foreign-plus-bad-sage':
+  bare=copy.deepcopy(card);del bare['signatures'];foreign=sign(bare,{'alg':'ES256','kid':'https://fixture.invalid/key','typ':'foreign-card+jws'},'ec');entry['signature']='AA';card['signatures'].insert(0,foreign)
+ elif suffix=='default-field-added':card['skills'][0]['examples']=[]
+ elif suffix=='presence-field-changed':card['capabilities']['streaming']=False
+ elif suffix=='unknown-member':card['injected']=True
+ raw=canonical(card).decode()
+ if suffix=='duplicate-member':raw=raw.replace('"did":"'+DID+'"','"did":"'+DID+'","did":"'+DID.replace('billing-bot','other')+'"',1)
+ elif suffix=='oversized':raw=raw+' '*(262145-len(raw.encode()))
+ accepted=case['expected']=='ACCEPT.'
+ fixturecases.append({'id':ident,'coverage':'partial','scope':'card-library-only','input':{'card':raw,'expected_peer':expected_peer,'record':record},'expected':{'accepted':accepted,'error':'' if accepted else 'authentication failed','did':DID if accepted else '', 'version':'3' if accepted else '', 'interfaces':[x['url'] for x in card['supportedInterfaces']] if accepted else []}})
+out={'schema_version':1,'spec_revision':'06b50e177ccd22bce7d70fd80c2d7f822ae3fd3b','subject_revision':'904fa9cbe3c4c2dcdabee67b2afd7c9e4b75cf14','scope':'card-library-only','fixture_source':'Independent Python ASCII/integer canonical JSON and RFC 7515 Ed25519/raw low-S P-256 signing. Public zero seed/scalar one; no deployment keys. Card bytes and expectations were not generated by ADK.','cases':fixturecases}
+p=root/'vectors/0.10.0/a2a-card-observations.json';p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(out,indent=2)+'\n')
+print('Independent card cases:',len(fixturecases),'SHA256:',hashlib.sha256(p.read_bytes()).hexdigest())

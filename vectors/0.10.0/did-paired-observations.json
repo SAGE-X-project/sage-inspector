@@ -1,0 +1,623 @@
+{
+  "schema": "sage-paired-did-fixtures-v1",
+  "spec_revision": "06b50e177ccd22bce7d70fd80c2d7f822ae3fd3b",
+  "contract_id": "didp-03-two-observations",
+  "scope": "configured-fixture-source-paired-api",
+  "cases": [
+    {
+      "id": "changing",
+      "input": {
+        "scenario": "changing"
+      },
+      "expected": {
+        "source_calls": 2,
+        "producer_calls": 4,
+        "results": [
+          {
+            "core10": {
+              "body": {
+                "id": "did:sage:web:registry.example:agent-1",
+                "verificationMethod": [
+                  {
+                    "id": "did:sage:web:registry.example:agent-1#agree",
+                    "type": "JsonWebKey2020",
+                    "controller": "did:sage:web:registry.example:agent-1",
+                    "publicKeyJwk": {
+                      "kty": "OKP",
+                      "crv": "X25519",
+                      "x": "CQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                    }
+                  },
+                  {
+                    "id": "did:sage:web:registry.example:agent-1#sign",
+                    "type": "JsonWebKey2020",
+                    "controller": "did:sage:web:registry.example:agent-1",
+                    "publicKeyJwk": {
+                      "kty": "OKP",
+                      "crv": "Ed25519",
+                      "x": "11qYAYKxCrfVS_7TyWQHOg7hcvPapiMlrwIaaPcHURo"
+                    }
+                  }
+                ],
+                "service": [
+                  {
+                    "id": "did:sage:web:registry.example:agent-1#a2a",
+                    "type": "A2AInterface",
+                    "serviceEndpoint": "https://agent.example/a2a"
+                  }
+                ],
+                "authentication": [
+                  "did:sage:web:registry.example:agent-1#sign"
+                ],
+                "assertionMethod": [
+                  "did:sage:web:registry.example:agent-1#sign"
+                ],
+                "keyAgreement": [
+                  "did:sage:web:registry.example:agent-1#agree"
+                ]
+              },
+              "metadata": {
+                "deactivated": false,
+                "versionId": "7",
+                "sage": {
+                  "state": "active",
+                  "controller": "controller-1",
+                  "observedAt": 1800000000,
+                  "source": "fixture-web-registry",
+                  "observedTime": 1800000001
+                }
+              },
+              "content_type": "application/did+json"
+            },
+            "did11": {
+              "body": {
+                "id": "did:sage:web:registry.example:agent-1",
+                "verificationMethod": [
+                  {
+                    "id": "did:sage:web:registry.example:agent-1#agree",
+                    "type": "JsonWebKey",
+                    "controller": "did:sage:web:registry.example:agent-1",
+                    "publicKeyJwk": {
+                      "kty": "OKP",
+                      "crv": "X25519",
+                      "x": "CQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                    }
+                  },
+                  {
+                    "id": "did:sage:web:registry.example:agent-1#sign",
+                    "type": "JsonWebKey",
+                    "controller": "did:sage:web:registry.example:agent-1",
+                    "publicKeyJwk": {
+                      "kty": "OKP",
+                      "crv": "Ed25519",
+                      "x": "11qYAYKxCrfVS_7TyWQHOg7hcvPapiMlrwIaaPcHURo"
+                    }
+                  }
+                ],
+                "service": [
+                  {
+                    "id": "did:sage:web:registry.example:agent-1#a2a",
+                    "type": "A2AInterface",
+                    "serviceEndpoint": "https://agent.example/a2a"
+                  }
+                ],
+                "authentication": [
+                  "did:sage:web:registry.example:agent-1#sign"
+                ],
+                "assertionMethod": [
+                  "did:sage:web:registry.example:agent-1#sign"
+                ],
+                "keyAgreement": [
+                  "did:sage:web:registry.example:agent-1#agree"
+                ],
+                "@context": "https://www.w3.org/ns/did/v1.1"
+              },
+              "metadata": {
+                "deactivated": false,
+                "versionId": "7",
+                "sage": {
+                  "state": "active",
+                  "controller": "controller-1",
+                  "observedAt": 1800000000,
+                  "source": "fixture-web-registry",
+                  "observedTime": 1800000001
+                }
+              },
+              "content_type": "application/did"
+            },
+            "code": ""
+          },
+          {
+            "core10": {
+              "body": {
+                "id": "did:sage:web:registry.example:agent-1",
+                "verificationMethod": [
+                  {
+                    "id": "did:sage:web:registry.example:agent-1#agree",
+                    "type": "JsonWebKey2020",
+                    "controller": "did:sage:web:registry.example:agent-1",
+                    "publicKeyJwk": {
+                      "kty": "OKP",
+                      "crv": "X25519",
+                      "x": "CQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                    }
+                  },
+                  {
+                    "id": "did:sage:web:registry.example:agent-1#sign",
+                    "type": "JsonWebKey2020",
+                    "controller": "did:sage:web:registry.example:agent-1",
+                    "publicKeyJwk": {
+                      "kty": "OKP",
+                      "crv": "Ed25519",
+                      "x": "11qYAYKxCrfVS_7TyWQHOg7hcvPapiMlrwIaaPcHURo"
+                    }
+                  }
+                ],
+                "service": [
+                  {
+                    "id": "did:sage:web:registry.example:agent-1#a2a",
+                    "type": "A2AInterface",
+                    "serviceEndpoint": "https://next.example/a2a"
+                  }
+                ],
+                "authentication": [
+                  "did:sage:web:registry.example:agent-1#sign"
+                ],
+                "assertionMethod": [
+                  "did:sage:web:registry.example:agent-1#sign"
+                ],
+                "keyAgreement": [
+                  "did:sage:web:registry.example:agent-1#agree"
+                ]
+              },
+              "metadata": {
+                "deactivated": false,
+                "versionId": "8",
+                "sage": {
+                  "state": "active",
+                  "controller": "controller-1",
+                  "observedAt": 1800000001,
+                  "source": "fixture-web-registry",
+                  "observedTime": 1800000002
+                }
+              },
+              "content_type": "application/did+json"
+            },
+            "did11": {
+              "body": {
+                "id": "did:sage:web:registry.example:agent-1",
+                "verificationMethod": [
+                  {
+                    "id": "did:sage:web:registry.example:agent-1#agree",
+                    "type": "JsonWebKey",
+                    "controller": "did:sage:web:registry.example:agent-1",
+                    "publicKeyJwk": {
+                      "kty": "OKP",
+                      "crv": "X25519",
+                      "x": "CQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                    }
+                  },
+                  {
+                    "id": "did:sage:web:registry.example:agent-1#sign",
+                    "type": "JsonWebKey",
+                    "controller": "did:sage:web:registry.example:agent-1",
+                    "publicKeyJwk": {
+                      "kty": "OKP",
+                      "crv": "Ed25519",
+                      "x": "11qYAYKxCrfVS_7TyWQHOg7hcvPapiMlrwIaaPcHURo"
+                    }
+                  }
+                ],
+                "service": [
+                  {
+                    "id": "did:sage:web:registry.example:agent-1#a2a",
+                    "type": "A2AInterface",
+                    "serviceEndpoint": "https://next.example/a2a"
+                  }
+                ],
+                "authentication": [
+                  "did:sage:web:registry.example:agent-1#sign"
+                ],
+                "assertionMethod": [
+                  "did:sage:web:registry.example:agent-1#sign"
+                ],
+                "keyAgreement": [
+                  "did:sage:web:registry.example:agent-1#agree"
+                ],
+                "@context": "https://www.w3.org/ns/did/v1.1"
+              },
+              "metadata": {
+                "deactivated": false,
+                "versionId": "8",
+                "sage": {
+                  "state": "active",
+                  "controller": "controller-1",
+                  "observedAt": 1800000001,
+                  "source": "fixture-web-registry",
+                  "observedTime": 1800000002
+                }
+              },
+              "content_type": "application/did"
+            },
+            "code": ""
+          }
+        ]
+      }
+    },
+    {
+      "id": "created",
+      "input": {
+        "scenario": "created"
+      },
+      "expected": {
+        "source_calls": 1,
+        "producer_calls": 2,
+        "results": [
+          {
+            "core10": {
+              "body": {
+                "id": "did:sage:web:registry.example:agent-1",
+                "verificationMethod": [],
+                "service": [
+                  {
+                    "id": "did:sage:web:registry.example:agent-1#a2a",
+                    "type": "A2AInterface",
+                    "serviceEndpoint": "https://agent.example/a2a"
+                  }
+                ]
+              },
+              "metadata": {
+                "deactivated": false,
+                "versionId": "7",
+                "sage": {
+                  "state": "created",
+                  "controller": "controller-1",
+                  "observedAt": 1800000000,
+                  "source": "fixture-web-registry",
+                  "observedTime": 1800000001
+                }
+              },
+              "content_type": "application/did+json"
+            },
+            "did11": {
+              "body": {
+                "id": "did:sage:web:registry.example:agent-1",
+                "verificationMethod": [],
+                "service": [
+                  {
+                    "id": "did:sage:web:registry.example:agent-1#a2a",
+                    "type": "A2AInterface",
+                    "serviceEndpoint": "https://agent.example/a2a"
+                  }
+                ],
+                "@context": "https://www.w3.org/ns/did/v1.1"
+              },
+              "metadata": {
+                "deactivated": false,
+                "versionId": "7",
+                "sage": {
+                  "state": "created",
+                  "controller": "controller-1",
+                  "observedAt": 1800000000,
+                  "source": "fixture-web-registry",
+                  "observedTime": 1800000001
+                }
+              },
+              "content_type": "application/did"
+            },
+            "code": ""
+          }
+        ]
+      }
+    },
+    {
+      "id": "deactivated",
+      "input": {
+        "scenario": "deactivated"
+      },
+      "expected": {
+        "source_calls": 1,
+        "producer_calls": 2,
+        "results": [
+          {
+            "core10": {
+              "body": {
+                "id": "did:sage:web:registry.example:agent-1",
+                "verificationMethod": [],
+                "service": [
+                  {
+                    "id": "did:sage:web:registry.example:agent-1#a2a",
+                    "type": "A2AInterface",
+                    "serviceEndpoint": "https://agent.example/a2a"
+                  }
+                ]
+              },
+              "metadata": {
+                "deactivated": true,
+                "versionId": "7",
+                "sage": {
+                  "state": "deactivated",
+                  "controller": "controller-1",
+                  "observedAt": 1800000000,
+                  "source": "fixture-web-registry",
+                  "observedTime": 1800000001
+                }
+              },
+              "content_type": "application/did+json"
+            },
+            "did11": {
+              "body": {
+                "id": "did:sage:web:registry.example:agent-1",
+                "verificationMethod": [],
+                "service": [
+                  {
+                    "id": "did:sage:web:registry.example:agent-1#a2a",
+                    "type": "A2AInterface",
+                    "serviceEndpoint": "https://agent.example/a2a"
+                  }
+                ],
+                "@context": "https://www.w3.org/ns/did/v1.1"
+              },
+              "metadata": {
+                "deactivated": true,
+                "versionId": "7",
+                "sage": {
+                  "state": "deactivated",
+                  "controller": "controller-1",
+                  "observedAt": 1800000000,
+                  "source": "fixture-web-registry",
+                  "observedTime": 1800000001
+                }
+              },
+              "content_type": "application/did"
+            },
+            "code": ""
+          }
+        ]
+      }
+    },
+    {
+      "id": "unusable",
+      "input": {
+        "scenario": "unusable"
+      },
+      "expected": {
+        "source_calls": 1,
+        "producer_calls": 2,
+        "results": [
+          {
+            "core10": {
+              "body": {
+                "id": "did:sage:web:registry.example:agent-1",
+                "verificationMethod": [],
+                "service": [
+                  {
+                    "id": "did:sage:web:registry.example:agent-1#a2a",
+                    "type": "A2AInterface",
+                    "serviceEndpoint": "https://agent.example/a2a"
+                  }
+                ]
+              },
+              "metadata": {
+                "deactivated": false,
+                "versionId": "7",
+                "sage": {
+                  "state": "active",
+                  "controller": "controller-1",
+                  "observedAt": 1800000000,
+                  "source": "fixture-web-registry",
+                  "observedTime": 1800000001
+                }
+              },
+              "content_type": "application/did+json"
+            },
+            "did11": {
+              "body": {
+                "id": "did:sage:web:registry.example:agent-1",
+                "verificationMethod": [],
+                "service": [
+                  {
+                    "id": "did:sage:web:registry.example:agent-1#a2a",
+                    "type": "A2AInterface",
+                    "serviceEndpoint": "https://agent.example/a2a"
+                  }
+                ],
+                "@context": "https://www.w3.org/ns/did/v1.1"
+              },
+              "metadata": {
+                "deactivated": false,
+                "versionId": "7",
+                "sage": {
+                  "state": "active",
+                  "controller": "controller-1",
+                  "observedAt": 1800000000,
+                  "source": "fixture-web-registry",
+                  "observedTime": 1800000001
+                }
+              },
+              "content_type": "application/did"
+            },
+            "code": ""
+          }
+        ]
+      }
+    },
+    {
+      "id": "second-error",
+      "input": {
+        "scenario": "second-error"
+      },
+      "expected": {
+        "source_calls": 1,
+        "producer_calls": 2,
+        "results": [
+          {
+            "core10": null,
+            "did11": null,
+            "code": "record.invalid"
+          }
+        ]
+      }
+    },
+    {
+      "id": "source-stale",
+      "input": {
+        "scenario": "source-stale"
+      },
+      "expected": {
+        "source_calls": 1,
+        "producer_calls": 0,
+        "results": [
+          {
+            "core10": null,
+            "did11": null,
+            "code": "record.stale"
+          }
+        ]
+      }
+    },
+    {
+      "id": "invalid-id",
+      "input": {
+        "scenario": "invalid-id"
+      },
+      "expected": {
+        "source_calls": 0,
+        "producer_calls": 0,
+        "results": [
+          {
+            "core10": null,
+            "did11": null,
+            "code": "id.malformed"
+          }
+        ]
+      }
+    },
+    {
+      "id": "scratch",
+      "input": {
+        "scenario": "scratch"
+      },
+      "expected": {
+        "source_calls": 1,
+        "producer_calls": 2,
+        "results": [
+          {
+            "core10": {
+              "body": {
+                "id": "did:sage:web:registry.example:agent-1",
+                "verificationMethod": [
+                  {
+                    "id": "did:sage:web:registry.example:agent-1#agree",
+                    "type": "JsonWebKey2020",
+                    "controller": "did:sage:web:registry.example:agent-1",
+                    "publicKeyJwk": {
+                      "kty": "OKP",
+                      "crv": "X25519",
+                      "x": "CQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                    }
+                  },
+                  {
+                    "id": "did:sage:web:registry.example:agent-1#sign",
+                    "type": "JsonWebKey2020",
+                    "controller": "did:sage:web:registry.example:agent-1",
+                    "publicKeyJwk": {
+                      "kty": "OKP",
+                      "crv": "Ed25519",
+                      "x": "11qYAYKxCrfVS_7TyWQHOg7hcvPapiMlrwIaaPcHURo"
+                    }
+                  }
+                ],
+                "service": [
+                  {
+                    "id": "did:sage:web:registry.example:agent-1#a2a",
+                    "type": "A2AInterface",
+                    "serviceEndpoint": "https://agent.example/a2a"
+                  }
+                ],
+                "authentication": [
+                  "did:sage:web:registry.example:agent-1#sign"
+                ],
+                "assertionMethod": [
+                  "did:sage:web:registry.example:agent-1#sign"
+                ],
+                "keyAgreement": [
+                  "did:sage:web:registry.example:agent-1#agree"
+                ]
+              },
+              "metadata": {
+                "deactivated": false,
+                "versionId": "7",
+                "sage": {
+                  "state": "active",
+                  "controller": "controller-1",
+                  "observedAt": 1800000000,
+                  "source": "fixture-web-registry",
+                  "observedTime": 1800000001
+                }
+              },
+              "content_type": "application/did+json"
+            },
+            "did11": {
+              "body": {
+                "id": "did:sage:web:registry.example:agent-1",
+                "verificationMethod": [
+                  {
+                    "id": "did:sage:web:registry.example:agent-1#agree",
+                    "type": "JsonWebKey",
+                    "controller": "did:sage:web:registry.example:agent-1",
+                    "publicKeyJwk": {
+                      "kty": "OKP",
+                      "crv": "X25519",
+                      "x": "CQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+                    }
+                  },
+                  {
+                    "id": "did:sage:web:registry.example:agent-1#sign",
+                    "type": "JsonWebKey",
+                    "controller": "did:sage:web:registry.example:agent-1",
+                    "publicKeyJwk": {
+                      "kty": "OKP",
+                      "crv": "Ed25519",
+                      "x": "11qYAYKxCrfVS_7TyWQHOg7hcvPapiMlrwIaaPcHURo"
+                    }
+                  }
+                ],
+                "service": [
+                  {
+                    "id": "did:sage:web:registry.example:agent-1#a2a",
+                    "type": "A2AInterface",
+                    "serviceEndpoint": "https://agent.example/a2a"
+                  }
+                ],
+                "authentication": [
+                  "did:sage:web:registry.example:agent-1#sign"
+                ],
+                "assertionMethod": [
+                  "did:sage:web:registry.example:agent-1#sign"
+                ],
+                "keyAgreement": [
+                  "did:sage:web:registry.example:agent-1#agree"
+                ],
+                "@context": "https://www.w3.org/ns/did/v1.1"
+              },
+              "metadata": {
+                "deactivated": false,
+                "versionId": "7",
+                "sage": {
+                  "state": "active",
+                  "controller": "controller-1",
+                  "observedAt": 1800000000,
+                  "source": "fixture-web-registry",
+                  "observedTime": 1800000001
+                }
+              },
+              "content_type": "application/did"
+            },
+            "code": ""
+          }
+        ]
+      }
+    }
+  ]
+}

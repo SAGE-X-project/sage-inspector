@@ -1,0 +1,45 @@
+{
+  "schema": "sage-ingress-refusal-fixtures-v1",
+  "spec_revision": "06b50e177ccd22bce7d70fd80c2d7f822ae3fd3b",
+  "subject_revision": "3175a177ed07322a0a1ef192aef0f2f8e334e00d",
+  "scope": "memory-private-ingress-and-separate-benign-loopback-tls",
+  "memory_cases": [
+    "bare-jsonrpc",
+    "grpc-media-http1",
+    "h2-only",
+    "legacy-unsigned",
+    "positive-calibration"
+  ],
+  "native": {
+    "public_keys": {
+      "caller": "d04ab232742bb4ab3a1368bd4615e4e6d0224ab71a016baf8520a332c9778737",
+      "server": "31debe55d37c722768b137131caa6087080b2e0b60b94bd785d14575cfa498bc",
+      "kem": "51ddf3cb36a42fdf3d6a81dfcaada9fe17818aa145548a08e51f2d73e9452478"
+    },
+    "request_hex": "207b226a736f6e727063223a22322e30222c226964223a22696e7370656374696f6e222c226d6574686f64223a224765745461736b222c22706172616d73223a7b226964223a226f776e65642d7461736b227d7d20",
+    "reply_hex": "7b226a736f6e727063223a22322e30222c226964223a22696e7370656374696f6e222c22726573756c74223a7b226f6b223a747275657d7d"
+  },
+  "mapping": {
+    "a2ab-01-bare-jsonrpc-body": [
+      "bare-jsonrpc",
+      "grpc-media-http1",
+      "h2-only",
+      "legacy-unsigned",
+      "positive-calibration"
+    ],
+    "a2ab-04-server-0-3-downgrade": [
+      "bare-jsonrpc",
+      "grpc-media-http1",
+      "h2-only",
+      "legacy-unsigned",
+      "positive-calibration"
+    ],
+    "a2ab-04-server-grpc-downgrade": [
+      "bare-jsonrpc",
+      "grpc-media-http1",
+      "h2-only",
+      "legacy-unsigned",
+      "positive-calibration"
+    ]
+  }
+}

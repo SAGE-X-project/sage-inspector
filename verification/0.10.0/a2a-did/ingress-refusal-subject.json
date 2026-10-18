@@ -1,0 +1,53 @@
+{
+  "schema": "sage-ingress-refusal-subject-v1",
+  "spec_revision": "06b50e177ccd22bce7d70fd80c2d7f822ae3fd3b",
+  "repository": "SAGE-X-project/sage-adk",
+  "revision": "3175a177ed07322a0a1ef192aef0f2f8e334e00d",
+  "core_revision": "26baeb0b67ed0081515d53888af16742c1079884",
+  "modules": {
+    "github.com/sage-x-project/did-go": {
+      "Version": "v0.0.0-20261018080828-3b7a79c1c326",
+      "Sum": "h1:Am4pVUAnGnhje6WZgO19ltbRV1NDCfvmEzQAuwHInM8=",
+      "GoModSum": "h1:Xi8PmTFqnTT9F008Q4MvrZc6KFrtcrXBP/e1dH8mFaQ="
+    },
+    "github.com/sage-x-project/did-go/advanced/sage": {
+      "Version": "v0.0.0-20261018120945-5fac371e54db",
+      "Sum": "h1:E4eJP14M8NrrlO/jafCfGTeWq8jexrs/+dSY6HJOdlI=",
+      "GoModSum": "h1:gkcVUjeYqhRIRSD8YRErTbHy8lQ85ghzay/cs3hA7d8="
+    },
+    "github.com/sage-x-project/sage": {
+      "Version": "v1.5.3-0.20261018185120-26baeb0b67ed",
+      "Sum": "h1:rhpclsqCjPecuHkUM3KYLTeg4fds6Aub9LGw3oWxjMw=",
+      "GoModSum": "h1:gVxxsTLKs1SVc/BFU9iAKhUvMidQ6qZr44y3JF3fLCU="
+    },
+    "github.com/sage-x-project/sage-adk": {
+      "Version": "v0.0.0-20261018221229-3175a177ed07",
+      "Sum": "h1:s+64yXGChdNf8IRE2Li2iWmg5ez15TT0L2WsptODdgg=",
+      "GoModSum": "h1:ftVKrS0CMMx1b3+XR15v+gVZX9KXCLTMZAPP1gE8MGs="
+    }
+  },
+  "package_sources": {
+    "core/a2abinding/binding.go": "9d569e3be133a1e8043c04f23ac549b1f99babee3917b7a54f6161bf98c99834",
+    "core/a2abinding/binding_test.go": "0812537b0a16073cb85c83966579f16f018f294b6998dcdf08249110add59b32",
+    "core/a2abinding/card.go": "e40fb83afab10ba0b4a505171de04ac73882a6ba8128a2b74ea678d3036453b7",
+    "core/a2abinding/card_test.go": "9e880896f7e49e1af05b080044119ced7e558597ef70c94f17b700cd41fa7e50",
+    "core/a2abinding/defense_test.go": "964b0f4afcd9dbf4fd1dd9775893758d55b2bd73e340541ebc78d50ccb62b71f",
+    "core/a2abinding/doc.go": "45bc442c8abaca25225cd9a7450c96173d9df7eb7e8b235dd248f7a1e597bcca",
+    "core/a2abinding/http_admission_test.go": "a89944903a812c73b4d0a5a207ea3e7619113f3e0a350b036e3f966a21422d2f",
+    "core/a2abinding/http_dispatch_test.go": "5f7045923e83ac81db953a4d4019a2a0ad44d14bc6634d16c87d5c907c5f47b0",
+    "core/a2abinding/http_fixture_test.go": "e0fffcd770b11de34696b055861737160d8b19ecf00b66f126f7c38911620bd0",
+    "core/a2abinding/http_framing_test.go": "08e6dd68a461c95cced480dc1aea6ae4fb7e5adc753345b5a62a43ffed48dba1",
+    "core/a2abinding/http_ingress.go": "53b799e3a0ddfb8d222b38a82d49da44669f77118b3f28c2743d816d5444422b",
+    "core/a2abinding/http_ingress_evidence_test.go": "ea3855ebe6475602cfe095849d4d2c5b4ee279a8e8108be464d4756d6819451a",
+    "core/a2abinding/http_runtime_test.go": "ac3ea91761e14033385bd3f875af61a5ec8948a8518d2fd2473d60a16108d1e3",
+    "core/a2abinding/http_transport.go": "83293d78ee2ab4566bd7bab42b78e800ec593adafcebd206b8b31a0e91ad32fa",
+    "core/a2abinding/json.go": "8fe0dffd7196179dba1eb7de6806dc0249edd3c78ec8906199723cb90252077c",
+    "core/a2abinding/models_test.go": "56e7eec0f9d6d3d913481dc271458cd99734ee06f05965984a6c533314671a87",
+    "core/a2abinding/runtime_test.go": "01ae2a69ff5dae2fd76ccd6063c8a8b368cbdf94af8c4c3ed25b9931e395a44e",
+    "core/a2abinding/schema.go": "5a75ee5568a4819f809e0edfce5dac0f3569098162740276775a05782b515ff1",
+    "core/a2abinding/schema.json": "3ac3f09a34caf1aaf161864ba6ab09c085dd269e853632041a2abea99b9fa056",
+    "core/a2abinding/signature.go": "067314e710ff178943cbccaaaaa63acd3fea2713251fdbff5cf7bc3583cbcdf7",
+    "go.mod": "aee7fbdc2ed4f87e948766447b1187b904258bae81c2b8073c0ef2338b3ff562",
+    "go.sum": "861adc8fbf8e418ce6d52428fe501b0c5dcfb5d965d4046f674099d68c2ffc36"
+  }
+}

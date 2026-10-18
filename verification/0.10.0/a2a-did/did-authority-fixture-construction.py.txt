@@ -1,0 +1,57 @@
+"""Offline fixed public test cards. Never use these fixture seeds in deployment."""
+import base64
+import json
+from pathlib import Path
+from cryptography.hazmat.primitives.asymmetric import ed25519, x25519
+from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat
+
+EPOCH=1700000000
+SERVER='did:sage:web:inspection.example:service'
+CALLER='did:sage:web:inspection.example:caller'
+TARGET='https://inspection.invalid/authority'
+SAGE_URI='https://sage-x-project.github.io/sage-spec/a2a/0.10.0/extension'
+CLAIMS_URI='https://inspection.invalid/received-document'
+KEYS={name:ed25519.Ed25519PrivateKey.from_private_bytes(bytes([seed])*32) for name,seed in [('A',23),('B',37),('C',17)]}
+PUBLIC={name:key.public_key().public_bytes(Encoding.Raw,PublicFormat.Raw).hex() for name,key in KEYS.items()}
+PUBLIC['kem']=x25519.X25519PrivateKey.from_private_bytes(bytes([29])*32).public_key().public_bytes(Encoding.Raw,PublicFormat.Raw).hex()
+def canonical(value):return json.dumps(value,sort_keys=True,separators=(',',':'),ensure_ascii=True).encode()
+def b64(value):return base64.urlsafe_b64encode(value).rstrip(b'=').decode()
+def document(identity,key,aliases):
+    doc={'@context':['https://www.w3.org/ns/did/v1'],'id':identity,'verificationMethod':[{'id':identity+'#sign','type':'JsonWebKey','controller':identity,'publicKeyJwk':{'kty':'OKP','crv':'Ed25519','x':b64(bytes.fromhex(PUBLIC[key]))}}]}
+    for name in aliases:doc[name]='did:example:informational' if name=='canonicalId' else ['did:example:informational']
+    return doc
+
+def card(identity,signer,doc):
+    extensions=[{'uri':SAGE_URI,'required':True,'params':{'sageVersion':'0.10.0','did':identity,'recordVersion':'17','issued':EPOCH,'expires':EPOCH+5}}]
+    if doc is not None:extensions.append({'uri':CLAIMS_URI,'params':{'didDocument':doc}})
+    value={'name':'authority fixture','description':'','version':'1','supportedInterfaces':[{'url':TARGET,'protocolBinding':'https://sage-x-project.github.io/sage-spec/a2a/0.10.0/binding','protocolVersion':'1.0'}],'capabilities':{'streaming':False,'extensions':extensions},'defaultInputModes':['application/json'],'defaultOutputModes':['application/json'],'skills':[{'id':'inspection','name':'inspection','description':'','tags':['inspection']}]}
+    protected=b64(canonical({'alg':'Ed25519','kid':identity+'#sign','typ':'sage-a2a-card+jws'}))
+    signing_input=(protected+'.'+b64(canonical(value))).encode()
+    signature=KEYS[signer].sign(signing_input)
+    KEYS[signer].public_key().verify(signature,signing_input)
+    value['signatures']=[{'protected':protected,'signature':b64(signature)}]
+    return canonical(value).hex()
+
+rows=[]
+def add(name,who=SERVER,signer='A',doc_key=None,aliases=(),source='normal',expected_peer=SERVER,accepted=True,early=False):
+    doc=None if doc_key is None else document(who,doc_key,aliases)
+    raw=card(who,signer,doc)
+    rows.append({'id':name,'input_card_hex':raw,'signing_public_hex':PUBLIC[signer],'source_mode':source,'expected_peer':expected_peer,'expected':{'accepted':accepted,'error':'' if accepted else 'authentication failed','source_dids':[] if early else [who],'did':who if accepted else '', 'version':'17' if accepted else '', 'returned_card_hex':raw if accepted else ''}})
+add('baseline')
+add('matching-document-calibration',doc_key='A')
+add('peer-document-different-key',doc_key='B')
+for name,member in [('alias-also-known-as','alsoKnownAs'),('alias-equivalent-id','equivalentId'),('alias-canonical-id','canonicalId')]:add(name,doc_key='B',aliases=(member,))
+add('alias-combined',doc_key='B',aliases=('alsoKnownAs','equivalentId','canonicalId'))
+add('peer-listed-signature-key',signer='B',doc_key='B',accepted=False)
+add('unavailable-source',doc_key='A',source='unavailable',accepted=False)
+add('missing-signing-key',doc_key='A',source='missing-sign',accepted=False)
+add('revoked-signing-key',doc_key='A',source='revoked-sign',accepted=False)
+# Actual aliasA claim, re-signed after changing the complete payload.
+for name,peer,accepted,early in [('alias-expected-peer-mismatch',SERVER,False,True),('alternate-peer-calibration',CALLER,True,False)]:
+    doc=document(CALLER,'C',());doc.update(alsoKnownAs=[SERVER],equivalentId=[SERVER],canonicalId=SERVER)
+    raw=card(CALLER,'C',doc)
+    rows.append({'id':name,'input_card_hex':raw,'signing_public_hex':PUBLIC['C'],'source_mode':'normal','expected_peer':peer,'expected':{'accepted':accepted,'error':'' if accepted else 'authentication failed','source_dids':[] if early else [CALLER],'did':CALLER if accepted else '', 'version':'17' if accepted else '', 'returned_card_hex':raw if accepted else ''}})
+assert len(rows)==13
+value={'schema':'sage-card-authority-fixtures-v1','spec_revision':'06b50e177ccd22bce7d70fd80c2d7f822ae3fd3b','subject_revision':'9a59c798dfbca93a05898d894feedbdc5ad9eac9','scope':'memory-only-signing-card-authority-controls','epoch':EPOCH,'target':TARGET,'public_keys':PUBLIC,'cases':rows}
+Path('a2a-did-authority-observations.json').write_text(json.dumps(value,indent=2)+'\n')
+print('13 logical unit rows with independently signed cards; no network or subject execution')

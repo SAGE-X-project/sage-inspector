@@ -86,13 +86,15 @@ func (f *fixture) record(ctx context.Context, identity string, reading bool) (sa
 	}
 	d := must(did.Parse(identity))
 	pub := signingKey(identity).Public().(ed25519.PublicKey)
-	keys := []sagedid.Key{{Name: "sign", Alg: sagedid.AlgEd25519, State: sagedid.KeyAccepted, Material: append([]byte(nil), pub...)}}
+	keys := []sagedid.Key{}
 	kem := ""
 	if identity == serverDID {
 		raw := kemKey().PublicKey().Bytes()
 		keys = append(keys, sagedid.Key{Name: "kem", Alg: sagedid.AlgX25519, State: sagedid.KeyAccepted, Material: raw})
 		kem = hex.EncodeToString(raw)
 	}
+	// Registry snapshots require strictly increasing key names: kem before sign.
+	keys = append(keys, sagedid.Key{Name: "sign", Alg: sagedid.AlgEd25519, State: sagedid.KeyAccepted, Material: append([]byte(nil), pub...)})
 	issued := epoch
 	r := sagedid.Record{DID: d, Controller: "inspector-owned-operator", State: sagedid.StateActive, Version: "17", Keys: keys, Services: []sagedid.Service{{Name: "a2a", Type: "A2AInterface", URI: f.target}}, Observation: sagedid.Observation{Issued: &issued, Source: "inspector-owned-http", Time: f.unix}}
 	f.records = append(f.records, recordView{identity, r.Controller, r.Version, hex.EncodeToString(pub), kem, f.target, f.unix})

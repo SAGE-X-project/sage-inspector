@@ -9,6 +9,7 @@ import (
 	"encoding/json"
 	"errors"
 	"github.com/sage-x-project/sage/pkg/agent/hpke"
+	"github.com/sage-x-project/sage/pkg/agent/registry010"
 	"io"
 	"strings"
 	"testing"
@@ -186,5 +187,33 @@ func TestReplayFixtureReservations(t *testing.T) {
 	}
 	if a, b := s.counts(); a != 1 || b != 1 {
 		t.Fatal("actual accepted counter")
+	}
+}
+
+// Calibrate the Source through the real gate before using it in a handshake.
+func TestFixtureCoreGateAdmissionAndDigest(t *testing.T) {
+	f := &fixture{unix: epoch, target: "https://127.0.0.1:12345/sage%2Fa?client=%2f"}
+	journal := must(registry010.OpenJournal(t.TempDir()+"/registry", true))
+	defer journal.Close()
+	gate := must(registry010.NewGate(registry010.Config{Source: "inspector-owned-http", Registry: "web:inspection.example", Network: "owned-fixture"}, f, f, journal))
+	for _, who := range []string{callerDID, serverDID} {
+		pinned, e := gate.Select(context.Background(), who, who+"#sign", who == serverDID)
+		if e != nil || pinned.Signing().Name != "sign" {
+			t.Fatal("fixture not admitted by real registry gate", who, e)
+		}
+		if who == serverDID {
+			if pinned.KEM() == nil || pinned.KEM().Name != "kem" || pinned.KEM().Material != "51ddf3cb36a42fdf3d6a81dfcaada9fe17818aa145548a08e51f2d73e9452478" || pinned.Signing().Material != "31debe55d37c722768b137131caa6087080b2e0b60b94bd785d14575cfa498bc" {
+				t.Fatal("independent registered public keys disagree")
+			}
+		}
+	}
+	before := must(f.Read(context.Background(), serverDID))
+	f.expire()
+	after := must(f.Read(context.Background(), serverDID))
+	if before.Digest != after.Digest || before.AcquiredMS != 0 || after.AcquiredMS != 6000 {
+		t.Fatal("observation time changed immutable record identity")
+	}
+	if len(after.Keys) != 2 || after.Keys[0].Name != "kem" || after.Keys[1].Name != "sign" {
+		t.Fatal("registry key order")
 	}
 }

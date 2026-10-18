@@ -1,0 +1,25 @@
+"""Offline verification fixtures; published test seeds, never deployment keys.
+The public keys are independently derived in Python, without Go or ADK helpers.
+"""
+import json
+from pathlib import Path
+from cryptography.hazmat.primitives.asymmetric import ed25519, x25519
+from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat
+
+EPOCH = 1700000000
+PUBLIC = {name: ed25519.Ed25519PrivateKey.from_private_bytes(bytes([seed]) * 32).public_key().public_bytes(Encoding.Raw, PublicFormat.Raw).hex() for name, seed in [('caller', 17), ('server', 23)]}
+PUBLIC['kem'] = x25519.X25519PrivateKey.from_private_bytes(bytes([29]) * 32).public_key().public_bytes(Encoding.Raw, PublicFormat.Raw).hex()
+REQUEST = ' {"jsonrpc":"2.0","id":"inspection","method":"GetTask","params":{"id":"owned-task"}} '
+REPLY = '{"jsonrpc":"2.0","id":"inspection","result":{"ok":true}}'
+MODES = ('success', 'repeat', 'unsupported', 'source-after-setup', 'expired-after-setup', 'cancel-after-setup', 'close-after-setup', 'source-after-handler', 'expired-after-handler', 'close-during-handler', 'cancel-during-handler')
+LATE = {'source-after-handler', 'expired-after-handler', 'close-during-handler', 'cancel-during-handler'}
+rows = []
+for completion in ('bare', 'http'):
+    for mode in MODES:
+        calls = 2 if mode == 'repeat' else 1
+        handler = 2 if mode == 'repeat' else int(mode == 'success' or mode in LATE)
+        requests = calls if mode in {'success', 'repeat', 'unsupported'} else int(mode in LATE)
+        responses = calls if mode in {'success', 'repeat', 'unsupported'} else 0
+        rows.append({'id': completion + '/' + mode, 'input': {'mode': mode, 'completion': completion}, 'expected': {'client_calls': calls, 'tls_handshakes': calls, 'handler_calls': handler, 'accepted_requests': requests, 'accepted_responses': responses, 'handler_payloads_hex': [REQUEST.encode().hex()] * handler, 'outcome': 'a2a-error' if mode == 'unsupported' else ('success' if mode in {'success', 'repeat'} else 'refused')}})
+value = {'schema': 'sage-owned-http-fixtures-v1', 'spec_revision': '06b50e177ccd22bce7d70fd80c2d7f822ae3fd3b', 'subject_revision': '9a59c798dfbca93a05898d894feedbdc5ad9eac9', 'scope': 'owned-loopback-tls-prevalidated-fixture-authority', 'epoch': EPOCH, 'public_keys': PUBLIC, 'request_hex': REQUEST.encode().hex(), 'reply_hex': REPLY.encode().hex(), 'cases': rows}
+Path('a2a-owned-http-observations.json').write_text(json.dumps(value, indent=2) + '\n')

@@ -1,0 +1,394 @@
+{
+  "schema": "sage-owned-http-fixtures-v1",
+  "spec_revision": "06b50e177ccd22bce7d70fd80c2d7f822ae3fd3b",
+  "subject_revision": "9a59c798dfbca93a05898d894feedbdc5ad9eac9",
+  "scope": "owned-loopback-tls-prevalidated-fixture-authority",
+  "epoch": 1700000000,
+  "public_keys": {
+    "caller": "d04ab232742bb4ab3a1368bd4615e4e6d0224ab71a016baf8520a332c9778737",
+    "server": "31debe55d37c722768b137131caa6087080b2e0b60b94bd785d14575cfa498bc",
+    "kem": "51ddf3cb36a42fdf3d6a81dfcaada9fe17818aa145548a08e51f2d73e9452478"
+  },
+  "request_hex": "207b226a736f6e727063223a22322e30222c226964223a22696e7370656374696f6e222c226d6574686f64223a224765745461736b222c22706172616d73223a7b226964223a226f776e65642d7461736b227d7d20",
+  "reply_hex": "7b226a736f6e727063223a22322e30222c226964223a22696e7370656374696f6e222c22726573756c74223a7b226f6b223a747275657d7d",
+  "cases": [
+    {
+      "id": "bare/success",
+      "input": {
+        "mode": "success",
+        "completion": "bare"
+      },
+      "expected": {
+        "client_calls": 1,
+        "tls_handshakes": 1,
+        "handler_calls": 1,
+        "accepted_requests": 1,
+        "accepted_responses": 1,
+        "handler_payloads_hex": [
+          "207b226a736f6e727063223a22322e30222c226964223a22696e7370656374696f6e222c226d6574686f64223a224765745461736b222c22706172616d73223a7b226964223a226f776e65642d7461736b227d7d20"
+        ],
+        "outcome": "success"
+      }
+    },
+    {
+      "id": "bare/repeat",
+      "input": {
+        "mode": "repeat",
+        "completion": "bare"
+      },
+      "expected": {
+        "client_calls": 2,
+        "tls_handshakes": 2,
+        "handler_calls": 2,
+        "accepted_requests": 2,
+        "accepted_responses": 2,
+        "handler_payloads_hex": [
+          "207b226a736f6e727063223a22322e30222c226964223a22696e7370656374696f6e222c226d6574686f64223a224765745461736b222c22706172616d73223a7b226964223a226f776e65642d7461736b227d7d20",
+          "207b226a736f6e727063223a22322e30222c226964223a22696e7370656374696f6e222c226d6574686f64223a224765745461736b222c22706172616d73223a7b226964223a226f776e65642d7461736b227d7d20"
+        ],
+        "outcome": "success"
+      }
+    },
+    {
+      "id": "bare/unsupported",
+      "input": {
+        "mode": "unsupported",
+        "completion": "bare"
+      },
+      "expected": {
+        "client_calls": 1,
+        "tls_handshakes": 1,
+        "handler_calls": 0,
+        "accepted_requests": 1,
+        "accepted_responses": 1,
+        "handler_payloads_hex": [],
+        "outcome": "a2a-error"
+      }
+    },
+    {
+      "id": "bare/source-after-setup",
+      "input": {
+        "mode": "source-after-setup",
+        "completion": "bare"
+      },
+      "expected": {
+        "client_calls": 1,
+        "tls_handshakes": 1,
+        "handler_calls": 0,
+        "accepted_requests": 0,
+        "accepted_responses": 0,
+        "handler_payloads_hex": [],
+        "outcome": "refused"
+      }
+    },
+    {
+      "id": "bare/expired-after-setup",
+      "input": {
+        "mode": "expired-after-setup",
+        "completion": "bare"
+      },
+      "expected": {
+        "client_calls": 1,
+        "tls_handshakes": 1,
+        "handler_calls": 0,
+        "accepted_requests": 0,
+        "accepted_responses": 0,
+        "handler_payloads_hex": [],
+        "outcome": "refused"
+      }
+    },
+    {
+      "id": "bare/cancel-after-setup",
+      "input": {
+        "mode": "cancel-after-setup",
+        "completion": "bare"
+      },
+      "expected": {
+        "client_calls": 1,
+        "tls_handshakes": 1,
+        "handler_calls": 0,
+        "accepted_requests": 0,
+        "accepted_responses": 0,
+        "handler_payloads_hex": [],
+        "outcome": "refused"
+      }
+    },
+    {
+      "id": "bare/close-after-setup",
+      "input": {
+        "mode": "close-after-setup",
+        "completion": "bare"
+      },
+      "expected": {
+        "client_calls": 1,
+        "tls_handshakes": 1,
+        "handler_calls": 0,
+        "accepted_requests": 0,
+        "accepted_responses": 0,
+        "handler_payloads_hex": [],
+        "outcome": "refused"
+      }
+    },
+    {
+      "id": "bare/source-after-handler",
+      "input": {
+        "mode": "source-after-handler",
+        "completion": "bare"
+      },
+      "expected": {
+        "client_calls": 1,
+        "tls_handshakes": 1,
+        "handler_calls": 1,
+        "accepted_requests": 1,
+        "accepted_responses": 0,
+        "handler_payloads_hex": [
+          "207b226a736f6e727063223a22322e30222c226964223a22696e7370656374696f6e222c226d6574686f64223a224765745461736b222c22706172616d73223a7b226964223a226f776e65642d7461736b227d7d20"
+        ],
+        "outcome": "refused"
+      }
+    },
+    {
+      "id": "bare/expired-after-handler",
+      "input": {
+        "mode": "expired-after-handler",
+        "completion": "bare"
+      },
+      "expected": {
+        "client_calls": 1,
+        "tls_handshakes": 1,
+        "handler_calls": 1,
+        "accepted_requests": 1,
+        "accepted_responses": 0,
+        "handler_payloads_hex": [
+          "207b226a736f6e727063223a22322e30222c226964223a22696e7370656374696f6e222c226d6574686f64223a224765745461736b222c22706172616d73223a7b226964223a226f776e65642d7461736b227d7d20"
+        ],
+        "outcome": "refused"
+      }
+    },
+    {
+      "id": "bare/close-during-handler",
+      "input": {
+        "mode": "close-during-handler",
+        "completion": "bare"
+      },
+      "expected": {
+        "client_calls": 1,
+        "tls_handshakes": 1,
+        "handler_calls": 1,
+        "accepted_requests": 1,
+        "accepted_responses": 0,
+        "handler_payloads_hex": [
+          "207b226a736f6e727063223a22322e30222c226964223a22696e7370656374696f6e222c226d6574686f64223a224765745461736b222c22706172616d73223a7b226964223a226f776e65642d7461736b227d7d20"
+        ],
+        "outcome": "refused"
+      }
+    },
+    {
+      "id": "bare/cancel-during-handler",
+      "input": {
+        "mode": "cancel-during-handler",
+        "completion": "bare"
+      },
+      "expected": {
+        "client_calls": 1,
+        "tls_handshakes": 1,
+        "handler_calls": 1,
+        "accepted_requests": 1,
+        "accepted_responses": 0,
+        "handler_payloads_hex": [
+          "207b226a736f6e727063223a22322e30222c226964223a22696e7370656374696f6e222c226d6574686f64223a224765745461736b222c22706172616d73223a7b226964223a226f776e65642d7461736b227d7d20"
+        ],
+        "outcome": "refused"
+      }
+    },
+    {
+      "id": "http/success",
+      "input": {
+        "mode": "success",
+        "completion": "http"
+      },
+      "expected": {
+        "client_calls": 1,
+        "tls_handshakes": 1,
+        "handler_calls": 1,
+        "accepted_requests": 1,
+        "accepted_responses": 1,
+        "handler_payloads_hex": [
+          "207b226a736f6e727063223a22322e30222c226964223a22696e7370656374696f6e222c226d6574686f64223a224765745461736b222c22706172616d73223a7b226964223a226f776e65642d7461736b227d7d20"
+        ],
+        "outcome": "success"
+      }
+    },
+    {
+      "id": "http/repeat",
+      "input": {
+        "mode": "repeat",
+        "completion": "http"
+      },
+      "expected": {
+        "client_calls": 2,
+        "tls_handshakes": 2,
+        "handler_calls": 2,
+        "accepted_requests": 2,
+        "accepted_responses": 2,
+        "handler_payloads_hex": [
+          "207b226a736f6e727063223a22322e30222c226964223a22696e7370656374696f6e222c226d6574686f64223a224765745461736b222c22706172616d73223a7b226964223a226f776e65642d7461736b227d7d20",
+          "207b226a736f6e727063223a22322e30222c226964223a22696e7370656374696f6e222c226d6574686f64223a224765745461736b222c22706172616d73223a7b226964223a226f776e65642d7461736b227d7d20"
+        ],
+        "outcome": "success"
+      }
+    },
+    {
+      "id": "http/unsupported",
+      "input": {
+        "mode": "unsupported",
+        "completion": "http"
+      },
+      "expected": {
+        "client_calls": 1,
+        "tls_handshakes": 1,
+        "handler_calls": 0,
+        "accepted_requests": 1,
+        "accepted_responses": 1,
+        "handler_payloads_hex": [],
+        "outcome": "a2a-error"
+      }
+    },
+    {
+      "id": "http/source-after-setup",
+      "input": {
+        "mode": "source-after-setup",
+        "completion": "http"
+      },
+      "expected": {
+        "client_calls": 1,
+        "tls_handshakes": 1,
+        "handler_calls": 0,
+        "accepted_requests": 0,
+        "accepted_responses": 0,
+        "handler_payloads_hex": [],
+        "outcome": "refused"
+      }
+    },
+    {
+      "id": "http/expired-after-setup",
+      "input": {
+        "mode": "expired-after-setup",
+        "completion": "http"
+      },
+      "expected": {
+        "client_calls": 1,
+        "tls_handshakes": 1,
+        "handler_calls": 0,
+        "accepted_requests": 0,
+        "accepted_responses": 0,
+        "handler_payloads_hex": [],
+        "outcome": "refused"
+      }
+    },
+    {
+      "id": "http/cancel-after-setup",
+      "input": {
+        "mode": "cancel-after-setup",
+        "completion": "http"
+      },
+      "expected": {
+        "client_calls": 1,
+        "tls_handshakes": 1,
+        "handler_calls": 0,
+        "accepted_requests": 0,
+        "accepted_responses": 0,
+        "handler_payloads_hex": [],
+        "outcome": "refused"
+      }
+    },
+    {
+      "id": "http/close-after-setup",
+      "input": {
+        "mode": "close-after-setup",
+        "completion": "http"
+      },
+      "expected": {
+        "client_calls": 1,
+        "tls_handshakes": 1,
+        "handler_calls": 0,
+        "accepted_requests": 0,
+        "accepted_responses": 0,
+        "handler_payloads_hex": [],
+        "outcome": "refused"
+      }
+    },
+    {
+      "id": "http/source-after-handler",
+      "input": {
+        "mode": "source-after-handler",
+        "completion": "http"
+      },
+      "expected": {
+        "client_calls": 1,
+        "tls_handshakes": 1,
+        "handler_calls": 1,
+        "accepted_requests": 1,
+        "accepted_responses": 0,
+        "handler_payloads_hex": [
+          "207b226a736f6e727063223a22322e30222c226964223a22696e7370656374696f6e222c226d6574686f64223a224765745461736b222c22706172616d73223a7b226964223a226f776e65642d7461736b227d7d20"
+        ],
+        "outcome": "refused"
+      }
+    },
+    {
+      "id": "http/expired-after-handler",
+      "input": {
+        "mode": "expired-after-handler",
+        "completion": "http"
+      },
+      "expected": {
+        "client_calls": 1,
+        "tls_handshakes": 1,
+        "handler_calls": 1,
+        "accepted_requests": 1,
+        "accepted_responses": 0,
+        "handler_payloads_hex": [
+          "207b226a736f6e727063223a22322e30222c226964223a22696e7370656374696f6e222c226d6574686f64223a224765745461736b222c22706172616d73223a7b226964223a226f776e65642d7461736b227d7d20"
+        ],
+        "outcome": "refused"
+      }
+    },
+    {
+      "id": "http/close-during-handler",
+      "input": {
+        "mode": "close-during-handler",
+        "completion": "http"
+      },
+      "expected": {
+        "client_calls": 1,
+        "tls_handshakes": 1,
+        "handler_calls": 1,
+        "accepted_requests": 1,
+        "accepted_responses": 0,
+        "handler_payloads_hex": [
+          "207b226a736f6e727063223a22322e30222c226964223a22696e7370656374696f6e222c226d6574686f64223a224765745461736b222c22706172616d73223a7b226964223a226f776e65642d7461736b227d7d20"
+        ],
+        "outcome": "refused"
+      }
+    },
+    {
+      "id": "http/cancel-during-handler",
+      "input": {
+        "mode": "cancel-during-handler",
+        "completion": "http"
+      },
+      "expected": {
+        "client_calls": 1,
+        "tls_handshakes": 1,
+        "handler_calls": 1,
+        "accepted_requests": 1,
+        "accepted_responses": 0,
+        "handler_payloads_hex": [
+          "207b226a736f6e727063223a22322e30222c226964223a22696e7370656374696f6e222c226d6574686f64223a224765745461736b222c22706172616d73223a7b226964223a226f776e65642d7461736b227d7d20"
+        ],
+        "outcome": "refused"
+      }
+    }
+  ]
+}

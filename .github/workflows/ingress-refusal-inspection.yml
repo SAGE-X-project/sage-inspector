@@ -1,0 +1,81 @@
+name: Protected ingress refusal inspection
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  ingress-refusal:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      GOTOOLCHAIN: local
+      GOWORK: 'off'
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          path: sage-inspector
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: SAGE-X-project/sage-spec
+          ref: 06b50e177ccd22bce7d70fd80c2d7f822ae3fd3b
+          path: sage-spec
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
+        with:
+          go-version: '1.26.8'
+          cache-dependency-path: sage-inspector/adapters/a2a-ingress-refusal/go.sum
+      - name: Record selected sources and acquire public modules before offline execution
+        working-directory: sage-inspector
+        run: |
+          mkdir "$RUNNER_TEMP/ingress-refusal"
+          git rev-parse HEAD > "$RUNNER_TEMP/ingress-refusal/ingress-refusal-revision.txt"
+          git rev-parse 'HEAD^{tree}' > "$RUNNER_TEMP/ingress-refusal/ingress-refusal-tree.txt"
+          python3 -B - <<'PY'
+          import json, os, sys
+          from pathlib import Path
+          sys.path.insert(0, 'scripts')
+          import ingress_refusal_observation as o
+          source = o.observer_sources()
+          source.update({o.ADAPTER+'/'+p:o.sha((o.ROOT/o.ADAPTER/p).read_bytes()) for p in ('main.go','fixture.go','card.go','go.mod','go.sum')})
+          (Path(os.environ['RUNNER_TEMP'])/'ingress-refusal/ingress-refusal-sources.json').write_text(json.dumps(source,indent=2)+'\n')
+          PY
+          python3 -B scripts/a2a_did_catalog.py --spec-root ../sage-spec --output "$RUNNER_TEMP/ingress-refusal/ingress-refusal-inventory.json"
+          cd adapters/a2a-ingress-refusal
+          go mod download
+          go mod verify
+          go mod tidy -diff
+          git diff --exit-code -- go.mod go.sum
+          go mod download -json github.com/sage-x-project/sage-adk@v0.0.0-20261018221229-3175a177ed07 > "$RUNNER_TEMP/ingress-refusal/ingress-refusal-public-download.json"
+          adk_module_dir="$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["Dir"])' "$RUNNER_TEMP/ingress-refusal/ingress-refusal-public-download.json")"
+          cd "$adk_module_dir"
+          go mod download
+          go mod verify > "$RUNNER_TEMP/ingress-refusal/ingress-refusal-public-cache.txt"
+      - name: Observe fixed memory unit and separate benign native TLS before parser controls
+        working-directory: sage-inspector
+        run: python3 -B scripts/check_ingress_refusal_evidence.py --run --directory "$RUNNER_TEMP/ingress-refusal"
+      - name: Test owned native fixture and public-key calibrations
+        working-directory: sage-inspector/adapters/a2a-ingress-refusal
+        run: |
+          go vet -mod=readonly ./...
+          go test -mod=readonly -race -count=1 -json -coverprofile="$RUNNER_TEMP/ingress-refusal/ingress-refusal-cover.out" ./... > "$RUNNER_TEMP/ingress-refusal/ingress-refusal-native-tests.jsonl"
+          go tool cover -func="$RUNNER_TEMP/ingress-refusal/ingress-refusal-cover.out" > "$RUNNER_TEMP/ingress-refusal/ingress-refusal-go-coverage.txt"
+          cat "$RUNNER_TEMP/ingress-refusal/ingress-refusal-go-coverage.txt"
+          awk '/^total:/ {sub(/%$/, "", $3); found=1; if ($3+0 < 90) exit 1} END {if (!found) exit 1}' "$RUNNER_TEMP/ingress-refusal/ingress-refusal-go-coverage.txt"
+      - name: Recheck raw memory and native evidence
+        working-directory: sage-inspector
+        run: |
+          python3 -B scripts/check_ingress_refusal_evidence.py --directory "$RUNNER_TEMP/ingress-refusal"
+          git diff --exit-code
+      - name: Preserve actual bounded observations even on failure
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: ingress-refusal-inspection
+          if-no-files-found: error
+          retention-days: 30
+          path: ${{ runner.temp }}/ingress-refusal/

@@ -83,6 +83,7 @@ def parse_units(raw, root=ROOT):
     records, passes, failures = {}, set(), []
     package = 'github.com/sage-x-project/sage-inspector/adapters/a2a-did-authority'
     package_pass = False
+    buffers = {}
     for line in raw.splitlines():
         event = load(line)
         require(type(event) is dict and event.get('Package') == package, 'one actual authority test package')
@@ -95,13 +96,21 @@ def parse_units(raw, root=ROOT):
             name = test.removeprefix('TestCardAuthority/')
             require(name in cases and name not in passes, 'unique exact passed authority leaf')
             passes.add(name)
-        output = event.get('Output', '')
-        if 'AUTHORITY_OBSERVATION ' in output:
-            require(action == 'output' and test.startswith('TestCardAuthority/'), 'authority witness attributed to its unit leaf')
-            row = load(output.split('AUTHORITY_OBSERVATION ', 1)[1].strip())
-            name = test.removeprefix('TestCardAuthority/')
-            require(name in cases and row['id'] == name and name not in records, 'unique case-bound witness')
-            records[name] = {'id': name, 'input_sha256': cases[name]['input_sha256'], 'actual': row}
+        if action == 'output':
+            output = event.get('Output')
+            require(type(output) is str and type(test) is str, 'typed attributed Go output')
+            text = buffers.get(test, '') + output
+            require(len(text) <= 262144, 'bounded per-test output reconstruction')
+            lines = text.split('\n')
+            buffers[test] = lines.pop()
+            for line in lines:
+                if 'AUTHORITY_OBSERVATION ' in line:
+                    require(test.startswith('TestCardAuthority/'), 'authority witness attributed to its unit leaf')
+                    row = load(line.split('AUTHORITY_OBSERVATION ', 1)[1].strip())
+                    name = test.removeprefix('TestCardAuthority/')
+                    require(name in cases and row['id'] == name and name not in records, 'unique case-bound witness')
+                    records[name] = {'id': name, 'input_sha256': cases[name]['input_sha256'], 'actual': row}
+    require(not any(text for test, text in buffers.items() if test.startswith('TestCardAuthority/') or 'AUTHORITY_OBSERVATION' in text), 'incomplete attributed unit output')
     require(package_pass and not failures and passes == UNIT_IDS and set(records) == UNIT_IDS, 'all thirteen actual Go controls passed')
     require(all(unit_matches(r['actual'], cases[n], fixture) for n, r in records.items()), 'actual authority observations differ')
     return [records[n] for n in cases]

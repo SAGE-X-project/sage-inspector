@@ -112,6 +112,27 @@ class AuthorityCheckerTests(unittest.TestCase):
             with self.subTest(kind=str(value)[:60]),self.assertRaises((ValueError,TypeError,KeyError)):o.parse_units(encode(value))
         with self.assertRaises(ValueError):o.parse_units('not bytes')
 
+    def test_fragmented_go_output_is_reassembled_per_exact_leaf(self):
+        source=events();chunked=[]
+        for event in source:
+            if event['Action']=='output':
+                raw=event['Output']
+                # Actual Go test2json may split a single t.Log line at 1024
+                # bytes. Shorter splits also exercise a fragmented marker.
+                for n in range(0,len(raw),17):
+                    piece=copy.deepcopy(event);piece['Output']=raw[n:n+17];chunked.append(piece)
+            else:chunked.append(event)
+        self.assertEqual(o.parse_units(encode(chunked)),o.parse_units(encode(source)))
+        for mode in ('missing','duplicate','mixed-test','truncated'):
+            bad=copy.deepcopy(chunked)
+            positions=[n for n,e in enumerate(bad) if e['Action']=='output' and e.get('Test')=='TestCardAuthority/baseline']
+            n=positions[len(positions)//2]
+            if mode=='missing':bad.pop(n)
+            elif mode=='duplicate':bad.insert(n,copy.deepcopy(bad[n]))
+            elif mode=='mixed-test':bad[n]['Test']='TestCardAuthority/matching-document-calibration'
+            else:bad[positions[-1]]['Output']=bad[positions[-1]]['Output'].rstrip('\n')
+            with self.subTest(mode=mode),self.assertRaises((ValueError,TypeError,KeyError)):o.parse_units(encode(bad))
+
     def test_benign_native_fact_mutations(self):
         fixture,_=o.fixtures();base=native_rows()[0]['actual']
         for key,value in [('target',None),('target','https://127.0.0.1:99999/sage%2Fa?client=%2f'),('target','https://evil.invalid'),('owner_type','mock'),('ingress_type','mock'),('handler_calls',True),('source_reads',0),('source_observations',False),('setup_reservations',[True,1]),('errors',['error']),('replies_hex',['']),('handler_payloads_hex',[]),('verified_card_hex',''),('verified_did',o.CALLER),('verified_version','18'),('eligible_interfaces',[]),('card_hex',''),('records',[]),('extra',1)]:

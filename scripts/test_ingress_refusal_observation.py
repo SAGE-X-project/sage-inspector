@@ -196,6 +196,10 @@ class IngressRefusalCheckerTests(unittest.TestCase):
 
     def test_unique_typed_build_settings_and_git_identity(self):
         self.assertEqual(o.build_settings({'Settings':[{'Key':'-race','Value':'true'}]}),{'-race':'true'})
+        self.assertEqual(o.build_settings({'Settings':[{'Key':'CGO_CFLAGS'}]}),{'CGO_CFLAGS':''})
+        self.assertEqual(o.build_settings({'Settings':[{'Key':'-race'}]}),{'-race':''})
+        self.assertNotEqual(o.build_settings({'Settings':[{'Key':'-race'}]}).get('-race'),'true')
+        with self.assertRaises(ValueError):o.build_settings({'Settings':[{'Key':'CGO_CFLAGS'},{'Key':'CGO_CFLAGS','Value':''}]})
         for value in [None,{}, {'Settings':None},{'Settings':[{}]},{'Settings':[{'Key':'-race','Value':True}]},{'Settings':[{'Key':1,'Value':'true'}]},{'Settings':[{'Key':'-race','Value':'true','extra':'ignored'}]},{'Settings':[{'Key':'-race','Value':'true'},{'Key':'-race','Value':'true'}]}]:
             with self.subTest(value=value),self.assertRaises(ValueError):o.build_settings(value)
         expected=o.subject()['modules'];base={'GoVersion':'go1.26.8','Path':'github.com/sage-x-project/sage-inspector/'+o.ADAPTER,'Deps':[{'Path':p,'Version':v['Version'],'Sum':v['Sum']} for p,v in expected.items()],'Settings':[{'Key':k,'Value':v} for k,v in {'vcs':'git','vcs.revision':'a'*40,'vcs.modified':'false'}.items()]}
@@ -213,6 +217,9 @@ class IngressRefusalCheckerTests(unittest.TestCase):
             dangling=root/'dangling-output';dangling.symlink_to(root/'missing')
             for output in [sentinel,link,dangling]:
                 with self.assertRaisesRegex(ValueError,'exclusive'):o.public_test('go',o.ROOT,{},o.subject(),output)
+            (root/'ingress-refusal-test-build-info.json').write_bytes(b'preserve compiler record')
+            with self.assertRaisesRegex(ValueError,'exclusive'):o.public_test('go',o.ROOT,{},o.subject(),root/'new-memory.jsonl')
+            self.assertFalse((root/'new-memory.jsonl').exists())
             self.assertEqual(sentinel.read_bytes(),b'preserve actual earlier evidence')
             self.assertTrue(link.is_symlink());self.assertTrue(dangling.is_symlink());self.assertFalse((root/'missing').exists())
 
@@ -229,7 +236,7 @@ class IngressRefusalCheckerTests(unittest.TestCase):
         native_meta={'adapter_sha256':'1'*64,'adapter_source_sha256':{p:o.sha((o.ROOT/o.ADAPTER/p).read_bytes()) for p in ['main.go','fixture.go','card.go','go.mod','go.sum']},'modules':[{'Path':p,**v} for p,v in selected['modules'].items()],'build_info':native_info,'raw_trace':attempts,'process_count':2}
         report.update(evidence_kind='inspector-launched-memory-unit-and-separate-benign-native',observer={'repository':'SAGE-X-project/sage-inspector','revision':revision,'source_sha256':o.observer_sources()},execution={'memory':memory_meta,'native':native_meta})
         with tempfile.TemporaryDirectory() as tmp:
-            directory=Path(tmp);(directory/'ingress-refusal-revision.txt').write_text(revision);(directory/'ingress-refusal-memory-tests.jsonl').write_bytes(raw);(directory/'ingress-refusal-native.attempts.jsonl').write_text(''.join(json.dumps(row)+'\n' for row in attempts));path=directory/'ingress-refusal-native.json'
+            directory=Path(tmp);(directory/'ingress-refusal-test-build-info.json').write_text(json.dumps(memory_meta['build_info']));(directory/'ingress-refusal-revision.txt').write_text(revision);(directory/'ingress-refusal-memory-tests.jsonl').write_bytes(raw);(directory/'ingress-refusal-native.attempts.jsonl').write_text(''.join(json.dumps(row)+'\n' for row in attempts));path=directory/'ingress-refusal-native.json'
             def check(value):
                 path.write_text(json.dumps(value))
                 with contextlib.redirect_stdout(io.StringIO()):checker.verify(directory)

@@ -200,7 +200,8 @@ def selected_sources(directory, expected):
 
 
 def public_test(go, root, env, selected, output):
-    require(not output.exists() and not output.is_symlink(), 'new exclusive memory evidence path required')
+    build_record = output.with_name('ingress-refusal-test-build-info.json')
+    require(all(not path.exists() and not path.is_symlink() for path in (output, build_record)), 'new exclusive memory evidence path required')
     directory = root / ADAPTER
     dep = selected['modules']['github.com/sage-x-project/sage-adk']
     download = load(execute([go, 'mod', 'download', '-json', 'github.com/sage-x-project/sage-adk@' + dep['Version']], directory, env).stdout)
@@ -219,7 +220,10 @@ def public_test(go, root, env, selected, output):
         binary = Path(tmp) / 'ingress.test'
         build = [go, 'test', '-mod=readonly', '-race', '-c', '-o', str(binary), './core/a2abinding']
         execute(build, copied, env, timeout=240)
-        info = load(execute([go, 'version', '-m', '-json', str(binary)], copied, env).stdout)
+        info_raw = execute([go, 'version', '-m', '-json', str(binary)], copied, env).stdout
+        with build_record.open('xb') as evidence:
+            evidence.write(info_raw)
+        info = load(info_raw)
         require(info.get('GoVersion') == 'go1.26.8' and info.get('Path') == PACKAGE + '.test' and build_settings(info).get('-race') == 'true', 'actual race test compiler; not compiled dependency graph')
         digest = sha(binary.read_bytes())
         command = [go, 'tool', 'test2json', '-t', '-p', PACKAGE, str(binary), '-test.v=test2json', '-test.run=^' + PARENT + '$', '-test.count=1', '-test.timeout=30s']
@@ -236,8 +240,10 @@ def build_settings(info):
     require(type(info) is dict and type(info.get('Settings')) is list, 'typed build settings')
     settings = {}
     for row in info['Settings']:
-        require(type(row) is dict and set(row) == {'Key', 'Value'} and type(row['Key']) is str and type(row['Value']) is str and row['Key'] not in settings, 'unique typed build settings')
-        settings[row['Key']] = row['Value']
+        require(type(row) is dict and set(row) in ({'Key'}, {'Key', 'Value'}) and type(row['Key']) is str and bool(row['Key']) and type(row.get('Value', '')) is str and row['Key'] not in settings, 'unique typed build settings')
+        # Go debug.BuildSetting.Value uses json omitempty: absence is empty,
+        # never true. Mandatory race/VCS values are checked by their callers.
+        settings[row['Key']] = row.get('Value', '')
     return settings
 
 

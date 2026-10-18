@@ -30,7 +30,9 @@ def verify(directory):
     o.require(o.canonical(inputs) == o.canonical(expected_inputs), 'recorded package inputs, not full compiler closure')
     expected_deps = [{'Path': p, **v} for p, v in selected['modules'].items() if p != 'github.com/sage-x-project/sage-adk']
     o.require(o.canonical(memory['dependencies']) == o.canonical(expected_deps), 'separate public dependency metadata')
-    info = memory['build_info']; settings = o.build_settings(info)
+    info = memory['build_info']
+    o.require(o.canonical(o.load((directory / 'ingress-refusal-test-build-info.json').read_bytes())) == o.canonical(info), 'raw test BuildInfo linkage')
+    settings = o.build_settings(info)
     o.require(info.get('GoVersion') == 'go1.26.8' and info.get('Path') == o.PACKAGE + '.test' and settings.get('-race') == 'true' and memory['scope'] == 'verified public module as test main; no compiled dependency metadata claim', 'test BuildInfo limitation')
     o.require(type(memory['execution_directory']) is str and Path(memory['execution_directory']).name == 'module' and Path(memory['execution_directory']).is_absolute(), 'actual temporary full module root')
     binary = str(Path(memory['execution_directory']).parent / 'ingress.test')

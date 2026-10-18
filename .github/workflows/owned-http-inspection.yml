@@ -1,0 +1,69 @@
+name: Owned A2A HTTP inspection
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  owned-http:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      GOTOOLCHAIN: local
+      GOWORK: 'off'
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          path: sage-inspector
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: SAGE-X-project/sage-spec
+          ref: 06b50e177ccd22bce7d70fd80c2d7f822ae3fd3b
+          path: sage-spec
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
+        with:
+          go-version: '1.26.8'
+          cache-dependency-path: sage-inspector/adapters/a2a-owned-http/go.sum
+      - name: Record source identity and verify public dependencies
+        working-directory: sage-inspector
+        run: |
+          mkdir "$RUNNER_TEMP/owned-http"
+          git rev-parse HEAD > "$RUNNER_TEMP/owned-http/owned-http-revision.txt"
+          git rev-parse 'HEAD^{tree}' > "$RUNNER_TEMP/owned-http/owned-http-tree.txt"
+          sha256sum scripts/owned_http_observation.py scripts/test_owned_http_observation.py scripts/check_owned_http_evidence.py scripts/a2a_card_observation.py scripts/a2a_did_catalog.py scripts/current_spec_catalog.py adapters/a2a-owned-http/* vectors/0.10.0/a2a-owned-http-observations.json verification/0.10.0/a2a-did/owned-http* docs/owned-http-inspection.md .github/workflows/owned-http-inspection.yml > "$RUNNER_TEMP/owned-http/owned-http-source.sha256"
+          python3 -B scripts/a2a_did_catalog.py --spec-root ../sage-spec --output "$RUNNER_TEMP/owned-http/owned-http-inventory.json"
+          cd adapters/a2a-owned-http
+          go mod download
+          go mod verify
+          go mod tidy -diff
+          git diff --exit-code -- go.mod go.sum
+      - name: Observe actual native exchanges before authored units
+        working-directory: sage-inspector
+        run: python3 -B scripts/check_owned_http_evidence.py --run --directory "$RUNNER_TEMP/owned-http"
+      - name: Test safe owned runtime and memory-only controls
+        working-directory: sage-inspector/adapters/a2a-owned-http
+        run: |
+          go vet -mod=readonly ./...
+          go test -mod=readonly -race -count=1 -json -coverprofile="$RUNNER_TEMP/owned-http/owned-http-cover.out" ./... > "$RUNNER_TEMP/owned-http/owned-http-tests.jsonl"
+          go tool cover -func="$RUNNER_TEMP/owned-http/owned-http-cover.out" > "$RUNNER_TEMP/owned-http/owned-http-coverage.txt"
+          cat "$RUNNER_TEMP/owned-http/owned-http-coverage.txt"
+          awk '/^total:/ {sub(/%$/, "", $3); found=1; if ($3+0 < 90) exit 1} END {if (!found) exit 1}' "$RUNNER_TEMP/owned-http/owned-http-coverage.txt"
+      - name: Recheck exact source and raw evidence
+        working-directory: sage-inspector
+        run: |
+          python3 -B scripts/check_owned_http_evidence.py --directory "$RUNNER_TEMP/owned-http"
+          sha256sum --check "$RUNNER_TEMP/owned-http/owned-http-source.sha256"
+          git diff --exit-code
+      - name: Preserve scoped native and unit evidence
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: owned-http-inspection
+          if-no-files-found: error
+          retention-days: 30
+          path: ${{ runner.temp }}/owned-http/

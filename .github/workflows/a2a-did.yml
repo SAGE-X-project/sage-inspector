@@ -243,3 +243,78 @@ jobs:
             ${{ runner.temp }}/did-profile-inventory.json
             ${{ runner.temp }}/did-profile-native.json
             ${{ runner.temp }}/did-profile-coverage.out
+
+  did-response-repair-observation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      GOTOOLCHAIN: local
+      GOWORK: 'off'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          path: sage-inspector
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: SAGE-X-project/sage-spec
+          ref: 06b50e177ccd22bce7d70fd80c2d7f822ae3fd3b
+          path: sage-spec
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
+        with:
+          go-version: '1.26.8'
+          cache-dependency-path: sage-inspector/adapters/did-response-current/go.sum
+      - name: Verify adopted inventory and public modules
+        working-directory: sage-inspector
+        run: |
+          python3 -B scripts/a2a_did_catalog.py --spec-root ../sage-spec --output "$RUNNER_TEMP/did-response-inventory.json"
+          cd adapters/did-response-current
+          go mod download
+          go mod verify
+      - name: Run fresh repaired subject before authored tests
+        working-directory: sage-inspector
+        run: |
+          python3 -B scripts/did_response_current.py --native --output "$RUNNER_TEMP/did-response-native.json"
+          git rev-parse HEAD > "$RUNNER_TEMP/did-response-revision.txt"
+          git rev-parse 'HEAD^{tree}' > "$RUNNER_TEMP/did-response-tree.txt"
+          sha256sum scripts/did_response_current.py scripts/test_did_response_current.py adapters/did-response-current/* verification/0.10.0/a2a-did/did-response-current-subject.json docs/did-response-repairs.md .github/workflows/a2a-did.yml > "$RUNNER_TEMP/did-response-source.sha256"
+          git diff --exit-code -- adapters/did-response-current/go.mod adapters/did-response-current/go.sum
+      - name: Verify unit and safe runtime controls
+        working-directory: sage-inspector/adapters/did-response-current
+        run: |
+          go vet -mod=readonly ./...
+          go test -mod=readonly -count=1 -race -json -coverprofile="$RUNNER_TEMP/did-response-cover.out" ./... > "$RUNNER_TEMP/did-response-tests.jsonl"
+          go tool cover -func="$RUNNER_TEMP/did-response-cover.out" > "$RUNNER_TEMP/did-response-coverage.txt"
+          awk '/^total:/ {sub(/%$/, "", $3); found=1; if ($3+0 < 90) exit 1} END {if (!found) exit 1}' "$RUNNER_TEMP/did-response-coverage.txt"
+      - name: Check independent observer statement coverage
+        working-directory: sage-inspector
+        run: |
+          python3 - <<'PYTHON'
+          import ast, sys, trace, unittest
+          from pathlib import Path
+          sys.path.insert(0, 'scripts')
+          tracer = trace.Trace(count=True, trace=False)
+          def run():
+              suite = unittest.defaultTestLoader.loadTestsFromName('test_did_response_current')
+              if not unittest.TextTestRunner().run(suite).wasSuccessful():
+                  raise SystemExit(1)
+          tracer.runfunc(run)
+          path = Path('scripts/did_response_current.py').resolve()
+          statements = {n.lineno for n in ast.walk(ast.parse(path.read_text())) if isinstance(n, ast.stmt)}
+          hits = {line for (file, line), count in tracer.results().counts.items() if Path(file).resolve() == path and count}
+          print('did-response observer coverage:', len(statements & hits), len(statements))
+          if not statements or len(statements & hits) / len(statements) < 0.90:
+              raise SystemExit(1)
+          PYTHON
+          git diff --exit-code -- adapters/did-response-current/go.mod adapters/did-response-current/go.sum
+      - name: Preserve repaired subject evidence
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: did-response-repairs
+          if-no-files-found: error
+          path: |
+            ${{ runner.temp }}/did-response-*.json
+            ${{ runner.temp }}/did-response-*.jsonl
+            ${{ runner.temp }}/did-response-*.txt
+            ${{ runner.temp }}/did-response-source.sha256
+            ${{ runner.temp }}/did-response-cover.out

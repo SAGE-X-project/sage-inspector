@@ -49,7 +49,7 @@ class BridgeTests(unittest.TestCase):
             self.assertEqual(end, deadline)
             entered.set()
             if not release.wait(2): raise TimeoutError('unit rendezvous')
-            return 'claimed-after-reply:1\n'
+            return 'completed-record-after-reply:1\n'
         frames, errors, target = [b'setup'] * 4, [], Target()
         deadline = time.monotonic() + 2
         with tempfile.TemporaryDirectory() as directory, patch.object(bridge, 'wait_file', side_effect=settled):
@@ -95,15 +95,15 @@ class BridgeTests(unittest.TestCase):
         raw = b'{"success":false,"error":"unavailable"}'
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory)/'reply-settled'
-            path.write_text('claimed-after-reply:1\n')
-            with patch.object(bridge.time, 'sleep', side_effect=lambda _: path.write_text('claimed-after-reply:2\n')) as pause:
+            path.write_text('completed-record-after-reply:1\n')
+            with patch.object(bridge.time, 'sleep', side_effect=lambda _: path.write_text('completed-record-after-reply:2\n')) as pause:
                 bridge.settle_pending_reply(Path(directory), [Alive()], time.monotonic() + 2, raw, 5)
             pause.assert_called_once()
-            path.write_text('claimed-after-reply:3\n')
+            path.write_text('completed-record-after-reply:3\n')
             with self.assertRaisesRegex(ValueError, 'scheduling marker'):
                 bridge.settle_pending_reply(Path(directory), [Alive()], time.monotonic() + 2, raw, 5)
 
-    @patch.object(bridge, 'wait_file', return_value='claimed-after-reply:1\n')
+    @patch.object(bridge, 'wait_file', return_value='completed-record-after-reply:1\n')
     def test_stale_marker_cannot_hide_exit_or_deadline(self, wait):
         class Exited:
             def poll(self): return 0

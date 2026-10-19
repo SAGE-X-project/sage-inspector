@@ -20,6 +20,7 @@ struct BridgeHandler {
     ready: bool,
     sink: Arc<Sink>,
     deadline: Instant,
+    ledger: std::path::PathBuf,
 }
 impl Handler for BridgeHandler {
     fn endpoint(&mut self) -> g::Result<CompletionEndpoint010> {
@@ -43,8 +44,11 @@ impl Handler for BridgeHandler {
         let (mut seed, mut th, sid) = connection.inspector_secret010().ok_or(g::Invalid)?;
         bridge_write(
             self.dir.join(format!("crypto-{role}.json")),
-            serde_json::to_vec(&json!({"fixture":"public-test-only","seed_hex":hex::encode(seed),
-                "th_hex":hex::encode(th),"session_id":sid})).unwrap(),
+            serde_json::to_vec(
+                &json!({"fixture":"public-test-only","seed_hex":hex::encode(seed),
+                "th_hex":hex::encode(th),"session_id":sid}),
+            )
+            .unwrap(),
         )
         .map_err(|_| g::Invalid)?;
         use zeroize::Zeroize;
@@ -110,18 +114,26 @@ impl Handler for BridgeHandler {
                 json!({"role":role,"state":"READY","status":"completed","first_terminal":true,
                     "output_hex":hex::encode(delivery.output()),"attempts":attempts,"repeat_denied":true})
             } else {
+                let expected: Value = serde_json::from_slice(
+                    &std::fs::read(self.dir.join("intent.json")).map_err(|_| g::Invalid)?,
+                )
+                .map_err(|_| g::Invalid)?;
                 let mut replies = 0;
                 loop {
                     if let Err(error) = connection.serve_one(&mut BridgeSigner) {
-                        eprintln!("bridge responder ended after {replies} settled replies: {error:?}");
+                        eprintln!(
+                            "bridge responder ended after {replies} settled replies: {error:?}"
+                        );
                         break;
                     }
                     replies += 1;
                     if replies == 1 && recovery.is_empty() {
-                        // The actual inert executor must have entered after claim,
-                        // and serve_one must have finished its post-send checks.
+                        // Wait for actual executor entry and its completed record
+                        // after serve_one finishes the post-send checks.
                         // This marker schedules the fixture; it grants no authority.
-                        while self.sink.effects.load(Ordering::SeqCst) == 0 {
+                        while self.sink.effects.load(Ordering::SeqCst) == 0
+                            || !bridge_completed_record(&self.ledger, &expected["intent"])
+                        {
                             if Instant::now() >= self.deadline {
                                 return Err(g::Invalid);
                             }
@@ -129,8 +141,11 @@ impl Handler for BridgeHandler {
                         }
                     }
                     if recovery.is_empty() {
-                        bridge_write(self.dir.join("reply-settled"), format!("claimed-after-reply:{replies}\n"))
-                            .map_err(|_| g::Invalid)?;
+                        bridge_write(
+                            self.dir.join("reply-settled"),
+                            format!("completed-record-after-reply:{replies}\n"),
+                        )
+                        .map_err(|_| g::Invalid)?;
                     }
                 }
                 let expected_effects = if recovery.is_empty() { 1 } else { 0 };
@@ -252,6 +267,7 @@ fn inspector_mcp_bridge() {
         ready: false,
         sink,
         deadline: Instant::now() + Duration::from_secs(10),
+        ledger: ledger.clone(),
     };
     let result = host.connection(
         tcp,
@@ -266,6 +282,67 @@ fn inspector_mcp_bridge() {
     if protected && !initiator {
         bridge_write(dir.join("server.journal"), std::fs::read(&ledger).unwrap()).unwrap();
     }
+}
+
+// Passive test scheduling observation only. A partial append is not completion.
+// A row does not assert sync_all or worker post-check completion.
+fn bridge_completed_record(path: &std::path::Path, intent: &Value) -> bool {
+    use std::io::Read;
+    let Ok(file) = std::fs::File::open(path) else {
+        return false;
+    };
+    let mut raw = String::new();
+    if file.take(65_537).read_to_string(&mut raw).is_err()
+        || raw.len() > 65_536
+        || !raw.ends_with('\n')
+    {
+        return false;
+    }
+    raw.lines()
+        .last()
+        .and_then(|line| serde_json::from_str::<Value>(line).ok())
+        .is_some_and(|row| {
+            row["state"] == "COMPLETED"
+                && intent["issuer"].as_str().is_some()
+                && intent["call_id"].as_str().is_some()
+                && row["issuer"] == intent["issuer"]
+                && row["call_id"] == intent["call_id"]
+        })
+}
+
+#[test]
+fn completed_record_requires_a_complete_journal_row() {
+    let dir = tempfile::tempdir().unwrap();
+    let path = dir.path().join("observation");
+    let intent = json!({"issuer":ALICE,"call_id":"call-1"});
+    assert!(!bridge_completed_record(&path, &intent));
+    let completed = format!(
+        "{}\n",
+        json!({"state":"COMPLETED","issuer":ALICE,"call_id":"call-1"})
+    );
+    for raw in ["", "{", "{}\n", "invalid\n", "{\"state\":\"EXECUTING\"}\n"] {
+        std::fs::write(&path, raw).unwrap();
+        assert!(!bridge_completed_record(&path, &intent));
+    }
+    std::fs::write(&path, completed.trim_end()).unwrap();
+    assert!(!bridge_completed_record(&path, &intent));
+    std::fs::write(&path, format!("{{\"state\":\"EXECUTING\"}}\n{completed}")).unwrap();
+    assert!(bridge_completed_record(&path, &intent));
+    assert!(!bridge_completed_record(
+        &path,
+        &json!({"issuer":BOB,"call_id":"call-1"})
+    ));
+    assert!(!bridge_completed_record(
+        &path,
+        &json!({"issuer":ALICE,"call_id":"call-2"})
+    ));
+    assert!(!bridge_completed_record(&path, &json!({})));
+    std::fs::write(&path, format!("{completed}{{\"state\":\"EXECUTING\"}}\n")).unwrap();
+    assert!(!bridge_completed_record(&path, &intent));
+    std::fs::write(&path, [255]).unwrap();
+    assert!(!bridge_completed_record(&path, &intent));
+    std::fs::write(&path, format!("{}{completed}", " ".repeat(65_537))).unwrap();
+    assert!(!bridge_completed_record(&path, &intent));
 }
 
 fn bridge_write(path: std::path::PathBuf, bytes: impl AsRef<[u8]>) -> std::io::Result<()> {

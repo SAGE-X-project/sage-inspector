@@ -72,6 +72,12 @@ def build(language, repo, output, work):
                 artifacts.append(Path(item['executable']))
         if len(artifacts) != 1: raise ValueError('ambiguous Rust test executable')
         binary = artifacts[0]
+        test = PREFIX + 'inspector_bridge::completed_record_requires_a_complete_journal_row'
+        log = output / 'rust-bridge-unit.log'
+        evidence['bridge_unit'] = run([str(binary), test, '--exact', '--test-threads=1',
+                                       '--color=never'], source, log, 10, env)
+        if not observed('rust', test, log.read_text(), evidence['bridge_unit']['exit_code']):
+            raise ValueError('Rust bridge completion observation test failed')
     evidence['executable_sha256'] = digest(binary)
     dependency = output / (language+'-dependencies.lock')
     dependency.write_bytes((source / ('go.sum' if language == 'go' else 'Cargo.lock')).read_bytes())
@@ -155,9 +161,9 @@ def settle_pending_reply(directory, processes, end, raw, index):
         expected = index - 3
         while time.monotonic() < end:
             marker = wait_file(directory/'reply-settled', processes, end)
-            if marker == f'claimed-after-reply:{expected}\n':
+            if marker == f'completed-record-after-reply:{expected}\n':
                 return
-            if marker not in {f'claimed-after-reply:{n}\n' for n in range(1, expected)}:
+            if marker not in {f'completed-record-after-reply:{n}\n' for n in range(1, expected)}:
                 raise ValueError('invalid responder scheduling marker')
             if any(process.poll() is not None for process in processes):
                 raise ValueError('responder exited before reply settlement')

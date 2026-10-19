@@ -178,8 +178,9 @@ func TestInspectorMCPBridge(t *testing.T) {
 					replies++
 					if replies == 1 && recovery == "" {
 						// Schedule the fixture only after post-send checks and actual
-						// executor entry. This observation is not an authorization.
-						for fixture.executor.effects.Load() == 0 {
+						// executor entry and the real completed journal record.
+						// This observation is not an authorization.
+						for fixture.executor.effects.Load() == 0 || fixture.state(t) != "COMPLETED" {
 							select {
 							case <-ctx.Done():
 								return ctx.Err()
@@ -188,7 +189,7 @@ func TestInspectorMCPBridge(t *testing.T) {
 						}
 					}
 					if recovery == "" {
-						if e := bridgeWrite(filepath.Join(dir, "reply-settled"), []byte("claimed-after-reply:"+strconv.Itoa(replies)+"\n")); e != nil {
+						if e := bridgeWrite(filepath.Join(dir, "reply-settled"), []byte("completed-record-after-reply:"+strconv.Itoa(replies)+"\n")); e != nil {
 							return e
 						}
 					}

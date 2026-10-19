@@ -1,0 +1,58 @@
+{
+  "cases": [
+    "initiation/alsoKnownAs",
+    "initiation/canonicalId",
+    "initiation/didDocument",
+    "initiation/equivalentId",
+    "local-kem-mismatch",
+    "local-signing-mismatch",
+    "matched-kem-2",
+    "normal",
+    "outer/alsoKnownAs",
+    "outer/canonicalId",
+    "outer/didDocument",
+    "outer/equivalentId",
+    "revoke-init",
+    "revoke-resp",
+    "source-error"
+  ],
+  "mapping": {
+    "didp-04-peer-document-ignored": [
+      "initiation/alsoKnownAs",
+      "initiation/canonicalId",
+      "initiation/didDocument",
+      "initiation/equivalentId",
+      "local-kem-mismatch",
+      "local-signing-mismatch",
+      "matched-kem-2",
+      "normal",
+      "outer/alsoKnownAs",
+      "outer/canonicalId",
+      "outer/didDocument",
+      "outer/equivalentId",
+      "revoke-init",
+      "revoke-resp",
+      "source-error"
+    ],
+    "didp-04-received-alias": [
+      "initiation/alsoKnownAs",
+      "initiation/canonicalId",
+      "initiation/didDocument",
+      "initiation/equivalentId",
+      "local-kem-mismatch",
+      "local-signing-mismatch",
+      "matched-kem-2",
+      "normal",
+      "outer/alsoKnownAs",
+      "outer/canonicalId",
+      "outer/didDocument",
+      "outer/equivalentId",
+      "revoke-init",
+      "revoke-resp",
+      "source-error"
+    ]
+  },
+  "schema": "sage-core-key-authority-fixtures-v1",
+  "scope": "paired-fixed-memory-completion-units",
+  "spec_revision": "06b50e177ccd22bce7d70fd80c2d7f822ae3fd3b"
+}

@@ -58,6 +58,7 @@ jobs:
           cp "$core_module_dir/go.mod" "$RUNNER_TEMP/core-key-authority/core-key-authority-acquisition.mod"
           cp "$core_module_dir/go.sum" "$RUNNER_TEMP/core-key-authority/core-key-authority-acquisition.sum"
           cd "$RUNNER_TEMP/core-graph-acquisition"
+          chmod u+w go.mod go.sum
           go mod download all
           go list -mod=readonly -m -json all > "$RUNNER_TEMP/core-key-authority/core-key-authority-public-module-graph.json"
           go mod verify > "$RUNNER_TEMP/core-key-authority/core-key-authority-public-cache.txt"

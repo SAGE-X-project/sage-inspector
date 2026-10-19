@@ -33,7 +33,7 @@ jobs:
           python3 -B scripts/design_baseline_evidence.py --output "${RUNNER_TEMP}/design-baseline-evidence.json"
       - name: Preserve the exact no-subject report
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: design-baseline-${{ github.sha }}
           if-no-files-found: ignore
@@ -83,7 +83,7 @@ jobs:
           python3 -B scripts/check_design_baseline_primitive_evidence.py --rerun go "${RUNNER_TEMP}/primitive-010/go" --rerun rust "${RUNNER_TEMP}/primitive-010/rust"
       - name: Preserve the re-run observations
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: design-baseline-primitive-010-${{ github.sha }}
           if-no-files-found: ignore

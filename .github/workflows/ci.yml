@@ -2072,7 +2072,37 @@ jobs:
       - name: Run actual native setup bridges
         run: python3 -B scripts/run_mcp_setup_interop.py --go .mcp-go --rust .mcp-rust --output "${RUNNER_TEMP}/mcp-native-setup"
       - name: Run protected calls and reopen completed journals
-        run: python3 -B scripts/run_mcp_setup_interop.py --restart --go .mcp-go --rust .mcp-rust --output "${RUNNER_TEMP}/mcp-native-protected"
+        run: |
+          python3 -B - <<'PYTHON'
+          import hashlib
+          import json
+          import os
+          from pathlib import Path
+          import runpy
+          import sys
+          import trace
+
+          output = Path(os.environ['RUNNER_TEMP']) / 'mcp-native-protected'
+          sys.path.insert(0, str(Path('scripts').resolve()))
+          sys.argv = ['scripts/run_mcp_setup_interop.py', '--restart', '--go', '.mcp-go',
+                      '--rust', '.mcp-rust', '--output', str(output)]
+          observer = trace.Trace(count=True, trace=False, ignoredirs=[sys.prefix, sys.base_prefix])
+          try:
+              observer.runctx("runpy.run_path(sys.argv[0], run_name='__main__')", globals())
+          finally:
+              # runctx traces relay threads too; retain the runner's exit status.
+              counts = observer.results().counts
+              files = {}
+              for name in ('run_mcp_setup_interop.py', 'mcp_protected_support.py'):
+                  path = Path('scripts', name).resolve()
+                  files[name] = {
+                      'sha256': hashlib.sha256(path.read_bytes()).hexdigest(),
+                      'lines': {str(line): count for (filename, line), count in counts.items()
+                                if Path(filename).resolve() == path},
+                  }
+              output.mkdir(parents=True, exist_ok=True)
+              (output / 'driver-coverage.json').write_text(json.dumps(files, indent=2) + '\n')
+          PYTHON
       - name: Verify all authenticated MCP setup cases
         run: |
           python3 -B scripts/check_mcp_setup_cases.py --runtime "${RUNNER_TEMP}/mcp-core-runtime" --interop "${RUNNER_TEMP}/mcp-native-protected" --output "${RUNNER_TEMP}/mcp-setup-cases"

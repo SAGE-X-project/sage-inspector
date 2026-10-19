@@ -26,7 +26,7 @@ def intent():
     return canonical(value)
 
 
-def relay(source, target, frames, errors):
+def relay(source, target, frames, errors, before_forward=None):
     def exact(n):
         raw = bytearray()
         while len(raw) < n:
@@ -44,7 +44,10 @@ def relay(source, target, frames, errors):
             header = first+exact(3)
             length = struct.unpack('!I',header)[0]
             if not 1 <= length <= 32768: raise ValueError('frame length')
-            raw = exact(length);frames.append(raw);target.sendall(header+raw)
+            raw = exact(length);frames.append(raw)
+            if before_forward is not None:
+                before_forward(raw, len(frames) - 1)
+            target.sendall(header+raw)
     except Exception as error: errors.append(str(error))
 
 

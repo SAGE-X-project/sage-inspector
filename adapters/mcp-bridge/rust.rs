@@ -19,6 +19,7 @@ struct BridgeHandler {
     dir: std::path::PathBuf,
     ready: bool,
     sink: Arc<Sink>,
+    deadline: Instant,
 }
 impl Handler for BridgeHandler {
     fn endpoint(&mut self) -> g::Result<CompletionEndpoint010> {
@@ -109,7 +110,29 @@ impl Handler for BridgeHandler {
                 json!({"role":role,"state":"READY","status":"completed","first_terminal":true,
                     "output_hex":hex::encode(delivery.output()),"attempts":attempts,"repeat_denied":true})
             } else {
-                while connection.serve_one(&mut BridgeSigner).is_ok() {}
+                let mut replies = 0;
+                loop {
+                    if let Err(error) = connection.serve_one(&mut BridgeSigner) {
+                        eprintln!("bridge responder ended after {replies} settled replies: {error:?}");
+                        break;
+                    }
+                    replies += 1;
+                    if replies == 1 && recovery.is_empty() {
+                        // The actual inert executor must have entered after claim,
+                        // and serve_one must have finished its post-send checks.
+                        // This marker schedules the fixture; it grants no authority.
+                        while self.sink.effects.load(Ordering::SeqCst) == 0 {
+                            if Instant::now() >= self.deadline {
+                                return Err(g::Invalid);
+                            }
+                            std::thread::sleep(Duration::from_millis(1));
+                        }
+                    }
+                    if recovery.is_empty() {
+                        bridge_write(self.dir.join("reply-settled"), format!("claimed-after-reply:{replies}\n"))
+                            .map_err(|_| g::Invalid)?;
+                    }
+                }
                 let expected_effects = if recovery.is_empty() { 1 } else { 0 };
                 if self.sink.effects.load(Ordering::SeqCst) != expected_effects {
                     return Err(g::Invalid);
@@ -228,13 +251,14 @@ fn inspector_mcp_bridge() {
         dir: dir.clone(),
         ready: false,
         sink,
+        deadline: Instant::now() + Duration::from_secs(10),
     };
     let result = host.connection(
         tcp,
         &config(initiator, Duration::from_secs(10)),
         &mut handler,
     );
-    assert!(handler.ready, "setup did not reach READY: {result:?}");
+    assert!(handler.ready, "bridge handler did not complete: {result:?}");
     let protected = std::env::var("SAGE_BRIDGE_PROTECTED").as_deref() == Ok("1");
     assert!(protected || dir.join("release").exists());
     assert!(host.stop(Duration::from_secs(3)).unwrap());

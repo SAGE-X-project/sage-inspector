@@ -1,0 +1,100 @@
+name: Paired core key authority inspection
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  key-authority:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      GOTOOLCHAIN: local
+      GOWORK: 'off'
+      PYTHONDONTWRITEBYTECODE: '1'
+      CARGO_TERM_COLOR: never
+      CARGO_INCREMENTAL: '0'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          path: sage-inspector
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: SAGE-X-project/sage-spec
+          ref: 06b50e177ccd22bce7d70fd80c2d7f822ae3fd3b
+          path: sage-spec
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: SAGE-X-project/rs-sage-core
+          ref: dcd7fe47ebe73bcf2c0a3a84208ca1eeab209990
+          path: rs-sage-core
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
+        with:
+          go-version: '1.26.8'
+          cache: false
+      - uses: dtolnay/rust-toolchain@683b588c487a69d01f6c6ddf40f036ff682cc2c8
+        with:
+          toolchain: '1.88.0'
+      - name: Acquire pinned public module and locked Rust dependencies
+        working-directory: sage-inspector
+        run: |
+          mkdir "$RUNNER_TEMP/core-key-authority" "$RUNNER_TEMP/core-acquisition"
+          git rev-parse HEAD > "$RUNNER_TEMP/core-key-authority/core-key-authority-revision.txt"
+          git rev-parse 'HEAD^{tree}' > "$RUNNER_TEMP/core-key-authority/core-key-authority-tree.txt"
+          python3 -m venv "$RUNNER_TEMP/core-key-authority-venv"
+          "$RUNNER_TEMP/core-key-authority-venv/bin/pip" install 'cryptography==50.0.0'
+          cp verification/0.10.0/core-key-authority/Cargo.lock ../rs-sage-core/Cargo.lock
+          cargo fetch --locked --manifest-path ../rs-sage-core/Cargo.toml
+          python3 -B scripts/a2a_did_catalog.py --spec-root ../sage-spec --output "$RUNNER_TEMP/core-key-authority/core-key-authority-inventory.json"
+          cd "$RUNNER_TEMP/core-acquisition"
+          go mod download -json github.com/sage-x-project/sage@v1.5.3-0.20261018232551-ddcfea8c001b > "$RUNNER_TEMP/core-key-authority/core-key-authority-public-download.json"
+          core_module_dir="$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["Dir"])' "$RUNNER_TEMP/core-key-authority/core-key-authority-public-download.json")"
+          mkdir "$RUNNER_TEMP/core-graph-acquisition"
+          cp "$core_module_dir/go.mod" "$core_module_dir/go.sum" "$RUNNER_TEMP/core-graph-acquisition/"
+          cp "$core_module_dir/go.mod" "$RUNNER_TEMP/core-key-authority/core-key-authority-acquisition.mod"
+          cp "$core_module_dir/go.sum" "$RUNNER_TEMP/core-key-authority/core-key-authority-acquisition.sum"
+          cd "$RUNNER_TEMP/core-graph-acquisition"
+          chmod u+w go.mod go.sum
+          go mod download all
+          go list -mod=readonly -m -json all > "$RUNNER_TEMP/core-key-authority/core-key-authority-public-module-graph.json"
+          go mod verify > "$RUNNER_TEMP/core-key-authority/core-key-authority-public-cache.txt"
+          cp go.mod "$RUNNER_TEMP/core-key-authority/core-key-authority-acquisition-final.mod"
+          cp go.sum "$RUNNER_TEMP/core-key-authority/core-key-authority-acquisition-final.sum"
+      - name: Execute paired native units then separate synthetic checker controls
+        working-directory: sage-inspector
+        run: |
+          "$RUNNER_TEMP/core-key-authority-venv/bin/python" -B - <<'PY'
+          import ast, json, os, runpy, sys, trace
+          from pathlib import Path
+          sys.path.insert(0, 'scripts')
+          directory = Path(os.environ['RUNNER_TEMP'])/'core-key-authority'
+          sys.argv = ['scripts/check_core_key_authority_evidence.py', '--run', '--directory', str(directory), '--rust-root', str(Path('../rs-sage-core').resolve())]
+          tracer = trace.Trace(count=True, trace=False)
+          tracer.runfunc(runpy.run_path, sys.argv[0], run_name='__main__')
+          result = {}
+          for name in ['core_key_authority_observation.py','core_key_authority_execution.py','check_core_key_authority_evidence.py']:
+              path = (Path('scripts')/name).resolve()
+              statements = {n.lineno for n in ast.walk(ast.parse(path.read_text())) if isinstance(n, ast.stmt)}
+              hits = {line for (file,line),count in tracer.results().counts.items() if count and Path(file).resolve() == path}
+              result[name] = {'covered':len(statements & hits),'statements':len(statements),'unexecuted':sorted(statements-hits),'scope':'actual remote native units plus separately reported synthetic checker units'}
+          (directory/'core-key-authority-python-coverage.json').write_text(json.dumps(result,indent=2)+'\n')
+          print(result)
+          assert all(v['covered']*100 >= v['statements']*90 for v in result.values())
+          PY
+      - name: Recheck saved raw observations without compiling
+        working-directory: sage-inspector
+        run: |
+          "$RUNNER_TEMP/core-key-authority-venv/bin/python" -B scripts/check_core_key_authority_evidence.py --directory "$RUNNER_TEMP/core-key-authority"
+          git diff --exit-code
+      - name: Preserve actual paired evidence and failure output
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: core-key-authority-inspection
+          if-no-files-found: error
+          retention-days: 30
+          path: ${{ runner.temp }}/core-key-authority/

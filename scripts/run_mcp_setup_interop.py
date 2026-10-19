@@ -72,6 +72,12 @@ def build(language, repo, output, work):
                 artifacts.append(Path(item['executable']))
         if len(artifacts) != 1: raise ValueError('ambiguous Rust test executable')
         binary = artifacts[0]
+        test = PREFIX + 'inspector_bridge::completed_record_requires_a_complete_journal_row'
+        log = output / 'rust-bridge-unit.log'
+        evidence['bridge_unit'] = run([str(binary), test, '--exact', '--test-threads=1',
+                                       '--color=never'], source, log, 10, env)
+        if not observed('rust', test, log.read_text(), evidence['bridge_unit']['exit_code']):
+            raise ValueError('Rust bridge completion observation test failed')
     evidence['executable_sha256'] = digest(binary)
     dependency = output / (language+'-dependencies.lock')
     dependency.write_bytes((source / ('go.sum' if language == 'go' else 'Cargo.lock')).read_bytes())
@@ -145,6 +151,26 @@ def wait_file(path, processes, end):
     raise TimeoutError('bridge rendezvous')
 
 
+def settle_pending_reply(directory, processes, end, raw, index):
+    # A captured reply can precede the responder's final publication cleanup.
+    # Do not advance the fixture clock until that exact reply has settled.
+    if index < 4:
+        return
+    response = strict_json(raw)
+    if response.get('success') is False and response.get('error') == 'unavailable':
+        expected = index - 3
+        while time.monotonic() < end:
+            marker = wait_file(directory/'reply-settled', processes, end)
+            if marker == f'completed-record-after-reply:{expected}\n':
+                return
+            if marker not in {f'completed-record-after-reply:{n}\n' for n in range(1, expected)}:
+                raise ValueError('invalid responder scheduling marker')
+            if any(process.poll() is not None for process in processes):
+                raise ValueError('responder exited before reply settlement')
+            time.sleep(.005)
+        raise TimeoutError('responder reply settlement')
+
+
 def pair(left,right,programs,output,protected=False,recovery="",previous=None):
     directory = output / (left+'-to-'+right)
     directory.mkdir()
@@ -181,7 +207,13 @@ def pair(left,right,programs,output,protected=False,recovery="",previous=None):
         client = launch(left,'client','127.0.0.1:'+str(listener.getsockname()[1]))
         local,_ = listener.accept();local.settimeout(10);sockets.append(local)
         for source,target,frames in ((local,remote,requests),(remote,local,responses)):
-            thread = threading.Thread(target=flow.relay if protected else relay,args=(source,target,frames,errors));thread.start();threads.append(thread)
+            options = {}
+            if protected and not recovery and frames is responses:
+                options['before_forward'] = lambda raw, index: settle_pending_reply(
+                    directory, [server], end, raw, index)
+            thread = threading.Thread(target=flow.relay if protected else relay,
+                                      args=(source,target,frames,errors), kwargs=options)
+            thread.start();threads.append(thread)
         for role in ('client','server'):
             # Protected peers finish independently after terminal delivery/EOF.
             # A finished sibling must not invalidate this peer's pending observation.

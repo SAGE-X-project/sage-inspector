@@ -162,6 +162,7 @@ func TestInspectorMCPBridge(t *testing.T) {
 					return e
 				}
 			} else {
+				replies := 0
 				for {
 					wire, e := stream.Receive(ctx)
 					if e != nil {
@@ -173,6 +174,24 @@ func TestInspectorMCPBridge(t *testing.T) {
 					}
 					if e = s.replyProtected(ctx, stream); e != nil {
 						return e
+					}
+					replies++
+					if replies == 1 && recovery == "" {
+						// Schedule the fixture only after post-send checks and actual
+						// executor entry and the real completed journal record.
+						// This observation is not an authorization.
+						for fixture.executor.effects.Load() == 0 || fixture.state(t) != "COMPLETED" {
+							select {
+							case <-ctx.Done():
+								return ctx.Err()
+							case <-time.After(time.Millisecond):
+							}
+						}
+					}
+					if recovery == "" {
+						if e := bridgeWrite(filepath.Join(dir, "reply-settled"), []byte("completed-record-after-reply:"+strconv.Itoa(replies)+"\n")); e != nil {
+							return e
+						}
 					}
 				}
 				expectedEffects := int64(1)

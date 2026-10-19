@@ -1,0 +1,29 @@
+{
+  "schema": "sage-owned-http-subject-v1",
+  "spec_revision": "06b50e177ccd22bce7d70fd80c2d7f822ae3fd3b",
+  "repository": "SAGE-X-project/sage-adk",
+  "revision": "9a59c798dfbca93a05898d894feedbdc5ad9eac9",
+  "core_revision": "26baeb0b67ed0081515d53888af16742c1079884",
+  "modules": {
+    "github.com/sage-x-project/did-go": {
+      "Version": "v0.0.0-20261018080828-3b7a79c1c326",
+      "Sum": "h1:Am4pVUAnGnhje6WZgO19ltbRV1NDCfvmEzQAuwHInM8=",
+      "GoModSum": "h1:Xi8PmTFqnTT9F008Q4MvrZc6KFrtcrXBP/e1dH8mFaQ="
+    },
+    "github.com/sage-x-project/did-go/advanced/sage": {
+      "Version": "v0.0.0-20261018120945-5fac371e54db",
+      "Sum": "h1:E4eJP14M8NrrlO/jafCfGTeWq8jexrs/+dSY6HJOdlI=",
+      "GoModSum": "h1:gkcVUjeYqhRIRSD8YRErTbHy8lQ85ghzay/cs3hA7d8="
+    },
+    "github.com/sage-x-project/sage": {
+      "Version": "v1.5.3-0.20261018185120-26baeb0b67ed",
+      "Sum": "h1:rhpclsqCjPecuHkUM3KYLTeg4fds6Aub9LGw3oWxjMw=",
+      "GoModSum": "h1:gVxxsTLKs1SVc/BFU9iAKhUvMidQ6qZr44y3JF3fLCU="
+    },
+    "github.com/sage-x-project/sage-adk": {
+      "Version": "v0.0.0-20261018194713-9a59c798dfbc",
+      "Sum": "h1:gRtDvfURWgrltkMwnk1V/w78T757QkThPbS1Y4wiV7Q=",
+      "GoModSum": "h1:ftVKrS0CMMx1b3+XR15v+gVZX9KXCLTMZAPP1gE8MGs="
+    }
+  }
+}

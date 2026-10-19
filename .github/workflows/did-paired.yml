@@ -1,0 +1,87 @@
+name: Paired DID operation inspection
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  paired-observation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      GOTOOLCHAIN: local
+      GOWORK: 'off'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          path: sage-inspector
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: SAGE-X-project/sage-spec
+          ref: 06b50e177ccd22bce7d70fd80c2d7f822ae3fd3b
+          path: sage-spec
+      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
+        with:
+          go-version: '1.26.8'
+          cache-dependency-path: sage-inspector/adapters/did-paired-views/go.sum
+      - name: Verify adopted inventory and public modules
+        working-directory: sage-inspector
+        run: |
+          mkdir "$RUNNER_TEMP/paired-did"
+          python3 -B scripts/a2a_did_catalog.py --spec-root ../sage-spec --output "$RUNNER_TEMP/paired-did/inventory.json"
+          cd adapters/did-paired-views
+          go mod download
+          go mod verify > "$RUNNER_TEMP/paired-did/modules-verified.txt"
+          go list -mod=readonly -m -json all > "$RUNNER_TEMP/paired-did/modules.json"
+          go env GOWORK GOTOOLCHAIN > "$RUNNER_TEMP/paired-did/environment.txt"
+          go version > "$RUNNER_TEMP/paired-did/compiler.txt"
+          git diff --exit-code -- go.mod go.sum
+      - name: Inspect fresh native pairs before authored units
+        working-directory: sage-inspector
+        run: |
+          python3 -B - <<'PYTHON'
+          import ast, json, os, runpy, sys, trace, unittest
+          from pathlib import Path
+          sys.path.insert(0, 'scripts')
+          path = Path('scripts/did_paired_observation.py').resolve()
+          evidence = Path(os.environ['RUNNER_TEMP'], 'paired-did')
+          tracer = trace.Trace(count=True, trace=False, ignoredirs=[sys.base_prefix])
+          def run():
+              sys.argv = [str(path), '--native', '--output', str(evidence / 'native.json')]
+              runpy.run_path(str(path), run_name='__main__')
+              suite = unittest.defaultTestLoader.loadTestsFromName('test_did_paired_observation')
+              result = unittest.TextTestRunner().run(suite)
+              assert result.wasSuccessful() and result.testsRun == 8 and not result.skipped
+          tracer.runfunc(run)
+          statements = {n.lineno for n in ast.walk(ast.parse(path.read_text())) if isinstance(n, ast.stmt)}
+          hits = {line for (file, line), count in tracer.results().counts.items() if Path(file).resolve() == path and count}
+          report = {'covered': len(statements & hits), 'statements': len(statements), 'unit_tests': 8, 'native_processes': 8}
+          (evidence / 'python-coverage.json').write_text(json.dumps(report, indent=2) + '\n')
+          assert statements and report['covered'] * 100 >= report['statements'] * 90, report
+          PYTHON
+      - name: Verify Go observation and refusal controls
+        working-directory: sage-inspector/adapters/did-paired-views
+        run: |
+          go vet -mod=readonly ./...
+          go test -mod=readonly -count=1 -race -json -coverprofile="$RUNNER_TEMP/paired-did/go-cover.out" ./... > "$RUNNER_TEMP/paired-did/go-tests.jsonl"
+          go tool cover -func="$RUNNER_TEMP/paired-did/go-cover.out" > "$RUNNER_TEMP/paired-did/go-coverage.txt"
+          awk '/^total:/ {sub(/%$/, "", $3); found=1; if ($3+0 < 90) exit 1} END {if (!found) exit 1}' "$RUNNER_TEMP/paired-did/go-coverage.txt"
+          go mod verify > "$RUNNER_TEMP/paired-did/modules-verified-after.txt"
+          git diff --exit-code -- go.mod go.sum
+      - name: Record inspection source identity
+        working-directory: sage-inspector
+        run: |
+          git rev-parse HEAD > "$RUNNER_TEMP/paired-did/revision.txt"
+          git rev-parse 'HEAD^{tree}' > "$RUNNER_TEMP/paired-did/tree.txt"
+          sha256sum adapters/did-paired-views/main.go adapters/did-paired-views/main_test.go adapters/did-paired-views/go.mod adapters/did-paired-views/go.sum scripts/did_paired_observation.py scripts/test_did_paired_observation.py vectors/0.10.0/did-paired-observations.json verification/0.10.0/a2a-did/did-paired-subject.json docs/did-paired-observations.md .github/workflows/did-paired.yml > "$RUNNER_TEMP/paired-did/source.sha256"
+      - name: Preserve the paired subject evidence
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: paired-did-inspection
+          if-no-files-found: error
+          path: ${{ runner.temp }}/paired-did/

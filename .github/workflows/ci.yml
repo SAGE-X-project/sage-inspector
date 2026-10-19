@@ -85,7 +85,7 @@ jobs:
           python3 scripts/inspect_guard_binding.py --output "${RUNNER_TEMP}/guard-binding-readiness" || status=$?
           test "$status" -eq 3
       - name: Preserve Guard binding readiness
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: guard-binding-readiness-${{ github.sha }}
           if-no-files-found: error
@@ -98,7 +98,7 @@ jobs:
           python3 scripts/run_verification_tests.py --scenario "${RUNNER_TEMP}/sage-scenario-tests" --primitive "${RUNNER_TEMP}/sage-conformance-tests" --output "${RUNNER_TEMP}/inspector-tests"
       - name: Preserve Inspector test results
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: inspector-tests-${{ github.sha }}
           if-no-files-found: error
@@ -182,7 +182,7 @@ jobs:
           python3 -B scripts/inspect_adk_source_inventory.py --snapshot admitted-hop --adk-root .sage-adk-admitted-hop --parser "${RUNNER_TEMP}/adk-source-inventory" --check docs/evidence/adk-admitted-hop.json --output "${RUNNER_TEMP}/adk-admitted-hop.json"
           python3 -B scripts/inspect_adk_source_inventory.py --snapshot approved-hop --adk-root .sage-adk-approved-hop --go-root .sage-go-approved-hop --parser "${RUNNER_TEMP}/adk-source-inventory" --check docs/evidence/adk-approved-hop.json --output "${RUNNER_TEMP}/adk-approved-hop.json"
       - name: Preserve source query report
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: adk-source-inventory-${{ github.sha }}
           if-no-files-found: error
@@ -242,7 +242,7 @@ jobs:
             --check docs/evidence/registry-mapping-review.json \
             --output "${RUNNER_TEMP}/registry-mapping-review.json"
       - name: Preserve source preflight and mapping review reports
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: registry-contract-preflight-${{ github.sha }}
           if-no-files-found: error
@@ -314,7 +314,7 @@ jobs:
           python3 -B scripts/generate_did_prefix_suite.py --spec-root ../sage-spec
       - name: Preserve the latest inventory
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: latest-spec-inventory-${{ github.sha }}
           if-no-files-found: ignore
@@ -345,7 +345,7 @@ jobs:
           python3 -B scripts/reconciled_spec_reg08_media.py --spec-root ../sage-spec --report "${RUNNER_TEMP}/reconciled-reg08-media.json"
       - name: Preserve revision-bound reports
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: reconciled-spec-inventory-${{ github.sha }}
           if-no-files-found: ignore
@@ -394,7 +394,7 @@ jobs:
             --report "${RUNNER_TEMP}/reconciled-reg08-core-media.json"
       - name: Preserve bounded core observations
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: reconciled-reg08-core-media-${{ github.sha }}
           if-no-files-found: warn
@@ -441,7 +441,7 @@ jobs:
             --report "${RUNNER_TEMP}/reconciled-reg08-core-envelope.json"
       - name: Preserve bounded core envelope observations
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: reconciled-reg08-core-envelope-${{ github.sha }}
           if-no-files-found: warn
@@ -488,7 +488,7 @@ jobs:
             --report "${RUNNER_TEMP}/reconciled-reg08-core-record-shape.json"
       - name: Preserve bounded core record observations
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: reconciled-reg08-core-record-shape-${{ github.sha }}
           if-no-files-found: warn
@@ -535,7 +535,7 @@ jobs:
             --report "${RUNNER_TEMP}/reconciled-reg08-core-proofs.json"
       - name: Preserve bounded core proof observations
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: reconciled-reg08-core-proofs-${{ github.sha }}
           if-no-files-found: warn
@@ -582,7 +582,7 @@ jobs:
             --report "${RUNNER_TEMP}/reconciled-reg08-core-origin-policy.json"
       - name: Preserve bounded core origin policy observations
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: reconciled-reg08-core-origin-policy-${{ github.sha }}
           if-no-files-found: warn
@@ -629,7 +629,7 @@ jobs:
             --report "${RUNNER_TEMP}/reconciled-reg08-core-tls-origin.json"
       - name: Preserve bounded TLS origin observations
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: reconciled-reg08-core-tls-origin-${{ github.sha }}
           if-no-files-found: warn
@@ -676,7 +676,7 @@ jobs:
             --report "${RUNNER_TEMP}/reconciled-reg08-core-http-record.json"
       - name: Preserve bounded HTTP record observations
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: reconciled-reg08-core-http-record-${{ github.sha }}
           if-no-files-found: warn
@@ -723,7 +723,7 @@ jobs:
             --report "${RUNNER_TEMP}/reconciled-reg08-core-transition-shape.json"
       - name: Preserve bounded Registry transition observations
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: reconciled-reg08-core-transition-shape-${{ github.sha }}
           if-no-files-found: warn
@@ -770,7 +770,7 @@ jobs:
             --report "${RUNNER_TEMP}/reconciled-reg08-core-history-continuity.json"
       - name: Preserve bounded Registry history observations
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: reconciled-reg08-core-history-continuity-${{ github.sha }}
           if-no-files-found: warn
@@ -817,7 +817,7 @@ jobs:
             --report "${RUNNER_TEMP}/reconciled-reg08-core-write-admission.json"
       - name: Preserve bounded Registry write observations
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: reconciled-reg08-core-write-admission-${{ github.sha }}
           if-no-files-found: warn
@@ -864,7 +864,7 @@ jobs:
             --report "${RUNNER_TEMP}/reconciled-reg08-core-expired-key-recovery.json"
       - name: Preserve bounded Registry expired key recovery observations
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: reconciled-reg08-core-expired-key-recovery-${{ github.sha }}
           if-no-files-found: warn
@@ -911,7 +911,7 @@ jobs:
             --report "${RUNNER_TEMP}/reconciled-reg08-core-transaction-boundary.json"
       - name: Preserve bounded Registry transaction observations
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: reconciled-reg08-core-transaction-boundary-${{ github.sha }}
           if-no-files-found: warn
@@ -958,7 +958,7 @@ jobs:
             --report "${RUNNER_TEMP}/reconciled-reg08-core-durable-write.json"
       - name: Preserve local Registry journal observation
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: reconciled-reg08-core-durable-write-${{ github.sha }}
           if-no-files-found: warn
@@ -1005,7 +1005,7 @@ jobs:
             --report "${RUNNER_TEMP}/reconciled-reg08-core-admin-mtls.json"
       - name: Preserve authenticated Registry administrator observation
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: reconciled-reg08-core-admin-mtls-${{ github.sha }}
           if-no-files-found: warn
@@ -1052,7 +1052,7 @@ jobs:
             --report "${RUNNER_TEMP}/reconciled-reg08-core-public-binding.json"
       - name: Preserve public Registry binding observation
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: reconciled-reg08-core-public-binding-${{ github.sha }}
           if-no-files-found: warn
@@ -1099,7 +1099,7 @@ jobs:
             --report "${RUNNER_TEMP}/reconciled-reg08-core-public-journal.json"
       - name: Preserve public Registry journal publication observation
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: reconciled-reg08-core-public-journal-${{ github.sha }}
           if-no-files-found: warn
@@ -1152,7 +1152,7 @@ jobs:
             --report "${RUNNER_TEMP}/reconciled-reg08-service-storage.json"
       - name: Preserve Registry service storage observation
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: reconciled-reg08-service-storage-${{ github.sha }}
           if-no-files-found: warn
@@ -1196,7 +1196,7 @@ jobs:
             --output "${RUNNER_TEMP}/registry-operator-service.json"
       - name: Preserve operator transaction observation
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: registry-operator-service-${{ github.sha }}
           if-no-files-found: warn
@@ -1229,7 +1229,7 @@ jobs:
             --output "${RUNNER_TEMP}/msg01-go-tag.json"
       - name: Preserve HTTP signature observation
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: msg01-go-tag-${{ github.sha }}
           if-no-files-found: warn
@@ -1263,7 +1263,7 @@ jobs:
             --output "${RUNNER_TEMP}/http-registry-expiry010"
       - name: Preserve protected request observation
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: http-registry-expiry010-${{ github.sha }}
           if-no-files-found: warn
@@ -1340,7 +1340,7 @@ jobs:
           done
       - name: Preserve live Registry message observation
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: live-web-message010-${{ github.sha }}
           if-no-files-found: warn
@@ -1523,7 +1523,7 @@ jobs:
           python3 -B scripts/current_spec_evidence.py --output "${RUNNER_TEMP}/current-spec-evidence.json"
       - name: Preserve the incomplete inventory
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: current-spec-inventory-${{ github.sha }}
           if-no-files-found: ignore
@@ -1591,7 +1591,7 @@ jobs:
           PYMETA
       - name: Preserve evidence and reproduction inputs
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: evidence-${{ github.sha }}
           if-no-files-found: error
@@ -1637,7 +1637,7 @@ jobs:
           python3 scripts/inspect_guard_integration.py --go-root ../sage --rust-root ../rs-sage-core --output "${RUNNER_TEMP}/guard-integration-readiness" || status=$?
           test "$status" -eq 3
       - name: Preserve Guard integration review
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: guard-integration-readiness-${{ github.sha }}
           path: ${{ runner.temp }}/guard-integration-readiness/
@@ -1650,7 +1650,7 @@ jobs:
           python3 scripts/inspect_mcp_setup.py --go-root ../sage --rust-root ../rs-sage-core --output "${RUNNER_TEMP}/mcp-setup-review" || setup_review_result=$?
           test "$setup_review_result" -eq 3
       - name: Preserve MCP setup review
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: mcp-setup-review-${{ github.sha }}
           path: ${{ runner.temp }}/mcp-setup-review/
@@ -1679,7 +1679,7 @@ jobs:
           python3 scripts/test_guard_primitive_adapters.py --go "${RUNNER_TEMP}/sage-go-record010" --rust "${RUNNER_TEMP}/record010-rust/debug/sage-inspector-rust-adapter" --runner "${RUNNER_TEMP}/sage-conformance-record010" --output "${RUNNER_TEMP}/guard-primitive-results"
       - name: Preserve Guard primitive results
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: guard-primitive-bindings-${{ github.sha }}
           if-no-files-found: error
@@ -1692,7 +1692,7 @@ jobs:
           python3 -B scripts/check_guard_signature_boundaries.py --go "${RUNNER_TEMP}/sage-go-record010" --rust "${RUNNER_TEMP}/record010-rust/debug/sage-inspector-rust-adapter" --go-root ../sage --rust-root ../rs-sage-core --output "${RUNNER_TEMP}/guard-signature-boundaries"
       - name: Preserve Guard signature boundary evidence
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: guard-signature-boundaries-${{ github.sha }}
           path: ${{ runner.temp }}/guard-signature-boundaries/
@@ -1707,7 +1707,7 @@ jobs:
           python3 -B scripts/verify_guard_signature_evidence.py --evidence "${RUNNER_TEMP}/guard-canonical-signatures" --revision "$(git rev-parse HEAD)" --go "${RUNNER_TEMP}/sage-go-record010" --rust "${RUNNER_TEMP}/record010-rust/debug/sage-inspector-rust-adapter" --audit "${RUNNER_TEMP}/audit-guard-secp"
       - name: Preserve canonical Guard signature evidence
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: guard-canonical-signatures-${{ github.sha }}
           path: ${{ runner.temp }}/guard-canonical-signatures/
@@ -1723,7 +1723,7 @@ jobs:
           python3 scripts/test_guard_reservations010.py --go "${RUNNER_TEMP}/sage-guard-ledger010" --rust "${RUNNER_TEMP}/record010-rust/debug/guard_ledger010" --output "${RUNNER_TEMP}/guard-reservation-results"
       - name: Preserve Guard reservation results
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: guard-reservation-bindings-${{ github.sha }}
           if-no-files-found: error
@@ -1739,7 +1739,7 @@ jobs:
           python3 scripts/test_guard_dispatch010.py --go "${RUNNER_TEMP}/sage-guard-dispatch010" --rust "${RUNNER_TEMP}/record010-rust/debug/guard_dispatch010" --output "${RUNNER_TEMP}/guard-dispatch-results"
       - name: Preserve Guard dispatch results
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: guard-dispatch-bindings-${{ github.sha }}
           if-no-files-found: error
@@ -1755,7 +1755,7 @@ jobs:
           python3 scripts/test_guard_results010.py --go "${RUNNER_TEMP}/sage-guard-results010" --rust "${RUNNER_TEMP}/record010-rust/debug/guard_results010" --output "${RUNNER_TEMP}/guard-result-results"
       - name: Preserve Guard result publication evidence
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: guard-result-bindings-${{ github.sha }}
           if-no-files-found: error
@@ -1774,7 +1774,7 @@ jobs:
           python3 scripts/test_guard_client010.py --go "${RUNNER_TEMP}/sage-guard-client010" --rust "${RUNNER_TEMP}/record010-rust/debug/guard_client010" --go-server "${RUNNER_TEMP}/sage-guard-results010" --rust-server "${RUNNER_TEMP}/record010-rust/debug/guard_results010" --output "${RUNNER_TEMP}/guard-client-results"
       - name: Preserve Guard client evidence
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: guard-client-bindings-${{ github.sha }}
           if-no-files-found: error
@@ -1868,7 +1868,7 @@ jobs:
           python3 scripts/test_execution_ledger010.py --go "${RUNNER_TEMP}/sage-execution010" --rust "${RUNNER_TEMP}/record010-rust/debug/execution010" --output "${RUNNER_TEMP}/record010-results/execution-ledger010"
       - name: Preserve record binding test results
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
         with:
           name: record010-bindings-${{ github.sha }}
           if-no-files-found: error
@@ -1883,7 +1883,7 @@ jobs:
           python3 scripts/test_guard_mcp010.py --go "${RUNNER_TEMP}/sage-go-record010" --rust "${RUNNER_TEMP}/record010-rust/debug/sage-inspector-rust-adapter" --go-client "${RUNNER_TEMP}/sage-guard-client010" --rust-client "${RUNNER_TEMP}/record010-rust/debug/guard_client010" --output "${RUNNER_TEMP}/guard-mcp-results"
       - name: Preserve MCP result verification
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: guard-mcp-bindings-${{ github.sha }}
           if-no-files-found: error
@@ -1899,7 +1899,7 @@ jobs:
           python3 scripts/test_guard_rpc010.py --go "${RUNNER_TEMP}/sage-guard-results010" --rust "${RUNNER_TEMP}/record010-rust/debug/guard_results010" --go-client "${RUNNER_TEMP}/sage-guard-client010" --rust-client "${RUNNER_TEMP}/record010-rust/debug/guard_client010" --output "${RUNNER_TEMP}/guard-rpc-results"
       - name: Preserve MCP RPC verification
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: guard-rpc-bindings-${{ github.sha }}
           if-no-files-found: error
@@ -1914,7 +1914,7 @@ jobs:
           python3 scripts/test_guard_registry010.py --go "${RUNNER_TEMP}/sage-guard-registry010" --rust "${RUNNER_TEMP}/record010-rust/debug/guard_registry010" --output "${RUNNER_TEMP}/guard-registry-results"
       - name: Preserve Guard registry authority verification
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: guard-registry-bindings-${{ github.sha }}
           if-no-files-found: error
@@ -1927,7 +1927,7 @@ jobs:
         run: python3 scripts/test_mcp_session010.py --go "${RUNNER_TEMP}/sage-completion010" --rust "${RUNNER_TEMP}/record010-rust/debug/completion010" --output "${RUNNER_TEMP}/mcp-session-results"
       - name: Preserve MCP session binding verification
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: mcp-session-bindings-${{ github.sha }}
           if-no-files-found: error
@@ -1948,7 +1948,7 @@ jobs:
           --output "${RUNNER_TEMP}/guard-session-results"
       - name: Preserve protected Guard flow verification
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: guard-session-flow-${{ github.sha }}
           if-no-files-found: error
@@ -1967,7 +1967,7 @@ jobs:
           python3 scripts/check_mcp_setup_model.py --output "${RUNNER_TEMP}/mcp-setup-model"
       - name: Preserve abstract model evidence
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: mcp-setup-model-${{ github.sha }}
           path: ${{ runner.temp }}/mcp-setup-model/
@@ -1985,7 +1985,7 @@ jobs:
           python3 -B scripts/test_mcp_catalog.py
           python3 -B scripts/check_mcp_catalog.py --output "${RUNNER_TEMP}/mcp-proposal-catalog"
       - name: Preserve proposal catalog evidence
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: mcp-proposal-catalog-${{ github.sha }}
           path: ${{ runner.temp }}/mcp-proposal-catalog/
@@ -2003,7 +2003,7 @@ jobs:
           python3 -B scripts/test_mcp_adoption_review.py
           python3 -B scripts/check_mcp_adoption_review.py --output "${RUNNER_TEMP}/mcp-adoption-review"
       - name: Preserve adoption-readiness review
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: mcp-adoption-review-${{ github.sha }}
           path: ${{ runner.temp }}/mcp-adoption-review/
@@ -2022,7 +2022,7 @@ jobs:
           python3 -B scripts/check_mcp_owner_model.py --output "${RUNNER_TEMP}/mcp-owner-model"
       - name: Preserve owner model evidence
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: mcp-owner-model-${{ github.sha }}
           path: ${{ runner.temp }}/mcp-owner-model/
@@ -2072,7 +2072,37 @@ jobs:
       - name: Run actual native setup bridges
         run: python3 -B scripts/run_mcp_setup_interop.py --go .mcp-go --rust .mcp-rust --output "${RUNNER_TEMP}/mcp-native-setup"
       - name: Run protected calls and reopen completed journals
-        run: python3 -B scripts/run_mcp_setup_interop.py --restart --go .mcp-go --rust .mcp-rust --output "${RUNNER_TEMP}/mcp-native-protected"
+        run: |
+          python3 -B - <<'PYTHON'
+          import hashlib
+          import json
+          import os
+          from pathlib import Path
+          import runpy
+          import sys
+          import trace
+
+          output = Path(os.environ['RUNNER_TEMP']) / 'mcp-native-protected'
+          sys.path.insert(0, str(Path('scripts').resolve()))
+          sys.argv = ['scripts/run_mcp_setup_interop.py', '--restart', '--go', '.mcp-go',
+                      '--rust', '.mcp-rust', '--output', str(output)]
+          observer = trace.Trace(count=True, trace=False, ignoredirs=[sys.prefix, sys.base_prefix])
+          try:
+              observer.runctx("runpy.run_path(sys.argv[0], run_name='__main__')", globals())
+          finally:
+              # runctx traces relay threads too; retain the runner's exit status.
+              counts = observer.results().counts
+              files = {}
+              for name in ('run_mcp_setup_interop.py', 'mcp_protected_support.py'):
+                  path = Path('scripts', name).resolve()
+                  files[name] = {
+                      'sha256': hashlib.sha256(path.read_bytes()).hexdigest(),
+                      'lines': {str(line): count for (filename, line), count in counts.items()
+                                if Path(filename).resolve() == path},
+                  }
+              output.mkdir(parents=True, exist_ok=True)
+              (output / 'driver-coverage.json').write_text(json.dumps(files, indent=2) + '\n')
+          PYTHON
       - name: Verify all authenticated MCP setup cases
         run: |
           python3 -B scripts/check_mcp_setup_cases.py --runtime "${RUNNER_TEMP}/mcp-core-runtime" --interop "${RUNNER_TEMP}/mcp-native-protected" --output "${RUNNER_TEMP}/mcp-setup-cases"
@@ -2082,7 +2112,7 @@ jobs:
         run: python3 -B scripts/audit_mcp_evidence.py --evidence "${RUNNER_TEMP}/mcp-native-protected" > "${RUNNER_TEMP}/mcp-native-audit.json"
       - name: Preserve native interoperability evidence
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: mcp-native-interop-${{ github.sha }}
           if-no-files-found: error
@@ -2142,7 +2172,7 @@ jobs:
           python3 -B scripts/test_registry_proof010.py --spec-root ../sage-spec --go-root ../sage --rust-root ../rs-sage-core --go "${RUNNER_TEMP}/registry-proof-go" --rust "${RUNNER_TEMP}/registry-proof-rust/debug/registry_proof010" --output "${RUNNER_TEMP}/registry-proof010"
       - name: Preserve registry proof byte evidence
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: registry-proof010-${{ github.sha }}
           if-no-files-found: warn
@@ -2210,7 +2240,7 @@ jobs:
             --rust-revision 1577ed80fef601284a999a3bfc460b57239a6d74
       - name: Preserve strict DID syntax evidence
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: strict-did010-${{ github.sha }}
           if-no-files-found: warn
@@ -2279,7 +2309,7 @@ jobs:
             --report "${RUNNER_TEMP}/strict-registry-identity010/key-selection-report.json"
       - name: Preserve Registry Gate identity evidence
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: strict-registry-identity010-${{ github.sha }}
           if-no-files-found: warn
@@ -2306,7 +2336,7 @@ jobs:
             --output "${RUNNER_TEMP}/strict-registry-identity010/signed-peer-binding"
       - name: Preserve signed peer-binding evidence
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: signed-peer-binding010-${{ github.sha }}
           if-no-files-found: warn
@@ -2325,7 +2355,7 @@ jobs:
             --output "${RUNNER_TEMP}/strict-registry-identity010/http-handshake-identity"
       - name: Preserve HTTP handshake identity evidence
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: http-handshake-identity010-${{ github.sha }}
           if-no-files-found: warn
@@ -2344,7 +2374,7 @@ jobs:
             --output "${RUNNER_TEMP}/strict-registry-identity010/mcp-session-identity"
       - name: Preserve MCP session identity evidence
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: mcp-session-identity010-${{ github.sha }}
           if-no-files-found: warn
@@ -2370,7 +2400,7 @@ jobs:
             --output "${RUNNER_TEMP}/strict-registry-identity010/guard-session-policy"
       - name: Preserve Guard policy evidence
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: guard-session-policy010-${{ github.sha }}
           if-no-files-found: warn

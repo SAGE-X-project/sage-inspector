@@ -15,7 +15,7 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+      - uses: actions/setup-go@d8cbb8045d7f43706b9177cceb36c1f91a6644d5 # v7.1.0
         with:
           go-version-file: go.mod
           cache: true
@@ -157,7 +157,7 @@ jobs:
           repository: SAGE-X-project/sage
           ref: f1a840bbc9c717564bd035e19c73f437a61e4a00
           path: .sage-go-approved-hop
-      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+      - uses: actions/setup-go@d8cbb8045d7f43706b9177cceb36c1f91a6644d5 # v7.1.0
         with:
           go-version-file: go.mod
           cache: true
@@ -262,7 +262,7 @@ jobs:
           repository: SAGE-X-project/sage-spec
           ref: f4a4e7fbf71a665785984eef7609b2e8fabe833d
           path: .sage-spec
-      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+      - uses: actions/setup-go@d8cbb8045d7f43706b9177cceb36c1f91a6644d5 # v7.1.0
         with:
           go-version-file: go.mod
           cache: true
@@ -377,7 +377,7 @@ jobs:
           repository: SAGE-X-project/rs-sage-core
           ref: 79fe9bbcd7a417a523d77a267c8420cf4f506746
           path: rs-sage-core
-      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+      - uses: actions/setup-go@d8cbb8045d7f43706b9177cceb36c1f91a6644d5 # v7.1.0
         with:
           go-version-file: sage/go.mod
           cache-dependency-path: sage/go.sum
@@ -424,7 +424,7 @@ jobs:
           repository: SAGE-X-project/rs-sage-core
           ref: 7658959e34f69ad100d085a0a04702dab8d8c2e4
           path: rs-sage-core
-      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+      - uses: actions/setup-go@d8cbb8045d7f43706b9177cceb36c1f91a6644d5 # v7.1.0
         with:
           go-version-file: sage/go.mod
           cache-dependency-path: sage/go.sum
@@ -471,7 +471,7 @@ jobs:
           repository: SAGE-X-project/rs-sage-core
           ref: d13b4dff709a90428da4272ce45c1b1df48914b3
           path: rs-sage-core
-      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+      - uses: actions/setup-go@d8cbb8045d7f43706b9177cceb36c1f91a6644d5 # v7.1.0
         with:
           go-version-file: sage/go.mod
           cache-dependency-path: sage/go.sum
@@ -518,7 +518,7 @@ jobs:
           repository: SAGE-X-project/rs-sage-core
           ref: 061c2e489e3f388bcee113382167285e17b72064
           path: rs-sage-core
-      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+      - uses: actions/setup-go@d8cbb8045d7f43706b9177cceb36c1f91a6644d5 # v7.1.0
         with:
           go-version-file: sage/go.mod
           cache-dependency-path: sage/go.sum
@@ -565,7 +565,7 @@ jobs:
           repository: SAGE-X-project/rs-sage-core
           ref: 833c9dc2c2eb9ef0892ba47a93aa9c2e2f761eda
           path: rs-sage-core
-      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+      - uses: actions/setup-go@d8cbb8045d7f43706b9177cceb36c1f91a6644d5 # v7.1.0
         with:
           go-version-file: sage/go.mod
           cache-dependency-path: sage/go.sum
@@ -612,7 +612,7 @@ jobs:
           repository: SAGE-X-project/rs-sage-core
           ref: b4cb29884b315c80f6cf83dae5aaff8e642e818d
           path: rs-sage-core
-      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+      - uses: actions/setup-go@d8cbb8045d7f43706b9177cceb36c1f91a6644d5 # v7.1.0
         with:
           go-version-file: sage/go.mod
           cache-dependency-path: sage/go.sum
@@ -659,7 +659,7 @@ jobs:
           repository: SAGE-X-project/rs-sage-core
           ref: 066f688e30002d867c5f409d73375037123479e4
           path: rs-sage-core
-      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+      - uses: actions/setup-go@d8cbb8045d7f43706b9177cceb36c1f91a6644d5 # v7.1.0
         with:
           go-version-file: sage/go.mod
           cache-dependency-path: sage/go.sum
@@ -706,7 +706,7 @@ jobs:
           repository: SAGE-X-project/rs-sage-core
           ref: affa7385d6f6cd871a1fdd4a41e973eecdfbd311
           path: rs-sage-core
-      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+      - uses: actions/setup-go@d8cbb8045d7f43706b9177cceb36c1f91a6644d5 # v7.1.0
         with:
           go-version-file: sage/go.mod
           cache-dependency-path: sage/go.sum
@@ -753,7 +753,7 @@ jobs:
           repository: SAGE-X-project/rs-sage-core
           ref: b486bb2ab0ae40a2444eb0a6d414027ea1239c4b
           path: rs-sage-core
-      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+      - uses: actions/setup-go@d8cbb8045d7f43706b9177cceb36c1f91a6644d5 # v7.1.0
         with:
           go-version-file: sage/go.mod
           cache-dependency-path: sage/go.sum
@@ -800,7 +800,7 @@ jobs:
           repository: SAGE-X-project/rs-sage-core
           ref: fee93aabed3b126270b6e2b857ace2d1bb59a093
           path: rs-sage-core
-      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+      - uses: actions/setup-go@d8cbb8045d7f43706b9177cceb36c1f91a6644d5 # v7.1.0
         with:
           go-version-file: sage/go.mod
           cache-dependency-path: sage/go.sum
@@ -847,7 +847,7 @@ jobs:
           repository: SAGE-X-project/rs-sage-core
           ref: c135bccd3f1d34b3770e2e5519ccd38f0bf5475d
           path: rs-sage-core
-      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+      - uses: actions/setup-go@d8cbb8045d7f43706b9177cceb36c1f91a6644d5 # v7.1.0
         with:
           go-version-file: sage/go.mod
           cache-dependency-path: sage/go.sum
@@ -894,7 +894,7 @@ jobs:
           repository: SAGE-X-project/rs-sage-core
           ref: 0ae1c6f67ea68ea79e6bdf38da7cba793bd778bb
           path: rs-sage-core
-      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+      - uses: actions/setup-go@d8cbb8045d7f43706b9177cceb36c1f91a6644d5 # v7.1.0
         with:
           go-version-file: sage/go.mod
           cache-dependency-path: sage/go.sum
@@ -941,7 +941,7 @@ jobs:
           repository: SAGE-X-project/rs-sage-core
           ref: 1419499dff05e694114ac1a3470bed073f654098
           path: rs-sage-core
-      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+      - uses: actions/setup-go@d8cbb8045d7f43706b9177cceb36c1f91a6644d5 # v7.1.0
         with:
           go-version-file: sage/go.mod
           cache-dependency-path: sage/go.sum
@@ -988,7 +988,7 @@ jobs:
           repository: SAGE-X-project/rs-sage-core
           ref: 0c8eefcf7b66275e912eafb2497a04b8548cf464
           path: rs-sage-core
-      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+      - uses: actions/setup-go@d8cbb8045d7f43706b9177cceb36c1f91a6644d5 # v7.1.0
         with:
           go-version-file: sage/go.mod
           cache-dependency-path: sage/go.sum
@@ -1035,7 +1035,7 @@ jobs:
           repository: SAGE-X-project/rs-sage-core
           ref: 0d0496019cfa93473745a9edf75b6b9062b73e7b
           path: rs-sage-core
-      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+      - uses: actions/setup-go@d8cbb8045d7f43706b9177cceb36c1f91a6644d5 # v7.1.0
         with:
           go-version-file: sage/go.mod
           cache-dependency-path: sage/go.sum
@@ -1082,7 +1082,7 @@ jobs:
           repository: SAGE-X-project/rs-sage-core
           ref: 6f16f85c334297ce348c395edd5d6c9462c1d3e8
           path: rs-sage-core
-      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+      - uses: actions/setup-go@d8cbb8045d7f43706b9177cceb36c1f91a6644d5 # v7.1.0
         with:
           go-version-file: sage/go.mod
           cache-dependency-path: sage/go.sum
@@ -1134,7 +1134,7 @@ jobs:
           repository: SAGE-X-project/rs-sage-core
           ref: 6f16f85c334297ce348c395edd5d6c9462c1d3e8
           path: rs-sage-core
-      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+      - uses: actions/setup-go@d8cbb8045d7f43706b9177cceb36c1f91a6644d5 # v7.1.0
         with:
           go-version-file: sage-registry-service/go.mod
           cache-dependency-path: sage-registry-service/go.sum
@@ -1182,7 +1182,7 @@ jobs:
           repository: SAGE-X-project/sage
           ref: 9c7dce33202377721259d246acd7d973d2dc0d86
           path: sage
-      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+      - uses: actions/setup-go@d8cbb8045d7f43706b9177cceb36c1f91a6644d5 # v7.1.0
         with:
           go-version-file: sage-registry-service/go.mod
           cache-dependency-path: sage-registry-service/go.sum
@@ -1216,7 +1216,7 @@ jobs:
           repository: SAGE-X-project/sage
           ref: 5a1b57ff5296a65cf01c03514944629b3c84ae20
           path: sage
-      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+      - uses: actions/setup-go@d8cbb8045d7f43706b9177cceb36c1f91a6644d5 # v7.1.0
         with:
           go-version-file: sage/go.mod
           cache-dependency-path: sage/go.sum
@@ -1249,7 +1249,7 @@ jobs:
           repository: SAGE-X-project/sage
           ref: 59c7d165c4654873c80f0e0a546e6795819ee55e
           path: sage
-      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+      - uses: actions/setup-go@d8cbb8045d7f43706b9177cceb36c1f91a6644d5 # v7.1.0
         with:
           go-version-file: sage/go.mod
           cache-dependency-path: sage-inspector/adapters/go/go.sum
@@ -1298,7 +1298,7 @@ jobs:
           repository: SAGE-X-project/rs-sage-core
           ref: ffa1234720f7a519b753471cfe315605be7deb1c
           path: rs-sage-core
-      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+      - uses: actions/setup-go@d8cbb8045d7f43706b9177cceb36c1f91a6644d5 # v7.1.0
         with:
           go-version-file: sage/go.mod
           cache-dependency-path: |
@@ -1539,7 +1539,7 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+      - uses: actions/setup-go@d8cbb8045d7f43706b9177cceb36c1f91a6644d5 # v7.1.0
         with:
           go-version-file: go.mod
           cache: true
@@ -1554,7 +1554,7 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+      - uses: actions/setup-go@d8cbb8045d7f43706b9177cceb36c1f91a6644d5 # v7.1.0
         with:
           go-version-file: go.mod
           cache: true
@@ -1624,7 +1624,7 @@ jobs:
           repository: SAGE-X-project/rs-sage-core
           ref: ad30c6ade287765ac96a500699469599b9696fcd
           path: rs-sage-core
-      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
+      - uses: actions/setup-go@d8cbb8045d7f43706b9177cceb36c1f91a6644d5
         with:
           go-version-file: sage-inspector/go.mod
           cache-dependency-path: sage-inspector/adapters/go/go.sum
@@ -2053,7 +2053,7 @@ jobs:
           repository: SAGE-X-project/sage-spec
           ref: 520e5ed9a896ff8ba8ade776484f41084957aaa2
           path: .sage-spec-normative
-      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+      - uses: actions/setup-go@d8cbb8045d7f43706b9177cceb36c1f91a6644d5 # v7.1.0
         with:
           go-version-file: .mcp-go/go.mod
           cache-dependency-path: .mcp-go/go.sum
@@ -2154,7 +2154,7 @@ jobs:
           repository: SAGE-X-project/rs-sage-core
           ref: ef63d76b88fe4d6ddbc7ae0fcfdbce7beab4d396
           path: rs-sage-core
-      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
+      - uses: actions/setup-go@d8cbb8045d7f43706b9177cceb36c1f91a6644d5
         with:
           go-version-file: sage-inspector/adapters/go/go.mod
           cache-dependency-path: sage-inspector/adapters/go/go.sum
@@ -2202,7 +2202,7 @@ jobs:
           repository: SAGE-X-project/sage-spec
           ref: fa006fd917ad365eb554a27f4178301cd66e2379
           path: sage-spec
-      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+      - uses: actions/setup-go@d8cbb8045d7f43706b9177cceb36c1f91a6644d5 # v7.1.0
         with:
           go-version-file: sage/go.mod
           cache-dependency-path: sage-inspector/adapters/go-strict010/go.sum
@@ -2274,7 +2274,7 @@ jobs:
           repository: SAGE-X-project/sage-spec
           ref: fa006fd917ad365eb554a27f4178301cd66e2379
           path: sage-spec
-      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+      - uses: actions/setup-go@d8cbb8045d7f43706b9177cceb36c1f91a6644d5 # v7.1.0
         with:
           go-version-file: sage/go.mod
           cache-dependency-path: sage-inspector/adapters/go/go.sum

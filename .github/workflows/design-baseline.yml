@@ -59,7 +59,7 @@ jobs:
           repository: SAGE-X-project/rs-sage-core
           ref: 9294d17c3de54f36a239ee2318891b719a749631
           path: rs-sage-core
-      - uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e
+      - uses: actions/setup-go@d8cbb8045d7f43706b9177cceb36c1f91a6644d5
         with:
           go-version-file: sage-inspector/go.mod
           cache-dependency-path: sage-inspector/adapters/go/go.sum
